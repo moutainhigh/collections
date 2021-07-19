@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.dao.Data09Dao">
+
+	<!-- <select id="getEntInfoByUnifAndEntName" resultType="Data09">
+		select * from V_DJ_ENT_INFO9  t where 1 = 1
+		<if test="time != null and time !='' "> and t.entname like '${entname}%'</if>
+	</select>
+ -->
+ 
+ <select id="getDataByTime" resultType="Data09">
+ SELECT ENT_CNT, MEMBER_CNT, INVEST_CNT, ALT_CNT, LAOLAI_CNT, DISHONESTY_CNT
+  FROM (SELECT 'ENT_CNT' AS A, COUNT(1) AS CNT
+          FROM DC_RA_MER_BASE T
+         where 1=1
+        <!--  WHERE T.LASTDATE > TO_DATE('2019-09-01', 'YYYY-MM-DD')企业主体信息数据量 -->
+         <if test="stime != null and stime !='' ">
+          and 
+            T.LASTDATE > TO_DATE(#{stime}, 'YYYY-MM-DD')
+          </if>
+          
+          <if test="etime != null and etime !='' ">
+            and T.LASTDATE &lt;  TO_DATE(#{etime}, 'YYYY-MM-DD')
+          </if>
+          
+        UNION ALL
+        SELECT 'MEMBER_CNT' AS A, COUNT(1) AS CNT
+          FROM DC_RA_MER_MEMBER T where 1=1
+         <!-- WHERE T.LASTDATE > TO_DATE('2019-09-01', 'YYYY-MM-DD') 董监事人员、财务高管信息数据量 -->
+            <if test="stime != null and stime !='' ">
+          and 
+            T.LASTDATE > TO_DATE(#{stime}, 'YYYY-MM-DD')
+          </if>
+          
+          <if test="etime != null and etime !='' ">
+            and T.LASTDATE &lt;  TO_DATE(#{etime}, 'YYYY-MM-DD')
+          </if>
+        UNION ALL
+        SELECT 'INVEST_CNT' AS A, COUNT(1) AS CNT
+          FROM DC_RA_MER_INVEST T where 1=1
+       <!--   WHERE T.LASTDATE > TO_DATE('2019-09-01', 'YYYY-MM-DD') 股东信息数据量 -->
+          <if test="stime != null and stime !='' ">
+          and 
+            T.LASTDATE > TO_DATE(#{stime}, 'YYYY-MM-DD')
+          </if>
+          
+          <if test="etime != null and etime !='' ">
+            and T.LASTDATE &lt;  TO_DATE(#{etime}, 'YYYY-MM-DD')
+          </if>
+        UNION ALL
+        SELECT 'ALT_CNT' AS A, COUNT(1) AS CNT
+          FROM DC_RA_MER_ALTITEM T where 1=1
+        <!--  WHERE T.LASTDATE > TO_DATE('2019-09-01', 'YYYY-MM-DD') 企业所有变更记录数据量 -->
+          <if test="stime != null and stime !='' ">
+          and 
+            T.LASTDATE > TO_DATE(#{stime}, 'YYYY-MM-DD')
+          </if>
+          
+          <if test="etime != null and etime !='' ">
+            and T.LASTDATE &lt;  TO_DATE(#{etime}, 'YYYY-MM-DD')
+          </if>
+        UNION ALL
+        SELECT 'LAOLAI_CNT' AS A, COUNT(1) AS CNT
+          FROM DC_BL_LAOLAI T where 1=1
+         <!-- WHERE T.S_EXT_TIMESTAMP > TO_DATE('2019-09-01', 'YYYY-MM-DD') 老赖数据量 -->
+           <if test="stime != null and stime !='' ">
+          and 
+            T.S_EXT_TIMESTAMP > TO_DATE(#{stime}, 'YYYY-MM-DD')
+          </if>
+          
+          <if test="etime != null and etime !='' ">
+            and T.S_EXT_TIMESTAMP &lt;  TO_DATE(#{etime}, 'YYYY-MM-DD')
+          </if>
+        UNION ALL
+        SELECT 'DISHONESTY_CNT' AS A, COUNT(1) AS CNT
+          FROM DC_MS_DISHONESTY_DIRECTORY T
+         WHERE T.TYPE = '2'
+           <!-- AND T.LASTOPERDATE > TO_DATE('2019-09-01', 'YYYY-MM-DD') 严重违法失信数据量 -->
+            <if test="stime != null and stime !='' ">
+          and 
+            T.LASTOPERDATE > TO_DATE(#{stime}, 'YYYY-MM-DD')
+          </if>
+          
+          <if test="etime != null and etime !='' ">
+            and T.LASTOPERDATE &lt;  TO_DATE(#{etime}, 'YYYY-MM-DD')
+          </if>
+        ) S
+			PIVOT(MAX(CNT)
+	  		 FOR A IN('ENT_CNT' AS ENT_CNT,
+	            'MEMBER_CNT' AS MEMBER_CNT,
+	            'INVEST_CNT' AS INVEST_CNT,
+	            'ALT_CNT' AS ALT_CNT,
+            'LAOLAI_CNT' AS LAOLAI_CNT,
+            'DISHONESTY_CNT' AS DISHONESTY_CNT))
+            
+       </select>
+</mapper>

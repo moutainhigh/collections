@@ -1,0 +1,81 @@
+<!DOCTYPE beans PUBLIC  "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+	
+<beans>
+	<bean id="cwdaiban" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>com.microsoft.sqlserver.jdbc.SQLServerDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:sqlserver://10.0.2.17:1433;DatabaseName=LCYSSCW01</value>
+		</property>
+		<property name="username">
+			<value>portalreader</value>
+		</property>
+		<property name="password">
+			<value>cruser?123</value>
+		</property>
+	</bean>
+	
+	<bean id="djxk_db" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:oracle:thin:@//10.0.2.129:1521/racdb3</value>
+			<!--  <value>jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.122)(PORT=1521))(ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.124)(PORT=1521))(LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=racdb2)))</value> --> 
+		</property>
+		<property name="username">
+			<!-- <value>db_yyjc13510</value> -->
+			<value>changruan</value>
+		</property>
+		<property name="password">
+			<value>changruan?123</value>
+		</property>
+	</bean>
+	<bean id="wcm_db" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<!-- <value>jdbc:oracle:thin:@(DESCRIPTION= (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.153)(PORT=1521)) (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.159)(PORT=1521)) (LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED) (SERVICE_NAME=racdb5)))</value>  -->
+		<value>jdbc:oracle:thin:@//10.3.70.134:1521/oragxk</value>
+		</property>
+		<property name="username">
+			<value>sjw_wcm1201</value>
+		</property>
+		<property name="password">
+			<value>sjw_wcm1201</value>
+		</property>
+	</bean>
+	
+	<bean id="yyjc" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+		 <value>jdbc:oracle:thin:@(DESCRIPTION= (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.153)(PORT=1521)) (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.159)(PORT=1521)) (LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED) (SERVICE_NAME=racdb5)))</value> 
+		</property>
+		<property name="username">
+			<value>db_yyjc</value>
+		</property>
+		<property name="password">
+			<value>yyjcO699d</value>
+		</property>
+	</bean>
+	
+	<bean id="sjw_wcm1201" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+		<value>jdbc:oracle:thin:@//10.3.70.134:1521/oragxk</value>
+		</property>
+		<property name="username">
+			<value>sjw_wcm1201</value>
+		</property>
+		<property name="password">
+			<value>sjw_wcm1201</value>
+		</property>
+	</bean>
+
+</beans>

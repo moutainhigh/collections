@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.entSelect.dao.AltInfoDao">
+
+
+<!-- https://www.cnblogs.com/longmenzhitong/p/11122637.html -->
+<!-- https://www.cnblogs.com/achengmu/p/11230493.html -->
+<!-- https://blog.csdn.net/guobinhui/article/details/79728971 -->
+<!-- https://blog.csdn.net/lwpczy1/article/details/79158535 -->
+<!-- https://www.iteye.com/blog/zhengyunfei-2411476 -->
+<!-- https://www.jb51.net/article/132823.htm -->
+<!-- https://www.jianshu.com/p/db504203d27e -->
+
+	<insert id="insertBatch">
+		insert into e_alter_recoder_sj
+		(
+		altid,
+		pripid,
+		altitem,
+		altitem_cn,
+		altbe,
+		altaf,
+		altdate,
+		s_ext_fromnode,
+		s_ext_datatime
+		)
+		<foreach collection="list" item="item" separator="UNION ALL" index= "index" >
+		select
+		 	#{item.altid, jdbcType=VARCHAR},
+			#{item.pripid,jdbcType=VARCHAR} ,
+			#{item.altitem, jdbcType=VARCHAR} ,
+			#{item.altitem_cn, jdbcType=VARCHAR},
+			#{item.altbe,jdbcType=VARCHAR} ,
+			#{item.altaf, jdbcType=VARCHAR},
+			to_date(#{item.altdate,jdbcType=VARCHAR},'yyyy-mm-dd'),
+			'440300',
+			sysdate 
+			from dual
+		</foreach>
+	</insert>
+	
+	
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from e_alter_recoder_sj t where t.altid = #{altid} 
+		</selectKey>
+		<if test="count > 0">
+			update e_alter_recoder_sj
+			<trim prefix="set" suffixOverrides=",">
+				<if test="pripid != null">pripid = #{pripid, jdbcType=VARCHAR},</if>
+				<if test="altitem != null">altitem = #{altitem, jdbcType=VARCHAR},</if>
+				<if test="altitem_cn != null">altitem_cn = #{altitem_cn, jdbcType=VARCHAR},</if>
+				<if test="altbe != null">altbe = #{altbe, jdbcType=VARCHAR},</if>
+				<if test="altaf != null">altaf = #{altaf,jdbcType=VARCHAR},</if>
+				<if test="altdate != null">altdate = to_date(#{altdate,jdbcType=VARCHAR},'yyyy-mm-dd'),</if>
+				<if test="s_ext_fromnode != null">s_ext_fromnode = '440300',</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = sysdate ,</if>
+			</trim>
+			where altid = #{altid}
+		</if>
+		<if test="count == 0">
+			insert into e_alter_recoder_sj
+			(
+			altid,
+			pripid,
+			altitem,
+			altitem_cn,
+			altbe,
+			altaf,
+			altdate,
+			s_ext_fromnode,
+			s_ext_datatime
+			)
+			values
+			(
+			#{altid,jdbcType=VARCHAR},
+			#{pripid, jdbcType=VARCHAR},
+			#{altitem, jdbcType=VARCHAR},
+			#{altitem_cn, jdbcType=VARCHAR},
+			#{altbe, jdbcType=VARCHAR},
+			#{altaf, jdbcType=VARCHAR},
+			to_date(#{altdate,jdbcType=VARCHAR},'yyyy-mm-dd'),
+			'440300',
+			sysdate
+			)
+		</if>
+	</insert>
+	
+	
+
+</mapper>

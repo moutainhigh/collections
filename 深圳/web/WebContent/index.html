@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- import CSS -->
+<!-- <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"> --> 
+<link rel="stylesheet" href="statics/ele/index.css"> 
+</head>
+<body>
+	<div id="app">
+
+		<div class="block">
+			<span class="demonstration">选择生成的数据日期：</span>
+			<el-date-picker v-model="monthData" type="month" placeholder="选择月" format="yyyy-MM"  value-format="yyyy-MM" default-value> </el-date-picker>
+			<el-button type="primary" @click="getInfo">采集</el-button>
+		</div>
+		<template> <el-table :data="tableData" border style="width: 100%"> <el-table-column fixed prop="date" label="日期" width="150"> </el-table-column> <el-table-column prop="name" label="姓名" width="120"> </el-table-column> <el-table-column prop="province" label="省份" width="120"> </el-table-column> <el-table-column prop="city" label="市区" width="120"> </el-table-column> <el-table-column prop="address" label="地址" width="300"> </el-table-column> <el-table-column prop="zip" label="邮编" > </el-table-column> <el-table-column fixed="right" label="操作" width="100"> <template slot-scope="scope"> <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button> <el-button type="text" size="small">编辑</el-button> </template> </el-table-column> </el-table> </template>
+	</div>
+</body>
+<!-- import Vue before Element -->
+
+<!-- <script src="https://unpkg.com/vue/dist/vue.js"></script> -->
+<script src="statics/js/vue.js"></script>
+<script src="statics/js/axios.min.js"></script>
+
+<!-- import JavaScript -->
+<!-- <script src="https://unpkg.com/element-ui/lib/index.js"></script> -->
+<script src="statics/ele/index.js"></script>
+<script>
+	new Vue({
+		el : '#app',
+		data : function() {
+			return {
+				monthData : '',
+				tableData : [ {
+					date : '2016-05-02',
+					name : '王小虎',
+					province : '上海',
+					city : '普陀区',
+					address : '上海市普陀区金沙江路 1518 弄',
+					zip : 200333
+				}, {
+					date : '2016-05-04',
+					name : '王小虎',
+					province : '上海',
+					city : '普陀区',
+					address : '上海市普陀区金沙江路 1517 弄',
+					zip : 200333
+				}, {
+					date : '2016-05-01',
+					name : '王小虎',
+					province : '上海',
+					city : '普陀区',
+					address : '上海市普陀区金沙江路 1519 弄',
+					zip : 200333
+				}, {
+					date : '2016-05-03',
+					name : '王小虎',
+					province : '上海',
+					city : '普陀区',
+					address : '上海市普陀区金沙江路 1516 弄',
+					zip : 200333
+				} ]
+			}
+		},
+		methods:{
+			init:function(){
+			},
+			
+			
+			getInfo:function(){
+				var month = this.monthData;
+				var _this = this;
+				if(month!=""){
+					axios.get("http://10.0.4.192:8099/web/create.ac?timeStr="+month).then(function( result){
+						_this.$alert('系统后台根据所选的时间进行采集，请稍后过来下载', '系统提示', {
+					          confirmButtonText: '确定',
+					          callback: action => {
+					        	  _this.$message({
+					              type: 'info',
+					              message:"请求已经提交到后台执行"
+					            });
+					          }
+					        });
+					});
+				}else{
+					alert("时间不能为空")
+				}
+			}
+		},
+		created:function(){
+			this.init();
+		}
+	})
+</script>
+</html>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ye.dc.dao.BaoBiaoDao">
+
+
+	
+	<select id="getUserIsExit" resultType="BaoBiaoUser">
+		
+		select t.yhid_pk ,
+		t.yhzh,
+		t.yhxm ,
+		t.sfyx,
+		t.department_code,
+		t.department_parent_code ,
+		t.door_user_role
+		 from db_csdb.xt_zzjg_yh t 
+		<where>
+			t.yhzh = #{yhid_pk}
+		</where>
+	</select>
+
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int"	order="BEFORE">
+			select count(1) from DB_CSDB.xt_zzjg_yh t where t.yhzh=#{yhid_pk}
+		</selectKey>
+		<if test="count > 0">
+			update DB_CSDB.xt_zzjg_yh t
+			<trim prefix="set" suffixOverrides=",">
+				<if test="yhid_pk != null">t.yhid_pk = #{yhid_pk, jdbcType=VARCHAR},</if>
+				<if test="yhzh != null">t.yhzh = #{yhzh, jdbcType=VARCHAR},</if>
+				<if test="yhxm != null">t.yhxm = #{yhxm, jdbcType=VARCHAR},</if>
+				<if test="department_code != null">department_code = #{department_code, jdbcType=VARCHAR},</if>
+				<if test="department_parent_code != null">department_parent_code = #{department_parent_code, jdbcType=VARCHAR},</if>
+			</trim>
+			where t.yhzh = #{yhid_pk}
+		</if>
+		<if test="count == 0">
+			insert into DB_CSDB.xt_zzjg_yh (
+			yhid_pk,
+			yhzh,
+			YHXM,
+			department_code,
+			department_parent_code,
+			sfyx,
+			door_user_role
+			)
+			values(
+			#{yhid_pk},
+			#{yhzh},
+			#{yhxm},
+			#{department_code},
+			#{department_parent_code},
+			'0',
+			'ZONGHE_REPORT_ROLE'
+			)
+		</if>
+	</insert>
+
+
+</mapper>

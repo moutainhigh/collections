@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:ws="http://jax-ws.dev.java.net/spring/core" xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+	    http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	    http://jax-ws.dev.java.net/spring/core 
+	    http://jax-ws.dev.java.net/spring/core.xsd
+        http://jax-ws.dev.java.net/spring/servlet 
+        http://jax-ws.dev.java.net/spring/servlet.xsd"
+	default-autowire="byName">
+
+	<context:component-scan base-package="com.gwssi" />
+	
+	<import resource="classpath:net/bull/javamelody/monitoring-spring-aspectj.xml" />
+	<import resource="classpath:webservicesConfig.xml"/>
+	<import resource="classpath:feedbackWS.xml"/>
+	<import resource="classpath:addrInfoWS.xml"/>
+	
+	<!-- 加载配置文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:*.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="defaultDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+ 		 	<value>jdbc:oracle:thin:@10.255.2.135:1521/exdbc3</value>
+ 		</property>
+		<property name="username">
+			<value>dc_dc</value>
+		</property>
+		<property name="password">
+			<value>dc_dc</value>
+		</property>
+				<property name="validationQuery">
+			<value>select 1 from dual</value>
+		</property>
+		<property name="testWhileIdle" value="true"/>
+        <property name="removeAbandoned" value="true"/>
+       	<property name="timeBetweenEvictionRunsMillis">
+			<value>30000</value>
+		</property> 
+		<property name="minEvictableIdleTimeMillis">
+			<value>200000</value>
+		</property>
+	</bean>
+	
+	<bean id="dc_dc" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+ 			<value>jdbc:oracle:thin:@10.255.2.135:1521/exdbc3</value>
+ 		</property>
+		<property name="username">
+			<value>dc_dc</value>
+		</property>
+		<property name="password">
+			<value>dc_dc</value>
+		</property>
+		<property name="validationQuery">
+			<value>select 1 from dual</value>
+		</property>
+		<property name="testWhileIdle" value="true"/>
+        <property name="removeAbandoned" value="true"/>
+       	<property name="timeBetweenEvictionRunsMillis">
+			<value>30000</value>
+		</property> 
+		<property name="minEvictableIdleTimeMillis">
+			<value>200000</value>
+		</property>
+	</bean>
+	
+	<bean id="mainDataSource" class="net.bull.javamelody.SpringDataSourceFactoryBean">
+	    <property name="targetName" value="defaultDataSource" />
+	</bean> 
+
+	<!--事务管理DataSourceTransactionManager -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="mainDataSource" />
+	</bean>
+
+	<!-- 针对注解声明式的事物 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+
+	<aop:config>
+		<aop:pointcut id="baseServiceMethods"
+			expression="target(com.gwssi.optimus.core.service.BaseService)" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="baseServiceMethods" />
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="select*" read-only="true" propagation="SUPPORTS"
+				rollback-for="Exception" />
+			<tx:method name="find*" read-only="true" propagation="SUPPORTS"
+				rollback-for="Exception" />
+			<tx:method name="do*" propagation="REQUIRED" isolation="READ_COMMITTED"
+				rollback-for="Exception" />
+			<tx:method name="insert*" propagation="REQUIRED" isolation="READ_COMMITTED"
+				rollback-for="Exception" />
+			<tx:method name="update*" propagation="REQUIRED" isolation="READ_COMMITTED"
+				rollback-for="Exception" />
+			<tx:method name="add*" propagation="REQUIRED" isolation="READ_COMMITTED"
+				rollback-for="Exception" />
+			<tx:method name="delete*" propagation="REQUIRED" isolation="READ_COMMITTED"
+				rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+
+	<bean name="sessionCacheClient"
+		class="com.gwssi.optimus.core.web.session.client.redis.RedisSessionCacheClient"></bean>
+	<bean name="sessionManager"
+		class="com.gwssi.optimus.core.web.session.manager.CatalinaSessionManager"></bean>
+	<!-- 多数据源管理类：自定义数据库方式 -->
+	<bean class="com.gwssi.datacenter.dataSource.DynamicSourceToDC"></bean>
+	
+	<!-- javamelody  -->
+	
+	<bean id="facadeMonitoringAdvisor" class="net.bull.javamelody.MonitoringSpringAdvisor">
+        <property name="pointcut">
+            <bean class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+                <property name="patterns">
+                    <array>
+                        <value>com.gwssi.*.*.controller.*</value>
+                    </array>
+                </property>
+            </bean>
+        </property>
+    </bean>
+    
+</beans>

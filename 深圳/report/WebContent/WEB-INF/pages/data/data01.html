@@ -1,0 +1,97 @@
+<!-- 指标库列表 -->
+<!-- 数据表工具栏 -->
+<div class="toolbar" id="toolbar">
+	<div class="search-div">
+		<label>开始日期：</label>
+		<input id="startDatetime01" type="text" class="easyui-datebox">
+		<a href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doQuery()">搜索</a>
+	</div>
+
+</div>
+<!-- /数据表工具栏 -->
+
+
+<!-- 数据表 -->
+<table class="gridtable">
+	<tr>
+		<td colspan='5' style="text-align: center;" id="benQi"></td>
+		<td colspan='5' style="text-align: center;" id="lastYearBenQi"></td>
+	</tr>
+	<tr>
+		<td field="name" align="center">辖区</td>
+		<td field="name" align="center">行业</td>
+		<td field="name" align="center">数量</td>
+		<td field="name" align="center">总数</td>
+		<td field="name" align="center">比重</td>
+		
+		<td field="name" align="center">辖区</td>
+		<td field="name" align="center">行业</td>
+		<td field="name" align="center">数量</td>
+		<td field="name" align="center">总数</td>
+		<td field="name" align="center">比重</td>
+	</tr>
+	<tbody id="dg1"></tbody>
+</table>
+<!-- /数据表 -->
+
+
+<script type="text/javascript">
+	
+	function doQuery(){
+		var startDatetime=$("#startDatetime01").datetimebox("getValue");
+		if(startDatetime==""){
+			alert("开始时间不能为空");
+			return ;
+		}
+		queryDate(startDatetime);
+	}
+	
+	function queryDate(startDatetime){
+		
+		var timeStr = startDatetime;
+		$("#benQi").html(timeStr.split("-")[0]+"年" + timeStr.split("-")[1]+"月");; 
+		$("#lastYearBenQi").html(timeStr.split("-")[0]-1+"年" + timeStr.split("-")[1]+"月");; 
+		
+		
+		$.ajax({
+			url : "data01/list",
+			type : "post",
+			dataType : "json",
+			data:{startTime:startDatetime},
+			beforeSend:function(){
+				$("#dg1").empty();
+				$("#dg1").append("<tr><td colspan='10'>查询中....</td></tr>");
+			},
+			success : function(data) {
+				var _html = "";
+				$("#dg1").empty();
+				var list1 = data.list1;
+				var list2 = data.list2;
+				
+				var html ="";
+				for (var i = 0; i < list1.length; i++) {
+					html+="<tr><td>"+list1[i].辖区+"</td><td>"+list1[i].行业+"</td><td>"+list1[i].数量+"</td><td>"+list1[i].总数+"</td><td>"+(list1[i].数量)/(list1[i].总数)*100+"%</td><td>"+list2[i].辖区+"</td><td>"+list2[i].行业+"</td><td>"+list2[i].数量+"</td><td>"+list2[i].总数+"</td><td>"+(list2[i].数量)/(list2[i].总数)*100+"%</td></tr>";
+				}
+				
+				
+				$("#dg1").append(html);
+				
+				
+				var form = document.createElement('form');
+				form.action = 'data01/downLoadExcel';
+				form.target = '_blank';
+
+				form.method = 'get';
+
+				document.body.appendChild(form);
+				form.submit(); 
+				
+				/* var tempwindow=window.open('_blank'); // 先打开页面
+				tempwindow.location='data01/downLoadExcel'; // 后更改页面地址 */
+
+			}
+		});
+		
+		
+	}
+</script>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+</head>
+<body>
+  
+<script>  
+function btn1click(){
+	jazz.info(" iconalign='left' (default icon position).");
+}
+function btn2click(){
+	jazz.info(" iconalign='right' (icon position - right).");
+}
+function btn3click(){
+	jazz.info(" iconalign='bottom' (icon position - bottom).");
+}
+function btn4click(){
+	jazz.info(" iconalign='top' (icon position - top).");
+}
+    
+</script>
+<div id="btn-01"  vtype="button" name="btn01" text="left icon" width=null
+	 iconurl="../../../themes/default/toolbar/images/print.png" iconalign='left'
+	 click="btn1click()"></div>
+<div id="btn-02"  vtype="button" name="btn02" text="right icon" width=null
+	 iconurl="../../../themes/default/toolbar/images/print.png" iconalign='right'
+	 click="btn2click()"></div>
+<div id="btn-03"  vtype="button" name="btn03" text="bottom icon" width=null
+	 iconurl="../../../themes/default/toolbar/images/print.png" iconalign='bottom'
+	 click="btn3click()"></div>
+<div id="btn-04"  vtype="button" name="btn04" text="top icon" width=null
+	 iconurl="../../../themes/default/toolbar/images/print.png" iconalign='top'
+	 click="btn4click()"></div>
+<script type="text/javascript">
+$(function(){
+    //调整父页面iframe高度
+    try{
+        parent.setWinHeight(200);           
+    }catch(e){
+        jazz.log(e);
+    }
+});
+</script>   
+</body>
+</html>

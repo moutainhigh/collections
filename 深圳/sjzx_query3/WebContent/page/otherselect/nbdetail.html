@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="../../static/js/jquery-1.8.3.js"></script>
+<script src="../../static/script/jquery.cookie.js"></script>
+<title>管辖区域</title>
+<style>
+body{font-family: "微软雅黑"}
+
+img{border: none;vertical-align:middle;display: block;float: left;}
+a{float: left;display: block;cursor: pointer;}
+
+
+.container{min-width:960px;width:1100px;margin: 0 auto;}
+
+
+/*表头的颜色*/
+
+tr:hover{
+	background: #ccc;
+}
+
+ tr:hover td {background:none;}
+
+th{
+	background: #E0ECFA;
+	font-size: 14px;
+	font-weight: bold;
+	color : #465886;
+	padding: 4px;
+	text-align: center;
+}
+
+td{
+  color: #465886;
+  /* padding:0 4px; */
+  font-size: 14px;
+}
+
+/*各分局的通用样式*/
+.regionAll{
+	background: #fff;
+	font-size: 14px;
+	color : #465886;
+}
+
+.regionDetail{
+	background: #fff;
+	padding: 4px 6px;
+	text-align: center;
+}
+
+
+.regionChildRows{
+	background: #E1F6CD;
+}
+
+.regionChildColum{
+	font-size: 12px;
+	padding:4px 6px;
+	
+}
+
+.regSel{
+	background: #EEEEEE;
+	text-align: center;
+}
+
+.wrap{
+	border: 1px solid #ccc;
+	width:1040px;
+	padding-left: 10px;
+	background: #CCCCCC;
+	margin:0 auto;
+	margin-bottom: 6px;
+	padding: 4px;
+}
+
+.tableInfo{
+	margin: 0 auto;
+}
+
+.queryBtn{
+ height: 26px;
+ line-height:26px;
+ text-align:center;
+ background: #FFFFFF;
+ cursor: pointer;
+ display: inline-block;
+ color: #354B87;
+ width: 86px;
+ margin-left: 60px;
+ border: 1px solid #C5D6E0;
+}
+
+input{outline:none} 
+
+.queryBtn:hover{
+	background: #6693B0;
+	
+}
+
+
+.labels{
+    color: #666;
+    font-size: 12px;
+    font-family: "宋体";
+    padding: 5px 4px 4px;
+    font-weight: bold;
+    word-wrap: break-word;
+    font-style: normal;
+}
+
+.wrap .Wdate{
+	border: 1px solid #C5D6E0;
+	width: 200px;
+	height: 24px;
+	line-height: 24px;
+}
+
+.fl{float:left;}
+.clear{clear:both;}
+</style>
+</head>
+<body>
+
+
+<script type="text/javascript" src="My97DatePicker/WdatePicker.js"></script>
+
+	<div class="container">
+	<h2 style="text-align: center;" >年报情况统计表</h2>
+	<div class="wrap">
+		<div class="fl"><i class="labels">历史明细：</i><input class="Wdate" id="selectTime" type="text" onClick="WdatePicker()"></div>
+		<div class="fl" style="padding-top: 1px;">
+			<span class="queryBtn" onclick="getSectectedTime()" >查  询</span>
+			<span class="queryBtn" onclick="clearDate()" >重  置</span>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div style="min-height:440px">
+		<table  class="tableInfo" width = "1050"  cellspacing="1" cellpadding="0" border="0" bgcolor="#C5D6E0">
+			<thead>
+				<tr>
+					<th  rowspan="2"><div align="center">序号</div></th>
+					<th rowspan="2"><div align="center">管辖区域</div></th>
+					<th colspan="3"><div align="center">企业</div></th>
+					<th colspan="3"><div align="center">海关管理企业</div></th>
+					<th colspan="3"><div align="center">剔除经营异常企业</div></th>
+					<th colspan="3"><div align="center">个体</div></th>
+					<th colspan="3"><div align="center">外国企业代表机构</div></th>
+				</tr>
+				<tr>
+					<th><div align="center">应年报户数</div></th>
+					<th><div align="center">已年报户数</div></th>
+					<th><div align="center">年报率</div></th>
+					<th><div align="center">应年报户数</div></th>
+					<th><div align="center">已年报户数</div></th>
+					<th><div align="center">年报率</div></th>
+					<th><div align="center">应年报户数</div></th>
+					<th><div align="center">已年报户数</div></th>
+					<th><div align="center">年报率</div></th>
+					<th><div align="center">应年报户数</div></th>
+					<th><div align="center">已年报户数</div></th>
+					<th><div align="center">年报率</div></th>
+					<th><div align="center">应年报户数</div></th>
+					<th><div align="center">已年报户数</div></th>
+					<th><div align="center">年报率</div></th>
+				</tr>
+			</thead>
+
+			<tbody id="contents" >
+			</tbody>
+
+		</table>
+		</div>
+		
+		
+		
+		<div style="color:red;padding-top:6px;font-size: 12px;margin-left: 24px;">
+			注：数据更新于当天凌晨 0 点 &nbsp;&nbsp;<!-- <span id="time"></span> -->
+		</div>
+		
+	</div>
+
+
+
+	<script type="text/javascript">
+	//var dataSet = "";
+	function decimal(num,v){
+		var vv = Math.pow(10,v);
+		return Math.round(num*vv)/vv;
+	}
+		
+	
+	$(function(){
+		loadingDataByTime("");
+	});
+	
+	
+	function loadingDataByTime(dateTimeStr){
+		$.ajax({
+			url : "../../otherselect/getNbStatisticsInfo.do",
+			type : "post",
+			dataType : "json",
+			data:{"time":dateTimeStr},
+			beforeSend:function(){
+				$("#contents").empty();
+			},
+			success : function(data) {
+				var data = data;
+				//var data = data.data[0].data.rows;
+				var html='';
+				var num  = 0;
+			//	var add = "<img  src='../../page/otherselect/images/add.png' width='16' height='16'/>";
+				for (var i = 0; i < data.length; i++) {
+					//var str = data[i].codename;
+					
+					if(data[i].qyYbnum==undefined||data[i].qyYbnum==""||data[i].qyYbnum==null||data[i].qyYbnum=="undefined"){
+						data[i].qyYbnum = "0";
+					}
+					
+					
+					if(data[i].qyYjnbnum==undefined||data[i].qyYjnbnum==""||data[i].qyYjnbnum==null||data[i].qyYjnbnum=="undefined"){
+						data[i].qyYjnbnum = "0";
+					}
+					
+					if(data[i].qyNbl==undefined||data[i].qyNbl==""||data[i].qyNbl==null||data[i].qyNbl=="undefined"){
+						data[i].qyNbl = "0";
+					}
+					
+					if(data[i].hgYbnum==undefined||data[i].hgYbnum==""||data[i].hgYbnum==null||data[i].hgYbnum=="undefined"){
+						data[i].hgYbnum = "0";
+					}
+					if(data[i].hgYjnbnum==undefined||data[i].hgYjnbnum==""||data[i].hgYjnbnum==null||data[i].hgYjnbnum=="undefined"){
+						data[i].hgYjnbnum = "0";
+					}
+					if(data[i].hgNbl==undefined||data[i].hgNbl==""||data[i].hgNbl==null||data[i].hgNbl=="undefined"){
+						data[i].hgNbl = "0";
+					}
+					
+					if(data[i].ycYbnum==undefined||data[i].ycYbnum==""||data[i].ycYbnum==null||data[i].ycYbnum=="undefined"){
+						data[i].ycYbnum = "0";
+					}
+					
+					if(data[i].ycYjnbnum==undefined||data[i].ycYjnbnum==""||data[i].ycYjnbnum==null||data[i].ycYjnbnum=="undefined"){
+						data[i].ycYjnbnum = "0";
+					}
+					
+					if(data[i].ycNbl==undefined||data[i].ycNbl==""||data[i].ycNbl==null||data[i].ycNbl=="undefined"){
+						data[i].ycNbl = "0";
+					}
+					
+					if(data[i].gtYbnum==undefined||data[i].gtYbnum==""||data[i].gtYbnum==null||data[i].gtYbnum=="undefined"){
+						data[i].gtYbnum = "0";
+					}
+					
+					if(data[i].gtYjnbnum==undefined||data[i].gtYjnbnum==""||data[i].gtYjnbnum==null||data[i].gtYjnbnum=="undefined"){
+						data[i].gtYjnbnum = "0";
+					}
+					
+					
+					if(data[i].gtNbl==undefined||data[i].gtNbl==""||data[i].gtNbl==null||data[i].gtNbl=="undefined"){
+						data[i].gtNbl = "0";
+					}
+					
+					html+="<tr >"+
+						"<td class='regionAll'>"+(++num)+"</td>"+
+						"<td class='regionAll'><a onclick='openLuoHu("+data[i].code+")'>"+data[i].codename+"</a></td>"+
+						"<td class='regionDetail'>"+data[i].qyYbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].qyYjnbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].qyNbl+"</td>"+
+						"<td class='regionDetail'>"+data[i].hgYbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].hgYjnbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].hgNbl+"</td>"+
+						"<td class='regionDetail'>"+data[i].ycYbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].ycYjnbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].ycNbl+"</td>"+
+						"<td class='regionDetail'>"+data[i].gtYbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].gtYjnbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].gtNbl+"</td>"+
+						"<td class='regionDetail'>"+data[i].wgdbYbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].wgdbYjnbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].wgdbNbl+"</td>"+
+					"</tr>";
+					
+					var ynbArray = new Array();
+					ynbArray[0] = data[i].qyYbnum;
+					ynbArray[1] = data[i].qyYjnbnum;
+					ynbArray[2] = data[i].hgYbnum;
+					ynbArray[3] = data[i].hgYjnbnum;
+					ynbArray[4] = data[i].ycYbnum;
+					ynbArray[5] = data[i].ycYjnbnum;
+					ynbArray[6] = data[i].gtYbnum;
+					ynbArray[7] = data[i].gtYjnbnum;
+					ynbArray[8] = data[i].wgdbYbnum;
+					ynbArray[9] = data[i].wgdbYjnbnum;
+					$.cookie(data[i].code, null); //每次存之前先前空cookie的值
+					$.cookie(data[i].code,ynbArray); 
+				}
+				$("#contents").empty();
+				$("#contents").append(html);
+				
+				var obj = [];
+				for(var i = 0;i<15;i++){
+					var total = 0;
+					$("#contents tr").each(function(){
+						var _this = $(this);
+						var rownum = 0;
+						rownum = _this.find(".regionDetail").eq(i).html();
+						total += parseInt(rownum);
+						
+					});
+					obj.push(total);
+				}
+				
+				var flag1 = ((parseInt(obj[1])/parseInt(obj[0]))*100).toFixed(2);
+				if(flag1=="NaN"){
+					flag1 = "0";
+				}else{
+					flag1 +="%";
+				}
+				
+				
+				var flag2 = ((parseInt(obj[4])/parseInt(obj[3]))*100).toFixed(2);
+				if(flag2=="NaN"){
+					flag2 = "0";
+				}else{
+					flag2 +="%";
+				}
+				
+				var flag3 = ((parseInt(obj[7])/parseInt(obj[6]))*100).toFixed(2);
+				if(flag3=="NaN"){
+					flag3 = "0";
+				}else{
+					flag3 +="%";
+				}
+				
+				
+				var flag4 = ((parseInt(obj[10])/parseInt(obj[9]))*100).toFixed(2);
+				if(flag4=="NaN"){
+					flag4 = "0";
+				}else{
+					flag4 +="%";
+				}
+				var flag5 = ((parseInt(obj[13])/parseInt(obj[12]))*100).toFixed(2);
+				if(flag5=="NaN"){
+					flag5 = "0";
+				}else{
+					flag5 +="%";
+				}
+				
+				
+				$("#contents").append("<tr bgcolor='#f1f1f1'>"+
+						"<td class='regionAll'>"+(++num)+"</td>"+
+						"<td align='left'>合计</td>"+
+						"<td align='center' bgcolor=''>"+obj[0]+"</td>"+
+						"<td align='center'>"+obj[1]+"</td>"+
+						"<td align='center'>"+flag1+"</td>"+
+						"<td align='center'>"+obj[3]+"</td>"+
+						"<td align='center'>"+obj[4]+"</td>"+
+						"<td align='center'>"+flag2+"</td>"+
+						"<td align='center'>"+obj[6]+"</td>"+
+						"<td align='center'>"+obj[7]+"</td>"+
+						"<td align='center'>"+flag3+"</td>"+
+						"<td align='center'>"+obj[9]+"</td>"+
+						"<td align='center'>"+obj[10]+"</td>"+
+						"<td align='center'>"+flag4+"</td>"+
+						"<td align='center'>"+obj[12]+"</td>"+
+						"<td align='center'>"+obj[13]+"</td>"+
+						"<td align='center'>"+flag5+"</td>"+
+					"</tr>");
+				
+			}
+		});
+		
+	}
+	
+	
+	
+		
+		
+		
+		function openLuoHu(code){
+			var timeStr = $("#selectTime").val();
+			var nowTime = initialTime();
+			if(isEmpty(timeStr)){
+				timeStr = nowTime;
+			}else if(Date.parse(timeStr)>Date.parse(nowTime)){
+				timeStr = nowTime;
+			}
+			var url = "../../page/otherselect/nbSondetail.html?code="+code+"&time="+timeStr;
+			window.open(url);
+	}
+		
+		
+		//昨天的时间
+		 var day1 = new Date();
+		 day1.setTime(day1.getTime()-24*60*60*1000);
+		 var s1 = day1.getFullYear()+"-" + (day1.getMonth()+1) + "-" + day1.getDate() +"  21:00";
+		//time = year + "-" + month + "-" + date;
+		//document.getElementById("time").innerText = s1;
+
+		
+		function isEmpty(val) {
+			val = $.trim(val);
+			if (val == null)
+				return true;
+			if (val == undefined || val == 'undefined')
+				return true;
+			if (val == "")
+				return true;
+			if (val.length == 0)
+				return true;
+			if (!/[^(^\s*)|(\s*$)]/.test(val))
+				return true;
+			return false;
+		}
+		
+		function getSectectedTime(){
+			var timeStr = $("#selectTime").val();
+			var nowTime = initialTime();
+			//console.log("timeStr " +timeStr)
+			//console.log("nowTime " + nowTime)
+			if(isEmpty(timeStr)){
+				alert("请选择日期!")
+			}else if(Date.parse(timeStr)>Date.parse(nowTime)){
+				//alert("不能大于当前日期");
+				loadingDataByTime(timeStr);
+			}else {
+				loadingDataByTime(timeStr);
+			}
+		}
+		
+		
+		function clearDate(){
+			 $("#selectTime").val(" ");
+		}
+		
+		function initialTime(){
+			var oDate = new Date();
+			var year = oDate.getFullYear();   //获取系统的年；
+			var month = oDate.getMonth()+1;   //获取系统月份，由于月份是从0开始计算，所以要加1
+			if(month<10){
+				month = "0"+month;
+			}
+			var day = oDate.getDate(); // 获取系统日，
+			if(day<10){
+				day = "0"+day;
+			}
+			var nowTime = year+"-"+ month + "-"+ day;	
+			return nowTime;
+		}
+		
+		
+			
+		
+</script>
+</body>
+</html>

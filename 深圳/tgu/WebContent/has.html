@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>wcm用户后台管理系统</title>
+<link rel="stylesheet" href="bt/css/bootstrap.css" media="all" />
+<script src="bt/js/jquery-V30.min.js"></script>
+<script src="bt/js/bootstrap.js"></script>
+
+</head>
+<body>
+
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<h3 class="panel-title"><a href="index.html">查看未添加</a></h3>
+					</div>
+					<div class="panel-body">
+						<table class="table" id="table">
+							<thead>
+								<tr>
+									<th>域账号</th>
+									<th>用户名称</th>
+									<th>用户部门</th>
+									<th>是否添加(0未添加，1添加)</th>
+									<th>时间</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <tr class="info"></tr>
+								<tr class="success"></tr> -->
+								
+							</tbody>
+						</table>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript">
+
+	$(function(){
+		
+		$.ajax({
+			url:"has.do",
+			dataType:'json',
+			success:function(data){
+				var html="";
+				for(var i=0;i<data.length;i++){
+					if(i%2==0){
+						html+="<tr class='info'><td>"+data[i].userid+"</td><td>"+data[i].name+"</td><td>"+data[i].deptname+"</td><td>"+data[i].isAdd+"</td><td>"+data[i].time+"</td><td><button class='btn btn-primary'>添加</button></td></tr>";
+					}else{
+						html+="<tr class='success'><td>"+data[i].userid+"</td><td>"+data[i].name+"</td><td>"+data[i].deptname+"</td><td>"+data[i].isAdd+"</td><td>"+data[i].time+"</td><td><button class='btn btn-primary'>添加</button></td></tr>";
+					}
+				}
+					
+				console.log(html)
+				$("#table tbody").append(html);
+				
+			},
+			
+		});
+		
+		
+		
+	})
+
+	
+</script>
+</body>
+</html>

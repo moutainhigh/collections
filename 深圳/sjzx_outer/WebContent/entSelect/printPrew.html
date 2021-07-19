@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>打印预览</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta name="viewport" content="width=device-width,initial-scale=0.5,maximum-scale=2.0,user-scalable=yes"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="../statics/bt/css/bootstrap.min.css" rel="stylesheet">
+<!--[if lt IE 9]>
+      <script src="../statics/bt/ie/html5shiv-printshiv.js"></script>
+      <script src="../statics/bt/ie/respond.min.js"></script>
+    <![endif]-->
+</head>
+<style>
+* {
+	margin: 0;
+	padding: 0
+}
+
+#mainContainer {
+	margin: 0 auto;
+	width: 750px;
+	background: #E3E8F6;
+}
+
+.toperWrap {
+	height: 30px;
+	line-height: 30px;
+	border-right: #00377a 1px solid;
+	border-top: #abc0e7 1px solid;
+	border-left: #abc0e7 0px solid;
+	width: 100%;
+	color: #ffffff;
+	border-bottom: #00377a 1px solid;
+	background-color: #7288ac;
+	border-right: #00377a 1px solid;
+	overflow: hidden;
+}
+
+.placeHolder {
+	height: 150px;
+}
+
+.lines {
+	height: 2px;
+	background: #000;
+	width: 80%;
+	margin: 0 auto;
+}
+
+.toperWrap ul {
+	list-style: none;
+}
+
+.toperWrap ul li {
+	float: left;
+	margin-left: 8px;
+	text-align: center;
+	padding: 0 4px;
+}
+/* .toperWrap ul li:hover {
+	background: #64799C;
+} */
+.toperWrap ul li:hover {
+	cursor: pointer;
+	background: #64799C;
+}
+
+/*配置打印细览*/
+
+#texts{color:#004880}
+table{width: 700px;}
+td{border: 1px solid #666666;color:#004880;font-size: 12px;padding-left: 2px}
+.title{width: 240px;background: #F8F9FF}
+.centerDesc{text-align: right;}
+
+.titleDesc{background:#FFFFFF}
+</style>
+<body>
+
+	<div id="mainContainer">
+		<div class="toperWrap"  id="noprint">
+			<ul>
+				<li style="margin-left: 0;">
+					<img src='../statics/images/BarIcon.gif'>
+				</li>
+				<li onclick="printer()">
+					<img src='../statics/images/print.gif'>
+					打印
+				</li>
+				<!-- <li onclick="prew()">
+					<img src='../statics/images/pringview.gif'>
+					打印预览
+				</li>
+				<li onclick="pageSetting()">
+					<img src='../statics/images/printset.gif'>
+					页面设置
+				</li> -->
+				<li onclick="closeW()">关闭</li>
+			</ul>
+		</div>
+		<div class="placeHolder"></div>
+		<div style="text-align: center;">
+			<font face="黑体" size="5px"><span id="Label2" style="color:Black;background-color:White;">深圳市市场监督管理局商事主体登记及备案信息查询单(网上公开)</span></font>
+		</div>
+		<div class="lines"></div>
+
+
+		<div class="container">
+			<div class="row clearfix">
+				<div class="col-md-12 column">
+					<div class="printContent">
+						<div id="printAreas">
+							<div id="infoPanel" style="width:711px;">
+								<font face="黑体" size="3px">&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; <span id="texts"></span></font>
+							</div>
+							<table id="table">
+							</table>
+						</div>
+					</div>
+					<div class="print-time">
+						<span>打印时间：</span>
+						<span id="timer"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="lines" style="width: 100%;height: 5px;background: red;margin-top: 5px;"></div>
+		<div class="footer" id="noshow2" style="text-align: center;">
+		
+		
+		<div >版权所有：深圳市市场监督管理局</div> <div>地址：福田区深南大道7010号工商物价大厦</div></div>
+	</div>
+
+	<script type="text/javascript" src="../statics/bt/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../statics/js/jquery.PrintArea.js"></script>
+	<script type="text/javascript" src="../statics/js/util.js"></script>
+	<script type="text/javascript" src="../statics/bt/js/bootstrap.min.js"></script>
+
+	<script>
+		function getNowFormatDate() {
+			var date = new Date();
+			var seperator2 = ":";
+			var month = date.getMonth() + 1;
+			var strDate = date.getDate();
+			if (month >= 1 && month <= 9) {
+				month = "0" + month;
+			}
+			if (strDate >= 0 && strDate <= 9) {
+				strDate = "0" + strDate;
+			}
+			var currentdate = date.getFullYear() + "年" + month + "月" + strDate
+					+ "日" + date.getHours() + seperator2 + date.getMinutes()
+					+ seperator2 + date.getSeconds();
+			return currentdate;
+		}
+		var timeStr = getNowFormatDate();
+		$("#timer").html(timeStr);
+		
+
+		$(window).load(function(){
+			
+		/* 	$.ajax({
+				url : "../entEnt/getPrint.do",
+				data : {
+					"fresh" : Math.random()
+				},
+				cache : false,
+				dataType : "json",
+				async : false,//取消异步请求
+				success : function(data) {
+					var title = data.data[0];
+					var content = data.data[1];
+					var title = title.data;
+					var content = content.data;
+					$("#texts").html(title);
+					$("#table").empty().append(content);
+
+				}
+			}) */
+			
+			var title = $('body',window.opener.document).attr("title");
+			var content= $('body',window.opener.document).attr("content");
+			$("#texts").html(title);
+			$("#table").empty().append(content);
+			
+		});
+
+		function printer() {
+			if (confirm('确定打印吗？')) {
+				if (JudgeTheBrowser()=='Chrome') {
+					//console.log(JudgeTheBrowser());
+					$("#noprint").hide();
+					$("#noshow2").hide();
+					window.print();
+					$("#noprint").show();
+					$("#noshow2").show();
+				}else{
+					$("#noprint").hide();
+					$("#noshow2").hide();
+					window.print();
+					$("#noprint").show();
+					$("#noshow2").show();
+				//$("#noprint").addClass("hide");
+				//wb.execwb(6, 6)
+				}
+			}
+			//document.all.WebBrowser.ExecWB(6,1)
+		}
+		function prew() {
+			//document.all.WebBrowser.ExecWB(7,1);
+			//$("#noprint").addClass("hide");
+			wb.execwb(7, 1);
+
+		}
+		function pageSetting() {
+			$("#noprint").addClass("hide");
+			//document.all.WebBrowser.ExecWB(8,1)
+			wb.execwb(8, 1);
+		}
+
+		function closeW() {
+			window.close();
+		}
+		
+		function JudgeTheBrowser(){
+			  var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+			    var isOpera = userAgent.indexOf("Opera") > -1;
+			    //判断是否Opera浏览器
+			    if (isOpera) {
+			        return "Opera"
+			    }; 
+			    //判断是否Firefox浏览器
+			    if (userAgent.indexOf("Firefox") > -1) {
+			        return "FF";
+			    } 
+			    //判断是否chorme浏览器
+			    if (userAgent.indexOf("Chrome") > -1){
+					return "Chrome";
+			    }
+			    //判断是否Safari浏览器
+			    if (userAgent.indexOf("Safari") > -1) {
+			        return "Safari";
+			    } 
+			    //判断是否IE浏览器
+			    if (userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera) {
+			        return "IE";
+			    }
+			    //判断是否Edge浏览器
+			    if (userAgent.indexOf("Trident") > -1) {
+			        return "Edge";
+			    };
+		}
+		
+		
+	</script>
+</body>
+</html>

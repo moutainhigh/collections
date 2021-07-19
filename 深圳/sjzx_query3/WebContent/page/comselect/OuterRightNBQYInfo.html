@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<title>个体年报信息</title>
+<link rel="stylesheet" href="../../static/css/common.css">
+<link href="../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />	
+<style type="text/css">
+.jazz-field-comp-input{
+	line-height: 22px;
+	_line-height: 22px;
+}
+.jazz-grid-tables {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+body{background: url()}
+
+
+* {
+    box-sizing: border-box;
+}
+
+.report_title {
+    margin: 20px !important;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    font-family: "微软雅黑";
+}
+
+.tc {
+    text-align: center;
+}
+
+.f12 {
+    font-size: 12px;
+}
+
+
+#annualReport p {
+    text-align: center;
+    font-size: 13px;
+    color: #ed1d4a;
+    padding: 13px;
+}
+
+.classify {
+    background: url("../../static/images/diandian.png") no-repeat scroll left center;
+    color: #804000 !important;
+    font-size: 16px;
+    margin-bottom: 10px;
+    padding-left: 11px;
+    margin-left: 20px;
+    text-indent:1em;
+}
+
+
+
+.titleLine{
+	border-bottom: 1px solid #ccc;
+	width:104%;
+	margin: 12px auto;
+	margin-left: -14px;
+}
+
+.bline{
+    border: 1px solid #ccc;
+    border-top: 0 none;
+    height: 2px;
+    margin: 22px 4px;
+}
+
+/*文字超出不换行*/
+table td{word-break: keep-all;white-space:nowrap;}
+.jazz-form-text-label{
+	color: #000;
+	font-weight: normal;
+}
+
+.jazz-field-comp-in2{
+	border: none;
+	background-color: transparent;
+	background:url(0) no-repeat;
+}
+.jazz-field-comp-input{
+	line-height: 22px;
+	_line-height: 22px;
+}
+
+
+.jazz-grid-tables {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+.display{display: none;}
+</style>
+</head>
+<body>
+<script src="../../static/js/sczt/base64.js" type="text/javascript"></script>
+<body style="overflow-x:hidden">
+<div id="printArea" >
+	<div class="report_title display">
+	    <h1 class="tc f24">
+	        <div id="reportName" style="color: #996666;font-weight:normal;font-size:30px;padding-left:20px;padding-right:20px;position:relative"><span id="getYear"></span>年度报告
+	            <!--<select style="float:left;position:relative;top:10px;font-family: '微软雅黑 Regular', '微软雅黑'"
+	                    class="f14 ml10" id="AnCheYearAnnual" onChange="changeYearForm(this.value)">
+	                <option>选择年份报告</option>
+	            </select>-->
+		                <span class="report_span pl5 pr5 mr10" id="Annual_modify" style="font-size:12px;position:relative;bottom:10px;">
+	                                        </span>
+	                        <span style="font-size:14px;color:#999;position:absolute;top:10px;right:0">填报时间:<span id="anCheDate"></span></span>
+	                        <span id="printPage" style="font-size:14px;cursor: pointer; background-color: #D6E9F0; border:solid 1px #ccc;color:#999;position:absolute;top:34px;right:0">页面打印<span id="anCheDate"></span></span>
+	        </div>
+	    </h1>
+	
+		<div class="f12 tc g9 mt10">
+		    <p style="padding-top:8px"><span id="font" style="font-size:14px;color: #ed1d4a;">企业年报信息由该企业提供，企业对其年报信息的真实性、合法性负责</span>
+		    	<div class="titleLine"></div>
+		    </p>
+		</div>
+	</div>
+
+<!-- 构建页面==开始 -->
+<!-- 数据展现 -->
+	<!-- 根据config_id查询展示sys_query_condition_config -->
+	
+	<div class="classify display" id="annualBaseInfoColor1">
+         	   基本信息
+     </div>
+	<div  name="qyjbxxPanel" vtype="formpanel" id="qyjbxxPanel" displayrows="1"
+			titleDisplay="false" width="100%"  showborder=false  layout='table' style="text-align: left;"
+			layoutconfig="{cols:2, columnwidth: ['50%','50%']}"  
+			labelStyleClass="labelstyle" title="sys_query_column_config ">
+			
+			<div name="regno" vtype="textfield" label="注册号" labelwidth="130" labelalign="right" width="88%"  readonly="true"
+			 tooltip="" rule="" ></div>
+		 	<div name="uniscid" vtype="textfield" label="统一社会信用代码" labelwidth="130" labelalign="right" width="88%"  readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		 	 <div name="entname" vtype="textfield" label="企业名称" labelwidth="130" labelalign="right" width="88%" readonly="true"
+			 tooltip="" rule="" ></div>
+		 	<div name="tel" vtype="textfield" label="联系电话" labelwidth="130" labelalign="right" width="88%"  readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		 	 <div name="postalcode" vtype="textfield" label="邮政编码" labelwidth="130" labelalign="right" width="88%"  readonly="true"
+			 tooltip="" rule="" ></div>
+			  <div name="email" vtype="textfield" label="电子邮箱" labelwidth="130" labelalign="right" width="88%" readonly="true"
+			 tooltip="" rule="" ></div>
+		 	<div name="addr" vtype="textfield" label="通信地址" labelwidth="130" labelalign="right" width="88%" rowspan="1" colspan="2"  readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	
+		 	
+			 <div name="ifhasgqzr" vtype="textfield" label="是否有股权转让" labelwidth="130" labelalign="right" width="88%"  readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	<div name="busst" vtype="textfield" label="经营状态" labelwidth="130" labelalign="right" width="88%"  readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 <div name="firstpubtime" vtype="datefield" label="首次公示时间" labelwidth="130" labelalign="right" width="88%" readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 <div name="ifhasweb" vtype="textfield" label="是否有网站或网店" labelwidth="130" labelalign="right" width="88%" readonly="true"
+			 tooltip="" rule="" ></div>
+		 	<div name="ifinvother" vtype="textfield" label="是否有对外投资" labelwidth="130" labelalign="right" width="88%"  readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	  <div name="empnum" vtype="textfield" label="从业人数" labelwidth="130" labelalign="right" width="88%"  readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	<!--  <div name="ifpubempnum" vtype="textfield" label="是否公示从业人数" labelwidth="130" labelalign="right" width="88%"  readonly="true"
+			 tooltip="" rule="" ></div> -->
+			 <div name='ifpubhidden' style="display:none" id='ifpubhidden' vtype="hiddenfield"></div>
+		</div>
+		
+	<div class="bline display"></div>
+	<div class="classify display" id="annualBaseInfoColor1">
+         	资产状况信息 
+     </div>
+     <div  name="qyzczkPanel" vtype="formpanel" id="qyzczkPanel" displayrows="1"
+			titleDisplay="false" width="100%"  showborder=false  layout='table' style="text-align: left;"
+			layoutconfig="{cols:2, columnwidth: ['50%','50%']}"  labelStyleClass="labelstyle" title="sys_query_column_config ">
+			
+			<div name="assgro" vtype="textfield" label="资产总额" labelwidth="130" labelalign="right" width="88%"  readonly="true"
+			 tooltip="" rule="" ></div>
+		 	<div name="totequ" vtype="textfield" label="所有者权益合计" labelwidth="130" labelalign="right" width="88%"  readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		 	 <div name="vendinc" vtype="textfield" label="销售(营业)收入" labelwidth="130" labelalign="right" width="88%" readonly="true"
+			 tooltip="" rule="" ></div>
+		 	<div name="progro" vtype="textfield" label="利润总额" labelwidth="130" labelalign="right" width="88%"  readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		 	 <div name="maibusinc" vtype="textfield" label="其中主营业务收入" labelwidth="130" labelalign="right" width="88%"  readonly="true"
+			 tooltip="" rule="" ></div>
+			  <div name="netinc" vtype="textfield" label="净利润" labelwidth="130" labelalign="right" width="88%" readonly="true"
+			 tooltip="" rule="" ></div>
+		 	<div name="ratgro" vtype="textfield" label="纳税总额" labelwidth="130" labelalign="right" width="88%" readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		 	
+			 <div name="liagro" vtype="textfield" label="负债总额 " labelwidth="130" labelalign="right" width="88%"  readonly="true"
+		 	 tooltip="" rule=""></div>
+		</div>
+		
+	<div class="bline display"></div>
+	<div class="classify display" id="annualBaseInfoColor1">
+         	   股东及出资信息
+     </div>
+	
+	<div name="qyczxxGrid" id="qyczxxGrid" vtype="gridpanel" titleDisplay="false" title="出资信息" labelStyleClass="labelstyle" lineno="true" isshowselecthelper="false"
+		  showborder=true width="100%"  >
+		<!-- <div name="add_function_button" id="add_function_button" vtype='button' text='新增功能信息' ></div> -->
+		<!-- div style="display:none;color:red;" id="tips" >说明：共<span id="totals"></span>条记录。以下为查询结果的前100条，如有更多需求，请与信息中心联系，电话：83070056。</div> -->
+		
+			<div name="functionConfigGrid_column1" vtype="gridcolumn">
+				<div>
+					<div name='inv' text="股东/发起人名称" textalign="center" width="35%"></div>
+					<div name='lisubconam' text="认缴出资额(万元)" textalign="center"   width="16%" ></div>
+					<div name='subcondate' text="认缴出资日期" datatype="date" dataformat="YYYY-MM-DD" textalign="center" width="13%"></div>
+					<div name='liacconam' text="实缴出资额(万元)" textalign="center"   width="16%" ></div>
+					<div name='accondate' text="实缴出资日期" datatype="date" dataformat="YYYY-MM-DD" textalign="center"   width="13%" ></div>
+					 <div name='opt' text="操作" textalign="center" ></div>
+					<!-- <div name='regstate' text="商事主体状态" dataurl='regstate.json' textalign="left" width="10%"></div> -->
+				</div>
+			</div>
+			<div vtype="gridtable" name="grid_table"></div>
+			 <div vtype="paginator" name="grid_paginator" class="grid_paginator_qyczxx"></div>
+		</div>
+		
+		<div class="bline display"></div>
+	<div class="classify display" id="annualBaseInfoColor1">
+         	   股权变更信息
+     </div>
+     
+     <div name="qygqbgGrid" id="qygqbgGrid" vtype="gridpanel" titleDisplay="false" title="股权变更信息" labelStyleClass="labelstyle" lineno="true" isshowselecthelper="false"
+		  showborder=true width="100%" >
+		<!-- <div name="add_function_button" id="add_function_button" vtype='button' text='新增功能信息' ></div> -->
+		<!-- div style="display:none;color:red;" id="tips" >说明：共<span id="totals"></span>条记录。以下为查询结果的前100条，如有更多需求，请与信息中心联系，电话：83070056。</div> -->
+		
+			<div name="functionConfigGrid_column2" vtype="gridcolumn">
+				<div>
+					<div name='inv' text="股东名称" textalign="center" width="40%"></div>
+					<div name='transamprpre' text="转让前股权比例" textalign="center"   width="20%" ></div>
+					<div name='transampraf' text="转让后股权比例" textalign="center" width="20%"></div>
+					<div name='altdate' text="股权变更日期" datatype="date" dataformat="YYYY-MM-DD" textalign="center"  ></div>
+					<!-- <div name='opt' text="操作" textalign="center" width='20%'></div> -->
+					<!-- <div name='regstate' text="商事主体状态" dataurl='regstate.json' textalign="left" width="10%"></div> -->
+				</div>
+			</div>
+			 	<div vtype="gridtable" name="grid_table"></div>
+			<div vtype="paginator" name="grid_paginator"></div>
+		</div>
+		<div class="bline display"></div>
+	<div class="classify display" id="annualBaseInfoColor1">
+         	 对外投资信息
+     </div>
+     <div name="qydwtzGrid" id="qydwtzGrid" vtype="gridpanel" titleDisplay="false" title="保证担保信息" labelStyleClass="labelstyle" lineno="true" isshowselecthelper="false"
+		  style="Position: Reletive" selecttype="1" showborder=true width="100%" >
+		<!-- <div name="add_function_button" id="add_function_button" vtype='button' text='新增功能信息' ></div> -->
+		<!-- div style="display:none;color:red;" id="tips" >说明：共<span id="totals"></span>条记录。以下为查询结果的前100条，如有更多需求，请与信息中心联系，电话：83070056。</div> -->
+		<div name="functionConfigGrid_column" vtype="gridcolumn">
+				<div>
+					<div name='entname' text="所投资企业名称" textalign="center" width="65%"></div>
+					<div name='regno' text="所投资企业统一社会信用代码/注册号" textalign="center"   width="35%" ></div>
+					<!-- <div name='opt' text="操作" textalign="center" width='20%'></div> -->
+					<!-- <div name='regstate' text="商事主体状态" dataurl='regstate.json' textalign="left" width="10%"></div> -->
+				</div>
+			</div>
+			<div vtype="gridtable" name="grid_table"></div>
+			<div vtype="paginator" name="grid_paginator"></div>
+		</div>
+		
+	<div class="bline display"></div>
+	<div class="classify display" id="annualBaseInfoColor1">
+         	  对外提供保证担保信息
+     </div>
+     
+     <div name="qydwdbGrid" id="qydwdbGrid" vtype="gridpanel" titleDisplay="false" title="保证担保信息" labelStyleClass="labelstyle" lineno="true" isshowselecthelper="false"
+		  style="Position: Reletive" selecttype="1" showborder=true width="100%">
+		<!-- <div name="add_function_button" id="add_function_button" vtype='button' text='新增功能信息' ></div> -->
+		<!-- div style="display:none;color:red;" id="tips" >说明：共<span id="totals"></span>条记录。以下为查询结果的前100条，如有更多需求，请与信息中心联系，电话：83070056。</div> -->
+		
+			<div name="functionConfigGrid_column3" vtype="gridcolumn">
+				<div>
+					<div name='more' text="债权人" textalign="center" width="30%"></div>
+					<div name='mortgagor' text="债务人" textalign="center"   width="30%" ></div>
+					<div name='priclaseckind' text="主债权种类" textalign="center" width="15%"></div>
+					<div name='priclasecam' text="主债权数额" textalign="center"   width="15%" ></div>
+					 <div name='opt' text="操作" textalign="center"></div>
+					<!-- <div name='regstate' text="商事主体状态" dataurl='regstate.json' textalign="left" width="10%"></div> -->
+				</div>
+			</div>
+			<div vtype="gridtable" name="grid_table"></div>
+			 <div vtype="paginator" name="grid_paginator"></div>
+		</div>
+		
+		<div class="bline display"></div>
+	<div class="classify display" id="annualBaseInfoColor1">
+         	  网站或网店信息
+     </div>
+     
+     <div  name="qywdxxPanel" vtype="formpanel" id="qywdxxPanel" displayrows="1"
+			titleDisplay="false" width="100%"  showborder=false  layout='table' style="text-align: left;"
+			layoutconfig="{cols:2, columnwidth: ['50%','50%']}"  	labelStyleClass="labelstyle" title="sys_query_column_config ">
+			
+			<div name="websitname" vtype="textfield" label="网站名称" labelwidth="130" labelalign="right" width="88%"  rowspan="1" colspan="2" readonly="true"
+			 tooltip="" rule="" ></div>
+		 	<div name="domain" vtype="textfield" label="域名地址" labelwidth="130" labelalign="right" width="88%"  rowspan="1" colspan="2" readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		 	 <div name="webtype" vtype="textfield" label="网站类型" labelwidth="130" labelalign="right" width="88%"  rowspan="1" colspan="2" readonly="true"
+			 tooltip="" rule="" ></div>
+		</div>
+		
+	<div class="bline display"></div>
+	<div class="classify display" id="annualBaseInfoColor1">
+         	   党建信息
+     </div>
+     
+         <div  name="qydjxxPanel" vtype="formpanel" id="qydjxxPanel" displayrows="1"
+			titleDisplay="false" width="100%"  showborder=false  layout='table' style="text-align: left;"
+			layoutconfig="{cols:2, columnwidth: ['50%','50%']}"  labelStyleClass="labelstyle" title="sys_query_column_config ">
+			
+			<div name="numparm" vtype="textfield" label="党员（预备党员）人数" labelwidth="165" labelalign="right" width="88%"   readonly="true"
+			 tooltip="" rule="" ></div>
+		 	<div name="parins" vtype="textfield" label="党组织建制" labelwidth="165" labelalign="right" width="88%"   readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		 	 <div name="resparmsign" vtype="textfield" label="法定代表人是否党员" labelwidth="165" labelalign="right" width="88%"   readonly="true"
+			 tooltip="" rule="" ></div>
+			 <div name="resparsecsign" vtype="textfield" label="法定代表人是否党组织书记" labelwidth="165" labelalign="right" width="88%"   readonly="true"
+			 tooltip="" rule="" ></div>
+		</div>
+		<div class="bline display"></div>
+		<div class="display" style="height:20px"> </div>
+     
+<!-- 构建页面==结束 -->
+</div>
+<script type="text/javascript" src="../../static/js/config.js"></script>
+<script type="text/javascript" data-main="com/OuterRightNbQYInfo.js" src="../../static/lib/require.js"></script>
+</body>
+</html>

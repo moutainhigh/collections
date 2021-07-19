@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="../../../external/jquery-ui/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+
+<script src="../../../external/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="../../../external/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+<script src="../../../lib/jazz-all.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div id="demo">
+<input id="btn1" type="button" value="加载URL内容" onclick="_btn1()" />
+<input id="btn2" type="button" value="关闭" onclick="_btn2()" /> 
+<div id="dlg">  </div>
+</div>
+
+<script>
+
+	
+	function _btn1(){
+	    $('#dlg').window({
+	    	title: "面板一",
+	    	titleAlign: 'center',
+	    	titleDisplay: true,
+	        minimizable: true,  
+	        maximizable: true,
+	        width: 300,
+	        height: 260,
+	        modal: false,
+	        location:'center',
+	        bgcolor: '#1E90FF',
+	        resizable:true,
+	        minWidth:100,
+	        minHeight:100,
+	        closeOnEscape:true,
+	        customHandler: [{  
+	            id: 't_1',  
+	            align: 'left',  
+	            icon: 'addC.png',  
+	            click: function(e,ui){  
+	            	_iframeSrcHandler(); 
+	            }  
+	        }] , 
+	        frameName: 'iframepage', 
+	        frameUrl: 'windowBasic.html'
+	    });
+       		$('#dlg').window('open'); 		
+	}
+	function _btn2(){
+			$('#dlg').window('close'); 
+	    } 		        	
+      
+	function _iframeSrcHandler(){  
+	    jQuery('#dlg').window('iframeSrcHandler', 'windowBasic.html');                 
+	}  
+</script>
+
+
+</body>
+</html>
+<SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

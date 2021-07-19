@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.CaseCfPartyinfoMapper">
+
+	<!-- 案件当事人信息 -->
+	<insert id="insertCaseCfPartyinfo">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from CASE_CF_PARTYINFO where casepartyid = #{casepartyid}
+		</selectKey>
+		<if test="count > 0">
+			update  CASE_CF_PARTYINFO  
+			<trim prefix="set" suffixOverrides=",">
+				<if test="caseid != null">caseid = #{caseid,jdbcType=VARCHAR},</if>
+				<if test="partytype != null">partytype = #{partytype,jdbcType=VARCHAR},</if>
+				<if test="unitname != null">unitname = #{unitname,jdbcType=VARCHAR},</if>
+				<if test="pripid != null">pripid = #{pripid,jdbcType=VARCHAR},</if>
+				<if test="regno != null">regno = #{regno,jdbcType=VARCHAR},</if>
+				<if test="enttype != null">enttype = #{enttype,jdbcType=VARCHAR},</if>
+				<if test="uniscid != null">uniscid = #{uniscid,	jdbcType=VARCHAR},</if>
+				<if test="lerep != null">lerep = #{lerep,	jdbcType=VARCHAR},</if>
+				<if test="sex != null">sex = #{sex,		jdbcType=VARCHAR},</if>
+				<if test="age != null">age = to_number(#{age,jdbcType=NUMERIC}),</if>
+				<if test="occupation != null">occupation = #{occupation,jdbcType=VARCHAR},</if>
+				<if test="dom != null">dom = #{dom,		jdbcType=VARCHAR},</if>
+				<if test="tel != null">tel = #{tel,		jdbcType=VARCHAR},</if>
+				<if test="postalcode != null">postalcode = #{postalcode,	jdbcType=VARCHAR},</if>
+				<if test="workunit != null">workunit = #{workunit,	jdbcType=VARCHAR},</if>
+				<if test="certype != null">certype = #{certype,	jdbcType=VARCHAR},</if>
+				<if test="cerno != null">cerno = #{cerno,	jdbcType=VARCHAR},</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where casepartyid = #{casepartyid}
+		</if>
+		<if test="count == 0">
+			insert into CASE_CF_PARTYINFO
+			(
+				casepartyid,
+				caseid,
+				partytype,
+				unitname,
+				pripid,
+				regno,
+				enttype,
+				uniscid,
+				lerep,
+				sex,
+				age,
+				occupation,
+				dom,
+				tel,
+				postalcode,
+				workunit,
+				certype,
+				cerno,
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{casepartyid,	jdbcType=VARCHAR},
+				#{caseid,		jdbcType=VARCHAR},
+				#{partytype,	jdbcType=VARCHAR},
+				#{unitname,		jdbcType=VARCHAR},
+				#{pripid,		jdbcType=VARCHAR},
+				#{regno,		jdbcType=VARCHAR},
+				#{enttype,		jdbcType=VARCHAR},
+				#{uniscid,		jdbcType=VARCHAR},
+				#{lerep,		jdbcType=VARCHAR},
+				#{sex,			jdbcType=VARCHAR},
+				to_number(#{age,jdbcType=NUMERIC}),
+				#{occupation,	jdbcType=VARCHAR},
+				#{dom,			jdbcType=VARCHAR},
+				#{tel,			jdbcType=VARCHAR},
+				#{postalcode,	jdbcType=VARCHAR},
+				#{workunit,		jdbcType=VARCHAR},
+				#{certype,		jdbcType=VARCHAR},
+				#{cerno,		jdbcType=VARCHAR},
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

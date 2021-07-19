@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.dao.DCUploadRecordDao">
+
+
+	<select id="getRecord" resultType="DC_upload_record" parameterType="map">
+		select * from DC_upload_record t
+		<where>
+			<if test="remark ==1">t.remark = 1</if><!-- 企业管辖区域为空数量 -->
+			<if test="remark ==2">t.remark = 2</if><!-- 个体管辖区域为空数量 -->
+			<if test="remark ==4">t.remark = 4</if><!-- 个体行业类型为空数量 -->
+			<if test="remark ==5">t.remark = 5</if><!-- 企业中状态为吊销的户数 -->
+			<if test="remark ==7">t.remark = 7</if><!-- 个体中状态为吊销并且吊销日期不为空的户数251891 -->
+			<if test="remark ==8">t.remark = 8</if><!-- 企业期末实有户数 -->
+			<if test="remark ==9">t.remark = 9</if><!-- 企业本期登记户数 -->
+			<if test="remark ==10">t.remark= 10</if><!-- 企业本期吊销户数 -->
+			<if test="remark ==11">t.remark = 11</if><!-- 企业本期注销户数 -->
+			<if test="remark ==12">t.remark = 12</if><!-- 个体期末实有户数 -->
+			<if test="remark ==13">t.remark = 13</if><!-- 个体本期登记户数 -->
+			<if test="remark ==14">t.remark = 14</if><!-- 个体本期吊销户数 -->
+			<if test="remark ==15">t.remark = 15</if><!-- 个体本期注销销户数 4 是注销，2是吊销 -->
+			<if test="remark ==16">t.remark = 16</if><!-- 本期登记纯内资企业户数 -->
+			<if test="remark ==17">t.remark = 17</if><!-- 本期登记纯内资企业户数 -->
+			<if test="remark ==18">t.remark = 18</if><!-- 本期登记纯内资企业户数 -->
+			<if test="remark ==19">t.remark = 19</if><!-- 本期登记纯内资企业户数 -->
+		</where>
+	</select>
+
+
+	<insert id="save" parameterType="DC_upload_record">
+		insert into
+		DC_upload_record(id,counts,remark)
+		values(#{id},
+		#{counts},
+		#{remark}
+		)
+	</insert>
+	
+	
+	<delete id="delete"><!-- 每年删除一次前二年的数据 -->
+		delete from dc_upload_record t   where t.addtime &lt;= (select add_months(sysdate,-24) from dual)
+	</delete>
+</mapper>

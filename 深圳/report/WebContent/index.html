@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Shared Calendar in DateBox - jQuery EasyUI Demo</title>
+	<link rel="stylesheet" type="text/css" href="statics/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="statics/themes/easyui.cssicon.css">
+	<script type="text/javascript" src="statics/jquery.min.js"></script>
+	<script type="text/javascript" src="statics/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="statics/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+	<table>
+		<tr>
+			<td>开始时间:</td>
+			<td>
+				<input class="easyui-datebox" data-options="sharedCalendar:'#cc'">
+			</td>
+			<td>结束时间:</td>
+			<td>
+				<input class="easyui-datebox" data-options="sharedCalendar:'#cc'">
+			</td>
+		</tr>
+	</table>
+	<div id="cc" class="easyui-calendar"></div>
+	
+	
+	
+	<table class="easyui-datagrid" title="Basic DataGrid" style="width:700px;height:250px"
+			data-options="singleSelect:true,collapsible:true,url:'datagrid_data1.json',method:'get'">
+		<thead>
+			<tr>
+				<th data-options="field:'itemid',width:80">名称</th>
+				<th data-options="field:'productid',width:100">单位</th>
+				<th data-options="field:'listprice',width:80,align:'right'">本年情况</th>
+				<th data-options="field:'unitcost',width:80,align:'right'">上年情况</th>
+				<th data-options="field:'attr1',width:250">本年累计比上年同期增减</th>
+				<th data-options="field:'status',width:60,align:'center'">本年累计比上年同期增减%</th>
+			</tr>
+		</thead>
+	</table>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../../../external/jquery-ui/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+
+<script src="../../../external/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="../../../external/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+<script src="../../../lib/jazz-dependent.js" type="text/javascript"></script>
+<script src="../../../lib/jazz-all.js" type="text/javascript"></script>
+<script>
+	function queryData(){
+       	$('div[name="gridpanel"]').gridpanel('query', ['formpanel']);
+	}
+	
+    function reset(){
+    	$("div[name='formpanel']").formpanel('reset');
+    }
+    function reload(){
+    	$('div[name="gridpanel"]').gridpanel('reload');
+    }
+	function reloadAll(){
+    	var a = {"data":{"page":1,"pagerows":30,"rows":[],"totalrows":92},"name":"gridpanel","vtype":"gridpanel"};
+    	$('div[name="gridpanel"]').gridpanel('option','dataurl',a);
+    	$('div[name="gridpanel"]').gridpanel('reload');
+    }
+	function gopage(){
+		$('div[name="gridpanel"]').gridpanel('option','dataurl',"/JAZZ/demo/queryUser.do");
+    	$('div[name="gridpanel"]').gridpanel('goPage',1);
+	}
+    function reloadCurrentPage(){
+    	$('div[name="gridpanel"]').gridpanel('reloadCurrentPage');
+    }
+    function hideColumn(){
+    	$('div[name="gridpanel"]').gridpanel('hideColumn', 'sex');
+    }
+    function showColumn(){
+    	$('div[name="gridpanel"]').gridpanel('showColumn', 'sex');
+    }
+    function callcustom(){
+    	alert(234);
+    }
+    function customsizeColumn(rowData,columnname,lineno){
+    	var htm = '<div class="jazz-grid-cell-inner"><a href="javascript:void(0);" onclick="callcustom()">'+rowData["name"]+'</a></div>';
+    	return htm;
+    }
+    function updateRow(){
+    	var data = {"id":"738a411521d54d36837f2d68bd2488c3","birthday":"","resume":"","sex":"","age":"1231","name":"lihuayun","hobby":"","origin":"","org":"","photo":"","password":""};
+    	$('div[name="gridpanel"]').gridpanel('updateRow', data,3);
+    }
+    function changeview1(){
+    	$('div[name="gridpanel"]').gridpanel('showView', 'table');
+    }
+    function changeview2(){
+    	$('div[name="gridpanel"]').gridpanel('showView', 'card');
+    }
+    function rowclick(event,data){
+    	alert(jazz.jsonToString(data));
+    }
+    function cardclick(event,data){
+    	alert(jazz.jsonToString(data));
+    }
+    function loadDataFinished(data){
+    	alert(jazz.jsonToString(data));
+    }
+    function changeHeader(){
+    	
+    	//先销毁gridpanel
+		$('div[name="gridpanel"]').gridpanel('destroyComp');
+    	
+    	var a = 
+    		'<div>'+ 
+				'<div name="id" key="true" visible="false"  rowspan="2"></div>'+
+				'<div text="基本信息" textalign="center" colspan="2"></div>'+
+				'<div text="高级信息" textalign="center" colspan="3"></div>'+
+				'<div name="custom" text="自定义" textalign="center" rowspan="2" sort="true" datatype="" dataformat="" textdisplaytype="" dataurl="" width="150px" columnrender="customsizeColumn()"></div>'+
+			'</div>'+
+			'<div>'+
+				'<div name="name"  text="姓名啊的发生大发死打发打发阿迪发送的发达" textalign="center" sort="true" datatype="" dataformat="" textdisplaytype="" dataurl='+'[{"text":"男","value":"1"},{"text":"女","value":"2"}]'+' width="200px"></div>'+
+				'<div name="sex" text="性别" textalign="center" sort="true" datatype="" dataformat="" textdisplaytype="" dataurl="/JAZZ/dictionary/queryData.do?dicId=sex" width="150px"></div>'+
+				'<div name="age" text="年龄" textalign="center" datatype="" dataformat="" textdisplaytype="" dataurl="[{"text":"男","value":"1"},{"text":"女","value":"2"}]" width="150px"></div>'+
+				'<div name="org" text="所属机构" textalign="center" datatype="" dataformat="" textdisplaytype="" dataurl="/JAZZ/dictionary/queryData.do?dicId=org" width="150px"></div>'+
+				'<div name="birthday" text="出生日期" textalign="center" datatype="" dataformat="" textdisplaytype="" dataurl="" width="150px"></div>'+
+			'</div>'
+		
+		$('div[name="grid_column"]').children().remove();
+		$('div[name="grid_column"]').append(a);
+		
+		//根据options重新创建gridpanel
+    	$('div[name="gridpanel"]').parseComponent();
+    }
+    function getRowDataByIndex(){
+    	var data = $('div[name="gridpanel"]').gridpanel('getRowDataByIndex',3);
+    	alert("====="+jazz.jsonToString(data));
+    }
+    function getRowDataById(){
+    	var data = $('div[name="gridpanel"]').gridpanel('getRowDataById',9);
+    	alert("====="+jazz.jsonToString(data));
+    }
+    function getSelection(){
+    	var data = $('div[name="gridpanel"]').gridpanel('getSelection');
+    	alert("====="+jazz.jsonToString(data));
+    }
+    function getSelectionIndex(){
+    	var data = $('div[name="gridpanel"]').gridpanel('getSelectionIndex');
+    	alert("====="+jazz.jsonToString(data));
+    }
+    function removeRowById(){
+    	var data = $('div[name="gridpanel"]').gridpanel('removeRowById',9);
+    	alert("====="+jazz.jsonToString(data));
+    }
+    function removeRowByIndex(){
+    	var data = $('div[name="gridpanel"]').gridpanel('removeRowByIndex',3);
+    	alert("====="+jazz.jsonToString(data));
+    }
+    
+    function selectRow(){
+    	$('div[name="gridpanel"]').gridpanel('selectRow',9);
+    }
+    function unselectRow(){
+    	$('div[name="gridpanel"]').gridpanel('unselectRow',9);
+    }
+    function renderdata(event,obj){
+    	var data = obj.data;
+		for(var i=0;i<data.length;i++){
+			data[i]["@toolsopration"] = '<div class="jazz-grid-cell-inner"><a href="javascript:void(0);" onclick="callcustom()">'+data[i]["name"]+'</a></div>';
+			data[i]["custom"] = '<div class="jazz-grid-cell-inner"><a href="javascript:void(0);" onclick="callcustom()">111'+data[i]["name"]+'</a></div>';
+		}
+		return data;
+	}
+    function cardhtml(data){
+		var html = '<div style="width:100%;height:100%">'
+			+ '<div class="jazz-grid-cardcell-i"><div class="jazz-grid-bblb-img"></div></div>'
+			+ '<div class="jazz-grid-qh-c jazz-grid-bblb-c">'
+			+ '<div class="jazz-grid-qh-c-h1">'+ data.name +'</div>'
+			+ '<div class="jazz-grid-qh-c-h2">'+ data.org +'</div>'
+       	 	+ '<div class="jazz-grid-qh-c-date">' + data.birthday + '</div>'
+       	 	+ '<div class="jazz-grid-cardcell-title" style="display:none;">'+ data.name +'</div>'
+        	+ '</div></div>';
+    	return html;
+    }
+</script>
+</head>
+<body>
+<div vtype="formpanel" displayrows="1" name="formpanel"  titledisplay="true" width="1000" layout="table" 
+	    layoutconfig="{cols:3, columnwidth: ['300px','300px','*']}"
+		labelStyleClass="labelstyle" title="人员信息">
+
+    <div name='name' vtype="textfield" label="姓名" labelAlign="right" rule="must" width="300" editable="false"></div>
+<!-- 	 <div name="sex" vtype="comboxfield" label="性别"  width="300" dataurl="combox.json"></div>
+	<div  name='birthday' vtype="datefield" label="出生日期"  width="300" WdatePicker="{isShowWeek:true}"></div>
+ -->	<div id="toolbar" name="toolbar" vtype="toolbar" location="bottom">
+	    	<div name="query_button" vtype="button" text="查询" align="center"  icon="../query/queryssuo.png" click="gopage()"></div>
+	    	<div name="reset_button" vtype="button" text="重置" align="center"  icon="../query/queryssuo.png" click="reload()"></div>
+	</div>
+</div>
+
+<div vtype="gridpanel" name="gridpanel" defaultview="table" width="1000" layout="fit" dataloadcomplete="" datarender="renderdata()"
+titleDisplay="true" title="查询结果" dataurl="/JAZZ/demo/queryUser.do" isshowselecthelper="true" selecttype="2">
+	<div name="toolbar" vtype="toolbar">
+		<div name="add_button" vtype="button" text="新增" click="changeview1()"></div>
+		<div name="update_button" vtype="button" text="修改"  click="updateRow()"></div>
+    	<div name="delete_button" vtype="button" text="删除" click="changeview2()"></div>
+    </div>
+	<!-- 表头（多级表头） -->
+	<div vtype="gridcolumn" name="grid_column" hideheader=false wordbreak=true>
+		<div> <!-- 第1行 -->
+			<div name="id" key=true visible="false"  rowspan='2'></div>
+			<div text="基本信息" textalign="center" colspan="2"></div>
+			<div text="高级信息" textalign="center" colspan="3"></div>
+			<div name="custom" text="自定义" textalign="center" rowspan='2' sort="true" datatype="" dataformat="" textdisplaytype="" dataurl='' width="150px"></div>
+		</div>
+		<div> <!-- 第2行 -->
+			<div name="name"  text="姓名" textalign="center" sort="true" datatype="" dataformat="" textdisplaytype="" dataurl='[{"text":"男","value":"1"},{"text":"女","value":"2"}]' width="200px"></div>
+			<div name="sex" text="性别" textalign="center" sort="true" datatype="" dataformat="" textdisplaytype="" dataurl="/JAZZ/dictionary/queryData.do?dicId=sex" width="150px"></div>
+			<div name="age" text="年龄" textalign="center" datatype="" dataformat="" textdisplaytype="" dataurl='[{"text":"男","value":"1"},{"text":"女","value":"2"}]' width="150px"></div>
+			<div name="org" text="所属机构" textalign="center" datatype="" dataformat="" textdisplaytype="" dataurl="/JAZZ/dictionary/queryData.do?dicId=org" width="150px"></div>
+			<div name="birthday" text="出生日期" textalign="center" datatype="date" dataformat="" textdisplaytype="" dataurl='' width="150px"></div>
+		</div>
+	</div>
+	<!-- 表格 -->
+	<div vtype="gridtable" name="grid_table" rowselect="rowclick()"></div>
+	<!-- 表格 -->
+	<div vtype="gridcard" name="grid_card" html="cardhtml()" cardselect="cardclick()" isaddcard=false></div>
+	<!-- 分页 -->
+	<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10" tablename="grid_table"></div>
+</div>
+</body>
+</html><SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

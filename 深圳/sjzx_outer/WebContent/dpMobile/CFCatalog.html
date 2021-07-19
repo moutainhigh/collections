@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>深圳市市场和质量监督管理委员会信用信息“双公示”</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no" />
+<link rel="stylesheet" type="text/css" href="../statics/bt/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="../statics/mobile/page.css" />
+<link rel="stylesheet" type="text/css" href="../statics/mobile/loader.css" />
+<script src="../statics/bt/js/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../statics/bt/js/bootstrap.min.js"></script>
+<script src="../statics/js/jquery.pagination.js" type="text/javascript"></script>
+<script type="text/javascript" src="../statics/js/base64.js"></script>
+<script type="text/javascript" src="../statics/mobile/util.js"></script>
+<script src="../statics/js/MobileGS.js" type="text/javascript"></script>
+<link href="../statics/layer_mobile/need/layer.css" rel="stylesheet" type="text/css" />
+<script src="../statics/layer_mobile/layer.js" type="text/javascript"></script>
+<style>
+body{
+	font-family: "Microsoft YaHei"
+}
+
+.d_gs_main .list_ul .list_bg {
+    background-color: #f8f8f8;
+}
+</style>
+</head>
+<body>
+	<div class="d_gs_box">
+		<div class="d_gs_title"><blockquote>行政处罚事项目录</blockquote></div>
+		<div class="d_gs_main">
+			<div class="list_ul">
+				<table id="List" width="100%" border="0" cellspacing="0" cellpadding="0" class="List SXCatalog table">
+					<tr>
+						<th style="width: 5%">序号</th>
+						<th style="width: 35%">事项名称</th>
+						<th style="width: 20%">行政决定部门</th>
+						<th style="width: 12%">行政决定类别</th>
+						<th style="width: 18%">行政相对人类别</th>
+						<th style="width: 10%">设定依据</th>
+					</tr>
+					<tbody id="contents"></tbody>
+				</table>
+			</div>
+		</div>
+		<div id="Pagination"></div>
+	</div>
+	
+	<div class="footer container-fluid" style="background: #000;text-align: center;color: #fff;">©版权所有：深圳市市场和质量监督管理委员会<br/> 粤ICP备15042059号-1<br/>网站标识码：4403000004</div>
+	<script type="text/javascript">
+		$(function() {
+			getSXML_CF_List(1, "init", "行政处罚");
+		});
+	</script>
+</body>
+</html>

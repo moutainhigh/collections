@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../../static/script/jazz.js" type="text/javascript"></script>
+<script>
+	function treeOnCheck(event, treeId, treeNode) {
+	    
+	    if(treeNode.checked == true){
+	    	$('div[name="zyJsId"]').comboxfield('addOption', treeNode.name, treeNode.id);
+	    }else{
+	    	$('div[name="zyJsId"]').comboxfield('removeOption', treeNode.id);
+	    	$('div[name="zyJsId"]').comboxfield('reset');
+	    }
+	};
+	
+	$(function() {
+		var userId = jazz.util.getParameter("userId");
+		if(userId == null){
+			$('div[name="jsId"]').comboxtreefield('option','dataurl',rootPath+'/auth/roleList.do');
+			$('div[name="jsId"]').comboxtreefield('reload');
+		}else{
+			$('div[name="userPwd"]').value="";
+			$('div[name="formpanel"]').formpanel('option', 'dataurl',rootPath+
+				'/auth/userDetail.do?userId='+userId);
+			$('div[name="formpanel"]').formpanel('reload');
+			//var	params = {"userId":userId};
+
+			$('div[name="jsId"]').comboxtreefield('option','dataurl',rootPath+'/auth/roleList.do?userId='+userId);
+			$('div[name="jsId"]').comboxtreefield('reload');
+			$('div[name="zyJsId"]').comboxfield('option','dataurl',rootPath+'/auth/zyRoleList.do?userId='+userId);
+			$('div[name="zyJsId"]').comboxfield('reload');
+		}
+	});
+
+	function save() {
+		var userId = $("div[name='userId']").hiddenfield('getValue');
+		var loginName = $("div[name='loginName']").textfield('getValue');
+		var userPwd = $("div[name='userPwd']").passwordfield('getValue');
+		var qrPwd = $("div[name='qrPwd']").passwordfield('getValue');
+		if(loginName == '' || userPwd == ''){
+			jazz.warn("有必填选项未填写，添加失败");
+		}else if (userId == '' && qrPwd == ''){
+			jazz.warn("有必填选项未填写，添加失败");
+		}else if (userId == '' && userPwd != qrPwd){
+			jazz.warn("两次密码输入不同，添加失败");
+		}else {
+			var params = {
+				url : rootPath+'/auth/saveUser.do',
+				components : [ 'formpanel' ],
+				callback : function(data, r, res) {
+					if (res.getAttr("back") == 'success') {
+						parent.queryUser();
+						//jazz.info("保存成功");
+						parent.win.window("close");
+					} else {
+						jazz.info("登录名已存在，保存失败");
+					}
+				}
+			};
+			$.DataAdapter.submit(params);
+		}
+	}
+	
+	function closeWin(){
+		parent.win.window("close");
+	}
+	
+	
+	/*function initData(res){
+		var dmbId = res.getAttr("dmbId");
+		$('div[name="formpanel_edit"]').formpanel('option', 'dataurl',rootPath+
+		'/page/
+	editinit.do?dmbId='+dmbId);
+		$('div[name="formpanel_edit"]').formpanel('reload');
+	}*/
+</script>
+</head>
+<body>
+
+	<div id="formpanel" name="formpanel" vtype="formpanel" titledisplay="false" showborder="false"
+		width="100%" layout="table"
+		layoutconfig="{cols:2, columnwidth: ['50%','*']}" height="450"
+		dataurl="">
+
+		<div name='userId' vtype="hiddenfield" label="用户ID" labelAlign="right"
+			width="350"></div>
+		<div name='loginName' vtype="textfield" label="登录名" labelAlign="right"
+			rule="must" width="350"></div>
+		<div name='userName' vtype="textfield" label="姓名" labelAlign="right"
+			width="350"></div>
+		<div name='sex' vtype="comboxfield" label="性别" labelAlign="right"
+			width="350" dataurl='[{"text":"男","value":"1"},{"text":"女","value":"2"}]'></div>
+		<div name='telphone' vtype="textfield" label="电话" labelAlign="right"
+			width="350"></div>
+		<div name='email' vtype="textfield" label="邮箱" labelAlign="right"
+			width="350"></div>
+		<div name='mobile' vtype="textfield" label="移动电话" labelAlign="right"
+			width="350"></div>
+		
+		<div name='address' vtype="textfield" label="住址" labelAlign="right"
+			width="350"></div>
+		<div name='zipCode' vtype="textfield" label="邮政编码" labelAlign="right"
+			width="350"></div>
+		<div name='countryCity' vtype="textfield" label="国别" labelAlign="right"
+			width="350"></div>
+		<div name='idCard' vtype="textfield" label="身份证号" labelAlign="right"
+			width="350"></div>
+		<div name='jsId' vtype="comboxtreefield" label="角色" labelAlign="right"
+			multiple="true" width="350" dataurl="" oncheck="treeOnCheck"></div>
+		<div name='zyJsId' vtype="comboxfield" label="主要角色" labelAlign="right"
+			multiple="false" width="350"></div>
+		<div name='userPwd' vtype="passwordfield" label="密码" labelAlign="right"
+			rule="must" width="350"></div>
+		<div name='qrPwd' vtype="passwordfield" label="确认密码" labelAlign="right"
+			width="350"></div>
+
+		<div id="toolbar" name="toolbar" vtype="toolbar" location="bottom"
+			align="center">
+			<div id="btn1" name="btn1" vtype="button" text="保存"
+				icon="../../../style/default/images/save.png" click="save()"></div>
+			<div id="btn2" name="btn2" vtype="button" text="返回"
+				icon="../../../style/default/images/fh.png" click="closeWin()"></div>
+		</div>
+	</div>
+</body>
+</html><SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

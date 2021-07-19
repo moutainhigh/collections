@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<title>综合查询日志详情</title>
+<link rel="stylesheet" href="../../static/css/common.css">
+<link href="../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../static/script/JAZZ-UI/lib/themes/gongshang/jazz-all.css" rel="stylesheet" type="text/css" />	
+<link href="../../static/css/admin/global.css" rel="stylesheet" type="text/css" />	
+<style>
+/*文字超出不换行*/
+table td{word-break: keep-all;white-space:nowrap;}
+.jazz-form-text-label{
+	color: #000;
+	font-weight: normal;
+}
+
+textarea{background: transparent !important;}
+
+</style>
+</head>
+
+<body style="overflow-x:hidden">
+<div  name="queryLogDetialPanel" vtype="formpanel" id="queryLogDetialPanel" displayrows="1"
+			titleDisplay="false" width="100%"  showborder=false  layout='table' style="text-align: left;"
+			layoutconfig="{cols:2, columnwidth: ['50%','50%']}"  height="100%"
+			labelStyleClass="labelstyle" title="sys_query_column_config ">
+			
+			<div name="operationSql" vtype="textareafield" label="执行sql"  colspan="2" rowspan="1"
+				width="500"  height="300%"	 tooltip="" rule="" ></div><br>
+			 
+		 	<div name="operationSqlParatemer"  vtype="textareafield" label="查询条件"	colspan="2" rowspan="1"
+		 	 width="500" height="100%" tooltip="" rule=""></div><br>
+		 	 
+		</div>
+	<script type="text/javascript" src="../../static/js/config.js"></script> 
+		<script type="text/javascript" src="../../static/lib/require.js"  data-main="other/LogQueryDetail.js"></script>
+
+</body>
+</html>

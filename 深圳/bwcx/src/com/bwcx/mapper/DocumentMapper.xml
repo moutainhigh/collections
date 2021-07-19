@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwcx.dao.DocumentDao">
+
+	<select id=getDocumentEntitys resultType="DocumentEntity">
+		SELECT * FROM
+		(
+		SELECT A.*, ROWNUM RN
+		FROM (SELECT * FROM (
+		select * from document t where 1=1
+		<if test="entset != null and entset!='' ">
+			and t.channelid like '${channelid}%' 
+		</if>
+		<if test="stime != null and type ==1 ">and to_char( t.lastdate,'yyyy-mm-dd') >= '${stime}'</if>
+		)
+		) A
+		WHERE ROWNUM &lt;= ${pageEnd}
+		)
+		WHERE RN > ${pageBegin}  <!-- rn最好是> 否则第一页中0和1是一样的 -->
+	</select>
+
+
+	<select id="getDocumentDetail">
+		select * from document
+	</select>
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from document t where t.docid = #{docid}
+		</selectKey>
+		<if test="count > 0">
+			update document 
+			<trim prefix="set" suffixOverrides=",">
+				<if test="docid != null">docid = #{docid, 	jdbcType=VARCHAR},</if>
+				<if test="title != null">title = #{title, 	jdbcType=VARCHAR},</if>
+				<if test="contentmeta != null">contentmeta = #{contentmeta, 	jdbcType=VARCHAR},</if>
+				<if test="editor != null">editor = #{editor, 	jdbcType=VARCHAR},</if>
+				<if test="contents != null">contents = #{contents, 	jdbcType=VARCHAR},</if>
+				<if test="savepath != null">savepath = #{savepath, 	jdbcType=VARCHAR},</if>
+				<if test="filename != null">filename = #{filename, 	jdbcType=VARCHAR},</if>
+				<if test="thumburl != null">thumburl = #{thumburl, 	jdbcType=VARCHAR},</if>
+				<if test="attachfilesavepath != null">attachfilesavepath = #{attachfilesavepath, 	jdbcType=VARCHAR},</if>
+				<if test="channelid != null">channelid = #{channelid, 	jdbcType=VARCHAR},</if>
+			</trim>
+			where docid = #{docid}
+		</if>
+		<if test="count == 0">
+			insert into document (
+			docid,
+			title,
+			contentmeta,
+			editor,
+			contents,
+			savepath,
+			filename,
+			thumburl,
+			attachfilesavepath,
+			channelid
+			) values(
+			#{docid,jdbcType=VARCHAR},
+			#{title,jdbcType=VARCHAR},
+			#{contentmeta,jdbcType=VARCHAR},
+			#{editor,jdbcType=VARCHAR},
+			#{contents,jdbcType=VARCHAR},
+			#{savepath,jdbcType=VARCHAR},
+			#{filename,jdbcType=VARCHAR},
+			#{thumburl,jdbcType=VARCHAR},
+			#{attachfilesavepath,jdbcType=VARCHAR},
+			#{channelid,jdbcType=VARCHAR}
+			)
+		</if>
+	</insert>
+</mapper>

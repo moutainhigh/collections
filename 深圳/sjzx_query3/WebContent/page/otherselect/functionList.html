@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+
+<title>功能列表</title>
+<link rel="stylesheet" href="../../static/css/common.css">
+<link href="../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />	
+</head>
+<body>
+<script>
+
+</script>
+<body style="overflow-x:hidden">
+<!-- 构建页面==开始 -->
+
+<!-- 查询条件 -->
+<div name="menuTreeConfigPanel" id="menuTreeConfigPanel"
+	vtype="formpanel" width="100%" layout="table"  style="text-align: center;"
+	layoutconfig="{cols:2, columnwidth: ['50%','50%']}" 
+	labelstyleclass="labelstyle" title="功能包基本配置" 
+	titledisplay="true" showborder="false" >
+	<div name="pname" vtype="textfield" label="上级功能菜单" labelwidth="150" labelalign="right" width="400" tooltip="" rule=""></div>
+ 	<div name="menu2" vtype="textfield" label="上级功能菜单" labelwidth="150" labelalign="right" width="400" tooltip="" rule=""></div>
+	
+	<div name="nodeName" vtype="textfield" label="功能包名称" labelwidth="150" labelalign="right" width="400" tooltip="" rule=""></div>
+	<div name="levelPath" vtype="textfield" label="功能包根路径" labelwidth="150" labelalign="right" width="400" tooltip="" rule=""></div>
+
+     <div id="toolbar" name="toolbar" vtype="toolbar" location="bottom"
+				align="center" width="100%">
+				<div name="save_button" id="save_button" vtype="button" text="查询"
+					icon="../query/queryssuo.png" onclick="saveQueryCondition()" ></div>
+				<div name="reset_button" id="reset_button" vtype="button" text="重置"></div>
+				<!-- <div name="back_button" id="back_button" vtype="button" text="返回"
+					icon="../query/queryssuo.png" click="goBack()"></div> -->
+			</div>
+</div>
+
+
+<!-- 数据展现 -->
+		<div name="functionConfigGrid" id="functionConfigGrid" vtype="gridpanel" titleDisplay="true" title="功能列表" labelStyleClass="labelstyle" lineno="true" isshowselecthelper="false"
+		  showborder=true width="100%" >
+		<div name="add_function_button" id="add_function_button" vtype='button' text='新增功能信息' ></div>
+	
+			<div name="functionConfigGrid_column" vtype="gridcolumn">
+				<div>
+					<!-- <div name='functionId' text="功能ID" textalign="center" width='160'></div>
+					<div name='treeId' text="层级配置ID" textalign="center" width='120'></div> -->
+					<div name='functionName' text="功能名称" textalign="center" width='220'></div>
+					<div name='functionDesc' text="功能描述" textalign="center" width='180'></div>
+					<div name='treePath' text="文件路径" textalign="center" width='180'></div>
+					<!-- <div name='masterPath' text="母版路径" textalign="center" width='130'></div> -->
+					<div name='pagefilePath' text="页面路径" textalign="center" width='320'></div>
+					<!-- <div name='pagefileName' text="生成文件名" textalign="center" width='120'></div>
+					<div name='fileSuffix' text="文件后缀" textalign="center" width='70'></div> -->
+					<div name='opt' text="操作" textalign="center" width='190'></div>
+					
+				</div>
+			</div>
+			<div vtype="gridtable" name="grid_table"></div>
+			<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10"></div>
+			<div class="nodata" style="display: none;"></div>
+		</div>
+			
+</div>
+
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../static/js/config.js"></script>
+<script type="text/javascript" data-main="other/functionListConfig.js" src="../../static/lib/require.js"></script>
+</body>
+</html>

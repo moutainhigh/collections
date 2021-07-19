@@ -1,0 +1,41 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:task="http://www.springframework.org/schema/task"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd    
+    http://www.springframework.org/schema/tx    
+    http://www.springframework.org/schema/tx/spring-tx-4.0.xsd   
+    http://www.springframework.org/schema/context   
+    http://www.springframework.org/schema/context/spring-context-4.0.xsd   
+    http://www.springframework.org/schema/mvc   
+    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+
+    <context:annotation-config />
+    <!--扫描注解 -->
+    <context:component-scan base-package="com.gwssi" />
+    <!-- 支持异步方法执行 -->
+    <task:annotation-driven />
+ </beans>
+	<!-- <?xml version="1.0" encoding="UTF-8"?>
+	<PARAMS>
+	 <SRV_CODE>SM0007</SRV_CODE>
+	 <OLD_NAME>某某科</OLD_NAME>
+	 <OU>某某科,某某分局,某某局</OU>
+	 <NEW_NAME>某某科</NEW_NAME>
+	 </PARAMS>
+	
+	
+	
+	<?xml version="1.0" encoding="UTF-8"?>
+	<PARAMS>
+	<SRV_CODE>SM0007</SRV_CODE>
+	<OLD_NAME>知识产权处</OLD_NAME>
+	<OU>知识产权保护处,内设机构,深圳市市场监督管理局</OU>
+	<NEW_NAME>知识产权保护处</NEW_NAME>
+	</PARAMS> -->

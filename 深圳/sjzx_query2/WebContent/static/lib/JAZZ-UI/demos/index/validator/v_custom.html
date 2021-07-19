@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+</head>
+<script>
+	function formTest(){
+	    var result = {};
+	    if($('#n1').textfield("getValue")=="a"){     //你可以自定义校验逻辑     
+	        result["state"]=false;               //state值必须为false,否则不显示提示信息     
+	        result["msg"]="自定义函数错误信息提示";     //msg为错误的提示信息     
+	    }
+	    return result;       //如果想显示错误提示信息被调用的函数最后必须返回对象     
+	}
+</script>
+<body>
+<br>描述信息: 自己定义校验函数。例如：rule="customFunction;formTest()"
+<br> 第一个参数为customFunction是固定的，第二个参数为自定义的函数，中间使用;分割
+<br>如果想显示错误提示信息，被调用的函数最后必须返回obj。obj中的内容如下：
+<br>{
+<br>"state":false,           //-------state值必须为false,否则不显示提示信息
+<br>"msg":"自定义函数错误信息提示"  //-------msg的值为错误的提示信息
+<br>}
+<br><div id='n1' name='n1' vtype="textfield" width="300" rule="customFunction;formTest()"></div>
+<script>
+//调整父页面iframe高度
+try{
+    parent.setWinHeight(240);           
+}catch(e){
+    jazz.log(e);
+}
+</script> 
+</body>
+</html>

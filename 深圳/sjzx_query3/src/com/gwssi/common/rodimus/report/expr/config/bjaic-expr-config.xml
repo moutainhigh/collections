@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<expression-config>
+
+		<!-- 配置名称，创建实例的时候需要通过名字引用。可以有多个配置。 -->
+		<property k="config.name">bjaic</property>
+		
+		<!-- 引擎实现类，目前有默认引擎和久其引擎，久其引擎支持更丰富表达式 -->
+		<property k="engine">com.gwssi.expression.component.engine.Engine</property>	
+		<property k="engine.traceliteralinterpreter" v="com.gwssi.expression.component.interpreter.TraceLiteralInterpreter" />		
+		<!-- 函数名忽略大小写 -->
+		<property k="use.bigdecimal">false</property>
+		<property k="function.ignoreCase">true</property>			
+		<property k="trace.namingobject">false</property>
+		<property k="trace.methodInvocation">false</property>
+		<property k="trace.operator">false</property>
+		<property k="trace.bracket">false</property>
+		
+	    <!--  <include file="classpath:com/gwssi/expression/config/operator-config.xml" /> -->
+	   	<include file="classpath:com/gwssi/common/rodimus/report/expr/config/operator-config.xml" />
+   	 	<include file="classpath:com/gwssi/common/rodimus/report/expr/config/fastfunction-config.xml" />
+	    
+		<!-- 函数定义 -->
+		<functions>
+		 	<function name="Dot" 
+		 		class="com.gwssi.common.rodimus.report.expr.func.Dot" />
+		 	<function name="GetStatType" 
+		 		class="com.gwssi.common.rodimus.report.expr.func.GetStatType" />	
+		 	<function name="GetVar" 
+		 		class="com.gwssi.common.rodimus.report.expr.func.GetVar" />		
+		 	<function name="StrJoin" 
+		 		class="com.gwssi.common.rodimus.report.expr.func.StrJoin" />	
+		 		
+		</functions>
+		<infix-operator>
+        	<operator name="." function="dot"/>
+    	</infix-operator>
+</expression-config>

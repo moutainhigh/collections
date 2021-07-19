@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+<script>
+
+
+	function reloadLayout(a){
+		if(a==1){
+			$('#formpanel').formpanel('reloadLayout', {
+				columnwidth: ['*'] 
+			});
+		}else if(a==2){
+			$('#formpanel').formpanel('reloadLayout', {
+				columnwidth: ['*', '50%'] 
+			});
+		}else if(a==3){
+			$('#formpanel').formpanel('reloadLayout', {
+				columnwidth: ['*', '33%', '33%'] 
+			});
+		}
+	}
+	
+	</script>
+</head>
+<body>
+
+
+   	<div id="formpanel" name="formpanel" vtype="formpanel" titledisplay="true" width="700" layout="table" 
+	    layoutconfig="{cols:2, columnwidth: ['350px','*']}"
+		height="360" title="人员信息"  >
+		<div name='textfield_name' vtype="textfield" label="姓名" msg="请输入真实姓名"
+			labelalign="right" rule="must" width="300" editable="true"></div>
+			
+        <div name='number_name' vtype="numberfield" label="年龄"
+			labelalign="right" width="300" ></div>
+
+		<div name='wdatepicker_name' vtype="datefield"
+			label="生日" labelalign="right" width="300" rule="must"
+			isshowweek="true"></div>
+
+		<div name="checkboxfield_name" vtype="checkboxfield"
+			label="爱好" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '1',text: '旅游'},{value: '2',text: '足球'},{value: '3',text: '篮球'}]"></div>
+
+		<div name="radiofield_name" vtype="radiofield"
+			label="性别" labelalign="right" width="300"
+			dataurl="[{checked: true,value: '1',text: '男'},{value: '2',text: '女'}]"></div>
+
+		<!-- <div name='password_name' vtype="passwordfield" label="密码"
+			labelalign="right" width="300"></div> -->
+
+		<div name='textarea_name' colspan="2" rowspan="1"
+			vtype="textareafield" label="简历" labelalign="right" width="300"></div>
+
+		<div name='combox_name' 
+			vtype="comboxfield" label="现居地" labelalign="right" width="300" dataurl="combox.json"></div>
+			
+		<div name='combox_name2' 
+            vtype="comboxfield" multiple="ture" label="目标城市" labelalign="right" width="300" dataurl="combox.json"></div>
+			
+		<div id='combox_tree' name='comboxtree_name' vtype="comboxtreefield" 
+			label="下拉树" labelalign="right" width="300"   dataurl="comboxtree.json" prefix="开始" suffix="结个"></div>
+		<div name="id" vtype="hiddenfield" value="2333"></div>	
+		
+		<div id="toolbar" name="toolbar" vtype="toolbar" >
+			<div id="btn1" name="btn1" vtype="button" text="1列布局"   click="reloadLayout(1)"></div>
+			<div id="btn2" name="btn2" vtype="button" text="2列布局"   click="reloadLayout(2)"></div>
+	    	<div id="btn3" name="btn3" vtype="button" text="3列布局"   click="reloadLayout(3)"></div>
+	    </div>
+   </div>
+</body>
+
+</html>

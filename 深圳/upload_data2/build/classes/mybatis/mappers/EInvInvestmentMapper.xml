@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.EInvInvestmentMapper">
+
+	<!-- 非自然人出资信息 -->
+	<insert id="insertEInvInvestment">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from E_INV_INVESTMENT where invid = #{invid}
+		</selectKey>
+		<if test="count > 0">
+			update E_INV_INVESTMENT   
+			<trim prefix="set" suffixOverrides=",">
+				<if test="pripid != null ">pripid =  #{pripid, 		jdbcType=VARCHAR}, </if>
+				<if test="inv != null ">inv =  #{inv, 			jdbcType=VARCHAR}, </if>
+				<if test="invtype != null ">invtype =  #{invtype, 		jdbcType=VARCHAR}, </if>
+				<if test="invtypeCn != null ">invtype_cn =  #{invtypeCn, 	jdbcType=VARCHAR}, </if>
+				<if test="blictype != null ">blictype =  #{blictype, 	jdbcType=VARCHAR}, </if>
+				<if test="blictypeCn != null ">blictype_cn =  #{blictypeCn, 	jdbcType=VARCHAR}, </if>
+				<if test="blicno != null ">blicno =  #{blicno, 		jdbcType=VARCHAR}, </if>
+				<if test="subconam != null ">subconam =  to_number(#{subconam,	jdbcType=NUMERIC}),</if>
+				<if test="subconamusd != null ">subconamusd =  to_number(#{subconamusd,	jdbcType=NUMERIC}),</if>
+				<if test="subconform != null ">subconform =  #{subconform, 	jdbcType=VARCHAR}, </if>
+				<if test="subconprop != null ">subconprop =  to_number(#{subconprop,	jdbcType=NUMERIC}),</if>
+				<if test="condate != null ">condate =  to_date(#{condate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="acconam != null ">acconam =  to_number(#{acconam,	jdbcType=NUMERIC}),</if>
+				<if test="acconamusd != null ">acconamusd =  to_number(#{acconamusd,	jdbcType=NUMERIC}),</if>
+				<if test="dom != null ">dom =  #{dom, 			jdbcType=VARCHAR}, </if>
+				<if test="currency != null ">currency =  #{currency, 	jdbcType=VARCHAR}, </if>
+				<if test="currencyCn != null ">currency_cn =  #{currencyCn, 	jdbcType=VARCHAR}, </if>
+				<if test="country != null ">country =  #{country, 		jdbcType=VARCHAR}, </if>
+				<if test="countryCn != null ">country_cn =  #{countryCn, 	jdbcType=VARCHAR}, </if>
+				<if test="exeaffsign != null ">exeaffsign =  #{exeaffsign, 	jdbcType=VARCHAR}, </if>
+				<if test="respform != null ">respform =  #{respform, 	jdbcType=VARCHAR}, </if>
+				<if test="respformCn != null">respform_cn = #{respformCn,	jdbcType=VARCHAR},</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE, </if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where invid = #{invid}
+		</if>
+		<if test="count == 0">
+			insert into E_INV_INVESTMENT
+			(
+				invid, 
+				pripid, 
+				inv, 
+				invtype, 
+				invtype_cn, 
+				blictype, 
+				blictype_cn, 
+				blicno, 
+				subconam, 
+				subconamusd, 
+				subconform, 
+				subconprop, 
+				condate, 
+				acconam, 
+				acconamusd, 
+				dom, 
+				currency, 
+				currency_cn, 
+				country, 
+				country_cn, 
+				exeaffsign, 
+				respform, 
+				respform_cn,
+				s_ext_fromnode,
+				s_ext_datatime
+				
+			)
+			values
+			(
+				#{invid,		jdbcType=VARCHAR}, 
+				#{pripid, 		jdbcType=VARCHAR}, 
+				#{inv, 			jdbcType=VARCHAR}, 
+				#{invtype, 		jdbcType=VARCHAR}, 
+				#{invtypeCn, 	jdbcType=VARCHAR}, 
+				#{blictype, 	jdbcType=VARCHAR}, 
+				#{blictypeCn, 	jdbcType=VARCHAR}, 
+				#{blicno, 		jdbcType=VARCHAR}, 
+				to_number(#{subconam,	jdbcType=NUMERIC}),
+				to_number(#{subconamusd,	jdbcType=NUMERIC}),
+				#{subconform, 	jdbcType=VARCHAR}, 
+				to_number(#{subconprop,	jdbcType=NUMERIC}),
+				to_date(#{condate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				to_number(#{acconam,	jdbcType=NUMERIC}),
+				to_number(#{acconamusd,	jdbcType=NUMERIC}),
+				#{dom, 			jdbcType=VARCHAR}, 
+				#{currency, 	jdbcType=VARCHAR}, 
+				#{currencyCn, 	jdbcType=VARCHAR}, 
+				#{country, 		jdbcType=VARCHAR}, 
+				#{countryCn, 	jdbcType=VARCHAR}, 
+				#{exeaffsign, 	jdbcType=VARCHAR}, 
+				#{respform, 	jdbcType=VARCHAR}, 
+				#{respformCn,	jdbcType=VARCHAR},
+				440300,
+				SYSDATE 
+			)
+		</if>
+	</insert>
+	
+</mapper>

@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="../../../external/jquery-ui/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+
+<script src="../../../external/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="../../../external/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+<script src="../../../lib/jazz-all.js" type="text/javascript"></script>
+</head>
+<script>
+var win = null;
+function _btn1(){
+	win = window.parent.jazz.widget({
+		vtype: 'window',
+		name: 'a3_win',
+    	title: '窗口_a3',
+    	titlealign: 'center',
+    	titledisplay: true,
+        width: 160,
+        height: 160,
+        modal: true,        
+        visible: true, 
+        afterclose: function(){
+			alert("window close");
+	    },        
+        //frameurl: "http://localhost:8080/JAZZ/demos/index/window/a2.html"
+        buttons:[{
+        	text: '关闭按钮',
+        	align: 'center',
+        	click: function(e){
+        		jazz.window.close(e);
+        	}
+        }]
+	});
+}
+
+</script>
+<body>
+	<input id="btn1" type="button" value="打开实例a3" onclick="_btn1()" />
+</body>
+</html><SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

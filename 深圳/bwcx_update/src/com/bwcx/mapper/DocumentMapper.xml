@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwcx.dao.UpdateDao">
+
+
+	<!-- https://bijian1013.iteye.com/blog/2427711 -->
+	<!-- https://blog.csdn.net/u012427355/article/details/80654806 -->
+	<insert id="insert" parameterType="java.lang.String">
+		${value}
+	</insert>
+
+
+	<update id="update" parameterType="java.lang.String">
+		${value}
+	</update>
+	
+	
+	<select id="select" resultType="map" parameterType="java.lang.String" >
+    ${value}
+  	</select>
+	
+	<select id="getPublishFromWcm" resultMap="returnEntityMap">
+		 SELECT  * FROM dc_dc.dc_document t where t.channelid = '1' and t.tranformecontents is null  order by t.pubdate desc
+	</select>
+	
+	
+	
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int"
+			order="BEFORE">
+			select count(1) from dc_dc.dc_document t where t.docid =
+			#{docid,jdbcType=VARCHAR}
+		</selectKey>
+		<if test="count > 0">
+			update dc_dc.dc_document
+			<trim prefix="set" suffixOverrides=",">
+				<if test="docid != null">docid = #{docid, jdbcType=VARCHAR},</if>
+				<if test="title != null">title = #{title, jdbcType=VARCHAR},</if>
+				<if test="contentmeta != null">contentmeta = #{contentmeta,jdbcType=VARCHAR},</if>
+				<if test="editor != null">editor = #{editor, jdbcType=VARCHAR},</if>
+				<if test="contents != null">contents = #{contents, jdbcType=CLOB},</if>
+				<if test="tranformeContents != null">tranformeContents = #{tranformeContents, jdbcType=CLOB},</if>
+				<if test="contentToEd != null">contentToEd = #{contentToEd, jdbcType=CLOB},</if>
+				<if test="contentsPlainText != null">contentsPlainText = #{contentsPlainText, jdbcType=CLOB},</if>
+				<if test="savepath != null">savepath = #{savepath, jdbcType=VARCHAR},</if>
+				<if test="filename != null">filename = #{filename, jdbcType=VARCHAR},</if>
+				<!-- <if test="thumburl != null">thumburl = #{thumburl, jdbcType=VARCHAR},</if> -->
+				<if test="isHaveThumb != null">isHaveThumb = #{isHaveThumb, jdbcType=VARCHAR},</if>
+				<if test="attachfilesavepath != null">attachfilesavepath = #{attachfilesavepath,
+					jdbcType=VARCHAR},</if>
+				<if test="channelid != null">channelid = #{channelid, jdbcType=VARCHAR},</if>
+				<if test="isPubOrSave != null">isPubOrSave = #{isPubOrSave, jdbcType=VARCHAR},</if>
+			</trim>
+			, edittime = sysdate
+			where docid = #{docid,jdbcType=VARCHAR}
+		</if>
+		<if test="count == 0">
+			insert into dc_dc.dc_document (
+			docid,
+			title,
+			contentmeta,
+			editor,
+			contents,
+			tranformeContents,
+			contentsPlainText,
+			contentToEd,
+			savepath,
+			filename,
+			thumburl,
+			attachfilesavepath,
+			channelid,
+			isHaveThumb,
+			isPubOrSave,
+			edittime
+			) values(
+			#{docid,jdbcType=VARCHAR},
+			#{title,jdbcType=VARCHAR},
+			#{contentmeta,jdbcType=VARCHAR},
+			#{editor,jdbcType=VARCHAR},
+			#{contents,jdbcType=CLOB,},
+			#{tranformeContents,jdbcType=CLOB,},
+			#{contentsPlainText,jdbcType=CLOB,},
+			#{contentToEd,jdbcType=CLOB,},
+			#{savepath,jdbcType=VARCHAR},
+			#{filename,jdbcType=VARCHAR},
+			#{thumburl,jdbcType=VARCHAR},
+			#{attachfilesavepath,jdbcType=VARCHAR},
+			#{channelid,jdbcType=VARCHAR},
+			#{isHaveThumb,jdbcType=VARCHAR},
+			#{isPubOrSave,jdbcType=VARCHAR},
+			#{edittime,jdbcType=VARCHAR}
+			)
+		</if>
+	</insert>
+	
+	
+	
+	
+	<resultMap id="returnEntityMap" type="documentEntity">
+		<id property="docid" column="docid" />
+		<result property="title" column="title" jdbcType="VARCHAR" />
+		<result property="contentmeta" column="contentmeta"
+			jdbcType="VARCHAR" />
+		<result property="editor" column="editor" jdbcType="VARCHAR" />
+		<result property="title" column="title" jdbcType="VARCHAR" />
+		<result property="savepath" column="savepath"
+			jdbcType="VARCHAR" />
+		<result property="filename" column="filename"
+			jdbcType="VARCHAR" />
+		<result property="thumburl" column="thumburl"
+			jdbcType="VARCHAR" />
+		<result property="attachfilesavepath"
+			column="attachfilesavepath" jdbcType="VARCHAR" />
+		<result property="channelid" column="channelid"
+			jdbcType="VARCHAR" />
+		<result property="pubdate" column="pubdate" jdbcType="VARCHAR" />
+		<result property="isHaveThumb" column="isHaveThumb"
+			jdbcType="VARCHAR" />
+		<result property="contents" column="contents" jdbcType="CLOB" />
+		<result property="contentsPlainText" column="contentsPlainText"
+			jdbcType="CLOB" />
+		<result property="contentToEd" column="contentToEd"
+			jdbcType="CLOB" />
+		<result property="tranformeContents" column="tranformeContents"
+			jdbcType="CLOB" />
+		<result property="isPubOrSave" column="isPubOrSave"
+			jdbcType="VARCHAR" />
+		<result property="isFile" column="isFile" jdbcType="VARCHAR" />
+	</resultMap>
+</mapper>

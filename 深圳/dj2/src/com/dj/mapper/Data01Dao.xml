@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.dao.Data01Dao">
+
+	<select id="getEntInfoByNameAndCerno" resultType="Data01">
+		select * from V_DJ_ENT_INFO1 t where 1 = 1
+		<if test="name != null and name!='' ">
+			and instr(t.lerep,#{name,jdbcType=VARCHAR},1,1) &lt;&gt;0
+		</if>
+		<if test="cerno != null and cerno !='' ">and t.cerno = #{cerno, jdbcType=VARCHAR}
+		</if>
+	</select>
+
+</mapper>

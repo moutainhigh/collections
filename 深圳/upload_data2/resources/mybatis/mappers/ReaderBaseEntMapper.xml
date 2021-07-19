@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.BaseEntByTimeMapper">
+
+	<!-- 根据时间戳获取基表信息 -->
+	<select id="queryEntInfoByTime" resultType="BaseInfo">
+		select t.apprdate, t.entname, t.regno, t.unifsocicrediden
+ 	 	from dc_dc.dc_ra_mer_base t
+ 		where exists (select 1 from dc_dc.dc_ra_mer_mvin d
+        				 where t.id = d.main_tb_id
+          				 and d.LASTDATE >= to_date(#{time, jdbcType=TIMESTAMP}, 'YYYY-MM-DD HH24:MI:SS'))
+       <!-- test -->
+       <!--  select t.apprdate, t.entname, t.regno, t.unifsocicrediden
+ 	 	from dc_dc.dc_ra_mer_base t
+ 		where exists (select 1 from dc_dc.dc_ra_mer_mvin d
+        				 where t.id = d.main_tb_id 
+        				 and d.LASTDATE >= to_date('2017-05-01 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+                   		 and d.LASTDATE &lt;= to_date('2017-05-15 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+          			) -->
+        <!-- 时间段小于等于 2017-05-01的数据 -->
+    <!--     select t.apprdate, t.entname, t.regno, t.unifsocicrediden
+ 	 	from dc_dc.dc_ra_mer_base t
+ 		where exists (select 1 from dc_dc.dc_ra_mer_mvin d
+        				 where t.id = d.main_tb_id 
+                   		 and d.LASTDATE >= to_date('2017-10-20 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+                   		 and d.LASTDATE &lt; to_date('2017-10-20 00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+          			)
+          			 -->
+	</select>
+	
+	
+	
+	
+	
+	
+	
+</mapper>

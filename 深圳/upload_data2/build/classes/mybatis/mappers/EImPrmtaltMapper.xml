@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.EImPrmtaltMapper">
+
+	<!-- 企业公示_许可变更信息 -->
+	<insert id="insertEImPrmtalt">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from E_IM_PRMTALT where licaltid = #{licaltid}
+		</selectKey>
+		<if test="count > 0">
+			update E_IM_PRMTALT   
+			<trim prefix="set" suffixOverrides=",">
+				<if test="licid != null ">licid =  #{licid,	jdbcType=VARCHAR},  </if>
+				<if test="alt != null ">alt =  #{alt, 		jdbcType=VARCHAR}, </if>
+				<if test="altbe != null ">altbe =  #{altbe, 	jdbcType=VARCHAR}, </if>
+				<if test="altaf != null ">altaf =  #{altaf, 	jdbcType=VARCHAR}, </if>
+				<if test="altdate != null">altdate = to_date(#{altdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where licaltid = #{licaltid} 
+		</if>
+		<if test="count == 0">
+			insert into E_IM_PRMTALT
+			(
+				licaltid, 
+				licid, 
+				alt, 
+				altbe, 
+				altaf, 
+				altdate,
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{licaltid,	jdbcType=VARCHAR}, 
+				#{licid,	jdbcType=VARCHAR},  
+				#{alt, 		jdbcType=VARCHAR}, 
+				#{altbe, 	jdbcType=VARCHAR}, 
+				#{altaf, 	jdbcType=VARCHAR}, 
+				to_date(#{altdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

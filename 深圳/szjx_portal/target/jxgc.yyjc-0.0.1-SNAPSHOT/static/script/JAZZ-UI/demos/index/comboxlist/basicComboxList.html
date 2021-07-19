@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jazz-ui.js" type="text/javascript"></script> 
+</head>
+<body>
+  
+<script type="text/javascript">
+$(function(){
+	$("#listId1").comboxlistfield('option', 
+		{
+			"click": function(e, ui){alert("label:"+ui.label+"   值:"+ui.value+"！  ");},
+			"dblclick":function(e,ui){alert("label:"+ui.label+"   值:"+ui.value+"！  ");},
+			"change":function(e,ui){
+				if(ui.change){
+					alert("前任label:"+ui.exlabel+"   前任值:"+ui.exvalue+"！    现任label:"+ui.newlabel+" 现任值:"+ui.newvalue);
+				}
+				if(ui.select){
+					alert("你新选择了  label:"+ui.newlabel+"   值:"+ui.newvalue+"！");
+				}
+				if(ui.cancel){
+					alert("label:"+ui.exlabel+"   值:"+ui.exvalue+"  被取消了！    ");
+				}
+				
+			}
+		}
+	); 
+});
+
+
+function customLi(label,value){
+ 	var optHtml = '<li value="' + value + '"  label="'+label+'" class="jazz-boxlist-item jazz-boxlist-li"><img src="box1.png"/>' + label + '</li>';
+ 	return optHtml;
+}
+    
+
+
+</script>
+<div name='list1' id="listId1" vtype="comboxlistfield" scrollheight="80" multiple=true
+	dataurl="http://localhost:8080/JAZZ/demos/index/comboxlist/data2.json"  
+	 >
+<!-- data="{'data':[{label:'杭州',value:'8'},{label:'杭州2',value:'9'}]}" -->
+</div>
+</body>
+</html><SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

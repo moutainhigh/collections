@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript" src="../otherselect/fusioncharts/js/fusioncharts.js"></script>
+<script type="text/javascript" src="../otherselect/fusioncharts/js/themes/fusioncharts.theme.fint.js"></script>
+<script src="../../static/js/jquery-1.8.3.js"></script>
+<title>管辖区域</title>
+<style>
+</style>
+</head>
+<body>
+	<!-- http://www.fusioncharts.com/dev/chart-guide/pie-and-doughnut-charts/creating-pie-and-doughnut-charts.html -->
+	<!-- http://www.cnblogs.com/jiagoushi/archive/2013/02/04/2892227.html -->
+	<!-- http://www.itnose.net/news/128/6200401-->
+	<!--http://www.cnblogs.com/chenssy/p/3293451.html-->
+	<!--http://blog.sina.com.cn/s/blog_573a052b0100ftfb.html -->
+	<div id="chartPieParent" style="float: left;"></div>
+	<div id="chartPieChild" style="display: none; float: left;"></div>
+	<div id="annReport" style="display: none"></div>
+	<script>
+		var chartParent = new FusionCharts({
+			type : 'pie2d',
+			renderAt : 'chartPieParent',
+			width : '450',
+			height : '300',
+			dataFormat : 'json',
+			dataSource : {
+				"chart" : {
+					"caption" : "年报统计",
+					"subCaption" : "年度年报统计",
+					"numberPrefix" : "总数",
+					"showPercentValues" : "0",
+					"showPercentInTooltip" : "0",
+					"decimals" : "1",
+					"startingAngle" : "10",
+					"theme" : "fint",
+					"formatNumberScale" : "0",
+					"animateClockwise" : "1",
+					"showLegend" : "1",
+				},
+				"data" : [ {
+					"label" : "企业",
+					"value" : "285040",
+					"link" : "j-clickShow-企业"
+				}, {
+					"label" : "个体",
+					"value" : "49100",
+					"link" : "j-clickShow-个体"
+				} ]
+			}
+		}).render();
+
+		
+		
+		//显示内外资
+		var chartPieChild = new FusionCharts({
+			type : 'pie2d',
+			renderAt : 'chartPieChild',
+			width : '450',
+			height : '300',
+			dataFormat : 'json',
+			dataSource : {
+				"chart" : {
+					"caption" : "内外资年报统计",
+					"subCaption" : "年度内外资年报统计",
+					"numberPrefix" : "总数",
+					"showPercentValues" : "0",
+					"showPercentInTooltip" : "0",
+					"decimals" : "1",
+					"startingAngle" : "10",
+					"theme" : "fint",
+					"formatNumberScale" : "0",
+					"animateClockwise" : "1",
+					"showLegend" : "1",
+				},
+				"data" : [ {
+					"label" : "内资",
+					"value" : "98000",
+					"link" : "j-clickShowZiBenType-内资"
+				}, {
+					"label" : "外资",
+					"value" : "3550",
+					"link" : "j-clickShowZiBenType-外资"
+				} ]
+			}
+		}).render();
+
+		function clickShow(value) {
+			if (value == "企业") {
+				$("#chartPieChild").css("display", "block");
+				$("#annReport").css("display", "none");
+			} else {
+				$("#annReport").css("display", "block");
+				$("#chartPieChild").css("display", "none");
+				var revenueChart = new FusionCharts({
+					"type" : "column2d",
+					"renderAt" : "annReport",
+					"width" : "500",
+					"height" : "300",
+					"dataFormat" : "json",
+					"dataSource" : {
+						"chart" : {
+							"caption" : "个体",
+							"subCaption" : "个体年报统计表",
+							"xAxisName" : "福田局个体年报",
+							"yAxisName" : "",
+							"theme" : "fint",
+							"formatNumberScale" : "0",
+							"decimals" : "1",
+						},
+						"data" : [ {
+							"label" : "应年报户数",
+							"value" : "420000"
+						}, {
+							"label" : "已年报户数",
+							"value" : "470000"
+						},
+						{
+							"label" : "年报率",
+							"value" : "810000"
+						}
+						]
+					}
+				});
+				revenueChart.render();
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		function clickShowZiBenType(value){
+				alert(value)
+		}
+		
+		
+		
+		
+		
+	</script>
+
+	<script type="text/javascript">
+		var dataSetRegion = [];
+		var dataSetRegionChild = [];
+		$
+				.ajax({
+					url : "../../otherselect/getNbStatisticsInfo.do",
+					type : "post",
+					dataType : "json",
+					success : function(data) {
+						var data = data;
+						var html = '';
+						var num = 0;
+						var add = "<img  src='../../page/otherselect/images/add.png' width='16' height='16'/>";
+						for (var i = 0; i < data.length; i++) {
+							var str = data[i].codename;
+							if ((str.indexOf("局") > 0 && str.indexOf("科") < 0)
+									|| str.indexOf("其") != -1) {
+								dataSetRegion.push(data[i]);
+							} else {
+								dataSetRegionChild.push(data[i])
+							}
+						}
+						console.log(dataSetRegion)
+						console.log(dataSetRegionChild)
+					}
+				});
+	</script>
+</body>
+</html>

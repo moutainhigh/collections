@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>商事主体登记及备案信息查询</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<!-- <meta name="viewport" content="width=device-width,initial-scale=0.5,maximum-scale=1.0,user-scalable=no"/> -->
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=0" />
+<link rel="stylesheet" href="../statics/bt/css/bootstrap.min.css">
+<script type="text/javascript" src="../statics/bt/js/jquery.min.js"></script>
+<script type="text/javascript" src="../statics/js/util.js"></script>
+<script type="text/javascript" src="../statics/js/base64.js"></script>
+<script type="text/javascript" src="../statics/bt/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../statics/css/mobile.css">
+<style>
+html,body{overflow:hidden;overflow-y:auto;}
+html {
+    font-size: 62.5%;
+}
+body {
+    font-family: "Microsoft YaHei", "SimSun";
+    font-size: 1.4rem;
+}
+
+td.title {
+	width: 1rem;
+	white-space: nowrap;
+}
+
+.button-box a {
+	width: 1.4rem;
+	height: 3.5rem;
+	margin-top: 10px;
+	display: block;
+	cursor: pointer;
+	border: 0;
+	box-shadow: 1px 4px 5px #ccc;
+	color: #fff;
+}
+
+.button-box a.bt3 {
+	background: #634a1d url(../statics/images/icon4.png) no-repeat 15px
+		center;
+	line-height: 3.5rem;
+	padding-left: 1.5rem;
+	border-radius: 0.3rem;
+}
+
+.button-box a:hover {
+	color: white;
+	text-decoration: none;
+}
+
+.tc {
+	text-align: center;
+}
+
+.wh {
+	color: white;
+}
+
+#tab-content .ctitle {
+	background: #B0C4DE;
+}
+
+.fontRed {
+	font-size: 1.4rem;
+	font-weight: bold;
+	color: red;
+}
+
+/*列表*/
+.listTitle{
+   background: #C1C1FF;
+    text-align: left;
+}
+
+
+#list table tr.listTitle td{
+    background: #C1C1FF;
+    text-align: left;
+}
+#list table td{background: #E3E9F7;text-align: left;}
+#list table td a{color:blue;}
+#list table td.tdcenter{text-align: center;}
+
+
+td.bgTitle{background-color: #B0C4DE !important;text-align: center;}
+
+#l1,#l2,#l3,#l4,#l5,#l6,#l7,#l8,#l9{color: red;text-align: center;font-size: 1.6rem;}
+
+ .col-xs-4 {text-align: right;}
+</style>
+</head>
+<body>
+	<div id="entId"></div>
+	<div id="entJinYinYiChang" data-desc="经营异常信息"></div>
+	<div id="entName"></div>
+	<div id="validateCodeState"></div>
+	<div id="opetype"></div>
+	<div id="regno"></div>
+	<div id="unifsocicrediden"></div>
+
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">系统提示</h4>
+				</div>
+				<div class="modal-body">注册号\统一社会信用代码，商事主体名称：至少一项不能为空</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">好的</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+	<div class="header">
+		<div class="topdiv">
+			<div id="flash">
+				<embed id="flash1" width="1003" height="154" menu="false" wmode="transparent" quality="high" bgcolor="#ffffff" name="flash" style="undefined" src="../statics/images/2013-topbanner.swf" type="application/x-shockwave-flash">
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div class="mid_bg">
+					<form id="myForm1" class="form-horizontal formHeight" role="form"  onsubmit="return false">
+						<!-- -->
+						<div style="text-align: center;font-size: 18px;padding:8px;">
+							<b>商事登记簿查询</b><br> （商事主体登记及备案信息查询）
+						</div>
+						<div class="form-group" >
+							<label class="col-sm-4 col-xs-4 control-label">注册号\统一社会信用代码：</label>
+							<div class="col-sm-6 col-xs-6">
+								<input type="text" class="form-control" id="unifsocicredidenInput" placeholder="请输入统一社会信用代码或注册号" />
+							</div>
+						</div>
+
+						<div class="form-group" style="position: relative;">
+							<label for="inputEmail3" class="col-sm-4 col-xs-4 control-label">商事主体名称：</label>
+							<div class="col-sm-5 col-xs-5" >
+								<input type="text"  autocomplete="on" class="form-control" id="entNameInput" placeholder="请输入商事主体名称" /> 
+							</div>
+							<div style="position: absolute;right: 0">
+								<input type="checkbox" id='isFull' checked style='margin-top: 12px;'><!-- checked -->
+							<span>全称</span></div>
+						</div>
+						<div class="form-group" >
+							<label for="inputPassword3" class="col-md-4 col-sm-4 col-xs-4 control-label">验证码：</label>
+							<div class="col-sm-3 col-md-3 col-xs-2">
+								<input type="text" placeholder="请输入验证码" class="form-control" id="index_code" />
+								<span id="skyTips" class='showValidateResult red glyphicon glyphicon-remove hideTips'></span>
+							</div>
+							<img id="imgObj" title="点击可重新获取验证码"  name="verifycode" width="120" height="28" alt="看不清" onclick="getCode()" />
+							<a class="changeCodeTips" href="javascript:;" onclick="getCode()">重新获取验证码</a>
+						</div>
+
+						<div class="form-group">
+							<div style="width:22.4rem;margin:1rem auto;">
+								<a id="submit2" class="" style="width: 100%;display: block;background: #ccc;text-align: center;height: 2.8rem;line-height: 2.8rem;text-decoration: none;">查询</a>
+								<!-- <button class="btn btn-primary"  id="clearUserInputs" style="margin-left: 40px;">清空</button> -->
+							</div>
+						</div>
+					</form>
+						<!-- 标签页开始 -->
+						<div id="tagsSwitch">
+						<h2  id="infosfunDesc" class="queryExport tagInfoBg">深圳市市场监督管理局商事主体登记及备案信息查询单</h2>
+						<div class="container tagInfoBg wcont">
+							<div class="row clearfix">
+								<div class="col-md-12 column">
+									<div class="tableInfosList">
+										<ul class="nav nav-tabs" id="tagDispayEnt">
+											<li id="p1"></li>
+											<li id="p2"></li>
+											<li id="p3"></li>
+											<li id="p4"></li>
+											<li id="p5"></li>
+											<li id="p6"></li>
+											<li id="p7"></li>
+											<li id="p8"></li>
+											<li id="p9"></li>
+										</ul>
+										<div class="tab-content"  id="tab-content">
+											<div class='tab-pane' id='panel-1'><h2><span id='jbxxTitle'></span>的基本信息</h2><span id="l1"></span><div class='wrap'><table></table></div></div>
+											<div class='tab-pane' id='panel-2'><h2></h2><div class='wrap'><span id="l2"></span><table></table></div></div>
+											<div class='tab-pane' id='panel-3'><h2></h2><div class='wrap'><span id="l3"></span><table></table></div></div>
+											<div class='tab-pane' id='panel-4'><h2></h2><div class='wrap'><span id="l4"></span><table></table></div></div>
+											<div class='tab-pane' id='panel-5'><h2><span id='bgxxTitle'></span>的变更信息</h2><div class='wrap'><span id="l5"></span>
+												<table>
+												</table>
+												</div>
+											</div>
+											<div class='tab-pane' id='panel-6'><h2><span id='gqzyTitle'></span>的股权质押信息</h2><div class='wrap'><span id="l6"></span><table></table></div></div>
+											<div class='tab-pane' id='panel-7'><h2><span id='dcdyTitle'></span>的动产抵押信息</h2><div class='wrap'><span id="l7"></span><table></table></div></div>
+											<div class='tab-pane' id='panel-8'><h2><span id='fydjTitle'></span>的法院冻结信息</h2><div class='wrap'><span id="l8"></span><table></table></div></div>
+											<div class='tab-pane' id='panel-9'><h2><span id='jyycTitle'></span>的经营异常信息</h2><div class='wrap'><span id="l9"></span><table></table></div></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 标签页结束 -->
+					<!-- 商事主体列表 -->
+					<div class="listItems hide" id="list">
+						<!-- class="hide" -->
+						<div id="listTips" class="alert alert-warning">
+							<p>温馨提示：</p>
+							<p>
+								您模糊查询的商事主体名称<strong class="keyWordsDesc" id="keyWorkInfo"></strong>，由于对应的商事主体数量过大，现只显示前20条；如有需要，请输更精准的查询条件
+							</p>
+						</div>
+						<table class="table table-bordered">
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer" style="margin-top: 1.5rem">
+		<div class="center">
+			<div class="copyright">
+				<p>
+					版权所有：深圳市市场监督管理局
+					<span id="lblVersion" style="color:#E3E8F6;">版本V1.0.9.1</span>
+				</p>
+				<p>地址：深圳市深南大道7010号工商物价大厦</p>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="../statics/plugins/myUI/tzMobileInit.js"></script>
+<script type="text/javascript" src="../statics/plugins/myUI/tip.js"></script>
+<script type="text/javascript" src="../statics/plugins/myUI/myTemplate.js"></script>
+<script type="text/javascript" src="../statics/plugins/myUI/mobileGS.js"></script>
+</body>
+</html>

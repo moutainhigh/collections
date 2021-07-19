@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.AfficheSpotcheckMapper">
+
+	<insert id="insertAfficheSpotcheck">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from AFFICHE_SPOTCHECK  where ccjcid = #{ccjcid}
+		</selectKey>
+		<if test="count > 0">
+			update AFFICHE_SPOTCHECK 
+			<trim prefix="set" suffixOverrides=",">
+				<if test="noticeid != null">noticeid = #{noticeid, jdbcType=VARCHAR},</if>
+				<if test="entname != null">entname = #{entname, jdbcType=VARCHAR},</if>
+				<if test="regno != null">regno = #{regno, jdbcType=VARCHAR},</if>
+				<if test="uniscid != null">uniscid = #{uniscid, jdbcType=VARCHAR},</if>
+				<if test="insauth != null">insauth = #{insauth, jdbcType=VARCHAR},</if>
+				<if test="insauthCn != null">insauth_cn = #{insauthCn, jdbcType=VARCHAR},</if>
+				<if test="insdate != null">insdate = to_date(#{insdate, jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="insres != null">insres = #{insres, jdbcType=VARCHAR},</if>
+				<if test="insresCn != null">insres_cn = #{insresCn, jdbcType=VARCHAR},</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where ccjcid = #{ccjcid}
+		</if>
+		<if test="count == 0">
+			insert into AFFICHE_SPOTCHECK 
+			(
+				ccjcid,
+				noticeid,
+				entname,
+				regno,
+				uniscid,
+				insauth,
+				insauth_cn,
+				insdate,
+				insres,
+				insres_cn,
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{ccjcid, jdbcType=VARCHAR},
+				#{noticeid, jdbcType=VARCHAR},
+				#{entname, jdbcType=VARCHAR},
+				#{regno, jdbcType=VARCHAR},
+				#{uniscid, jdbcType=VARCHAR},
+				#{insauth, jdbcType=VARCHAR},
+				#{insauthCn, jdbcType=VARCHAR},
+				to_date(#{insdate, jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{insres, jdbcType=VARCHAR},
+				#{insresCn, jdbcType=VARCHAR},
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+</mapper>

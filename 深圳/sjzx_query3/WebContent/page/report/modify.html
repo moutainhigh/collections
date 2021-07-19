@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<META http-equiv="X-UA-Compatible" content="IE=Edge" >
+<title>长城计算机软件与系统有限公司-Rodimus报表系统</title>
+<link rel="stylesheet" type="text/css" href="show.css" />
+<link rel="stylesheet" type="text/css" href="../../gwaic/css/style/default/gwssi.css" />
+<script type="text/javascript" src="../script/common/report-common.js"></script>
+<script src="../script/report/report-config-edit.js" type="text/javascript"></script> 
+
+<style type="text/css">
+.short-input{
+	width: 248.5px;
+	height:25px;
+	line-height: 25px;
+	border: 1px solid #95b8e7;
+    vertical-align: middle;
+}
+.long-input{
+	width: 600px;
+	height:25px;
+	line-height: 25px;
+	border: 1px solid #95b8e7;
+    vertical-align: middle;
+}
+.td-label{
+	width:89px;
+}
+#report_edit label{
+	font-size: 12px;
+	font-family: 微软雅黑;
+	text-align: right;
+}
+.td-input{
+	width:254px;
+}
+.must{
+	color: red;
+	padding-right:3px;
+}
+
+#remark{
+	width:600px;
+	height:100px;
+	font-size: 12px;
+	border: 1px solid #95b8e7;
+    vertical-align: middle;
+}
+
+#config{
+	width:600px;
+	height:300px;
+	font-size: 12px;
+	border: 1px solid #95b8e7;
+    vertical-align: middle;
+}
+</style>
+<script type="text/javascript">
+</script>
+	
+</head>
+<body>
+	<!-- 标题 -->
+	<div style="padding-top:10px;width:740px;height:auto;margin: 0 auto;">
+		<form id="rpt_cfg_form" name="rpt_cfg_form" action="../../report/reportManagerAction.do?method=save" method="post">
+			<table id="report_edit" border="0">
+				<tr>
+					<td class="td-label" align="right"><label><span class="must">*</span>报表编码：</label></td>
+					<td class="td-input"><input type="text" id="code" name="reportConfig.code" class="short-input"/></td>
+					<td class="td-label" align="right"><label><span class="must">*</span>报表名称：</label></td>
+					<td class="td-input"><input type="text" id="name" name="reportConfig.name" class="short-input" /></td>
+				</tr>
+				<tr>
+					<td class="td-label" align="right"><label><span class="must">*</span>报表状态：</label></td>
+					<td class="td-input">
+						启用<input type="radio" name="reportConfig.flag"  value="1"/>
+						停用<input type="radio" name="reportConfig.flag"  value="0"/>
+					</td>
+					<td class="td-label" align="right"><label><span class="must">*</span>报表类型：</label></td>
+					<td class="td-input">
+						<select id="category" name="reportConfig.category" class="short-input">	
+							<option value="1">工作量统计</option>
+							<option value="2">业务统计</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="td-label" align="right"><label>设计人：</label></td>
+					<td colspan="3"><input type="text" name="reportConfig.user" class="short-input"/></td>
+				</tr>
+				<tr>
+					<td class="td-label" align="right"><label>报表描述：</label></td>
+					<td colspan="3"><textarea name="reportConfig.remark" id="remark" style="hei"></textarea></td>
+				</tr>
+				<tr>
+					<td class="td-label" align="right"><label><span class="must">*</span>报表配置：</label></td>
+					<td colspan="3"><textarea name="reportConfig.config" id="config"  ></textarea></td>
+				</tr>
+			</table>
+			<div align="center" style="margin:0 auto;">
+				<input name="按钮" type = "submit" class="defaultButton button-big-blue" value="保存"/>
+				<input name="按钮" type = "reset" class="defaultButton button-big-blue" value="重填" />
+				<input name="按钮" type = "button" class="defaultButton button-big-blue" value="返回" onclick="window.location.href='admin.html'"/>
+			</div>
+		</form>		
+	</div>
+	<!-- 表单 -->
+
+	<!-- 按钮 -->
+	
+</body>
+</html>

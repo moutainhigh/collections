@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css"	href="statics/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="statics/easyui/themes/icon.css">
+<script type="text/javascript" src="statics/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="statics/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="statics/easyui/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<style>
+*{margin:0;padding:0}
+
+</style>
+<body>
+<div class="easyui-panel" title="数据报表采集" >
+
+
+		<div style="height: 80px;padding:20px 0px">
+			<div class="toolbar">
+				<div class="search-div" style="float: left;">
+					<label>采集数据时间点日期：</label> <input id="startDatetime05" type="text"
+						class="easyui-datebox"> <a href="#"
+						class="easyui-linkbutton" iconCls="icon-search"
+						onclick="doQuery()">采集该时间数据</a>
+				</div>
+
+
+				<div class="search-div" style="float: left;margin-left: 15px">
+					<label>已采集数据列表数据日期：</label> <input id="startDatetime" type="text"
+						class="easyui-datebox"> <a href="#"
+						class="easyui-linkbutton" iconCls="icon-search"
+						onclick="doSearch()">查找</a>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div id="infos"></div>
+	
+	<div>
+        <table id="testId" class="easyui-datagrid" >
+        </table>
+    </div>
+    
+   <div id="win"></div>
+    
+ </div>  
+    
+	<script type="text/javascript">
+	
+	
+	
+	var Dialog = {
+		    // 打开一个模态框
+		    /**
+		     * 打开一个dialog窗口
+		     * @param width 宽度
+		     * @param height 高度
+		     * @param title dialog标题
+		     * @param url 需要打开的页面url
+		     * @param id 页面div的id 
+		     */
+		    openModal:function(width, height, title, url,dateQueryTime, id) {
+		        // 获取到div
+		        var win = $(id);
+		        win.dialog({
+		            width: width,
+		            height: height,
+		            title : title,
+		            modal: true,
+		            collapsible: true,
+		            minimizable : true,
+		            resizable : true,
+		            content:"<p>是否要删除文件索引为"+url+"，生成的文件的间为" +dateQueryTime+ " 的文件？</p>",
+		            buttons: [{
+		                text: '确认',
+		                iconCls: 'icon-ok',
+		                handler: function () {
+		                    deleteFiles(url,dateQueryTime)
+		                }
+		            }, {
+		                text: '取消',
+		                iconCls: 'icon-cancel',
+		                handler: function () {
+		                    //$('#win').dialog('close');
+		                    $(id).dialog('close');
+		                }
+		            }]
+		        });
+		    }
+		}
+	
+	
+	$(function(){
+		testTable();
+	})
+	
+	
+	
+	
+	function deleteFiles(id,dateQueryTime){
+		$.ajax({
+			url:"delItem",
+			data:{id:id,startTime:dateQueryTime},
+			beforeSend:function(){
+				
+			},
+			success:function(data){
+				 $("#win").dialog('close');
+				$('#testId').datagrid('reload');
+			},
+			error:function(data){
+				
+			}
+		})
+		
+		
+	}
+	
+	   function testTable() {
+			 
+		   $('#testId').datagrid({
+				title : '已采集数据列表',
+				iconCls : 'icon-ok',
+				height : 800, 
+				pageSize : 100,
+				pageList : [50, 100,200,300 ],
+				nowrap : true,//设置为true，当数据长度超出列宽时将会自动截取
+				striped : true,//设置为true将交替显示行背景。
+				collapsible : true,//显示可折叠按钮
+				url : 'list',
+				loadMsg : '数据装载中......',
+				singleSelect : true,//只能选择单行
+				fitColumns : true,///允许表格自动缩放，以适应父容器
+				checkbox:true,
+				singleSelect:false,
+				  //工具栏
+			    toolbar: [{
+					text:'批量删除选中',
+					iconCls: 'icon-remove',
+					handler: function(){
+						delAltems();
+					}
+				}],
+				columns : [ [ 
+					{
+						title : '文件索引',
+						field : 'ids',
+						align : 'left',
+						checkbox:true,
+					},
+				{
+					title : '文件索引',
+					field : 'id',
+					align : 'left',
+					
+				},
+				
+				{
+					title : '采集数据时间点',
+					field : 'dateQueryTime',
+					align : 'center',
+					width:80,
+				},{
+					title : '采集类型',
+					field : 'types',
+					align : 'center',
+					width:80,
+					 formatter: function (value, row, index) {
+						var html = "自动";
+						if(row.types=="1"){
+							html = "手动"
+						}
+						return html;
+					}
+				},
+				{
+					title : '采集状态',
+					field : 'dataStatus',
+					align : 'center',
+					width:80,
+					 formatter: function (value, row, index) {
+						var html = "采集中";
+						if(row.dataStatus=="1"){
+							html = "采集完成"
+						}
+						return html;
+					}
+				},
+				
+				
+				{
+					title : '文件下载',
+					field : 'act',
+					align : 'center',
+					width:80,
+					 formatter: function (value, row, index) {
+						 var hmt ="";
+						 if(row.dataStatus==1){
+							 hmt = "<a href='down?startTime="+row.dateQueryTime+"'>下载</a>";//https://www.jb51.net/article/118596.htm
+							 
+						 }
+						return hmt;
+					}
+				},
+				 {
+					title : '操作',
+					field : 'operation',
+					align : 'center',
+					width:80,
+					formatter: function (value, row, index) {
+						 return '<a href="#" rel="external nofollow" onclick="editUser('+index+')">删除</a>'; 
+					}
+				}, {
+					title : '数据请求生成时间',
+					field : 'createTime',
+					align : 'center',
+					width:80,
+				},
+				
+				] ],
+				pagination : true,//分页
+				rownumbers : true//行数
+			});
+	    }
+	   
+	
+		//https://blog.csdn.net/wangjingna/article/details/47143167
+		function editUser(index) {
+			$('#testId').datagrid('selectRow', index);// 关键在这里 
+			var row = $('#testId').datagrid('getSelected');
+			if (row) {
+				//$('#dlg').dialog('open').dialog('setTitle', '修改学生信息');
+				//$('#fm').form('load', row);
+				//url = '${ctx}updateStudent.do?id=' + row.id;
+                 Dialog.openModal(500, 150,"是否删除？",row.id,row.dateQueryTime,"#win");
+				
+			}
+		}
+		
+		
+		
+		
+		function delAltems(index){
+			var selectRows = $("#testId").datagrid("getSelections");
+			 if (selectRows.length < 1) {
+			        $.messager.alert("提示消息", "请选择要删除的记录！", 'info');
+			        return;
+			    }
+
+			 $.messager.confirm("确认消息", "确定要删除所选记录吗？", function (isDelete) {
+				 
+			        //如果为真的话
+			        if (isDelete) {
+			            //定义变量值
+			            var strIds = "";
+			            var time ="";
+			            //拼接字符串，这里也可以使用数组，作用一样
+			            for (var i = 0; i < selectRows.length; i++) {
+			                strIds += selectRows[i].id + ",";
+			                time += selectRows[i].dateQueryTime + ",";
+			            }
+			            //循环切割
+			            strIds = strIds.substr(0, strIds.length - 1);
+			            time = strIds.substr(0, strIds.length - 1);
+			            $.post('delItem?id=' + strIds+"&startTime="+time, function (jsonObj) {
+			                if (jsonObj > 0) {
+			                    $.messager.alert('提示', '删除成功！');
+			                    $("#testId").datagrid("reload"); //删除成功后 刷新页面
+			                } else {
+			 
+			                    $.messager.alert('提示信息', '删除失败，请联系管理员！', 'warning');
+			                }
+			            }, "JSON");
+			        }
+			    });
+		}
+
+		function doQuery() {
+			var startDatetime = $("#startDatetime05").datetimebox("getValue");
+			if (startDatetime == "") {
+				alert("开始时间不能为空");
+				return;
+			}
+			queryDate(startDatetime);
+		}
+
+		function queryDate(startDatetime) {
+			var timeStr = startDatetime;
+			$("#benQi").html(
+					timeStr.split("-")[0] + "年" + timeStr.split("-")[1] + "月");
+			$("#lastYearBenQi").html(
+					timeStr.split("-")[0] - 1 + "年" + timeStr.split("-")[1]
+							+ "月");
+
+			$.ajax({
+				url : "query",
+				type : "post",
+				dataType : "json",
+				data : {
+					startTime : startDatetime
+				},
+				beforeSend : function() {
+					$("#infos").html("系统处理中...");
+				},
+				success : function(data) {
+					$("#infos").html("");
+					/* testTable(); */
+					//$('#testId').datagrid("reload",{ });
+					$('#testId').datagrid('reload');
+				},
+				error : function(data) {
+					alert(data)
+				}
+			});
+
+		}
+
+		jQuery.download = function(url, method, filedir, filename) {
+			jQuery(
+					'<form action="' + url + '" method="' + (method || 'post')
+							+ '">' + // action请求路径及推送方法
+							'<input type="text" name="filedir" value="'+filedir+'"/>'
+							+ // 文件路径
+							'<input type="text" name="filename" value="'+filename+'"/>'
+							+ // 文件名称
+							'</form>').appendTo('body').submit().remove();
+		};
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		function doSearch(startDatetime) {
+			var startDatetime = $("#startDatetime").datetimebox("getValue");
+			/* $.ajax({
+				url : "list",
+				type : "post",
+				dataType : "json",
+				data : {
+					time : startDatetime
+				},
+				beforeSend : function() {
+					$("#infos").html("系统处理中...");
+				},
+				success : function(data) {
+					$("#infos").html("");
+					$('#testId').datagrid('reload');
+				},
+				error : function(data) {
+					alert(data)
+				}
+			}); */
+			
+			$('#testId').datagrid('load',{
+				time: startDatetime,
+			});
+			
+			
+			
+
+		}
+	</script>
+</body>
+</html>

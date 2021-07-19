@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jazz-ui.js" type="text/javascript"></script> 
+</head>
+<body>
+ 
+	<div id="demo">
+		<div id='tt' vtype="tabpanel" tabalign="left" name="tabwithcontrol" tabtitlewidth="130" 
+		  tabcontentheight="260" overflowtype=2 orientation='top' tabcontentwidth='500'>    
+		    <ul>    
+		        <li><a href="#tab1">Tab 1</a></li>    
+		        <li><a href="#tab2">Tab 2</a></li>    
+		        <li><a href="#tab3">Tab 3</a></li>    
+		        <li><a href="#tab4">Tab 4</a></li> 
+		    </ul>    
+		    <div>    
+		        <div id="tab1">    
+		                页面1   
+		        </div>    
+		        <div id="tab2">    
+		                页面2 
+		        </div>    
+		       <div id="tab3">    
+		                页面3  
+		        </div>  
+		        <div id="tab4">    
+		                页面3  
+		        </div>  
+		    </div>    
+		</div>
+		<button onclick="changeSelect()">切换到第一个标签页</button>
+		<button onclick="addTab()">新增标签页</button>
+		<button onclick="removeTab()">移除最后的标签页</button>
+		<button onclick="getActiveTabIndex()">当前显示标签页的位置</button>
+	</div>
+
+	   <!--  <div class="description">描述信息：基础tab组件，可改变标题宽度，内容宽高，tab排列方向，默认显示的tab</div> -->
+<script type="text/javascript">
+    jQuery(function($){
+    	$("#tt").on("close",function(){
+			alert('确定要关闭标签？');
+		})	
+    })
+	
+ 	function changeSelect() {
+		$('#tt').tabpanel('select', 0);
+	}
+    
+	function removeTab() {
+		$('#tt').tabpanel('remove', $('#tt').tabpanel('getLength')-1 );
+	}
+	
+	function addTab() {
+		var i = $('#tt').tabpanel('getLength'),
+		    option = {
+		    tabid: 'tab'+(i+1),  //tab页的id
+			tabtitle: '新增tab测试',   //tab页的标题
+			tabindex: (i+1),   //tab的索引位置
+			taburl: undefined, //tab页的url
+			tabcontent: 'helloWorld'  //tab页的内容
+	    };
+		$('#tt').tabpanel('addTab', option);
+	}
+	
+	function getActiveTabIndex(){
+		var i = $('#tt').tabpanel('getActiveIndex');//active 得不到
+		alert("当前显示的是第 " + (i+1) + " 个标签页.");
+	}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="  
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<!-- https://blog.csdn.net/try_harder_every_day/article/details/78757324 -->
+	<!-- https://www.cnblogs.com/tankaixiong/p/3660075.html -->
+	<!-- https://www.cnblogs.com/shihaiming/p/6050777.html -->
+	<!-- https://blog.csdn.net/adsadadaddadasda/article/details/78829337 -->
+
+	<!-- https://blog.csdn.net/l1028386804/article/details/52141372 -->
+	<!-- https://blog.csdn.net/tomcat_2014/article/details/55260306 -->
+	<!-- https://blog.csdn.net/fighterandknight/article/details/53432276 -->
+	<!-- https://blog.csdn.net/zwl18210851801/article/details/79410270 spring 
+		mvc -->
+
+	<bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+		<!-- 最大连接数 -->
+		<property name="maxTotal" value="${redis.pool.maxTotal}"></property>
+		<!-- 最大空闲数：空闲链接数大于maxIdle时，将进行回收 -->
+		<property name="maxIdle" value="${redis.pool.maxIdle}"></property>
+		<!-- 最大等待时间：单位ms -->
+		<property name="maxWaitMillis" value="${redis.pool.maxWait}"></property>
+		<!-- 逐出连接的最小空闲时间 ：单位ms -->
+		<property name="minEvictableIdleTimeMillis" value="${redis.pool.minEvictableIdleTimeMillis}"></property>
+		<!-- 每次逐出检查时 逐出的最大数目 -->
+		<property name="numTestsPerEvictionRun" value="${redis.pool.numTestsPerEvictionRun}"></property>
+		<!-- 逐出扫描的时间间隔(毫秒) -->
+		<property name="timeBetweenEvictionRunsMillis" value="${redis.pool.timeBetweenEvictionRunsMillis}"></property>
+	</bean>
+
+
+
+	<bean id="jedisConnectionFactory"
+		class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+		destroy-method="destroy">
+		<property name="poolConfig" ref="jedisPoolConfig"></property>
+		<!-- Redis服务器地址 -->
+		<property name="hostName" value="${redis.host}"></property>
+		<!-- 服务端口 -->
+		<property name="port" value="${redis.port}"></property>
+		<!-- 授权密码 -->
+		<property name="password" value=""></property>
+		<!-- 超时时间：单位ms -->
+		<property name="timeout" value="${redis.timeout}"></property>
+		<!--启用用户线程池 -->
+		<property name="usePool" value="true"></property>
+	</bean>
+
+
+	<bean id="jedisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+		<property name="connectionFactory" ref="jedisConnectionFactory"></property>
+		<property name="keySerializer">
+			<bean
+				class="org.springframework.data.redis.serializer.StringRedisSerializer" />
+		</property>
+		<property name="valueSerializer">
+			<bean
+				class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer" />
+		</property>
+	</bean>
+
+
+	<!-- https://blog.csdn.net/l1028386804/article/details/52141372 -->
+</beans>

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bwcx.dao.DocumentDao">
+
+
+	<resultMap id="returnEntityMap" type="documentEntity">
+		<id property="docid" column="docid" />
+		<result property="title" column="title" jdbcType="VARCHAR" />
+		<result property="contentmeta" column="contentmeta"
+			jdbcType="VARCHAR" />
+		<result property="editor" column="editor" jdbcType="VARCHAR" />
+		<result property="title" column="title" jdbcType="VARCHAR" />
+		<result property="savepath" column="savepath"
+			jdbcType="VARCHAR" />
+		<result property="filename" column="filename"
+			jdbcType="VARCHAR" />
+		<result property="thumburl" column="thumburl"
+			jdbcType="VARCHAR" />
+		<result property="attachfilesavepath"
+			column="attachfilesavepath" jdbcType="VARCHAR" />
+		<result property="channelid" column="channelid"
+			jdbcType="VARCHAR" />
+		<result property="pubdate" column="pubdate" jdbcType="VARCHAR" />
+		<result property="isHaveThumb" column="isHaveThumb"
+			jdbcType="VARCHAR" />
+		<result property="contents" column="contents" jdbcType="CLOB" />
+		<result property="contentsPlainText" column="contentsPlainText"
+			jdbcType="CLOB" />
+		<result property="contentToEd" column="contentToEd"
+			jdbcType="CLOB" />
+		<result property="tranformeContents" column="tranformeContents"
+			jdbcType="CLOB" />
+		<result property="isPubOrSave" column="isPubOrSave"
+			jdbcType="VARCHAR" />
+		<result property="isFile" column="isFile" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<select id="getDocumentsByChannel" resultMap="returnEntityMap">
+		SELECT * FROM
+		(
+		SELECT A.*, ROWNUM RN
+		FROM (SELECT * FROM (
+		select * from
+		dc_document t where 1=1
+		<if test="cid != null">
+			and t.channelid = #{cid,jdbcType=VARCHAR}
+		</if>
+		order by pubdate desc
+		)
+		) A
+		WHERE ROWNUM &lt;= #{pageEnd}
+		)
+		WHERE RN >
+		#{pageBegin} <!-- rn最好是> 否则第一页中0和1是一样的 -->
+	</select>
+
+
+
+	<select id="getDocusWithThumb" resultMap="returnEntityMap">
+		SELECT * FROM
+		(
+		SELECT A.*, ROWNUM RN
+		FROM (SELECT * FROM (
+		select * from
+		dc_document t where 1=1
+		<if test="cid != null">
+			and t.channelid = #{cid,jdbcType=VARCHAR}
+		</if>
+
+
+		<if test="thum != null">
+			and t.isHaveThumb >0
+		</if>
+
+		order by pubdate desc
+		)
+		) A
+		WHERE ROWNUM &lt;= #{pageEnd}
+		)
+		WHERE RN >
+		#{pageBegin} <!-- rn最好是> 否则第一页中0和1是一样的 -->
+	</select>
+
+
+
+	<select id="getPubDocumentsByChannel"
+		resultMap="returnEntityMap">
+		SELECT * FROM
+		(
+		SELECT A.*, ROWNUM RN
+		FROM (SELECT * FROM (
+		select * from
+		dc_document t where 1=1
+		<if test=" cid  != null">and t.channelid = #{cid , jdbcType=VARCHAR}</if>
+		<if test=" mytitle  != null and mytitle != ''" >and t.title like  concat(concat('%',#{mytitle}),'%')</if>
+		and t.isPubOrSave > 0
+		order by pubdate desc
+		)
+		) A
+		WHERE ROWNUM &lt;=
+		#{pageEnd}
+		)
+		WHERE RN > #{pageBegin} <!-- rn最好是> 否则第一页中0和1是一样的 -->
+	</select>
+
+
+	<select id="getPubDocusWithThumb" resultMap="returnEntityMap">
+		SELECT * FROM
+		(
+		SELECT A.*, ROWNUM RN
+		FROM (SELECT * FROM (
+		select * from
+		dc_document t where 1=1
+		<if test="cid != null">
+			and t.channelid = #{cid,jdbcType=VARCHAR}
+		</if>
+
+		<if test="thum != null">
+			and t.isHaveThumb >0
+		</if>
+		and t.isPubOrSave > 0
+		order by pubdate desc
+		)
+		) A
+		WHERE ROWNUM &lt;=
+		#{pageEnd}
+		)
+		WHERE RN > #{pageBegin} <!-- rn最好是> 否则第一页中0和1是一样的 -->
+	</select>
+
+
+
+	<select id="getDocumentDetail" resultMap="returnEntityMap">
+		select * from dc_document t
+		<where>
+			<if test=" docId!= null">t.docId = #{docId, jdbcType=VARCHAR}</if>
+		</where>
+	</select>
+
+
+	<select id="getCount" resultType="Integer">
+		select count(1) from dc_document t
+		<where>
+			<if test=" cid != null">t.channelid = #{cid, jdbcType=VARCHAR}</if>
+		</where>
+	</select>
+
+
+
+	<select id="getPubCount" resultType="Integer">
+		select count(1) from dc_document t
+		<where>
+			<if test=" cid  != null">t.channelid = #{cid , jdbcType=VARCHAR}</if>
+			<if test=" mytitle  != null and mytitle != ''" >and t.title like  concat(concat('%',#{mytitle}),'%')</if>
+			<!-- <if test=" mytitle  != null and mytitle != ''" >and t.title like concat ('%',#{mytitle ,jdbcType=VARCHAR},'%')</if> -->
+			and t.isPubOrSave > 0
+		</where>
+	</select>
+
+	<!-- <parameterMap type="java.util.HashMap" id="transtempletmap"> <parameter 
+		property="serviceCode" javaType="java.lang.String" /> <parameter property="inTemp" 
+		jdbcType="CLOB" javaType="java.lang.String" /> <parameter property="outTemp" 
+		jdbcType="CLOB" javaType="java.lang.String" /> <parameter property="targertUrl" 
+		javaType="java.lang.String" /> </parameterMap> -->
+
+	<insert id="saveThumb">
+		<selectKey keyProperty="count" resultType="int"
+			order="BEFORE">
+			select count(1) from dc_document t where t.docid =
+			#{docid,jdbcType=VARCHAR}
+		</selectKey>
+		<if test="count > 0">
+			update dc_document
+			<trim prefix="set" suffixOverrides=",">
+				<if test="docid != null">docid = #{docid, jdbcType=VARCHAR},</if>
+				<if test="thumburl != null">thumburl = #{thumburl, jdbcType=VARCHAR},</if>
+			</trim>
+			where docid = #{docid,jdbcType=VARCHAR}
+		</if>
+		<if test="count == 0">
+			insert into dc_document (
+			docid,
+			thumburl,
+			isHaveThumb,
+			filename
+			) values(
+			#{docid,jdbcType=VARCHAR},
+			#{thumburl,jdbcType=VARCHAR},
+			#{isHaveThumb,jdbcType=VARCHAR},
+			#{filename,jdbcType=VARCHAR}
+			)
+		</if>
+	</insert>
+
+
+	<insert id="saveFile">
+		<selectKey keyProperty="count" resultType="int"
+			order="BEFORE">
+			select count(1) from dc_document t where t.docid =
+			#{docid,jdbcType=VARCHAR}
+		</selectKey>
+		<if test="count > 0">
+			update dc_document
+			<trim prefix="set" suffixOverrides=",">
+				<if test="docid != null">docid = #{docid, jdbcType=VARCHAR},</if>
+				<if test="isFile != null">isFile = #{isFile, jdbcType=VARCHAR},</if>
+			</trim>
+			where docid = #{docid,jdbcType=VARCHAR}
+		</if>
+		<if test="count == 0">
+			insert into dc_document (
+			docid,
+			attachfilesavepath,
+			isFile,
+			filename
+			) values(
+			#{docid,jdbcType=VARCHAR},
+			#{attachfilesavepath,jdbcType=VARCHAR},
+			#{isFile,jdbcType=VARCHAR},
+			#{filename,jdbcType=VARCHAR}
+			)
+		</if>
+	</insert>
+
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int"
+			order="BEFORE">
+			select count(1) from dc_document t where t.docid =
+			#{docid,jdbcType=VARCHAR}
+		</selectKey>
+		<if test="count > 0">
+			update dc_document
+			<trim prefix="set" suffixOverrides=",">
+				<if test="docid != null">docid = #{docid, jdbcType=VARCHAR},</if>
+				<if test="title != null">title = #{title, jdbcType=VARCHAR},</if>
+				<if test="contentmeta != null">contentmeta = #{contentmeta,jdbcType=VARCHAR},</if>
+				<if test="editor != null">editor = #{editor, jdbcType=VARCHAR},</if>
+				<if test="contents != null">contents = #{contents, jdbcType=CLOB},</if>
+				<if test="tranformeContents != null">tranformeContents = #{tranformeContents, jdbcType=CLOB},</if>
+				<if test="contentToEd != null">contentToEd = #{contentToEd, jdbcType=CLOB},</if>
+				<if test="contentsPlainText != null">contentsPlainText = #{contentsPlainText, jdbcType=CLOB},</if>
+				<if test="savepath != null">savepath = #{savepath, jdbcType=VARCHAR},</if>
+				<if test="filename != null">filename = #{filename, jdbcType=VARCHAR},</if>
+				<!-- <if test="thumburl != null">thumburl = #{thumburl, jdbcType=VARCHAR},</if> -->
+				<if test="isHaveThumb != null">isHaveThumb = #{isHaveThumb, jdbcType=VARCHAR},</if>
+				<if test="attachfilesavepath != null">attachfilesavepath = #{attachfilesavepath,
+					jdbcType=VARCHAR},</if>
+				<if test="channelid != null">channelid = #{channelid, jdbcType=VARCHAR},</if>
+				<if test="isPubOrSave != null">isPubOrSave = #{isPubOrSave, jdbcType=VARCHAR},</if>
+			</trim>
+			, edittime = sysdate
+			where docid = #{docid,jdbcType=VARCHAR}
+		</if>
+		<if test="count == 0">
+			insert into dc_document (
+			docid,
+			title,
+			contentmeta,
+			editor,
+			contents,
+			tranformeContents,
+			contentsPlainText,
+			contentToEd,
+			savepath,
+			filename,
+			thumburl,
+			attachfilesavepath,
+			channelid,
+			isHaveThumb,
+			isPubOrSave,
+			edittime
+			) values(
+			#{docid,jdbcType=VARCHAR},
+			#{title,jdbcType=VARCHAR},
+			#{contentmeta,jdbcType=VARCHAR},
+			#{editor,jdbcType=VARCHAR},
+			#{contents,jdbcType=CLOB,},
+			#{tranformeContents,jdbcType=CLOB,},
+			#{contentsPlainText,jdbcType=CLOB,},
+			#{contentToEd,jdbcType=CLOB,},
+			#{savepath,jdbcType=VARCHAR},
+			#{filename,jdbcType=VARCHAR},
+			#{thumburl,jdbcType=VARCHAR},
+			#{attachfilesavepath,jdbcType=VARCHAR},
+			#{channelid,jdbcType=VARCHAR},
+			#{isHaveThumb,jdbcType=VARCHAR},
+			#{isPubOrSave,jdbcType=VARCHAR},
+			#{edittime,jdbcType=VARCHAR}
+			)
+		</if>
+	</insert>
+
+	<!-- https://www.cnblogs.com/shuaifing/p/9158875.html -->
+	<!-- http://www.360doc.com/content/19/0403/10/46658786_826120598.shtml -->
+	<!-- delete from emp where empno in(7789,7790) -->
+	<!-- https://blog.csdn.net/wsjzzcbq/article/details/81779952 -->
+	<!-- forEach : 用来循环 collection : 用来指定循环的数据的类型 可以填的值有：array,list,map item 
+		: 循环中为每个循环的数据指定一个别名 index : 循环中循环的下标 open : 开始 close : 结束 separator : 数组中元素之间的分隔符 -->
+	<delete id="deleteByBatch" parameterType="java.util.List">
+		delete from dc_document t where t.docid in
+		<foreach collection="list" open="(" separator="," close=")"	 item="id">
+			#{id,jdbcType=VARCHAR}
+		</foreach>
+
+	</delete>
+	
+	
+	
+	
+	<select id="getPublishFromWcm" resultMap="returnEntityMap">
+		 SELECT  * FROM dc_document t where t.channelid = '1' and t.tranformecontents is null  order by t.pubdate desc
+	</select>
+</mapper>

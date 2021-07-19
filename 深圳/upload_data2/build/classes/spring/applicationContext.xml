@@ -1,0 +1,90 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+	 http://www.springframework.org/schema/task
+     http://www.springframework.org/schema/task/spring-task.xsd"
+	
+	>
+	
+	<!-- 定时任务 -->
+<task:executor id="executor" pool-size="10" />
+	<task:scheduler id="scheduler" pool-size="20" />
+	<task:annotation-driven executor="executor"
+		scheduler="scheduler" />
+
+	<!--导入外部配置文件  -->
+	<context:property-placeholder location="classpath:/db-oracle.properties, classpath:httpclient.properties"/>
+	
+	<!-- 扫描包 -->
+	<context:component-scan base-package="com.gwssi.*" >
+	 <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>  
+   </context:component-scan>
+	<!-- 数据源 读-->
+	<!-- <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource">
+		<property name="driverClassName" value="${jdbc.driver}"/>
+		<property name="jdbcUrl" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+		<property name="connectionTimeout" value="30000" />
+      一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟
+        <property name="idleTimeout" value="600000" />
+       一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒，参考MySQL 
+            wait_timeout参数（show variables like '%timeout%';）
+        <property name="maxLifetime" value="1800000" />
+        连接池中允许的最大连接数。缺省值：10；推荐的公式：((core_count * 2) + effective_spindle_count)
+        <property name="maximumPoolSize" value="60" />
+        <property name="minimumIdle" value="10" />
+	</bean> -->
+	
+	<!-- 数据源 写-->
+	<bean id="dataSource2" class="com.zaxxer.hikari.HikariDataSource">
+		<property name="driverClassName" value="${jdbc2.driver}"/>
+		<property name="jdbcUrl" value="${jdbc2.url}"/>
+		<property name="username" value="${jdbc2.username}"/>
+		<property name="password" value="${jdbc2.password}"/>
+		<property name="connectionTimeout" value="30000" />
+        <!-- 一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟 -->
+        <property name="idleTimeout" value="600000" />
+        <!-- 一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒，参考MySQL 
+            wait_timeout参数（show variables like '%timeout%';） -->
+        <property name="maxLifetime" value="1800000" />
+        <!-- 连接池中允许的最大连接数。缺省值：10；推荐的公式：((core_count * 2) + effective_spindle_count) -->
+        <property name="maximumPoolSize" value="60" />
+        <property name="minimumIdle" value="10" />
+	</bean>
+
+
+
+	<bean id="dataSource3" class="com.zaxxer.hikari.HikariDataSource">
+		<property name="driverClassName" value="${jdbc3.driver}"/>
+		<property name="jdbcUrl" value="${jdbc3.url}"/>
+		<property name="username" value="${jdbc3.username}"/>
+		<property name="password" value="${jdbc3.password}"/>
+		<property name="connectionTimeout" value="30000" />
+        <!-- 一个连接idle状态的最大时长（毫秒），超时则被释放（retired），缺省:10分钟 -->
+        <property name="idleTimeout" value="600000" />
+        <!-- 一个连接的生命时长（毫秒），超时而且没被使用则被释放（retired），缺省:30分钟，建议设置比数据库超时时长少30秒，参考MySQL 
+            wait_timeout参数（show variables like '%timeout%';） -->
+        <property name="maxLifetime" value="1800000" />
+        <!-- 连接池中允许的最大连接数。缺省值：10；推荐的公式：((core_count * 2) + effective_spindle_count) -->
+        <property name="maximumPoolSize" value="60" />
+        <property name="minimumIdle" value="10" />
+	</bean>
+	
+	<import resource="applicationContext-httpclient.xml"/>
+	<import resource="applicationContext-jdbcTemplate.xml"/>
+	<import resource="applicationContext-mybatis.xml"/>
+	<import resource="applicationContext-transaction.xml"/>
+	
+	
+	<bean class="com.gwssi.upload.aspject.jdbc.SqlExecutionTimeAspect"></bean>
+	<aop:aspectj-autoproxy proxy-target-class="true"/> 
+
+	
+</beans>

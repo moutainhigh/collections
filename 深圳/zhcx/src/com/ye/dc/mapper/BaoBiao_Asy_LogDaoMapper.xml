@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 
+	例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ye.dc.dao.BiaoBao_Asy_LogDao">
+
+
+	<select id="getRecordList"  resultType="BaoBiao_Asy_Log">
+		select * from baobiao_asy_log t where 1=1    and time >= to_char(sysdate-1,'yyyy-MM-dd')   and t.deptname is not null 
+	</select>
+	
+	
+	
+	
+
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from baobiao_asy_log t where t.userid =#{userid}
+		</selectKey>
+		<if test="count > 0">
+			update baobiao_asy_log t
+			<trim prefix="set" suffixOverrides=",">
+				<if test="userid != null">userid = #{userid, jdbcType=VARCHAR},</if>
+				<if test="name != null">name = #{name, jdbcType=VARCHAR},</if>
+				<if test="deptname != null">deptname = #{deptname, jdbcType=VARCHAR},	</if>
+				<if test="time != null">time = #{time,jdbcType=VARCHAR},</if>
+				<if test="isAdd != null">isAdd = #{isAdd,jdbcType=VARCHAR},</if>
+				<if test="msg != null">msg = #{msg,jdbcType=VARCHAR},</if>
+			</trim>
+			where t.userid = #{userid, jdbcType=VARCHAR}
+		</if>
+		<if test="count == 0">
+			insert into baobiao_asy_log (
+			userid,
+			name,
+			deptname,
+			time,
+			isAdd,
+			msg
+			)
+			values(
+			#{userid, jdbcType=VARCHAR},
+			#{name, jdbcType=VARCHAR},
+			#{deptname, jdbcType=VARCHAR},
+			#{time, jdbcType=VARCHAR},
+			#{isAdd, jdbcType=VARCHAR},
+			#{msg, jdbcType=VARCHAR}
+			)
+		</if>
+	</insert>
+
+</mapper>

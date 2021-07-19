@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jazz-ui.js" type="text/javascript"></script>
+<script type="text/javascript">
+function _row_start(e, layout){
+	//layout.index  当前选中的边线的索引值
+	$("#frame_id").css({height: "1px"});
+}
+
+function _row_stop(e, layout){
+	//layout.top      拖动后，边线上部区域的宽度
+    //layout.bottom   拖动后，边线下部区域的宽度
+    //layout.index    当前选中的边线的索引值
+	$("#frame_id").css({height: "100%"});
+}
+
+function _col_start(e, layout){
+	//layout.index  当前选中的边线的索引值
+	$("#frame_id").css({width: "1px"});
+}
+
+function _col_stop(e, layout){
+	//layout.left   拖动后，边线左侧区域的宽度
+    //layout.right  拖动后，边线右侧区域的宽度
+    //layout.index  当前选中的边线的索引值
+	$("#frame_id").css({width: "100%"});		
+}
+</script>
+</head>
+<body>
+	<div id="border_id" height="400" width="500" vtype="panel" name="panel" title="border布局" titledisplay="true" 
+		layout="border" columndragstart="_col_start()" columndragstop="_col_stop()" rowdragstart="_row_start()" rowdragstop="_row_stop()">
+		<div region="north" height="100">
+		      <div vtype="panel" name="north" title="north" titledisplay="true">只能设置高度 height="100", 默认高度 150</div>
+		</div>
+		<div region="west" width="120">
+			  <div vtype="panel" name="west" title="west" titledisplay="true">只能设置宽度 width="120", 默认宽度 200</div>
+		</div>
+		<div region="center">
+			<iframe id="frame_id" src="../columnlayout/column_frame.html" width="100%" height="100%" style="border:0px;"></iframe>
+		</div>
+		<div region="east" width="100">
+			<div vtype="panel" name="east" title="east" titledisplay="true">只能设置宽度 width="100", 默认宽度 200</div>
+		</div>		
+		<div region="south" height="100">
+			<div vtype="panel" name="south" title="south" titledisplay="true">south： 只能设置高度 height="100", 默认高度 150</div>
+		</div>
+	</div>
+</body>
+</html>

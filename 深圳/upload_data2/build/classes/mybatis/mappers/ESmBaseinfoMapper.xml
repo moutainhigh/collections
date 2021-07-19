@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.ESmBaseinfoMapper">
+
+	<!-- 小微企业名录信息 -->
+	<insert id="insertESmBaseinfo">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from E_SM_BASEINFO where pripid = #{pripid}
+		</selectKey>
+		<if test="count > 0">
+			update E_SM_BASEINFO   
+			<trim prefix="set" suffixOverrides=",">
+				<if test="uniscid != null">uniscid =  #{uniscid,  	jdbcType=VARCHAR},</if>
+				<if test="regno != null">regno =  #{regno,  		jdbcType=VARCHAR},</if>
+				<if test="entname != null">entname =  #{entname,  	jdbcType=VARCHAR},</if>
+				<if test="enttype != null">enttype =  #{enttype,  	jdbcType=VARCHAR},</if>
+				<if test="estdate != null">estdate =  to_date(#{estdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="regcap != null">regcap =  to_number(#{regcap,	jdbcType=NUMERIC}),</if>
+				<if test="regorg != null">regorg =  #{regorg,  		jdbcType=VARCHAR},</if>
+				<if test="industryphy != null">industryphy =  #{industryphy,  jdbcType=VARCHAR},</if>
+				<if test="industryco != null">industryco = 	#{industryco, 	jdbcType=VARCHAR},</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where pripid = #{pripid} 
+		</if>
+		<if test="count == 0">
+			insert into E_SM_BASEINFO
+			(
+				pripid, 
+				uniscid, 
+				regno, 
+				entname, 
+				enttype, 
+				estdate, 
+				regcap, 
+				regorg, 
+				industryphy, 
+				industryco,	
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{pripid, 		jdbcType=VARCHAR},
+				#{uniscid,  	jdbcType=VARCHAR},
+				#{regno,  		jdbcType=VARCHAR},
+				#{entname,  	jdbcType=VARCHAR},
+				#{enttype,  	jdbcType=VARCHAR},
+				to_date(#{estdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				to_number(#{regcap,	jdbcType=NUMERIC}),
+				#{regorg,  		jdbcType=VARCHAR},
+				#{industryphy,  jdbcType=VARCHAR},
+				#{industryco, 	jdbcType=VARCHAR},
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

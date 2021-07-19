@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jazz-ui.js" type="text/javascript"></script> 
+<script>
+	
+	// 重新加载数据
+	function reloadData(){
+		$('#formpanel .jazz-panel-content').loading();
+		setTimeout(function(){
+			$("#formpanel").formpanel('option','dataurl','formpanel.json');
+			$("#formpanel").formpanel('reload');
+	        $('#formpanel .jazz-panel-content').loading('hide');
+		}, 500);
+	}
+	
+	
+	function save(){
+		var aa = $("#formpanel").formpanel('getValue');
+		jazz.log("1aaaaaaaaa="+JSON.stringify(aa));
+		var text = $("#formpanel").formpanel('getText');
+		jazz.log("2aaaaaaaaa="+JSON.stringify(text));
+		var params = {
+			url: '/JAZZ/demo/saveUser.do',
+			components: ['formpanel'],
+	   		params: {id:2},
+	    	callback: function(){
+	    		alert("保存成功");
+	    	}	 
+		};
+		//$.DataAdapter.submit(params); 
+	}
+	
+</script>
+</head>
+<body>
+   	<div id="formpanel" name="formpanel" vtype="formpanel" titledisplay="true" width="700" layout="table" 
+	    layoutconfig="{cols:2, columnwidth: ['350px','*']}"
+		height="360" title="人员信息"  >
+		<div name='textfield_name' vtype="textfield" label="姓名" msg="请输入真实姓名"
+			labelalign="right" rule="must" width="300" editable="true"></div>
+			
+		<div name='autocompletecomboxfield_name' vtype="autocompletecomboxfield" label="籍贯" 
+			labelalign="right" width="300" prefix="中国" dataurl="combox.json" minquerylength="0" datatype="value"></div>	
+        <div name='number_name' vtype="numberfield" label="年龄"
+			labelalign="right" width="300" ></div>
+
+		<div name='wdatepicker_name' vtype="datefield"
+			label="生日" labelalign="right" width="300" rule="must"
+			isshowweek="true"></div>
+
+		<div name="checkboxfield_name" vtype="checkboxfield"
+			label="爱好" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '1',text: '旅游'},{value: '2',text: '足球'},{value: '3',text: '篮球'}]"></div>
+
+		<div name="radiofield_name" vtype="radiofield"
+			label="性别" labelalign="right" width="300"
+			dataurl="[{checked: true,value: '1',text: '男'},{value: '2',text: '女'}]"></div>
+
+		<!-- <div name='password_name' vtype="passwordfield" label="密码"
+			labelalign="right" width="300"></div> -->
+
+		<div name='textarea_name' colspan="2" rowspan="1"
+			vtype="textareafield" label="简历" labelalign="right" width="300"></div>
+
+		<div name='combox_name' 
+			vtype="comboxfield" label="现居地" labelalign="right" width="300" dataurl="combox.json"></div>
+			
+		<div id='combox_tree' name='comboxtree_name' vtype="comboxtreefield" 
+			label="下拉树" labelalign="right" width="300"   dataurl="comboxtree.json" prefix="开始" suffix="结个"></div>
+		<div name="id" vtype="hiddenfield" defaultvalue="2333"></div>	
+		
+		<div id="toolbar" name="toolbar" vtype="toolbar" >
+			<div id="btn1" name="btn1" vtype="button" text="加载"   click="reloadData()"></div>
+	    	<div id="btn3" name="btn3" vtype="button" text="保存"   click="save()"></div>
+	    </div>
+   </div>
+</body>
+
+</html>
+<SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

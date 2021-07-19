@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.AoOpaDetailMapper">
+
+	<!-- 企业异常名录详细信息 -->
+	<insert id="insertAoOpaDetail">
+	<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from  AO_OPA_DETAIL where busexclist = #{busexclist}
+		</selectKey>
+		<if test="count > 0">
+			update AO_OPA_DETAIL   
+			<trim prefix="set" suffixOverrides=",">
+				<if test="pripid != null">pripid = #{pripid, 		jdbcType=VARCHAR},</if>
+				<if test="entname != null">entname = #{entname, 		jdbcType=VARCHAR},</if>
+				<if test="uniscid != null">uniscid = #{uniscid, 		jdbcType=VARCHAR},</if>
+				<if test="regno != null">regno = #{regno,		jdbcType=VARCHAR},</if>
+				<if test="lerep != null">lerep = #{lerep,		jdbcType=VARCHAR},</if>
+				<if test="certype != null">certype = #{certype,		jdbcType=VARCHAR},</if>
+				<if test="cerno != null">cerno = #{cerno,		jdbcType=VARCHAR},</if>
+				<if test="specause != null">specause = #{specause,		jdbcType=VARCHAR},</if>
+				<if test="specauseCn != null">specause_cn = #{specauseCn,	jdbcType=VARCHAR},</if>
+				<if test="abntime != null">abntime = to_date(#{abntime,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="decorg != null">decorg = #{decorg,		jdbcType=VARCHAR},</if>
+				<if test="decorgCn != null">decorg_cn = #{decorgCn,		jdbcType=VARCHAR},</if>
+				<if test="ismove != null">ismove = #{ismove,		jdbcType=VARCHAR},</if>
+				<if test="remexcpres != null">remexcpres = #{remexcpres,	jdbcType=VARCHAR},</if>
+				<if test="remexcpresCn != null">remexcpres_cn = #{remexcpresCn,	jdbcType=VARCHAR},</if>
+				<if test="remdate != null">remdate = to_date(#{remdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="redecorg != null">redecorg = #{redecorg,		jdbcType=VARCHAR},</if>
+				<if test="redecorgCn != null">redecorg_cn = #{redecorgCn,	jdbcType=VARCHAR},</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where busexclist = #{busexclist}
+		</if>
+		<if test="count == 0">
+			insert into AO_OPA_DETAIL
+			(
+				busexclist,
+				pripid,
+				entname,
+				uniscid,
+				regno,
+				lerep,
+				certype,
+				cerno,
+				specause,
+				specause_cn,
+				abntime,
+				decorg,
+				decorg_cn,
+				ismove,
+				remexcpres,
+				remexcpres_cn,
+				remdate,
+				redecorg,
+				redecorg_cn,
+				s_ext_fromnode,
+				s_ext_datatime
+				
+			)
+			values
+			(
+				#{busexclist, 	jdbcType=VARCHAR},
+				#{pripid, 		jdbcType=VARCHAR},
+				#{entname, 		jdbcType=VARCHAR},
+				#{uniscid, 		jdbcType=VARCHAR},
+				#{regno,		jdbcType=VARCHAR},
+				#{lerep,		jdbcType=VARCHAR},
+				#{certype,		jdbcType=VARCHAR},
+				#{cerno,		jdbcType=VARCHAR},
+				#{specause,		jdbcType=VARCHAR},
+				#{specauseCn,	jdbcType=VARCHAR},
+				to_date(#{abntime,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{decorg,		jdbcType=VARCHAR},
+				#{decorgCn,		jdbcType=VARCHAR},
+				#{ismove,		jdbcType=VARCHAR},
+				#{remexcpres,	jdbcType=VARCHAR},
+				#{remexcpresCn,	jdbcType=VARCHAR},
+				to_date(#{remdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{redecorg,		jdbcType=VARCHAR},
+				#{redecorgCn,	jdbcType=VARCHAR},
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

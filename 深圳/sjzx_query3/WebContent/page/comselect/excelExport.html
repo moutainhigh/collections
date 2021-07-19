@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>重复地址查询</title>
+<link rel="stylesheet" href="../../static/css/common.css">
+<link href="../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />	
+<style type="text/css">
+.jazz-field-comp-input{
+	line-height: 22px;
+	_line-height: 22px;
+}
+</style>
+</head>
+<body>
+<script src="../../static/js/sczt/base64.js" type="text/javascript"></script>
+
+<script>
+
+</script>
+<body style="overflow-x:hidden">
+
+<!-- 构建页面==开始 -->
+<div style="position: relative;">
+<!-- 查询条件 -->
+<div id="formpanel" name="formpanel" vtype="formpanel" titledisplay="false" width="100%" layout="table"      
+		layoutconfig="{cols:3, columnwidth: ['33.3%','33.3%','*']}" showborder="false">
+		<div name="entname" vtype="checkboxfield" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '企业名称',text: '企业名称'}]"></div> 
+		<div name="regno" vtype="checkboxfield" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '注册号',text: '注册号'}]"></div>
+		<div name="enttype" vtype="checkboxfield" label="" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '企业类型',text: '企业类型'}]"></div>
+		<div name="dom" vtype="checkboxfield" label="" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '地址',text: '地址'}]"></div>
+		<div name="reccap" vtype="checkboxfield" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '认缴资本总额',text: '认缴资本总额'}]"></div>
+		<div name="regcapcur" vtype="checkboxfield" label="" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '币种',text: '币种'}]"></div>	
+		<div name="regstate" vtype="checkboxfield" label="" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '注册状态',text: '注册状态'}]"></div>
+		<div name="industryphy" vtype="checkboxfield" label="" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '行业类别',text: '行业类别'}]"></div>
+		<div name="industryco" vtype="checkboxfield" label="" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '行业代码',text: '行业代码'}]"></div>
+		<div name="regorg" vtype="checkboxfield" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '管辖区域',text: '管辖区域'}]"></div>
+		
+		<div name="adminbrancode" vtype="checkboxfield" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '所属监管所',text: '所属监管所'}]"></div>
+		<div name="gongzuowangge" vtype="checkboxfield" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '工作网格',text: '工作网格'}]"></div>
+			
+		<div name="opscope" vtype="checkboxfield" label="" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '经营范围',text: '经营范围'}]"></div>	
+		<div name="estdate" vtype="checkboxfield" label="" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '成立日期',text: '成立日期'}]"></div>
+		<div name="apprdate" vtype="checkboxfield" label="" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '核准日期',text: '核准日期'}]"></div>
+		<div name="lerep" vtype="checkboxfield" label="" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '法定代表人',text: '法定代表人'}]"></div>
+		<div name="opfyears" vtype="checkboxfield" label="" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '经营期限',text: '经营期限'}]"></div>
+		<div name="fddbrMobtel" vtype="checkboxfield" label="" labelalign="right" width="300"
+			dataurl="[{checked: true,value: '法定代表人联系电话',text: '法定代表人联系电话'}]"></div>
+		<div name="gsllyName" vtype="checkboxfield" label="" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '工商联络员',text: '工商联络员'}]"></div>
+		<div name="gsllyMobtel" vtype="checkboxfield" label="" labelalign="right" width="200"
+			dataurl="[{checked: true,value: '工商联络员联系电话',text: '工商联络员联系电话'}]"></div>
+		<div id="toolbar" name="toolbar" vtype="toolbar">          
+			<div id="save_button" name="save_button" vtype="button" text="导出" defaultview="1" align="center" ></div>          
+			<div id="reset_button" name="reset_button" vtype="button" text="重 置" defaultview="1" align="center" ></div>
+		</div> 
+	</div> 
+    
+</div>
+<div id="process" style="color:red;position: absolute;display:none;bottom: 0px">正在导出中,请稍后...</div>
+<!-- 构建页面==结束 -->
+
+<script type="text/javascript" src="../../static/js/config.js"></script>
+<script type="text/javascript" data-main="com/excelExport.js" src="../../static/lib/require.js"></script>
+</body>
+</html>

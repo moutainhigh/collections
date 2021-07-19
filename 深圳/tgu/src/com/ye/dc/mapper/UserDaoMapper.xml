@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 
+	例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ye.dc.dao.UserDao">
+
+
+	<select id="getUserIsExit" resultType="User">
+		select user_id as userid,
+		user_name as name,
+		department_code as deptcode
+		from jc_public_people t
+		<where>
+			t.user_id = #{userid}
+		</where>
+	</select>
+
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int"	order="BEFORE">
+			select count(1) from jc_public_people t where t.user_id=#{userid}
+		</selectKey>
+		<if test="count > 0">
+			update jc_public_people t
+			<trim prefix="set" suffixOverrides=",">
+				<if test="userid != null">t.user_id = #{userid, jdbcType=VARCHAR},</if>
+				<if test="name != null">t.user_name = #{name, jdbcType=VARCHAR},</if>
+				<if test="deptcode != null">department_code = #{deptcode, jdbcType=VARCHAR},</if>
+				t.timestamp = sysdate,
+			</trim>
+			where t.user_id = #{userid}
+		</if>
+		<if test="count == 0">
+			insert into jc_public_people (
+			user_id,
+			user_name,
+			department_code,
+			flag,
+			timestamp
+			)
+			values(
+			#{userid},
+			#{name},
+			#{deptcode},
+			'1',
+			sysdate
+			)
+		</if>
+	</insert>
+
+</mapper>

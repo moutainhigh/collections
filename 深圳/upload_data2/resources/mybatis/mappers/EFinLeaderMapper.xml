@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.EFinLeaderMapper">
+
+	<!-- 财务负责人信息 -->
+	<insert id="insertEfinLeader">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from E_FIN_LEADER where fpid = #{fpid}
+		</selectKey>
+		<if test="count > 0">
+			update  E_FIN_LEADER  
+			<trim prefix="set" suffixOverrides=",">
+				<if test="pripid != null ">pripid =  #{pripid, 	jdbcType=VARCHAR},</if>
+				<if test="name != null ">name =  #{name, 	jdbcType=VARCHAR},</if>
+				<if test="certype != null ">certype =  #{certype, 	jdbcType=VARCHAR},</if>
+				<if test="cerno != null ">cerno =  #{cerno, 	jdbcType=VARCHAR},</if>
+				<if test="tel != null ">tel =  #{tel, 		jdbcType=VARCHAR},</if>
+				<if test="mobtel != null ">mobtel =  #{mobtel, 	jdbcType=VARCHAR},</if>
+				<if test="email != null">email = #{email,	jdbcType=VARCHAR},</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where fpid = #{fpid} 
+		</if>
+		<if test="count == 0">
+			insert into E_FIN_LEADER
+			(
+				fpid, 
+				pripid, 
+				name, 
+				certype, 
+				cerno, 
+				tel, 
+				mobtel, 
+				email,
+				s_ext_fromnode,
+				s_ext_datatime
+				
+			)
+			values
+			(
+				#{fpid,		jdbcType=VARCHAR},
+				#{pripid, 	jdbcType=VARCHAR},
+				#{name, 	jdbcType=VARCHAR},
+				#{certype, 	jdbcType=VARCHAR},
+				#{cerno, 	jdbcType=VARCHAR},
+				#{tel, 		jdbcType=VARCHAR},
+				#{mobtel, 	jdbcType=VARCHAR},
+				#{email,	jdbcType=VARCHAR},
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

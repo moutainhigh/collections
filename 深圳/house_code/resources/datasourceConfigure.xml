@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="GBK"?>
+<beans>
+	
+	<bean id="defaultDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<!-- <value>jdbc:oracle:thin:@localhost:1521:orcl</value> -->
+			<!-- <value>jdbc:oracle:thin:@(DESCRIPTION= (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.153)(PORT=1521)) (LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED) (SERVICE_NAME=racdb5)))</value>	 -->
+		<!-- <value>jdbc:oracle:thin:@10.3.70.134:1521:oragxk</value> -->
+			<!-- 正式库 -->
+			<value>jdbc:oracle:thin:@10.3.70.7:1521/racdb5</value>
+ 		</property>
+		<property name="username">
+			<value>db_dc</value>
+		</property>
+		<property name="password">
+			<!-- <value>123456</value> -->
+			<value>db_dc</value>
+		</property>
+				<property name="validationQuery">
+			<value>select 1 from dual</value>
+		</property>
+		<property name="testWhileIdle" value="true"/>
+        <property name="removeAbandoned" value="true"/>
+       	<property name="timeBetweenEvictionRunsMillis">
+			<value>30000</value>
+		</property> 
+		<property name="minEvictableIdleTimeMillis">
+			<value>200000</value>
+		</property>
+	</bean>
+	
+	
+	
+	<bean id="dc_dc" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<!-- <value>jdbc:oracle:thin:@(DESCRIPTION= (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.153)(PORT=1521)) (LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED) (SERVICE_NAME=racdb5)))</value> -->
+			<!-- 正式库 -->
+			<value>jdbc:oracle:thin:@10.255.2.135/exdbc3</value>
+			<!-- <value>jdbc:oracle:thin:@10.3.70.7:1521/racdb5</value> -->
+ 		</property>
+		<property name="username">
+			<value>dc_dc</value>
+		</property>
+		<property name="password">
+			<value>dc_dc</value>
+		</property>
+		<property name="validationQuery">
+			<value>select 1 from dual</value>
+		</property>
+		<property name="testWhileIdle" value="true"/>
+        <property name="removeAbandoned" value="true"/>
+       	<property name="timeBetweenEvictionRunsMillis">
+			<value>30000</value>
+		</property> 
+		<property name="minEvictableIdleTimeMillis">
+			<value>200000</value>
+		</property>
+	</bean>
+
+	<bean id="mainDataSource" class="net.bull.javamelody.SpringDataSourceFactoryBean">
+	    <property name="targetName" value="defaultDataSource" />
+	</bean>
+</beans>

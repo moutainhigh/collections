@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jazz-ui.js" type="text/javascript"></script> 
+</head>
+    <script>  
+      
+    jQuery(function($){  
+          
+        $('#progressbar_id1').progressbar({  
+        	  complete : function(e) {  
+                  alert("Completed!"); 
+
+              }  
+        });              
+            
+        setInterval(function() {  
+             var val = $('#progressbar_id1').progressbar('option', 'value') + 10;    
+             $('#progressbar_id1').progressbar('option', 'value', val);    
+        }, 1000);   
+          
+
+    });  
+      
+    </script>  
+    <body>  
+      
+    <div id="progressbar_id1"></div>  
+      
+
+    </body>  
+    </html><SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ba</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<link href="statics/bt/css/bootstrap.min.css" rel="stylesheet">
+<script type="text/javascript" src="statics/js/jquery.2.0.js"></script>
+<script type="text/javascript" src="statics/plugin/WdatePicker.js"></script>
+<style>
+.header {
+	padding-top: 10px;
+	height: 150px;
+}
+
+.Wdate {
+	height: 28px;
+}
+a{text-decoration: none;}
+
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div class='header'>
+					<div>
+						选择查询季度时间：
+						<input id="time" type="text" class="Wdate" onclick="WdatePicker({dateFmt:'yyyy-MM-dd'})" placeholder="请输入新闻发布时间" />
+						<a href="javascript:;" onclick="doQuery(this)">查询</a>
+					</div>
+					
+					
+					<div class="alert alert-warning hide" id="tips">
+						<span id="msg"></span>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function doQuery(obj) {
+			var _this = $(obj);
+			_this.removeAttr("onclick");
+			_this.html("查询中....");
+			var time = $("#time").val();
+			$.ajax({
+				url : "doQuery",
+				data : {
+					time : time
+				},
+				type : "post",
+				dataType:"json",
+				beforeSend : function() {
+				
+				},
+				success : function(data) {
+					$("#msg").html(data.msg);
+					$("#tips").addClass("show").removeClass("hide");
+					_this.attr("onclick","doQuery(this)");
+					_this.html("查询");
+					  setTimeout(function(){
+							$("#tips").slideUp(function(){
+								$("#tips").addClass("hide").removeClass(" show");
+							});
+						  
+					  },2000);
+					
+				},
+				error : function() {
+
+				}
+
+			});
+
+		}
+		
+	
+	   
+	</script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:ws="http://jax-ws.dev.java.net/spring/core" xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+	    http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	    http://jax-ws.dev.java.net/spring/core 
+	    http://jax-ws.dev.java.net/spring/core.xsd
+        http://jax-ws.dev.java.net/spring/servlet 
+        http://jax-ws.dev.java.net/spring/servlet.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd"
+	default-autowire="byName">
+
+	
+	
+		<context:component-scan base-package="com.gwssi" >
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 
+	</context:component-scan>
+
+	<!-- 加载配置文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:*.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+	
+	<!-- 替换成中心库mqs01 -->
+	<bean id="dc_dc" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			 <value>jdbc:oracle:thin:@(DESCRIPTION= (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.153)(PORT=1521)) (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.159)(PORT=1521)) (LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED) (SERVICE_NAME=racdb5)))</value>
+		</property>
+		<property name="username">
+			<value>dc_dc</value>
+		</property>
+		<property name="password">
+			<!-- <value>dc_dc09fy</value> -->
+			<value>dc_dc09fy</value>
+		</property>
+		<property name="validationQuery">
+			<value>select 1 from dual</value>
+		</property>
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>30000</value>
+		</property>
+		<property name="minEvictableIdleTimeMillis">
+			<value>200000</value>
+		</property>
+	</bean>
+	
+		
+	<!--事务管理DataSourceTransactionManager -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dc_dc" />
+	</bean>
+
+	<!-- 针对注解声明式的事物 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+
+	<aop:config>
+		<!-- <aop:pointcut id="baseServiceMethods" expression="execution(* com.gwssi.*.service..*.*(..))" 
+			/> -->
+		<aop:pointcut id="baseServiceMethods"
+			expression="target(com.gwssi.optimus.core.service.BaseService)" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="baseServiceMethods" />
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="select*" read-only="true" propagation="SUPPORTS"
+				rollback-for="Exception" />
+			<tx:method name="find*" read-only="true" propagation="SUPPORTS"
+				rollback-for="Exception" />
+			<tx:method name="do*" propagation="REQUIRED" isolation="READ_COMMITTED"
+				rollback-for="Exception" />
+			<tx:method name="insert*" propagation="REQUIRED" isolation="READ_COMMITTED"
+				rollback-for="Exception" />
+			<tx:method name="update*" propagation="REQUIRED" isolation="READ_COMMITTED"
+				rollback-for="Exception" />
+			<tx:method name="add*" propagation="REQUIRED" isolation="READ_COMMITTED"
+				rollback-for="Exception" />
+			<tx:method name="delete*" propagation="REQUIRED" isolation="READ_COMMITTED"
+				rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+
+
+	<bean name="sessionCacheClient"
+		class="com.gwssi.optimus.core.web.session.client.redis.RedisSessionCacheClient"></bean>
+		
+		
+	<bean name="sessionManager"
+		class="com.gwssi.optimus.core.web.session.manager.CatalinaSessionManager"></bean>
+		
+	<!--  <bean name="authManager" class="com.gwssi.optimus.plugin.auth.OptimusAuthManager"></bean>  -->
+	
+	<!-- 多数据源管理类：XML文件方式  -->
+	<bean class="com.gwssi.optimus.core.persistence.datasource.storage.impl.DynamicSourceToXML"></bean>
+	
+	<aop:aspectj-autoproxy proxy-target-class="true"/> 
+	
+	
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 别名包 -->
+		<property name="typeAliasesPackage" value="com.gwssi.entSelect.pojo" />
+		<!-- 定义数据源 -->
+		<property name="dataSource" ref="dc_dc" />
+		<!-- 自动扫描mapping.xml文件 -->
+		<property name="mapperLocations" value="classpath:com/gwssi/entSelect/mapper/*.xml"></property>
+	</bean>
+	
+	
+	<!-- 定义Mapper接口扫描器 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 扫描mapper包 -->
+		<property name="basePackage" value="com.gwssi.entSelect.dao"/>
+	</bean>
+
+ 
+	
+	<!-- 定时任务 -->
+<task:executor id="executor" pool-size="30" />
+<task:scheduler id="scheduler" pool-size="40" />
+<task:annotation-driven executor="executor"	scheduler="scheduler" />
+	
+</beans>

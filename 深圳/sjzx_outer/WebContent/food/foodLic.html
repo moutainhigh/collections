@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>食品企业查询</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="stylesheet" href="../statics/bt/css/bootstrap.min.css">
+<script type="text/javascript" src="../statics/bt/js/jquery.min.js"></script>
+<script type="text/javascript" src="../statics/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="../statics/bt/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../statics/js/util.js"></script>
+<script type="text/javascript" src="../statics/food/js/foodTemplate.js"></script>
+<!--[if lt IE 9]>
+      <script src="../statics/bt/ie/html5shiv-printshiv.js"></script>
+      <script src="../statics/bt/ie/respond.min.js"></script>
+<![endif]-->
+<link rel="stylesheet" href="../statics/food/foodCss.css">
+<body>
+	<div id="validateState" state="0"></div>
+	<div class="container-fluid">
+		<div class="row clearfix">
+			<div class="header">
+				<div class="topWrap">
+					<div class="topDiv pull-left">
+						<a href="food/foodLic.html">
+							<img src="../statics/images/logo.png">
+						</a>
+					</div>
+					<div class='pull-left hTitle'>食品企业查询</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container" style="margin-top: 10px;">
+		<div class="row">
+			<div class="span6">
+				<ul class="breadcrumb">
+					<li>
+						<a href="#">首页</a>
+						<span class="divider"></span>
+					</li>
+					<li>
+						<a href="#">食品企业查询</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="container" id="inputForms">
+		<div class="row clearfix">
+			<div class="col-md-2 column">
+				<div style="background: #eb8b1c"></div>
+			</div>
+			<div class="col-md-8 column">
+				<form role="form" style="margin-top: 60px;">
+					<div class="form-group pr">
+						<label for="entname" class="inputTips">单位名称：</label>
+						<input type="text" class="form-control inputs" id="entname" placeholder="输入单位名称" />
+						<span class="help-block">&nbsp;</span>
+					</div>
+					<div class="form-group pr">
+						<label for="licno" class="inputTips">许可证号：</label>
+						<input type="text" class="form-control inputs" id="licno" placeholder="输入许可证号" />
+						<span class="help-block">&nbsp;</span>
+					</div>
+
+					<div class="form-group pr" style="height: 40px">
+						<label for="validecCode" class="inputTips">验证码：</label>
+						<input type="text" class="form-control pull-left" placeholder="输入验证码" id="validecCode" />
+						<img id="validecCodeImage" onclick="getCode()">
+						<span class="help-block"> </span>
+					</div>
+					<div class="formBtns">
+						<a class="btn btn-primary" id="submitBtn" onclick="initData(this)">查询</a>
+						<button type="reset" class="btn btn-default">重置</button>
+					</div>
+
+				</form>
+			</div>
+			<div class="col-md-2 column"></div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-12 column" id="queryResult">
+				<div class="hide" style="padding-top: 30px;border-bottom: 2px solid #0378AD;width: 99.3%;">
+					<span class='glyphicon glyphicon-home'></span>
+					<em id="entTitle" style="font-size: 24px;font-weight: normal; color: #202020;font-style: normal;">查询结果</em>
+				</div>
+				<div class="foodEntList">
+					<table class="table responsive" id="itemList" style="width: 1132px;">
+					</table>
+				</div>
+			</div>
+			<div id="openDialog"></div>
+		</div>
+	</div>
+	<div class="container-fluid">
+		<div class="row clearfix">
+			<div class="footer">
+				<div class="center">
+					<div class="copyright">
+						<p>版权所有：深圳市市场和质量监督管理委员会</p>
+						<p>地址：深圳市深南大道7010号工商物价大厦</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<script>
+
+	$(function(){
+		getCode();
+		$(document).keydown(function(e){
+			if(e.keyCode == 13){
+				//触发登陆按钮的事件
+				$("#submitBtn").trigger("click");
+			}
+		});
+	});
+	
+	
+	
+	
+	/*
+		验证码
+	*/
+	function checkNumber(str) {  
+	    var reg = /^[0-9]+.?[0-9]*$/;  
+	    if (reg.test(str)) {  
+	        return true;  
+	    }  
+	    return false;  
+	}
+	
+	function getCode() {
+			$("#validecCode").val("");
+			var url = "../validate/getCode.do?timestamp="+(new Date()).valueOf();
+			$("#validecCodeImage").attr("src", url);
+	}
+	
+	
+	function checkCode() {
+		　　　if($("#validecCode").is(':hidden')){
+		　　　　	return;
+			}
+			var  code = $("#validecCode").val();
+			var isNum = checkNumber(code);
+			if(!isNum){
+				 $("#validateState").attr("state","0");
+			}else{
+				$.ajax({
+				　　　　type : "post",
+				　　　　url :'../validate/checkCode.do',
+				　　　　data : {
+				　　　　		code:code,
+				　　　　　　　　},
+				　　　　dataType : 'json',
+					 async:false, 
+				　　　　success : function(data) {
+				　　　　　　if(data.data[0].data=="success"){
+				　　　　　　　	//　alert("验证码正确");
+				　　　　　　　	 $("#validateState").attr("state","1");
+				　　　　　　　　}
+				　　　　　　else{
+				　　　　　　　//　alert("验证码错误");
+							 $("#validateState").attr("state","0");
+				　　　　　　　　// getCode();
+				　		}
+					}
+				});
+			}
+		}
+	
+	
+	function initData(obj) {
+		$("#itemList").empty();
+		$("body").css("min-height","750px")
+		var entname = $('#entname').val();
+		var licno = $('#licno').val();
+		var validecCode = $("#validecCode").val();
+		entname = $.trim(entname);
+		licno = $.trim(licno);
+		validecCode = $.trim(validecCode);
+		var queryEntName= entname;
+		if(isEmpty(entname)&&isEmpty(licno)){
+			alert("单位名称和许可证号两项不能同时为空");
+			$('#entname').focus();
+		}else{
+			if(isEmpty(validecCode)){
+				alert("验证码不能为空");
+				$("#entTitle").parent().removeClass("show").addClass("hide");
+			}else{
+				checkCode();
+				var valideState = $("#validateState").attr("state");
+				if(valideState!=0){
+						$(obj).html("查询中").removeAttr("onclick");
+						$.ajax({
+							url : '../foodLic/foodList.do',
+							type : 'POST',
+							dataType : 'json',
+							data : {
+								"entname" : entname,
+								"licno" : licno,
+								"validecCode":validecCode
+							},
+							async : false,
+							success : function(data) {
+								getCode();
+								$("#entTitle").parent().removeClass("hide").addClass("show");
+								//$("#entTitle").html("查询结果");
+								$("#validateState").attr("state","0")
+								$(obj).html("查询").attr("onclick","initData(this)");
+								var html = "<tr class='success'><td>序号</td><td>单位名称</td><td>许可证号</td><td>法定代表人(负责人)</td><td>有效期限</td><td>许可证类型</td><td>详情</td></tr>";
+								if(!$.isEmptyObject(data.data[0].data)){
+									if(data.data[0].data=="您查询次数过多，请稍后再查！"){
+										$("#queryResult").addClass("hide").removeClass("show");
+										alert(data.data[0].data);
+									}else{
+										$("#queryResult").addClass("show").removeClass("hide");
+										var data = data.data[0].data;
+										var rownum = " ";
+										var id = " ";
+										var entname = " ";
+										var licno = " ";
+										var frname = " ";
+										var validDate = " ";
+										var lictypeCn = " ";
+										var licid = " ";
+										var lictype = " ";
+										for (var i = 0; i < data.length; i++) {
+											if (isNotEmpty(data[i].rownum)) {
+												rownum = data[i].rownum;
+											}
+											if (isNotEmpty(data[i].id)) {
+												id = data[i].id;
+											}
+		
+											if (isNotEmpty(data[i].entname)) {
+												entname = data[i].entname;
+											}
+		
+											if (isNotEmpty(data[i].licno)) {
+												licno = data[i].licno;
+											}
+		
+											if (isNotEmpty(data[i].frname)) {
+												frname = data[i].frname;
+											}
+											if (isNotEmpty(data[i].validDate)) {
+												validDate = data[i].validDate;
+											}
+											if (isNotEmpty(data[i].lictypeCn)) {
+												lictypeCn = data[i].lictypeCn;
+											}
+											if (isNotEmpty(data[i].licid)) {
+												licid = data[i].licid;
+											}
+											if (isNotEmpty(data[i].lictype)) {
+												lictype = data[i].lictype;
+											}
+		
+											if (i % 2 != 0) {
+												html += "<tr class='active'><td>"+ rownum+ "</td>"
+														+ "<td>"+ entname+ "</td>"
+														+ "<td>"+ licno+ "</td>"
+														+ "<td>"+ frname+ "</td>"
+														+ "<td>"+ validDate+ "</td>"
+														+ "<td>"+ lictypeCn+ "</td>"
+														+ "<td><div class='row clearfix'><div class='col-md-12 column'>"
+														+ "<a  href='#"+ lictype+ "' data-toggle='modal' onclick='detail(this)' data-id='"+ id + "' data-foodid='" + licid+ "' data-lictype='" + lictype+ "' lictypeCn=" + lictypeCn+ " data-entname=" + entname+ ">详情</a>" + "</div></div></td></tr>";
+											} else {
+												html += "<tr >" + "<td>"+ rownum+ "</td>"
+														+ "<td>"+ entname+ "</td>"
+														+ "<td>"+ licno+ "</td>"
+														+ "<td>"+ frname+ "</td>"
+														+ "<td>"+ validDate+"</td>"
+														+ "<td>"+ lictypeCn+ "</td>"
+														+ "<td><div class='row clearfix'><div class='col-md-12 column'><a href='#"+ lictype+ "' data-toggle='modal' onclick='detail(this)' data-id='"+ id + "' data-foodid='" + licid+ "' data-lictype='" + lictype+ "' lictypeCn=" + lictypeCn+ " data-entname=" + entname+ ">详情</a></div>"
+														+ "</div></td></tr>";
+											}
+										}
+									}
+									
+									
+									$("#itemList").html(html);
+								}else{
+									html+="<tr><td colspan='7'>暂无明细</td></tr>";
+									$("#itemList").html(html);
+									//$("#entTitle").html("查询结果");
+								}
+							},
+						error : function(data) {
+							$(obj).html("查询").attr("onclick","initData(this)");
+							getCode();
+							alert("请重新查询");
+							$("#entTitle").parent().removeClass("show").addClass("hide");
+						}
+					});
+					
+				}else{
+					$("#entTitle").parent().removeClass("show").addClass("hide");
+					alert("验证码不正确");
+				}
+				
+			}
+		}
+		
+	}
+
+	
+	
+	
+	
+	
+	
+	function detail(obj) {
+		var _this = $(obj);
+		var foodid = _this.data("foodid");
+		var lictype = _this.data("lictype");
+		var entname = _this.data("entname");
+		var lictypeCn = _this.data("lictypeCn");
+		var id = _this.data("id");
+
+		if (lictype == "1") {
+			$.ajax({
+				url : '../foodLic/foodDetail.do',
+				type : 'POST',
+				dataType : 'json',
+				data : {
+					"foodid" : foodid,
+					"lictype" : "1"
+				},
+				async : false,
+				success : function(data) {
+					if (!$.isEmptyObject(data.data)) {
+						var data = data.data[0].data;
+						if (lictype == "1") {
+							temp1(lictype, entname, data);
+						}
+					}
+				},
+				error : function(data) {
+
+				}
+			});
+		} else if (lictype == "3") {
+			$.ajax({
+				url : '../foodLic/foodDetail.do',
+				type : 'POST',
+				dataType : 'json',
+				data : {
+					"foodid" : foodid,
+					"lictype" : "3"
+				},
+				async : false,
+				success : function(data) {
+					if (!$.isEmptyObject(data.data)) {
+						var data = data.data[0].data;
+						temp3(id, lictype, entname, data);
+					}
+				},
+				error : function(data) {
+
+				}
+			});
+
+		} else if (lictype == "5") {
+			$.ajax({
+				url : '../foodLic/foodDetail.do',
+				type : 'POST',
+				dataType : 'json',
+				async : false,
+				data : {
+					"foodid" : foodid,
+					"lictype" : "5"
+				},
+				success : function(data) {
+					if (!$.isEmptyObject(data.data)) {
+						var data = data.data[0].data;
+						temp5(lictype, entname, data);
+					}
+				},
+				error : function(data) {
+
+				}
+			});
+		} else if (lictype == "6") {
+			$.ajax({
+				url : '../foodLic/foodDetail.do',
+				type : 'POST',
+				dataType : 'json',
+				async : false,
+				data : {
+					"foodid" : foodid,
+					"lictype" : "6"
+				},
+				success : function(data) {
+					if (!$.isEmptyObject(data.data)) {
+						var data = data.data[0].data;
+						temp6(lictype, entname, data);
+					}
+				},
+				error : function(data) {
+
+				}
+			});
+		}
+	}
+</script>
+</html>

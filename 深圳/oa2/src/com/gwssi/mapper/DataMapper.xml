@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.dao.OADao">
+
+
+
+	<!-- 登记许可待办。1 -->
+	<select id="getData1" resultType="Integer">
+		SELECT count(1) as count FROM
+		GCLOUD_GIAP_aicmer.GIAP_APPLY_BASE BASE
+		LEFT JOIN
+		GCLOUD_GIAP_aicmer.GIAP_APPLY_WORKFLOW WF ON BASE.SERIAL_NO =
+		WF.SERIAL_NO WHERE EXISTS (SELECT 1 FROM
+		GCLOUD_GIAP_aicmer.GIAP_APPLY_DAI_BAN DB WHERE BASE.SERIAL_NO =
+		DB.SERIAL_NO
+		<if test="userId != null">AND DB.ORGAN_ID = #{userId}</if>
+		) AND BASE.IS_FINISH = '0' AND
+		WF.IS_FINISH = '0' AND BASE.TASK_STATE =
+		'TODO' ORDER BY
+		WF.TASK_CREATE_TIME DESC
+	</select>
+
+	<!-- 登记许可待办。2 -->
+	<select id="getData2" resultType="Integer">
+		SELECT count(1) as count
+		FROM GCLOUD_NAME.NAME_ENTERPRISE_INFO EI
+		JOIN
+		GCLOUD_NAME.NAME_TASK_ALLOCATION TA
+		ON EI.ID = TA.INFO_ID
+		WHERE 1 = 1
+		AND (EI.APPROVAL_STATE = '10' OR EI.APPROVAL_STATE = '12' OR
+		EI.APPROVAL_STATE = '13')
+		<if test="userId != null"> AND ORGAN_ID = #{userId}</if>
+		ORDER BY EI.APPLY_DATE DESC
+	</select>
+
+
+	<!-- 登记许可待办。人事系统-->
+	<select id="getData3" resultType="Integer">
+		SELECT count(1) as count FROM
+		LS_BPM.WF_DAI_BAN_TASK PROCTABLE
+		<where>
+			PROCTABLE.IS_VISIBLE = '1'
+			AND
+			PROCTABLE.PROCESS_TYPE = 'HR'
+			<if test="userId != null"> AND ORGAN_ID = #{userId}</if>
+		</where>
+		ORDER BY
+		PROCTABLE.CREATE_TIME
+	</select>
+
+
+	<!-- 固定资产代办 -->
+	<select id="getData4" resultType="Integer">
+		select count(1) as count from gcloud_assetman.assetman_apply
+		<where>
+			current_user_id = #{userId}
+		</where>
+	</select>
+
+</mapper>

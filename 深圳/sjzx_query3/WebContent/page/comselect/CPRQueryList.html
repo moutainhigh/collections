@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible"content="IE=8;IE=9;IE=EDGE"> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>12315查询</title>
+<link rel="stylesheet" href="../../static/css/common.css">
+<link href="../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />	
+<script src="../../static/js/sczt/base64.js" type="text/javascript"></script>
+<style type="text/css">
+.jazz-field-comp-input{
+	line-height: 22px;
+	_line-height: 22px;
+}
+
+
+</style>
+</head>
+<body>
+
+<body style="overflow-x:hidden">
+<!-- 构建页面==开始 -->
+<div>
+<!-- 查询条件 -->
+<div name="CPRQueryListPanel" id="CPRQueryListPanel"
+	vtype="formpanel" width="100%" layout="table"  style="text-align: center;"
+	layoutconfig="{cols:2, columnwidth: ['50%','50%']}" 
+	labelstyleclass="labelstyle" title="12315查询" 
+	titledisplay="true" showborder="false" >
+	
+	<div name="regino" vtype="textfield" label="登记编号" labelwidth="150" labelalign="right" width="400" valuetip="请输入登记编号……"
+	 tooltip="" rule="" ></div>
+ 	
+ 	 <div name="inftype" vtype="comboxfield" label="信息件类型"  labelwidth="150" labelalign="right" width="400" valuetip="请输入信息件类型……" dataurl='inftype.json'
+	 tooltip="" rule="" ></div> 
+	 <div name="infoori" vtype="comboxfield" label="信息来源"  labelwidth="150" labelalign="right" width="400" valuetip="请输入信息件类型……" dataurl='infoori.json'
+	 tooltip="" rule="" ></div> 
+	  <div name="incform" vtype="comboxfield" label="接收方式"  labelwidth="150" labelalign="right" width="400" valuetip="请输入接收方式编码……" dataurl='incform.json'
+ 	 tooltip="" rule=""></div>
+ 	<div name="regdepname" vtype="textfield" label="登记部门"  labelwidth="150" labelalign="right" width="400" valuetip="请输入登记部门简称……"
+ 	 tooltip="" rule=""></div>
+	<div name="regtime" lable="登记时间"  labelwidth="0" labelalign="right" width="400"  style="margin-left:60px;" >
+		<div name="regtime_begin" vtype="datefield" label="登记时间"  labelwidth="90" labelalign="right" width="205" valuetip="开始时间……"
+	 tooltip="" rule="" ></div>
+	   <span id="toDates" style="text-align:center;display:none;; height:48px; line-height:63px; margin-left:-11px;margin-right:-11px;">至</span>
+ 		<div name="regtime_end" vtype="datefield"  labelwidth="0" labelalign="right" width="110" valuetip="结束时间……"
+ 	 tooltip="" rule=""></div>
+	</div>
+	
+
+    <div id="toolbar" name="toolbar" vtype="toolbar" location="bottom"
+				align="center" width="100%">
+				<div name="save_button" id="save_button" vtype="button" text="查询"
+					icon="../query/queryssuo.png"></div>
+				<div name="reset_button" id="reset_button" vtype="button" text="重置"></div>
+				<!-- <div name="back_button" id="back_button" vtype="button" text="返回"
+					icon="../query/queryssuo.png" click="goBack()"></div> -->
+    </div>
+    
+</div>
+<!-- 数据展现 -->
+		<div name="CPRQueryListGrid" id="CPRQueryListGrid" vtype="gridpanel" titleDisplay="false" title="" labelStyleClass="labelstyle" lineno="true" isshowselecthelper="false"
+		  showborder=true width="100%" >
+		<!-- <div name="add_function_button" id="add_function_button" vtype='button' text='新增功能信息' ></div> -->
+			 <div style="color:red;display:none" id="tips">说明：由于旧消保系统中还有未办结的数据，消保历史数据暂时未同步至数据中心，此处查询的是新消保系统办理的数据。</div>
+			<div style="display:none;color:red;text-indent:3em;" id="contactTips">共<span id="totals"></span>条记录。以下为查询结果的前100条，如有更多需求，请与信息中心联系，电话：83070056。</div>
+			<div name="functionConfigGrid_column" vtype="gridcolumn">
+				<div>
+					<div name='regino' text="登记编号" textalign="left" width="20%"></div>
+					<div name='inftype' text="信息件类型"  textalign="left" width="16%" dataurl='inftype.json'></div>
+					<div name='infoori' text="信息来源"  textalign="left" width="18%" dataurl='infoori.json'></div>
+					<div name='incform' text="接收方式" textalign="left" width="16%" dataurl='incform.json'></div>
+					<div name='regdepname' text="登记部门" textalign="left" width="18%"></div>
+					<div name='regtime' text="登记时间" datatype="date" dataformat="YYYY-MM-DD" textalign="left" ></div>
+				</div>
+			</div>
+			<div vtype="gridtable" name="grid_table"></div>
+			<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10"></div>
+			<div class="nodata" style="display: none;"></div>
+		</div>
+</div>
+
+<!-- 构建页面==结束 -->
+
+<script type="text/javascript" src="../../static/js/config.js"></script>
+<script type="text/javascript" data-main="com/CPRQueryList.js" src="../../static/lib/require.js"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../../static/script/jazz.js" type="text/javascript"></script>
+<script>
+	jQuery(function($){
+		$('div[name="dmbLx"]').on("comboxfieldchange",function(event, ui){ 
+			//alert(ui.newValue+"---"+ui.newText);
+			if(ui.newValue=='1'||ui.newValue=='3'){
+				$("div[name='ccm']").textfield("option", "disabled", true);
+				$("div[name='sfdc']").comboxfield("option", "disabled", true);
+			} else{
+				$("div[name='ccm']").textfield("option", "disabled", false);
+				$("div[name='sfdc']").comboxfield("option", "disabled", false);
+			}
+		});
+		$('div[name="sjccLx"]').on("comboxfieldchange", function(event, ui) {
+			//alert(ui.newValue+"---"+ui.newText);
+			if (ui.newValue == '1' || ui.newValue == '2') {
+				$("div[name='sql']").textareafield("option", "disabled", true);
+				$("div[name='tip']").hide();
+			} else {
+				$("div[name='sql']").textareafield("option", "disabled", false);
+				$("div[name='tip']").show();
+			}
+		});
+	});
+
+	function save() {
+		var dmbId = $("div[name='dmbId']").textfield('getValue');
+		var dmbMc = $("div[name='dmbMc']").textfield('getValue');
+		var sjccLx = $("div[name='sjccLx']").comboxfield('getValue');
+		var dmbLx = $("div[name='dmbLx']").comboxfield('getValue');
+		var hcLx = $("div[name='hcLx']").comboxfield('getValue');
+		var qyBj = $("div[name='qyBj']").comboxfield('getValue');
+		if(dmbId == ''||dmbMc == ''||sjccLx==''||dmbLx==''||hcLx==''||qyBj==''){
+			jazz.info("有必填选项未填写，添加失败");
+		}else{
+			var sql = $("div[name='sql']").textareafield('getValue');
+			var sqlnew = encodeURI(encodeURI(sql));
+			sqlnew = sqlnew.replace(/'/g, "#");
+			$("div[name='sql']").textareafield('setValue',sqlnew);
+			var params = {
+				url : rootPath+'/dictionaryList/save.do?update='+update,
+				components : [ 'formpanel_edit' ],
+				
+				callback : function(data, r, res) { 
+					if (res.getAttr("back") == 'success'){
+						parent.queryDef();
+						parent.winEdit.window("close");
+						jazz.info("保存成功");
+					} else if (res.getAttr("back") == 'sameId'){
+						$("div[name='sql']").textfield('setValue',sql);
+						jazz.error("代码表ID已经存在，添加失败");
+					} else if (res.getAttr("back") == 'empty'){
+						jazz.error("sql不能为空");
+					} else if (res.getAttr("back") == 'sql'){
+						jazz.error("通用表和独立表不能有自定义SQL");
+					}else{
+						$("div[name='sql']").textfield('setValue',sql);
+						jazz.error("sql错误");
+					}
+				}
+			};
+			$.DataAdapter.submit(params);
+		}
+	}
+	
+	/*function initData(res){
+		var dmbId = res.getAttr("dmbId");
+		$('div[name="formpanel_edit"]').formpanel('option', 'dataurl',rootPath+
+		'/page/editinit.do?dmbId='+dmbId);
+		$('div[name="formpanel_edit"]').formpanel('reload');
+	}*/
+	
+	var update
+	$(function(){
+		var dmbId = jazz.util.getParameter("dmbId");
+		update = jazz.util.getParameter("update");
+		if(dmbId != null){
+			$('div[name="formpanel_edit"]').formpanel('option', 'dataurl',rootPath+
+			'/dictionaryList/editinit.do?dmbId='+dmbId);
+			$('div[name="formpanel_edit"]').formpanel('reload');
+		}
+	});
+	
+	function back() {
+		parent.winEdit.window("close");
+	}
+	
+</script>
+</head>
+<body>
+	<div id="formpanel_edit" name="formpanel_edit" vtype="formpanel"
+		tableStyleClass="tablecss" titledisplay="false" showborder="false" width="100%"
+		layout="table" layoutconfig="{cols:2, columnwidth: ['50%','*']}"
+		height="495" dataurl="">
+
+		<div name='dmbId' vtype="textfield" label="代码表ID" labelAlign="right"
+			rule="must" width="400" labelwidth="130"></div>
+		<div name='dmbMc' vtype="textfield" label="代码表名称" labelAlign="right"
+			rule="must" width="400" labelwidth="130"></div>
+		<div name='sjccLx' vtype="comboxfield" label="数据存储类型"
+			labelAlign="right" rule="must" width="400" labelwidth="130"
+			dataurl='[{"text":"通用表","value":"1"},{"text":"独立表","value":"2"},{"text":"自定义SQL","value":"3"}]'></div>
+		<div name='dmbLx' vtype="comboxfield" label="代码表类型"
+			labelAlign="right" rule="must" width="400" labelwidth="130"
+			dataurl='[{"text":"列表","value":"1"},{"text":"层次树","value":"2"},{"text":"父节点树","value":"3"}]'></div>
+		<div name='hcLx' vtype="comboxfield" label="缓存类型"
+			labelAlign="right" rule="must" width="400" labelwidth="130"
+			dataurl='[{"text":"内存","value":"1"},{"text":"数据库","value":"2"}]'></div>
+		<div name='dmccb' vtype="textfield" label="代码存储表" labelAlign="right"
+			width="400" labelwidth="130"></div>
+		<div name='dmlMc' vtype="textfield" label="代码列名称" labelAlign="right"
+			width="400" labelwidth="130"></div>
+		<div name='wblMc' vtype="textfield" label="文本列名称" labelAlign="right"
+			width="400" labelwidth="130"></div>
+		<div name='fdmlMc' vtype="textfield" label="父代码列名称" labelAlign="right"
+			width="400" labelwidth="130"></div>
+		<div name='qthclMc' vtype="textfield" label="其他缓存列名称"
+			labelAlign="right" width="400" labelwidth="130"></div>
+		<div name='pxlMc' vtype="textfield" label="排序列名称" labelAlign="right"
+			width="400" labelwidth="130"></div>
+		<div name='jxBj' vtype="textfield" label="降序标记" labelAlign="right"
+			width="400" labelwidth="130"></div>
+		<div name='bz' vtype="textfield" label="备注" labelAlign="right"
+			width="400" labelwidth="130"></div>
+		<div name='qyBj' vtype="comboxfield" label="启用标记"
+			labelAlign="right" rule="must" width="400" labelwidth="130"
+			dataurl='[{"text":"启用","value":"1"},{"text":"停用","value":"0"}]'></div>
+		<div name='ccm' vtype="textfield" label="层次码" labelAlign="right"
+			width="400" labelwidth="130"></div>
+		<div name='sfdc' vtype="comboxfield" label="是否定长"
+			labelAlign="right" width="400" labelwidth="130"
+			dataurl='[{"text":"定长","value":"1"},{"text":"不定长","value":"0"}]'></div>
+		<div name="sql" vtype="textareafield" label="自定义SQL" labelAlign="right" height="60"
+			width="850" labelwidth="130"></div>
+		<div></div>
+		<div name="tip" vtype="textfield" label="提示" labelAlign="right"
+			width="850" labelwidth="130" defaultvalue="SQL语句中代码值的标识为“value”，文本的标识为“text”。
+			示例：select t.wb as text,dm as value from T_PT_DMSJB t" readonly="true"></div>
+
+		<div id="toolbar" name="toolbar" vtype="toolbar" location="bottom" align="center">
+			<div id="btn1" name="btn1" vtype="button" text="保存"
+				icon="../../../style/default/images/save.png" click="save()"></div>
+			<div id="btn2" name="btn2" vtype="button" text="返回"
+				icon="../../../style/default/images/fh.png" click="back()"></div>
+		</div>
+	</div>
+</body>
+</html><SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

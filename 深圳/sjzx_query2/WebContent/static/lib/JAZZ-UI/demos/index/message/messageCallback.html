@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+</head>
+<script>
+
+$(function($){                
+	
+     $('#btn-info').click(function() {        
+    		jazz.info('info!',function(){alert('普通消息回调函数');});
+     });  
+
+	$('#btn-warn').click(function(){
+			jazz.warn('warn!',function(){alert('警告信息回调函数');});
+	});
+	$('#btn-error').click(function(){
+			jazz.warn('error!',function(){alert('错误信息回调函数');});
+	});
+    $('#btn-confirm').click(function() {  
+       	jazz.confirm('confirm?<br>you must realize the risk before making your choice.',function(){alert('确定');},function(){alert('取消');});   
+    }); 
+    	
+  //调整父页面iframe高度
+    try{
+        parent.setWinHeight(400);           
+    }catch(e){
+        jazz.log(e);
+    }
+});
+</script>
+<body>
+		<input type="button" id="btn-info" value="info" />
+		<input type="button" id="btn-warn" value="warn" />
+		<input type="button" id="btn-error" value="error" />
+		<input type="button" id="btn-confirm" value="confirm" />
+</body>
+</html>

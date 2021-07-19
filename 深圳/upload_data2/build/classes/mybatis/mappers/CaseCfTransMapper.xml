@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.CaseCfTransMapper">
+
+	<!-- 案件移除信息 -->
+	<insert id="insertCaseCfTrans">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from CASE_CF_TRANS  where casetranid = #{casetranid}
+		</selectKey>
+		<if test="count > 0">
+			update CASE_CF_TRANS   
+			<trim prefix="set" suffixOverrides=",">
+				<if test="caseid != null">caseid = #{caseid,				jdbcType=VARCHAR},</if>
+				<if test="accptranfauthtype != null">accptranfauthtype =#{accptranfauthtype,	jdbcType=VARCHAR},</if>
+				<if test="accptranfauth != null">accptranfauth = #{accptranfauth,		jdbcType=VARCHAR},</if>
+				<if test="tranfreatype != null">tranfreatype = #{tranfreatype,			jdbcType=VARCHAR},</if>
+				<if test="tranfrea != null">tranfrea = #{tranfrea,				jdbcType=VARCHAR},</if>
+				<if test="tranfdate != null">tranfdate = to_date(#{tranfdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="tranfnum != null">tranfnum = to_number(#{tranfnum,	jdbcType=NUMERIC}),</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where casetranid = #{casetranid}
+		</if>
+		<if test="count == 0">
+			insert into CASE_CF_TRANS
+			(
+				casetranid,
+				caseid,
+				accptranfauthtype,
+				accptranfauth,
+				tranfreatype,
+				tranfrea,
+				tranfdate,
+				tranfnum,
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{casetranid,			jdbcType=VARCHAR},
+				#{caseid,				jdbcType=VARCHAR},
+				#{accptranfauthtype,	jdbcType=VARCHAR},
+				#{accptranfauth,		jdbcType=VARCHAR},
+				#{tranfreatype,			jdbcType=VARCHAR},
+				#{tranfrea,				jdbcType=VARCHAR},
+				to_date(#{tranfdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				to_number(#{tranfnum,	jdbcType=NUMERIC}),
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

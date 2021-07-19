@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.EImInvestmentMapper">
+
+	<!-- 出资人信息情况 -->
+	<insert id="insertEImInvestment">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from E_IM_INVESTMENT  where invid = #{invid}
+		</selectKey>
+		<if test="count > 0">
+			update E_IM_INVESTMENT   
+			<trim prefix="set" suffixOverrides=",">
+				<if test="pripid != null">pripid = #{pripid,	jdbcType=VARCHAR},</if>
+				<if test="entname != null">entname = #{entname,	jdbcType=VARCHAR},</if>
+				<if test="regno != null">regno = #{regno,	jdbcType=VARCHAR},</if>
+				<if test="uniscid != null">uniscid = #{uniscid,	jdbcType=VARCHAR},</if>
+				<if test="inv != null">inv = #{inv,		jdbcType=VARCHAR},</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where invid = #{invid}
+		</if>
+		<if test="count == 0">
+			insert into E_IM_INVESTMENT
+			(
+				invid,
+				pripid,
+				entname,
+				regno,
+				uniscid,
+				inv,
+				s_ext_fromnode,
+				s_ext_datatime
+				
+			)
+			values
+			(
+				#{invid,	jdbcType=VARCHAR},
+				#{pripid,	jdbcType=VARCHAR},
+				#{entname,	jdbcType=VARCHAR},
+				#{regno,	jdbcType=VARCHAR},
+				#{uniscid,	jdbcType=VARCHAR},
+				#{inv,		jdbcType=VARCHAR},
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.dao.EPb_baseinfoDao">
+
+
+	<select id="data02" resultType="Integer" parameterType="map">
+		select count(1) from e_pb_baseinfo b where b.regorg is null  <!-- 个体管辖区域为空数量 
+			(0525)0 (0625)0 (0725)0 -->
+	</select>
+
+	<select id="data05" resultType="Integer" parameterType="map">
+		select count(1) from e_pb_baseinfo b where b.industryco is null and
+		b.regstate='1' <!-- 个体行业类型为空数量 -->
+	</select>
+
+
+	<select id="data09" resultType="Integer" parameterType="map"><!-- 个体中状态为吊销的户数 -->
+		select count(1) from e_pb_baseinfo p where p.regstate='2'
+	</select>
+
+	<select id="data10" resultType="Integer" parameterType="map"><!-- 个体中状态为吊销并且吊销日期不为空的户数 -->
+		select count(1) from e_pb_baseinfo p,e_gt_revoke r where
+		p.pripid=r.pripid(+) and p.regstate='2' and r.revdate is not null
+	</select>
+
+
+
+	<select id="data15" resultType="Integer" parameterType="map">
+		select count(1) from e_pb_baseinfo p where
+		p.estdate &lt;=to_date(#{endtime},'yyyy-mm-dd hh24:mi:ss') and
+		p.regstate='1' <!-- 个体期末实有户数 -->
+	</select>
+
+	<select id="data16" resultType="Integer" parameterType="map"><!-- 个体本期登记户数 -->
+		select count(1) from e_pb_baseinfo p where
+		p.estdate &gt;=to_date(#{begtime},'yyyy-mm-dd') and p.regstate='1' and
+		p.estdate &lt;=to_date(#{endtime},'yyyy-mm-dd hh24:mi:ss') 
+	</select>
+	
+	
+	<!-- 个体本期吊销户数 -->
+	<select id="data17" resultType="Integer" parameterType="map">
+		select
+		count(1) from e_pb_baseinfo p,e_gt_revoke r where
+		p.pripid=r.pripid(+)
+		and p.regstate='2' and
+		r.revdate &gt;=to_date(#{begtime},'yyyy-mm-dd') and
+		r.revdate &lt;=to_date(#{endtime},'yyyy-mm-dd hh24:mi:ss') 
+	</select>
+
+	<select id="data18" resultType="Integer" parameterType="map"><!-- 个体本期注销户数 -->
+		select count(1) from e_pb_baseinfo p where p.regstate='4' and
+		p.apprdate &gt;=to_date(#{begtime},'yyyy-mm-dd') and
+		p.apprdate &lt;=to_date(#{endtime},'yyyy-mm-dd hh24:mi:ss') 
+	</select>
+
+
+</mapper>

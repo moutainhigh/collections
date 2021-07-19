@@ -1,0 +1,101 @@
+/*网站基础样式*/
+html{-webkit-text-size-adjust:none;width:100%;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,th,td,p,blockquote,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{margin:0px;padding:0px;}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block;}
+audio,canvas,video{display:inline-block;*display: inline;*zoom:1;}
+body{width:100%;height:100%;min-width:1024px;background-repeat:repeat-x;word-wrap:break-word;text-align:left;font:13px/1.8 "Helvetica Neue",Helvetica,Tahoma,Arial,"Microsoft Yahei",\5B8B\4F53;color:#555;}
+input,select,textarea,button{font-size:100%;border-radius:0px!important;}
+table{border-collapse:collapse;border-spacing:0;}
+img{border:0;}
+li{list-style:none;*margin-left:-1px}
+.left{float:left}
+.right{float:right}
+.clear{display:block;clear:both;font-size:0px;height:0px;line-height:0px;width:0px;margin:0px;padding:0px;overflow:hidden}
+a{color:#333333;text-decoration:none;}
+a:hover{color:#333333;text-decoration:none;}
+*:focus{outline:none}
+body .glyphicon{padding-right:5px}
+.dropdown .caret{transition:All 0.2s ease-in-out;}
+.dropdown:hover .caret{transform: rotate(-90deg);}
+.open .caret{transform: rotate(-90deg);}
+
+/* header顶部样式 */
+.header{clear:both;position:relative;padding-left:220px;height:50px;background:#4d91e4}
+.header .logo{display:block;height:50px;position:absolute;top:0px;left:0px;width:195px;/* background:url(images/logo.png) no-repeat 10px center */;}
+
+.header  .topmenu {clear:both;}
+.header  .topmenu  .dropdown-menu{background-color:#2071D2;font-size:13px;margin-top:0px;border-radius:0px;border:0px;box-shadow:#fff 0px 0px}
+.header  .topmenu  .dropdown-menu li{padding-left:5px;height:40px}
+.header  .topmenu  .dropdown-menu li span{line-height:40px}
+.header  .topmenu  .dropdown-menu li.current{font-weight:bold}
+.header  .topmenu  .dropdown-menu li.current i,.header .box .topmenu .dropdown-menu li:hover i{display:block}
+.header  .topmenu  .dropdown-menu li i{float:left;display:none;color:#fff;line-height:40px;font-size:6px}
+
+.header .topmenu .item, .header .box .topmenu li.dropdown {float: left;min-width: 34px;height: 50px;text-align: center;font-size: 14px}
+.header .topmenu .item span,.header .topmenu .item a{cursor:pointer;display:block;padding:0px 15px;line-height:50px;color:#fff;width:100%;height:100%}
+.header .topmenu li.current,.header .topmenu li:hover{background:#2071D2;text-decoration:none;}
+
+.header .right{padding-right:20px;}
+.header .right .item{float:left;line-height:50px;padding:0px 10px;min-width:34px;font-size:13px;color:#fff}
+.header .right .item .badge{font-size:11px;color:#fff;background-color:darkorange}
+.header .right .item a{color:#fff;display:block}
+.header .right .item:hover{background-color:#2071D2;}
+        
+.header .right .item-mylogin{width:120px;text-align:center;}
+.header .right .item-mylogin:hover{}
+.header .right .item-mylogin .dropdown-toggle{position:relative;width:120px;height:50px;text-align:left;overflow:hidden;}
+.header .right .item-mylogin .dropdown-toggle .caret{position:absolute;top:25px}
+.header .right .item-mylogin .dropdown-menu{color:#333}
+.header .right .item-mylogin .dropdown-menu a{color:#333}
+.header .right .item-mylogin .dropdown-menu{background-color:#ffffff;min-width:120px;margin-top:0px;border-radius:0px;border-top:0px;box-shadow:#fff 0px 0px}
+.header .right .item-mylogin .dropdown-menu li{font-size:13px;}
+.header .right .item-mylogin .dropdown-menu li a{line-height:30px;text-align:left}
+.header .right .item-mylogin .dropdown-menu li a i{transition:All 0.1s ease;float:left;line-height:30px;font-size:10px}
+.header .right .item-mylogin .dropdown-menu li a:hover{background-color:#ececec}
+.header .right .item-mylogin .dropdown-menu li a:hover i{transform:scale(1.5);display:block;color:#666}
+
+
+/* 主体样式 */
+.main{clear:both;position:relative;width:100%;}
+.main .leftarea{position:absolute;top:0px;left:0px;width:220px;height:100%;background-color:#2f4050;color:#a7b1c2;z-index:1;overflow-y:auto;overflow-x:hidden;}
+.main .rightarea{padding-left:220px;height:100%;overflow:hidden}
+
+/*左侧菜单*/
+.leftmenu-classname {
+    padding-left: 15px;
+    height: 40px;
+    margin: 1px 0px 1px 0px;
+    line-height: 40px;
+    font-size: 14px;
+    cursor: pointer;
+    overflow: hidden
+}
+.leftmenu{width:100%;overflow:hidden;}
+.leftmenu div{width:100%;margin-bottom:1px;overflow:hidden;display:none}
+.leftmenu div ul{padding:0px 0px 1px 0px;}
+.leftmenu div ul li{}
+.leftmenu div ul li:hover,.leftmenu div ul li.current{background-color:#293846}
+
+.leftmenu div ul li a{position:relative;display:block;cursor:pointer;padding-left:18px;font-size:14px;color:#a7b1c2;height:35px;line-height:35px;line-height:35px}
+.leftmenu div ul li a .arrow-icon{position:absolute;right:10px;font-size:16px;line-height:35px;transform:rotate(90deg);transition:transform 0.2s ease-in-out;}
+
+.leftmenu div ul li a:hover{text-decoration:none;color:rgba(255,255,255,.8);}
+.leftmenu div ul li a.shut .arrow-icon,.leftmenu div ul li a:hover .arrow-icon{transform:rotate(0deg);}
+
+.leftmenu div ul li li a:hover{color:#fff;}
+.leftmenu div ul li li a.current{color:#fff;}
+.leftmenu div ul li li a.current .leftline{display:block;left:0px;top:0px;background:#2068A4}
+
+.leftmenu div ul li ul{padding-left:20px}
+
+/* 底部历史记录 */
+.main .historytab{position:absolute;z-index:10;bottom:0px;width:100%;left:221px;height:25px;width:100%;overflow:hidden;display:none}
+.main .historytab ul{clear:both;overflow:hidden;height:25px;}
+.main .historytab li{float:left;position:relative;background-color:#ffffff;color:#999;border:1px solid #ffffff;padding:0px 18px 0px 5px;line-height:22px;cursor:pointer;margin-right:1px;font-size:12px}
+.main .historytab li span{display:block;white-space:nowrap;}
+.main .historytab li a{position:absolute;top:1px;right:2px;font-size:11px;line-height:20px;}
+.main .historytab li a:hover{color:#cc0000}
+.main .historytab li:hover,.main .historytab li.current{background-color:#eeeeee;color:#333333;}
+.main .historytab li:hover a,.main .historytab li.current a{color:#333}
+.loading{background:url(images/loading.gif) no-repeat center center}
+

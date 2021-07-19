@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.AoOpanomalyInvMapper">
+
+	<!-- 企业经营异常名录股东信息 -->
+	<insert id="insertAoOpanomalyInv">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from AO_OPANOMALY_INV where blinvid = #{blinvid}
+		</selectKey>
+		<if test="count > 0">
+			update AO_OPANOMALY_INV  
+			<trim prefix="set" suffixOverrides=",">
+				<if test="busexclist != null">busexclist = #{busexclist,jdbcType=VARCHAR},</if>
+				<if test="pripid != null">pripid = #{pripid,jdbcType=VARCHAR},</if>
+				<if test="invid != null">invid = #{invid,jdbcType=VARCHAR},</if>
+				<if test="invtype != null">invtype = #{invtype,jdbcType=VARCHAR},</if>
+				<if test="inv != null">inv = #{inv,	jdbcType=VARCHAR},</if>
+				<if test="certype != null">certype = #{certype,	jdbcType=VARCHAR},</if>
+				<if test="cerno != null">cerno = #{cerno,	jdbcType=VARCHAR},</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where blinvid = #{blinvid}
+		</if>
+		<if test="count == 0">
+			insert into AO_OPANOMALY_INV
+			(
+				blinvid,
+				busexclist,
+				pripid,
+				invid,
+				invtype,
+				inv,
+				certype,
+				cerno,
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{blinvid,		jdbcType=VARCHAR},
+				#{busexclist,	jdbcType=VARCHAR},
+				#{pripid,		jdbcType=VARCHAR},
+				#{invid,		jdbcType=VARCHAR},
+				#{invtype,		jdbcType=VARCHAR},
+				#{inv,			jdbcType=VARCHAR},
+				#{certype,		jdbcType=VARCHAR},
+				#{cerno,		jdbcType=VARCHAR},
+				440300,
+				SYSDATE
+			)
+		</if>
+	
+	</insert>
+	
+</mapper>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.EFiSuplMapper">
+
+	<!-- 外资补充信息 -->
+	<insert id="insertEFiSupl">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from E_FI_SUPL  where pripid = #{pripid} 
+		</selectKey>
+		<if test="count > 0">
+			update  E_FI_SUPL  
+			<trim prefix="set" suffixOverrides=",">
+				<if test="postalcode != null">postalcode = #{postalcode,			jdbcType=VARCHAR},</if>	
+				<if test="tel != null">tel = #{tel,					jdbcType=VARCHAR},</if>	
+				<if test="email != null">email = #{email,				jdbcType=VARCHAR},</if>	
+				<if test="localadm != null">localadm = #{localadm,				jdbcType=VARCHAR},</if>	
+				<if test="yiedistrict != null">yiedistrict = #{yiedistrict,			jdbcType=VARCHAR},</if>	
+				<if test="proloc != null">proloc = #{proloc,				jdbcType=VARCHAR},</if>
+				<if test="calculationmethod != null">calculationmethod = #{calculationmethod,	jdbcType=VARCHAR},</if>	
+				<if test="forcapindcode != null">forcapindcode = #{forcapindcode,		jdbcType=VARCHAR},</if>	
+				<if test="midpreindcode != null">midpreindcode = #{midpreindcode,		jdbcType=VARCHAR},</if>	
+				<if test="reccaprmb != null">reccaprmb = to_number(#{reccaprmb,	jdbcType=NUMERIC}),</if>	
+				<if test="regcaprmb != null">regcaprmb = to_number(#{regcaprmb,	jdbcType=NUMERIC}),</if>	
+				<if test="ecotecdevzone != null">ecotecdevzone = #{ecotecdevzone,		jdbcType=VARCHAR},</if>
+				<if test="protype != null">protype = #{protype,				jdbcType=VARCHAR},</if>	
+				<if test="congro != null">congro = to_number(#{congro,	jdbcType=NUMERIC}),</if>	
+				<if test="congrocur != null">congrocur = #{congrocur,			jdbcType=VARCHAR},</if>	
+				<if test="congrousd != null">congrousd = to_number(#{congrousd,	jdbcType=NUMERIC}),</if>	
+				<if test="domeregcap != null">domeregcap = to_number(#{domeregcap,	jdbcType=NUMERIC}),</if>	
+				<if test="domeregcapcur != null">domeregcapcur = #{domeregcapcur,		jdbcType=VARCHAR},</if>
+				<if test="domeregcapusd != null">domeregcapusd = to_number(#{domeregcapusd,		jdbcType=NUMERIC}),</if>	
+				<if test="domeregcapinvprop != null">domeregcapinvprop = to_number(#{domeregcapinvprop,	jdbcType=NUMERIC}),</if>	
+				<if test="domereccap != null">domereccap = to_number(#{domereccap,	jdbcType=NUMERIC}),</if>	
+				<if test="domereccapcur != null">domereccapcur = #{domereccapcur,		jdbcType=VARCHAR},</if>	
+				<if test="domereccapusd != null">domereccapusd = to_number(#{domereccapusd,		jdbcType=NUMERIC}),</if>	
+				<if test="domereccapconprop != null">domereccapconprop = to_number(#{domereccapconprop,	jdbcType=NUMERIC}),</if>
+				<if test="forregcap != null">forregcap = to_number(#{forregcap,	jdbcType=NUMERIC}),</if>	
+				<if test="forregcapcur != null">forregcapcur = #{forregcapcur,			jdbcType=VARCHAR},</if>	
+				<if test="forregcapusd != null">forregcapusd = to_number(#{forregcapusd,	jdbcType=NUMERIC}),</if>	
+				<if test="forregcapinvprop != null">forregcapinvprop = to_number(#{forregcapinvprop,	jdbcType=NUMERIC}),</if>	
+				<if test="forreccap != null">forreccap = to_number(#{forreccap,	jdbcType=NUMERIC}),</if>	
+				<if test="forreccapcur != null">forreccapcur = #{forreccapcur,			jdbcType=VARCHAR},</if>
+				<if test="forreccapusd != null">forreccapusd = to_number(#{forreccapusd,	jdbcType=NUMERIC}),</if>	
+				<if test="forreccapconprop != null">forreccapconprop = to_number(#{forreccapconprop,	jdbcType=NUMERIC}),</if>	
+				<if test="chamecdate != null">chamecdate = to_date(#{chamecdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>	
+				<if test="insform != null">insform = #{insform,				jdbcType=VARCHAR},</if>	
+				<if test="opeacttype != null">opeacttype = #{opeacttype,			jdbcType=VARCHAR},</if>	
+				<if test="itemofoporcpro != null">itemofoporcpro = #{itemofoporcpro,		jdbcType=VARCHAR},</if>
+				<if test="conofcontrpro != null">conofcontrpro = #{conofcontrpro,		jdbcType=VARCHAR},</if>	
+				<if test="depincha != null">depincha = #{depincha,				jdbcType=VARCHAR},</if>	
+				<if test="exaauth != null">exaauth = #{exaauth,				jdbcType=VARCHAR},</if>	
+				<if test="candate != null">sandate = to_date(#{candate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>	
+				<if test="forentname != null">forentname = #{forentname,			jdbcType=VARCHAR},</if>	
+				<if test="fordom != null">fordom = #{fordom,				jdbcType=VARCHAR},</if>
+				<if test="forregecap != null">forregecap = to_number(#{forregecap,	jdbcType=NUMERIC}),</if>	
+				<if test="foropscope != null">foropscope = #{foropscope,			jdbcType=VARCHAR},</if>	
+				<if test="sandocno != null">sandocno = #{sandocno,				jdbcType=VARCHAR},</if>	
+				<if test="forentforname != null">forentforname = #{forentforname,		jdbcType=VARCHAR},</if>	
+				<if test="forentopfrom != null">forentopfrom = to_date(#{forentopfrom,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>	
+				<if test="forentopto != null">forentopto = to_date(#{forentopto,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="forentautsign != null">forentautsign = #{forentautsign,		jdbcType=VARCHAR},</if>	
+				<if test="forentliafor != null">forenliafor = #{forentliafor,			jdbcType=VARCHAR},</if>	
+				<if test="forentcapcur != null">forentcapcur = #{forentcapcur,			jdbcType=VARCHAR},</if>	
+				<if test="parnum != null">parnum = to_number(#{parnum,	jdbcType=NUMERIC}),</if>	
+				<if test="limparnum != null">limparnum = to_number(#{limparnum,	jdbcType=NUMERIC}),</if>	
+				<if test="parform != null">parform = #{parform,				jdbcType=VARCHAR},</if>
+				<if test="exenum != null">exenum = to_number(#{exenum,	jdbcType=NUMERIC}),</if>	
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>	
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->	
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where pripid = #{pripid} 
+		</if>
+		<if test="count == 0">
+			insert into E_FI_SUPL
+			(
+				pripid,
+				postalcode,
+				tel,
+				email,
+				localadm,
+				yiedistrict,
+				proloc,
+				calculationmethod,
+				forcapindcode,
+				midpreindcode,
+				reccaprmb,
+				regcaprmb,
+				ecotecdevzone,
+				protype,
+				congro,
+				congrocur,
+				congrousd,
+				domeregcap,
+				domeregcapcur,
+				domeregcapusd,
+				domeregcapinvprop,
+				domereccap,
+				domereccapcur,
+				domereccapusd,
+				domereccapconprop,
+				forregcap,
+				forregcapcur,
+				forregcapusd,
+				forregcapinvprop,
+				forreccap,
+				forreccapcur,
+				forreccapusd,
+				forreccapconprop,
+				chamecdate,
+				insform,
+				opeacttype,
+				itemofoporcpro,
+				conofcontrpro,
+				depincha,
+				exaauth,
+				sandate,
+				forentname,
+				fordom,
+				forregecap,
+				foropscope,
+				sandocno,
+				forentforname,
+				forentopfrom,
+				forentopto,
+				forentautsign,
+				forenliafor,
+				forentcapcur,
+				parnum,
+				limparnum,
+				parform,
+				exenum,
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{pripid,				jdbcType=VARCHAR},
+				#{postalcode,			jdbcType=VARCHAR},
+				#{tel,					jdbcType=VARCHAR},
+				#{email,				jdbcType=VARCHAR},
+				#{localadm,				jdbcType=VARCHAR},
+				#{yiedistrict,			jdbcType=VARCHAR},
+				#{proloc,				jdbcType=VARCHAR},
+				#{calculationmethod,	jdbcType=VARCHAR},
+				#{forcapindcode,		jdbcType=VARCHAR},
+				#{midpreindcode,		jdbcType=VARCHAR},
+				to_number(#{reccaprmb,	jdbcType=NUMERIC}),
+				to_number(#{regcaprmb,	jdbcType=NUMERIC}),
+				#{ecotecdevzone,		jdbcType=VARCHAR},
+				#{protype,				jdbcType=VARCHAR},
+				to_number(#{congro,	jdbcType=NUMERIC}),
+				#{congrocur,			jdbcType=VARCHAR},
+				to_number(#{congrousd,	jdbcType=NUMERIC}),
+				to_number(#{domeregcap,	jdbcType=NUMERIC}),
+				#{domeregcapcur,		jdbcType=VARCHAR},
+				to_number(#{domeregcapusd,		jdbcType=NUMERIC}),
+				to_number(#{domeregcapinvprop,	jdbcType=NUMERIC}),
+				to_number(#{domereccap,	jdbcType=NUMERIC}),
+				#{domereccapcur,		jdbcType=VARCHAR},
+				to_number(#{domereccapusd,		jdbcType=NUMERIC}),
+				to_number(#{domereccapconprop,	jdbcType=NUMERIC}),
+				to_number(#{forregcap,	jdbcType=NUMERIC}),
+				#{forregcapcur,			jdbcType=VARCHAR},
+				to_number(#{forregcapusd,	jdbcType=NUMERIC}),
+				to_number(#{forregcapinvprop,	jdbcType=NUMERIC}),
+				to_number(#{forreccap,	jdbcType=NUMERIC}),
+				#{forreccapcur,			jdbcType=VARCHAR},
+				to_number(#{forreccapusd,	jdbcType=NUMERIC}),
+				to_number(#{forreccapconprop,	jdbcType=NUMERIC}),
+				to_date(#{chamecdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{insform,				jdbcType=VARCHAR},
+				#{opeacttype,			jdbcType=VARCHAR},
+				#{itemofoporcpro,		jdbcType=VARCHAR},
+				#{conofcontrpro,		jdbcType=VARCHAR},
+				#{depincha,				jdbcType=VARCHAR},
+				#{exaauth,				jdbcType=VARCHAR},
+				to_date(#{candate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{forentname,			jdbcType=VARCHAR},
+				#{fordom,				jdbcType=VARCHAR},
+				to_number(#{forregecap,	jdbcType=NUMERIC}),
+				#{foropscope,			jdbcType=VARCHAR},
+				#{sandocno,				jdbcType=VARCHAR},
+				#{forentforname,		jdbcType=VARCHAR},
+				to_date(#{forentopfrom,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				to_date(#{forentopto,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{forentautsign,		jdbcType=VARCHAR},
+				#{forentliafor,			jdbcType=VARCHAR},
+				#{forentcapcur,			jdbcType=VARCHAR},
+				to_number(#{parnum,	jdbcType=NUMERIC}),
+				to_number(#{limparnum,	jdbcType=NUMERIC}),
+				#{parform,				jdbcType=VARCHAR},
+				to_number(#{exenum,	jdbcType=NUMERIC}),
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

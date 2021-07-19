@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>查看详细变更信息页面索引</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no" />
+<link href="../statics/bt/css/bootstrap.min.css" rel="stylesheet">
+<!--[if lt IE 9]>
+      <script src="../statics/bt/ie/html5shiv-printshiv.js"></script>
+      <script src="../statics/bt/ie/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<style>
+html,body {
+	overflow-y: auto;
+	overflow-x: hidden;
+	background: #EFF3F5;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-size: 1.6rem;
+	font-family: "Microsoft YaHei", "SimSun";
+	background: url(../statics/images/3_bg0.jpg)
+}
+
+.container {
+	padding: 10px;
+	background: #E3E8F6
+}
+
+td {
+	height: 30px;
+	line-height: 30px;
+	border: 1px solid #666666;
+	text-align: right;
+	line-height: 30px;
+	border: 1px solid #666666;
+}
+
+.title {
+	background: #f8f9ff;
+	font-family: "微软雅黑";
+	width: 30rem;
+	/* white-space: nowrap; */
+	text-align: left;
+}
+
+.titleDesc {
+	background: #fff;
+	text-align: left;
+	padding-left: 1.2rem;
+	font-family: "微软雅黑";
+	/* width: 400px; */
+}
+
+.entTitle {
+	font-size: medium;
+	text-align: left;
+}
+
+#entbianGen {
+	width: 100%;
+}
+
+td.title {
+	width: 20%;
+	background: #F8F9FF;
+	padding-left: 8px;
+	color: #004880;
+}
+
+td.titleDesc {
+	width: 80%;
+	background: #fff;
+	color: #004880;
+}
+
+.seprateLine {
+	height: 8px;
+	background: #E3E8F6
+}
+
+.entTitle h2 {
+	font-size: 20px;
+	font-family: "宋体";
+	font-weight: bold;
+	color: #004880;
+}
+
+/*打印按钮*/
+.button-box a {
+	width: 140px;
+	height: 35px;
+	margin-top: 10px;
+	display: block;
+	cursor: pointer;
+	border: 0;
+	box-shadow: 1px 4px 5px #ccc;
+	color: #fff;
+}
+
+.button-box a.bt3 {
+	background: #634a1d url(../statics/images/icon4.png) no-repeat 15px
+		center;
+	line-height: 35px;
+	padding-left: 15px;
+	border-radius: 3px;
+}
+
+.button-box a:hover {
+	color: white;
+	text-decoration: none;
+}
+
+.tc {
+	text-align: center;
+}
+
+.wh {
+	color: white;
+}
+</style>
+	<div class="container" style="padding-top: 10px;">
+
+		<div class="entTitle">
+			<h2>
+				<span id="entname"></span>
+				<span id="bianGenSHiXianTime"></span>
+				的变更信息
+				<span id="bianGenYiCheXiao"></span>
+			</h2>
+		</div>
+		<table id="entbianGen">
+			<tbody>
+			</tbody>
+		</table>
+		<!-- <div id="altbe">变更前</div>
+		<div id="altaf">变更后</div> -->
+	</div>
+
+
+	<style type="text/css">
+#gotop {
+	display: none;
+	width: 55px;
+	height: 55px;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	background: url(../statics/images/top.png) no-repeat -70px 0px;
+}
+</style>
+
+	<div id="gotop"></div>
+
+	<script type="text/javascript" src="../statics/bt/js/jquery.min.js"></script>
+	<script type="text/javascript" src="../statics/js/jquery.PrintArea.js"></script>
+	<script type="text/javascript" src="../statics/js/util.js"></script>
+	<script type="text/javascript" src="../statics/bt/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../statics/js/base64.js"></script>
+	<script type="text/javascript" src="../statics/plugins/myUI/backTop.js"></script>
+	<script>
+		$(function() {
+			var id = GetQueryString("id");
+			var alttime = GetQueryString("alttime");
+			//var entName = decode(GetQueryString("entName"));
+			
+			  var url = window.location.search;
+			   var entName = " ";
+			   var str
+			   if (url.indexOf("?") != -1) {  
+				   str=  decodeURIComponent(url.split("&")[2].split("=")[1]);
+			   }
+			   entName = str;
+			
+			//var altdate = decode(GetQueryString("altdate"));
+			var altdate = GetQueryString("altdate");
+			//var tempArray = altdate.split("/");
+			
+			var pregino = GetQueryString("regino");
+			var timeStr = altdate.split("/")[0] + "年" + altdate.split("/")[1]+ "月" + altdate.split("/")[2] + "日";
+			$.ajax({
+						url : '../entEnt/biangeng.do',
+						type : 'POST',
+						dataType : 'json',
+						async : false,//取消异步请求
+						data : {
+							"id" : id,
+							"alttime" : alttime,
+							"pregino":pregino
+						},
+						beforeSend : function() {
+							//$("body").append("<div id='loadingWrap'><img src='../statics/images/loading2.gif' width='' height='' /></div>")
+						},
+						success : function(data) {
+							//$('#entname').append(entName);
+							
+							// 撤销变更状态， true:为有变更撤销；false:没有变更撤销 
+			           		var state = false;
+			            	// 判断变更是否已撤销
+				          	$.ajax({
+				            	url : '../entEnt/chexiao.do',
+				            	type : 'POST',
+				            	dataType : 'json',
+				            	async : false,  
+				            	data :{
+			            			"id" : id,
+			            			"alttime" : alttime
+				            	},
+				            	success : function(data2) {
+				            		//console.log(data2);
+				            		if (isNotEmpty(data2.data[0].data[0].altitemcode) && "E4" == data2.data[0].data[0].altitemcode) {
+				            			state = true;
+				            		}
+				            	}
+				            });
+			            	
+				            if (state) { // 有变更撤销，则加上（此次变更已撤销）的提示 
+					            $('#entname').html(entName);
+					            $('#bianGenSHiXianTime').html(timeStr); //变更事项时间
+					            $('#bianGenYiCheXiao').html("<span style=\"color:#F00\">(此次变更已撤销)</span>");
+				            } else {
+				            	$('#entname').html(entName);
+					            $('#bianGenSHiXianTime').html(timeStr); //变更事项时间
+				            }
+							//$('#entname').html(entName);
+							//$('#bianGenSHiXianTime').html(timeStr);//变更事项时间
+							
+							var data = data.data[0].data;
+							var arr = new Array();
+							for (var i = 0; i < data.length; i++) {
+								var describe = data[i].describe;
+								var html = "<tr><td class='seprateLine'></td><td class='seprateLine'></td></tr>";
+
+								if (describe == 1) { // 直接显示数据
+									if (isNotEmpty(data[i].altbe)|| isNotEmpty(data[i].altaf)) {
+										var valueNew = " ";
+										if (isNotEmpty(data[i].valueNew)) {
+											valueNew = data[i].valueNew;
+										}
+										var altbe = " ";
+										if (isNotEmpty(data[i].altbe)) {
+											altbe = data[i].altbe;
+										}
+
+										var altaf = " ";
+										if (isNotEmpty(data[i].altaf)) {
+											altaf = data[i].altaf;
+										}
+										html += "<tr><td class='title'>变更前"+ valueNew+ "</td><td class='titleDesc'>"+ altbe + "</td></tr>";
+										html += "<tr><td class='title'>变更后"+ valueNew+ "</td><td class='titleDesc'>"+ altaf + "</td></tr>";
+										$("#entbianGen tbody").append(html);
+									}
+								} else if (describe == 2) { //查询相应的变更表
+									var valueNew = " ";
+									if (isNotEmpty(data[i].valueNew)) {
+										valueNew = data[i].valueNew;
+									}
+									var altitemcode = data[i].altitemcode;
+									var altemcodeNew = data[i].altemcodeNew;
+
+									if (!contains(arr, altemcodeNew)) {
+										$.ajax({
+												url : '../entEnt/bgdetail.do',
+												type : 'POST',
+												dataType : 'json',
+												async : false,//取消异步请求
+												data : {
+													"altitemcode" : altitemcode,
+													"regino" : data[i].regino,
+													'id':id
+												},
+												success : function(data) {
+													var data = data.data[0].data;
+													if (isNotEmpty(data)) {
+														var altbecontent = " ";
+														var altafcontent = " ";
+														var zxswhhr = ""; //执行事务合伙人
+														var hhrType = "";//合伙人类型
+														var wpdb = ""; //委派代表
+														for (var i = 0; i < data.length; i++) {
+															if (data[i].bgtype == '1') {
+																zxswhhr =  data[i].zshhr;
+																wpdb =  data[i].persname;
+																//altbecontent = altbecontent+ data[i].content+ "<br/>"
+																if(zxswhhr!=undefined){
+																	zxswhhr = "  ,是执行事务合伙人";
+																	hhrType = " ," + data[i].responway ;
+																	if(hhrType==undefined){
+																		hhrType = "";
+																	}
+																	if(wpdb!=undefined){
+																		//altbecontent = altbecontent + data[i].content + zxswhhr+hhrType+" , 委派代表 " +wpdb +"<br/>"
+																		altbecontent = altbecontent + data[i].content + zxswhhr+hhrType+" , 委派代表 " +wpdb +"<br/>"
+																	}else{
+																		altbecontent = altbecontent + data[i].content + zxswhhr+hhrType+" <br/>"
+																	}
+																}else{
+																	altbecontent = altbecontent + data[i].content + "<br/>"
+																}
+																
+																
+																
+															} else if (data[i].bgtype == '2') {
+																zxswhhr =  data[i].zshhr;
+																wpdb =  data[i].persname;
+																//altafcontent = altafcontent+ data[i].content+ "<br/>"
+																if(zxswhhr!=undefined){
+																	zxswhhr = "  ,是执行事务合伙人";
+																	hhrType = " ," + data[i].responway ;
+																	if(hhrType==undefined){
+																		hhrType = "";
+																	}
+																	if(wpdb!=undefined){
+																		altafcontent = altafcontent + data[i].content + zxswhhr+ hhrType  + " , 委派代表 " +wpdb + "<br/>"
+																	}else{
+																		altafcontent = altafcontent + data[i].content + zxswhhr+ hhrType  + "<br/>"
+																	}
+																}else{
+																	altafcontent = altafcontent + data[i].content +"<br/>"
+																}
+															}
+														}
+														if (isNotEmpty(altbecontent)
+																|| isNotEmpty(altafcontent)) {
+															html += "<tr><td class='title'>变更前"+ valueNew+ "</td><td class='titleDesc'>"+ altbecontent+ "</td></tr>";
+															html += "<tr><td class='title'>变更后"+ valueNew+ "</td><td class='titleDesc'>"+ altafcontent+ "</td></tr>";
+															$("#entbianGen tbody").append(html);
+														}
+													}
+												}
+										  });
+										arr.push(altemcodeNew);
+									}
+								}
+							}
+						}
+					});
+			$("#entbianGen tr").eq(0).remove();
+		});
+	</script>
+</body>
+</html>

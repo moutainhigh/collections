@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>JAZZ Demos</title>
+
+<link rel="stylesheet" href="demos/index/main.css" type="text/css" />
+<link rel="stylesheet" href="lib/themes/default/jazz-all.css">
+<link rel="stylesheet" href="./external/jquery.snippet.css">
+<script src="./external/jquery-1.8.3.js"></script>
+<script src="./external/jquery-ui-1.9.2.custom-min.js" type="text/javascript"></script>
+<script src="./external/jquery.snippet.js" type="text/javascript"></script>
+<script src="./demos/index/jazz-all.js" type="text/javascript"></script>
+
+<script>
+	var defaultTheme = "ebaic",                         //默认主题
+	    defaultUrl = "demos/index/form/basicForm.html",   //默跳转的页面地址 
+	    defaultCodes = "0";                               //默认选中左边记录索引
+	$(function(){
+	    $(".submenu").find("a").click(function(){
+	        $(".plugins").addClass("hide");
+	        var i=$(this);
+	        var index=$(".submenu a").index(i);
+	        $(".plugins").eq(index).removeClass("hide");
+	        $(".arrow").css("left",(100*index+42)+"px");
+	    });
+	
+	    //$("#uiTheme").comboxfield("option", "change", );     
+	    //默认展现formpanel
+	    geturl("index/form");
+	});
+	
+	function themechangeEvent(){
+        defaultTheme = $("#uiTheme").comboxfield("getValue");
+        inifream(defaultUrl, defaultCodes, "theme");
+    }    
+	    
+	function geturl(url){
+	   $.getJSON("demos/"+url+"/main.json",function(data){
+	       var i=url.indexOf('/')+1;
+	       var widgetname=url.substring(i);
+	       var html ="<ul class='pitem'>";
+	       $.each(data,function(index,value){
+	           html+="<li id='e_li_"+index+"' onclick='inifream(\""+value["url"]+"\","+index+")'><a href='javascript:;'>"+value["title"]+"</a></li>"
+	       });
+	       html+="</ul>";
+	       $(".main-center h3").text(widgetname);
+	       $(".main-left").html(html).removeClass('hide');
+	       defaultUrl = data[0].url;
+	       $("#includeframe").attr("src", defaultUrl);
+	       $('.main-right').removeClass('hide');
+	       $(".middle").addClass("hide");
+	       $("#code").addClass("hide");
+	       
+	       //默认选中左边节点
+	       $("#e_li_0").addClass("main-after-li");
+	       //将选中节点索引指向第一条记录
+	       defaultCodes = 0;
+	   })
+	};
+	
+	function inifream(src, index, theme){
+	    $(".main-left ul li").removeClass("main-after-li");
+	    $("#e_li_"+index).addClass("main-after-li");
+	    defaultCodes = index;
+	    defaultUrl = src;
+	    $(".middle").addClass("hide");
+	    $("#code").addClass("hide");
+	    if(theme != "theme"){
+	        $('.dp-highlighter').remove();
+	    }
+	    $("#includeframe").attr("src", src);
+	}
+	
+	function setWinHeight(height){ 
+		var $win = $("#includeframe"); 
+		if(height){
+			$win.height(height);
+		}
+        /* $("#includeframe").removeClass("initHeight");
+        if (document.getElementById){ 
+            if (win && !window.opera){ 
+                if (win.contentDocument && undefined != win.contentDocument.body.offsetHeight) 
+                    win.height = win.contentDocument.body.offsetHeight; 
+                else if(win.Document && undefined != win.Document.body.scrollHeight) 
+                    win.height = win.Document.body.scrollHeight; 
+            } 
+        } */
+        
+        if($win.height() < 300){
+            $win.addClass("initHeight");
+        }
+	}
+	
+	function setWinWidth(width){
+		var $win = $("#includeframe");
+		if(width){
+			$win.width(width);
+		}
+	}
+	
+	function showcode(){
+	    var url = $("#includeframe").attr("src");
+	    if( $("#precode").attr("iframesrc") == url){// 只有当iframe的url改变了以后，才去ajax请求文件源代码
+	        $(".middle").removeClass("hide");
+	           $("#code").removeClass("hide");
+	    }else{
+	        $.ajax({
+	            url:url,
+              dataType:'text',
+	            success:function(result){
+	                $("#precode").text(result);
+                  $('#precode').snippet("html");    
+	                $(".middle").removeClass("hide");
+	                $("#code").removeClass("hide");
+	                $("#precode").attr("iframesrc", url);
+	            }
+	        });
+	    }
+	     
+	}
+	
+	function hidecode(){
+	    $(".middle").addClass("hide");
+	    $("#code").addClass("hide");
+	}
+	
+	//子页面调用 
+	function getThemes(){
+      var them = $('#uiTheme').comboxfield('getValue');
+	    return them || defaultTheme;
+	}
+
+  function getUrl(){
+
+  }
+
+</script>
+</head>
+<body>
+    <div id="header">
+        <div id="header-inner">
+            <table cellpadding="0" cellspacing="0" style="width:100%;">
+                <tr>
+                    <td>
+                        <div class="header-logo">
+                            <a href="#">长城软件通用UI工具</a>
+                        </div>
+                    </td>
+                    <td id="topmenu">
+                        <div>
+                        
+<!--                        <a href="#">Home</a>
+                            <a href="#">Demo</a> 
+-->
+                            <a href="javascript:void(0)" onClick="window.open('api/doc/index.html')">API</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="mainwrap">
+        <div id="content">
+            <div>
+                <div class="submenu" style="margin-bottom:-10px;padding-left:20px">
+                    <a href="javascript:void(0)">基础组件</a>
+                    <a href="javascript:void(0)">布局</a>
+                    <a href="javascript:void(0)">其他组件</a>
+                    <a href="javascript:void(0)">典型示例</a>
+                </div>
+                <div class="arrow">
+                    <div class="submenu-arrow"></div>
+                    <div class="submenu-arrow-inner"></div>
+                </div>
+            </div>
+            <div class="plugins">
+                <ul>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/form')">Formpanel</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/grid')">Gridpanel</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/panel')">Panel</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/window')">Window</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/tab')">Tabpanel</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/accordion')">Accordion</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/tree')">Tree</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/icon')">Icon</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/date')">Date</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/toolbar')">Toolbar</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/button')">Button</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/menu')">Menu</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/paginator')">Paginator</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/tooltip')">Tooltip</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/loading')">Loading</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/message')">Message</a></li>      
+                   <li><a href='javascript:void(0)' onclick="geturl('index/attachment')">Attachment</a></li>
+                   <!-- 验证地址 -->
+                   <li><a href='javascript:void(0)' onclick="geturl('index/validator')">Validator</a></li>
+               </ul>
+               <div class='clearfix'></div>
+            </div>
+            <div class="plugins hide">
+                <ul>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/tablelayout')">TableLayout</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/columnlayout')">ColumnLayout</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/rowlayout')">RowLayout</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/fitlayout')">FitLayout</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/borderlayout')">BorderLayout</a></li>
+                  <!--  <li><a href='javascript:void(0)' onclick="geturl('index/cardlayout')">CardLayout</a></li> -->
+               </ul>
+               <div class='clearfix'></div>
+            </div>
+            <div class="plugins hide">
+                <ul>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/boxlist')">Boxlist</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/imageview')">ImageViewer</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/sliders')">Sliders</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/tray')">Tray</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/progressbar')">Progressbar</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/message')">Message</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/terminal')">Terminal</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/rating')">Rating</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/picklist')">Picklist</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/galleria')">Galleria</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/lightbox')">Lightbox</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/accordion')">Accordion</a></li>  
+                   <li><a href='javascript:void(0)' onclick="geturl('index/progresspoint')">Progresspoint</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/box')">Box</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('index/border')">Border</a></li>
+               </ul>
+                <div class='clearfix'></div>
+            </div>
+            <div class="plugins hide">
+                <ul>
+                   <li><a href='javascript:void(0)' onclick="geturl('classic/formpanel')">FormPanle</a></li>
+                   <!-- 
+                   <li><a href='javascript:void(0)' onclick="geturl('classic/gridpanel')">GridPanel</a></li>
+                    -->
+                   <!-- widget 放在最后 -->        
+                   <li><a href='javascript:void(0)' onclick="geturl('classic/widget')">Widget</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('classic/app')">应用场景</a></li>
+                   <li><a href='javascript:void(0)' onclick="geturl('classic/first')">首页</a></li>
+               </ul>
+               <div class="clearfix"></div>
+            </div>
+            <div class="content-main">
+                <div class='main-center'>
+                    <div style="position: relative; width:100%; height:100%;">
+                        <h3></h3>
+                        <div style="position: absolute; top: -5px; right: 0;">
+                             <div id="uiTheme" name="uiTheme" vtype="comboxfield" width="220" label="切换主题" labelwidth="120" rule="must"
+                              change="themechangeEvent"
+                              defaultvalue="default" dataurl="[{text:'默认', value:'default'},{text:'ext风格', value:'ext'},{text:'青海', value:'qinghai'},{text:'工商', value:'gongshang'},{text:'火炬', value:'ebaic'}]"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="main-left">
+                </div>
+                <div class="main-right hide">
+                   <div id="demo">
+                        <iframe id="includeframe" name="includeframe" src="" width="700px" class="initheight" frameborder="0" scrolling="auto"></iframe>
+                   </div>
+                   <button onclick="showcode()">显示代码</button>
+                   <button onclick="hidecode()">隐藏代码</button>
+                   <div class="middle hide">
+                        <h2>Source Code</h2>
+                   </div>
+                   <div id="code" class="hide">
+                        <pre id="precode" name="precode" class="js" cols="60" rows="10"></pre>
+                   </div>
+                </div>
+                <div style="clear:both"></div>
+                </div>
+﻿           </div>
+        </div>
+<!--    
+        <div id="footer">
+            <div></div>
+        </div> 
+-->
+</body>
+</html>

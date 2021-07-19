@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jazz-ui.js" type="text/javascript"></script> 
+   <script>
+	$(function(){
+		$('div[name="location"]').on("autocompletecomboxfieldenter",function(event, ui){ 
+			jazz.log(JSON.stringify(ui));
+		});
+		
+		$('div[name="location"]').on("autocompletecomboxfieldleave",function(event, ui){ 
+			jazz.log(JSON.stringify(ui));
+		});
+		
+		$('div[name="location"]').on("autocompletecomboxfielditemselect",function(event, ui){ 
+			jazz.log(JSON.stringify(ui));
+		});
+	});
+	
+	function testkeyup(value){
+		$('div[name="location"]').autocompletecomboxfield("option","dataurl","combox2.json");
+		$('div[name="location"]').autocompletecomboxfield("option","reload");
+	}
+	</script>
+</head>
+<body>
+
+	<div id="formpanel" name="formpanel" vtype="formpanel" titledisplay="true" width="700" layout="table"
+		height="450" title="地区信息"  >
+   		<div name='location' vtype="autocompletecomboxfield" label="地区"
+			labelalign="right" width="300" dataurl="combox.json" minquerylength="0" keyup="testkeyup"></div>
+   </div>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+	<META http-equiv="X-UA-Compatible" content="IE=Edge" >
+	<title>长城计算机软件与系统有限公司-Rodimus报表系统</title>
+	<script src="jquery-1.8.3-min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var reportAdmin = {
+			/**
+			 * 查询报表列表。
+			 */
+			query: function(){
+				var url = "../../rodimus/report?method=list";
+				var queryData = {};
+				var dataList = reportAdmin.ajax(url,queryData);
+				$(".report-admin").find(".report-data-tr").remove();
+				// 3.1、如果数据为空
+				if(!dataList || !dataList.rows || !dataList.rows.length){ 
+					var emptyDataHtml = "<tr class='report-data-tr'><td colspan=\"4\">没有数据</td></tr>";
+					$(".report-admin").find('.report-list').append(emptyDataHtml);
+					return ;
+				}
+				// 3.2、渲染数据
+				var dataHtml = '' , rowData ;
+				for(var i = 0; i<dataList.rows.length;++i){
+					rowData = dataList.rows[i];
+					
+					dataHtml += "<tr class='report-data-tr'>";
+					dataHtml += "<td>";
+					dataHtml += rowData['rowIdx'] || '';
+					dataHtml += "</td>";
+
+					dataHtml += "<td>";
+					dataHtml += rowData['category'] || '';
+					dataHtml += "</td>";
+					
+					dataHtml += "<td>";
+					dataHtml += rowData['code'] || '';
+					dataHtml += "</td>";
+					
+					dataHtml += "<td style='text-align:left;'>";
+					dataHtml += rowData['name'] || '';
+					dataHtml += "</td>";
+
+					dataHtml += "<td>";
+					dataHtml += rowData['flag'] || '';
+					dataHtml += "</td>";
+					
+					dataHtml += "<td>";
+					dataHtml += "<a href='../../report/reportManagerAction.do?method=queryReport&reportId="+rowData['id']+"'>编辑</a>&nbsp;"+
+										"<a href='show.html?code="+(rowData['code'] || '')+"'>预览</a>";
+					dataHtml += "</td>";
+					dataHtml += "</tr>";
+					
+				}
+				$(".report-admin").find('.report-list').append(dataHtml);
+			},
+			ajax: function(url,queryData){
+				var ret = {};
+				$.ajax({
+					url : url,
+					dataType:'json',
+					data:queryData,
+					async:false,
+					contentType: "application/x-www-form-urlencoded; charset=utf-8", 
+					error:function(responeText){
+						alert(responeText);
+						return false;
+					},
+					complete: function(){
+						return true;
+					},
+					success: function(responeJsonObject){
+						ret = responeJsonObject;
+					}
+				});
+				return ret;
+			}
+		};
+		$(function(){
+			reportAdmin.query();
+		});
+	</script>
+	<style type="text/css">
+		.report-admin{
+			text-align:center;
+			width:1020px;
+			margin:0 auto;
+		}
+		.report-admin .queryForm, .content{
+			width:1000px;
+			padding-bottom:30px;
+		}
+		
+		.report-admin .queryForm input,select{
+			width:200px;
+		}
+		.report-admin .queryForm ul{
+			padding:0px;margin:0px;
+		}
+		.report-admin .queryForm li{
+			text-align:left;
+			width:490px;
+			list-style: none;
+			line-height:30px;
+		}
+		
+		.content table{
+			font-family: verdana,arial,sans-serif;
+			font-size:11px;
+			color:#333333;
+			border-width: 1px;
+			border-color: #666666;
+			border-collapse: collapse;
+			width:1000px;
+		}
+		.content table th{
+			border-width: 1px;
+			padding: 8px;
+			border-style: solid;
+			border-color: #666666;
+			background-color: #dedede;
+		}
+		
+		.content table td{
+			border-width: 1px;
+			padding: 8px;
+			border-style: solid;
+			border-color: #666666;
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+	<div class="report-admin">
+		<h1>报表管理</h1>
+		<!-- 报表查询 -->
+		<div class="queryForm">
+			<ul>
+				<li>
+					<label >报表名称：</label>
+					<input type="text" />
+				</li>
+				<li>
+					<label >报表代码：</label>
+					<input type="text" />
+				</li>
+				<li>
+					<label >报表类别：</label>
+					<select>	
+						<option>全部</option>
+						<option>网登报表</option>
+						<option>金网报表</option>
+					</select>
+				</li>
+			</ul>
+			<div class="btnBar">
+				<button>重置</button>
+				<button>查询</button>
+			</div>
+		</div>
+	
+		<!-- 报表列表 -->
+		<div class="content">
+			<div style='text-align:right;'>
+				<button onclick="javascript:window.location.href='report_edit.jsp';">  新     建  </button>
+			</div>
+			<table class="report-list">
+				<tr>
+					<th style="width:60px;">序号</th>
+					<th style="width:120px;">类别</th>
+					<th style="width:120px;">报表代码</th>
+					<th style="">报表名称</th>
+					<th style="width:120px;">状态</th>
+					<th style="width:200px;">操作</th>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

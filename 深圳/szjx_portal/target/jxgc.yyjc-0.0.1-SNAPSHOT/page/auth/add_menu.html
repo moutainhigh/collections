@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../../static/script/jazz.js" type="text/javascript"></script>
+<script>
+var pkSysIntegration;
+function save() {
+		if(jazz.util.getParameter("pkSysIntegration")==null){
+			    var aa = $("#formpanel").formpanel('getValue'); 
+			    
+			    //alert(JSON.stringify(aa)); 		
+				var params = {
+					url:rootPath+'/auth/saveSmSysIntegration.do',
+					components : [ 'formpanel' ],
+					callback : function(data, r, res) {
+						if (res.getAttr("back") == 'success') {
+							parent.queryMenu();
+							jazz.info("保存成功");
+							parent.win.window("close");
+						} else {
+							jazz.info("菜单名已存在，保存失败");
+						}
+					}
+				};
+				$.DataAdapter.submit(params);
+		}else{
+		    var aa = $("#formpanel").formpanel('getValue'); 
+		    
+		    //alert(JSON.stringify(aa)); 		
+			var params = {
+				url:rootPath+'/auth/UpdateSmSysIntegration.do',
+				components : [ 'formpanel' ],
+				callback : function(data, r, res) {
+					if (res.getAttr("back") == 'success') {
+						closealterwin();
+						jazz.info("保存成功");
+
+					} else {
+						jazz.info("菜单名已存在，保存失败");
+					}
+				}
+			};
+			$.DataAdapter.submit(params);			
+			
+		}
+}
+function reset() {
+	$("#formpanel").formpanel('reset');
+}
+function closealterwin(){
+	parent.queryCurrentPage();
+	//jazz.info("保存成功");
+	parent.alterwin.window("close"); 
+}
+$(function(){
+	pkSysIntegration = jazz.util.getParameter("pkSysIntegration");	
+	
+	if(jazz.util.getParameter("pkSysIntegration")==null){
+	}else{
+		$('#formpanel').formpanel('option', 'dataurl',rootPath+
+				'/auth/getSmSysIntegrationByPk.do?pkSysIntegration='+pkSysIntegration);
+		$('#formpanel').formpanel('reload');	
+		$('div[name="pkSysIntegration"]').textfield("option","readonly",true);
+	}
+	if(jazz.util.getParameter("queryone")=="yes"){
+        $("#formpanel").formpanel('option', 'readonly', true); 
+        $("#toolbar").hide();
+	}	
+});
+/* function querysupermenu() {//上级菜单
+	$('div[name="superFuncCode"]').comboxtreefield('option', 'dataurl',rootPath+'/auth/getSupermenu.do');
+	$('div[name="superFuncCode"]').comboxtreefield('reload');
+
+}
+function querygnmc() {//示例
+	$('div[name="formpanel"]').formpanel('option', 'dataurl',rootPath+'/auth/getSupermenu.do');
+	$('div[name="formpanel"]').formpanel('reload');
+
+} */
+
+</script>
+</head>
+<body>
+	   		<div id="formpanel" name="formpanel" vtype="formpanel" showborder="false" titledisplay="true" title="新增菜单"
+				width="100%" layout="table" layoutconfig="{border:false,columnwidth:['50%','*']}">
+				
+
+				<div name='systemName' id="systemName" vtype="textfield" label="系统名称"   labelAlign="right"
+					rule="must" width="90%"></div>
+				<div name='pkSysIntegration' id="pkSysIntegration" vtype="textfield" label="系统主键"   labelAlign="right"
+					rule="must" width="90%"></div>
+
+				<div id='systemCode' name='systemCode' vtype="textfield" label="系统编码"
+					labelAlign="right" rule="must" width="90%"
+					dataurl=''></div>
+				<div id='systemState' name='systemState' vtype="comboxfield" label="运行状态" 
+					labelAlign="right"  width="90%" dataurl='[{"text":"启动","value":"0"},{"text":"停止","value":"1"}]'
+					dataurl=''></div>
+				<div id='orderNo' name='orderNo' vtype="textfield" label="序号" 
+					labelAlign="right" width="90%" 
+					dataurl=''></div>						
+				<div id='integratedUrl' name='integratedUrl' vtype="textfield" label="系统集成路径"labelwidth="100px"
+					labelAlign="right"  width="90%" colspan="2" rowspan="1"
+					dataurl=''></div>										
+	
+ 				<div id='createrId' name='createrId' vtype="textfield" label="创建人" disabled=true
+					labelAlign="right"  width="90%" 
+					dataurl=''></div>
+ 				<div id='createrTime' name='createrTime' vtype="textfield" label="创建时间" disabled=true
+					labelAlign="right"  width="90%" 
+					dataurl=''></div>
+        		<div name='remarks' colspan="2" rowspan="1"   
+             	vtype="textareafield" label="备注" labelalign="right" width="90%" height="85">             	
+             	</div> 										
+				<div id="toolbar" name="toolbar" vtype="toolbar" align="center">
+					<div id="btn1" name="btn1" vtype="button" text="保存"
+						icon="../../../style/default/images/save.png" click="save()"></div>
+					<div id="btn2" name="btn2" vtype="button" text="重置"
+						icon="../../../style/default/images/fh.png" click="reset()"></div>
+				</div>
+			</div>
+  
+</body>
+</html><SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

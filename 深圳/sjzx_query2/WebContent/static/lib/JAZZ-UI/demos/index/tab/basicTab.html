@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+</head>
+<body>
+
+	<div name="tab_name" vtype="tabpanel" overflowtype="2" tabtitlewidth="130"  width="400" height="200" 
+		 orientation="top" id="tab_id">    
+	    <ul>    
+	        <li><a href="#tab1">Tab 1标题</a></li>    
+	        <li><a href="#tab2">Tab 2标题</a></li>    
+	        <li><a href="#tab3">Tab 3标题</a></li>
+	        <li><a href="#tab1">Tab 4标题</a></li>    
+	        <li><a href="#tab2">Tab 5标题</a></li>    
+	        <li><a href="#tab3">Tab 6标题</a></li>
+	    </ul>    
+	    <div>    
+	        <div id="tab1">    
+	                页面1   
+	        </div>    
+	        <div id="tab2">    
+	                页面2 
+	        </div>    
+	        <div id="tab3">    
+	                页面3  
+	        </div> 
+	        <div id="tab1">    
+	                页面4   
+	        </div>    
+	        <div id="tab2">    
+	                页面5 
+	        </div>    
+	        <div id="tab3">    
+	                页面6
+	        </div> 
+	    </div>    
+	</div>
+
+	<input type="button" value="新增加页签" onclick="Add();" />
+	<div class="description">描述信息：基础tab组件，可改变标题宽度，内容宽高，tab排列方向，默认显示的tab</div>		
+<script type="text/javascript">
+$(function(){
+    //调整父页面iframe高度
+    try{
+        parent.setWinHeight(300);           
+    }catch(e){
+        jazz.log(e);
+    }
+    //$("#tab_name").tabpanel("option","width","400");
+    
+});
+
+function Add(){
+	var i = $('#tab_id').tabpanel('getLength');
+	var obj = {
+	 		tabid: 'test',	
+	 		tabtitle: 'test',	
+	 		tabindex: i,	
+	 		//taburl: 'http://www.baidu.com'
+	 		tabcontent: '我是新增加的内容' //tab页的内容
+		 };
+	$("#tab_id").tabpanel("addTab", obj);
+}
+</script>
+</body>
+</html>

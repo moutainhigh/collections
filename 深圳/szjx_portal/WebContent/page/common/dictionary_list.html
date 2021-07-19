@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../../static/script/jazz.js" type="text/javascript"></script>
+<script>
+
+	$(function() {
+		
+		$('div[name="pkSysIntegration"]').comboxfield('option','dataurl',rootPath+'/dictionaryList/systemList.do');
+		$('div[name="pkSysIntegration"]').comboxfield('reload');
+		queryDef();
+	});
+	
+	function queryDef(){
+		
+		$('div[name="gridpanel"]').gridpanel('option','dataurl',rootPath+'/dictionaryList/query.do');
+		$('div[name="gridpanel"]').gridpanel('query', [ 'formpanel']);
+	}
+	
+	function reset(){
+		$('div[name="formpanel"]').formpanel('reset');
+	}
+	
+	function addData(){
+		
+		winEdit = jazz.widget({
+	   	     vtype: 'window',
+	   	     frameurl: './dictionary_edit.html',
+	  			name: 'win',
+	  	    	title: '新增代码表',
+	  	    	titlealign: 'center',
+	  	    	titledisplay: true,
+	  	        width: 800,
+	  	        height: 450,
+	  	        modal:true,
+	  	        visible: true,
+	  	      	resizable: true
+	   		});
+	}
+	
+	function deleteData(){
+		var selected = $('div[name="gridpanel"]').gridpanel('getSelection');
+		if (selected == null || selected.length<1 ){
+			jazz.info("请选中至少一个目标");
+		}else if(selected.length>=1){
+			jazz.confirm("该操作将删除该代码表中所有数据，是否删除？", function(){
+				var params = {
+						url : rootPath+'/dictionaryList/delete.do',
+						components: ['gridpanel'],
+						callback : function(data, r, res) { 
+							if (res.getAttr("back") == 'success'){
+								queryDef();
+								jazz.info("删除成功");
+							}
+						}
+				}
+				$.DataAdapter.submit(params);
+			}, function(){})
+		}
+	}
+	
+	function updateData(){
+		var selected = $('div[name="gridpanel"]').gridpanel('getSelection');
+		if (selected == null || selected.length!=1 ){
+			jazz.info("请选中一个目标");}
+		else{
+			//alert(selected[0].pkCodeTableManager);
+			pkCodeTableManager = selected[0].pkCodeTableManager;
+			//alert(pkCodeTableManager);
+			winEdit = jazz.widget({
+		   	     vtype: 'window',
+		   	     frameurl: './dictionary_edit.html?pkCodeTableManager='+pkCodeTableManager,
+		  			name: 'win',
+		  	    	title: '修改代码表',
+		  	    	titlealign: 'center',
+		  	    	titledisplay: true,
+		  	        width: 800,
+		  	        height: 450,
+		  	        modal:true,
+		  	        visible: true,
+		  	      	resizable: true
+		   		});
+			
+		}
+	}
+	
+	function details(){
+		var selected = $('div[name="gridpanel"]').gridpanel('getSelection');
+		if (selected == null || selected.length!=1 ){
+			jazz.info("请选中一个目标");}
+		else{
+			pkCodeTableManager = selected[0].pkCodeTableManager;
+			codeTableChName = selected[0].codeTableChName;
+			codeTableEnName = selected[0].codeTableEnName;
+			winEdit = jazz.widget({
+		   	     vtype: 'window',
+		   	     frameurl: './dictionary_details.html?codeTableEnName='+codeTableEnName+'&codeTableChName='+codeTableChName,
+		  			name: 'win',
+		  	    	title: '代码表:'+codeTableEnName+' '+codeTableChName,
+		  	    	titlealign: 'center',
+		  	    	titledisplay: true,
+		  	        width: '100%',
+		  	        height: '100%',
+		  	        modal:true,
+		  	        visible: true,
+		  	      	resizable: true
+		   		});
+		}
+	}
+
+</script>
+</head>
+<body>
+ 	<div vtype="formpanel" id="formpanel" displayrows="1" name="formpanel"
+				titledisplay="true" width="100%" layout="table"  showborder="true"
+				layoutconfig="{cols:2, columnwidth: ['50%','*']}" title="代码表查询">
+
+		<div name='pkCodeTableManager' vtype="hiddenfield" label="主键" labelalign="right" width="80%" labelwidth="110"></div>
+		<div name='codeTableChName' vtype="hiddenfield" label="中文名" labelalign="right" width="80%" labelwidth="110"></div>
+		<div name='codeTableEnName' vtype="textfield" label="代码表" labelalign="right" width="80%" labelwidth="110"></div>
+		<div name='codeTableDesc' vtype="textfield" label="表描述" labelalign="right" width="80%" labelwidth="110"></div>
+		<div name='pkSysIntegration' vtype="comboxfield" label="所属子系统" labelalign="right" width="80%" labelwidth="110" multiple="false" ></div>
+		<div name='cacheType' vtype="comboxfield" label="缓存类型" labelalign="right" width="80%" labelwidth="110" 
+			dataurl='[{"text":"存储到内存","value":"0"},{"text":"存储到数据库","value":"1"}]'></div>
+		<div id="toolbar" name="toolbar" vtype="toolbar" location="bottom" align="center">
+			<div name="query_button" vtype="button" text="查询"
+				icon="../query/queryssuo.png" onclick="queryDef();"></div>
+			<div name="reset_button" vtype="button" text="重置"
+				icon="../query/queryssuo.png" click="reset();"></div>
+		</div>
+	</div>
+	
+	<div vtype="gridpanel" name="gridpanel" width="100%"  linenowidth="50" showborder="true"
+		titledisplay="true" title="代码集列表" dataurl="" layout="fit">
+		<div name="toolbar" vtype="toolbar">
+			<div name="add_button" vtype="button" text="新增"
+				icon="../query/queryssuo.png" onClick="addData();"></div>
+			<div name="update_button" vtype="button" text="修改"
+				icon="../query/queryssuo.png" onClick="updateData();"></div>
+			<div name="delete_button" vtype="button" text="删除"
+				icon="../query/queryssuo.png" onClick="deleteData();"></div>
+		    <div name="details_button" vtype="button" text="详细"
+				icon="../query/queryssuo.png" onClick="details();"></div> 
+			
+		</div>
+		<!-- 表头 -->
+		<div vtype="gridcolumn" name="grid_column" width="100%">
+			<div>
+				<!-- 单行表头 -->
+				<div name='pkCodeTableManager' text="主键" textalign="center" isshowcolumn="false" width='0'></div>
+				<div name='codeTableChName' text="中文名" textalign="center" isshowcolumn="false" width='0'></div>
+				<div name='effectiveMarker' text="有效标记" textalign="center" isshowcolumn="false" width='0'></div>
+				<div name='codeTableEnName' text="代码表名" textalign="center" width='15%'></div>
+				<div name='systemName' text="所属子系统" textalign="center" width='13%'></div>
+				<div name='codeTableDesc' text="表描述" textalign="center" width='14%'></div>
+				<div name='cacheType' text="缓存类型" textalign="center" width='13%' datatype='comboxfield' 
+					dataurl='[{"text":"存储到内存","value":"0"},{"text":"存储到数据库","value":"1"}]'></div>	
+				<div name='codeColumn' text="code字段" textalign="center" width='15%'></div>
+				<div name='valueColumn' text="value字段" textalign="center" width='15%'></div>
+				<div name='state' text="状态" textalign="center" width='15%' datatype='comboxfield'
+					dataurl='[{"text":"正常","value":"0"},{"text":"禁用","value":"1"}]'></div>
+			</div>
+		</div>
+		<!-- 表格 -->
+		<div vtype="gridtable" name="grid_table"></div>
+		<!-- 分页 -->
+
+		<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10"></div>
+	</div>
+
+
+</body>
+</html>
+<SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

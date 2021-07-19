@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="../../../external/jquery-ui/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+
+<script src="../../../external/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="../../../external/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+<script src="../../../lib/jazz-dependent.js" type="text/javascript"></script>
+<script src="../../../lib/jazz-all.js" type="text/javascript"></script>
+<style type="text/css">
+body,html{
+	height:100%;
+}
+
+
+</style>
+<script type="text/javascript">
+
+$(function(){
+	var opt = {
+	    	vtype: "toolbar",
+	    	name: "toolbar",
+	    	overflowtype: "scroll",
+	    	//orientation: "vertical",
+	    	items:[{
+	    		vtype: "button",
+	    		name: "add_button",
+	    		text: "新增",
+	    		click: function(e,data,obj){
+	    			alert(jazz.jsonToString(data));
+	    		}
+	    	} ,{
+	    		vtype: "button",
+	    		name: "update_button",
+	    		align: "right",
+	    		text: "修改",
+	    		click: "changeview1()"
+	    	},{
+	    		"class": "separator"
+	    	},{
+	    		vtype: "button",
+	    		name: "delete_button",
+	    		align: "right",
+	    		text: "删除",
+	    		click: "changeview2()"
+	    	}, {
+	    		vtype: "textfield",
+	    		name: "textfield_name",
+	    		label: "姓名",
+	    		msg:"请输入真实姓名",
+	    		labelalign:"right",
+	    		rule:"must",
+	    		width:"300",
+	    		editable:"true"
+	    	},{
+	    		vtype: "datefield",
+	    		name: "wdatepicker_name",
+	    		label: "生日",
+	    		msg:"请输入真实姓名",
+	    		labelalign:"right",
+	    		rule:"must",
+	    		width:"300",
+	    		isshowweek:"true"
+	    	}, {
+	    		"class": "separator"
+	    	},{
+	    		vtype: "button",
+	    		name: "bt1",
+	    		text: "修改",
+	    		click: "changeview1()"
+	    	},{
+	    		vtype: "button",
+	    		name: "bt2",
+	    		text: "删除",
+	    		click: "changeview2()"
+	    	},{
+	    		vtype: "button",
+	    		name: "bt3",
+	    		text: "修改",
+	    		click: "changeview1()"
+	    	},{
+	    		vtype: "button",
+	    		name: "bt4",
+	    		text: "删除",
+	    		click: "changeview2()"
+	    	}]
+	    };
+	
+	//toolbar纵向布局结合在column布局中
+	//$('#column_id').layout({layout:"fit"});
+	/* $('#column_id').layout({
+		layout: 'column',
+	    layoutconfig: {
+	    	columnwidth: ['100px', '700px']
+	    }
+	}); */
+	
+	 $('#toolbar_1').toolbar(opt);
+	 
+	 //当toolbar纵向布局的时候，需要使用fit布局（可以考虑直接写到toolbar.js中）
+	 //$('#toolbar_1').layout({layout:"fit"});
+});
+
+function addElement(){
+	var data = [{
+		vtype: "button",
+		name: "bt31",
+		text: "修改xx",
+		click: "changeview1()"
+	},{
+		"class": "separator"
+	},{
+		vtype: "button",
+		name: "bt32",
+		text: "删除ss",
+		click: "changeview2()"
+	}] ;
+	$('#toolbar_1').toolbar("addElement",data);
+	//$('#toolbar_1').toolbar("appendElement",data,"bt3");
+	//$('#toolbar_1').toolbar("prependElement",data,"bt3");
+}
+function removeElement(){
+	$('#toolbar_1').toolbar("removeButton","textfield_name");
+	$('#toolbar_1').toolbar("removeButton","wdatepicker_name");
+}
+function hideElement(){
+	$('#toolbar_1').toolbar("hideButton","textfield_name");
+	$('#toolbar_1').toolbar("hideButton","wdatepicker_name");
+}
+function showElement(){
+	$('#toolbar_1').toolbar("showButton","textfield_name");
+	$('#toolbar_1').toolbar("showButton","wdatepicker_name");
+}
+function disableButton(){
+	$('#toolbar_1').toolbar("disableButton","add_button");
+}
+function enableButton(){
+	$('#toolbar_1').toolbar("enableButton","add_button");
+}
+</script>
+</head>
+<body>  
+</br>
+<div name="toolbar" vtype="toolbar"  style="width:1000px;height:40px;background:#DBEAF9;border:1px solid red;">
+	<div name="bt41" vtype="button" defaultview="2" text="新增"  iconurl="" toggleiconurl=''></div>
+	<div name="bt42" vtype="button" align="right" text="修改"  iconurl='' toggleiconurl=''></div>
+	<div class="separator" align="right" ></div>
+  	<div name="bt43" vtype="button" align="right" text="删除"  iconurl=""></div>
+  	<div name=bt44 vtype="textfield" align="right" label="姓名" msg="请输入真实姓名" labelalign="right" rule="must" width="300" editable="true"></div>
+</div>
+<div name="toolbar" style="width:1000px;height:40px;background:#DBEAF9;border:1px solid red;">
+	<div name="bt41"  style="overflow:hidden;width:400px;height:20px;zoom:1;dispaly:inline;background:#fff;border:1px solid red;"></div>
+</div>
+<div name="add" vtype="button" text="add"  click="addElement()"></div>
+<div name="del" vtype="button" text="remove"  click="removeElement()"></div>
+<div name="hide" vtype="button" text="hide"  click="hideElement()"></div>
+<div name="show" vtype="button" text="show"  click="showElement()"></div>
+<div name="disable" vtype="button" text="disable"  click="disableButton()"></div>
+<div name="enable" vtype="button" text="enable"  click="enableButton()"></div>
+</br>
+</br>
+</br>
+<div id="toolbar_1" style="width:200px;border:1px solid #bbb;"></div>
+<!-- <div id="column_id" style="width:800px;height:100px;border:1px solid #bbb;">
+<div id="toolbar_1" style="height:100%;border:1px solid #bbb;"></div>
+<div id="toolbar_2" style="heigt:100%;border:1px solid #bbb;background:#eee;"></div>
+</div> -->
+</br>
+</br>
+<h4>实现toolbar三种创建方式vtype/$('#div').toolbar(option)/$.widget(option)</h4>
+</br>
+</br>
+</body>  
+</html>  

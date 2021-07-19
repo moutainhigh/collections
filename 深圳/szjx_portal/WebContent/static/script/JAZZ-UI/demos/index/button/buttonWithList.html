@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jazz-ui.js" type="text/javascript"></script> 
+</head>
+<body>
+<div id="demo">
+
+<script>  
+    $(function(){  
+   
+           $('#btn').button({  
+                text: 'Save',  
+                iconurl: '../../../themes/default/toolbar/images/save.png',   
+                disabled: false,  
+                items: [    
+                    {    
+                        icon: '../../../themes/default/toolbar/images/ok.png',    
+                        text: 'ok',
+                        iconAlign:'right',
+                        disabled: true,
+                        click: function() {    
+                        alert("menulist click event... update");  
+                        }
+                    },    
+                    {    
+                        icon:'../../../themes/default/toolbar/images/print.png',    
+                        text: 'print',    
+                        click: function() {    
+                        alert("menulist click event... update");    
+                        }    
+                    }, 
+
+                    {  
+                        icon:'../../../themes/default/toolbar/images/back.png',    
+                        text: '首页',    
+                        url: '../../../new-index.jsp'    
+                    } ,  
+                    {    
+                        icon:'../../../themes/default/toolbar/images/edit_disabled.png',    
+                        text: 'disabled',    
+                        click: function() {
+                        	   $('#btn').button('disable'); 
+                        alert("the button is disable");    
+                        }    
+                    },
+                ]    
+            });    
+    });  
+</script>  
+ 
+  <div id="btn"></div>
+
+</div> 
+</body>
+</html><SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

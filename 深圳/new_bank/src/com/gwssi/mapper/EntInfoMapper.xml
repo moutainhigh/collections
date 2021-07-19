@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.dao.EntInfoDao">
+
+<!-- 	<select id="queryEntInfo" resultType="EntInfo">
+	
+		select * from (
+			select rownum rn, t.* from v_ent_info t
+			<where>
+				<if test="entset != null">t.entname like CONCAT(#{entset}),'%')</if> 
+				<if test="entset != null"> t.regno = '${entset}'</if>
+				<if test="entset != null">or t.unifsocicrediden = '${entset}'</if>
+				<if test="stime != null">and t.lastdate >= to_date('${stime}', 'yyyy-MM-dd hh24:mi:ss')</if>
+				<if test="etime != null">and t.lastdate &lt;= to_date('${etime}', 'yyyy-MM-dd hh24:mi:ss') </if>
+				and rownum &lt;= ${pageEnd}
+			</where>
+		)
+		where rn >${pageBegin}
+	</select> -->
+	
+	
+<!-- 快 -->
+<!-- 	<select id="queryEntInfo" resultType="EntInfo">
+			SELECT * FROM  
+			(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM (select * from v_ent_info t where t.entname  like concat(#{entset,jdbcType=VARCHAR},'%') or  t.regno = '${entset}' or  t.unifsocicrediden = '${entset}')) A  
+			WHERE ROWNUM &lt;= ${pageEnd}
+			)  
+			WHERE RN >= ${pageBegin}
+	</select> --> <!-- rn最好是> 否则第一页中0和1是一样的 -->
+	
+	
+	<!-- 快，两种方式任选一种 -->
+<!-- 		<select id="queryEntInfo" resultType="EntInfo">
+			SELECT * FROM  
+			(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM (
+					select * from v_ent_info t where 1=1 
+				<if test="entset != null and entset!='' ">
+						and t.entname  like '${entset}%' or  t.regno = '${entset}' or  t.unifsocicrediden = '${entset}' 
+				</if>
+				<if test="stime != null">and t.lastdate >= to_date('${stime}', 'yyyy-MM-dd hh24:mi:ss')</if>
+				<if test="etime != null">and t.lastdate &lt;= to_date('${etime}', 'yyyy-MM-dd hh24:mi:ss') </if>
+			)
+			) A  
+			WHERE ROWNUM &lt;= ${pageEnd}
+			)  
+			WHERE RN > ${pageBegin}rn最好是> 否则第一页中0和1是一样的
+	</select> -->
+	
+	
+	
+	
+	<select id="queryEntInfo" resultType="EntInfo">
+			SELECT * FROM  
+			(  
+			SELECT A.*, ROWNUM RN  
+			FROM (SELECT * FROM (
+					select * from v_ent_info t where 1=1 
+				<if test="entset != null and entset!='' ">
+						and t.entname  like '${entset}%' or  t.regno = '${entset}' or  t.unifsocicrediden = '${entset}' 
+				</if>
+				<if test="stime != null and type ==1 ">and t.lastdate >= to_date('${stime}'||'00:00:00', 'yyyy-MM-dd hh24:mi:ss')</if>
+				<if test="etime != null and type ==1 ">and t.lastdate &lt;= to_date('${etime}'||'23:59:59', 'yyyy-MM-dd hh24:mi:ss')</if>
+				
+				<if test="stime != null and type ==2 ">and t.estdate >= to_date('${stime}'||'00:00:00', 'yyyy-MM-dd hh24:mi:ss')</if>
+				<if test="etime != null and type ==2 ">and t.estdate &lt;= to_date('${etime}'||'23:59:59', 'yyyy-MM-dd hh24:mi:ss')</if>
+				
+				<if test="stime != null and type ==3 ">and t.apprdate >= to_date('${stime}'||'00:00:00', 'yyyy-MM-dd hh24:mi:ss')</if>
+				<if test="etime != null and type ==3 ">and t.apprdate &lt;= to_date('${etime}'||'23:59:59', 'yyyy-MM-dd hh24:mi:ss')</if>
+			)
+			) A  
+			WHERE ROWNUM &lt;= ${pageEnd}
+			)  
+			WHERE RN > ${pageBegin}  <!--  rn最好是> 否则第一页中0和1是一样的-->
+	</select>
+	 
+	 
+	 	<select id="queryEntInfoTotals" resultType="int">
+			select /*+parallel(t,16)*/  count(1) from v_ent_info t where 1=1 
+				<if test="entset != null and entset!='' ">
+						and t.entname  like '${entset}%' or  t.regno = '${entset}' or  t.unifsocicrediden = '${entset}' 
+				</if>
+				<if test="stime != null and type ==1 ">and t.lastdate >= to_date('${stime}'||'00:00:00', 'yyyy-MM-dd hh24:mi:ss')</if>
+				<if test="etime != null and type ==1 ">and t.lastdate &lt;= to_date('${etime}'||'23:59:59', 'yyyy-MM-dd hh24:mi:ss')</if>
+				
+				<if test="stime != null and type ==2 ">and t.estdate >= to_date('${stime}'||'00:00:00', 'yyyy-MM-dd hh24:mi:ss')</if>
+				<if test="etime != null and type ==2 ">and t.estdate &lt;= to_date('${etime}'||'23:59:59', 'yyyy-MM-dd hh24:mi:ss')</if>
+				
+				<if test="stime != null and type ==3 ">and t.apprdate >= to_date('${stime}'||'00:00:00', 'yyyy-MM-dd hh24:mi:ss')</if>
+				<if test="etime != null and type ==3 ">and t.apprdate &lt;= to_date('${etime}'||'23:59:59', 'yyyy-MM-dd hh24:mi:ss')</if>
+		</select>
+	 
+</mapper>

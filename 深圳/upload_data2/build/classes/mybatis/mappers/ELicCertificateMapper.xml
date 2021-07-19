@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.ELicCertificateMapper">
+
+	<!-- 许可信息 -->
+	<insert id="insertELicCertificate">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from E_LIC_CERTIFICATE where licid = #{licid}
+		</selectKey>
+		<if test="count > 0">
+			update E_LIC_CERTIFICATE   
+			<trim prefix="set" suffixOverrides=",">
+				<if test="pripid != null ">pripid =  #{pripid, 	jdbcType=VARCHAR},</if>
+				<if test="licno != null ">licno =  #{licno, 	jdbcType=VARCHAR},</if>
+				<if test="licname != null ">licname =  #{licname, 	jdbcType=VARCHAR},</if>
+				<if test="valfrom != null ">valfrom =  to_date(#{valfrom,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="valto != null ">valto =  to_date(#{valto,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="licanth != null">licanth = #{licanth,	jdbcType=VARCHAR},</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where licid = #{licid}
+		</if>
+		<if test="count == 0">
+			insert into E_LIC_CERTIFICATE
+			(
+				licid, 
+				pripid, 
+				licno, 
+				licname, 
+				valfrom, 
+				valto, 
+				licanth,
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{licid, 	jdbcType=VARCHAR},
+				#{pripid, 	jdbcType=VARCHAR},
+				#{licno, 	jdbcType=VARCHAR},
+				#{licname, 	jdbcType=VARCHAR},
+				to_date(#{valfrom,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				to_date(#{valto,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{licanth,	jdbcType=VARCHAR},
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

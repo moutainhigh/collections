@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<expression-config>
+
+    <infix-operator>
+        <operator name="+" function="plus"/>
+        <operator name="-" function="minus"/>
+        <operator name="*" function="mul"/>
+        <operator name="/" function="div"/>
+        <operator name="%" function="mod"/>
+        <operator name="&amp;&amp;" function="and"/>
+        <operator name=" and " function="and"/>
+        <operator name=" AND " function="and"/>
+        <operator name="||" function="or"/>
+        <operator name=" or " function="or"/>
+        <operator name=" OR " function="or"/>
+        <operator name="&gt;" function="gt"/>
+        <operator name="&lt;" function="lt"/>
+        <operator name="&gt;=" function="ge"/>
+        <operator name="&lt;=" function="le"/>
+        <operator name="==" function="eq"/>
+        <operator name="&lt;&gt;" function="ne"/>
+        <operator name="!=" function="ne"/>
+        <operator name="=" function="assign"/>
+        <!-- <operator name="." function="dot"/> -->
+        <operator name="&amp;" function="infixsum"/>
+    </infix-operator>
+    
+    <prefix-operator>
+        <operator name="-" function="uminus"/>
+        <operator name="!" function="not"/>
+        <operator name="not " function="not"/>
+        <operator name="NOT " function="not"/>
+    </prefix-operator>
+    
+    <enclose-operator>
+        <operator name="()" function="parenthesis"/>
+        <operator name="[]" function="bracket"/>
+    </enclose-operator>
+    
+    
+</expression-config>
+

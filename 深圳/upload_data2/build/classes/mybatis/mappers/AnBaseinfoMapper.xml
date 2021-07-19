@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.AnBaseinfoMapper">
+	
+	<!-- 企业年报基本信息 -->
+	<insert id="insertAnBaseinfo">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from AN_BASEINFO t where t.ancheid = #{ancheid}
+		</selectKey>
+		<if test="count > 0">
+			update AN_BASEINFO 
+			<trim prefix="set" suffixOverrides=",">
+				<if test="pripid != null">pripid = #{pripid, 	jdbcType=VARCHAR},</if>
+				<if test="anchedate != null">anchedate = to_date(#{anchedate, jdbcType=DATE}, 'YYYY-MM-DD'),</if>
+				<if test="ancheyear != null">ancheyear = #{ancheyear, jdbcType=VARCHAR},</if>
+				<if test="regno != null">regno = #{regno, 	jdbcType=VARCHAR},</if>
+				<if test="uniscid != null">uniscid = #{uniscid, jdbcType=VARCHAR},</if>
+				<if test="entname != null">entname = #{entname, jdbcType=VARCHAR},</if>
+				<if test="enttype != null">enttype = #{enttype, jdbcType=VARCHAR},</if>
+				<if test="tel != null">tel = #{tel, jdbcType=VARCHAR},</if>
+				<if test="addr != null">addr = #{addr, 	jdbcType=VARCHAR},</if>
+				<if test="postalcode != null">postalcode = #{postalcode, 	jdbcType=VARCHAR},</if>
+				<if test="email != null">email = #{email, 	jdbcType=VARCHAR},</if>
+				<if test="busst != null">busst = #{busst, 	jdbcType=VARCHAR},</if>
+				<if test="busstCn != null">busst_cn = #{busstCn, 	jdbcType=VARCHAR},</if>
+				<if test="empnum != null">empnum = to_number(#{empnum, jdbcType=NUMERIC}),</if>
+				<if test="empnumdis != null">empnumdis = #{empnumdis,	jdbcType=VARCHAR},</if>
+				<if test="antype != null">antype = #{antype, 	jdbcType=VARCHAR},</if>
+				<if test="colgranum != null">colgranum = to_number(#{colgranum, jdbcType=NUMERIC}),</if>
+				<if test="colemplnum != null">colemplnum = to_number(#{colemplnum, jdbcType=NUMERIC}),</if>
+				<if test="retsolnum != null">retsolnum = to_number(#{retsolnum, jdbcType=NUMERIC}),</if>
+				<if test="retemplnum != null">retemplnum = to_number(#{retemplnum, jdbcType=NUMERIC}),</if>
+				<if test="dispernum != null">dispernum = to_number(#{dispernum, jdbcType=NUMERIC}),</if>
+				<if test="disemplnum != null">disemplnum = to_number(#{disemplnum, jdbcType=NUMERIC}),</if>
+				<if test="unenum != null">unenum = to_number(#{unenum, jdbcType=NUMERIC}),</if>
+				<if test="uneemplnum != null">uneemplnum = to_number(#{uneemplnum, jdbcType=NUMERIC}),</if>
+				<if test="dependententname != null">dependententname = #{dependententname, 	jdbcType=VARCHAR},</if>
+				<if test="assgro != null">assgro = to_number(#{assgro, jdbcType=NUMERIC}),</if>
+				<if test="assgrodis != null">assgrodis = #{assgrodis, 	jdbcType=VARCHAR},</if>
+				<if test="liagro != null">liagro = to_number(#{liagro, 	jdbcType=NUMERIC}),</if>
+				<if test="liagrodis != null">liagrodis = #{liagrodis, 	jdbcType=VARCHAR},</if>
+				<if test="vendinc != null">vendinc = to_number(#{vendinc, 	jdbcType=NUMERIC}),</if>
+				<if test="vendincdis != null">vendincdis = #{vendincdis, 	jdbcType=VARCHAR},</if>
+				<if test="maibusinc != null">maibusinc = to_number(#{maibusinc, 	jdbcType=NUMERIC}),</if>
+				<if test="maibusincdis != null">maibusincdis = #{maibusincdis, jdbcType=VARCHAR},</if>
+				<if test="progro != null">progro = to_number(#{progro, 	jdbcType=NUMERIC}),</if>
+				<if test="progrodis != null">progrodis = #{progrodis, 	jdbcType=VARCHAR},</if>
+				<if test="netinc != null">netinc = to_number(#{netinc, 	jdbcType=NUMERIC}),</if>
+				<if test="netincdis != null">netincdis = #{netincdis, 	jdbcType=VARCHAR},</if>
+				<if test="ratgro != null">ratgro = to_number(#{ratgro, 	jdbcType=NUMERIC}),</if>
+				<if test="ratgrodis != null">ratgrodis = #{ratgrodis, 	jdbcType=VARCHAR},</if>
+				<if test="totequ != null">totequ = to_number(#{totequ, 	jdbcType=NUMERIC}),</if>
+				<if test="totequdis != null">totequdis = #{totequdis, 	jdbcType=VARCHAR},</if>
+				<if test="numparm != null">numparm = to_number(#{numparm, 	jdbcType=NUMERIC}),</if>
+				<if test="parins != null">parins = #{parins, 		jdbcType=VARCHAR},</if>
+				<if test="parinsCn != null">parins_cn = #{parinsCn, 	jdbcType=VARCHAR},</if>
+				<if test="resparmsign != null">resparmsign = #{resparmsign, jdbcType=VARCHAR},</if>
+				<if test="resparsecsign != null">resparsecsign = #{resparsecsign, jdbcType=VARCHAR},</if>
+				<if test="lastupdatetime != null">lastupdatetime = to_date(#{lastupdatetime, jdbcType=DATE}, 'YYYY-MM-DD'),</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where ancheid = #{ancheid}
+		</if>
+		<if test="count == 0">
+		insert into AN_BASEINFO
+		(
+			ancheid,
+			pripid,
+			anchedate,
+			ancheyear,
+			regno,
+			uniscid,
+			entname,
+			enttype,
+			tel,
+			addr,
+			postalcode,
+			email,
+			busst,
+			busst_cn,
+			empnum,
+			empnumdis,
+			antype,
+			colgranum,
+			colemplnum,
+			retsolnum,
+			retemplnum,
+			dispernum,
+			disemplnum,
+			unenum,
+			uneemplnum,
+			dependententname,
+			assgro,
+			assgrodis,
+			liagro,
+			liagrodis,
+			vendinc,
+			vendincdis,
+			maibusinc,
+			maibusincdis,
+			progro,
+			progrodis,
+			netinc,
+			netincdis,
+			ratgro,
+			ratgrodis,
+			totequ,
+			totequdis,
+			numparm,
+			parins,
+			parins_cn,
+			resparmsign,
+			resparsecsign,
+			lastupdatetime,
+			s_ext_fromnode,
+			s_ext_datatime
+		)
+		values
+		(
+			#{ancheid, 		jdbcType=VARCHAR},
+			#{pripid, 		jdbcType=VARCHAR},
+			to_date(#{anchedate, jdbcType=DATE}, 'YYYY-MM-DD'),
+			#{ancheyear, 	jdbcType=VARCHAR},
+			#{regno, 		jdbcType=VARCHAR},
+			#{uniscid, 		jdbcType=VARCHAR},
+			#{entname, 		jdbcType=VARCHAR},
+			#{enttype, 		jdbcType=VARCHAR},
+			#{tel, 			jdbcType=VARCHAR},
+			#{addr, 		jdbcType=VARCHAR},
+			#{postalcode, 	jdbcType=VARCHAR},
+			#{email, 		jdbcType=VARCHAR},
+			#{busst, 		jdbcType=VARCHAR},
+			#{busstCn, 		jdbcType=VARCHAR},
+			to_number(#{empnum, jdbcType=NUMERIC}),
+			#{empnumdis, 	jdbcType=VARCHAR},
+			#{antype, 		jdbcType=VARCHAR},
+			to_number(#{colgranum, jdbcType=NUMERIC}),
+			to_number(#{colemplnum, jdbcType=NUMERIC}),
+			to_number(#{retsolnum, jdbcType=NUMERIC}),
+			to_number(#{retemplnum, jdbcType=NUMERIC}),
+			to_number(#{dispernum, jdbcType=NUMERIC}),
+			to_number(#{disemplnum, jdbcType=NUMERIC}),
+			to_number(#{unenum, jdbcType=NUMERIC}),
+			to_number(#{uneemplnum, jdbcType=NUMERIC}),
+			#{dependententname, 	jdbcType=VARCHAR},
+			to_number(#{assgro, jdbcType=NUMERIC}),
+			#{assgrodis, 	jdbcType=VARCHAR},
+			to_number(#{liagro, 	jdbcType=NUMERIC}),
+			#{liagrodis, 	jdbcType=VARCHAR},
+			to_number(#{vendinc, 	jdbcType=NUMERIC}),
+			#{vendincdis, 	jdbcType=VARCHAR},
+			to_number(#{maibusinc, 	jdbcType=NUMERIC}),
+			#{maibusincdis, jdbcType=VARCHAR},
+			to_number(#{progro, 	jdbcType=NUMERIC}),
+			#{progrodis, 	jdbcType=VARCHAR},
+			to_number(#{netinc, 	jdbcType=NUMERIC}),
+			#{netincdis, 	jdbcType=VARCHAR},
+			to_number(#{ratgro, 	jdbcType=NUMERIC}),
+			#{ratgrodis, 	jdbcType=VARCHAR},
+			to_number(#{totequ, 	jdbcType=NUMERIC}),
+			#{totequdis, 	jdbcType=VARCHAR},
+			to_number(#{numparm, 	jdbcType=NUMERIC}),
+			#{parins, 		jdbcType=VARCHAR},
+			#{parinsCn, 	jdbcType=VARCHAR},
+			#{resparmsign, jdbcType=VARCHAR},
+			#{resparsecsign, jdbcType=VARCHAR},
+			to_date(#{lastupdatetime, jdbcType=DATE}, 'YYYY-MM-DD'),
+			440300,
+			SYSDATE
+		)
+		</if>
+	</insert>
+	
+</mapper>

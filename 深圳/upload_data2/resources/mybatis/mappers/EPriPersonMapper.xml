@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.EPriPersonMapper">
+
+	<!-- 主要人员信息 -->
+	<insert id="insertEPriPerson">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from E_PRI_PERSON where personid =  #{personid}
+		</selectKey>
+		<if test="count > 0">
+			update E_PRI_PERSON   
+			<trim prefix="set" suffixOverrides=",">
+				<if test="pripid != null">pripid =  #{pripid, 		jdbcType=VARCHAR}, </if>
+				<if test="name != null">name =  #{name, 		jdbcType=VARCHAR}, </if>
+				<if test="sex != null">sex =  #{sex, 			jdbcType=VARCHAR}, </if>
+				<if test="natdate != null">natdate =  to_date(#{natdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="certype != null">certype =  #{certype, 		jdbcType=VARCHAR}, </if>
+				<if test="cerno != null">cerno =  #{cerno, 		jdbcType=VARCHAR}, </if>
+				<if test="position != null ">position =  #{position, 	jdbcType=VARCHAR}, </if>
+				<if test="positionCn != null ">position_cn =  #{positionCn, 	jdbcType=VARCHAR}, </if>
+				<if test="posbrform != null ">posbrform =  #{posbrform, 	jdbcType=VARCHAR}, </if>
+				<if test="occstbeapp != null ">occstbeapp =  #{occstbeapp, 	jdbcType=VARCHAR}, </if>
+				<if test="lerepsign != null ">lerepsign =  #{lerepsign, 	jdbcType=VARCHAR}, </if>
+				<if test="appounit != null ">appounit =  #{appounit, 	jdbcType=VARCHAR}, </if>
+				<if test="tel != null ">tel =  #{tel, 			jdbcType=VARCHAR}, </if>
+				<if test="country != null ">country =  #{country, 		jdbcType=VARCHAR}, </if>
+				<if test="telnumber != null ">telnumber =  #{telnumber, 	jdbcType=VARCHAR}, </if>
+				<if test="mobtel != null ">mobtel =  #{mobtel, 		jdbcType=VARCHAR}, </if>
+				<if test="email != null ">email =  #{email, 		jdbcType=VARCHAR}, </if>
+				<if test="houseadd != null ">houseadd =  #{houseadd, 	jdbcType=VARCHAR}, </if>
+				<if test="arrchdate != null ">arrchdate =  to_date(#{arrchdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="repcarfrom != null ">repcarfrom =  to_date(#{repcarfrom,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="repcarto != null ">repcarto =  to_date(#{repcarto,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="postalcode != null">postalcode = 	#{postalcode,	jdbcType=VARCHAR}, </if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where personid =  #{personid} 
+		</if>
+		<if test="count == 0">
+			insert into E_PRI_PERSON
+			(
+				personid, 
+				pripid, 
+				name, 
+				sex, 
+				natdate, 
+				certype, 
+				cerno, 
+				position, 
+				position_cn, 
+				posbrform, 
+				occstbeapp, 
+				lerepsign, 
+				appounit, 
+				tel, 
+				country, 
+				telnumber, 
+				mobtel, 
+				email, 
+				houseadd, 
+				arrchdate, 
+				repcarfrom, 
+				repcarto, 
+				postalcode,	
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{personid,		jdbcType=VARCHAR}, 
+				#{pripid, 		jdbcType=VARCHAR}, 
+				#{name, 		jdbcType=VARCHAR}, 
+				#{sex, 			jdbcType=VARCHAR}, 
+				to_date(#{natdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{certype, 		jdbcType=VARCHAR}, 
+				#{cerno, 		jdbcType=VARCHAR}, 
+				#{position, 	jdbcType=VARCHAR}, 
+				#{positionCn, 	jdbcType=VARCHAR}, 
+				#{posbrform, 	jdbcType=VARCHAR}, 
+				#{occstbeapp, 	jdbcType=VARCHAR}, 
+				#{lerepsign, 	jdbcType=VARCHAR}, 
+				#{appounit, 	jdbcType=VARCHAR}, 
+				#{tel, 			jdbcType=VARCHAR}, 
+				#{country, 		jdbcType=VARCHAR}, 
+				#{telnumber, 	jdbcType=VARCHAR}, 
+				#{mobtel, 		jdbcType=VARCHAR}, 
+				#{email, 		jdbcType=VARCHAR}, 
+				#{houseadd, 	jdbcType=VARCHAR}, 
+				to_date(#{arrchdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				to_date(#{repcarfrom,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				to_date(#{repcarto,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{postalcode,	jdbcType=VARCHAR}, 
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

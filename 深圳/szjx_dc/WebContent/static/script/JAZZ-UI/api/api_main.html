@@ -1,0 +1,715 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<HTML>
+<HEAD>
+<TITLE> ZTREE DEMO </TITLE>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link href="../external/jquery-ui/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../external/zTree/zTreeStyle.css" rel="stylesheet" type="text/css">
+
+<link href="../lib/themes/default/jazz-all-min.css" rel="stylesheet" type="text/css" />
+  
+<style>
+	body {
+		background-color: white;
+		margin:0; padding:0;
+		text-align: center;
+	}
+	div, p, table, th, td {
+		list-style:none;
+		margin:0; padding:0;
+		color:#333; font-size:12px;
+		font-family:dotum, Verdana, Arial, Helvetica, AppleGothic, sans-serif;
+	}
+	#testIframe {margin-left: 10px;}
+</style>
+
+<script src="../external/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="../external/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+<script src="../external/zTree.js" type="text/javascript"></script>
+
+<script src="../lib/jazz-all.js" type="text/javascript"></script>
+
+<script type="text/javascript" >
+	var zTree;
+	var demoIframe;
+
+	var setting = {
+		view: {
+			dblClickExpand: false,
+			showLine: true,
+			selectedMulti: false
+		},
+		data: {
+			simpleData: {
+				enable:true,
+				idKey: "id",
+				pIdKey: "pId",
+				rootPId: ""
+			}
+		},
+		callback: {
+			beforeClick: function(treeId, treeNode) {
+				var zTree = $.fn.zTree.getZTreeObj("tree");
+				if (treeNode.isparent) {
+					zTree.expandNode(treeNode);
+					return false;
+				
+				} else {
+					var fileName = '';
+					var node = treeNode.getParentNode().getParentNode();
+					
+					if(!!node) fileName = node.name;
+					else fileName = treeNode.getParentNode().name;
+					
+					addTab(treeNode.id, fileName + treeNode.name,  treeNode.file + '.html')					
+					
+					return true;
+				}
+			}
+		}
+	};
+
+	var zNodes =[
+//表单
+		{id:1, pId:0, name:"表单组件", open:false},
+		{id:101, pId:1, name:"textfield文本框", open:false},
+		{id:10101, pId:101, name:"属性详解", open:false},
+		{id:1010101, pId:10101, name:"defaultValue", file:"../demos/textfield/textfield_defaultValue"},
+		{id:1010102, pId:10101, name:"data", file:"../demos/textfield/textfield_data"},
+		{id:1010103, pId:10101, name:"effect", file:"../demos/textfield/textfield_effect"},
+		{id:1010104, pId:10101, name:"effectSpeed", file:"../demos/textfield/textfield_effectSpeed"},
+		{id:1010105, pId:10101, name:"caseSensitive", file:"../demos/textfield/textfield_caseSensitive"},
+		{id:1010106, pId:10101, name:"delay", file:"../demos/textfield/textfield_delay"},
+		{id:1010107, pId:10101, name:"minQueryLength", file:"../demos/textfield/textfield_minQueryLength"},
+		{id:1010108, pId:10101, name:"scrollHeight", file:"../demos/textfield/textfield_scrollHeight"},
+		{id:1010109, pId:10101, name:"filterMatchMode", file:"../demos/textfield/textfield_filterMatchMode"},
+		{id:10102, pId:101, name:"接口详解", open:false},
+		{id:1010201, pId:10102, name:"getName", file:"../demos/textfield/textfield_getName()"},
+		{id:1010202, pId:10102, name:"getValue", file:"../demos/textfield/textfield_getValue()"},
+		{id:1010203, pId:10102, name:"reset", file:"../demos/textfield/textfield_reset()"},
+		{id:1010204, pId:10102, name:"setValue", file:"../demos/textfield/textfield_setValue()"},
+		{id:10103, pId:101, name:"事件详解", open:false},
+		{id:1010301, pId:10103, name:"change", file:"../demos/textfield/textfield_change_event"},
+		{id:1010302, pId:10103, name:"select", file:"../demos/textfield/textfield_select_event"},
+		
+		{id:102, pId:1, name:"textareafield文本框", open:false},
+		{id:10201, pId:102, name:"属性详解", open:false},
+		{id:1020101, pId:10201, name:"maxlength", file:"../demos/textarea/textarea_maxlength"}, 
+		{id:1020102, pId:10201, name:"counter", file:"../demos/textarea/textarea_counter"},
+		{id:1020103, pId:10201, name:"counterTemplate", file:"../demos/textarea/textarea_counterTemplate"},
+		{id:10202, pId:102, name:"接口详解", open:false},
+		{id:1020201, pId:10202, name:"getCount", file:"../demos/textarea/textarea_getCount()"},
+		
+		{id:103, pId:1, name:"numberfield数字框",    file:"core/standardData"},
+		{id:10301, pId:103, name:"属性详解", open:false},
+		{id:1030101, pId:10301, name:"min", file:"../demos/number/numberfield_min"}, 
+		{id:1030102, pId:10301, name:"max", file:"../demos/number/numberfield_max"},
+		{id:1030103, pId:10301, name:"prefix", file:"../demos/number/numberfield_prefix"},
+		{id:1030104, pId:10301, name:"suffix", file:"../demos/number/numberfield_suffix"},
+		{id:1030105, pId:10301, name:"step", file:"../demos/number/numberfield_step"},
+		//{id:10301, pId:103, name:"接口详解", open:false},
+		{id:10303, pId:103, name:"事件详解", open:false},
+		{id:1030301, pId:10303, name:"change", file:"../demos/number/numberfield_change_event"},
+		
+		{id:105, pId:1, name:"combox下拉列表框", open:false},
+		{id:10501, pId:105, name:"属性详解", open:false},
+		{id:1050101, pId:10501, name:"editable", file:"../demos/combox/combox_editable"},
+		{id:1050102, pId:10501, name:"effect", file:"../demos/combox/combox_effect"},  
+		{id:1050103, pId:10501, name:"effectSpeed", file:"../demos/combox/combox_effectSpeed"},  
+		{id:1050104, pId:10501, name:"data", file:"../demos/combox/combox_data"},
+		{id:1050105, pId:10501, name:"scrollHeight", file:"../demos/combox/combox_scrollHeight"},
+		{id:1050106, pId:10501, name:"filter", file:"../demos/combox/combox_filter"},
+		{id:1050107, pId:10501, name:"filterMatchMode", file:"../demos/combox/combox_filterMatchMode"},
+		{id:1050108, pId:10501, name:"caseSensitive", file:"../demos/combox/combox_caseSensitive"},
+		{id:1050109, pId:10501, name:"content", file:"../demos/combox/combox_content"},
+		{id:1050110, pId:10501, name:"url", file:"../demos/combox/combox_url"},
+		{id:1050111, pId:10501, name:"params", file:"../demos/combox/combox_params"},
+		{id:1050112, pId:10501, name:"defaultIndex", file:"../demos/combox/combox_defaultIndex"}, 
+		{id:10502, pId:105, name:"接口详解", open:false},
+		{id:1050201, pId:10502, name:"addOption", file:"../demos/combox/combox_addOption()"}, 
+		{id:1050202, pId:10502, name:"getSelectedValue", file:"../demos/combox/combox_getSelectedValue()"}, 
+		{id:1050203, pId:10502, name:"getSelectedLabel", file:"../demos/combox/combox_getSelectedLabel()"}, 
+		{id:1050204, pId:10502, name:"reset", file:"../demos/combox/combox_reset()"},
+		{id:1050205, pId:10502, name:"loadData", file:"../demos/combox/combox_loadData()"},
+		{id:10503, pId:105, name:"事件详解", open:false}, 
+		{id:1050301, pId:10503, name:"change", file:"../demos/combox/combox_change_event"},
+		
+		{id:106, pId:1, name:"comboxlist多选列表框", open:false},
+		{id:10601, pId:106, name:"属性详解", open:false},
+		{id:1060101, pId:10601, name:"data", file:"../demos/comboxlist/comboxlist_data"},
+		{id:1060111, pId:10601, name:"url", file:"../demos/comboxlist/comboxlist_url"},
+		{id:1060112, pId:10601, name:"params", file:"../demos/comboxlist/comboxlist_params"},
+		{id:1060102, pId:10601, name:"scrollHeight", file:"../demos/comboxlist/comboxlist_scrollHeight"},  
+		{id:1050103, pId:10601, name:"content", file:"../demos/comboxlist/comboxlist_content"},
+		{id:1050104, pId:10601, name:"multiple", file:"../demos/comboxlist/comboxlist_multiple"}, 
+		{id:10602, pId:106, name:"接口详解", open:false},
+		{id:1060201, pId:10602, name:"unselectAll", file:"../demos/comboxlist/comboxlist_unselectAll()"},
+		{id:10603, pId:106, name:"事件详解", open:false},
+		{id:1060301, pId:10603, name:"click", file:"../demos/comboxlist/comboxlist_click_event"},
+		{id:1060302, pId:10603, name:"dblclick", file:"../demos/comboxlist/comboxlist_dblclick_event"},
+		{id:1060303, pId:10603, name:"unclick", file:"../demos/comboxlist/comboxlist_unclick_event"},
+		
+		{id:120, pId:1, name:"comboxtree下拉树", open:false},
+		{id:12000, pId:120, name:"zTree", file:"../demos/tree/tree"},
+		{id:12001, pId:120, name:"属性详解", open:false},
+		{id:1200101, pId:12001, name:"data", file:"../demos/tree/tree_data"},
+		{id:1200102, pId:12001, name:"url", file:"../demos/tree/tree_url"},
+		{id:1200103, pId:12001, name:"params", file:"../demos/tree/tree_params"},
+		{id:1200104, pId:12001, name:"scrollHeight", file:"../demos/tree/tree_scrollHeight"},
+		{id:1200105, pId:12001, name:"setting", file:"../demos/tree/tree_setting"},
+		
+		{id:130, pId:1, name:"date日期", open:false},
+		{id:13000, pId:130, name:"date", file:"../demos/date/date"},
+		
+		
+		{id:107, pId:1, name:"checkboxfield多选框", open:false},
+		//{id:10701, pId:107, name:"属性详解", open:false},
+		{id:10702, pId:107, name:"接口详解", open:false},
+		//{id:1070201, pId:10702, name:"toggle", file:"../demos/checkbox/checkbox_toggle()"},
+		{id:10703, pId:107, name:"事件详解", open:false},
+		{id:1070301, pId:10703, name:"change", file:"../demos/checkbox/checkbox_change_event"},
+		
+		{id:108, pId:1, name:"radiofield单选框",    file:"core/standardData"},
+		//{id:10801, pId:108, name:"属性详解", open:false},
+		//{id:10802, pId:108, name:"接口详解", open:false},
+		{id:10803, pId:108, name:"事件详解", open:false},
+		{id:1080301, pId:10803, name:"change", file:"../demos/radio/radio_change_event"},
+		
+		{id:110, pId:1, name:"hidden隐藏域", open:false},
+		{id:110001, pId:110, name:"hidden", file:"../demos/textfield/hidden"},
+		
+		{id:109, pId:1, name:"password密码", open:false},	
+		{id:10901, pId:109, name:"属性详解", open:false},
+		{id:1090101, pId:10901, name:"inline", file:"../demos/password/password_inline"},
+		{id:1090102, pId:10901, name:"promptLabel", file:"../demos/password/password_promptLabel"},    
+		{id:10902, pId:109, name:"接口详解", open:false},
+		{id:1090201, pId:10902, name:"show", file:"../demos/password/password_show()"},
+		{id:1090202, pId:10902, name:"hide", file:"../demos/password/password_hide()"},
+		
+		{id:104, pId:1, name:"fieldset分组框", open:false},
+		{id:10401, pId:104, name:"属性详解", open:false},
+		{id:1040101, pId:10401, name:"toggleable", file:"../demos/fieldset/fieldset_toggleable"},
+		{id:10402, pId:104, name:"接口详解", open:false},  
+		{id:1040201, pId:10402, name:"toggle", file:"../demos/fieldset/fieldset_toggle()"},
+		{id:10403, pId:104, name:"事件详解", open:false},
+		{id:1040301, pId:10403, name:"beforeToggle", file:"../demos/fieldset/fieldset_beforeToggle_event"},
+		{id:1040302, pId:10403, name:"afterToggle", file:"../demos/fieldset/fieldset_afterToggle_event"},	
+		
+		
+		{id:118, pId:1, name:"attachment附件", open:false},
+		{id:11801, pId:118, name:"属性详解", open:false},
+		{id:1180101, pId:11801, name:"single", file:"../demos/attach/attach_single"},
+		{id:1180102, pId:11801, name:"fileSizeLimit", file:"../demos/attach/attach_fileSizeLimit"},
+		{id:1180103, pId:11801, name:"fileUploadLimit", file:"../demos/attach/attach_fileUploadLimit"},
+		{id:1180104, pId:11801, name:"allowfileTypes", file:"../demos/attach/attach_allowfileTypes"},
+		{id:1180105, pId:11801, name:"allowfileTypesDesc", file:"../demos/attach/attach_allowfileTypesDesc"},
+		
+		
+//验证		
+		{id:9, pId:0, name:"验证组件", open:false},
+		{id:901, pId:9, name:"数字类校验", open:false},
+		{id:90101, pId:901, name:"number", file:"../demos/validator/validator_number"},
+		{id:90102, pId:901, name:"numberInt", file:"../demos/validator/validator_numberInt"},
+		{id:90103, pId:901, name:"numberFloat", file:"../demos/validator/validator_numberFloat"},
+		{id:902, pId:9, name:"字符类效验", open:false},
+		{id:90201, pId:902, name:"character", file:"../demos/validator/validator_character"}, 
+		{id:90202, pId:902, name:"chinese", file:"../demos/validator/validator_chinese"},
+		{id:90203, pId:902, name:"english", file:"../demos/validator/validator_english"},
+		{id:90204, pId:902, name:"customCheckStyle", file:"../demos/validator/validator_customCheckStyle"},
+		{id:903, pId:9, name:"常用类校验", open:false},
+		{id:90301, pId:903, name:"number$character", file:"../demos/validator/validator_number$character"},
+		{id:90302, pId:903, name:"qq", file:"../demos/validator/validator_qq"},
+		{id:90303, pId:903, name:"telephone", file:"../demos/validator/validator_telephone"},
+		{id:90304, pId:903, name:"email", file:"../demos/validator/validator_email"},
+		{id:90305, pId:903, name:"cellphone", file:"../demos/validator/validator_cellphone"},
+		{id:90306, pId:903, name:"idcard", file:"../demos/validator/validator_idcard"},
+		{id:90307, pId:903, name:"postal", file:"../demos/validator/validator_postal"},
+		{id:904, pId:9, name:"日期类效验", open:false},
+		{id:905, pId:9, name:"自定义正则表达式校验", open:false},
+		{id:90501, pId:905, name:"regexp", file:"../demos/validator/validator_regexp"},
+		{id:906, pId:9, name:"比较校验", open:false},
+		{id:90601, pId:906, name:"contrast", file:"../demos/validator/validator_contrast"},
+		{id:90602, pId:906, name:"length", file:"../demos/validator/validator_length"},
+		{id:907, pId:9, name:"自定义函数校验", open:false},
+		{id:90701, pId:907, name:"customFunction", file:"../demos/validator/validator_customFunction"},
+		
+//面板		
+		{id:2, pId:0, name:"面板类组件", open:true},
+	//tabpanel
+		{id:203, pId:2, name:"tabpanel标签", open:false},
+        {id:20301, pId:203, name:"属性详解", open:false},
+        {id:2030101, pId:20301, name:"tabTitleWidth", file:"../demos/tab/tabpanel_tabTitleWidth"},
+		{id:2030102, pId:20301, name:"tabContentHeight", file:"../demos/tab/tabpanel_tabContentHeight"},
+        {id:2030103, pId:20301, name:"tabContentWidth", file:"../demos/tab/tabpanel_tabContentWidth"},
+        {id:2030104, pId:20301, name:"activeIndex", file:"../demos/tab/tabpanel_activeIndex"},
+		{id:2030105, pId:20301, name:"orientation", file:"../demos/tab/tabpanel_orientation"},
+		{id:20302, pId:203, name:"接口详解", open:false},
+		{id:2030201, pId:20302, name:"select", file:"../demos/tab/tabpanel_select()"},
+		{id:2030202, pId:20302, name:"remove", file:"../demos/tab/tabpanel_remove()"},
+        {id:2030203, pId:20302, name:"addTab", file:"../demos/tab/tabpanel_addTab()"},
+        {id:2030204, pId:20302, name:"addTabCustom", file:"../demos/tab/tabpanel_addTabCustom()"},
+        {id:2030205, pId:20302, name:"getLength", file:"../demos/tab/tabpanel_getLength()"},
+        {id:2030206, pId:20302, name:"getActiveIndex", file:"../demos/tab/tabpanel_getActiveIndex()"},
+        {id:2030207, pId:20302, name:"disable", file:"../demos/tab/tabpanel_disable()"},
+        {id:2030208, pId:20302, name:"enable", file:"../demos/tab/tabpanel_enable()"},	
+		{id:20303, pId:203, name:"事件详解", open:false},
+        {id:2030301, pId:20303, name:"change", file:"../demos/tab/tabpanel_change_event"},
+        {id:2030302, pId:20303, name:"close", file:"../demos/tab/tabpanel_close_event"},
+	//accordionpanel
+		{id:204, pId:2, name:"accordionpanel手风琴", open:false},
+		{id:20401, pId:204, name:"属性详解", open:false},
+        {id:2040101, pId:20401, name:"activeIndex", file:"../demos/accordion/accordionpanel_activeIndex"},
+        {id:2040102, pId:20401, name:"multiple", file:"../demos/accordion/accordionpanel_multiple"},
+		{id:20402, pId:204, name:"接口详解", open:false},
+		{id:2040201, pId:20402, name:"select", file:"../demos/accordion/accordionpanel_select()"},
+        {id:2040202, pId:20402, name:"unselect", file:"../demos/accordion/accordionpanel_unselect()"},
+		/*{id:20403, pId:204, name:"事件详解", open:false},*/
+
+	//panel
+		{id:201, pId:2, name:"panel面板", open:false},
+		{id:20101, pId:201, name:"属性详解", open:false},
+		{id:2010000, pId:20101, name:"layout", file:"../demos/panel/panel_layout"},
+		{id:2010000, pId:20101, name:"layoutConfig", file:"../demos/panel/panel_layoutConfig"},
+		{id:2010151, pId:20101, name:"titleDisplay", file:"../demos/panel/panel_titleDisplay"},
+		{id:2010100, pId:20101, name:"title", file:"../demos/panel/panel_title"},
+		{id:2010152, pId:20101, name:"titleAlign", file:"../demos/panel/panel_titleAlign"},
+		{id:2010157, pId:20101, name:"titleIcon", file:"../demos/panel/panel_titleIcon"},
+		{id:2010153, pId:20101, name:"closable", file:"../demos/panel/panel_closable"},
+		{id:2010154, pId:20101, name:"rtl", file:"../demos/panel/panel_rtl"},
+		{id:2010101, pId:20101, name:"showBorder", file:"../demos/panel/panel_showBorder"},
+        {id:2010102, pId:20101, name:"bgcolor", file:"../demos/panel/panel_bgcolor"},
+        {id:2010104, pId:20101, name:"toggleable", file:"../demos/panel/panel_toggleable"},
+        {id:2010105, pId:20101, name:"toggleDuration", file:"../demos/panel/panel_toggleDuration"},
+        //{id:2010106, pId:20101, name:"toggleOrientation", file:"../demos/panel/panel_toggleOrientation"},
+        {id:2010107, pId:20101, name:"collapsed", file:"../demos/panel/panel_collapsed"},      
+        {id:2010108, pId:20101, name:"closeDuration", file:"../demos/panel/panel_closeDuration"},  
+        {id:2010161, pId:20101, name:"customHandler", file:"../demos/panel/panel_customHandler"},
+		{id:2010162, pId:20101, name:"height", file:"../demos/panel/panel_height"},
+        {id:2010163, pId:20101, name:"width", file:"../demos/panel/panel_width"},
+        {id:2010164, pId:20101, name:"frameUrl", file:"../demos/panel/panel_frameUrl"},
+        
+        {id:20102, pId:201, name:"接口详解", open:false},
+		{id:2010201, pId:20102, name:"close", file:"../demos/panel/panel_close()"},
+		{id:2010202, pId:20102, name:"collapse", file:"../demos/panel/panel_collapse()"},
+		{id:2010203, pId:20102, name:"expand", file:"../demos/panel/panel_expand()"},
+		{id:2010204, pId:20102, name:"toggle", file:"../demos/panel/panel_toggle()"},
+        {id:2010205, pId:20102, name:"addCustomIcon", file:"../demos/panel/panel_addCustomIcon()"},
+        {id:2010206, pId:20102, name:"removeCustomIcon", file:"../demos/panel/panel_removeCustomIcon()"},
+        {id:2010207, pId:20102, name:"hideCustomIcon", file:"../demos/panel/panel_hideCustomIcon()"},
+        {id:2010208, pId:20102, name:"showCustomIcon", file:"../demos/panel/panel_showCustomIcon()"},
+        {id:2010209, pId:20102, name:"iframeSrcHandler", file:"../demos/panel/panel_iframeSrcHandler()"},
+		
+		{id:20103, pId:201, name:"事件详解", open:false},
+		{id:2010301, pId:20103, name:"beforeClose", file:"../demos/panel/panel_beforeClose_event"},
+		{id:2010302, pId:20103, name:"afterClose", file:"../demos/panel/panel_afterClose_event"},
+		{id:2010303, pId:20103, name:"beforeCollapse", file:"../demos/panel/panel_beforeCollapse_event"},
+		{id:2010304, pId:20103, name:"afterCollapse", file:"../demos/panel/panel_afterCollapse_event"},
+		{id:2010305, pId:20103, name:"beforeExpand", file:"../demos/panel/panel_beforeExpand_event"},
+		{id:2010306, pId:20103, name:"afterExpand", file:"../demos/panel/panel_afterExpand_event"},
+	//formpanel	
+		{id:209, pId:2, name:"formpanel", file:"../demos/query/formpanel_api"},
+	//querypanel	
+		{id:210, pId:2, name:"querypanel", file:"../demos/query/querypanel_api"},
+    //gridPanel         
+        {id:202, pId:2, name:"gridPanel表格", open:false},
+        {id:20201, pId:202, name:"属性详解", file:""},
+        {id:2020101, pId:20201, name:"width&height", file:"../demos/grid/gridpanel_width_height"},
+        {id:2020102, pId:20201, name:"data", file:"../demos/grid/gridpanel_data"},
+        {id:2020103, pId:20201, name:"url", file:"../demos/grid/gridpanel_url"},
+        {id:2020104, pId:20201, name:"lineNo", file:"../demos/grid/gridpanel_lineno"},
+        {id:2020105, pId:20201, name:"header", file:"../demos/grid/gridpanel_header"},
+        {id:2020106, pId:20201, name:"codeMap", file:"../demos/grid/gridpanel_codemap"},
+        {id:2020107, pId:20201, name:"rowSelectType", file:"../demos/grid/gridpanel_rowselecttype"},
+        {id:2020108, pId:20201, name:"rowStyleType", file:"../demos/grid/gridpanel_rowstyletype"},
+        {id:2020109, pId:20201, name:"resizeColumn", file:"../demos/grid/gridpanel_resizecolumn"},
+        {id:2020110, pId:20201, name:"buttons", file:"../demos/grid/gridpanel_buttons"},
+        {id:20202, pId:202, name:"接口详解", file:""},
+        {id:2020201, pId:20202, name:"setThead", file:"../demos/grid/gridpanel_setthead()"},
+        {id:2020202, pId:20202, name:"loadData", file:"../demos/grid/gridpanel_loaddata()"},
+        {id:2020203, pId:20202, name:"getSelection", file:"../demos/grid/gridpanel_getselection()"},
+        {id:2020204, pId:20202, name:"selectAllRows", file:"../demos/grid/gridpanel_selectallrows()"},
+        {id:2020205, pId:20202, name:"unselectAllRows", file:"../demos/grid/gridpanel_unselectallrows()"},
+        {id:2020206, pId:20202, name:"showColumn", file:"../demos/grid/gridpanel_showcolumn()"},
+        {id:2020207, pId:20202, name:"hideColumn", file:"../demos/grid/gridpanel_hidecolumn()"},
+        {id:2020208, pId:20202, name:"getRow", file:"../demos/grid/gridpanel_getrow()"},
+        {id:2020209, pId:20202, name:"getRowLength", file:"../demos/grid/gridpanel_getrowlength()"},
+        {id:20203, pId:202, name:"事件详解", file:""},
+        {id:2020301, pId:20203, name:"rowUnselect", file:"../demos/grid/gridpanel_rowUnselect_event"},
+        {id:2020302, pId:20203, name:"rowSelect", file:"../demos/grid/gridpanel_rowSelect_event"},
+        {id:2020303, pId:20203, name:"onAdd", file:"../demos/grid/gridpanel_onAdd_event"},
+	
+	//tree	
+		{id:205, pId:2, name:"tree树_(zTree开源)", open:false},
+		{id:20501, pId:205, name:"zTree", file:"../demos/tree/ztree"},
+		{id:20502, pId:205, name:"属性详解", open: true},
+		{id:2050201, pId:20502, name:"data", file:"../demos/tree/dtree_data"},
+		{id:2050202, pId:20502, name:"url", file:"../demos/tree/dtree_url"},
+		{id:2050203, pId:20502, name:"params", file:"../demos/tree/dtree_params"},
+		{id:2050204, pId:20502, name:"setting(查看zTree用法)", file:"../demos/tree/ztree"},		
+		
+	//window
+		{id:206, pId:2, name:"window窗体", open:false},
+        {id:20601, pId:206, name:"属性详解", open:false},
+		{id:2060001, pId:20601, name:"layout", file:"../demos/panel/panel_layout"},
+		{id:2060002, pId:20601, name:"layoutConfig", file:"../demos/panel/panel_layoutConfig"}, 
+		{id:2060171, pId:20601, name:"titleDisplay", file:"../demos/window/window_titleDisplay"},
+        {id:2060100, pId:20601, name:"title", file:"../demos/window/window_title"},
+        {id:2060181, pId:20601, name:"titleAlign", file:"../demos/window/window_titleAlign"},
+        {id:2060101, pId:20601, name:"draggable", file:"../demos/window/window_draggable"},
+        {id:2060102, pId:20601, name:"resizable", file:"../demos/window/window_resizable"},
+        {id:2060103, pId:20601, name:"location", file:"../demos/window/window_location"},
+        {id:2060104, pId:20601, name:"minWidth", file:"../demos/window/window_minWidth"},
+        {id:2060105, pId:20601, name:"minHeight", file:"../demos/window/window_minHeight"},
+        {id:2060106, pId:20601, name:"height", file:"../demos/window/window_height"},
+        {id:2060107, pId:20601, name:"width", file:"../demos/window/window_width"},
+        {id:2060131, pId:20601, name:"maximize", file:"../demos/window/window_maximize"},
+        {id:2060108, pId:20601, name:"visible", file:"../demos/window/window_visible"},
+        {id:2060109, pId:20601, name:"modal", file:"../demos/window/window_modal"},
+        {id:20601010, pId:20601, name:"showEffect", file:"../demos/window/window_showEffect"},
+        {id:20601011, pId:20601, name:"hideEffect", file:"../demos/window/window_hideEffect"},   
+        /*{id:20601012, pId:20601, name:"effectOptions", file:"../demos/window/window_effectOptions"},*/
+        {id:20601013, pId:20601, name:"effectSpeed", file:"../demos/window/window_effectSpeed"},
+        {id:20601014, pId:20601, name:"closeOnEscape", file:"../demos/window/window_closeOnEscape"},
+        {id:20601015, pId:20601, name:"rtl", file:"../demos/window/window_rtl"},
+        {id:20601016, pId:20601, name:"closable", file:"../demos/window/window_closable"},
+        {id:20601901, pId:20601, name:"closeState", file:"../demos/window/window_closeState"},
+        {id:20601017, pId:20601, name:"minimizable", file:"../demos/window/window_minimizable"},
+        {id:20601018, pId:20601, name:"maximizable", file:"../demos/window/window_maximizable"},
+        /*{id:20601019, pId:20601, name:"appendTo", file:"../demos/window/window_appendTo"},*/
+        {id:20601020, pId:20601, name:"buttons", file:"../demos/window/window_buttons"},
+        {id:20601021, pId:20601, name:"frameUrl", file:"../demos/window/window_frameUrl"},
+        {id:20601022, pId:20601, name:"frameName", file:"../demos/window/window_frameName"},
+        {id:20601023, pId:20601, name:"customHandler", file:"../demos/window/window_customHandler"},
+        {id:20601024, pId:20601, name:"bgcolor", file:"../demos/window/window_bgcolor"},
+        {id:20601025, pId:20601, name:"showBorder", file:"../demos/window/window_showBorder"},        
+        
+        {id:20602, pId:206, name:"接口详解", open:false},
+        {id:2060201, pId:20602, name:"show", file:"../demos/window/window_show()"},
+        {id:2060202, pId:20602, name:"close", file:"../demos/window/window_close()"},
+        {id:2060203, pId:20602, name:"addCustomIcon", file:"../demos/window/window_addCustomIcon()"},
+        {id:2060204, pId:20602, name:"removeCustomIcon", file:"../demos/window/window_removeCustomIcon()"},
+        {id:2060205, pId:20602, name:"hideCustomIcon", file:"../demos/window/window_hideCustomIcon()"},
+        {id:2060206, pId:20602, name:"showCustomIcon", file:"../demos/window/window_showCustomIcon()"},
+        {id:2060207, pId:20602, name:"iframeSrcHandler", file:"../demos/window/window_iframeSrcHandler()"},
+        
+        {id:20603, pId:206, name:"事件详解", open:false},
+        {id:2060301, pId:20603, name:"beforeShow", file:"../demos/window/window_beforeShow_event"},
+        {id:2060302, pId:20603, name:"afterShow", file:"../demos/window/window_afterShow_event"},
+        {id:2060303, pId:20603, name:"beforeClose", file:"../demos/window/window_beforeClose_event"},
+        {id:2060304, pId:20603, name:"afterClose", file:"../demos/window/window_afterClose_event"},
+        {id:2060305, pId:20603, name:"maximize", file:"../demos/window/window_maximize_event"},
+        {id:2060306, pId:20603, name:"minimize", file:"../demos/window/window_minimize_event"},
+        
+        
+   //tray
+   		{id:255, pId:2, name:"tray托盘", open:false},
+   		{id:2550, pId:255, name:"属性详解", open:false},
+		{id:255001, pId:2550, name:"layout", file:"../demos/panel/panel_layout"},
+		{id:255002, pId:2550, name:"layoutConfig", file:"../demos/panel/panel_layoutConfig"},
+		{id:255003, pId:2550, name:"draggable", file:"../demos/tray/tray_draggable"},
+		{id:255004, pId:2550, name:"height", file:"../demos/tray/tray_height"},
+        {id:255005, pId:2550, name:"width", file:"../demos/tray/tray_width"},
+        {id:255006, pId:2550, name:"point", file:"../demos/tray/tray_point"},
+        {id:255007, pId:2550, name:"position", file:"../demos/tray/tray_position"},
+        {id:255008, pId:2550, name:"closeState", file:"../demos/tray/tray_closeState"},
+        {id:255009, pId:2550, name:"bgcolor", file:"../demos/tray/tray_bgcolor"},
+        {id:255010, pId:2550, name:"showBorder", file:"../demos/tray/tray_showBorder"},
+        
+        {id:25502, pId:255, name:"接口详解", open:false},
+        {id:2550201, pId:25502, name:"show", file:"../demos/tray/tray_show()"},
+        {id:2550202, pId:25502, name:"close", file:"../demos/tray/tray_close()"},
+        
+        {id:25503, pId:255, name:"事件详解", open:false},
+        {id:2550301, pId:25503, name:"beforeShow", file:"../demos/tray/tray_beforeShow_event"},
+        {id:2550302, pId:25503, name:"afterShow", file:"../demos/tray/tray_afterShow_event"},
+        {id:2550303, pId:25503, name:"beforeClose", file:"../demos/tray/tray_beforeClose_event"},
+        {id:2550304, pId:25503, name:"afterClose", file:"../demos/tray/tray_afterClose_event"},     
+        
+		
+        
+   //message
+        {id:207, pId:2, name:"message提示", open:false},
+        {id:20709, pId:207, name:"提示框", file: "../demos/message/message_info"},
+        /*
+        {id:20701, pId:207, name:"属性详解", open:false},
+        {id:2070101, pId:20701, name:"sticky", file:"../demos/message/message_sticky"},
+        {id:2070102, pId:20701, name:"life", file:"../demos/message/message_life"},
+        {id:20702, pId:207, name:"接口详解", open:false},
+        {id:2070201, pId:20702, name:"show", file:"../demos/message/message_show()"},
+        {id:2070202, pId:20702, name:"clear", file:"../demos/message/message_clear()"},
+        {id:20703, pId:207, name:"事件详解", open:false},
+        {id:2070301, pId:20703, name:"clickComfirm", file:"../demos/message/message_clickComfirm2_event"},
+        */
+        
+	//icon
+		{id:208, pId:2, name:"icon图标", open: false},
+		{id:20801, pId:208, name:"属性详解", open: false},
+		{id:2080101, pId:20801, name:"data", file:"../demos/icon/icon_data"},
+		{id:2080102, pId:20801, name:"scrollTime", file:"../demos/icon/icon_scrollTime"},
+		{id:2080103, pId:20801, name:"activeIndex", file:"../demos/icon/icon_activeIndex"},
+		{id:2080104, pId:20801, name:"paginatorHeight", file:"../demos/icon/icon_paginatorHeight"},
+		{id:2080105, pId:20801, name:"url", file:"../demos/icon/icon_url"},
+		{id:2080106, pId:20801, name:"params", file:"../demos/icon/icon_params"},		
+		//{id:20802, pId:208, name:"接口详解",open: false},
+		{id:20803, pId:208, name:"事件详解", open: false},
+		{id:2080303, pId:20803, name:"click", file:"../demos/icon/icon_click"},
+		
+//控制		
+	    {id:3, pId:0, name:"控制类组件", open:false},
+	//button
+		{id:301, pId:3, name:"button按钮", open:false},
+		{id:30101, pId:301, name:"属性详解", open:false},
+		{id:3010101, pId:30101, name:"options全属性", file:"../demos/button/button_api"},
+		/* {id:3010101, pId:30101, name:"value", file:"../demos/button/button_value"},
+		{id:3010102, pId:30101, name:"icon", file:"../demos/button/button_icon"},
+        {id:3010103, pId:30101, name:"iconPos", file:"../demos/button/button_iconPos"}, */
+		{id:30102, pId:301, name:"接口详解", open:false},
+        {id:3010201, pId:30102, name:"disable", file:"../demos/button/button_disable()"},
+        {id:3010202, pId:30102, name:"enable", file:"../demos/button/button_enable()"},
+		{id:30103, pId:301, name:"事件详解", open:false},
+		{id:3010301, pId:30103, name:"click", file:"../demos/button/button_click_event"},
+		
+		{id:302, pId:3, name:"menu菜单", open: false},
+		
+		{id:30201, pId:302, name:"menubar菜单条", open: true},
+		{id:3020101, pId:30201, name:"属性详解", open: false},
+		{id:302010101, pId:3020101, name:"autoDisplay", file:"../demos/menu/menubar_autoDisplay"},
+		{id:302010102, pId:3020101, name:"data", file:"../demos/menu/menubar_data"},
+		{id:302010103, pId:3020101, name:"dataTarget", file:"../demos/menu/menubar_dataTarget"},
+		{id:302010104, pId:3020101, name:"url", file:"../demos/menu/menubar_url"},
+		{id:302010105, pId:3020101, name:"params", file:"../demos/menu/menubar_params"},
+		
+		{id:3020102, pId:30201, name:"接口详解", open: false},
+		{id:302010201, pId:3020102, name:"addMenu", file:"../demos/menu/contextmenu_addMenu()"},
+		{id:3020103, pId:30201, name:"事件详解", open: false},	
+		{id:302010301, pId:3020103, name:"click", file:"../demos/menu/contextmenu_click_event"},	
+
+		//{id:30202, pId:302, name:"slidemenu滑动菜单", open: true},
+		//{id:3020201, pId:30202, name:"属性详解", open: false}, 
+		//{id:302020101, pId:3020201, name:"data", file:"../demos/menu/slidemenu_data"}, 
+		//{id:302020102, pId:3020201, name:"dataTarget", file:"../demos/menu/slidemenu_dataTarget"},
+		//{id:3020102, pId:30201, name:"接口详解", open: false},
+		//{id:302010201, pId:3020102, name:"addMenu", file:"../demos/menu/menubar_addMenu()"},
+		//{id:3020103, pId:30201, name:"事件详解", open: false},	
+		//{id:302010301, pId:3020103, name:"click", file:"../demos/menu/menubar_click_event"},
+		
+		
+		{id:30203, pId:302, name:"contextmenu右键菜单", open: true},
+		{id:3020301, pId:30203, name:"属性详解", open: false},
+		{id:302030101, pId:3020301, name:"data", file:"../demos/menu/contextmenu_data"},  
+		{id:302030102, pId:3020301, name:"dataTarget", file:"../demos/menu/contextmenu_dataTarget"},
+		{id:302030103, pId:3020301, name:"target", file:"../demos/menu/contextmenu_target"},
+		{id:302030104, pId:3020301, name:"url", file:"../demos/menu/contextmenu_url"},
+		{id:302030105, pId:3020301, name:"params", file:"../demos/menu/contextmenu_params"},
+		
+		{id:3020302, pId:30203, name:"接口详解", open: false},
+		{id:302030201, pId:3020302, name:"addMenu", file:"../demos/menu/contextmenu_addMenu()"},
+		{id:3020303, pId:30203, name:"事件详解", open: false},	
+		{id:302030301, pId:3020303, name:"click", file:"../demos/menu/contextmenu_click_event"},
+		
+		
+		//{id:302, pId:3, name:"menu菜单", file: "../demos/menu/menu_autoDisplay"},
+		
+		
+	//toolbar
+		{id:303, pId:3, name:"toolbar工具栏", open: false},
+		{id:30301, pId:303, name:"属性详解", open:false},
+        {id:3030101, pId:30301, name:"data", file:"../demos/toolbar/toolbar_data"},
+        /* {id:3030102, pId:30301, name:"showTitle", file:"../demos/toolbar/toolbar_showTitle"},
+        {id:3030103, pId:30301, name:"url", file:"../demos/toolbar/toolbar_url"},
+        {id:3030104, pId:30301, name:"params", file:"../demos/toolbar/toolbar_params"}, */
+		{id:30302, pId:303, name:"接口详解", open:false},
+		{id:3030201, pId:30302, name:"addButton", file:"../demos/toolbar/toolbar_addButton()"},
+		{id:3030201, pId:30302, name:"removeButton", file:"../demos/toolbar/toolbar_removeButton()"},
+		{id:3030201, pId:30302, name:"hideButton", file:"../demos/toolbar/toolbar_hideButton()"},
+		{id:3030201, pId:30302, name:"showButton", file:"../demos/toolbar/toolbar_showButton()"},
+		{id:3030201, pId:30302, name:"disableButton", file:"../demos/toolbar/toolbar_disableButton()"},
+		{id:3030201, pId:30302, name:"enableButton", file:"../demos/toolbar/toolbar_enableButton()"},
+		/* {id:3030201, pId:30302, name:"hide", file:"../demos/toolbar/toolbar_hide()"},
+		{id:3030201, pId:30302, name:"show", file:"../demos/toolbar/toolbar_show()"},
+		{id:3030201, pId:30302, name:"selectItem", file:"../demos/toolbar/toolbar_selectItem()"}, */
+		{id:30303, pId:303, name:"事件详解", open:false},
+		{id:3030301, pId:30303, name:"click", file:"../demos/toolbar/toolbar_click_event"},
+	//paginator
+		{id:304, pId:3, name:"paginator分页", open:false},
+		{id:30401, pId:304, name:"属性详解", open:false},
+		{id:3040101, pId:30401, name:"pageLinks", file:"../demos/paginator/paginator_pageLinks"},
+		{id:3040102, pId:30401, name:"totalRecords", file:"../demos/paginator/paginator_totalRecords"},
+		{id:3040103, pId:30401, name:"page", file:"../demos/paginator/paginator_page"},
+		{id:3040104, pId:30401, name:"rows", file:"../demos/paginator/paginator_rows"},
+		{id:3040105, pId:30401, name:"template", file:"../demos/paginator/paginator_template"},
+		{id:30402, pId:304, name:"接口详解", open:false},
+		{id:3040201, pId:30402, name:"setPage", file:"../demos/paginator/paginator_setPage()"},
+		{id:3040202, pId:30402, name:"getPageCount", file:"../demos/paginator/paginator_getPageCount()"},
+		{id:30403, pId:304, name:"事件详解", open:false},
+		{id:3040301, pId:30403, name:"click", file:"../demos/paginator/paginator_click_event"},
+		{id:3040302, pId:30403, name:"paginate", file:"../demos/paginator/paginator_paginate_event"},
+	//progressbar
+		{id:305, pId:3, name:"progressbar进度条", open:false},
+		{id:30501, pId:305, name:"属性详解", open:false},
+        {id:3050101, pId:30501, name:"value", file:"../demos/progressbar/progressbar_value"},
+        {id:3050102, pId:30501, name:"labelTemplate", file:"../demos/progressbar/progressbar_labelTemplate"},
+        {id:3050103, pId:30501, name:"easing", file:"../demos/progressbar/progressbar_easing"},
+        {id:3050104, pId:30501, name:"effectSpeed", file:"../demos/progressbar/progressbar_effectSpeed"},
+        {id:3050105, pId:30501, name:"showLabel", file:"../demos/progressbar/progressbar_showLabel"},
+		{id:30502, pId:305, name:"事件详解", open:false},
+		{id:3050201, pId:30502, name:"complete", file:"../demos/progressbar/progressbar_complete_event"},
+	//slider
+		{id:306, pId:3, name:"slider", file:"../demos/slider/slider_api"},
+	//tooltip
+		{id:307, pId:3, name:"tooltip提示", file:"super/checkbox_radio"},
+		{id:30701, pId:307, name:"属性详解", open:false},
+		{id:3070100, pId:30701, name:"icon", file:"../demos/tooltip/tooltip_icon"},
+		{id:3070111, pId:30701, name:"iconClass", file:"../demos/tooltip/tooltip_iconClass"},
+		{id:3070101, pId:30701, name:"showEffect", file:"../demos/tooltip/tooltip_showEffect"},
+		{id:3070102, pId:30701, name:"showEffectSpeed", file:"../demos/tooltip/tooltip_showEffectSpeed"},
+		{id:3070103, pId:30701, name:"hideEffect", file:"../demos/tooltip/tooltip_hideEffect"},
+		{id:3070104, pId:30701, name:"hideEffectSpeed", file:"../demos/tooltip/tooltip_hideEffectSpeed"},
+		{id:3070105, pId:30701, name:"showDelay", file:"../demos/tooltip/tooltip_showDelay"},
+		{id:3070106, pId:30701, name:"content", file:"../demos/tooltip/tooltip_content"},
+		{id:3070107, pId:30701, name:"showEvent", file:"../demos/tooltip/tooltip_showEvent"},
+		{id:3070108, pId:30701, name:"hideEvent", file:"../demos/tooltip/tooltip_hideEvent"},
+		
+		{id:30702, pId:307, name:"接口详解", open:false},
+		{id:3070201, pId:30702, name:"offhide", file:"../demos/tooltip/tooltip_offhide()"},
+		{id:3070202, pId:30702, name:"offshow", file:"../demos/tooltip/tooltip_offshow()"},
+		{id:3070203, pId:30702, name:"show", file:"../demos/tooltip/tooltip_show()"},
+		{id:3070204, pId:30702, name:"hide", file:"../demos/tooltip/tooltip_hide()"},
+//布局
+	    {id:4, pId:0, name:"布局组件", open:false},
+		{id:401, pId:4, name:"hbox水平布局", file:"../demos/layout/layout_hbox"},
+		{id:402, pId:4, name:"vbox垂直布局", file:"../demos/layout/layout_vbox"},
+		{id:403, pId:4, name:"table布局", file:"../demos/layout/layout_table"},
+		{id:404, pId:4, name:"column列布局", file:"../demos/layout/layout_column"},
+		{id:405, pId:4, name:"card卡片布局", file:"../demos/layout/layout_card"},
+		{id:406, pId:4, name:"fit高度撑满布局", file:"../demos/layout/layout_fit"},
+
+//复合
+		{id:5, pId:0, name:"复合组件", open:false},
+		{id:501, pId:5, name:"门户组件", file:"../demos/portal/portal_api"},
+		{id:502, pId:5, name:"accordion_qh", file:"../demos/accordion/accordion_qh"},
+        {id:503, pId:5, name:"progresspoint流程图", file:"../demos/progresspoint/progresspoint_points"},
+        {id:505, pId:5, name:"grid复合组件", file:"../demos/grid/grid_complex"},
+        
+//其他
+		{id:6, pId:0, name:"其他组件", open:false},
+	//rating
+		{id:611, pId:6, name:"rating等级", open:false},
+		{id:61101, pId:611, name:"属性详解", open:false},
+		{id:6110101, pId:61101, name:"stars", file:"../demos/rating/rating_stars"},
+		{id:6110102, pId:61101, name:"cancel", file:"../demos/rating/rating_cancel"},
+		{id:61102, pId:611, name:"接口详解", open:false},
+		{id:6110201, pId:61102, name:"cancel", file:"../demos/rating/rating_cancel()"},
+		{id:6110202, pId:61102, name:"getValue", file:"../demos/rating/rating_getValue()"},
+		{id:6110203, pId:61102, name:"setValue", file:"../demos/rating/rating_setValue()"},
+		{id:61103, pId:611, name:"事件详解", open:false},
+		{id:6110301, pId:61103, name:"cancel", file:"../demos/rating/rating_cancel_event"},
+		{id:6110302, pId:61103, name:"rate", file:"../demos/rating/rating_rate_event"},
+	//picklist
+		{id:612, pId:6, name:"picklist挑选", open:false},
+		{id:61201, pId:612, name:"属性详解", open:false},
+		{id:6120101, pId:61201, name:"effect", file:"../demos/picklist/picklist_effect"},
+        {id:6120102, pId:61201, name:"effectSpeed", file:"../demos/picklist/picklist_effectSpeed"},
+        {id:6120103, pId:61201, name:"sourceCaption", file:"../demos/picklist/picklist_sourceCaption"},
+        {id:6120104, pId:61201, name:"targetCaption", file:"../demos/picklist/picklist_targetCaption"},
+        {id:6120105, pId:61201, name:"filter", file:"../demos/picklist/picklist_filter"},
+        {id:6120106, pId:61201, name:"filterMatchMode", file:"../demos/picklist/picklist_filterMatchMode"},
+        {id:6120107, pId:61201, name:"dragdrop", file:"../demos/picklist/picklist_dragdrop"},
+        {id:6120108, pId:61201, name:"data", file:"../demos/picklist/picklist_data"},
+        {id:6120109, pId:61201, name:"targetData", file:"../demos/picklist/picklist_targetData"},
+        {id:6120110, pId:61201, name:"showSourceControls", file:"../demos/picklist/picklist_showSourceControls"},
+        {id:6120111, pId:61201, name:"showTargetControls", file:"../demos/picklist/picklist_showTargetControls"},
+        {id:61202, pId:612, name:"接口详解", open:false},
+        /*{id:6120201, pId:61202, name:"selectItem", file:"../demos/picklist/picklist_selectItem()"},
+        {id:6120202, pId:61202, name:"unselectItem", file:"../demos/picklist/picklist_unselectItem()"},*/
+        {id:6120203, pId:61202, name:"unselectAll", file:"../demos/picklist/picklist_unselectAll()"},
+        {id:61203, pId:612, name:"事件详解", open:false},
+        {id:6120301, pId:61203, name:"content", file:"../demos/picklist/picklist_content_event"},
+        {id:6120302, pId:61203, name:"transfer", file:"../demos/picklist/picklist_transfer_event"},
+	//galleria	
+		{id:613, pId:6, name:"galleria画廊", open:false},
+		{id:61301, pId:613, name:"属性详解", open:false},
+        {id:6130101, pId:61301, name:"panelWidth", file:"../demos/galleria/galleria_panelWidth"},
+        {id:6130102, pId:61301, name:"panelHeight", file:"../demos/galleria/galleria_panelHeight"},
+        {id:6130103, pId:61301, name:"frameWidth", file:"../demos/galleria/galleria_frameWidth"},
+        {id:6130104, pId:61301, name:"frameHeight", file:"../demos/galleria/galleria_frameHeight"},
+        {id:6130105, pId:61301, name:"activeIndex", file:"../demos/galleria/galleria_activeIndex"},
+        {id:6130106, pId:61301, name:"showFilmstrip", file:"../demos/galleria/galleria_showFilmstrip"},
+        {id:6130107, pId:61301, name:"autoPlay", file:"../demos/galleria/galleria_autoPlay"},
+        {id:6130108, pId:61301, name:"transitionInterval", file:"../demos/galleria/galleria_transitionInterval"},
+        {id:6130109, pId:61301, name:"effect", file:"../demos/galleria/galleria_effect"},
+        {id:6130110, pId:61301, name:"effectSpeed", file:"../demos/galleria/galleria_effectSpeed"},
+        {id:6130111, pId:61301, name:"showCaption", file:"../demos/galleria/galleria_showCaption"},
+        {id:6130112, pId:61301, name:"customContent", file:"../demos/galleria/galleria_customContent"},
+        {id:61302, pId:613, name:"接口详解", open:false},
+        {id:6130201, pId:61302, name:"startSlideshow", file:"../demos/galleria/galleria_startSlideshow()"},
+        {id:6130202, pId:61302, name:"stopSlideshow", file:"../demos/galleria/galleria_stopSlideshow()"},
+        /*{id:6130203, pId:61302, name:"isSlideshowActive", file:"../demos/galleria/galleria_select()"},*/
+        {id:6130204, pId:61302, name:"select", file:"../demos/galleria/galleria_select()"},
+        {id:6130205, pId:61302, name:"prev", file:"../demos/galleria/galleria_prev()"},
+        {id:6130206, pId:61302, name:"next", file:"../demos/galleria/galleria_next()"},
+        /*{id:6130207, pId:61302, name:"isAnimating", file:"../demos/galleria/galleria_isAnimating()"},*/
+        /*{id:61303, pId:613, name:"事件详解", open:false},*/
+	//lightbox
+		{id:614, pId:6, name:"lightbox灯箱", open:false},
+	//terminal
+	//	{id:620, pId:6, name:"terminal终端", file:"super/checkbox_radio"}
+		
+		{id:7, pId:0, name:"与Sword数据交互", open:false},
+		{id:701, pId:7, name:"初始化数据加载", open: true},
+		{id:70101, pId:701, name:"SwordForm", file:"../demos/sword/swordform"},
+		{id:70102, pId:701, name:"SwordGrid", file:"../demos/sword/swordgrid"},
+		{id:70103, pId:701, name:"SwordSelect", file:"../demos/sword/swordselect"},
+		
+		{id:702, pId:7, name:"数据提交", open: true},
+		{id:70201, pId:702, name:"表单提交submit",  file:"../demos/sword/swordform_submit"},
+		{id:70202, pId:702, name:"提交参数",  file:"../demos/sword/swordform_params"},
+	];
+
+	$(document).ready(function(){
+
+		$.fn.zTree.init($("#tree"), setting, zNodes);
+
+//		var zTree = $.fn.zTree.getZTreeObj("tree");
+//		zTree.selectNode(zTree.getNodeByParam("id", 101));
+
+		var win = $(window);
+		var height = win.height();
+		$('#table_id').height(height - 25);
+		$('#tree').height(height - 25);
+		
+		$('#tab_id').tabpanel({'tabContentHeight': height - 80 });
+	});
+
+	function addTab(tabid, tabname, taburl) {
+		$('#tab_id').tabpanel('addTab', tabid, tabname, taburl);
+	}
+
+</SCRIPT>
+</HEAD>
+
+<BODY>
+
+<TABLE id="table_id" border=0 width="99%" align=left>
+	<TR>
+		<TD width="270px" align=left valign=top style="BORDER-RIGHT: #999999 1px dashed">
+			<ul id="tree" class="ztree" style="width:270px; height:500px; overflow:auto;"></ul>
+		</TD>
+		<TD align=left valign=top>
+			<div id="tab_id">
+				<ul>
+					<li><a href="#welcome">Welcome</a></li>
+				</ul>
+				<div>
+					<div id="welcome">				
+						
+					</div>
+				</div>							
+			</div>
+		</TD>
+	</TR>
+</TABLE>
+
+
+</BODY>
+</HTML>

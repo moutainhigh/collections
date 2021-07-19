@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<title>食品企业查询</title>
+<link rel="stylesheet" href="../../static/css/common.css">
+<link href="../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />	
+<style type="text/css">
+.jazz-field-comp-input{
+	line-height: 22px;
+	_line-height: 22px;
+}
+
+.btnExport{
+    position: absolute;
+    top: 220px;
+    right: 3px;
+    z-index: 9999;
+    /* display:none; */
+}
+ font{display: none;} 
+#btnExport{
+display: none;
+}
+font{display: none;}
+
+</style>
+</head>
+<body>
+<script src="../../static/js/sczt/base64.js" type="text/javascript"></script>
+
+<script>
+
+</script>
+<body style="overflow-x:hidden">
+<!-- 构建页面==开始 -->
+<!-- dataurl="../../SpQyselect/code_value.do?type=ancheyear" -->
+<!-- dataurl="../../NBselect/code_value.do?type=ancheyear" -->
+<div style="position:relative">
+ 	<div style="display:none;color:red;background:#f8f8f8;position: absolute;top:232px;z-index:9999" id="tips" >说明：共<span id="totals"></span>条记录（自2017年2月1日起）。以下为查询结果的前100条，如有更多需求，请与信息中心联系，电话：83070056。</div>
+	<div id="btnExport" class="btnExport" name="toolbar" vtype="toolbar">
+	<div  id="add_button" name="add_button" vtype="button" align="right" text="导出"></div>
+
+</div>
+
+<div>
+<!-- 查询条件 -->
+<div name="SpQyQueryListPanel" id="SpQyQueryListPanel" vtype="formpanel" width="100%" layout="table"  style="text-align: center;"
+	layoutconfig="{cols:2, columnwidth: ['50%','50%']}" 
+	labelstyleclass="labelstyle" title="食品企业查询" 
+	titledisplay="true" showborder="false" >
+	
+	
+	<div name="entname" id="entname" vtype="textfield" label="商事主体信息"  labelwidth="180" labelalign="right" width="490" valuetip="请输入商事主体名称……"
+	 tooltip="" rule="" ></div>
+	 <div name="regno" id="regno" vtype="textfield" label="统一社会信用代码/注册号"  labelwidth="180" labelalign="right" width="490" valuetip="请输入统一社会信用代码或注册号……"
+	 tooltip="" rule="" ></div>
+	 
+	 <div name="regorg"  id='regorg' vtype="comboxfield" label="管辖区域"  labelwidth="180"  labelalign="right" width="490" valuetip="请选择管辖区域……" 
+ 			  tooltip="" ></div>
+ 	<div name="adminbrancode" id='adminbrancode' vtype="comboxfield" label="所属监管所"  labelwidth="180" labelalign="right" width="490" valuetip="请选择所属监管所……" 
+ 			dataurl=""  tooltip=""  ></div>
+	
+	  <div name='SpQymark' id='SpQymark' vtype="radiofield" label="许可证" labelAlign="right"
+				dataurl="[{checked: true,value: '0',text: '全部'},{value: '1',text: '有证'},{value: '2',text: '无证'}]" tooltip="请选择..."
+				width="490" labelwidth='180'  ></div>	
+				
+	<div name="estdate" lable="成立日期"  labelwidth="0" labelalign="right" width="470"  style="margin-left:60px;" >
+		<div name="estdate_begin" id="estdate_begin" vtype="datefield" label="成立日期"  labelwidth="120" labelalign="right" width="264" valuetip="请选择开始日期……"
+	 tooltip="" rule="" ></div>
+	   <span id="toDates" style="text-align:center;display:none; height:48px; line-height:63px; margin-left:-11px;margin-right:-11px;">至</span>
+ 		<div name="estdate_end" id="estdate_end" vtype="datefield"  labelwidth="0" labelalign="right" width="141" valuetip="请选择结束日期……"
+ 	 tooltip="" rule=""></div>
+	</div>	
+	<!-- <div name='SpQymarkhidden' style="display:none" id='SpQymarkhidden' vtype="hiddenfield"></div> -->
+
+	<div name='entnamehidden' style="display:none" id='entnamehidden' vtype="hiddenfield"></div>
+	<div name='regnohidden' style="display:none" id='regnohidden' vtype="hiddenfield"></div>
+	<div name='regorghidden' style="display:none" id='regorghidden' vtype="hiddenfield"></div>
+	<div name='SpQymarkhidden' style="display:none" id='SpQymarkhidden' vtype="hiddenfield"></div>
+	<div name='adminbrancodehidden' style="display:none" id='adminbrancodehidden' vtype="hiddenfield"></div>
+	<div name='estdate_beginkhidden' style="display:none" id='estdate_beginhidden' vtype="hiddenfield"></div>
+	<div name='estdate_endhidden' style="display:none" id='estdate_endhidden' vtype="hiddenfield"></div>
+	
+	<div name='isnotquery' style="display:none" id='isnotquery' vtype="hiddenfield"></div>
+	
+    <div id="toolbar" name="toolbar" vtype="toolbar" location="bottom"
+				align="center" width="100%">
+				<div name="save_button" id="save_button" vtype="button" text="查询"
+					icon="../query/queryssuo.png"></div>
+				<div name="reset_button" id="reset_button" vtype="button" text="重置"></div>
+				<!-- <div name="back_button" id="back_button" vtype="button" text="返回"
+					icon="../query/queryssuo.png" click="goBack()"></div> -->
+    </div>
+    
+</div>
+<!-- 数据展现 -->
+		<!-- <div style="display:none;color:red;background:#f8f8f8" id="tips" >说明：共<span id="totals"></span>条记录（自2017年2月1日起）。以下为查询结果的前100条，如有更多需求，请与信息中心联系，电话：83070056。</div> -->
+		
+		<div name="SpQyQueryListGrid" id="SpQyQueryListGrid" vtype="gridpanel" titleDisplay="false" title="查询列表" labelStyleClass="labelstyle" lineno="true" isshowselecthelper="false"
+		  showborder=true width="100%" >
+		<!-- <div name="add_function_button" id="add_function_button" vtype='button' text='新增功能信息' ></div> -->
+	
+	
+	
+	<div name="SpQyQueryListGridColumn" id="SpQyQuery" vtype="gridcolumn">
+				<div >
+					<!-- <div name='inv' text="姓名" textalign="center" width="6%"></div>
+					<div name='cerno' text="证件号码" textalign="center" width="13%"></div> -->
+					<div name='regno' text="统一社会信用代码/注册号" textalign="left" width="17%"></div>
+					<div name='entname' text="商事主体名称" textalign="left" width="27%" ></div>
+					<!-- <div name='file' text="档案" textalign="left" width="5%" ></div> -->
+					<div name='enttypeCn' text="经济性质" textalign="left" width="25%"></div>
+					<div name='estdate' text="成立日期" datatype="date" dataformat="YYYY-MM-DD"  textalign="left" ></div>
+					<!-- <div name='opt'  text="操作" textalign="center"></div>  -->
+				     <div name='regstate' text="商事主体状态" dataurl='regstate.json' textalign="left" width="10%"></div>
+				     <div name='opt' text="食品许可证"  textalign="center" width="10%"></div>
+				</div>
+				</div>
+			<div vtype="gridtable" name="grid_table"></div>
+			<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10"></div>
+			<div class="nodata" style="display:none;"></div>
+		</div>
+</div>
+
+<!-- 构建页面==结束 -->
+
+<script type="text/javascript" src="../../static/js/config.js"></script>
+<script type="text/javascript" data-main="com/SpQyQueryList.js" src="../../static/lib/require.js"></script>
+</body>
+</html>

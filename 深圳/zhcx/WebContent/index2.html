@@ -1,0 +1,4502 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=9">
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<title>深圳市市场监督管理局（深圳市知识产权局）</title>
+<link href="./css/index.css" rel="stylesheet" type="text/css">
+<script src="./js/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="./js/jquery.xdomainrequest.min.js" type="text/javascript"></script>
+<link rel="shortcut icon" href="./js/favicon.ico" /> 
+<style>
+			img {
+				border: 0
+			}
+			
+			.fr {
+				float: right !important
+			}
+			
+			.header {
+				width: 100%;
+			}
+			
+			.header .top {
+				width: 100%;
+				height: 65px;
+				box-shadow: 0 0 2px #000;
+				border-top: none;
+				border-left: none;
+				border-right: none;
+				text-align: center;
+			}
+			
+			.header .user {
+				width: 960px;
+				height: 40px;
+				margin: 0 auto;
+				color: #fff;
+				font: 14px/40px Microsoft YaHei;
+			}
+			
+			a:focus {
+				outline: none;
+			}
+			/*解决IE 8点击出现白边的问题*/
+			
+			.carousel img {
+				margin-left: -10px;
+				margin-bottom: -6px;
+			}
+			
+			.linkFin {
+				background: #37e083;
+			}
+			
+			.linkFin:hover {
+				background: #27c26d;
+			}
+			
+			.icon_fa {
+				background: url('images/41.png') no-repeat;
+				width: 38px;
+				height: 38px;
+			}
+		</style>
+
+		<style>
+			input {
+				outline: none;
+				border: none;
+			}
+			
+			.hoverSelect {
+				background: #CCCCCC
+			}
+			
+			.serachHover {
+				width: 96px;
+				height: 50px;
+				margin-right: 276px;
+			}
+			
+			.searchGlass {
+				position: absolute;
+				top: 28px;
+				right: 130px;
+			}
+			
+			.searchKey {
+				position: absolute;
+				right: 0;
+			}
+			
+			#searchCid {
+				position: absolute;
+				right: 285px;
+				top: 1px;
+				background: #fff;
+				height: 27px;
+				line-height: 27px;
+				width: 80.2px;
+				text-align: left;
+				padding-left: 8px;
+			}
+			
+			.searchSel {
+				position: absolute;
+				width: 89px;
+				right: 285px;
+				top: 29px;
+				display: none;
+				background: #fff;
+				cursor: pointer;
+			}
+			
+			.searchSel i {
+				font-style: normal;
+				display: block;
+				height: 30px;
+				line-height: 30px;
+				padding: 0px 8px;
+				text-align: left;
+			}
+			
+			.search-val {
+				position: absolute;
+				top: 1px;
+				right: 32px;
+				height: 27px;
+				line-height: 27px;
+				color: #666;
+				width: 250px;
+				padding-left: 4px;
+				;
+			}
+			
+			#iconsQuery {
+				width: 11px;
+				height: 13px;
+				background: #000;
+				position: absolute;
+				right: 288px;
+				top: 9px;
+				background: url(images/down.png);
+			}
+			
+			.none {
+				display: none
+			}
+		</style>
+
+		<!--[if IE 7]>
+	<style>
+	#searchCid{
+		height: 30.6px;
+		line-height: 30.6px;
+		top:2px;
+	}
+	
+	#iconsQuery{
+		right:295px !important;
+	}
+	</style>
+<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="header" width="100%" height="65px" style="text-align:center;" scrolling="no">
+			<div class="top" style="background: url(images/banner1.jpg) repeat-x;width:100%;">
+				<div class="topWrap" style="position:relative;width: 1000px;margin: auto;">
+					<img src="./images/banner.jpg" />
+					<div class="searchGlass">
+						<div class="searchKey none">
+							<div class="serachHover">
+								<div id="searchCid" cid="83">政务要闻</div>
+								<div id="iconsQuery"></div>
+								<div class="searchSel">
+									<i data-cid="83">政务要闻</i>
+									<i data-cid="74">工作动态</i>
+									<i data-cid="75">通知公告</i>
+									<i data-cid="76">工作简报</i>
+									<i data-cid="77">学习园地</i>
+									<i data-cid="78">常用表格</i>
+									<i data-cid="79">常用链接</i>
+									<i data-cid="81">协查去函</i>
+									<i data-cid="82">协查回函</i>
+								</div>
+							</div>
+							<input type="text" onFocus="this.value = this.value == this.defaultValue ? '' : this.value;" onBlur="this.value = this.value == this.defaultValue || this.value == '' ? this.defaultValue : this.value;" class="search-val" autocomplete="off" value="请输入您查找的新闻标题" id="keywords" />
+						</div>
+						<div onclick="queryDocs()" title="请输入您查找的新闻标题" style='position: relative;z-index: 999999;'>
+							<img src="images/docW.png" width='30' height='30' />
+						</div>
+					</div>
+
+					<p id="userName" style="position:absolute;top:31.5px; right:5px;;color:white;font-family:'微软雅黑';">
+						当前用户:
+						<a href="####" style="color:#fff"><span id="loginName"></span></a>
+					</p>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			$(function() {
+				$(document).keydown(function(e) {
+					if(e.keyCode == 13) {
+						//触发登陆按钮的事件
+						//$("#loginbtn").trigger("click");
+						getVal();
+					}
+				});
+
+				$(".searchGlass img").hover(function() {
+					var _this = $(this);
+					_this.attr("src", "images/docG.png")
+
+				}, function() {
+					var _this = $(this);
+					_this.attr("src", "images/docW.png")
+				});
+
+				$(".serachHover").hover(function() {
+					$(".searchSel").show();
+
+				}, function() {
+					$(".searchSel").hide();
+				});
+
+				$(".searchSel i").click(function() {
+					var _this = $(this);
+					var cid = _this.data("cid");
+					var ctext = _this.html();
+					$("#searchCid").html(ctext).attr("cid", cid);
+					_this.parent().css("display", "none");
+
+				});
+				$(".searchSel i").hover(function() {
+					var _this = $(this);
+					_this.addClass("hoverSelect").siblings().removeClass("hoverSelect")
+				})
+
+			})
+
+			function queryDocs() {
+				$(document).on("selectstart", function() {
+					return false;
+				});
+				getVal();
+
+			}
+
+			//加载用户输入的数据
+			function getVal() {
+
+				var keywords = $("#keywords").val();
+				var flag = false;
+				if($.trim(keywords) == "请输入您查找的新闻标题" && isNotEmpty(keywords) || $.trim(keywords) == "请输入您查找的新闻标题") {
+					$(".searchKey").toggleClass("none");
+					$("#searchCid").animate({
+						right: "285px"
+					}, "slow");
+					$("#iconsQuery").animate({
+						right: "288px"
+					}, "slow");
+					$(".searchSel").animate({
+						right: "285px"
+					}, "slow");
+					flag = true;
+				} else if(keywords != "请输入您查找的新闻标题") {
+					//弹出查询
+					var ctext = $("#keywords").val();
+					var cid = $("#searchCid").attr("cid");
+					var title = ctext;
+
+					window.open("../docQuery.html?c=queryWCm&m=queryDocumentMessage&docChannelId=" + cid + "&title=" + encodeURIComponent(title) + "&row=20&page=1");
+					window.location = "/portal/index.html";
+				} else {
+					if(flag) {
+						$(".searchKey").css("display", "none");
+					}
+				}
+			}
+
+			$("body").click(function() {
+				//$(".searchKey").toggleClass("none");
+				//window.location ="/portal/index.html";
+			});
+
+			function isEmpty(val) {
+				val = $.trim(val);
+				if(val == null)
+					return true;
+				if(val == undefined || val == 'undefined')
+					return true;
+				if(val == "")
+					return true;
+				if(val.length == 0)
+					return true;
+				if(!/[^(^\s*)|(\s*$)]/.test(val))
+					return true;
+				return false;
+			}
+
+			function isNotEmpty(val) {
+				return !isEmpty(val);
+			}
+		</script>
+
+
+
+<style>
+   #cs1,#cs2{display:none;}
+
+   .isShow{display:block !important;}
+</style>
+		<div class="m-t-4 content">
+
+			<div class="banner m-l-10" ><!-- style="height:295px;" -->
+
+				<div class="fl">
+					<div class="carousel isShow yeCss"  id="cs1">
+						
+							<div class="carousel_content">
+								<a target="_blank" href="./zwyw/201908/t20190827_21533.htm"> <img class="selected" src="./zwyw/201908/W020190828394604718878.jpg" width="364" height="238" /></a>
+								<div class="shade"></div>
+								<a target="_blank" href="./zwyw/201908/t20190827_21533.htm" class="white lagefont">
+									青岛市市场监管局到我局调研综...
+								</a>
+
+							</div>
+						
+
+						
+							<div class="carousel_content hide">
+								<a target="_blank" href="./zwyw/201908/t20190826_21504.htm"> <img class="selected" src="./zwyw/201908/W020190827638995349664.jpg" width="364" height="238" /></a>
+								<div class="shade"></div>
+								<a target="_blank" href="./zwyw/201908/t20190826_21504.htm" class="white lagefont">
+									市局党组成员、副局长单友亮前...
+								</a>
+							</div>
+						
+						
+							<div class="carousel_content hide">
+								<div class="shade"></div>
+								<a target="_blank" href="./zwyw/201908/t20190827_21531.htm">
+									<img class="selected" src="./zwyw/201908/W020190827635845198732.jpg" width="364" height="238" /></a>
+
+								<a target="_blank" href="./zwyw/201908/t20190827_21531.htm" class="white lagefont">
+									2019年打造深圳标准业务知识培...
+								</a>
+							</div>
+						
+						
+							<div class="carousel_content hide">
+								<a target="_blank" href="./zwyw/201908/t20190825_21503.htm">
+									<img class="selected" src="./zwyw/201908/W020190825534319916207.jpg" width="364" height="238" /></a>
+								<div class="shade"></div>
+								<a target="_blank" href="./zwyw/201908/t20190825_21503.htm" class="white lagefont">
+									市局机关党委书记、巡视员夏昆...
+								</a>
+							</div>
+						
+						
+							<div class="carousel_content hide">
+								<div class="shade"></div>
+								<a target="_blank" href="./zwyw/201908/t20190826_21511.htm">
+									<img class="selected" src="./zwyw/201908/W020190826420090842396.jpg" width="364" height="238" />
+								</a>
+								<a target="_blank" href="./zwyw/201908/t20190826_21511.htm" class="white lagefont">
+									市局党组书记、局长邝兵带队到...
+								</a>
+							</div>
+						
+						<div class="carousel_switch clear">
+
+							<!--
+					<div id="_switchleft" class="switch left_content">
+						<span class="icon_left  inline_block"></span>
+					</div>
+					<div id="_switchright" class="switch left_content">
+						<span class="icon_right  inline_block"></span>
+					</div>-->
+
+							<style>
+								.selectBtns {
+									width: 10px;
+									height: 10px;
+									background: url("images/white.png") no-repeat;
+									margin-left: 4px;
+									float: left;
+									cursor: pointer;
+									padding: 0 !important
+								}
+								
+								.iconsBtnSel {
+									background: url("images/blue.png") no-repeat;
+								}
+							</style>
+							<ul>
+								<li class="selectBtns iconsBtnSel"></li>
+								<li class="selectBtns"></li>
+								<li class="selectBtns"></li>
+								<li class="selectBtns"></li>
+								<li class="selectBtns"></li>
+							</ul>
+
+						</div>
+						<div class="icon_carousel"></div>
+					</div>
+
+
+					<div class="carousel yeCss"  id="cs2">
+						
+							<div class="carousel_content">
+								<a target="_blank" href="./xwrd/201908/t20190828_21537.htm"> <img class="selected" src="./xwrd/201908/W020190828562724206820.jpg" width="364" height="238" /></a>
+								<div class="shade"></div>
+								<a target="_blank" href="./xwrd/201908/t20190828_21537.htm" class="white lagefont">
+									市市场监管局南山局积极推进前...
+								</a>
+
+							</div>
+						
+
+						
+							<div class="carousel_content hide">
+								<a target="_blank" href="./xwrd/201908/t20190828_21545.htm"> <img class="selected" src="./xwrd/201908/W020190828560337940176.jpg" width="364" height="238" /></a>
+								<div class="shade"></div>
+								<a target="_blank" href="./xwrd/201908/t20190828_21545.htm" class="white lagefont">
+									市市场监管局光明局光明所开展...
+								</a>
+							</div>
+						
+						
+							<div class="carousel_content hide">
+								<div class="shade"></div>
+								<a target="_blank" href="./xwrd/201908/t20190828_21542.htm">
+									<img class="selected" src="./xwrd/201908/W020190828369828320549.png" width="364" height="238" /></a>
+
+								<a target="_blank" href="./xwrd/201908/t20190828_21542.htm" class="white lagefont">
+									腾讯公司向市注册局前海注册科...
+								</a>
+							</div>
+						
+						
+							<div class="carousel_content hide">
+								<a target="_blank" href="./xwrd/201908/t20190827_21528.htm">
+									<img class="selected" src="./xwrd/201908/W020190827649711044827.jpg" width="364" height="238" /></a>
+								<div class="shade"></div>
+								<a target="_blank" href="./xwrd/201908/t20190827_21528.htm" class="white lagefont">
+									我局与市城管和综合执法局共商...
+								</a>
+							</div>
+						
+						
+							<div class="carousel_content hide">
+								<div class="shade"></div>
+								<a target="_blank" href="./xwrd/201908/t20190827_21535.htm">
+									<img class="selected" src="./xwrd/201908/W020190827642433938289.jpg" width="364" height="238" />
+								</a>
+								<a target="_blank" href="./xwrd/201908/t20190827_21535.htm" class="white lagefont">
+									市市场监管局罗湖局开展放射性...
+								</a>
+							</div>
+						
+						<div class="carousel_switch clear">
+
+							<!--
+					<div id="_switchleft" class="switch left_content">
+						<span class="icon_left  inline_block"></span>
+					</div>
+					<div id="_switchright" class="switch left_content">
+						<span class="icon_right  inline_block"></span>
+					</div>-->
+
+							<style>
+								.selectBtns {
+									width: 10px;
+									height: 10px;
+									background: url("images/white.png") no-repeat;
+									margin-left: 4px;
+									float: left;
+									cursor: pointer;
+									padding: 0 !important
+								}
+								
+								.iconsBtnSel {
+									background: url("images/blue.png") no-repeat;
+								}
+							</style>
+							<ul>
+								<li class="selectBtns iconsBtnSel"></li>
+								<li class="selectBtns"></li>
+								<li class="selectBtns"></li>
+								<li class="selectBtns"></li>
+								<li class="selectBtns"></li>
+							</ul>
+
+						</div>
+						<div class="icon_carousel"></div>
+					</div>
+
+
+
+					 <!--<div class="shiChangfaXian">
+
+						<a href="http://www.szmqs.gov.cn/xxgk/xwzx/scfx/" target="_blank"><img src="./images/38.png" /></a>
+					</div>-->
+
+                                      <div class="shiChangfaXian" style="position: relative;">
+
+						<a href="http://amr.sz.gov.cn/xxgk/xwzx/scfx/" target="_blank"><img src="images/scfx2018.jpg" height="43" width="176" /></a>
+
+                                               <a href="http://amr.sz.gov.cn/xxgk/xwzx/898xw/" target="_blank" style="right: 0;position: absolute;"><img src="images/898news2018.jpg" height="43" width="176" style /></a>
+					</div>
+					
+					<div class="bwcx" style="position: relative;margin-top:10px">
+												<a href="http://mqsweb99:8088/bwcx" target="_blank"><img src="images/bwcx.png" height="52" width="360" /></a>
+									</div>
+ 
+				</div>
+				<style>
+				.hotSelect{padding:0 20px;}
+				.hotItemSelect{background:#0186BC;color:#fff !important;}
+				.hotMargin{margin-left:4px;}
+				
+				.hotDiv{display:none;}
+				
+				.itemShow{display:block}
+				</style>
+
+				<div class="gray_content fl hotNews">
+					<h3 class="fix"><!--<a href="../wcm/app/login.jsp" target="_blank">热点新闻</a>-->
+                                <!--
+             					<a href="" class="fr fz m-l-460" target="_blank">更多...</a>
+             					-->
+             					
+             					<a  style="margin-left:-10px"  href="./zwyw/" class="hotSelect hotItemSelect" target="_blank">政务要闻</a>
+								<a href="./xwrd/"  class="hotSelect hotMargin " target="_blank">工作动态</a>
+
+								<a id="toPage"  href="./zwyw/" class="fr fz" target="_blank">更多...</a>
+             		</h3>
+					<div class="gray_line"></div>
+					<ul class="hot_publish hotDiv itemShow " id='skyPub1' style="min-height:247px;">
+						 
+							<li>
+								<a target="_blank" href="./zwyw/201908/t20190827_21533.htm" ><span class="fl publishTitle">青岛市市场监管局到我局调研综合行政执法工作</span><span class="fr b4">2019-08-28</span></a><!--DocRelTime-->
+							</li>
+						
+							<li>
+								<a target="_blank" href="./zwyw/201908/t20190826_21504.htm" ><span class="fl publishTitle">市局党组成员、副局长单友亮前往知识产权服务机构调研“不忘初心、牢记使命”主题教育活动暨专利代理行业“蓝天”专项整治行动</span><span class="fr b4">2019-08-27</span></a><!--DocRelTime-->
+							</li>
+						
+							<li>
+								<a target="_blank" href="./zwyw/201908/t20190827_21531.htm" ><span class="fl publishTitle">2019年打造深圳标准业务知识培训班圆满结束</span><span class="fr b4">2019-08-27</span></a><!--DocRelTime-->
+							</li>
+						
+							<li>
+								<a target="_blank" href="./zwyw/201908/t20190825_21503.htm" ><span class="fl publishTitle">市局机关党委书记、巡视员夏昆山率队调研中国广核集团计量中心</span><span class="fr b4">2019-08-27</span></a><!--DocRelTime-->
+							</li>
+						
+							<li>
+								<a target="_blank" href="./zwyw/201908/t20190826_21511.htm" ><span class="fl publishTitle">市局党组书记、局长邝兵带队到盐田局开展主题教育调研活动</span><span class="fr b4">2019-08-26</span></a><!--DocRelTime-->
+							</li>
+						
+							<li>
+								<a target="_blank" href="./zwyw/201908/t20190826_21513.htm" ><span class="fl publishTitle">我局召开“不忘初心、牢记使命”主题教育廉政风险警示会议</span><span class="fr b4">2019-08-27</span></a><!--DocRelTime-->
+							</li>
+						
+							<li>
+								<a target="_blank" href="./zwyw/201908/t20190823_21498.htm" ><span class="fl publishTitle">盐田区副区长罗毅带队开展农贸市场升级改造和文明城市创建巡查活动</span><span class="fr b4">2019-08-26</span></a><!--DocRelTime-->
+							</li>
+						
+							<li>
+								<a target="_blank" href="./zwyw/201908/t20190823_21502.htm" ><span class="fl publishTitle">市政协副主席张晓莉一行赴挂点服务企业瑞声声学公司开展调研</span><span class="fr b4">2019-08-26</span></a><!--DocRelTime-->
+							</li>
+						
+							<li>
+								<a target="_blank" href="./zwyw/201908/t20190823_21500.htm" ><span class="fl publishTitle">市局党组成员、副局长单友亮专题研究华强北化妆品监管工作</span><span class="fr b4">2019-08-26</span></a><!--DocRelTime-->
+							</li>
+						
+							<li>
+								<a target="_blank" href="./zwyw/201908/t20190823_21486.htm" ><span class="fl publishTitle">市局党组成员、副局长李忠同志组织召开市、区食药安办工作座谈会</span><span class="fr b4">2019-08-26</span></a><!--DocRelTime-->
+							</li>
+											
+					</ul>
+
+
+				<ul class="hot_publish hotDiv" id='skyPub0' style="min-height:247px;">
+					 
+						<li>
+							<a target="_blank" href="./xwrd/201908/t20190828_21537.htm" ><span class="fl publishTitle">市市场监管局南山局积极推进前海片区文明城市创建工作</span><span class="fr b4">2019-08-28</span></a><!--DocRelTime-->
+						</li>
+					
+						<li>
+							<a target="_blank" href="./xwrd/201908/t20190828_21538.htm" ><span class="fl publishTitle">市市场监管局南山局组织召开“熟食中心”建设扶持工作现场会</span><span class="fr b4">2019-08-28</span></a><!--DocRelTime-->
+						</li>
+					
+						<li>
+							<a target="_blank" href="./xwrd/201908/t20190828_21546.htm" ><span class="fl publishTitle">市市场监管局南山局开展东亚及太平洋中央银行行长会议食品安全监督检查</span><span class="fr b4">2019-08-28</span></a><!--DocRelTime-->
+						</li>
+					
+						<li>
+							<a target="_blank" href="./xwrd/201908/t20190828_21545.htm" ><span class="fl publishTitle">市市场监管局光明局光明所开展校园周边食品安全检查</span><span class="fr b4">2019-08-28</span></a><!--DocRelTime-->
+						</li>
+					
+						<li>
+							<a target="_blank" href="./xwrd/201908/t20190828_21544.htm" ><span class="fl publishTitle">市市场监管局龙华局实地调研推进农贸市场升级改造进展工作</span><span class="fr b4">2019-08-28</span></a><!--DocRelTime-->
+						</li>
+					
+						<li>
+							<a target="_blank" href="./xwrd/201908/t20190828_21542.htm" ><span class="fl publishTitle">腾讯公司向市注册局前海注册科赠送锦旗</span><span class="fr b4">2019-08-28</span></a><!--DocRelTime-->
+						</li>
+					
+						<li>
+							<a target="_blank" href="./xwrd/201908/t20190827_21528.htm" ><span class="fl publishTitle">我局与市城管和综合执法局共商集贸市场公厕改造工作</span><span class="fr b4">2019-08-28</span></a><!--DocRelTime-->
+						</li>
+					
+						<li>
+							<a target="_blank" href="./xwrd/201908/t20190827_21535.htm" ><span class="fl publishTitle">市市场监管局罗湖局开展放射性药品使用单位监督检查</span><span class="fr b4">2019-08-28</span></a><!--DocRelTime-->
+						</li>
+					
+						<li>
+							<a target="_blank" href="./xwrd/201908/t20190827_21530.htm" ><span class="fl publishTitle">市市场监管局南山局开展眼视力相关医疗器械专项检查</span><span class="fr b4">2019-08-27</span></a><!--DocRelTime-->
+						</li>
+					
+						<li>
+							<a target="_blank" href="./xwrd/201908/t20190826_21520.htm" ><span class="fl publishTitle">药品处党支部组织参观深圳党史馆和方志馆开展“不忘初心，牢记使命”主题教育活动</span><span class="fr b4">2019-08-27</span></a><!--DocRelTime-->
+						</li>
+										
+				</ul>
+			</div>
+				<div style="clear:both"></div>
+			</div>
+			<script>
+					$(".hotSelect").hover(function(){
+						var _this = $(this);
+						_this.addClass("hotItemSelect").siblings().removeClass("hotItemSelect");
+						$(".hotDiv") .eq(_this.index()).addClass("itemShow").siblings().removeClass("itemShow");
+						if(_this.index()==0){
+                            $(".yeCss").eq(0).addClass("isShow").siblings().removeClass("isShow");
+                            $("#toPage").attr("href",'./zwyw/');
+						}else{
+                            $(".yeCss").eq(1).addClass("isShow").siblings().removeClass("isShow");
+							$("#toPage").attr("href",'./xwrd/');
+						}
+					},function(){
+						var _this = $(this);
+						_this.addClass("hotItemSelect").siblings().removeClass("hotItemSelect");
+						$(".hotDiv") .eq(_this.index()).addClass("itemShow").siblings().removeClass("itemShow");
+						if(_this.index()==0){
+                            $(".yeCss").eq(0).addClass("isShow").siblings().removeClass("isShow");
+                            $("#toPage").attr("href",'./zwyw/');
+						}else{
+                            $(".yeCss").eq(1).addClass("isShow").siblings().removeClass("isShow");
+							$("#toPage").attr("href",'./xwrd/');
+						}
+					});
+				</script>
+			
+
+			<div class="left">
+
+				<div class="enter" width="630px" height="336px" style="height:336px;width:630px;background-color:#FFFFFF;">
+					<!-- begin of application list -->
+					<div class="menu" id="1">
+						<div class="menu_icon menu_icon1" style="margin-left: 0;">
+							<span id="RPNO" style="left:76px"></span>
+							<span class="icon_permission inline_block"></span>
+							<h3 class="select" style="margin-left: 0; margin-top:-14px">登记许可</h3>
+						</div>
+
+						<div name="RP" class="submenu submenu1 right_menu">
+							<!-- <div class="inline_block submenu_content">
+				<span class="inline_block icon_submenu"></span><a href="">登记许可</a>
+			</div> -->
+						</div>
+						<span class="icoPic show1" style="left:34px;"></span>
+						<div class="clear"></div>
+					</div>
+					<div class="menu" id="2">
+						<div class="menu_icon ">
+							<span id="MSNO"></span>
+							<span class="icon_supervise inline_block"></span>
+							<h3 style="margin-left: 0;">市场监管</h3>
+						</div>
+						<div name="MS" class="submenu right_menu" style="margin-left: -88px;">
+							<!-- <div class="inline_block submenu_content">
+				<span class="inline_block icon_submenu"></span><a href="">市场监管</a>
+			</div> -->
+						</div>
+						<span class="icoPic show2"></span>
+					</div>
+					<div class="menu" id="4">
+						<div class="menu_icon ">
+							<span id="AMNO"></span>
+							<span class="icon_manage inline_block"></span>
+							<h3 style="margin-left: 0;">政务管理</h3>
+						</div>
+						<div name="AM" class="submenu right_menu" style="margin-left: -193px;">
+							<!-- <div class="inline_block submenu_content">
+				<span class="inline_block icon_submenu"></span><a href="">政务管理</a>
+			</div> -->
+						</div>
+						<span class="icoPic show4"></span>
+
+					</div>
+					<div class="menu" id="5">
+						<div class="menu_icon ">
+							<span id="LENO"></span>
+							<span class="icon_enforcement inline_block"></span>
+							<h3 style="margin-left: 0;">执法办案</h3>
+						</div>
+						<div name="LE" class="submenu right_menu" style="margin-left: -300px;">
+							<!-- <div class="inline_block submenu_content">
+				<span class="inline_block icon_submenu"></span><a href="">执法办案</a>
+			</div> -->
+						</div>
+						<span class="icoPic show5"></span>
+					</div>
+					<div class="menu" id="6" style="">
+						<div class="menu_icon " style="margin-left: 19px">
+							<span id="APNO"></span>
+							<span class="icon_decision inline_block"></span>
+							<h3 style="margin-left: 0;">管理决策</h3>
+						</div>
+						<div name="AP" class="submenu right_menu" style="margin-left: -406px;width: 619px;">
+							<!-- <div class="inline_block submenu_content">
+				<span class="inline_block icon_submenu"></span><a href="">管理决策</a>
+			</div> -->
+						</div>
+						<span class="icoPic show6"></span>
+					</div>
+
+					<div class="menu" id="7" style="">
+						<div class="menu_icon " style="margin-left: 19px; background: rgb(249, 249, 249);">
+							<span id="MyFav"></span>
+							<span class="icon_fa inline_block"></span>
+							<h3 style="margin-left: 0;">我的收藏</h3>
+						</div>
+						<div name="FA" class="submenu right_menu" style="margin-left: -514px;width: 619px;">
+
+						</div>
+						<span class="icoPic show7"></span>
+					</div>
+
+					<!-- end of application list -->
+				</div>
+				<div class="clear"></div>
+
+				<div class="gray_content newsAnous m-t-6">
+					<h3 class="fix"><!--<a href="../wcm/app/login.jsp" target="_blank">通知公告</a> -->
+					 <a href="./tzgg/" target="_blank">通知公告</a>
+                                       <a href="./tzgg/" class="fr fz m-l-475" target="_blank">更多...</a>
+				</h3>
+					<div class="gray_line"></div>
+					<ul class="hot_publish p-b-8">
+						
+							<li>
+								<a href="./tzgg/201908/t20190828_21552.htm" target="_blank"><span class="fl publishTitle">办公室关于提升新闻图片质量的通知
+						</span><span class="fr b4">2019-08-28
+						</span>
+								</a>
+							</li>
+
+						
+							<li>
+								<a href="./tzgg/201908/P020190823533579592024.docx" target="_blank"><span class="fl publishTitle">关于赴澳门参加“2019年内地与香港特区、澳门特区知识产权研讨会”的公示
+						</span><span class="fr b4">2019-08-23
+						</span>
+								</a>
+							</li>
+
+						
+							<li>
+								<a href="./tzgg/201908/P020190821568335923247.doc" target="_blank"><span class="fl publishTitle">局机关公务车辆费用公示
+						</span><span class="fr b4">2019-08-21
+						</span>
+								</a>
+							</li>
+
+						
+							<li>
+								<a href="./tzgg/201908/P020190821386598740967.doc" target="_blank"><span class="fl publishTitle">深圳市市场监督管理局电话表（最新）
+						</span><span class="fr b4">2019-08-21
+						</span>
+								</a>
+							</li>
+
+						
+							<li>
+								<a href="./tzgg/201908/P020190819343644927830.pdf" target="_blank"><span class="fl publishTitle">干部任前公示（事业单位总监）
+						</span><span class="fr b4">2019-08-19
+						</span>
+								</a>
+							</li>
+
+						
+							<li>
+								<a href="./tzgg/201906/P020190612547624151382.pdf" target="_blank"><span class="fl publishTitle">2019年处级及以下公务员奖励初步人选公示
+						</span><span class="fr b4">2019-06-12
+						</span>
+								</a>
+							</li>
+
+						
+					</ul>
+				</div>
+
+				<div class="southSider m-t-6 ">
+
+					<div class="gray_content m-t-10 w290">
+						<h3 class="fix"><!--<a href="../wcm/app/login.jsp" target="_blank">工作简报</a>-->
+				     <a href="./gzjb/" target="_blank">工作简报</a>
+                                     <a href="./gzjb/" class="fr fz m-l-160" target="_blank">更多...</a>
+				</h3>
+						<div class="gray_line"></div>
+						<ul class="hot_work p-b-8">
+							
+								<li>
+									<a target="_blank" href="./gzjb/201908/t20190812_21285.htm" target="_blank">
+										深圳市“两建”工作简报〔2019〕总第133期
+									</a>
+								</li>
+							
+								<li>
+									<a target="_blank" href="./gzjb/201908/t20190806_21184.htm" target="_blank">
+										深圳市“两建”工作简报【2019】总第132期
+									</a>
+								</li>
+							
+								<li>
+									<a target="_blank" href="./gzjb/201907/t20190703_20699.htm" target="_blank">
+										深圳市“两建”工作简报【2019】总第131期
+									</a>
+								</li>
+							
+								<li>
+									<a target="_blank" href="./gzjb/201906/t20190617_20420.htm" target="_blank">
+										深圳市“两建”工作简报【2019】总第130期
+									</a>
+								</li>
+							
+								<li>
+									<a target="_blank" href="./gzjb/201904/t20190415_19577.htm" target="_blank">
+										深圳市“两建”工作简报【2019】总第129期
+									</a>
+								</li>
+							
+								<li>
+									<a target="_blank" href="./gzjb/201903/t20190315_19290.htm" target="_blank">
+										深圳市“两建”工作简报【2019】总第128期
+									</a>
+								</li>
+							
+						</ul>
+					</div>
+
+					<div class="gray_content m-t-10 w290 m-l-12">
+						<h3 class="fix"><!--<a href="../wcm/app/login.jsp" target="_blank">学习园地</a>-->
+				    <a href="./xxyd/" target="_blank">学习园地</a>
+                                     <a href="./xxyd/" class="fr fz m-l-160" target="_blank">更多...</a>
+				</h3>
+						<div class="gray_line"></div>
+						<ul class="hot_study p-b-8">
+							
+								<li>
+									<a target="_blank" href="./xxyd/201907/P020190726365479365655.pptx" target="_blank">
+										市市场监管局“不忘初心、牢记使命”主题教育改革创新研讨会PPT（第二场第6专题)
+									</a>
+								</li>
+							
+								<li>
+									<a target="_blank" href="./xxyd/201907/P020190726365185251142.pptx" target="_blank">
+										市市场监管局“不忘初心、牢记使命”主题教育改革创新研讨会PPT（第二场第4、5专题)
+									</a>
+								</li>
+							
+								<li>
+									<a target="_blank" href="./xxyd/201907/P020190722394592886826.pptx" target="_blank">
+										市市场监管局“不忘初心、牢记使命”主题教育改革创新研讨会PPT（第一场第3专题)
+									</a>
+								</li>
+							
+								<li>
+									<a target="_blank" href="./xxyd/201907/P020190722393443831625.pptx" target="_blank">
+										市市场监管局“不忘初心、牢记使命”主题教育改革创新研讨会PPT（第一场第1、2专题)
+									</a>
+								</li>
+							
+								<li>
+									<a target="_blank" href="./xxyd/201808/t20180817_17280.htm" target="_blank">
+										领导干部要做依法治密的表率
+									</a>
+								</li>
+							
+								<li>
+									<a target="_blank" href="./xxyd/201803/t20180306_15553.htm" target="_blank">
+										深圳市市场和质量监管委工作汇报会PPT
+									</a>
+								</li>
+							
+
+						</ul>
+					</div>
+
+					<div class="clear"></div>
+				</div>
+				<!--southSider end-->
+
+			</div>
+
+			<div class="right">
+				<div class="waiter" width="100%" height="233">
+					<!-- oa 待办  -->
+					<!-- begin of oa todo -->
+					<div class="waitWrap">
+						<table>
+							<tr>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td width="28px"></td>
+								<td>
+									<a href="http://wsjgj/oa" target="_blank"><img src="./images/37.png" width="50" height="50" /></a>
+								</td>
+								<td>
+									<table>
+										<tr>
+											<td>&nbsp;
+												<a href="http://wsjgj/oa" target="_blank"><span class="titles">公文处理</span></a>
+											</td>
+										</tr>
+										<tr>
+											<td class="">&nbsp;
+												<a href="http://wsjgj/oa" target="_blank"><span class="titles total">当前待处理事件：</span></a><span id="fontRed">0件</span></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+						<div class="borderLine"></div>
+						<div class="waiterWrap">
+							<div id="items"></div>
+							<table id="bus">
+								<!-- <tr>
+				<td class="w200">待办事项</td>
+				<td class='red'>（0 条）</td>
+			</tr> -->
+							</table>
+						</div>
+					</div>
+					<!-- end of oa todo -->
+				</div>
+
+				<style>
+					#caiwuSpan {
+						display: none;
+					}
+				</style>
+
+				<div class="wrap clear" style="margin-top: 5px; height:160px">
+					<ul class="hot_links">
+						<li class="m-l-0">
+							<a href="../portal/cylj/" class="link1" target="_blank"> <img src="./images/23.png" width="32" height="32" /> 常用链接 </a>
+						</li>
+
+						<li class="m-l-13" style='position:relative'>
+							<a href="http://10.3.70.29:8080/LCYSSCW01NEW/" target="_blank" class="linkFin"><span id="caiwuSpan" style="background:url('images/fina.png') no-repeat;position:absolute;color: #fff;right: 1px;top: 1px;width: 24px;height: 24px;line-height: 24px;display:none"></span> <img src="./images/43.png" width="32" height="32" /> 财务系统 </a>
+						</li>
+
+						<li class="m-l-13">
+							<a href="http://wsjgj/oa//jsp/dcwork/index3/treeSet.jsp" target="_blank" class="link2"> <img src="./images/24.png" width="32" height="32" /> 通讯录 </a>
+						</li>
+						<li class="m-l-13">
+							<a href="http://mqsweb92/" target="_blank" class="link3"> <img src="./images/25.png" width="32" height="32" /> 法律法规 </a>
+						</li>
+
+						<li class="m-l-0" style='position:relative'>
+							<a href="http://mqs/sms/" class="link4" target="_blank"><span id="sysMsg" style="background:url('images/fina.png') no-repeat;position:absolute;color: #fff;right: 1px;top: 1px;width: 24px;height: 24px;line-height: 24px;display:none"></span>
+								<img src="./images/26.png" width="32" height="32" /> 短信 </a>
+						</li>
+
+						<li class="m-l-13">
+							<a href="http://www.gd.gov.cn/govpub/xxts" class="link8" target="_blank"> <img src="./images/icon_zscd.png" width="26" height="26" style="padding-bottom: 4px;" /> 政声传递 </a>
+						</li>
+
+						<li class="m-l-13" style="position:relative">
+							<a onclick="showDialog()" class="link6"><span id="youJianSpan" style="background:url('images/fina.png') no-repeat;position:absolute;color: #fff;right: 1px;top: 1px;width: 24px;height: 24px;line-height: 24px;display:none"></span> <img src="./images/33.png" width="32" height="32" /> 邮件 </a>
+						</li>
+
+						<li class="m-l-13">
+							<a href="http://mqs08/sysImage/index.aspx" target="_blank" class="link5"> <img src="./images/32.png" width="32" height="32" /> 图片库 </a>
+						</li>
+
+						<li class="m-l-0" style="position:relative">
+							<a href="../wcm/app/login.jsp" class="link7" target="_blank"><span id="xinWenNews" style="background:url('images/fina.png') no-repeat;position:absolute;color: #fff;right: 1px;top: 1px;width: 24px;height: 24px;line-height: 24px;display:none"></span>  <img src="./images/31.png" width="32" height="32" /> 新闻投稿 </a>
+						</li>
+
+                                                <li class="m-l-13" style="position:relative">
+							<a href="http://mqsweb08:9080/contract/loginpage" class="link9" target="_blank"> <span id="heTonSys" style="background:url('images/fina.png') no-repeat;position:absolute;color: #fff;right: 1px;top: 1px;width: 24px;height: 24px;line-height: 24px;display:none"></span><img src="./images/31.png" width="32" height="32" /> 合同系统 </a>
+						</li>
+					</ul>
+				</div>
+
+				<div class="gray_content w233" style="padding-bottom: 75px; background:#f1f1f1 ;display:none">
+					<h3>阅文区</h3>
+					<div class="gray_line d6"></div>
+					<ul class="hot_reading">
+						
+					</ul>
+
+				</div>
+
+				<div class="gray_content m-t-104">
+					<h3 class="fix"><!--<a href="../wcm/app/login.jsp" target="_blank">常用表格</a>-->
+				    <a href="./cjbg/" target="_blank">常用表格</a>
+                                     <a href="./cjbg/" class="fr fz m-l-220" target="_blank">更多...</a>
+				</h3>
+					<div class="gray_line"></div>
+					<ul class="hot_table p-b-2">
+						
+							<li>
+								<a href="./cjbg/201908/P020190826374544750218.docx" target="_blank">
+									数据库操作权限申请表
+								</a>
+							</li>
+						
+							<li>
+								<a href="./cjbg/201908/P020190826344989455622.docx" target="_blank">
+									数据修改申请表
+								</a>
+							</li>
+						
+							<li>
+								<a href="./cjbg/201908/P020190826344722410367.docx" target="_blank">
+									数据查询申请表
+								</a>
+							</li>
+						
+							<li>
+								<a href="./cjbg/201908/P020190809438738991220.docx" target="_blank">
+									自行采购项目-特殊采购方式申请表（单一来源、竞争性谈判、跟标）-模版
+								</a>
+							</li>
+						
+							<li>
+								<a href="./cjbg/201908/P020190809438469801446.docx" target="_blank">
+									集中采购、自行采购项目-延续合同申请函-模版
+								</a>
+							</li>
+						
+							<li>
+								<a href="./cjbg/201906/P020190624612639546608.docx" target="_blank">
+									局机关周转房申请表
+								</a>
+							</li>
+						
+					</ul>
+				</div>
+
+			</div>
+			<div class="clear"></div>
+		</div>
+<!-- 20171811修改开始
+		<style>
+			.assist {
+				width: 1022px;
+				margin: 0 auto;
+				padding: 0px 4px 15px 2px;
+				background: #fff;
+			}
+			
+			.assist .gray_content {
+				width: 480px;
+				float: left;
+				margin-left: 10px
+			}
+			
+			.assist ul li:hover {
+				background: #B0D0DD !important;
+			}
+			
+			.wo250 {
+				width: 250px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		</style>
+		<div class="assist">
+			<div class="gray_content">
+				<h3 class='fix'>
+ <a href="./xcqh/" target="_blank">协查去函</a>
+                                       <a href="./xcqh/" class="fr fz m-l-160" target="_blank">更多...</a>
+</h3>
+
+				<div class="gray_line"></div>
+				<ul class="assist_list p-b-8">
+					
+						<li>
+							<a href="./xcqh/201802/t20180201_15281.htm" target="_blank"><span class="fl publishTitle wo250">职业举报协查函信息共享（更新至3月21日）
+						</span><span class="fr b4 forTime">2018-02-01
+						</span>
+							</a>
+						</li>
+
+					
+				</ul>
+			</div>
+
+			<div class="gray_content">
+				<h3 class='fix'>
+ <a href="./xchh/" target="_blank">协查回函</a>
+                                       <a href="./xchh/" class="fr fz m-l-160" target="_blank">更多...</a>
+</h3>
+				<div class="gray_line"></div>
+				<ul class="assist_list p-b-8">
+					
+						<li>
+							<a href="./xchh/201803/t20180326_15753.htm" target="_blank"><span class="fl publishTitle wo250">职业举报协查函信息共享复函（更新至3月21日）
+						</span><span class="fr b4 forTime">2018-03-26
+						</span>
+							</a>
+						</li>
+
+					
+						<li>
+							<a href="./xchh/201803/t20180326_15752.htm" target="_blank"><span class="fl publishTitle wo250">15.厦门市思明区市场监督管理局《关于协查厦门市大龙发工贸有限公司有关情况的复函》
+						</span><span class="fr b4 forTime">2018-03-26
+						</span>
+							</a>
+						</li>
+
+					
+						<li>
+							<a href="./xchh/201802/t20180201_15279.htm" target="_blank"><span class="fl publishTitle wo250">14.宝鸡市食品药品监督管理局《关于核查西凤丝路明珠酒情况的复函》宝食药监函〔2018〕37号
+						</span><span class="fr b4 forTime">2018-02-01
+						</span>
+							</a>
+						</li>
+
+					
+						<li>
+							<a href="./xchh/201712/t20171228_14998.htm" target="_blank"><span class="fl publishTitle wo250">13.东莞标检产品检测有限公司情况说明
+						</span><span class="fr b4 forTime">2017-12-28
+						</span>
+							</a>
+						</li>
+
+					
+						<li>
+							<a href="./xchh/201712/t20171228_14997.htm" target="_blank"><span class="fl publishTitle wo250">12.荔浦县食品药品监督管理局《关于一品南方牌核桃花生蛋白早餐奶（糊）相关情况的复函》荔食药监复〔2017〕133号
+						</span><span class="fr b4 forTime">2017-12-28
+						</span>
+							</a>
+						</li>
+
+					
+						<li>
+							<a href="./xchh/201712/t20171225_14958.htm" target="_blank"><span class="fl publishTitle wo250">11.大邑县市场和质量监督管理局《关于协查四川友嘉食品有限公司生产的”友加朝天辣椒干、友加八角“相关线索的复函》大市场和质监函〔2017〕161号
+						</span><span class="fr b4 forTime">2017-12-25
+						</span>
+							</a>
+						</li>
+
+					
+				</ul>
+			</div>
+			<div class="clear"></div>
+		</div>  修改结束-->
+
+
+
+<!--新的内容-->
+
+<style>
+		.assist{width:1022px;margin:0 auto;padding: 0px 4px 15px 2px;background:#fff;}
+		.assist .gray_content{width:480px;float:left;margin-left:10px}
+
+                .assist ul li:hover{background:#B0D0DD !important; }
+                  .wo250{width:250px;overflow:hidden;text-overflow:ellipsis;}       
+</style>
+         <div class="assist">
+<style>
+.xieChaSelect {
+    background: #0186BC;
+    color: #fff !important;
+}
+.xieCha{padding:0 20px;}
+.xieChaContents{display:none}
+.xieChaShow{display:block}
+</style>
+            <div class="gray_content">
+                  <h3 class="fix">
+                      <a href="./xcqh/" class="xieCha xieChaSelect" style="margin-left:-9px" target="_blank">协查去函</a>
+                      <a href="./xchh/" class="xieCha" target="_blank">协查回函</a>
+                      <a href="./xcqh/" id="xieChaHref"  class="fr fz m-l-160" target="_blank">更多</a>
+               </h3>
+               <div class="gray_line"></div>
+                    <ul class="assist_list p-b-8 xieChaContents xieChaShow" style='min-height:235px'>
+                    	
+					<li><a
+						href="./xcqh/201802/t20180201_15281.htm"  target="_blank"><span
+							class="fl publishTitle wo250">职业举报协查函信息共享（更新至3月21日）
+						</span><span class="fr b4 forTime">2018-02-01
+						</span>
+					</a></li>
+			
+					
+                    </ul>
+
+                  <ul class="assist_list p-b-8 xieChaContents" style='min-height:235px'>
+                    	
+					<li><a
+						href="./xchh/201803/t20180326_15753.htm"  target="_blank"><span
+							class="fl publishTitle wo250">职业举报协查函信息共享复函（更新至3月21日）
+						</span><span class="fr b4 forTime">2018-03-26
+						</span>
+					</a></li>
+			
+					
+					<li><a
+						href="./xchh/201803/t20180326_15752.htm"  target="_blank"><span
+							class="fl publishTitle wo250">15.厦门市思明区市场监督管理局《关于协查厦门市大龙发工贸有限公司有关情况的复函》
+						</span><span class="fr b4 forTime">2018-03-26
+						</span>
+					</a></li>
+			
+					
+					<li><a
+						href="./xchh/201802/t20180201_15279.htm"  target="_blank"><span
+							class="fl publishTitle wo250">14.宝鸡市食品药品监督管理局《关于核查西凤丝路明珠酒情况的复函》宝食药监函〔2018〕37号
+						</span><span class="fr b4 forTime">2018-02-01
+						</span>
+					</a></li>
+			
+					
+					<li><a
+						href="./xchh/201712/t20171228_14998.htm"  target="_blank"><span
+							class="fl publishTitle wo250">13.东莞标检产品检测有限公司情况说明
+						</span><span class="fr b4 forTime">2017-12-28
+						</span>
+					</a></li>
+			
+					
+					<li><a
+						href="./xchh/201712/t20171228_14997.htm"  target="_blank"><span
+							class="fl publishTitle wo250">12.荔浦县食品药品监督管理局《关于一品南方牌核桃花生蛋白早餐奶（糊）相关情况的复函》荔食药监复〔2017〕133号
+						</span><span class="fr b4 forTime">2017-12-28
+						</span>
+					</a></li>
+			
+					
+					<li><a
+						href="./xchh/201712/t20171225_14958.htm"  target="_blank"><span
+							class="fl publishTitle wo250">11.大邑县市场和质量监督管理局《关于协查四川友嘉食品有限公司生产的”友加朝天辣椒干、友加八角“相关线索的复函》大市场和质监函〔2017〕161号
+						</span><span class="fr b4 forTime">2017-12-25
+						</span>
+					</a></li>
+			
+					
+                    </ul>
+             </div>
+
+<script>
+
+$(".xieCha").hover(function(){
+						var _this = $(this);
+						_this.addClass("xieChaSelect").siblings().removeClass("xieChaSelect");
+						$(".xieChaContents") .eq(_this.index()).addClass("xieChaShow").siblings().removeClass("xieChaShow");
+						if(_this.index()==0){
+                                                        $("#xieChaHref").attr("href",'./xcqh/');
+						}else{
+                                                       
+							$("#xieChaHref").attr("href",'./xchh/');
+						}
+					},function(){
+						var _this = $(this);
+						_this.addClass("xieChaSelect").siblings().removeClass("xieChaSelect");
+						$(".xieChaContents") .eq(_this.index()).addClass("xieChaShow").siblings().removeClass("xieChaShow");
+						if(_this.index()==0){
+                                                         $("#xieChaHref").attr("href",'./xcqh/');
+                                                       
+						}else{
+                                                         
+							$("#xieChaHref").attr("href",'./xchh/');
+						}
+					});
+
+</script>
+
+
+            <div class="gray_content">
+               <h3 class="fix">
+                        <a href="./pubsoft/">软件下载</a>
+                        <a href="./pubsoft/"  class="fr fz m-l-160">更多</a>
+                </h3>
+               <div class="gray_line"></div>
+                <ul class="assist_list p-b-8" style="min-height:235px">
+                	<!--
+					<li><a
+						href="./pubsoft/201906/P020190620520965363825.rar"  target="_blank"><span
+							class="fl publishTitle wo250">市场监管局政务通PC版安装包
+						</span>
+					</a></li>
+			
+					
+					<li><a
+						href="./pubsoft/201903/t20190311_19231.htm"  target="_blank"><span
+							class="fl publishTitle wo250">正版WPS软件
+						</span>
+					</a></li>
+			
+					
+					<li><a
+						href="./pubsoft/201710/t20171012_14240.htm"  target="_blank"><span
+							class="fl publishTitle wo250">PDF阅读器
+						</span>
+					</a></li>
+			
+					-->
+                                      <!--<li><a href="http://wsjgj/oa/jsp/dcwork/plugin/PDF_READER.exe" target="_blank"><span class="fl publishTitle wo250">PDF阅读器</span></a></li>
+                                     <li><a href="http://mqs/portal/pubsoft/201903/setup_CN_2052_10.8.0.6370_Professional_VBA_SCJD.exe" target="_blank"><span class="fl publishTitle wo250">WPS软件</span></a></li>-->
+
+	<!--<li><a href="./pubsoft/201904/t20190401_15834.htm" target="_blank"><span class="fl publishTitle wo250">移动OA </span> </a></li>-->
+       <!-- <li><a href="./pubsoft/201906/ZWT_1.1.0.12_prd_1905061044.exe" target="_blank"><span class="fl publishTitle wo250">政务通PC版</span> </a></li>-->
+	<li><a href="./pubsoft/201903/t20190329_15833.htm" target="_blank"><span class="fl publishTitle wo250">政务通APP下载及登录说明 </span> </a></li>
+	<li><a href="http://mqs/portal/pubsoft/201903/setup_CN_2052_10.8.0.6370_Professional_VBA_SCJD.exe" target="_blank"><span class="fl publishTitle wo250">WPS办公软件</span> </a></li>
+	<li><a href="http://wsjgj/oa/jsp/dcwork/plugin/PDF_READER.exe" target="_blank"><span class="fl publishTitle wo250">PDF阅读器 </span> </a></li>
+   
+
+
+                </ul>
+             </div>
+            <div class="clear"></div>
+         </div>
+
+
+<!--新的内容结束-->
+
+
+
+		<div class="footer">版权所有：深圳市市场监督管理局（深圳市知识产权局）&nbsp;&nbsp;技术支持：信息中心</div>
+
+		<script>
+			$(function() {
+
+				var carousels = $('#cs1 .carousel_content');
+				var length = carousels.length;
+				var index = 0;
+				
+				/*if(length==0){
+					$("#cs1").removeClass("isShow");
+				}else if(length==1){
+					$("#cs1 ul .selectBtns").each(function(){
+					       var _this = $(this);
+					       _this.index().eq(0).css("display","block").sibings().css("display","none");
+					});
+				}else if(length==2){
+					$("#cs1 ul .selectBtns").each(function(){
+					       var _this = $(this);
+					       _this.index().eq(0).css("display","block");
+					       _this.index().eq(1).css("display","block");
+					       _this.index().eq(2).css("display","none");
+					       _this.index().eq(3).css("display","none");
+					       _this.index().eq(4).css("display","none");
+					});
+				}else if(length==3){
+					$("#cs1 ul .selectBtns").each(function(){
+					       var _this = $(this);
+					       _this.index().eq(0).css("display","block");
+					       _this.index().eq(1).css("display","block");
+					       _this.index().eq(2).css("display","block");
+					       _this.index().eq(3).css("display","none");
+					       _this.index().eq(4).css("display","none");
+					});
+				}else if(length==4){
+					$("#cs1 ul .selectBtns").each(function(){
+					       var _this = $(this);
+					       _this.index().eq(0).css("display","block");
+					       _this.index().eq(1).css("display","block");
+					       _this.index().eq(2).css("display","block");
+					       _this.index().eq(3).css("display","block");
+					       _this.index().eq(4).css("display","none");
+					});
+				}*/
+				
+				
+				function showPics(index) {
+					carousels.eq(index).fadeIn(200);
+					carousels.eq(index).siblings('#cs1 .carousel_content').fadeOut(200);
+				}
+
+				var timer = setInterval(function() {
+					index++;
+					$("#cs1 .selectBtns").eq(index).addClass("iconsBtnSel").siblings().removeClass("iconsBtnSel");
+					if(index > 4) {
+						index = 0
+						$("#cs1 .selectBtns").eq(0).addClass("iconsBtnSel").siblings().removeClass("iconsBtnSel");
+					}
+					showPics((index) % length);
+				}, 2000);
+
+				//鼠标悬停时候
+				var tempIndex = 0;
+				$(".selectBtns").hover(function() {
+					var _this = $(this);
+					$("#cs1 .carousel_content").eq(_this.index()).css("display", "block").siblings().css("display", "none");
+					$("#cs1 .carousel_switch").css("display", "block");
+					$("#cs1 .selectBtns").eq(_this.index()).addClass("iconsBtnSel").siblings().removeClass("iconsBtnSel");
+					clearInterval(timer);
+					tempIndex = _this.index();
+				}, function() {
+					var _this = $(this);
+					$("#cs1 .carousel_content").eq(_this.index()).css("display", "block").siblings().css("display", "none");
+					$("#cs1 .carousel_switch").css("display", "block");
+					$("#cs1 .selectBtns").eq(_this.index()).addClass("iconsBtnSel").siblings().removeClass("iconsBtnSel");
+					//再次打开定时器
+					timer = setInterval(function() {
+						tempIndex++;
+						showPics((tempIndex) % length);
+						$("#cs1 .selectBtns").eq(tempIndex).addClass("iconsBtnSel").siblings().removeClass("iconsBtnSel");
+						if(tempIndex > 4) {
+							$("#cs1 .selectBtns").eq(0).addClass("iconsBtnSel").siblings().removeClass("iconsBtnSel");
+							tempIndex=0;
+						}
+						showPics((tempIndex) % length);
+					}, 2000);
+
+				});
+
+			});
+
+			$(function() {
+
+				var carousels = $('#cs2 .carousel_content');
+				var length = carousels.length;
+				var index = 0;
+
+				function showPics(index) {
+					carousels.eq(index).fadeIn(200);
+					carousels.eq(index).siblings('#cs2 .carousel_content').fadeOut(200);
+				}
+
+				var timer = setInterval(function() {
+					index++;
+					$("#cs2 .selectBtns").eq(index).addClass("iconsBtnSel").siblings().removeClass("iconsBtnSel");
+					if(index > 4) {
+						index = 0
+						$("#cs2 .selectBtns").eq(0).addClass("iconsBtnSel").siblings().removeClass("iconsBtnSel");
+					}
+					showPics((index) % length);
+				}, 2000);
+
+				//鼠标悬停时候
+				var tempIndex = 0;
+				$("#cs2 .selectBtns").hover(function() {
+					var _this = $(this);
+					$("#cs2 .carousel_content").eq(_this.index()).css("display", "block").siblings().css("display", "none");
+					$("#cs2 .carousel_switch").css("display", "block");
+					$("#cs2 .selectBtns").eq(_this.index()).addClass("iconsBtnSel").siblings().removeClass("iconsBtnSel");
+					clearInterval(timer);
+					tempIndex = _this.index();
+				}, function() {
+					var _this = $(this);
+					$("#cs2 .carousel_content").eq(_this.index()).css("display", "block").siblings().css("display", "none");
+					$("#cs2 .carousel_switch").css("display", "block");
+					$("#cs2 .selectBtns").eq(_this.index()).addClass("iconsBtnSel").siblings().removeClass("iconsBtnSel");
+					//再次打开定时器
+					timer = setInterval(function() {
+						tempIndex++;
+						showPics((tempIndex) % length);
+						$("#cs2 .selectBtns").eq(tempIndex).addClass("iconsBtnSel").siblings().removeClass("iconsBtnSel");
+						if(tempIndex > 4) {
+							$("#cs2 .selectBtns").eq(0).addClass("iconsBtnSel").siblings().removeClass("iconsBtnSel");
+							tempIndex=0;
+						}
+						showPics((index) % length);
+					}, 2000);
+
+				});
+
+			});
+
+			function windowsopen(url) {
+				window.open(url);
+			}
+		</script>
+
+		<script type="text/javascript">
+			function showDialog() {
+				var con;
+				con = confirm("请勿用商业邮箱发送与工作内容相关的邮件，请勿用工作邮箱发送与工作内容无关的邮件。");
+				if(con) {
+					window.open("http://mail.sz.gov.cn");
+				}
+			}
+		</script>
+		<script>
+			/**
+			 * application list.
+			 */
+			$(function() {
+				$(".menu_icon1").next().next().show();
+
+				$(".menu").mouseover(function() {
+					$(".menu_icon1").next().next().hide();
+					var id = $(this).attr("id");
+					if(id == 2) {
+						$(".icon_supervise").css("background", "url('images/supervise1.png') no-repeat");
+						$("#2 h3").addClass("menu_icon1 select")
+						$("#2 .menu_icon").css({
+							"background": "#0186bc",
+							"color": "#fff"
+						});
+						$("#2 .submenu").css("display", "block");
+						$(".show2").css("display", "block");
+					} else {
+						$(".icon_supervise").css("background", "url('images/supervise.png') no-repeat");
+						$("#2 h3").removeClass("menu_icon1 select")
+						$("#2 .menu_icon").css({
+							"background": "#f9f9f9",
+							"color": "#444"
+						});
+						$("#2 .submenu").css("display", "none");
+						$(".show2").css("display", "none");
+					}
+					if(id == 1) {
+						$(".icon_permission").css("background", "url('images/permission1.png') no-repeat");
+						$("#1 h3").addClass("menu_icon1 select");
+						$(".show1").show();
+						$("#1 .menu_icon").addClass("menu_icon1")
+						$(".show1").css("display", "block");
+						$("#1 .submenu").addClass("submenu1");
+					} else {
+						$(".icon_permission").css("background", "url('images/permission.png') no-repeat");
+						$("#1 h3").removeClass("menu_icon1 select");
+						$(".show1").hide();
+						$("#1 .menu_icon").removeClass("menu_icon1")
+						$("#1 .submenu").removeClass("submenu1");
+						$(".show1").css("display", "none");
+					}
+					if(id == 3) {
+						$(".icon_service").css("background", "url('images/service1.png') no-repeat");
+						$("#3 h3").addClass("menu_icon1 select")
+						$("#3 .menu_icon").css("background", "#0186bc");
+						$(".show3").css("display", "block");
+						$("#3 .submenu").css("display", "block");
+					} else {
+						$(".icon_service").css("background", "url('images/service.png') no-repeat");
+						$("#3 h3").removeClass("menu_icon1 select")
+						$("#3 .menu_icon").css("background", "#f9f9f9");
+						$("#3 .submenu").css("display", "none");
+						$(".show3").css("display", "none");
+					}
+					if(id == 4) {
+						$(".icon_manage").css("background", "url('images/manage1.png') no-repeat");
+						$("#4 h3").addClass("menu_icon1 select")
+						$("#4 .menu_icon").css("background", "#0186bc");
+						$(".show4").css("display", "block");
+						$("#4 .submenu").css("display", "block");
+					} else {
+						$(".icon_manage").css("background", "url('images/manage.png') no-repeat");
+						$("#4 h3").removeClass("menu_icon1 select")
+						$("#4 .menu_icon").css("background", "#f9f9f9");
+						$("#4 .submenu").css("display", "none");
+						$(".show4").css("display", "none");
+					}
+					if(id == 5) {
+						$(".icon_enforcement").css("background", "url('images/enforcement1.png') no-repeat");
+						$("#5 h3").addClass("menu_icon1 select")
+						$("#5 .menu_icon").css("background", "#0186bc");
+						$(".show5").css("display", "block");
+						$("#5 .submenu").css("display", "block");
+					} else {
+						$(".icon_enforcement").css("background", "url('images/enforcement.png') no-repeat");
+						$("#5 h3").removeClass("menu_icon1 select")
+						$("#5 .menu_icon").css("background", "#f9f9f9");
+						$("#5 .submenu").css("display", "none");
+						$(".show5").css("display", "none");
+					}
+					if(id == 6) {
+						$(".icon_decision").css("background", "url('images/decision1.png') no-repeat");
+						$("#6 h3").addClass("menu_icon1 select")
+						$("#6 .menu_icon").css("background", "#0186bc");
+						$(".show6").css("display", "block");
+						$("#6 .submenu").css("display", "block");
+					} else {
+						$(".icon_decision").css("background", "url('images/decision.png') no-repeat");
+						$("#6 h3").removeClass("menu_icon1 select")
+						$("#6 .menu_icon").css("background", "#f9f9f9");
+						$("#6 .submenu").css("display", "none");
+						$(".show6").css("display", "none");
+					}
+					if(id == 7) {
+						$(".icon_fa").css("background", "url('images/42.png') no-repeat");
+						$("#7 h3").addClass("menu_icon1 select")
+						$("#7 .menu_icon").css("background", "#0186bc");
+						$(".show7").css("display", "block");
+						$("#7 .submenu").css("display", "block");
+					} else {
+						$(".icon_fa").css("background", "url('images/41.png') no-repeat");
+						$("#7 h3").removeClass("menu_icon1 select")
+						$("#7 .menu_icon").css("background", "#f9f9f9");
+						$("#7 .submenu").css("display", "none");
+						$(".show7").css("display", "none");
+					}
+
+				});
+
+			});
+
+			function ArrayList() {
+				this.arr = [], this.size = function() {
+					return this.arr.length;
+				}, this.add = function() {
+					if(arguments.length == 1) {
+						this.arr.push(arguments[0]);
+					} else if(arguments.length >= 2) {
+						var deleteItem = this.arr[arguments[0]];
+						this.arr.splice(arguments[0], 1, arguments[1], deleteItem)
+					}
+					return this;
+				}, this.get = function(index) {
+					return this.arr[index];
+				}, this.removeIndex = function(index) {
+					this.arr.splice(index, 1);
+				}, this.removeObj = function(obj) {
+					this.removeIndex(this.indexOf(obj));
+				}, this.indexOf = function(obj) {
+					for(var i = 0; i < this.arr.length; i++) {
+						if(this.arr[i] === obj) {
+							return i;
+						};
+					}
+					return -1;
+				}, this.isEmpty = function() {
+					return this.arr.length == 0;
+				}, this.clear = function() {
+					this.arr = [];
+				}, this.contains = function(obj) {
+					return this.indexOf(obj) != -1;
+				}
+			}
+		</script>
+		<!--[if IE 7]>
+
+<style>
+.waiter {
+      margin-top: -10px !important;height: 331px;
+}
+div.header{background: url();}
+.p-b-2{padding-bottom:8px !important;;}
+div.m-t-104{margin-top:96px !important;/*IE 7 改这个，距离上边距离比这个小*/}
+div.wrap{margin-top: 18px !important;;}
+div.content{width:1022px !important;}
+
+div.hotNews{padding-bottom:2px !important;margin-left:17px !important;}
+
+.wrap .hot_links a img{margin-top:0px !important;}
+img{border:0;}
+
+div.submenu_content a {
+    margin-left: 4px;
+    font: 14px/1em Microsoft YaHei;
+    width: 165px;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 1px;
+}
+
+
+div.wrap{margin-top:10px !important;}
+
+
+div.show2{left:62px;}
+
+.clearfix{clear:both; !important;}
+div.content{padding: 12px 4px 10px 2px !important;}
+
+.newsAnous{margin-top:15px !important;}
+div.wrap{margin-top:20px !important;}
+
+div.icon_submenu {
+	background: url(../../static/portal/images/20.png) no-repeat;
+	background-position-y:6px;
+	width: 20px;
+	height: 20px;
+}
+
+div.submenu_content:hover .icon_submenu {
+	background: url(../../static/portal/images/21.png) no-repeat;
+	background-position-y: 6px;
+}
+
+
+
+.carousel_content a{left:10px !important;}
+.lagefont{font:14px/1.1em Microsoft YaHei, STHeiti;bottom: 7px;}
+div.enter{width:630px }
+
+
+
+.hot_publish li { margin-top:-4px !important;height:31px !important; line-height:31px !important;/*用于保存测试*/;/*IE 7下不要新闻投稿间距*/}
+
+.hot_publish { padding-top: 2px !important; }
+</style>
+<![endif]-->
+
+		<style type="text/css">
+			.lagefont {
+				font: 14px/1.1em Microsoft YaHei, STHeiti;
+				bottom: 7px;
+			}
+			
+			.p-b-2 {
+				padding-bottom: 8px;
+			}
+			
+			div.m-t-104 {
+				margin-top: 85px;
+			}
+			
+			div.wrap {
+				margin-top: 18px !important;
+				;
+			}
+			
+			.waiter {
+				margin-top: -10px !important;
+			}
+			
+			div.header {
+				background: url();
+			}
+			
+			div.content {
+				width: 1022px !important;
+			}
+			
+			div.show2 {
+				left: 64px;
+			}
+			
+			.carousel_content a {
+				left: 10px !important;
+			}
+			
+			.fl {
+				float: left;
+			}
+			
+			img {
+				border: 0 !important;
+			}
+			
+			.fr {
+				float: right;
+			}
+			
+			.m-t-12 {
+				margin-top: 12px;
+			}
+			
+			.m-l-19 {
+				margin-left: 19px;
+			}
+			
+			.ml23 {
+				margin-left: 23px;
+				;
+			}
+			
+			.w104 {
+				width: 104px;
+			}
+			
+			.w125 {
+				width: 125px;
+			}
+			
+			.w136 {
+				width: 136px;
+			}
+			
+			.w260 {
+				width: 260px;
+			}
+			
+			.w236 {
+				width: 236px;
+			}
+			
+			.w245 {
+				width: 245px;
+			}
+			
+			.w314 {
+				width: 314px;
+			}
+			
+			.w317 {
+				width: 317px;
+			}
+			
+			.w321 {
+				width: 321px;
+			}
+			
+			.p-b-24 {
+				padding-bottom: 24px;
+			}
+			
+			.p-b-15 {
+				padding-bottom: 15px;
+				;
+			}
+			
+			.p-b-8 {
+				padding-bottom: 8px;
+			}
+			
+			.p-b-5 {
+				padding-bottom: 5px;
+			}
+			
+			.hot_news li a {
+				font-family: "宋体";
+			}
+			
+			.hot_news li {
+				padding-top: 4px;
+				;
+			}
+			
+			.submenu {
+				height: 70px;
+			}
+			
+			.m-t-12 {
+				margin-top: 12px;
+			}
+			
+			m-t-4 {
+				margin-top: 4px;
+			}
+			
+			.m-t-13 {
+				margin-top: 13px;
+			}
+			
+			.p-b-8 {
+				padding-bottom: 8px;
+			}
+			
+			.p-b-18 {
+				padding-bottom: 18px;
+			}
+			
+			.p-l-29 {
+				padding-left: 29px;
+			}
+			/*通用样式*/
+			
+			li:hover a {
+				color: #fff;
+			}
+			
+			li:hover span {
+				color: #fff;
+			}
+			/*轮播图*/
+			
+			.banner {
+				border: 1px solid transparent;
+				border-left: none;
+			}
+			/*banner图右边的内容*/
+			
+			.carousel {
+				width: 368px;
+				height: 246px;
+			}
+			/*热点新闻*/
+			
+			div.hotNews {
+				width: 600px;
+				margin-left: 18px !important;
+				/*padding-bottom: 26px;*/
+				padding-bottom: 2px;
+				padding-right: 15px;
+				border: 1px solid #C4D9EA;
+			}
+			/*系统入口*/
+			
+			.submenu,
+			.submenu1 {
+				height: 260px;
+			}
+			
+			.right {
+				position: relative;
+			}
+			/*代办事项*/
+			
+			.wait_business {
+				background: #0085BD
+			}
+			
+			.content .left {
+				width: 630px;
+			}
+			
+			.content .right {
+				width: 360px;
+				margin-top: 19px;
+			}
+			
+			.w300 {
+				width: 300px;
+			}
+			
+			.w290 {
+				width: 290px;
+			}
+			/*常用链接*/
+			
+			.hot_links li {
+				padding: 0;
+				width: 80px;
+				float: left;
+				height: 80px;
+			}
+			
+			.hot_links li a {
+				width: 100%;
+			}
+			
+			.hot_links img {
+				display: block;
+				margin:-2px 24px;
+				padding-top: 4px;
+				/*padding-bottom: 4px;*/
+			}
+			
+			.hot_links a {
+				display: block;
+				color: #fff;
+				height: 65px;
+				/* line-height: 60px; */
+				text-align: center;
+				font-family: "微软雅黑"
+			}
+			
+			.link1 {
+				background: #78c446
+			}
+			
+			.link1:hover {
+				background: #66b92f;
+			}
+			
+			.link2 {
+				background: #FF9B45
+			}
+			
+			.link2:hover {
+				background: #ed842a;
+			}
+			
+			.link3 {
+				background: #E3AA42
+			}
+			
+			.link3:hover {
+				background: #d89a28;
+			}
+			
+			.link4 {
+				background: #6fb9e3;
+			}
+			
+			.link4:hover {
+				background: #44a6de
+			}
+			
+			.link5 {
+				background: #dc94e9
+			}
+			
+			.link5:hover {
+				background: #ce6ce0
+			}
+			
+			.link6 {
+				background: #38E0D3
+			}
+			
+			.link6:hover {
+				background: #1ed2c3;
+			}
+			
+			.link7 {
+				background: #EEC217
+			}
+			
+			.link7:hover {
+				background: #e5b909
+			}
+			
+			.link8 {
+				background: #FF6666
+			}
+			
+			.link8:hover {
+				background: #FF0033
+			}
+                     
+                          .link9 {
+				background: #7246e0;
+			}
+			
+			.link9:hover {
+				background: #4313bd;
+			}
+
+                         
+			/*学习园地等*/
+			
+			.southSider .gray_content {
+				float: left;
+			}
+			
+			.hot_study li {
+				margin-top: 3px;
+				;
+			}
+			
+			.hot_study li:hover {
+				background-color: #b0d0dd;
+				color: #fff;
+			}
+			
+			.hot_work li {
+				margin-top: 3px;
+				;
+			}
+			
+			.hot_work li:hover {
+				background-color: #b0d0dd;
+				color: #fff;
+			}
+			
+			.d6 {
+				border-bottom: 1px solid #d6d6d6;
+			}
+			
+			.hot_reading {
+				margin-top: 5px;
+				;
+			}
+			
+			.hot_reading li {
+				margin-top: 3px;
+			}
+			
+			.hot_reading li:hover {
+				background-color: #b0d0dd;
+				color: #fff;
+			}
+			/*通知公告*/
+			
+			.hot_publish li {
+				list-style: none;
+				/*margin-top: 2px;*/
+				margin-top: 1px;
+				;
+			}
+			
+			.hot_publish li:hover {
+				background-color: #b0d0dd;
+				color: #fff;
+			}
+			
+			.hot_publish li span {
+				display: block;
+			}
+			
+			.hot_publish .publishTitle {
+				width: 480px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			/*常用表格*/
+			
+			.hot_table {
+				margin-top: 3px;
+			}
+			
+			.hot_table li {
+				margin-top: 3px;
+			}
+			
+			.hot_table li:hover {
+				background-color: #b0d0dd;
+				color: #fff;
+			}
+			
+			div.newsAnous {
+				width: 608px;
+				margin-top: 6px;
+			}
+			/*细节修正*/
+			
+			.mt15 {
+				margin-top: 15px;
+			}
+			
+			.w233 {
+				width: 233px;
+			}
+			
+			.w290 {
+				width: 290px;
+			}
+			
+			.w310 {
+				width: 310px;
+			}
+			
+			.w320 {
+				width: 320px;
+			}
+			
+			.m-t-6 {
+				margin-top: 6px;
+			}
+			
+			.m-t-7 {
+				margin-top: 7px;
+			}
+			
+			.m-t-10 {
+				margin-top: 10px;
+			}
+			
+			.m-t-17 {
+				margin-top: 70px;
+			}
+			
+			.m-l-0 {
+				margin-left: 0;
+			}
+			
+			.m-l-10 {
+				margin-left: 10px;
+			}
+			
+			.m-l-15 {
+				margin-left: 15px;
+			}
+			
+			.m-l-20 {
+				margin-left: 20px;
+			}
+			
+			.m-l_-8 {
+				margin-left: -8px;
+			}
+			
+			.m-l-12 {
+				margin-left: 12px;
+			}
+			
+			.m-l-13 {
+				margin-left: 13px;
+			}
+			
+			.m-l-8 {
+				margin-left: 8px;
+			}
+			
+			.m-b-12 {
+				margin-top: 90px;
+			}
+			
+			.m-t-12 {
+				margin-top: ;
+				12px
+			}
+			
+			.p-b-2 {
+				padding-bottom: 8px;
+			}
+			
+			.wait_business li:hover span {
+				color: #fff;
+			}
+			/*OA系统*/
+			
+			.workSystem {
+				width: 357px;
+				height: 80px;
+				margin-top: 6px;
+				margin-bottom: 6px;
+			}
+			/*.workSystem ul li{float: left;height: 80px;padding: 0;}
+.workSystem ul li img{width: 100%;}*/
+			
+			.menu:hover .icoPic {
+				display: block
+			}
+			
+			div.waiter {
+				height: 331px;
+				background: #f9f9f9
+			}
+			
+			.b4 {
+				color: #b4b4b4;
+			}
+			
+			.lagefont span {
+				display: block;
+				padding-left: 6px;
+			}
+			
+			.abs {
+				position: absolute;
+				top: 18px;
+			}
+			
+			.shiChangfaXian {
+				width: 360px;
+				height: 43px;
+				margin-top: 11px;
+			}
+			
+			.left,
+			.right {
+				padding-top: 10px
+			}
+			
+			.clearfix {
+				clear: both;
+				!important;
+			}
+			
+			div.wrap {
+				margin-top: 15px;
+			}
+			
+			div.content {
+				padding: 12px 4px 15px 2px;
+			}
+			
+			div.content {
+				width: 1024px;
+			}
+			
+			div.carousel_switch {
+				position: absolute;
+				right: 6px;
+				bottom: 14px;
+			}
+			
+			div.m-t-4 {
+				margin-top: 4px;
+			}
+			
+			div.enter {
+				width: 630px
+			}
+			
+			div.hot_publish {
+				padding-bottom: 6px
+			}
+			/*解决更多问题在IE下位置错乱*/
+			
+			.fix {
+				height: 38px;
+				border: 1px solid #f9f9f9;
+			}
+			
+			.fix a {
+				float: left;
+				color: #0186bc
+			}
+			
+			.fz {
+				font-size: 12px;
+			}
+			
+			.m-l-460 {
+				margin-left: 460px
+			}
+			
+			.m-l-475 {
+				margin-left: 475px
+			}
+			
+			.m-l-220 {
+				margin-left: 220px
+			}
+			
+			.m-l-160 {
+				margin-left: 160px
+			}
+			/* page header */
+			
+			.topNav {
+				width: 1000px;
+				margin: 0px auto;
+			}
+		</style>
+
+		<!-- begin of application list -->
+		<!--[if IE 7]>
+<style>
+.wrap .hot_links a img{margin-top:0px !important;}
+img{border:0;}
+
+.submenu_content a{height:20px !important;line-height:20px !important; margin-top: 1px !imporant;}
+.icon_submenu{background-position-y: 5px !important;}
+
+div.right_menu{top:79px;}
+
+.menu h3{padding:0;margin-left: 16px;	margin-top: -8px !important;}
+</style>
+<![endif]-->
+
+		<style>
+			body {
+				font-family: "Microsoft YaHei";
+			}
+			
+			.menu_icon {
+				margin-left: 17px
+			}
+			
+			.submenu,
+			.submenu1 {
+				background: #fff;
+				border-top: 1px solid #e1ecf4;
+				border-bottom: 1px solid #e1ecf4;
+			}
+			
+			.submenu_content a {
+				color: #666;
+				font: 14px/1em Microsoft YaHei;
+				white-space: nowrap;
+			}
+			
+			.submenu_content:hover a {
+				color: #0186bc;
+			}
+			
+			.submenu_content {
+				position: relative;
+			}
+			
+			.right_menu {
+				width: 616px;
+				overflow-y: hidden;
+				top: 79px;
+				height: 228px;
+				background: #fdfdfd;
+			}
+			
+			.menu h3 {
+				padding: 0;
+				margin-left: 16px;
+				margin-top: -14px;
+			}
+			
+			.addh3 {
+				background: #fff;
+				color: #0186bc;
+				font-family: "微软雅黑";
+				border-left: 1px solid #80C1DD;
+				border-right: 1px solid #80C1DD;
+				height: 41px;
+				position: relative;
+				z-index: 999;
+				padding: 0
+			}
+			
+			.small_interval2 {
+				padding-bottom: 14px;
+				;
+			}
+			
+			.wid607 {
+				width: 607px
+			}
+			
+			.mr6 {
+				margin-right: 6px;
+			}
+			
+			.listNumSeri {
+				width: 19px;
+				height: 20px;
+				background: url(../../static/portal/images/36.png);
+				display: inline-block;
+				text-align: center;
+				line-height: 20px;
+				position: absolute;
+				top: -4px;
+				left: 75px;
+				color: #fff;
+			}
+			
+			div.icoPic {
+				left: 62px;
+			}
+			
+			.clear {
+				clear: both;
+			}
+			
+			* {
+				margin: 0;
+				padding: 0
+			}
+			
+			body {
+				font: 14px/1.5em Microsoft YaHei;
+				color: #444;
+				background-color: #f1f1f1;
+			}
+			
+			:focus {
+				outline: 1;
+			}
+			
+			ul,
+			li {
+				list-style: none;
+			}
+			
+			a {
+				border: 0;
+				text-decoration: none;
+				cursor: pointer;
+				color: #444;
+			}
+			
+			img {
+				border: 0
+			}
+			
+			table {
+				border-collapse: collapse;
+				border-spacing: 0;
+			}
+			
+			hr {
+				display: block;
+				height: 1px;
+				border: 0;
+				border-top: 1px solid #cccccc;
+				margin: 1em 0;
+				padding: 0;
+			}
+			
+			input,
+			select {
+				vertical-align: middle;
+			}
+			
+			input {
+				outline: none;
+			}
+			
+			.clear {
+				clear: both;
+			}
+			
+			.hide {
+				display: none;
+			}
+			
+			small,
+			.small {
+				font: 12px/2.5em Microsoft YaHei;
+			}
+			
+			strong,
+			.bold {
+				font-weight: bold;
+			}
+			
+			h3 {
+				font: 16px/2.5em Microsoft YaHei;
+				padding: 0 8px;
+				margin-left: 1px;
+				height: 38px;
+			}
+			
+			.fb {
+				color: #0186bc;
+			}
+			
+			.message {
+				font-size: 12px;
+				color: #999;
+			}
+			
+			.lagefont {
+				font: 14px/1em Microsoft YaHei;
+			}
+			
+			.red {
+				color: #ff7900;
+			}
+			
+			.black {
+				color: #444;
+			}
+			
+			.white {
+				color: #fff;
+			}
+			
+			.blue {
+				color: #0186bc;
+			}
+			
+			.gray_content {
+				background-color: #f9f9f9;
+				padding: 0 8px;
+			}
+			
+			.darkgrey_content {
+				background-color: #f1f1f1;
+				padding: 0 8px;
+			}
+			
+			.blue_content {
+				background-color: #0186bc;
+				padding: 0 8px;
+			}
+			
+			.underline {
+				text-decoration: underline;
+			}
+			
+			.gray_line {
+				border-bottom: 1px solid #EAEAEA;
+			}
+			
+			.white_line {
+				border-bottom: 1px solid #EAEAEA;
+			}
+			
+			.interval {
+				padding-bottom: 20px;
+			}
+			
+			.small_interval {
+				padding-bottom: 8px;
+			}
+			
+			.small_interval2 {
+				padding-bottom: 5px;
+			}
+			
+			.center {
+				text-align: center;
+			}
+			
+			.left_content {
+				float: left;
+			}
+			
+			.right_content {
+				float: right;
+			}
+			/*针对IE7写的hack*/
+			
+			.inline_block {
+				display: inline-block;
+				*display: inline;
+				*zoom: 1;
+			}
+			
+			.shade {
+				background-color: #000;
+				opacity: 0.6;
+				filter: alpha(opacity=60);
+			}
+			
+			.header {
+				width: 100%;
+			}
+			
+			.header .top {
+				width: 100%;
+				height: 65px;
+				box-shadow: 0 0 2px #000;
+				border-top: none;
+				border-left: none;
+				border-right: none;
+				text-align: center;
+			}
+			
+			.header .user {
+				width: 960px;
+				height: 40px;
+				margin: 0 auto;
+				color: #fff;
+				font: 14px/40px Microsoft YaHei;
+			}
+			
+			.footer {
+				width: 100%;
+				height: 40px;
+				text-align: center;
+				color: #fff;
+				font: 14px/40px Microsoft YaHei;
+			}
+			
+			.content {
+				width: 1006px;
+				margin: 10px auto 0;
+				background-color: #fff;
+			}
+			
+			.search {
+				width: 800px;
+				margin: 0 auto;
+				position: relative;
+			}
+			
+			.search input {
+				height: 40px;
+				line-height: 40px;
+				border: 1px solid #b5b5b5;
+				padding: 0 120px 0 20px;
+				width: 658px;
+				*width: 800px;
+			}
+			
+			.search button {
+				position: absolute;
+				right: 2px;
+				top: 2px;
+				width: 100px;
+				height: 38px;
+				background-color: #0187bd;
+				color: #fff;
+				font: 20px/38px Microsoft YaHei;
+				border: medium none;
+			}
+			
+			.content .left {
+				float: left;
+				width: 630px;
+				margin-left: 10px;
+				margin-top: 1px;
+			}
+			
+			.carousel {
+				width: 360px;
+				height: 239px;
+				position: relative;
+			}
+			
+			.carousel_content {
+				width: 360px;
+				height: 239px;
+				left: 0;
+				position: absolute;
+				top: 0;
+			}
+			
+			.carousel_content a {
+				padding: 0;
+				position: absolute;
+				font-weight: normal;
+				bottom: 5px;
+				font-size: 14px;
+				left: 8px;
+				width: 270px;
+			}
+			
+			.carousel img {
+				width: 360px;
+				height: 239px;
+			}
+			
+			.carousel .shade {
+				position: absolute;
+				bottom: -1px;
+				left: 0px;
+				width: 100%;
+				height: 40px;
+			}
+			
+			.carousel .selected {
+				display: block;
+			}
+			
+			.carousel_switch {
+				position: absolute;
+				right: 6px;
+				bottom: 14px;
+			}
+			
+			.switch {
+				background-color: #0186bc;
+				height: 22px;
+				padding: 9px 14px;
+				width: 12px;
+				margin-right: -1px;
+			}
+			
+			.switch:hover {
+				background-color: #139fd8;
+			}
+			
+			.menu {
+				float: left;
+				margin-left: 1px;
+				position: relative;
+				cursor: default;
+			}
+			
+			.menu_icon {
+				width: 88px;
+				background-color: #f9f9f9;
+				text-align: center;
+				height: 70px;
+				*height: 70px;
+				padding-top: 9px;
+			}
+			
+			.menu:first-child {
+				margin-left: 0;
+			}
+			/*.menu:hover{
+    color: #fff;
+    background-color:#0186bc ;
+}*/
+			/*.menu:hover .menu_icon{
+    background-color: #0186bc;
+}*/
+			/*.menu:hover .submenu{
+    display: block;
+}*/
+			
+			.submenu {
+				/*  background-color: #0186bc;
+    position: absolute;
+    width: 285px;
+    *width: 293px;
+    z-index: 2;
+    display: none;*/
+			}
+			
+			.right_menu {
+				left: 90px;
+				top: 0;
+				border-left: 1px solid #fff;
+				padding: 10px 8px 10px 0;
+			}
+			
+			.left_menu {
+				right: 90px;
+				top: 0;
+				border-right: 1px solid #fff;
+				padding: 10px 0 10px 8px;
+			}
+			
+			.submenu_content {
+				padding: 7px 9px;
+			}
+			
+			.submenu_content a:hover {
+				color: #139fd8;
+			}
+			
+			.submenu_content a {
+				margin-left: 4px;
+				font: 14px/1em Microsoft YaHei;
+			}
+			
+			.inform {
+				list-style-type: initial;
+				list-style-image: none;
+				list-style-position: inside;
+				padding: 10px 0;
+			}
+			
+			.inform li {
+				position: relative;
+				padding-right: 80px;
+			}
+			
+			.inform span {
+				position: absolute;
+				right: 0;
+				top: 0;
+				color: #999;
+				font-size: 12px;
+			}
+			
+			.content .right {
+				float: right;
+				width: 360px;
+				margin-top: 10px;
+				margin-right: 9px;
+			}
+			
+			.hot_news,
+			.wait_business,
+			.receive_email {
+				list-style: inside none none;
+				padding-bottom: 10px;
+				padding-top: 10px;
+			}
+			
+			li {
+				height: 30px;
+				line-height: 30px;
+				padding: 0 10px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				vertical-align: baseline;
+				white-space: nowrap;
+				word-break: keep-all;
+				word-wrap: normal;
+				font-family: "微软雅黑";
+			}
+			
+			.hot_news li:hover {
+				background-color: #b0d0dd;
+				color: #fff;
+			}
+			
+			.hot_news li:hover a {
+				color: #fff;
+			}
+			
+			.wait_business li a {
+				/*color: #fff;*/
+				color: #444;
+			}
+			
+			.wait_business li {
+				color: #444;
+				padding-top: 0;
+			}
+			
+			.wait_business li:hover {
+				background-color: #b0d0dd;
+			}
+			
+			.wait_business li.li-no-content:hover {
+				background-color: transparent;
+			}
+			
+			.receive_email li {
+				height: 54px;
+				border-top: 1px solid #F3F3F3;
+				position: relative;
+				padding-right: 70px;
+			}
+			
+			.receive_email li:hover a {
+				color: #0186bc;
+			}
+			
+			.receive_email li:hover .message {
+				color: #0186bc;
+			}
+			
+			.receive_email li:first-child {
+				border: none;
+			}
+			
+			.receive_email span {
+				position: absolute;
+				top: 20px;
+				right: 0;
+				font-size: 12px;
+				color: #999;
+			}
+			
+			.receive_email a {
+				width: 160px;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				vertical-align: baseline;
+				white-space: nowrap;
+				word-break: keep-all;
+				word-wrap: normal;
+			}
+			
+			.receive_email a small,
+			.receive_email a .message {
+				line-height: 16px;
+				height: 16px;
+				margin-top: 0;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				vertical-align: baseline;
+				white-space: nowrap;
+				word-break: keep-all;
+				word-wrap: normal;
+			}
+			
+			.receive_email .icon_email {
+				margin-right: 16px;
+				margin-top: 20px;
+			}
+			
+			.icon_email {
+				background: url('images/email.png') no-repeat;
+				width: 16px;
+				height: 12px;
+			}
+			
+			.icon_permission {
+				background: url('images/permission1.png') no-repeat;
+				width: 38px;
+				height: 38px;
+			}
+			
+			.icon_supervise {
+				background: url('images/supervise.png') no-repeat;
+				width: 38px;
+				height: 38px;
+			}
+			
+			.icon_service {
+				background: url('images/service.png') no-repeat;
+				width: 38px;
+				height: 38px;
+			}
+			
+			.icon_manage {
+				background: url('images/manage.png') no-repeat;
+				width: 38px;
+				height: 38px;
+			}
+			
+			.icon_enforcement {
+				background: url('images/enforcement.png') no-repeat;
+				width: 38px;
+				height: 38px;
+			}
+			
+			.icon_decision {
+				background: url('images/decision.png') no-repeat;
+				width: 38px;
+				height: 38px;
+			}
+			
+			.icon_system {
+				background: url('images/system.png') no-repeat;
+				width: 38px;
+				height: 38px;
+			}
+			
+			.icon_left {
+				background: url('images/left.png') no-repeat;
+				width: 12px;
+				height: 23px;
+			}
+			
+			.icon_right {
+				background: url('images/right.png') no-repeat;
+				width: 12px;
+				height: 23px;
+			}
+			
+			.icon_submenu {
+				background: url(images/39.png) no-repeat;
+				background-position-y: 4px;
+				width: 20px;
+				height: 20px;
+			}
+			
+			.submenu_content:hover .icon_submenu {
+				background: url(images/40.png) no-repeat;
+				background-position-y: 4px;
+			}
+			
+			.icoPic {
+				background: url(images/22.png) no-repeat;
+				display: inline-block;
+				width: 20px;
+				height: 20px;
+				position: absolute;
+				z-index: 1000;
+				left: 52px;
+				top: 78px;
+				display: none;
+			}
+			
+			.raduisNum {
+				width: 19px;
+				height: 20px;
+				background: url(images/36.png);
+				display: inline-block;
+				text-align: center;
+				line-height: 20px;
+				position: absolute;
+				top: 3px;
+				left: 86px;
+				color: #fff;
+			}
+			
+			.menu:hover .icoPic {
+				display: block;
+			}
+			
+			@CHARSET "utf-8";
+			.right_menu {
+				/* display: block;*/
+				left: -1px;
+				top: 130px;
+				padding: 10px 8px 10px 0;
+				border-left: 0;
+			}
+			
+			.left_menu {
+				display: none;
+			}
+			
+			.submenu,
+			.submenu1 {
+				position: absolute;
+				top: 79px;
+				height: 230px;
+				z-index: 2;
+				display: none;
+				margin-left: 1px;
+			}
+			
+			.submenu1 {
+				display: block;
+			}
+			
+			.menu_icon1 {
+				background: #0186bc;
+			}
+			
+			.select {
+				color: #fff;
+				/* background: transparent; */
+			}
+			
+			.submenu_content a {
+				margin-left: 4px;
+				font: 14px/1em Microsoft YaHei;
+				width: 165px;
+				display: inline-block;
+				vertical-align: top;
+				margin-top: 3px;
+			}
+			
+			.submenu_content {
+				padding: 4px 71px 0px 4px;
+				margin-left: 28px;
+			}
+			
+			.addh3 {
+				color: #fff;
+				background: #0186bc;
+			}
+			
+			.span_float_left {
+				display: inline-block;
+				float: left;
+			}
+			
+			.menu_icon2 {
+				height: 64px;
+				padding-top: 26px;
+				text-align: center;
+				width: 91px;
+				margin-left: 1px;
+			}
+			
+			.menu_icon20 {
+				background-color: #f9f9f9;
+			}
+			
+			.meu_icon21 {
+				background-color: #0186bc;
+			}
+		</style>
+
+		<!-- end of application list -->
+
+		<!-- begin of oa todo -->
+		<style>
+			img {
+				border: 0
+			}
+			
+			.waitWrap {
+				margin-top: -6px;
+			}
+			
+			#fontRed {
+				color: red;
+				font-size: 16px;
+			}
+			
+			.titles {
+				font-size: 16px;
+			}
+			
+			.total {
+				font-size: 14px;
+			}
+			
+			.borderLine {
+				border-bottom: 1px solid #EAEAEA;
+				width: 91%;
+				margin: 8px auto;
+			}
+			
+			.waiterWrap {
+				width: 330px;
+				margin: -4px auto;
+			}
+			
+			.waiterWrap tr td {
+				/* padding: 5px 12px 5px 20px; */
+				padding: 4px 12px 4px 13px;
+			}
+			
+			.waiterWrap tr:hover {
+				background-color: #b0d0dd;
+				color: #fff;
+			}
+			
+			.w200 {
+				width: 200px;
+			}
+			
+			.red {
+				color: #ff0000
+			}
+		</style>
+
+		<!--[if IE 7]>
+<style>
+div.borderLine{
+	margin-top:-8px !important;
+	border-bottom:1px dotted #9099b7;
+	width: 91%;
+}
+</style>
+<![endif]-->
+		<!-- end of oa todo -->
+
+		<script>
+			$.ajax({
+				url: "../gwssi/portal?c=todo&m=oa",
+				type: 'post',
+				dataType: 'json',
+				success: function(data) {
+					if(data && data.error) {
+						alert(data.error);
+						return;
+					}
+					var i = 0;
+					var divstr ="";
+					var oaWait = 0;
+					$(data).each(function() {
+                                       
+                                               if(this.typeName!="全部待办"){
+                                                      i = i + 1;
+						      oaWait = oaWait + this.count;
+						     if(this.count > 0) {
+							//divstr += "<tr onclick='javascript:window.location.href=" + this.url + ";'><td class='w200'><a target='_blank' href='" + this.url + "'>" +this.typeName +"事项</a></td><td class='red' align='right' nowrap='nowrap'>（" +this.count +"条）</td></tr>";
+
+                                                       var url = this.url;
+                                                      // divstr += "<tr onclick='openOA(this)' data-url='"+url +"'><td class='w200'><a target='_blank' href='" + url  + "'>" +this.typeName +"事项</a></td><td class='red' align='right' nowrap='nowrap'>（" +this.count +"条）</td></tr>";
+
+                                                      divstr += "<tr onclick='openOA(this)' data-url='"+url +"'><td class='w200'><a href='javascript:;'>" +this.typeName +"事项</a></td><td class='red' align='right' nowrap='nowrap'>（" +this.count +"条）</td></tr>";
+
+						 }
+                                                  
+                                            }else{
+						 //console.log(this.typeName)
+						// divstr += "<tr onclick='javascript:window.location.href=" + this.url + ";'><td class='w200'><a target='_blank' href=" + this.url + ">发文事项</a></td><td class='red' align='right' nowrap='nowrap'>（"+ (oaWait-this.count) + "条）</td></tr>";
+						//console.log(divstr)
+					    }
+						
+					});
+					if(oaWait == 0) {
+						$("#fontRed").html(oaWait + "件");
+						$("#fontRed").css("color", "red");
+						$("#items").html("当前无待办");
+					} else {
+                                                  //console.log(data[0].typeName)
+						//$("#fontRed").html((oaWait-data[0].count) + "件");
+                                                   $("#fontRed").html(oaWait + "件");
+						$("#bus").append(divstr);
+					}
+
+				},
+				error: function() {
+					//setTimeout("returnOrgNo()", 3000);
+				}
+			});
+
+
+                        var _trackData = _trackData || [];
+			$.ajax({
+				url: '../gwssi/portal?c=home&m=getUser',
+				type: 'get',
+				dataType: 'json',
+                                async: false,
+				success: function(data) {
+					$("#loginName").html(data.gwssi_userName);
+                                        $("#loginName").attr("uid",data.gwssi_userId);
+                                        var uid = data.gwssi_userId;
+                                         loadingEduOA(uid );
+                                         loadPinAn(uid);
+                                        
+                                       
+                                       _trackData.push(["userset", "realname", data.gwssi_userName]);
+                                       
+				}
+
+			});
+
+
+function openOA(obj){
+
+     var _this = $(obj);
+
+    var url = _this.data("url");
+
+    window.open(url,"_blank");
+
+}
+
+
+
+
+
+
+function loadingEduOA(uid){
+
+try{
+
+$.ajax({ 
+ 
+            url:"http://mqsweb97:9080/ots/trainReport/OABacklog?userId="+uid ,     
+            type:"get", 
+            cache:false, 
+            dataType:"jsonp", 
+            jsonp:"callback", //这里定义了callback的参数名称，以便服务获取callback的函数名即getMessage 
+            jsonpCallback:"callback", //这里定义了jsonp的回调函数 
+            success:function(data){ 
+              //  console.log("success:"+data); 
+              var cnt = data.count;
+                if(cnt!=0){
+                  $("#8b80a6d286b14a5f8a2f344d64266fg3NO").html(data.count);
+                  $("#8b80a6d286b14a5f8a2f344d64266fg3NO").addClass("sysCount raduisNum");
+                }
+               
+            }, 
+            error:function(){ 
+               // console.log("发生异常"); 
+            } 
+        });
+
+
+}catch(err){
+
+
+}
+ 
+
+
+}
+
+
+
+
+function loadPinAn(uid){
+
+$.ajax({
+    url: 'http://10.0.4.192:8088/wcm_pinan/pa?userId='+uid,
+    type: 'get',
+    dataType:'json',
+    success:function(data){
+    	//console.log(data)
+         var counts= data.count;
+         if(counts!=0){
+           
+       }
+    },
+   error:function(){
+   // console.log("系统发生异常");
+   }
+   
+});
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			// 加载业务域和当前系统
+			var list = new ArrayList();
+
+			// 初始化6个业务域
+			function prefunc() {
+				var pkcode = "RP";
+				list.add(pkcode);
+				var pkcode = "MS";
+				list.add(pkcode);
+
+				var pkcode = "PS";
+				list.add(pkcode);
+
+				var pkcode = "AM";
+				list.add(pkcode);
+
+				var pkcode = "LE";
+				list.add(pkcode);
+
+				var pkcode = "AP";
+				list.add(pkcode);
+
+				var pkcode = "FZXT";
+				list.add(pkcode);
+			}
+
+			function initDual(datastr) {
+				prefunc();
+				var isSm = false;
+				for(var i = 0, l = datastr.length; i < l; i++) {
+					var systemCode = datastr[i]["systemCode"] || datastr[i]["SYSTEM_CODE"];
+
+					var pkbus = datastr[i]["pkSysIntegration"] || datastr[i]["PK_SYS_INTEGRATION"];
+					var pkcode = datastr[i]["pid"] || datastr[i]["PID"];
+					var url = datastr[i]["integratedUrl"] || datastr[i]["INTEGRATED_URL"];
+					var sysname = datastr[i]["systemName"] || datastr[i]["SYSTEM_NAME"];
+					var isFav = datastr[i]["ISFAR"];
+					var length = 0;
+					if(sysname) {
+						length = parseInt($.trim("" + sysname.length + ""));
+					}
+					var t1 = 'div[name=' + pkcode + ']';
+					var noname = pkbus + "" + "NO";
+					// alert("pkcode:"+pkcode+" url:"+url+" systemName:"+sysname);
+
+					var t1 = 'div[name=' + pkcode + ']';
+					if(list.contains(pkcode)) {
+						list.removeObj(pkcode);
+						$(t1).empty();
+					}
+
+					var left = 0;
+					if(length == 2) {
+						left = 55;
+					} else if(length == 3) {
+						left = 64;
+					} else if(length == 4) {
+						left = 82;
+					} else if(length == 5) {
+						left = 95;
+					} else if(length == 6) {
+						left = 111;
+					} else if(length == 7) {
+						left = 158;
+					} else if(length == 8) {
+						left = 168;
+					} else if(length == 9) {
+						left = 178;
+					} else if(length == 10) {
+						left = 192;
+					} else if(length == 11) {
+						left = 209;
+					} else if(length == 18) {
+						left = 278;
+					} else {
+						left = 192;
+					}
+
+					/*  var htm = '<div class="inline_block submenu_content">'
+				+ '<span class="inline_block icon_submenu"></span>'
+				+ '<a href="javascript:void(0);" title="" onclick="windowsopen(\''
+				+ url + '\');">' + sysname + '</a><span id="' + noname
+				+ '" class="" style="top: -4px;left:' + left + 'px"></span>' + '</div>';
+		$(t1).append(htm);*/
+					var htm = "";
+					var temp = "";
+
+					if(isFav == "Y") {
+						htm = '<div class="inline_block submenu_content">' +
+							'<span class="inline_block icon_submenu plus" onclick="addToFav(this)" style="background: url(\'images/45.png\') 0px 4px no-repeat; "></span>' +
+							'<a href="javascript:void(0);" title="" onclick="windowsopen(\'' +
+							url + '\');">' + sysname + '</a><span id="' + noname +
+							'" class="" style="top: -4px;left:' + left + 'px"></span>' + '</div>';
+
+						temp = '<div class="inline_block submenu_content">' +
+							'<span class="inline_block icon_submenu" onclick="removeFav(this)" style="background: url(\'images/45.png\') 0px 4px no-repeat; "></span>' +
+							'<a href="javascript:void(0);" title="" onclick="windowsopen(\'' +
+							url + '\');">' + sysname + '</a><span id="' + pkbus +
+							'" class="" style="top: -4px;left:' + left + 'px"></span>' + '</div>';
+
+						$("div[name='FA']").append(temp);
+					} else {
+						htm = '<div class="inline_block submenu_content">' +
+							'<span class="inline_block icon_submenu" onclick="addToFav(this)" style=""></span>' +
+							'<a href="javascript:void(0);" title="" onclick="windowsopen(\'' +
+							url + '\');">' + sysname + '</a><span id="' + noname +
+							'" class="" style="top: -4px;left:' + left + 'px"></span>' + '</div>';
+
+					}
+
+					$(t1).append(htm);
+
+				}
+			}
+
+			var responseData = {
+				data: [{
+					"name": "busidomain",
+					"vtype": "tree",
+					"data": [{
+							"integratedUrl": "http://mqscase",
+							"pid": "LE",
+							"pkSysIntegration": "12b1d7435d6e41b385da165991e4c8fb",
+							"systemCode": "CASE",
+							"systemName": "案件系统（金信工程）"
+						},
+						{
+							"integratedUrl": "http://mqs01/portal/jsp/portal/index.jsp",
+							"pid": "AM",
+							"pkSysIntegration": "dabf14ddda2e4bf9b2f639f686350b88",
+							"systemCode": "HR",
+							"systemName": "人事管理"
+						},
+						{
+							"integratedUrl": "http://mqswebw01:9080/dc/page/integeration/index.jsp",
+							"pid": "AP",
+							"pkSysIntegration": "19b1d7435d6e41b385da165991e4c8fb",
+							"systemCode": "DC",
+							"systemName": "资源管理"
+						},
+						{
+							"integratedUrl": "http://10.0.4.82:7002/gt/txn999999.do",
+							"pid": "AP",
+							"pkSysIntegration": "aab2380c8a1c49e094d9efceade55dd0",
+							"systemCode": "WDYY",
+							"systemName": "数据分析"
+						},
+						{
+							"integratedUrl": "http://mqs02/szjxjg/",
+							"pid": "MS",
+							"pkSysIntegration": "8b80a6d286b14a5f8a2f344d64446c56",
+							"systemCode": "ZXTS",
+							"systemName": "咨询投诉举报"
+						},
+						{
+							"integratedUrl": "http://mqs01/portal/jsp/portal/index.jsp",
+							"pid": "RP",
+							"pkSysIntegration": "8b80a6d286b14a5f8a2f344d64445gh9",
+							"systemCode": "DJXK",
+							"systemName": "登记许可系统"
+						},
+						{
+							"integratedUrl": "http://aaicweb03/noteflat.webui/default.aspx",
+							"pid": "AM",
+							"pkSysIntegration": "8b80a6d286b14a5f8a2f344d66666po2",
+							"systemCode": "DXXT",
+							"systemName": "短信系统"
+						},
+						{
+							"integratedUrl": "http://wsjgj/oa/",
+							"pid": "AM",
+							"pkSysIntegration": "8b80a6d286b14a5f8a2f344d64486fg3",
+							"systemCode": "OA",
+							"systemName": "OA系统"
+						},
+						{
+							"integratedUrl": "http://mqs01/portal/jsp/portal/index.jsp",
+							"pid": "RP",
+							"pkSysIntegration": "8b80a6d286b14a5f8a2f344d64412hm1",
+							"systemCode": "SPJY",
+							"systemName": "食品经营许可管理系统"
+						},
+						{
+							"integratedUrl": "http://mqswebw02:9080/query/page/integeration/index.jsp",
+							"pid": "AP",
+							"pkSysIntegration": "f66132c0d5df4935a09bf6f54a994b81",
+							"systemCode": "ZHCX",
+							"systemName": "综合查询"
+						},
+						{
+							"integratedUrl": "http://mqs02/szjxjg/",
+							"pid": "MS",
+							"pkSysIntegration": "8b80a6d286b14a5f8a2f344d64446cf7",
+							"systemCode": "JXJG",
+							"systemName": "市场监管"
+						},
+						{
+							"integratedUrl": "http://mqsweb29:9081/pub/sjw/cylj/",
+							"pid": "AM",
+							"pkSysIntegration": "8b80a6d286b14a5f8a2f344d12341po2",
+							"systemCode": "CYLJ",
+							"systemName": "常用链接"
+						},
+						{
+							"integratedUrl": "http://wsjgj/oa/jsp/dcwork/public/login.jsp",
+							"pid": "AM",
+							"pkSysIntegration": "8b80a6d286b14a5f8a2f344d19988po2",
+							"systemCode": "TXL",
+							"systemName": "通讯录"
+						},
+						{
+							"integratedUrl": "http://aaicweb03/sysImage/index.aspx",
+							"pid": "AM",
+							"pkSysIntegration": "8b80a6d286b14a5f8a2f344d18777po2",
+							"systemCode": "TPK",
+							"systemName": "图片库"
+						},
+						{
+							"integratedUrl": "http://mqsweb29:9081/wcm/app/main.jsp",
+							"pid": "AM",
+							"pkSysIntegration": "23b1d7435d6e41b385da165991e4c8kE",
+							"systemCode": "WCM",
+							"systemName": "新闻投稿"
+						},
+						{
+							"integratedUrl": "http://www.gd.gov.cn/govpub/xxts/",
+							"pid": "AM",
+							"pkSysIntegration": "8b80a6d286b14a5f8a2f344d12344po2",
+							"systemCode": "ZSCD",
+							"systemName": "政声传递"
+						},
+						{
+							"integratedUrl": "http://email/owa/ ",
+							"pid": "AM",
+							"pkSysIntegration": "8b80a6d286b14a5f8a2f344d16554po2",
+							"systemCode": "YJXT",
+							"systemName": "邮件系统"
+						}
+					]
+				}]
+			};
+			var appList = responseData.data[0].data;
+
+			initDual(appList);
+
+			function initTodoList() {
+				var todoConfig = {};
+				var todoPath = "../gwssi/portal?c=todo&m=";
+				todoConfig['caiwu'] = todoPath + "caiwu";
+				//todoConfig['sms'] = todoPath + "sms";
+				todoConfig['case'] = todoPath + "case";//暂时隐藏掉
+				todoConfig['ms'] = todoPath + "ms"; //咨询举报去除
+				todoConfig['GIAP'] = todoPath + "GIAP"; //暂时隐藏掉
+				todoConfig['wcm'] = todoPath + "wcm";
+				todoConfig['HR'] = todoPath + "GetWaitNo&pkid=dabf14ddda2e4bf9b2f639f686350b88";
+				for(var t in todoConfig) {
+					var url = todoConfig[t];
+					$.ajax({
+						url: url,
+						type: 'post',
+						dataType: 'json',
+						success: function(data) {
+							DualTodoNum(data);
+						}
+					});
+				}
+			}
+			//处理代办数量
+			function DualTodoNum(data) {
+                             
+				if(!data) {
+					return;
+				}
+
+				if(data.error) {
+					alert(data.error);
+					return;
+				}
+				var cnt = null;
+				var appId = null;
+				var pId = null;
+				if(typeof(data.length) == "undefined") {
+					cnt = data.count || 0;
+					appId = data.appId || '';
+					pId = data.pId || '';
+				} else {
+					cnt = data[0].myAudit;
+					if(cnt == 0) {
+						$("#caiwuSpan").css("display", "none");
+					} else { 
+                                                $("#caiwuSpan").css("display", "block");
+						$("#caiwuSpan").html(cnt);
+					}
+					
+					appId = '4489AFE4F30B97D5E0539903000A9096';
+					pId = 'AM';
+
+				}
+				
+				if(cnt > 0) {
+                                         // console.log(data)
+					//$("#caiwuSpan").css("display", "block");
+					$("#" + appId + "NO").html(cnt);
+					$("#" + appId + "NO").addClass("sysCount raduisNum");
+					var totalFavNum = 0;
+					if($("#" + appId).length > 0) {
+						$("#" + appId).html(cnt);
+						$("#" + appId).addClass("sysCount raduisNum");
+						$("#MyFav").addClass("raduisNum"); //头部样式
+						var _count = $("div[name='FA']").find(".sysCount");
+						_count.each(function() {
+							var _this = $(this);
+
+							totalFavNum += parseInt(_this.html());
+
+							$("#MyFav").html(totalFavNum);
+						});
+					}
+
+					$("#" + pId + "NO").addClass("raduisNum"); //头部样式
+					var nums = 0;
+					var _count = $("#" + pId + "NO").parent().siblings().find(".sysCount ");
+					_count.each(function() {
+						var _this = $(this);
+						//var num = 0;
+						nums += parseInt(_this.html());
+						$("#" + pId + "NO").html(nums);
+					});
+				}
+
+				if(!(typeof(data.xbwqNum) == "undefined")) {
+					//alert(data.xbwqNum);
+					appId = '8b80a6d286b14a5f8a2f344d64446c56';
+					cnt = data.xbwqNum || 0;
+					//cnt=1;
+					if(cnt > 0) {
+						$("#" + appId + "NO").html(cnt);
+						$("#" + appId + "NO").addClass("sysCount raduisNum");
+
+						var totalFavNum = 0;
+						if($("#" + appId).length > 0) {
+							$("#" + appId).html(cnt);
+							$("#" + appId).addClass("sysCount raduisNum");
+							$("#MyFav").addClass("raduisNum"); //头部样式
+							var _count = $("div[name='FA']").find(".sysCount");
+							_count.each(function() {
+								var _this = $(this);
+
+								totalFavNum += parseInt(_this.html());
+
+								$("#MyFav").html(totalFavNum);
+							});
+						}
+
+						$("#" + pId + "NO").addClass("raduisNum"); //头部样式
+						var nums = 0;
+						var _count = $("#" + pId + "NO").parent().siblings().find(".sysCount ");
+						_count.each(function() {
+							var _this = $(this);
+							// var nums = 0;
+							nums += parseInt(_this.html());
+							$("#" + pId + "NO").html(nums);
+						});
+					}
+				}
+
+			}
+
+			function initAppListFromServer() {
+				var url = "../gwssi/portal?c=home&m=getAppList";
+				$.ajax({
+					url: url,
+					type: 'post',
+					dataType: 'json',
+					success: function(data) {
+						if(!data) {
+							return;
+						}
+						if(data) {
+							if(data.length > 0) {
+								initDual(data);
+								initTodoList();
+							}
+						}
+
+					}
+				});
+			}
+			initAppListFromServer();
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+<script>
+$(window).load(function(){
+	
+	$.ajax({
+	    url: '../gwssi/portal?c=todo&m=wcm',
+	    type: 'get',
+	    dataType:'json',
+	    success:function(data){
+	       //console.log(data.count);
+	        var cnt = data.count;
+	        //console.log(cnt);
+	        if(cnt>0){
+	          $("#xinWenNews").html(cnt);
+	          $("#xinWenNews").css("display","block");
+	        }
+	         
+	    }
+	})
+});
+
+
+</script>
+
+
+<!-- 门户对联广告悬浮特效跟随滚动条滚动  begin -->
+
+<style>
+body{overflow-x:hidden;}
+.fixediv{position:fixed;top:140px;z-index:9999;/*width:160px;*/}
+
+.fixediv p{
+		 line-height:28px;
+		 padding:4px 2px;
+		 text-align:center;
+		 text-decoration:none;
+		 margin-top:1px;
+		 padding-top:16px;
+               /* height:260px;
+               overflow:hidden;*/
+       }
+.welcome{text-indent:18px;}
+.fixediv a.close{display:block;height:30px;line-height:30px;background:#ccc;font-size:14px;padding:0 10px;color:#5e5e5e;text-decoration:none;text-align:center;}
+.fixediv span.close{   
+     cursor: pointer;
+    width: 29px;
+    height: 18px;
+    line-height:18px;
+    text-align:center;color:#5e5e5e;display:inline-block;
+    margin-left:-19px;
+   color:#777;
+}
+
+.leftadv{left:0px;}
+.rightadv{/*right:0px;*/}
+</style>
+
+
+		<style>
+			.fixediv {
+				position: absolute;
+				left: 50%;
+				margin-left: 532px;
+				top: 388px;
+				padding-bottom: 73px;
+				/*background: url(images/top/r_b.png) 0px bottom no-repeat;*/
+				z-index: 999;
+			}
+			
+			.close {
+				cursor: pointer;
+			}
+		</style>
+
+		<!--需要修改的内容如下-->
+<!-- 
+<div class="fixediv leftadv" style='margin-left:527px' >
+         
+	<p >
+		<a href='tzgg/201901/t20190124_15829.htm' target="_blank"><img src='images/left20190124.png' width='71' height='315' /></a>
+	</p>
+       <div style="width:80px;;margin-left: 0px;margin-top: -7px;"><span class="close" title="点击关闭" style="margin-left: 0px;">关闭</span></div>
+</div>
+
+<div class="fixediv rightadv" style='margin-left:-646px'>
+ 
+	<p >
+		<a href='tzgg/201901/t20190124_15829.htm' target="_blank"><img src='images/right20190124.png' width='71' height='315' /></a>
+	</p>
+     <div style="width:80px;margin-left: 52px;margin-top: -8px;"><span class="close" title="点击关闭" style="margin-left: 32px;">关闭</span></div>
+</div>-->
+
+
+
+
+
+		<script type="text/javascript">
+			/*$(document).ready(function() {
+
+				var winHeight = window.screen.height;
+
+				if(winHeight < 1080) {
+
+					//  $(".fixediv ").css("top","25%");;
+
+				}
+
+				$(".close").click(function() {
+					$(".fixediv").fadeOut(400);
+				});
+
+			});*/
+		</script>
+
+
+		<!-- 门户对联广告悬浮特效跟随滚动条滚动  end -->
+
+		
+
+		<script>
+			var countOA = 0; //代办处理数量
+			function addToFav(obj) {
+				var _this = $(obj);
+
+				if(_this.hasClass("plus")) {
+					//alert("已经存在收藏了，不能重复添加");
+
+				} else {
+
+					var domItem1 = "<span class='inline_block icon_submenu' style='background:url(images/44.png) no-repeat 0 4px' onclick='removeFav(this)'></span>";
+					var domItem2 = _this.next();
+					var domItem2Text = domItem2.html();
+					var url = domItem2.attr("onclick");
+
+					url = url.substring(13, url.length - 3);
+
+					var app = "<a href='" + url + "' target='_blank'>" + domItem2Text + "</a>";
+
+					//截取出应衣物的ID
+					var domItem3 = _this.nextAll("span");
+					var domId = domItem3.attr("id");
+					var appId = domId.substring(0, domId.lastIndexOf("NO"))
+					var oaNum = domItem3.html(); //得到代办数量
+
+					var appNum = "";
+					if(oaNum > 0) {
+						appNum = "<span id='" + appId + "' class='sysCount raduisNum' style='top: -4px;left:94px'>" + oaNum + "</span>";
+						countOA += parseInt(oaNum);
+					} else {
+						appNum = "<span id='" + appId + "' class='' style='top: -4px;left:168px'>" + oaNum + "</span>";
+
+					}
+					if(countOA > 0) {
+						$("#MyFav").html(countOA);
+						$("#MyFav").addClass("raduisNum");
+					}
+
+					var temp = "<div class='inline_block submenu_content'>" + domItem1 + app + appNum + "</div>";
+
+					$.ajax({
+						url: "../../gwssi/portal?c=home&m=dualFar&dual=add&pid=" + appId,
+						dataType: 'json',
+						success: function(data) {
+							if(data.code == "-1") {
+
+							} else {
+								_this.css("background", 'url(images/45.png) 0px 4px no-repeat');
+								_this.addClass("plus");
+								$("div[name='FA']").append(temp);
+							}
+							alert(data.message);
+						}
+
+					});
+
+				}
+			}
+
+			function removeFav(obj) {
+				var _this = $(obj);
+				var appId = _this.nextAll("span").attr("id");
+
+				$.ajax({
+					url: "../../gwssi/portal?c=home&m=dualFar&dual=delete&pid=" + appId,
+					dataType: 'json',
+					success: function(data) {
+						_this.parent().remove();
+						alert(data.message);
+						$("#" + appId + "NO").prevAll("span").css("background", 'url(images/39.png) 0px 4px no-repeat');
+						$("#" + appId + "NO").prevAll("span").removeClass("plus");
+					}
+				});
+
+			}
+		</script>
+
+
+
+<script>
+
+$(window).load(function(){
+
+$.ajax({
+    url: '../gwssi/portal?c=queryPma&m=Pma',
+    type: 'get',
+    dataType:'json',
+    success:function(data){
+     var appId = data.appId;
+     toPGM(data);
+   
+    }
+   
+});
+
+})
+
+function toPGM(data){
+      var cnt = data.count;
+      if(cnt>0){
+
+         $("#8b80a6d286b14a5f8a2f344d64486fg8NO").html(cnt);
+       $("#8b80a6d286b14a5f8a2f344d64486fg8NO").addClass("sysCount raduisNum");
+
+           var counts = 0;
+           $("#8b80a6d286b14a5f8a2f344d64486fg8NO").parents(".submenu").find(".sysCount").each(function(){
+               var _thisTxt = $(this).html();
+               var num = parseInt(_thisTxt );
+               counts +=num ;
+           });
+
+           $("#8b80a6d286b14a5f8a2f344d64486fg8NO").parents(".submenu").prev().find("#AMNO").html(counts );
+      }
+     
+}
+
+
+
+
+
+
+</script>
+
+
+
+<script type="text/javascript">
+/*
+(function($){
+	$.fn.floatAd = function(options){
+		var defaults = {
+			imgSrc : "images/cc.png", //漂浮图片路径
+			url : "http://www.szgjonline.cn/", //图片点击跳转页
+			openStyle : 1, //跳转页打开方式 1为新页面打开  0为当前页打开
+			speed : 10 //漂浮速度 单位毫秒
+		};
+		var options = $.extend(defaults,options);
+		var _target = options.openStyle == 1 ?  "target='_blank'" : '' ;
+		var html = "<div id='float_ad' style='position:absolute;left:0px;top:0px;z-index:1000000;cleat:both;'>";
+           // html += "  <a href='"+options.url +"' " + _target + "><img src='" + options.imgSrc + "' border='0' class='float_ad_img' width='200' /></a> <a href='javascript:;' id='close_float_ad' style='' title='点击关闭'>x</a>";
+           html += "  <a href='javascript:;'><img src='" + options.imgSrc + "' border='0' class='float_ad_img' width='200' /></a> <a href='javascript:;' id='close_float_ad' style='' title='点击关闭'>x</a>";
+            html += "</div>";
+
+        $('body').append(html);
+			
+			
+		function init(){
+			var x = 0,y = 0
+			var xin = true, yin = true
+			var step = 1
+			var delay = 10
+			var obj=$("#float_ad")
+			obj.find('img.float_ad_img').load(function(){
+				var float = function(){
+				    var L = T = 0;
+					var OW = obj.width();//当前广告的宽
+					var OH = obj.height();//高
+					var DW = $(document).width(); //浏览器窗口的宽
+					var DH = $(document).height();
+
+ 				    x = x + step *( xin ? 1 : -1 );
+					if (x < L) {
+						xin = true; x = L
+					}
+					if (x > DW-OW-1){//-1为了ie
+						xin = false; x = DW-OW-1
+					}
+					
+					y = y + step * ( yin ? 1 : -1 );
+					if (y > DH-OH-1) {
+					
+						yin = false; y = DH-OH-1 ;
+					}
+					if (y < T) {
+						yin = true; y = T
+					}
+					
+					var left = x ;
+					var top = y;
+					
+					obj.css({'top':top,'left':left});
+				}
+				var itl = setInterval(float,options.speed);
+				$('#float_ad').mouseover(function(){clearInterval(itl)});
+				$('#float_ad').mouseout(function(){itl=setInterval(float, options.speed)} )
+			});
+			// 点击关闭
+			$('#close_float_ad').live('click',function(){
+			    $('#float_ad').hide();
+			});
+		}
+
+	   init();
+	
+	}; //floatAd
+	
+
+})(jQuery);
+
+*/
+
+
+
+(function($){
+	$.fn.floatAd = function(options){
+		var defaults = {
+			imgSrc : "images/20181206.png", //漂浮图片路径
+			url : "", //图片点击跳转页
+			openStyle : 1, //跳转页打开方式 1为新页面打开  0为当前页打开
+			speed : 14//漂浮速度 单位毫秒
+		};
+		var options = $.extend(defaults,options);
+		var _target = options.openStyle == 1 ?  "target='_blank'" : '' ;
+		var html = "<div id='float_ad2' style='position:absolute;left:0px;top:0px;z-index:1000000;cleat:both;'>";
+        
+             // html += "  <a href='"+options.url +"' " + _target + "><img src='" + options.imgSrc + "' border='0' class='float_ad_img2' width='295' /></a> <a href='javascript:;' id='close_float_ad2' style='' title='点击关闭'>x</a>";
+
+            //  html += "  <a href='javascript:;'><img src='" + options.imgSrc + "' border='0' class='float_ad_img2' width='352' /></a> <a href='javascript:;' id='close_float_ad2' style='' title='点击关闭'>x</a>";
+
+              html += "  <a href='"+options.url +"' " + _target + "><img src='" + options.imgSrc + "' border='0' class='float_ad_img2' width='288' height='87' /></a> <a href='javascript:;' id='close_float_ad2' style='' title='点击关闭'>x</a>";
+
+            html += "</div>";
+
+        $('body').append(html);
+			
+			
+		function init(){
+			var x = 0;y = 0;
+			var xin = true, yin = true;
+			var step = 1;
+			var delay = 10;
+			var obj=$("#float_ad2");
+			
+			x =  DW - OW -1;
+			y = DH - OH -1;
+			obj.find('img.float_ad_img2').load(function(){
+				var float = function(){
+				    var L = T = 0;
+					var OW = obj.width();//当前广告的宽
+					var OH = obj.height();//高
+					var DW = $(document).width(); //浏览器窗口的宽
+					var DH = $(document).height();
+
+ 				    x = x + step *( xin ? 1 : -1 );
+					if (x < L) {
+						xin = true; 
+						x = L
+					}
+					if (x > DW-OW-1){//-1为了ie
+						xin = false;
+						x = DW-OW-1
+					}
+					
+					 y = y + step * ( yin ? 1 : -1 );
+					if (y > DH-OH-1) {
+					
+						yin = false; 
+						y = DH-OH-1 ;
+					}
+					if (y < T) {
+						yin = true; 
+						y = T
+					}  
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					var left = x ;
+					var top = y;
+					
+					obj.css({'top':top,'left':left});
+				}
+				var itl = setInterval(float,options.speed);
+				$('#float_ad2').mouseover(function(){clearInterval(itl)});
+				$('#float_ad2').mouseout(function(){itl=setInterval(float, options.speed)} )
+			});
+			// 点击关闭
+			$('#close_float_ad2').live('click',function(){
+			    $('#float_ad2').hide();
+			});
+		}
+
+	   init();
+	
+	}; //floatAd
+	
+
+})(jQuery);
+
+
+
+<!-- 门户全屏漂浮广告特效  begin -->
+$(function(){
+	//调用漂浮插件
+	 $("body").floatAd({
+		imgSrc : 'images/20190828.png',
+		url :'tzgg/201908/t20190828_21552.htm'
+	}); 
+})
+</script>	
+<!-- 门户全屏漂浮广告特效   end -->
+
+
+
+
+
+
+
+
+<!---监管委教育培训平台接口系统代办-->
+<script>
+/*$(function(){
+loadingEduOA();
+
+})*/
+   
+
+
+
+</script>
+
+
+
+<script>
+$(window).load(function(){
+
+$.ajax({
+    url: '../gwssi/portal?c=todo&m=cbmsys',
+    type: 'get',
+    dataType:'json',
+    success:function(data){
+         var counts= data.count;
+         if(counts>0){
+           $("#heTonSys").html(counts);
+           $("#heTonSys").css("display","block");
+         }
+    },
+   error:function(){
+   // console.log("系统发生异常");
+   }
+   
+});
+
+})
+
+
+
+
+//显示在tab 切换的系统选择项卡里面的
+$(window).load(function(){
+
+$.ajax({
+    url: '../gwssi/portal?c=todo&m=cbmsys',
+    type: 'get',
+    dataType:'json',
+    success:function(data){
+     toCBMS(data);
+         
+    }
+   
+});
+
+})
+
+function toCBMS(data){
+      var cnt = data.count;
+      if(cnt>0){
+         
+         $("#8b80a6d286b14a5f8a3f344d64486fg3NO").html(cnt);
+         $("#8b80a6d286b14a5f8a3f344d64486fg3NO").addClass("sysCount raduisNum");
+         $("#heTonSys").css("display","block");
+         $("#heTonSys").html(cnt );
+           var counts = 0;
+           $("#8b80a6d286b14a5f8a3f344d64486fg3NO").parents(".submenu").find(".sysCount").each(function(){
+               var _thisTxt = $(this).html();
+               var num = parseInt(_thisTxt );
+               counts +=num ;
+           });
+
+           $("#8b80a6d286b14a5f8a3f344d64486fg3NO").parents(".submenu").prev().find("#AMNO").html(counts );
+           $("#8b80a6d286b14a5f8a3f344d64486fg3NO").parents(".submenu").prev().find("#AMNO").addClass("sysCount raduisNum");
+
+      }
+     
+}
+
+//短信系统
+$(window).load(function(){
+
+$.ajax({
+    url: '../gwssi/portal?c=todo&m=sms',
+    type: 'get',
+    dataType:'json',
+    success:function(data){
+       // console.log(data.count);
+        var cnt = data.count;
+        if(cnt>0){
+          $("#sysMsg").html(cnt);
+          $("#sysMsg").css("display","block");
+        }
+         
+    }
+   
+});
+
+})
+
+$(window).load(function(){
+
+
+loadingExchangeOA();
+
+
+
+
+});
+function loadingExchangeOA(){
+$.ajax({
+    url: '../gwssi/portal?c=todo&m=exchangeCount',
+    type: 'get',
+    dataType:'json',
+    success:function(data){
+       // console.log(data.count);
+        var cnt = data;
+       
+        if(cnt>0){
+          $("#youJianSpan").html(cnt);
+          $("#youJianSpan").css("display","block");
+        }
+         
+    }
+   
+});
+}
+
+</script>
+
+
+<style>
+
+.floadAd {
+     position: absolute;
+    z-index: 999900;
+    right: 147px;
+    top: 478px;
+    left: 50%;
+    margin-left: 437px;
+    width:51px;
+   overflow: hidden;
+}
+
+       /* .floadAd { position: fixed;z-index: 999900 ;right: 147px;top: 81px;}*/
+        .floadAd .item { display: block; }
+        .floadAd .item img { vertical-align: bottom; }/* a img 的组合浏览器默认下边会有几个像素的空白，这里可以消除空白*/
+          
+         @media  screen and (max-width: 1366px)  {
+				.floadAd{
+					right: -150px;
+					
+				}
+			}
+</style>
+
+<div id="floadAD" class="floadAd">  
+    <!--<a class="close" href="javascript:void();" style="color:#000">×关闭</a>  -->
+    <a class="item" title='重要提醒' href="tzgg/201811/t20181109_15824.htm" target="_blank">  
+        <img src="images/impr.png" alt="重要提醒" width="45" /></a>  
+</div>  
+
+
+
+
+
+
+
+
+<script>
+
+/*
+$.ajax({
+						url: 'http://mqs/gwssi/portal?c=todo&m=GetWaitNo&pkid=dabf14ddda2e4bf9b2f639f686350b88',
+						type: 'post',
+						dataType: 'json',
+						success: function(data) {
+							var count = data.count;
+                                                        if(count!=0){
+                                                           $("#dabf14ddda2e4bf9b2f639f686350b88NO").html(count );
+                                                           $("#dabf14ddda2e4bf9b2f639f686350b88NO").addClass("sysCount raduisNum");
+                                                           $("#AMNO").html(count );;
+                                                           $("#AMNO").addClass("raduisNum");
+                                                           $("#AMNO").css({left:"76px"});
+                                                       
+                                                      }
+						}
+					});
+
+
+*/
+
+
+
+</script>
+
+
+
+<style>
+
+
+.floadAd2 {
+           position: absolute;
+    z-index: 999900;
+    right: 147px;
+    top: 83px;
+    left: 50%;
+    margin-left:523px;
+}
+       
+        .floadAd2 .item { display: block; }
+        .floadAd2 .item img { vertical-align: bottom; }/* a img 的组合浏览器默认下边会有几个像素的空白，这里可以消除空白*/
+
+@media  screen and (max-width: 1366px)  {
+				.floadAd2{
+					right: 0px;
+					
+				}
+			}
+</style>
+
+
+<script>
+$(window).load(function(){
+  $("#8b80a6d286b14a5f8a2f344d64266fg3NO").css({"left":"278px"});
+})
+
+
+
+
+
+
+$(window).load(function(){
+
+       var uid =$("#loginName").attr("uid");
+
+         getDianZiShangWu(uid);
+         loadPinAnXiangMuMange(uid );
+
+
+       setInterval(function(){
+          getDianZiShangWu(uid);
+          loadPinAnXiangMuMange(uid );
+       },1000*50);
+ 
+
+})
+
+
+function loadPinAnXiangMuMange(uid){
+
+$.ajax({
+    url:"http://10.0.4.200:8888/xmglxt/project/personalTaskCount",
+    type: 'post',
+    dataType:'json',
+    timeout : 6000, //超时时间设置，单位毫秒
+    data:{
+      userName:uid
+    },
+    success:function(data){
+         var counts= data.data;
+      
+         if(counts!=0){
+             $("#626309f8e7234ab0a4edb830ccda440bNO").html(counts);
+             $("#626309f8e7234ab0a4edb830ccda440bNO").addClass("sysCount raduisNum");
+             $("#APNO").html(counts);
+             $("#APNO").addClass("raduisNum");
+       }
+    },
+   error:function(){
+         // console.log("系统发生异常");
+   }
+   
+});
+
+}
+
+
+
+function getDianZiShangWu(userid){
+
+/*
+
+$.ajax({
+    url: 'http://10.0.4.14:8080/gsadmin/service/GsWeb!todoCount.action?userId='+userid,
+    type: 'get',
+    dataType:'json',
+　  timeout : 600000, //超时时间设置，单位毫秒
+    success:function(data){
+       // console.log(data.count);
+        var cnt = data.count;
+        if(cnt>0){
+          $("#8b80a6d286b14a5f8a2f344d64446cc7NO").html(cnt);
+          $("#8b80a6d286b14a5f8a2f344d64446cc7NO").css("display","block");
+           $("#8b80a6d286b14a5f8a2f344d64446cc7NO").addClass("sysCount raduisNum");
+           $("#MSNO").addClass("sysCount raduisNum");
+           $("#MSNO").html(cnt);
+
+        }
+         
+    },
+    error:function(data){
+         // console.log("系统发生异常");
+   }
+   
+});
+*/
+
+var url = "http://10.0.4.14:8080/gsadmin/service/GsWeb!todoCount.action?userId="+userid;
+$.getJSON(url).done(function(data) {
+ var cnt = data.count;
+        if(cnt>0){
+          $("#8b80a6d286b14a5f8a2f344d64446cc7NO").html(cnt);
+          $("#8b80a6d286b14a5f8a2f344d64446cc7NO").css("display","block");
+           $("#8b80a6d286b14a5f8a2f344d64446cc7NO").addClass("sysCount raduisNum");
+           $("#MSNO").addClass("sysCount raduisNum");
+           $("#MSNO").html(cnt);
+
+        }
+});
+
+
+
+}
+
+
+</script>
+
+
+
+
+<!--加入统计代码-->
+<script language="JavaScript">var _trackDataType = 'web';var _trackData = _trackData || [];</script>
+<script type="text/javascript" charset="utf-8" id="kpyfx_js_id_10001435" src="//fxsjcj.kaipuyun.cn/count/10001435/10001435.js"></script>
+<!-- 统计代码 start -->
+
+</body>
+</html>

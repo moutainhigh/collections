@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+<script>
+	$(function(){
+		$('div[name="combox_name"]').on("comboxfieldchange",function(event, ui){ 
+			jazz.log(ui.newValue+"---"+ui.newText);
+		});
+	});
+    /**
+     * 设置表单元素状态为禁用
+     */
+    var i=0;
+	function modify(){
+		if(i%2==0){
+			$('div[name="name_1"]').textfield('option', 'disabled', true);
+			$('div[name="name_2"]').textfield('option', 'editable', false);
+			$('div[name="name_3"]').textfield('option', 'readonly', true);			
+		}else{
+			$('div[name="name_1"]').textfield('option', 'disabled', false);
+			$('div[name="name_2"]').textfield('option', 'editable', true);
+			$('div[name="name_3"]').textfield('option', 'readonly', false);			
+		}
+		i++;
+	}
+    
+    $(function(){
+    	//调整父页面iframe高度
+        try{
+            parent.setWinHeight(300);           
+        }catch(e){
+            jazz.log(e);
+        }
+    });
+	
+</script>
+</head>
+<body>
+   	<div id="formpanel" name="formpanel" vtype="formpanel" titledisplay="true" width="650" layout="table" title="人员信息">
+		<div name='name_1' vtype="textfield" label="是否可用" labelalign="right" width="300" defaultvalue="张三"></div>
+		<div name='name_2' vtype="textfield" label="是否可编辑" labelalign="right" width="300" defaultvalue="28"></div>
+		<div name='name_3' vtype="textfield" label="是否只读" labelalign="right" width="300" defaultvalue="北京"></div>
+		
+   	   	<div id="toolbar" name="toolbar" vtype="toolbar" >
+   	   	    <div id="btn4" name="btn4" vtype="button" align="center" text="修改属性" height="32" width="100" click="modify()"></div>
+	    </div>
+   </div>
+</body>
+
+</html>

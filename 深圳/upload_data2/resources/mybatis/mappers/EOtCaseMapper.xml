@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.EOtCaseMapper">
+
+	<!-- 其他部门公示_行政处罚信息 -->
+	<insert id="insertEOtCase">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from E_OT_CASE where caseid = #{caseid}
+		</selectKey>
+		<if test="count > 0">
+			update E_OT_CASE   
+			<trim prefix="set" suffixOverrides=",">
+				<if test="pripid != null ">pripid =  #{pripid, 		jdbcType=VARCHAR}, </if>
+				<if test="regno != null ">regno =  #{regno, 		jdbcType=VARCHAR}, </if>
+				<if test="uniscid != null ">uniscid =  #{uniscid, 		jdbcType=VARCHAR}, </if>
+				<if test="entname != null ">entname =  #{entname, 		jdbcType=VARCHAR}, </if>
+				<if test="pendecno != null ">pendecno =  #{pendecno, 	jdbcType=VARCHAR}, </if>
+				<if test="illegacttype != null ">illegacttype =  #{illegacttype, jdbcType=VARCHAR}, </if>
+				<if test="pentype != null ">pentype =  #{pentype, 		jdbcType=VARCHAR}, </if>
+				<if test="pentypeCn != null ">pentype_cn =  #{pentypeCn, 	jdbcType=VARCHAR}, </if>
+				<if test="penam != null ">penam =  to_number(#{penam,	jdbcType=NUMERIC}),</if>
+				<if test="forfam != null ">forfam =  to_number(#{forfam,	jdbcType=NUMERIC}),</if>
+				<if test="pencontent != null ">pencontent =  #{pencontent, 	jdbcType=VARCHAR}, </if>
+				<if test="judauth != null ">judauth =  #{judauth, 		jdbcType=VARCHAR}, </if>
+				<if test="pendecissdate != null ">pendecissdate =  to_date(#{pendecissdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="remark != null ">remark =  #{remark, 		jdbcType=VARCHAR}, </if>
+				<if test="publicdate != null ">publicdate =  to_date(#{publicdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="datadept != null	">datadept = 	#{datadept,		jdbcType=VARCHAR}, </if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where caseid = #{caseid} 
+		</if>
+		<if test="count == 0">
+			insert into E_OT_CASE
+			(
+				caseid, 
+				pripid, 
+				regno, 
+				uniscid, 
+				entname, 
+				pendecno, 
+				illegacttype, 
+				pentype, 
+				pentype_cn, 
+				penam, 
+				forfam, 
+				pencontent, 
+				judauth, 
+				pendecissdate, 
+				remark, 
+				publicdate, 
+				datadept,	
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{caseid,		jdbcType=VARCHAR}, 
+				#{pripid, 		jdbcType=VARCHAR}, 
+				#{regno, 		jdbcType=VARCHAR}, 
+				#{uniscid, 		jdbcType=VARCHAR}, 
+				#{entname, 		jdbcType=VARCHAR}, 
+				#{pendecno, 	jdbcType=VARCHAR}, 
+				#{illegacttype, jdbcType=VARCHAR}, 
+				#{pentype, 		jdbcType=VARCHAR}, 
+				#{pentypeCn, 	jdbcType=VARCHAR}, 
+				to_number(#{penam,	jdbcType=NUMERIC}),
+				to_number(#{forfam,	jdbcType=NUMERIC}),
+				#{pencontent, 	jdbcType=VARCHAR}, 
+				#{judauth, 		jdbcType=VARCHAR}, 
+				to_date(#{pendecissdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{remark, 		jdbcType=VARCHAR}, 
+				to_date(#{publicdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{datadept,		jdbcType=VARCHAR}, 
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

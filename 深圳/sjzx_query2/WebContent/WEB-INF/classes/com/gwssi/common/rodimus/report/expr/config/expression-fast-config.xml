@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<expression-config>
+
+    <property k="config.name">fast</property>
+    
+    <property k="engine">com.gwssi.expression.component.engine.Engine</property>
+    
+    <property k="engine.traceliteralinterpreter" 
+        v="com.gwssi.expression.component.interpreter.TraceLiteralInterpreter" />
+
+    <include file="classpath:com/gwssi/expression/config/operator-config.xml" />
+    <include file="classpath:com/gwssi/expression/config/fastfunction-config.xml" />
+    
+    <functions>
+        <!-- () -->
+        <function name="parenthesis" class="com.gwssi.expression.component.function.operator.Parenthesis">
+        </function>
+    </functions>
+    
+</expression-config>
+

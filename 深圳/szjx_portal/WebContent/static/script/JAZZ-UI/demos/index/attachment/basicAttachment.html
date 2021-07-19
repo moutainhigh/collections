@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jazz-ui.js" type="text/javascript"></script> 
+</head>
+<script>
+function _enter(e, data){
+	//鼠标移入所累发图时的事件
+	jazz.log("enter");
+} 
+function _leave(e, data){
+	//鼠标移出缩略图时的事件
+	jazz.log("leave");
+} 
+function _close(e, data){
+	//鼠标点击关闭按钮图片时的事件
+	jazz.log("close");
+}
+function _click(e, data){
+	//鼠标上传缩略图时的事件	
+	jazz.log("click");
+}	
+
+jazz.config.default_flash_url="../../../lib/swfupload/swfupload.swf";
+jazz.config.default_flash9_url="../../../lib/swfupload/swfupload_fp9.swf";
+
+function _setValue(){
+	var jsonData = [{name:'回显附件1111', id: '4923cd88b2ed4f0c9ad80264e24fc712', size: '919k'},
+	             {name:'回显附件2222', id: 'bf5b9c1bb9624577af5556238d12e9fa', size: '193k'}]
+	$('#attach1').attachment('setValue', jsonData);
+}
+
+</script> 
+<body id="view"> 
+
+<input id="btn_id" type="button" value='附件数据回显' onclick="_setValue()" />
+
+<!--  name vtype 必填 -->
+<!-- 附件上传的其他属性，可以参考form表单中的其他字段 -->
+<div id="attach1" name="attach1" vtype="attachment" label="附件" title="上传附件" width="500" 
+     description="说明： 如果用网上下载的标准模板，请上传签字盖章页；如果不是网上下载的文件，请上传全部章程文件。 "
+     ishidelist="0" theme="1" uploadsuccess="_uploadsuccess()"
+     uploadurl="http://localhost:8080/optimus/attach/upload.do"
+     previewurl="http://localhost:8080/optimus/attach/preview.do"
+     enter="_enter()" leave="_leave()" close="_close()" click="_click()"></div>	
+	
+</body>
+</html>
+<SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

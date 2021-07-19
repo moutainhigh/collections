@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="../../../../external/jquery-ui/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../../themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+<script src="../../../../external/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="../../../../external/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+<script src="../../../../jazz/jazz-all.js" type="text/javascript"></script>
+<style type="text/css">
+	
+</style>
+<script>
+
+$(function(){
+     
+	$('#btn').button({
+    	text: 'Save',
+    	iconurl: 'images/print.png',
+    	iconalign: 'left',
+    	arrowalign: 'bottom',
+    	disabled: false,
+    	issplitbutton:false,
+    	showmenuevent:'click',
+        click: function() {  
+            alert("button click event...")  
+        },
+        items: [{
+            	vtype:"menu",
+            	width:200,  
+            	target: null,
+                items:[{
+						text:"Ada",
+						vtype:"button",
+						iconurl:"",
+						html:"<div>xxxxxxxx</div>",
+						click:function(e){
+							alert(123);
+						}
+					},{
+						text:"Adamsville",
+						iconurl:"",
+						html:"<div>yyyyyyyyy</div>",
+						click:function(e){
+							alert("aid click....");
+						}
+					},{
+						text:"Delphi",
+						iconurl:"",
+						html:"<div>zzzzzzzzzz</div>",
+						click:function(e){
+							
+						},
+						items:[{
+								text:"Delphi aaaaaaaa",
+								iconurl:"",
+								click:function(e){
+						
+								}
+							},{
+								text:"Delphi bbbbbbbbb",
+								iconurl:"",
+								click:function(e){
+						
+								},
+								items:[{
+										text:"Saarland",
+										iconurl:"",
+										click:function(e){
+								
+										}
+									},{
+										text:"Salzburg aaaaa",
+										iconurl:"",
+										click:function(e){
+								
+										}
+									},{
+										text:"Salzburg dddddd",
+										iconurl:"",
+										click:function(e){
+								
+										}
+									},{
+										text:"Salzburg bbbbbbb",
+										iconurl:"",
+										click:function(e){
+											alert("bbbbb click.....");
+										}
+									}
+								]
+							},{
+								text:"Delphi ccccccccc",
+								iconurl:"",
+								click:function(e){
+						
+								}
+							},{
+								text:"Delphi dddddddddd",
+								iconurl:"",
+								click:function(e){
+						
+								}
+							}
+						]
+					},{
+						text:"Amesville",
+						iconurl:"",
+						click:function(e){
+						
+						}
+					}
+				]
+            } 
+        ]  
+    }); 
+
+	});
+	function info(){
+		alert("click event is running.....");
+	}
+	function leftinfo(){
+		//$("#default").button("option","disabled",false);
+		$("#default").button("disable");
+	}
+	function rightinfo(){
+		//$("#default").button("option","disabled",true);
+		//$("#default").button("enable");
+		$("#left").button("highlight");
+	}
+	function disinfo(){
+		$("#default").button("disable");
+		//$("#default").button("option","disabled",true);
+		//$("#default").button("enable");
+		//$("#left").button("unhighlight");
+	}
+	
+	var opt = [{  
+	    	vtype:"menu",
+	    	width:200,  
+	    	target: null,
+	        items:[{
+					text:"Ada",
+					vtype:"button",
+					iconurl:"",
+					html:"<div>xxxxxxxx</div>",
+					click:function(e){
+						alert(123);
+					}
+				},{
+					text:"Adamsville",
+					iconurl:"",
+					html:"<div>yyyyyyyyy</div>",
+					click:function(e){
+						alert("aid click....");
+					}
+				},{
+					text:"Delphi",
+					iconurl:"",
+					html:"<div>zzzzzzzzzz</div>",
+					click:function(e){
+						
+					},
+					items:[{
+							text:"Delphi aaaaaaaa",
+							iconurl:"",
+							click:function(e){
+					
+							}
+						},{
+							text:"Delphi bbbbbbbbb",
+							iconurl:"",
+							click:function(e){
+					
+							},
+							items:[{
+									text:"Saarland",
+									iconurl:"",
+									click:function(e){
+							
+									}
+								},{
+									text:"Salzburg aaaaa",
+									iconurl:"",
+									click:function(e){
+							
+									}
+								},{
+									text:"Salzburg dddddd",
+									iconurl:"",
+									click:function(e){
+							
+									}
+								},{
+									text:"Salzburg bbbbbbb",
+									iconurl:"",
+									click:function(e){
+										alert("bbbbb click.....");
+									}
+								}
+							]
+						},{
+							text:"Delphi ccccccccc",
+							iconurl:"",
+							click:function(e){
+					
+							}
+						},{
+							text:"Delphi dddddddddd",
+							iconurl:"",
+							click:function(e){
+					
+							}
+						}
+					]
+				},{
+					text:"Amesville",
+					iconurl:"",
+					click:function(e){
+					
+					}
+				}
+			]
+	    } 
+	];
+	
+	function getImgsrc(){
+		//var s = $("#img1");//.attr("src");
+		//alert(s[0].src);
+		//var loc = window.location;
+		
+		var div = $("#div1").css("background-image");
+		
+		console.log(div);
+	}
+	function iconclick(){
+		alert("test mousedown before click .....");
+	}
+	function hiddenbutton(){
+		$("#btn51").button("hide");
+		$("#btn52").button("hide");
+	}
+	function showbutton(){
+		$("#btn51").button("show");
+		$("#btn52").button("show");
+	}
+</script>
+<style type="text/css">
+	h3{
+		border-bottom: 2px solid #000;
+		margin: 20px 0;
+	}
+</style>
+</head>
+
+<body>
+<h3>普通按钮组件</h3>
+
+<div id="default"  vtype="button" group="g1" defaultview="2" width=80 checktype="check" name="default" text="default" click="info()"  iconalign="left" iconurl="images/print.png" ></div>
+  
+<div id="left" vtype="button" group="g1" defaultview="2" width=80 checktype="check" name="leftIcon" arrowalign="top" text="leftIcon"  iconalign="left" ></div>
+ 
+<div id="right" vtype="button" group="g2" defaultview="1" width=80 checktype="radio" name="rightIcon" text="rightIcon" iconalign="right" iconurl="images/print.png" ></div>
+  
+<div id="icononly" vtype="button" group="g2" checktype="check" width=80 name="icononly" text="icononly" iconalign="left" iconurl="images/print.png" ></div>
+  
+<div id="disabled" vtype="button" name="disabled" text="disabled" width=80 iconalign="left" iconurl="images/print.png" click="disinfo()" disabled=true></div>
+
+<h3>下拉菜单按钮组件</h3>
+
+<div name="menubtn1" text="menuButton" vtype="button" items="opt" 
+  width="100"  issplitbutton=true arrowalign="right" showmenuevent="click" 
+  iconurl="images/print.png" toggleiconurl="images/save.png" ></div>
+<div name="menubtn2" text="menuButton" vtype="button" items="opt" 
+  width="100" showmenuevent="hover"  iconurl="images/print.png" ></div>
+<div name="menubtn3" text="menuButton" vtype="button" items="opt" 
+  width="100"  showmenuevent="click"  iconurl="images/print.png" ></div>
+
+<h3>按钮分组</h3>
+
+<span>复选checktype=check<span>
+<div vtype="button" name="btn1" text="group1-btn1" group="g1" defaultview="2" width=100 checktype="check"  iconurl="images/print.png" ></div>
+<div vtype="button" name="btn2" text="group1-btn2" group="g1" defaultview="2" width=100 checktype="check"  iconurl="images/print.png" ></div>
+<div vtype="button" name="btn3" text="group1-btn3" group="g1" defaultview="2" width=100 checktype="check"  iconurl="images/print.png" ></div>
+<span>单选checktype=radio<span> 
+<div vtype="button" name="btn4" text="group1-btn4" group="g1" defaultview="2" width=100 checktype="radio"  iconurl="images/print.png" ></div>
+<div vtype="button" name="btn5" text="group1-btn5" group="g1" defaultview="2" width=100 checktype="radio"  iconurl="images/print.png" ></div>
+<div vtype="button" name="btn6" text="group1-btn6" group="g1" defaultview="2" width=100 checktype="radio"  iconurl="images/print.png" ></div>
+
+
+<br>
+<br>
+
+</body>
+</html>

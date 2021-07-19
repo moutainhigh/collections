@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.entSelect.dao.EntLogDao">
+
+
+
+
+	<insert id="save">
+		insert into ent_item_info_log
+		(
+		id,
+		pripid,
+		maintbid,
+		regino,
+		altDate,
+		msg,
+		itemcode,
+		logDetail
+		)
+		values
+		(
+		#{id,jdbcType=VARCHAR},
+		#{pripid, jdbcType=VARCHAR},
+		#{maintbid,jdbcType=VARCHAR},
+		#{regino, jdbcType=VARCHAR},
+		to_date(#{date,jdbcType=VARCHAR},'yyyy-mm-dd'),
+		#{msg, jdbcType=VARCHAR},
+		#{itemcode, jdbcType=VARCHAR},
+		#{logDetail, jdbcType=VARCHAR}
+		)
+	</insert>
+
+
+
+</mapper>

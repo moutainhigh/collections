@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 
+	例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ye.dc.dao.RoleDao">
+
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int"		order="BEFORE">
+			select count(1) from jc_user_role t where t.user_id=#{userid} and t.role_code ='ZHCX_ALL'
+		</selectKey>
+		<if test="count > 0">
+			update jc_user_role t
+			<trim prefix="set" suffixOverrides=",">
+				timestamp = sysdate,
+			</trim>
+			where t.user_id = #{userid}
+		</if>
+		<if test="count == 0">
+			insert into jc_user_role (
+				id,
+				user_id,
+				role_code,
+				app_code,
+				data_source,
+				timestamp
+				)values(
+				sys_guid(),
+				#{userid},
+				'ZHCX_ALL',
+				'ZHCX',
+				'4',
+			sysdate
+			)
+		</if>
+	</insert>
+
+
+</mapper>

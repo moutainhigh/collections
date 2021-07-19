@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.dao.Data02Dao">
+
+	<!-- <select id="getEntInfoByNameAndCerno" resultType="Data01">
+		select * from V_DJ_ENT_INFO2  t where 1 = 1
+		<if test="name != null and name!='' ">
+			and t.PERSNAME like '${name}%'
+		</if>
+		<if test="cerno != null and cerno !='' ">and t.cerno = #{cerno, jdbcType=VARCHAR}
+		</if>
+	</select> -->
+	
+	
+	
+	<select id="getEntInfoByNameAndCerno" resultType="Data02">
+		SELECT S.ENTNAME,
+		       S.REGCAP, 
+		       S.DOM, 
+		       S.UNIFSOCICREDIDEN, 
+		       S.REGORG, 
+		       S.APPRDATE, 
+		       S.UNIFSOCICREDIDEN AS NSRH,
+		       S.REGNO, 
+		       '' AS GPH, 
+		       TO_CHAR(S.ESTDATE, 'YYYY-MM-DD') AS ESTDATE,
+		       TO_CHAR(S.OPFROM, 'YYYY-MM-DD') AS OPFROM,
+		       TO_CHAR(S.OPTO, 'YYYY-MM-DD') AS OPTO, 
+		       '' QYJC, 
+		       '' AS QYYWM, 
+		       '' AS ZYM, 
+		       NVL(P.PERSNAME, S.LEREP) AS LEREP, 
+		       P.CERNO, 
+		       D.OLD_CODE_NAME AS ENTTYPE,
+		       '' AS CBRS,
+		       B.CODE_NAME AS INDUSTRYPHY, 
+		       S.OPSCOPE, 
+		       P.OLD_CODE_NAME AS POST 
+		  FROM DC_RA_MER_BASE S,
+		       (SELECT T.LICFLAG, T.MAIN_TB_ID, t.PERSNAME, T.CERNO,C.OLD_CODE_NAME
+		          FROM (SELECT P.ID,P.MAIN_TB_ID,P.LICFLAG,P.PERSNAME,P.CERNO FROM DC_RA_MER_PERSONS P WHERE 1=1
+		          <if test="name != null and name !=''">and instr(p.PERSNAME,#{name,jdbcType=VARCHAR},1,1) &lt;&gt;0  </if>  
+		          <if test="cerno != null and cerno !=''"> and p.cerno=#{cerno,jdbcType=VARCHAR}</if>
+	                UNION ALL
+	                SELECT P.ID,P.MAIN_TB_ID,P.LICFLAG,P.INV AS PERSNAME,P.CERNO FROM Dc_Ra_Mer_Invest P WHERE 1=1
+	                 <if test="name != null and name !=''">and instr(p.INV,#{name,jdbcType=VARCHAR},1,1) &lt;&gt;0  </if> 
+	                 <if test="cerno != null and cerno !=''">and p.cerno=#{cerno,jdbcType=VARCHAR}</if> ) T,
+		             DC_RA_MER_MEMBER M,
+		            (SELECT * FROM CODEDATA WHERE CODE_INDEX = 'CB18') C
+		         WHERE T.ID = M.ID
+		           AND M.POST = C.OLD_CODE_VALUE(+)) P,
+		       (SELECT * FROM UP_CODELIST WHERE CODETYPE = 'CA05') B,
+		       (SELECT * FROM CODEDATA WHERE CODE_INDEX = 'CA16') D
+		 WHERE S.ID = P.MAIN_TB_ID
+		   AND S.INDUSTRYPHY = B.CODE_VALUE(+)
+		   AND S.ENTTYPE = D.OLD_CODE_VALUE(+)
+		    
+</select>
+
+	
+
+</mapper>

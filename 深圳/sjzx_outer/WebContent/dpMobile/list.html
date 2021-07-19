@@ -1,0 +1,141 @@
+<!DOCTYPE html >
+<html>
+<head>
+<title>深圳市市场和质量监督管理委员会信用信息“双公示”</title>
+<meta  charset="UTF-8">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no" />
+<link rel="stylesheet" type="text/css" href="../statics/bt/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="../statics/mobile/loader.css" />
+<link rel="stylesheet" type="text/css" href="../statics/mobile/page.css" />
+<script src="../statics/bt/js/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../statics/bt/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../statics/js/base64.js"></script>
+<script src="../statics/js/jquery.pagination.js" type="text/javascript"></script>
+<script type="text/javascript" src="../statics/mobile/util.js"></script>
+
+<style>
+ul {
+	list-style: none;
+	padding: 0
+}
+
+.container .contents {
+	margin-top: 4px;
+}
+
+.container .contents ul li a {
+	color: #333;
+	text-decoration: none;
+	background: url(../statics/mobile/images/list-arrow.png) 6px center
+		no-repeat;
+	padding: 0 10px 0 20px;
+	display: block;
+	font-size: 14px;
+	height: 39px;
+	line-height: 39px;
+	overflow: hidden;
+}
+
+.container .contents  ul li span {
+	color: #666;
+}
+
+.container .contents  ul li span.time {
+	float: right;
+}
+
+.container .contents .list_bg {
+	background-color: #f8f8f8;
+}
+
+.container .contents ul li {
+	border-bottom: 1px dashed #ccc;
+}
+
+.list_ul {
+	min-height: 40rem;
+}
+
+.on{
+    background: #1E9FFF !important;
+    border: 1px solid #1E9FFF !important;
+    color: #fff !important;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-6">
+				<div class="input-group" style="padding-top: 10px">
+					<input type="text" id="txtKeyWord" placeholder="输入项目名称、行政相对人名称、行政相对人代码，查询双公示" class="form-control">
+						<span class="input-group-btn">
+							<button class="btn btn-primary" type="button" id="btnSubmit">搜索</button>
+						</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-6 column">
+				<div class="wrap clearfix" style="margin-top: 0.4rem">
+					<ul class="d_gs_nav pull-left" data="XZXK" >
+						<li class="left_li btn  btn-default" data="XZXK">行政许可公示</li>
+						<li class="right_li btn btn-default " data="XZCF">行政处罚公示</li>
+					</ul>
+					<a id="tagA"  class="pull-right" style="margin-top: 0.8rem" target="_blank" href="xkCala.html">行政许可目录</a><!-- 行政许可和行政处罚事项目录 -->
+				</div>
+				
+				<div class="contents list_ul">
+
+					<ul class="List">
+					</ul>
+				</div>
+				<div id="Pagination"></div>
+			</div>
+		</div>
+	</div>
+
+
+<script src="../statics/js/MobileGS.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function() {
+		if ($.getUrlVar("type") != undefined && ($.getUrlVar("type") == "XZXK")|| $.getUrlVar("type") == "XZCF") {
+			setTabs($(".d_gs_nav li[data=" + $.getUrlVar("type") + "]"));
+		} else {
+			setTabs($(".d_gs_nav li[data=XZXK]"));
+		}
+
+		$('#btnSubmit').on("click", function() {
+			onSubitem();
+		});
+
+	});
+
+
+	function onSubitem() {
+		var keyword = $.trim($("#txtKeyWord").val());
+		if (keyword.length >= 2) {
+			if ($(".d_gs_nav").attr("data") == "XZXK") {
+				getXZXKGSList(keyword, "", 1, "init");
+			} else {
+				getXZCFGSList(keyword, "", 1, "init");
+			}
+			return false;
+		} else {
+			if (keyword == "")
+				alert("搜索关键字不能为空！");
+			else
+				alert("搜索关键字不能少于两个字符！");
+			return false;
+		}
+	}
+</script>
+	
+
+<div class="footer container-fluid" style="background: #000;text-align: center;color: #fff;">©版权所有：深圳市市场和质量监督管理委员会<br/> 粤ICP备15042059号-1<br/>网站标识码：4403000004</div>
+</body>
+</html>

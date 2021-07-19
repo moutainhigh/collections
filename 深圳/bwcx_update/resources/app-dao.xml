@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+	<!-- 引入外部配置文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:*.properties</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- 数据源 写 -->
+	<!-- https://blog.csdn.net/qq_31384551/article/details/81022643?utm_source=blogxgwz1 -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"   destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}"></property>
+        <property name="jdbcUrl" value="${url}"></property>
+        <property name="username" value="${userName}"></property>
+        <property name="password" value="${password}"></property>
+        <property name="readOnly" value="false" />
+        <property name="connectionTimeout" value="60000" />
+        <property name="idleTimeout" value="600000" />
+        <property name="maxLifetime" value="1800000" />
+        <property name="maximumPoolSize" value="15" />
+        <property name="minimumIdle" value="5"></property>
+    </bean>
+
+
+
+	<!-- 定义事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- 别名包 -->
+		<property name="typeAliasesPackage" value="com.bwcx" />
+		<!-- 定义数据源 -->
+		<property name="dataSource" ref="dataSource" />
+		<!-- 自动扫描mapping.xml文件 -->
+		<property name="mapperLocations" value="classpath:com/bwcx/mapper/*.xml"></property>
+	</bean>
+
+
+	<!-- 定义Mapper接口扫描器 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 扫描mapper包 -->
+		<property name="basePackage" value="com.bwcx.dao" />
+	</bean>
+
+
+
+
+	<tx:annotation-driven />
+
+<!-- 	<aop:aspectj-autoproxy /> -->
+
+
+</beans>

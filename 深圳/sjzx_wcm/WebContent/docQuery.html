@@ -1,0 +1,602 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+ <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="statics/easy/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="statics/easy/themes/icon.css">
+<script type="text/javascript" src="statics/js/jquery-1.11.3.js"></script>
+<script type="text/javascript" src="statics/easy/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="statics/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
+<title>新闻检索</title>
+<style>
+* {
+	margin: 0;
+	padding: 0
+}
+
+.l-btn-text {
+	padding: 0 6px;
+}
+
+.l-btn-focus {
+	outline: none;
+}
+
+body {
+	font-size: 12px;
+	background: #F1F1F1;
+	font-family: "微软雅黑";
+}
+
+a {
+	text-decoration: none;
+}
+
+a:visited {
+	color: #333;
+	text-decoration: none;
+}
+
+ a:link {
+	color: #333;
+	text-decoration: none;
+}
+
+a:focus {
+	outline: none;
+}
+
+a:hover {
+	color: #ff6600;
+}
+
+.box-wrap a{
+	color:#6c6d6f;
+}
+.box-wrap a:hover{
+	text-decoration:underline;
+}
+
+
+ul,li {
+	list-style: none;
+}
+
+.box-header {
+	height: 65px;
+	position: relative;
+}
+
+.box-wrap {
+	height: 25px;
+	margin-top: 10px;
+	color: #666666;
+	font-size: 14px;
+}
+
+.box-main {;
+	margin: 0 auto;
+	width: 1024px;
+}
+
+.box-left {
+	width: 240px;
+	background: #F8F8F8;
+	float: left;
+	height: 660px;
+	padding-top: 5px;
+}
+
+.box-left ul li a {
+	padding-left: 32px;
+	display: block;
+	width: 168px;
+	height: 38px;
+	border-bottom: 1px solid #e0e0e0;
+	background: url(statics/images/xx_l_style.png) left center no-repeat;
+	font-size: 14px;
+	line-height: 38px;
+}
+
+a.choose {
+	color: #ff6600;
+	background: url(statics/images/xx_sl_style.png) left center no-repeat
+		!important;
+}
+
+.box-right {
+	float: left;
+	background: #fff;
+	width: 780px;
+	height: 660px;
+	padding-top: 5px;
+}
+
+.clear {
+	clear: both
+}
+
+
+td {
+	border-style: solid !important;
+}
+
+.datagrid-cell {
+	padding: 4px 0px 4px 2px;
+	font-size: 14px;
+	white-space: normal !important;
+	text-align: left;
+}
+
+/*
+定义隔行换式
+*/
+.datagrid-row-alt {
+	background: #EEEEEF;
+}
+
+.openLink {
+	margin-left: 29px;
+	background: url(statics/images/icons2.gif) no-repeat 0px -144px;
+    width: 30px;
+    display: block;
+    height: 17px;
+}
+
+.inputs{
+	width: 120px;
+	height: 20px;
+	border: #999 1px solid;
+}
+a._hover:hover{
+	text-decoration: underline;
+}
+
+
+.panel-header, .panel-body{
+	border-color: #C4C4C4;
+}
+
+
+
+
+
+.box-footer {
+	height: 40px;
+	margin-top: 25px;
+	background-color: #185AAE;
+	text-align: center;
+	color: #fff;
+	font: 14px/40px Microsoft YaHei;
+	background-color: #185AAE;
+    position:absolute;
+	width: 100%;
+  }
+</style>
+</head>
+<body>
+<table id="bus"></table>
+	<!-- box-header start -->
+	<div class="box-header">
+		<div class="header" width="100%" height="65px" style="text-align: center;" scrolling="no">
+			<div class="top" style="background: url(statics/images/banner1.jpg) repeat-x; width: 100%;">
+				<div class="topWrap" style="position: relative; width: 1000px; margin: auto;">
+					<img src="statics/images/banner.jpg">
+					<p id="userName" style="position: absolute; top: 41px; right: 5px;; color: white; font-family: '微软雅黑';">
+						当前用户:
+						<a href="####" style="color: #fff">
+							<span id="loginName"></span>
+						</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- box-header ended -->
+	<div class="box-main">
+		<div class="box-wrap">我的位置：<a href="../../portal/index.html">首页</a>>新闻检索</div>
+
+		<div class="box-left">
+			<ul style="display: inline-block; padding: 0 12px;">
+				<li>
+					<a href="javascript:void(0);" class="choose" data-cid="57">热点新闻</a>
+				</li>
+				<li>
+					<a href="javascript:void(0);" data-cid="58">通知公告</a>
+				</li>
+				<li>
+					<a href="javascript:void(0);" data-cid="59">工作简报</a>
+				</li>
+				<li>
+					<a href="javascript:void(0);" data-cid="60">学习园地</a>
+				</li>
+				<li>
+					<a href="javascript:void(0);" data-cid="61">常用表格</a>
+				</li>
+				<li>
+					<a href="javascript:void(0);" data-cid="62">常用链接</a>
+				</li>
+				<li>
+					<a href="javascript:void(0);" data-cid="63">协查去函</a>
+				</li>
+				<li>
+					<a href="javascript:void(0);" data-cid="64">协查回函</a>
+				</li>
+			</ul>
+			<img src="statics/images/building.png" width="186" height="314" alt="">
+		</div>
+
+
+		<div class="box-right">
+			<form id="pt" style="border: 1px solid #ccc;padding: 4px 0px;margin-bottom: 5px">
+				<input type="hidden" id="channelId">
+				<label style="margin-left: 8px;">
+					发稿人：
+					<input   id="author" class="inputs">
+				</label>
+				<label style="margin-left: 8px;">
+					标题：
+					<input  id="title" class="inputs">
+				</label>
+				<label  style="margin-left: 8px;">发稿时间：
+				<input class="Wdate inputs" id="startTime" type="text" onClick="WdatePicker()"></label>&nbsp;- 
+				<input class="Wdate inputs" id="endTime" type="text" onClick="WdatePicker()"> 
+
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="query()" style="margin-left: 13px;">查询</a>
+				<!-- <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clear()">重置</a> -->
+
+			</form>
+			<table id="mydatagrid" data-options="singleSelect:true" height="600px;">
+				<thead>
+					<tr>
+						<th data-options="field:'DOCTITLE',align:'left',formatter:openLink" width="56%" >文档标题</th>
+						<th data-options="field:'CRTIME',align:'center',formatter:formatTimeStr" width="14%">发稿时间</th>
+						<th data-options="field:'CRUSER',align:'center'" width="10%">发稿人</th>
+						<th data-options="field:'DOCCHANNEL',align:'center',formatter:formatOperSpeci" width="10%">所在栏目</th>
+						<th data-options="field:'DOCPUBURL',align:'center',formatter:formatOper" width="10%">查看</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<!-- box right end -->
+		<div class="clear"></div>
+	</div>
+	<div class="box-footer">版权所有：深圳市市场和质量监督管理委员会&nbsp;&nbsp;技术支持：信息中心</div>
+	<script>
+		function isEmpty(val) {
+			val = $.trim(val);
+			if (val == null)
+				return true;
+			if (val == undefined || val == 'undefined')
+				return true;
+			if (val == "")
+				return true;
+			if (val.length == 0)
+				return true;
+			if (!/[^(^\s*)|(\s*$)]/.test(val))
+				return true;
+			return false;
+		}
+
+		function isNotEmpty(val) {
+			return !isEmpty(val);
+		}
+		
+		
+		
+		function GetQueryString(name){
+		     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		     var r = window.location.search.substr(1).match(reg);
+		     if(r!=null)return  unescape(r[2]); return null;
+		}
+		
+		
+
+		$(function() {
+			loadingData();
+			
+			 //得到当前登录用户
+	         $.ajax({
+	               url: 'gwssi/portal?c=home&m=getUser',
+	               type: 'get',
+	               dataType:'json',
+	               success:function(data){
+	               $("#loginName").html(data.gwssi_userName);
+	        }
+	        })
+			
+			 //得到当前登录用户
+	         $.ajax({
+	               url: 'gwssi/portal?c=queryPma&m=Pma',
+	               type: 'get',
+	               dataType:'json',
+	               success:function(data){
+	            	   console.log(data)
+	               //$("#loginName").html(data.gwssi_userName);
+	        }
+	        })
+	        
+	        
+	        
+	         $.ajax({
+	               url: 'gwssi/portal?c=todo&m=caiwu',
+	               type: 'get',
+	               dataType:'json',
+	               success:function(data){
+	            	   console.log(data)
+	               //$("#loginName").html(data.gwssi_userName);
+	        }
+	        })
+	        
+	        
+	          /* $.ajax({
+	               url: 'gwssi/portal?c=todo&m=oa',
+	               type: 'get',
+	               dataType:'json',
+	               success:function(data){
+	            	   console.log(data)
+	               //$("#loginName").html(data.gwssi_userName);
+	        }
+	        }) */
+	        
+	        
+	         
+	        $.ajax({
+	               url: 'gwssi/portal?c=todo&m=GetWaitNo&pkid=dabf14ddda2e4bf9b2f639f686350b88',
+	               type: 'get',
+	               dataType:'json',
+	               success:function(data){
+	            	   console.log(data)
+	               //$("#loginName").html(data.gwssi_userName);
+	        }
+	        })
+			
+		});
+		function loadingData() {
+			var title = GetQueryString("title");
+			var cid = GetQueryString("docChannelId");
+			if(isEmpty(cid)){
+				cid= 57;
+			}
+			if(isNotEmpty(title)){
+				$("#title").val(title);
+				$('#mydatagrid').datagrid({
+					nowrap : false,//设置为true，当数据长度超出列宽时将会自动截取
+					striped : true,//设置为true将交替显示行背景。
+					pageSize : 20,//每页显示的记录条数 
+					pageList : [10,20,30,40,50],//可以设置每页记录条数的列表   
+					url : 'gwssi/portal?c=queryWCm&m=queryDocumentMessage',//url调用Action方法
+					queryParams : {
+						docChannelId : cid,
+						title:title
+					},
+					loadMsg : '数据装载中......',
+					fitColumns : true,//允许表格自动缩放，以适应父容器
+					rownumbers : true,//行号 
+					pagination : true,//分页
+					rownumbers : true
+				});
+				var p = $('#mydatagrid').datagrid('getPager');
+				$(p).pagination({
+					beforePageText : '第',//页数文本框前显示的汉字   
+					afterPageText : '页    共 {pages} 页',
+					displayMsg : '当前显示 {from} - {to} 条记录   共 {total} 条记录'
+				});
+			}else{
+				$('#mydatagrid').datagrid({
+					nowrap : false,//设置为true，当数据长度超出列宽时将会自动截取
+					striped : true,//设置为true将交替显示行背景。
+					pageSize : 20,//每页显示的记录条数 
+					pageList : [10,20,30,40,50],//可以设置每页记录条数的列表   
+					url : 'gwssi/portal?c=queryWCm&m=queryDocumentMessage',//url调用Action方法
+					queryParams : {
+						docChannelId : cid
+					},
+					loadMsg : '数据装载中......',
+					fitColumns : true,//允许表格自动缩放，以适应父容器
+					rownumbers : true,//行号 
+					pagination : true,//分页
+					rownumbers : true
+				});
+				var p = $('#mydatagrid').datagrid('getPager');
+				$(p).pagination({
+					beforePageText : '第',//页数文本框前显示的汉字   
+					afterPageText : '页    共 {pages} 页',
+					displayMsg : '当前显示 {from} - {to} 条记录   共 {total} 条记录'
+				});
+			}
+			
+			
+		}
+
+		function query() {
+			var docChannelId = $("#channelId").val();
+			var createName = $('#author').val();
+			var title = $('#title').val();
+			var startCreateTime = $('#startTime').val();
+			var endCreateTime = $('#endTime').val();
+
+			if (isEmpty(docChannelId)) {
+				docChannelId = 57;
+			}
+
+			$('#mydatagrid').datagrid({
+				queryParams : {
+					docChannelId : docChannelId,
+					createName : createName,
+					title : title,
+					startCreateTime : startCreateTime,
+					endCreateTime : endCreateTime
+				}
+			});
+			var p = $('#mydatagrid').datagrid('getPager');
+			$(p).pagination({
+				beforePageText : '第',//页数文本框前显示的汉字   
+				afterPageText : '页    共 {pages} 页',
+				displayMsg : '当前显示 {from} - {to} 条记录   共 {total} 条记录'
+			});
+		}
+
+		function formatOper(val, row, index) {
+			var url = row.DOCPUBURL.split("pub")[1];
+			return '<a class="openLink" href=".'+url+'" target="_blank" >&nbsp;</a>';
+		}
+		
+		function openLink(val, row, index){
+			var url = row.DOCPUBURL.split("pub")[1];
+			return "<a href='."+url+"' target='_blank' class='_hover'>"+val+"</a>";
+		}
+
+		function formatTimeStr(val, row, index) {
+			var time = new Date(row.CRTIME);
+			var year = time.getFullYear();
+			var month = time.getMonth() +1;
+			if(month<10){
+				month = "0"+month;
+			}
+			var day  = time.getDate();
+			if(day<10){
+				day = "0"+day;
+			}
+			var str =  year +"-" +month+"-"+day;
+			
+			return str;
+		}
+
+		function formatOperSpeci(val, row, index) {
+			if (val == 57) {
+				return '新闻投稿';
+			} else if (val == 58) {
+				return '通知公告';
+			} else if (val == 59) {
+				return '工作简报';
+			} else if (val == 60) {
+				return '学习园地';
+			} else if (val == 61) {
+				return '常用表格';
+			} else if (val == 62) {
+				return '常用链接';
+			} else if (val == 63) {
+				return '协查去函';
+			} else {
+				return '协查回函';
+			}
+
+		}
+
+		/**/
+		$(function() {
+			$(".box-left a").click(function() {
+				var _this = $(this);
+				var cid = _this.data("cid");
+				$("#channelId").val(cid);
+				_this.parent().siblings().find("a").removeClass("choose");
+				_this.addClass("choose");
+				query();
+			});
+
+		});
+
+		
+
+		function getCal(){
+		   var sch=window.screen.height;
+		   var dch =  document.body.scrollHeight;
+		   var height = 0 ; 
+			if(dch<sch){
+			  height = sch;
+			}else{
+			  height =dch;
+		   }
+			 $(".box-footer").css({'position':'absolute','top':height });
+		}
+
+		$(function(){
+			 getCal();
+			 $(window).resize(function(){
+			 getCal();
+		   })
+		});
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	
+		$
+				.ajax({
+					url : "gwssi/portal?c=todo&m=oa",
+					type : 'post',
+					dataType : 'json',
+					success : function(data) {
+						if (data && data.error) {
+							alert(data.error);
+							return;
+						}
+						var i = 0;
+						var divstr = "";
+						var oaWait = 0;
+						$(data).each(
+										function() {
+
+											if (this.typeName != "全部待办") {
+												i = i + 1;
+												oaWait = oaWait + this.count;
+												if (this.count > 0) {
+													divstr += "<tr onclick='javascript:window.location.href=" + this.url + ";'><td class='w200'><a target='_blank' href=" + this.url + ">"
+															+ this.typeName
+															+ "事项</a></td><td class='red' align='right' nowrap='nowrap'>（"
+															+ this.count
+															+ "条）</td></tr>";
+												}
+
+											} else{
+												console.log(this.typeName)
+												 divstr += "<tr onclick='javascript:window.location.href=" + this.url + ";'><td class='w200'><a target='_blank' href=" + this.url + ">发文事项</a></td><td class='red' align='right' nowrap='nowrap'>（"
+														+ (oaWait-data[0].count) 
+														+ "条）</td></tr>";
+												console.log(divstr)
+											}
+
+										});
+						if (oaWait == 0) {
+							$("#fontRed").html(oaWait + "件");
+							$("#fontRed").css("color", "red");
+							$("#items").html("当前无待办");
+						} else {
+							//console.log(data[0].typeName)
+							//$("#fontRed").html((oaWait-data[0].count) + "件");
+							$("#fontRed").html(oaWait + "件");
+							$("#bus").append(divstr);
+						}
+
+					},
+					error : function() {
+						//setTimeout("returnOrgNo()", 3000);
+					}
+				});
+
+		/*   $.ajax({
+		      url: 'gwssi/portal?c=todo&m=oa',
+		      type: 'get',
+		      dataType:'json',
+		      success:function(data){
+		   	   console.log(data)
+		      //$("#loginName").html(data.gwssi_userName);
+		}
+		}) */
+	</script>
+</body>
+</html>

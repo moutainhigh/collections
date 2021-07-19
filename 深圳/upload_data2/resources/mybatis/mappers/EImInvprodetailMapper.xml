@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.EImInvprodetailMapper">
+
+	<!-- 企业公示_出资人认缴明细 -->
+	<insert id="insertEImInvprodetail">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from E_IM_INVPRODETAIL where subid = #{subid}
+		</selectKey>
+		<if test="count > 0">
+			update E_IM_INVPRODETAIL   
+			<trim prefix="set" suffixOverrides=",">
+				<if test="invid != null ">invid =  #{invid,		jdbcType=VARCHAR},</if>
+				<if test="inv != null ">inv =  #{inv, 			jdbcType=VARCHAR},</if>
+				<if test="subconam != null ">subconam =  to_number(#{subconam,	jdbcType=NUMERIC}),</if>
+				<if test="conform != null ">conform =  #{conform, 		jdbcType=VARCHAR},</if>
+				<if test="conformCn != null">conform_cn = #{conformCn,	jdbcType=VARCHAR},</if>
+				<if test="condate != null ">condate =  to_date(#{condate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="publicdate != null">publicdate = to_date(#{publicdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where subid = #{subid} 
+		</if>
+		<if test="count == 0">
+			insert into E_IM_INVPRODETAIL
+			(
+				subid,
+				invid, 
+				inv, 
+				subconam, 
+				conform, 
+				conform_cn,
+				condate, 
+				publicdate,
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{subid,		jdbcType=VARCHAR},
+				#{invid,		jdbcType=VARCHAR},
+				#{inv, 			jdbcType=VARCHAR},
+				to_number(#{subconam,	jdbcType=NUMERIC}),
+				#{conform, 		jdbcType=VARCHAR},
+				#{conformCn,	jdbcType=VARCHAR},
+				to_date(#{condate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				to_date(#{publicdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

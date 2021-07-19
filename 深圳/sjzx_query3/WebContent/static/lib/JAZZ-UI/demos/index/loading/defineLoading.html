@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+</head>
+<body>
+
+<div id="demo"></div>
+
+<script type="text/javascript">
+
+$(function(){
+	$("body").loading({"theme":'2',"text": "just loading, wait a second"});
+	
+	//调整父页面iframe高度
+    try{
+        parent.setWinHeight(220);           
+    }catch(e){
+        jazz.log(e);
+    }
+});
+
+</script>
+
+</body>
+</html>

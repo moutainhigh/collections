@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.dao.Data07Dao">
+
+	<select id="getEntInfoByNameAndCerno" resultType="Data07">
+		select * from V_DJ_ENT_INFO7 t where 1 = 1
+		<if test="name != null and name!='' ">	and instr(t.INAME,#{name, jdbcType=VARCHAR},1,1) &lt;&gt;0</if>
+		<if test="cerno != null and cerno !='' ">and t.CARDNUM = #{cerno, jdbcType=VARCHAR}	</if>
+	</select>
+
+</mapper>

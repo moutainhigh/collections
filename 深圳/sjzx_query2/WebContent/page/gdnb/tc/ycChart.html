@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>滚动年报剔除异常名录企业趋势分析</title>
+<script type="text/javascript" src="../../../static/js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="../../../static/echarts/echarts.js"></script>
+</head>
+<body>
+<div style='width:49%;margin:0 auto;margin-top:10%;font-size:28px;text-align: center'>滚动年报剔除异常名录企业趋势分析</div>
+ <div style="border:2px solid #666;width:49%;height:450px;margin:0 auto;" id="chartmain"></div>
+ 
+ <script type="text/javascript">
+ 
+	function getParameter(name){
+		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); 
+		var r = window.location.search.substr(1).match(reg); 
+		if (r!=null) { 
+		   return unescape(r[2]); 
+		} 
+		return null; 
+	}
+	
+	
+	
+	
+  window.onload = function (){
+	//财务看年度的合同金额echart数据源
+	
+	var code = getParameter("code");
+	$.ajax({
+		url : "../../../ycgdnb/queryChuShi.do",
+		type:'post',
+		dataType:'json',
+		data:{code:code},
+		success : function(data){
+			var odata = [];
+			/*var partner = new Array();//公司名
+			for(var i=0;i<data.length;i++){
+				partner.push(data[i].partner);
+			} 
+			var odata=[];
+				for(var i=0;i<data.length;i++){
+				 var obj={};
+				obj.name=partner[i];
+				obj.type='bar';
+				obj.data=[data[i].A,data[i].B];
+				obj.barWidth=30;//宽度
+				odata.push(obj); 
+				odata.push(data)
+			}*/
+			
+			for(var i=0;i<data.length;i++){
+				// odata.push(data[i].a) 
+				var datas = data[i].c;
+				var rate = datas.substring(0,datas.indexOf("%"));
+				var total = data[i].ycYbnum;
+				var yibao = data[i].ycYjnbnum;
+				
+				var obj = {};
+				
+				obj.value = rate;
+				obj.total =  total;
+				obj.yibao = yibao;
+				
+				
+				
+				odata.push(obj)
+			}
+			
+			option = {
+			    tooltip : {
+			    	 trigger: 'item',
+				        formatter: function(params) {
+				            return params.name +   '年报率：' + params.value + '%</br>'  + '应报数：' + params.data.total+ '<br/>已报数：' + params.data.yibao;
+				        }
+			    },
+			    legend: {
+			       /*  data:partner */
+			    },
+			    toolbox: {
+			        show : true,
+			    },
+			    calculable : true,
+			    xAxis : [{
+			            type : 'category',
+			            data: ['一月', '二月', '三月', '四月', '五月', '六月', '七月','八月','九月','十月','十一月','十二月']
+			        }],
+			   /*  yAxis : [{
+			            type : 'value'
+			        }], */
+		        yAxis:{
+		        	  name:"年报率",
+		        	  type : 'value'
+		        	 /*  nameLocation: "middle", */
+		        },
+			   /*  series : odata //前台组装数据 */
+			  series: [{
+			        type: 'bar',
+			        itemStyle: {
+                        normal: {
+                            color: function(params) {
+
+                            	var colorList = [
+                                    '#C1232B','#B5C334','#FCCE10','#E87C25','#27727B',
+                                     '#FE8463','#9BCA63','#FAD860','#F3A43B','#60C0DD',
+                                     '#D7504B','#C6E579','#F4E001','#F0805A','#26C0C0'
+                                  ]; 
+                                return colorList[params.dataIndex]
+                            }
+                        }
+                    },
+			        
+			        label: {
+			            normal: {
+			                show: true,
+			                position:'top',
+			                formatter: function(v) {
+			                    var val = v.data;
+			                    return  val.value+"%" ;  
+			                },
+			                color: '#000000'
+			            }
+			        },
+	       			 /* data: [22, 33, 44, 55, 66, 77, 88] */
+			        data:odata
+    			}]
+			};
+                      //获取要赋值的DOM控件
+			  var myChart = echarts.init(document.getElementById('chartmain'));
+                      //赋值
+			  myChart.setOption(option);
+		} 
+	});
+  }
+</script>
+ 
+</body>
+</html>

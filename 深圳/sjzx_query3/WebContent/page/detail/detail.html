@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+	<title>查看详细信息</title>
+<style>
+.detail-page-title{
+	text-align:center;
+	font-size:22px;
+	line-height:68px;
+	width:1180px;
+	border-bottom:solid 0px blue;
+}
+.detail-list-table{
+	border-collapse:collapse;
+	border:none;
+}
+.detail-list-table th,td{
+	border:solid 1px lightblue;
+	font-size:14px;
+	font-family:微软雅黑;
+}
+div{
+	word-wrap:break-word;
+	font-size:14px;
+	font-family:微软雅黑;
+}
+.detail-nav-item{
+	line-height:28px;
+	color:#000000;
+}
+</style>	
+</head>
+<body id="content">
+
+	<!-- Template -->
+	<div id="template" style="display:none;border:solid 1px #00000;">
+	
+		<div id="detailPageHeader">
+			<div class="detail-page-title">${label}详细信息</div>
+		</div>
+		
+		<table>
+			<tr>
+				<td id="nav" style="border-width:0px;width:200px;text-align:center;" valign="top">
+					<div style="border:solid 1px lightblue;font-size:18px;line-height:30px;">目    录</div>
+					<div style="background-color:lightblue;padding:10px 10px 50px 10px;">
+						
+						<!-- for: ${nav.item} as ${navItem} -->
+							<div><a class="detail-nav-item" href="${navItem.url}">${navItem.label}</a></div>
+						<!-- /for -->
+					</div>
+				</td>
+				<td style="border-width:0px;">
+					<div id="detailSubforms">
+					<!-- for: ${subform} as ${item} -->
+						<!-- use: subform(subform=${item}) -->
+					<!-- /for -->
+					</div>
+				</td>
+			</tr>
+		</table>
+		<div style="height:1000px;">&nbsp;</div>
+		<!-- target: subform -->
+			
+			
+			<div id="${subform.code}" style="width:962px;border:solid 1px lightblue;font-size:18px;line-height:30px;">&nbsp;${subform.label}</div>
+			
+			<!-- if: ${subform.type} == 'list' -->
+				<!-- use: listForm(list=${subform.data},header=${subform.header}) -->	
+			<!-- /if -->
+			
+			<!-- if: ${subform.type} == 'form' -->
+				<!-- Table 布局， 不用了  -->
+				<table style="display:none;" class="detail-subform-form-content">
+						<tr>
+					<!-- for: ${subform.data} as ${row} -->
+							<th>${row.label}</th>
+							<td>${row.value}</td>
+						<!-- if: ${row.idx} %2==0 -->
+						</tr>
+						<tr>
+						<!-- /if -->	
+						
+					<!-- /for -->
+					<!-- if: ${row.idx} %2==1 -->
+							<td colspan='3'>&nbsp;</td>
+						</tr>
+					<!-- /if -->
+				</table>
+				
+				<!-- DIV 布局， 现在用的是这个  -->
+				<div style="width:1000px;" >
+					<!-- for: ${subform.data} as ${row} -->
+						<!-- if: ${row.lengthSize} == 10 -->
+							<div style="float:left;width:96.2%;line-height:28px;border:solid 1px lightblue;">
+								<div style="text-align:right;font-weight:bold;float:left;width:16%;background-color:lightblue;" >
+								${row.label}：
+								</div>
+								<div style="float:left;width:83%;">
+									&nbsp;${row.value}
+								</div>
+							</div>
+						<!-- else -->
+							<div style="float:left;width:48%;line-height:28px;border:solid 1px lightblue;">
+								<div style="text-align:right;font-weight:bold;float:left;width:32%;background-color:lightblue;">
+									${row.label}：
+								</div>
+								<div style="float:left;width:66%;">
+									&nbsp;${row.value}
+								</div>
+							</div>
+
+						<!-- /if -->
+					<!-- /for -->
+				</div>
+			<!-- /if -->
+			<div style="clear:both;">&nbsp;</div>
+		<!-- /target: subform -->
+		
+		
+		<!-- target: listForm -->
+			<table class="detail-list-table" style="width:965px;border:solid 1px lightblue;">
+					<tr>
+				<!-- for: ${header} as ${th} -->
+						<th style="width:${th.width};background-color:lightblue;">
+							${th.label}
+						</th>
+				<!-- /for -->
+					</tr>
+				<!-- for: ${list} as ${row} -->
+					<tr>
+						<!-- for: ${row} as ${item} -->
+							<!-- if: ${item.more} != null -->
+								<td style="text-align:${item.align};"><a href="${item.href}${item.more}" target="_blank">${item.value}</a>&nbsp;</td>
+							<!-- else -->
+								<!-- if: ${item.href} != null -->
+									<td style="text-align:${item.align};"><a href="${item.href}${item.value}" target="_blank">${item.text}</a>&nbsp;</td>
+								<!-- else -->
+									<td style="text-align:${item.align};">${item.value}&nbsp;</td>
+								<!-- /if -->
+							<!-- /if -->	
+								
+						<!-- /for -->
+					</tr>
+				<!-- /for -->
+			</table>
+		<!-- /target: listForm -->
+	</div>	
+<!--
+	http://localhost:8080/query/page/detail/detail.html?code=DC_F1_CYFW&id=8a8084ac5336737501535a0d653352da
+-->	
+<script type="text/javascript" src="jquery-1.8.3.js"></script>
+<script type="text/javascript" src="etpl.js"></script>
+<script type="text/javascript" src="detail.js"></script>
+</body>
+</html>

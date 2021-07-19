@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.CaseCfBaseinfoMapper">
+
+	<!-- 案件基本信息 -->
+	<insert id="insertCaseCfBaseinfo">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from CASE_CF_BASEINFO  where caseid = #{caseid} 
+		</selectKey>
+		<if test="count > 0">
+			update CASE_CF_BASEINFO   
+			<trim prefix="set" suffixOverrides=",">
+				<if test="caseno != null">caseno = #{caseno,			jdbcType=VARCHAR},</if>
+				<if test="casename != null">casename = #{casename,			jdbcType=VARCHAR},</if>
+				<if test="casescedistrict != null">casescedistrict = #{casescedistrict,	jdbcType=VARCHAR},</if>
+				<if test="casespot != null">casespot = #{casespot,			jdbcType=VARCHAR},</if>
+				<if test="casetime != null">casetime = to_date(#{casetime,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="casereason != null">casereason = #{casereason,		jdbcType=VARCHAR},</if>
+				<if test="caseval != null">caseval = to_number(#{caseval,	jdbcType=NUMERIC}),</if>
+				<if test="appprocedure != null">appprocedure = #{appprocedure,		jdbcType=VARCHAR},</if>
+				<if test="caseinternetsign != null">caseinternetsign = #{caseinternetsign,	jdbcType=VARCHAR},</if>
+				<if test="caseforsign != null">caseforsign = #{caseforsign,		jdbcType=VARCHAR},</if>
+				<if test="casestate != null">casestate = #{casestate,		jdbcType=VARCHAR},</if>
+				<if test="casefiauth != null">casefiauth = #{casefiauth,		jdbcType=VARCHAR},</if>
+				<if test="casefidate != null">casefidate = to_date(#{casefidate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="exedate != null">exedate = to_date(#{exedate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="exesort != null">exesort = #{exesort,			jdbcType=VARCHAR},</if>
+				<if test="unexereasort != null">unexereasort = #{unexereasort,		jdbcType=VARCHAR},</if>
+				<if test="caseresult != null">caseresult = #{caseresult,		jdbcType=VARCHAR},</if>
+				<if test="casedep != null">casedep = #{casedep,			jdbcType=VARCHAR},</if>
+				<if test="clocaserea != null">clocaserea = #{clocaserea,		jdbcType=VARCHAR},</if>
+				<if test="clocasedate != null">clocasedate = to_date(#{clocasedate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where caseid = #{caseid}  
+		</if>
+		<if test="count == 0">
+			insert into CASE_CF_BASEINFO
+			(
+				caseid,
+				caseno,
+				casename,
+				casescedistrict,
+				casespot,
+				casetime,
+				casereason,
+				caseval,
+				appprocedure,
+				caseinternetsign,
+				caseforsign,
+				casestate,
+				casefiauth,
+				casefidate,
+				exedate,
+				exesort,
+				unexereasort,
+				caseresult,
+				casedep,
+				clocaserea,
+				clocasedate,
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{caseid,			jdbcType=VARCHAR},
+				#{caseno,			jdbcType=VARCHAR},
+				#{casename,			jdbcType=VARCHAR},
+				#{casescedistrict,	jdbcType=VARCHAR},
+				#{casespot,			jdbcType=VARCHAR},
+				to_date(#{casetime,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{casereason,		jdbcType=VARCHAR},
+				to_number(#{caseval,	jdbcType=NUMERIC}),
+				#{appprocedure,		jdbcType=VARCHAR},
+				#{caseinternetsign,	jdbcType=VARCHAR},
+				#{caseforsign,		jdbcType=VARCHAR},
+				#{casestate,		jdbcType=VARCHAR},
+				#{casefiauth,		jdbcType=VARCHAR},
+				to_date(#{casefidate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				to_date(#{exedate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{exesort,			jdbcType=VARCHAR},
+				#{unexereasort,		jdbcType=VARCHAR},
+				#{caseresult,		jdbcType=VARCHAR},
+				#{casedep,			jdbcType=VARCHAR},
+				#{clocaserea,		jdbcType=VARCHAR},
+				to_date(#{clocasedate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

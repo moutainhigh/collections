@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.EImInvsraltMapper">
+
+	<!-- 企业公示_股权变更信息 -->
+	<insert id="insertEImInvsralt">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from E_IM_INVSRALT where invaltid = #{invuid}
+		</selectKey>
+		<if test="count > 0">
+			update E_IM_INVSRALT   
+			<trim prefix="set" suffixOverrides=",">
+				<if test="pripid != null ">pripid =  #{pripid, 	jdbcType=VARCHAR},</if>
+				<if test="entname != null ">entname =  #{entname, 	jdbcType=VARCHAR},</if>
+				<if test="regno != null ">regno =  #{regno, 	jdbcType=VARCHAR},</if>
+				<if test="uniscid != null ">uniscid =  #{uniscid, 	jdbcType=VARCHAR},</if>
+				<if test="alitem != null">inv = #{alitem,	jdbcType=VARCHAR},</if>
+				<if test="altbe != null">transamprbf = to_number(#{altbe,	jdbcType=NUMERIC}),</if>
+				<if test="altaf != null">transampraf = to_number(#{altaf,	jdbcType=NUMERIC}),</if>
+				<if test="altdate != null">altdate = to_date(#{altdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="publicdate != null">publicdate = to_date(#{publicdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where invaltid = #{invuid} 
+		</if>
+		<if test="count == 0">
+			insert into E_IM_INVSRALT
+			(
+				invaltid, 
+				pripid, 
+				entname, 
+				regno, 
+				uniscid, 
+				inv,
+				transamprbf,
+				transampraf,
+				altdate,
+				publicdate,
+				s_ext_fromnode,
+				s_ext_datatime
+				
+			)
+			values
+			(
+				#{invuid,	jdbcType=VARCHAR},
+				#{pripid, 	jdbcType=VARCHAR},
+				#{entname, 	jdbcType=VARCHAR},
+				#{regno, 	jdbcType=VARCHAR},
+				#{uniscid, 	jdbcType=VARCHAR},
+				#{alitem,	jdbcType=VARCHAR},
+				to_number(#{altbe,	jdbcType=NUMERIC}),
+				to_number(#{altaf,	jdbcType=NUMERIC}),
+				to_date(#{altdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				to_date(#{publicdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert> 
+	
+</mapper>

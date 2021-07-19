@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="statics/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="statics/easyui/themes/icon.css">
+<script type="text/javascript" src="statics/easyui/jquery.min.js"></script>
+<script type="text/javascript" src="statics/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="statics/easyui/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<style>
+* {
+	margin: 0;
+	padding: 0
+}
+</style>
+<body>
+	<div class="easyui-panel" title="各监管所商事主体数据采集">
+
+		<div>
+			<table id="testId" class="easyui-datagrid">
+			</table>
+		</div>
+
+		<div id="win"></div>
+
+	</div>
+
+	<script type="text/javascript">
+		$(function() {
+			testTable();
+		})
+	
+		function testTable() {
+			$('#testId').datagrid({
+				title : '已采集数据列表',
+				iconCls : 'icon-ok',
+				height : 800,
+				pageSize : 100,
+				pageList : [ 50, 100, 200, 300 ],
+				nowrap : true, //设置为true，当数据长度超出列宽时将会自动截取
+				striped : true, //设置为true将交替显示行背景。
+				collapsible : true, //显示可折叠按钮
+				url : 'listry',
+				loadMsg : '数据装载中......',
+				singleSelect : true, //只能选择单行
+				fitColumns : true, ///允许表格自动缩放，以适应父容器
+				checkbox : true,
+				singleSelect : false,
+				columns : [ [
+					{
+						title : '各监管所商事主体数据采集时间',
+						field : 'createTime',
+						align : 'center',
+						width : 80,
+					},
+					{
+						title : '操作',
+						field : 'act',
+						align : 'center',
+						width : 80,
+						formatter : function(value, row, index) {
+							var hmt = "";
+							hmt = "<a href='downry?startTime=" + row.createTime + "'>下载</a>"; //https://www.jb51.net/article/118596.htm
+	
+							return hmt;
+						}
+					},
+	
+				] ],
+				pagination : true, //分页
+				rownumbers : true //行数
+			});
+		}
+	</script>
+</body>
+</html>

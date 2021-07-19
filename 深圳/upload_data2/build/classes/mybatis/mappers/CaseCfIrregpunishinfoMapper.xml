@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.CaseCfIrregpunishinfoMapper">
+
+	<!-- 违法行为及处罚信息 -->
+	<insert id="insertCaseCfIrregpunishinfo">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from CASE_CF_IRREGPUNISHINFO  where illegactid = #{illegactid}
+		</selectKey>
+		<if test="count > 0">
+			update CASE_CF_IRREGPUNISHINFO  
+			<trim prefix="set" suffixOverrides=",">
+				<if test="caseid != null">caseid = #{caseid,			jdbcType=VARCHAR},</if>
+				<if test="illegacttype != null">illegacttype = #{illegacttype,		jdbcType=VARCHAR},</if>
+				<if test="illegacttypeCn != null">illegacttype_cn = #{illegacttypeCn,	jdbcType=VARCHAR},</if>
+				<if test="illegact != null">illegact = #{illegact,			jdbcType=VARCHAR},</if>
+				<if test="illegincome != null">illegincome = to_number(#{illegincome,	jdbcType=NUMERIC}),</if>
+				<if test="quabasis != null">quabasis = #{quabasis,			jdbcType=VARCHAR},</if>
+				<if test="penbasis != null">penbasis = #{penbasis,			jdbcType=VARCHAR},</if>
+				<if test="pentype != null">pentype = #{pentype,			jdbcType=VARCHAR},</if>
+				<if test="penresult != null">penresult = #{penresult,		jdbcType=VARCHAR},</if>
+				<if test="penam != null">penam = to_number(#{penam,	jdbcType=NUMERIC}),</if>
+				<if test="forfam != null">forfam = to_number(#{forfam,			jdbcType=NUMERIC}),</if>
+				<if test="apprcuram != null">apprcuram = to_number(#{apprcuram,		jdbcType=NUMERIC}),</if>
+				<if test="pendecissdate != null">pendecissdate = to_date(#{pendecissdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="penexest != null">penexest = #{penexest,			jdbcType=VARCHAR},</if>
+				<if test="caseigdegree != null">caseigdegree = #{caseigdegree,		jdbcType=VARCHAR},</if>
+				<if test="lenity != null">lenity = #{lenity,			jdbcType=VARCHAR},</if>
+				<if test="penbeisadgui != null">penbeisadgui = #{penbeisadgui,		jdbcType=VARCHAR},</if>
+				<if test="sertime != null">sertime = to_date(#{sertime,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="penauth != null">penauth = #{penauth,			jdbcType=VARCHAR},</if>
+				<if test="penauthCn != null">penauth_cn = #{penauthCn,		jdbcType=VARCHAR},</if>
+				<if test="pendecno != null">pendecno = #{pendecno,			jdbcType=VARCHAR},</if>
+				<if test="illegfact != null">illegfact = #{illegfact,		jdbcType=VARCHAR},</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where illegactid = #{illegactid}
+		</if>
+		<if test="count == 0">
+			insert into CASE_CF_IRREGPUNISHINFO
+			(
+				illegactid,
+				caseid,
+				illegacttype,
+				illegacttype_cn,
+				illegact,
+				illegincome,
+				quabasis,
+				penbasis,
+				pentype,
+				penresult,
+				penam,
+				forfam,
+				apprcuram,
+				pendecissdate,
+				penexest,
+				caseigdegree,
+				lenity,
+				penbeisadgui,
+				sertime,
+				penauth,
+				penauth_cn,
+				pendecno,
+				illegfact,
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{illegactid,		jdbcType=VARCHAR},
+				#{caseid,			jdbcType=VARCHAR},
+				#{illegacttype,		jdbcType=VARCHAR},
+				#{illegacttypeCn,	jdbcType=VARCHAR},
+				#{illegact,			jdbcType=VARCHAR},
+				to_number(#{illegincome,	jdbcType=NUMERIC}),
+				#{quabasis,			jdbcType=VARCHAR},
+				#{penbasis,			jdbcType=VARCHAR},
+				#{pentype,			jdbcType=VARCHAR},
+				#{penresult,		jdbcType=VARCHAR},
+				to_number(#{penam,	jdbcType=NUMERIC}),
+				to_number(#{forfam,			jdbcType=NUMERIC}),
+				to_number(#{apprcuram,		jdbcType=NUMERIC}),
+				to_date(#{pendecissdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{penexest,			jdbcType=VARCHAR},
+				#{caseigdegree,		jdbcType=VARCHAR},
+				#{lenity,			jdbcType=VARCHAR},
+				#{penbeisadgui,		jdbcType=VARCHAR},
+				to_date(#{sertime,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{penauth,			jdbcType=VARCHAR},
+				#{penauthCn,		jdbcType=VARCHAR},
+				#{pendecno,			jdbcType=VARCHAR},
+				#{illegfact,		jdbcType=VARCHAR},
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

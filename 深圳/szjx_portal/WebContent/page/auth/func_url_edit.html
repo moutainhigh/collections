@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../../static/script/jazz.js" type="text/javascript"></script>
+<script>
+
+	var gnMc ;
+	
+	$(document).ready(function(){
+		var urlId = jazz.util.getParameter("urlId");
+		var gnId = jazz.util.getParameter("gnId");
+		if(urlId!=null && urlId!=''){
+			$("#urlId").hiddenfield("setValue", urlId);
+			$('#formpanel').formpanel('option', 'dataurl',rootPath+
+					'/auth/funcUrlDetail.do?urlId='+urlId);
+			$('#formpanel').formpanel('reload');
+		}else{
+			$("#gnId").hiddenfield("setValue", gnId);
+		}
+	});
+	
+	function save() {
+		var params = {
+			url : rootPath+'/auth/saveFuncUrl.do',
+			components : [ 'formpanel' ],
+			callback : function(data, r, res) { 
+				jazz.info("保存成功");
+				//刷新
+				parent.refreshUrl();
+				parent.win.window("close");
+			} 
+		};
+		$.DataAdapter.submit(params);
+	}
+	
+	function closeWin(){
+		parent.win.window("close");
+	}
+	
+</script>
+</head>
+<body>
+	
+	<div>
+   		<div id="formpanel" name="formpanel" vtype="formpanel" showborder="false" titledisplay="true" title="" width="100%"
+			layout="table" layoutconfig="{cols:1, columnwidth: ['*']}" >
+			<div name='urlId' id="urlId" vtype="hiddenfield" label="URL_ID" labelalign="right" ></div>
+			<div name='gnId' id="gnId" vtype="hiddenfield" label="功能_ID" labelalign="right" ></div>
+			<div name='urlMc' id="urlMc" vtype="textfield" label="URL名称" labelalign="right"
+				rule="must" width="500" labelwidth="80"></div>
+			<div name='url' id="url" vtype="textfield" label="URL" labelalign="right"  
+				rule="must" width="500" labelwidth="80"></div>
+			<div id="toolbar" name="toolbar" vtype="toolbar" align="center">
+				<div id="btn1" name="btn1" vtype="button" text="保存"
+					icon="../../../style/default/images/save.png" click="save()"></div>
+				<div id="btn2" name="btn2" vtype="button" text="返回"
+					icon="../../../style/default/images/fh.png" click="closeWin()"></div>
+			</div>
+		</div>
+   	</div>
+
+	
+</body>
+</html><SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

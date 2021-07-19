@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ye.from.dao.BiaoBiaoUserHyDao">
+
+
+<!-- 	<select id="getList" resultType="UserHy">
+		select u.id as userid,
+		u.name as name ,
+		u.area_code,
+		(select a.name from SZQX.sys_area a where a.code = u.area_code) as deptName,
+		lastDate as time
+		from SZQX.sys_user u
+		where u.id not like 'temp_%'
+		 and lastDate >=sysdate - 1  
+		order by lastDate desc
+	</select> -->
+	
+	
+	
+	<select  id="getList" resultType="BaoBiaoUserHy">
+			select  t.USER_ID as userid,t.USER_NAME as name,t.deptName,t.UPDATETIME as time from DC_SZQX_SYS_ROLE_VIEW t where t.SYS_NAME  like '%报表%' and t.UPDATETIME >=sysdate -1
+    </select>
+
+</mapper>

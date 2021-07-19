@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.EmoveInMapper">
+
+	<!-- 迁入信息 -->
+	<insert id="insertEmoveIn">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from E_MOVE_IN where min_id = #{minId}
+		</selectKey>
+		<if test="count > 0">
+			update E_MOVE_IN   
+			<trim prefix="set" suffixOverrides=",">
+				<if test="pripid != null ">pripid =  #{pripid, 		jdbcType=VARCHAR},</if>
+				<if test="minletnum != null ">minletnum =  #{minletnum, 	jdbcType=VARCHAR},</if>
+				<if test="moutarea != null ">moutarea =  #{moutarea, 	jdbcType=VARCHAR},</if>
+				<if test="minrea != null ">minrea =  #{minrea, 		jdbcType=VARCHAR},</if>
+				<if test="moutareregorg != null ">moutareregorg =  #{moutareregorg, 	jdbcType=VARCHAR},</if>
+				<if test="mindate != null">mindate = to_date(#{mindate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where min_id = #{minId} 
+		</if>
+		<if test="count == 0">
+			insert into E_MOVE_IN
+			(
+				min_id, 
+				pripid, 
+				minletnum, 
+				moutarea, 
+				minrea, 
+				moutareregorg,
+				mindate,
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{minId,		jdbcType=VARCHAR},
+				#{pripid, 		jdbcType=VARCHAR},
+				#{minletnum, 	jdbcType=VARCHAR},
+				#{moutarea, 	jdbcType=VARCHAR},
+				#{minrea, 		jdbcType=VARCHAR},
+				#{moutareregorg, 	jdbcType=VARCHAR},
+				to_date(#{mindate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

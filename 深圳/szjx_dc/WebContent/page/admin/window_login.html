@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../../static/script/jazz.js" type="text/javascript"></script>
+<script>
+
+	function login() {
+		var userVerify=$("#dlm").textfield("verify");
+		var pwdVerify=$("#mm").passwordfield("verify");
+		if(userVerify && pwdVerify){
+			$.ajax({
+				url:rootPath+"/admin/login.do",
+				data:{
+					dlm : $("#dlm").textfield("getValue"),
+					 mm : $("#mm").passwordfield("getValue")
+				},
+				type:"post",
+				success:function(res){
+					if(res.back=='success'){
+					//关闭窗体 
+						var dom = window;
+						var obj = dom.top.$("div[name='window_log_win']").data("window");
+						if(obj){
+							obj.close();
+						}
+					}else{
+						jazz.error(res.msg);
+					}
+				}
+			});
+		}
+	}
+
+
+
+</script>
+<style type="text/css">
+.jazz-button{
+	position:relative;
+	left:140px;
+}
+
+</style>
+</head>
+<body style="overflow: hidden;">
+ <div class="div_login">
+                  
+                    <div name="dlm" id="dlm" vtype="textfield" label="登录名" labelalign="right" rule="must"  width="300" class="div_dlm"></div><br/>
+					<div name="mm" id="mm" vtype="passwordfield" label="密码" labelalign="right" rule="must"  width="300" class="div_mm"></div><br/>
+					<div id="bu" name='bu' vtype='button'  text='登录'  iconalign="right"  onclick="login();"></div>
+                 </div>
+  
+
+	
+</body>
+</html>

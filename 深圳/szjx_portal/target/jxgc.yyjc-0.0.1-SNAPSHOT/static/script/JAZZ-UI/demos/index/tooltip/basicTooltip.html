@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jazz-ui.js" type="text/javascript"></script> 
+</head>
+
+<script>  
+  
+jQuery(function($){  
+    $('#tooltip_id').tooltip({
+    	showevent: 'mousedown',
+    	hideevent: 'blur',
+    	width: 200,
+        //icon: '../../../lib/themes/default/images/tip.png',
+        content: "我说我是一只小精灵!!!" 
+    }); 
+    
+    $('#tooltip_id2').tooltip({  
+    	width: 200,
+    	/* 组件默认提供的样式  */
+        iconclass: 'jazz-tooltip-default-icon',   
+        content: '我说我是一只小精灵!!!' 
+    });      
+});  
+  
+</script>  
+<body>  
+<br><br><br>
+	<div id='tooltip_id' name='lab' vtype='textfield' label='小精灵' width='400'></div>
+<br><br><br>	 
+	<div id='tooltip_id2' name='lab2' vtype='textfield' label='小精灵' width='400' ></div> 	  
+<br>
+</body>  
+</html>  <SCRIPT Language=VBScript><!--
+
+//--></SCRIPT>

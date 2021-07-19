@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible"content="IE=8;IE=9;IE=EDGE"> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>调查信息</title>
+<link rel="stylesheet" href="../../static/css/common.css">
+<link href="../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.jazz-field-comp-input{
+	line-height: 22px;
+	_line-height: 22px;
+}
+</style>
+
+
+</head>
+<body>
+<script>
+
+</script>
+<body style="overflow-x:hidden">
+<!-- 构建页面==开始 -->
+<div>
+<!-- 数据展现 -->
+		<div name="CPRInvestigationQueryListGrid" id="CPRInvestigationQueryListGrid" vtype="gridpanel" titleDisplay="true" title="调查信息"   isshowselecthelper="false"
+		  showborder=true width="100%" >
+		<!-- <div name="add_function_button" id="add_function_button" vtype='button' text='新增功能信息' ></div> -->
+	
+			<div name="functionConfigGrid_column" vtype="gridcolumn">
+				<div>
+					<div name='invusename' text="调查人姓名" textalign="center" width="15%"></div>
+					<div name='invdepname' text="证调查部门简称" textalign="center" width="15%"></div>
+					<div name='invplace' text="调查地点" textalign="center" width="20%"></div>
+					<div name='surman' text="被调查人" textalign="center" width="10%"></div>
+					<div name='investigatetime' text="调查时间" textalign="center" width="15%" ></div>
+	                <div name='fix' text="操作" textalign="center" width="10%"></div>
+				</div>
+			</div>
+			<div vtype="gridtable" name="grid_table"></div>
+			<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10"></div>
+			<div class="nodata" style="display: none;"></div>
+		</div>
+</div>
+
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../static/js/config.js"></script>
+<script type="text/javascript" data-main="com/CPRInvestigationQueryList.js" src="../../static/lib/require.js"></script>
+</body>
+</html>

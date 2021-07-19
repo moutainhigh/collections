@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.EImPermitMapper">
+
+	<!-- 企业公示_许可信息 -->
+	<insert id="insertEImPermit">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from E_IM_PERMIT where licid = #{licid}
+		</selectKey>
+		<if test="count > 0">
+			update  E_IM_PERMIT  
+			<trim prefix="set" suffixOverrides=",">
+				<if test="pripid != null ">pripid =  #{pripid,		jdbcType=VARCHAR},  </if>
+				<if test="entname != null ">entname =  #{entname, 		jdbcType=VARCHAR}, </if>
+				<if test="regno != null ">regno =  #{regno, 		jdbcType=VARCHAR}, </if>
+				<if test="uniscid != null ">uniscid =  #{uniscid, 		jdbcType=VARCHAR}, </if>
+				<if test="licno != null ">licno =  #{licno, 		jdbcType=VARCHAR}, </if>
+				<if test="licnameCn != null ">licname_cn =  #{licnameCn, 	jdbcType=VARCHAR}, </if>
+				<if test="valfrom != null ">valfrom =  to_date(#{valfrom,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="valto != null ">valto =  to_date(#{valto,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="licanth != null ">licanth =  #{licanth, 		jdbcType=VARCHAR}, </if>
+				<if test="licitem != null ">licitem =  #{licitem, 		jdbcType=VARCHAR}, </if>
+				<if test="type != null ">type =  #{type, 		jdbcType=VARCHAR}, </if>
+				<if test="candate != null ">candate =  to_date(#{candate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="equplecanrea != null ">equplecanrea =  #{equplecanrea, jdbcType=VARCHAR}, </if>
+				<if test="revdate != null ">revdate =  to_date(#{revdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="sugrevreason != null ">sugrevreason =  #{sugrevreason, jdbcType=VARCHAR}, </if>
+				<if test="invaliddate != null ">invaliddate =  to_date(#{invaliddate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="invalidrea != null ">invalidrea =  #{invalidrea, 	jdbcType=VARCHAR}, </if>
+				<if test="publicdate != null">publicdate = to_date(#{publicdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where licid = #{licid} 
+		</if>
+		<if test="count == 0">
+			insert into E_IM_PERMIT
+			(
+				licid, 
+				pripid, 
+				entname, 
+				regno, 
+				uniscid, 
+				licno, 
+				licname_cn, 
+				valfrom, 
+				valto, 
+				licanth, 
+				licitem, 
+				type, 
+				candate, 
+				equplecanrea, 
+				revdate, 
+				sugrevreason, 
+				invaliddate, 
+				invalidrea, 
+				publicdate,
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{licid,		jdbcType=VARCHAR}, 
+				#{pripid,		jdbcType=VARCHAR},  
+				#{entname, 		jdbcType=VARCHAR}, 
+				#{regno, 		jdbcType=VARCHAR}, 
+				#{uniscid, 		jdbcType=VARCHAR}, 
+				#{licno, 		jdbcType=VARCHAR}, 
+				#{licnameCn, 	jdbcType=VARCHAR}, 
+				to_date(#{valfrom,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				to_date(#{valto,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{licanth, 		jdbcType=VARCHAR}, 
+				#{licitem, 		jdbcType=VARCHAR}, 
+				#{type, 		jdbcType=VARCHAR}, 
+				to_date(#{candate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{equplecanrea, jdbcType=VARCHAR}, 
+				to_date(#{revdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{sugrevreason, jdbcType=VARCHAR}, 
+				to_date(#{invaliddate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{invalidrea, 	jdbcType=VARCHAR}, 
+				to_date(#{publicdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

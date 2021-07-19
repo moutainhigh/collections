@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gwssi.upload.mapper.ENameInfoMapper">
+
+	<!-- 企业名称信息 -->
+	<insert id="insertENameInfo">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from E_NAME_INFO where name_id = #{nameId}
+		</selectKey>
+		<if test="count > 0">
+			update E_NAME_INFO   
+			<trim prefix="set" suffixOverrides=",">
+				<if test="pripid != null ">pripid =  #{pripid, 		jdbcType=VARCHAR},</if>
+				<if test="entname != null ">entname =  #{entname, 		jdbcType=VARCHAR},</if>
+				<if test="namedistrict != null ">namedistrict =  #{namedistrict, jdbcType=VARCHAR},</if>
+				<if test="enttra != null ">enttra =  #{enttra, 		jdbcType=VARCHAR},</if>
+				<if test="nameind != null ">nameind =  #{nameind, 		jdbcType=VARCHAR},</if>
+				<if test="orgform != null ">orgform =  #{orgform, 		jdbcType=VARCHAR},</if>
+				<if test="tradpiny != null ">tradpiny =  #{tradpiny, 	jdbcType=VARCHAR},</if>
+				<if test="grpshform != null ">grpshform =  #{grpshform, 	jdbcType=VARCHAR},</if>
+				<if test="savedperto != null ">savedperto =  to_date(#{savedperto,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<if test="apprno != null ">apprno =  #{apprno, 		jdbcType=VARCHAR},</if>
+				<if test="apprauth != null ">apprauth =  #{apprauth, 	jdbcType=VARCHAR},</if>
+				<if test="preregorg != null ">preregorg =  #{preregorg, 		jdbcType=VARCHAR},</if>
+				<if test="apprdate != null">apprdate = to_date(#{apprdate,	jdbcType=DATE}, 'yyyy-MM-dd'),</if>
+				<!-- <if test="s_ext_fromnode != null">s_ext_fromnode = 440300,</if>
+				<if test="s_ext_datatime != null">s_ext_datatime = SYSDATE,</if> -->
+			</trim>
+				, s_ext_datatime = SYSDATE
+			where name_id = #{nameId} 
+		</if>
+		<if test="count == 0">
+			insert into E_NAME_INFO
+			(
+				name_id, 
+				pripid, 
+				entname, 
+				namedistrict, 
+				enttra, 
+				nameind, 
+				orgform, 
+				tradpiny, 
+				grpshform, 
+				savedperto, 
+				apprno, 
+				apprauth, 
+				preregorg, 
+				apprdate,
+				s_ext_fromnode,
+				s_ext_datatime
+			)
+			values
+			(
+				#{nameId, 		jdbcType=VARCHAR},
+				#{pripid, 		jdbcType=VARCHAR},
+				#{entname, 		jdbcType=VARCHAR},
+				#{namedistrict, jdbcType=VARCHAR},
+				#{enttra, 		jdbcType=VARCHAR},
+				#{nameind, 		jdbcType=VARCHAR},
+				#{orgform, 		jdbcType=VARCHAR},
+				#{tradpiny, 	jdbcType=VARCHAR},
+				#{grpshform, 	jdbcType=VARCHAR},
+				to_date(#{savedperto,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				#{apprno, 		jdbcType=VARCHAR},
+				#{apprauth, 	jdbcType=VARCHAR},
+				#{preregorg, 		jdbcType=VARCHAR},
+				to_date(#{apprdate,	jdbcType=DATE}, 'yyyy-MM-dd'),
+				440300,
+				SYSDATE
+			)
+		</if>
+	</insert>
+	
+</mapper>

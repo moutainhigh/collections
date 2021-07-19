@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta charset="utf-8" />
+<title>EasyUI Demo</title>
+<link rel="stylesheet" type="text/css"
+	href="statics/css/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="statics/css/themes/icon.css" />
+<link rel="stylesheet" type="text/css" href="statics/css/common.css" />
+<script type="text/javascript" src="statics/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="statics/js/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="statics/js/easyui-lang-zh_CN.js"></script>
+<style>
+table.gridtable {
+	font-family: verdana, arial, sans-serif;
+	font-size: 11px;
+	color: #333333;
+	border-width: 1px;
+	border-color: #666666;
+	border-collapse: collapse;
+}
+
+table.gridtable th {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #dedede;
+}
+
+table.gridtable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #666666;
+	background-color: #ffffff;
+}
+</style>
+</head>
+<body class="easyui-layout" id="layout" style="visibility: hidden;">
+
+	<div region="north" id="header">
+		<img src="statics/img/logo.png" class="logo" />
+		<div class="top-btns">
+			<span>欢迎您，管理员</span> <a href="#" class="easyui-linkbutton"
+				data-options="plain:true,iconCls:'icon-lock'">修改密码</a> <a href="#"
+				class="easyui-linkbutton"
+				data-options="plain:true,iconCls:'icon-clear'">退出系统</a> <select
+				class="easyui-combobox" data-options="editable:false">
+				<option value="0" selected="selected">中文</option>
+				<option value="1">English</option>
+			</select>
+		</div>
+	</div>
+
+	<div region="west" split="true" title="导航菜单" id="naver">
+		<div class="easyui-accordion" fit="true" id="navmenu">
+			<div title="指标体系">
+				<ul class="navmenu">
+					<li class="active"><a href="#">消费者投诉处理情况表 </a></li>
+					<li><a href="#" data-url="data01">1.深圳各区优势产业分布</a></li>
+					<li><a href="#" data-url="html/page02.html">2.深圳本期新登记企业前十名监管所</a></li>
+					<li><a href="#" data-url="html/page02.html">3.各辖区局当期新设立个体前三名的监管所</a></li>
+					<li><a href="#" data-url="html/page02.html">4.各辖区局当期新设立企业前三名的监管所</a></li>
+					<li><a href="#" data-url="html/page02.html">5.深圳本期新登记个体前十名监管所</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div region="center" id="content">
+		<div class="easyui-tabs" fit="true" id="tt">
+
+			<div title="消费者投诉处理情况表 " iconCls="icon-ok">
+				<div class="easyui-accordion" data-options="fit:true">
+					<div id="queryXiaoFei">
+						<!-- 组织机构管理 -->
+						<div class="easyui-layout" data-options="fit:true">
+							<div class="inner-content" data-options="region:'center'">
+								<!-- 数据表工具栏 -->
+								<div class="toolbar" id="toolbar2">
+									<div class="search-div">
+										<label>开始日期：</label><input id="startDatetime" type="text" class="easyui-datebox" > 
+										<label>截止日期：</label><input id="endDatetime" type="text" class="easyui-datebox" >
+										 <a	href="#" class="easyui-linkbutton" iconCls="icon-search" onclick="doQuery()">搜索</a>
+									</div>
+								</div>
+								<!-- /数据表工具栏 -->
+								<!-- 数据表 -->
+								<table class="gridtable">
+									<tr>
+										<td field="name" align="center">消费者投诉处理情况</td>
+										<td field="name" align="center">单位</td>
+										<td field="name" align="center">本年情况</td>
+										<td field="role" align="center">上年情况</td>
+										<td field="role" align="center">本年总数</td>
+										<td field="role" align="center">上年总数</td>
+										<td field="username" align="center">本年累计比上年同期增减数</td>
+										<td field="username" align="center">本年累计比上年同期增减%</td>
+									</tr>
+									<tbody id="dg"></tbody>
+								</table>
+								<!-- /数据表 -->
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div region="south" id="footer">某某后台管理系统 V1.0</div>
+
+	<script type="text/javascript">
+		$(function() {
+			//添加新的Tab页
+			$("#navmenu").on("click", "a[data-url]", function(e) {
+				e.preventDefault();
+				var tabTitle = $(this).text();
+				var tabUrl = $(this).data("url");
+
+				if ($("#tt").tabs("exists", tabTitle)) { //判断该Tab页是否已经存在
+					$("#tt").tabs("select", tabTitle);
+				} else {
+					$("#tt").tabs("add", {
+						title : tabTitle,
+						href : tabUrl,
+						closable : true
+					});
+				}
+				$("#navmenu .active").removeClass("active");
+				$(this).parent().addClass("active");
+			});
+
+			//解决闪屏的问题
+			window.setTimeout(function() {
+				$("#layout").css("visibility", "visible");
+			}, 800);
+		});
+
+		
+		
+		function doQuery(){
+			var startDatetime=$("#startDatetime").datetimebox("getValue");
+			var endDatetime=$("#endDatetime").datetimebox("getValue");
+			
+			if(startDatetime==""){
+				alert("开始时间不能为空");
+				return ;
+			}
+			if(endDatetime==""){
+				alert("截止时间不能为空");
+				return ;
+			}
+			
+			if(startDatetime>endDatetime){
+				alert("开始时间不能大于截止时间");
+			}
+			
+			queryDate(startDatetime,endDatetime);
+		}
+		
+		function queryDate(startDatetime,endDatetime){
+			$.ajax({
+				url : "12315",
+				type : "post",
+				dataType : "json",
+				data:{startTime:startDatetime,endTime:endDatetime},
+				beforeSend:function(){
+					$("#dg").empty();
+					$("#dg").append("<tr><td colspan='8'>查询中，请稍后......</td></tr>");
+				},
+				success : function(data) {
+					var _html = "";
+					$("#dg").empty();
+					for (var i = 0; i < data.length; i++) {
+
+						_html += "<tr><td>" + data[i].NAME + "</td><td>" + data[i].UNIT + "</td><td>" + data[i].NOW + "</td><td>" + data[i].UPYEAR + "</td><td>" + data[i].NOWSUM + "</td><td>" + data[i].UPYEAR_SUM + "</td><td>" + data[i].ZJSHU + "</td><td>" + data[i].ZJLV + "</td></tr>";
+					}
+					$("#dg").append(_html);
+
+				}
+			});
+			
+			
+		}
+	</script>
+</body>
+</html>
