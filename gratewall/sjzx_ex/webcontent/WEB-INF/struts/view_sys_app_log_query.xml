@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>日志查询</menu-name>
+  <menu-path>/page/log/</menu-path>
+  <description>日志查询</description>
+  <form-beans>
+    <form-bean name="ViewSysAppLogQueryRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="username" type="string" size="100" description="用户姓名"/>
+      <form-property prefix="select-key" name="query_time" type="string" size="32" description="查询时间"/>
+      <form-property prefix="select-key" name="query_date_start" type="string" size="32" description="查询时间起"/>
+      <form-property prefix="select-key" name="query_date_end" type="string" size="32" description="查询时间止"/>
+      <form-property prefix="select-key" name="orgid" type="string" size="32" description="机构id"/>
+      <form-property prefix="select-key" name="ipaddress" type="string" size="100" description="ip地址"/>
+      <form-property prefix="select-key" name="type" type="long" description="类型"/>
+      <form-property prefix="select-key" name="Excelpage" type="long" size="100" description="导出第几页"/>
+      <form-property prefix="select-key" name="totalCount" type="long" size="100" description="导出总条数"/>
+      <form-property prefix="select-key" name="numPerPage" type="long" size="100" description="每次导出条数"/>
+      <form-property prefix="select-key" name="fromCount" type="long" size="100" description="导出记录开始数"/>
+      <form-property prefix="select-key" name="toCount" type="long" size="100" description="导出记录结束数"/>
+      <form-property prefix="record" name="flowno" type="long" cannull="false" description="流水号"/>
+      <form-property prefix="record" name="username" type="string" size="100" cannull="true" description="用户姓名"/>
+      <form-property prefix="record" name="query_time" type="string" size="32" cannull="true" description="查询时间"/>
+      <form-property prefix="record" name="orgid" type="string" size="32" cannull="true" description="机构id"/>
+      <form-property prefix="record" name="ipaddress" type="string" size="100" cannull="true" description="ip地址"/>
+      <form-property prefix="record" name="type" type="long" cannull="true" description="类型"/>
+    </form-bean>
+
+    <form-bean name="ViewSysAppLogQueryUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="username" type="string" size="100" cannull="true" description="用户姓名"/>
+      <form-property prefix="record" name="username" type="string" size="100" cannull="true" description="用户姓名"/>
+      <form-property prefix="record" name="query_time" type="string" size="32" cannull="true" description="查询时间"/>
+      <form-property prefix="record" name="orgid" type="string" size="32" cannull="true" description="机构id"/>
+      <form-property prefix="record" name="ipaddress" type="string" size="100" cannull="true" description="ip地址"/>
+      <form-property prefix="record" name="type" type="long" cannull="true" description="类型"/>
+    </form-bean>
+    
+    <form-bean name="ViewSysAppLogQueryCountForm">
+      <description>应用日志首页</description>
+      <form-property prefix="select-key" name="date" type="string" size="100" cannull="true" description="用户姓名"/>
+      <form-property prefix="record" name="online_num" type="string" size="100" cannull="true" description="在线用户数"/>
+      <form-property prefix="record" name="scsj" type="string" size="32" cannull="true" description="在线日期"/>
+      <form-property prefix="record" name="chartXML" type="string" size="5000" cannull="true" description="图表数据"/>
+      <form-property prefix="record" name="chartXML24" type="string" size="5000" cannull="true" description="图表数据"/>
+      <form-property prefix="record" name="ipaddress" type="string" size="100" cannull="true" description="ip地址"/>
+      <form-property prefix="record" name="type" type="long" cannull="true" description="类型"/>
+    
+    <form-property prefix="record" name="name" type="string" size="100" cannull="true" description="所属分局科室"/>
+    <form-property prefix="record" name="count" type="string" size="100" cannull="true" description="登陆次数"/>
+    <form-property prefix="record" name="orgid" type="string" size="100" cannull="true" description="机构id"/>
+    <form-property prefix="record" name="chartXMLTop5" type="string" size="5000" cannull="true" description="图表数据"/>
+    
+    <form-property prefix="record" name="login_count" type="string" size="100" cannull="true" description="登陆次数"/>
+    <form-property prefix="record" name="query_count" type="string" size="100" cannull="true" description="登陆次数"/>
+    <form-property prefix="record" name="download_count" type="string" size="100" cannull="true" description="登陆次数"/>
+    <form-property prefix="record" name="count_date" type="string" size="100" cannull="true" description="统计日期"/>
+    <form-property prefix="record" name="count_incre" type="string" size="100" cannull="true" description="增量"/>
+    
+    <form-property prefix="record" name="nz_count" type="string" size="100" cannull="true" description="内资"/>
+    <form-property prefix="record" name="wz_count" type="string" size="100" cannull="true" description="外资"/>
+    <form-property prefix="record" name="jg_count" type="string" size="100" cannull="true" description="机构"/>
+    <form-property prefix="record" name="gt_count" type="string" size="100" cannull="true" description="个体"/>
+    
+    <form-property prefix="record" name="chartXMLByOrganization" type="string" size="5000" cannull="true" description="图表数据"/>
+    <form-property prefix="record" name="chartXMLByFun" type="string" size="5000" cannull="true" description="图表数据"/>
+    <form-property prefix="record" name="chartXMLByTotal" type="string" size="5000" cannull="true" description="图表数据"/>
+    <form-property prefix="record" name="chartXMLIncre" type="string" size="5000" cannull="true" description="图表数据"/>
+    <form-property prefix="record" name="chartXMLIncreTop10" type="string" size="5000" cannull="true" description="图表数据"/>
+    <form-property prefix="record" name="chartXMLMarketEntityFull" type="string" size="5000" cannull="true" description="图表数据"/>
+    <form-property prefix="record" name="chartXMLMarketEntityIncre" type="string" size="5000" cannull="true" description="图表数据"/>
+    
+    </form-bean>
+
+    <form-bean name="ViewSysAppLogQueryDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="username" type="string" size="100" cannull="true" description="用户姓名"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-view_sys_app_log_query.jsp" name="ViewSysAppLogQueryRowsetForm" txn-code="620100101" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询日志查询列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100101" input-node="select-key" output-node="record" description="查询日志查询列表"/>
+      <forward error-code="success" path="query-view_sys_app_log_query.jsp"/>
+      <forward error-code="failure" path="query-view_sys_app_log_query.jsp"/>
+    </action>
+	
+	<action input="query-view_sys_app_log_query.jsp" name="ViewSysAppLogQueryRowsetForm" txn-code="620100117" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询日志查询列表导出</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100117" input-node="select-key" output-node="record" description="查询日志查询列表"/>
+      <forward error-code="success" path="Excel-view_sys_app_log_query.jsp"/>
+      <forward error-code="failure" path="Excel-view_sys_app_log_query.jsp"/>
+    </action>
+    
+    <action input="query-view_sys_app_log_query.jsp" name="ViewSysAppLogQueryRowsetForm" txn-code="620100118" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询日志查询列表输入页码数</description>
+     <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100118"   input-node="select-key" output-node="record" description="查询日志查询列表"/>
+      <forward error-code="success" path="exportExcel.jsp"/>
+      <forward error-code="failure" path="exportExcel.jsp"/>
+    </action>
+    
+    <action input="query-view_sys_app_log_query_last_6months.jsp" name="ViewSysAppLogQueryRowsetForm" txn-code="620100119" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>最近半年日志查询列表导出</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100119" input-node="select-key" output-node="record" description="最近半年日志查询列表"/>
+      <forward error-code="success" path="Excel-view_sys_app_log_query_last_6months.jsp"/>
+      <forward error-code="failure" path="Excel-view_sys_app_log_query_last_6months.jsp"/>
+    </action>
+    
+    <action input="query-view_sys_app_log_query_last_6months.jsp" name="ViewSysAppLogQueryRowsetForm" txn-code="620100120" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>最近半年日志查询列表输入页码数</description>
+     <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100120"   input-node="select-key" output-node="record" description="最近半年日志查询列表"/>
+      <forward error-code="success" path="exportExcel.jsp"/>
+      <forward error-code="failure" path="exportExcel.jsp"/>
+    </action>
+
+    <action input="update-view_sys_app_log_query.jsp" name="ViewSysAppLogQueryUpdateForm" txn-code="620100102" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改日志查询信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100102" input-node="record" description="修改日志查询信息"/>
+      <forward error-code="success" path="update-view_sys_app_log_query.jsp"/>
+      <forward error-code="failure" path="update-view_sys_app_log_query.jsp"/>
+    </action>
+
+    <action input="insert-view_sys_app_log_query.jsp" name="ViewSysAppLogQueryUpdateForm" txn-code="620100103" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加日志查询信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100103" input-node="record" description="增加日志查询信息"/>
+      <forward error-code="success" path="insert-view_sys_app_log_query.jsp"/>
+      <forward error-code="failure" path="insert-view_sys_app_log_query.jsp"/>
+    </action>
+
+    <action input="query-view_sys_app_log_query.jsp" name="ViewSysAppLogQueryUpdateForm" txn-code="620100104" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询日志查询用于修改</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100104" input-node="primary-key" output-node="record" description="查询日志查询用于修改"/>
+      <forward error-code="success" path="update-view_sys_app_log_query.jsp"/>
+      <forward error-code="failure" path="update-view_sys_app_log_query.jsp"/>
+    </action>
+
+    <action input="query-view_sys_app_log_query.jsp" name="ViewSysAppLogQueryDeleteForm" txn-code="620100105" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除日志查询信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100105" input-node="primary-key" description="删除日志查询信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+    <action input="query-view_sys_app_log_query_last_6months.jsp" name="ViewSysAppLogQueryRowsetForm" txn-code="620100106" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询最近6个月日志查询列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100106" input-node="select-key" output-node="record" description="查询最近6个月日志查询列表"/>
+      <forward error-code="success" path="query-view_sys_app_log_query_last_6months.jsp"/>
+      <forward error-code="failure" path="query-view_sys_app_log_query_last_6months.jsp"/>
+    </action>
+    
+    <action input="homepage_log.jsp" name="ViewSysAppLogQueryCountForm" txn-code="62000000" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>应用日志首页</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn62000000" input-node="select-key" output-node="record" description="应用日志首页"/>
+      <forward error-code="success" path="homepage_log.jsp"/>
+      <forward error-code="failure" path="homepage_log.jsp"/>
+    </action>
+    
+    <action input="data_growth_situation.jsp" name="ViewSysAppLogQueryCountForm" txn-code="62010030" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>数据增长情况首页</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn62010030" input-node="select-key" output-node="record" description="应用日志首页"/>
+      <forward error-code="success" path="data_growth_situation.jsp"/>
+      <forward error-code="failure" path="data_growth_situation.jsp"/>
+    </action>
+    
+    <action input="homepage_log.jsp" name="ViewSysAppLogQueryCountForm" txn-code="620100107" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>统计最大在线人数</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100107" input-node="select-key" output-node="record" description="最大在线人数"/>
+      <forward error-code="success" path="homepage_log.jsp"/>
+      <forward error-code="failure" path="homepage_log.jsp"/>
+    </action>
+    
+    <action input="homepage_log.jsp" name="ViewSysAppLogQueryCountForm" txn-code="620100108" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>统计最近24小时最大在线人数</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100108" input-node="select-key" output-node="record" description="统计最近24小时最大在线人数"/>
+      <forward error-code="success" path="homepage_log.jsp"/>
+      <forward error-code="failure" path="homepage_log.jsp"/>
+    </action>
+    
+    <action input="homepage_log.jsp" name="ViewSysAppLogQueryCountForm" txn-code="620100109" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>使用次数前5名所(科)</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100109" input-node="select-key" output-node="record" description="使用次数前5名所(科)"/>
+      <forward error-code="success" path="homepage_log.jsp"/>
+      <forward error-code="failure" path="homepage_log.jsp"/>
+    </action>
+    
+    <action input="homepage_log.jsp" name="ViewSysAppLogQueryCountForm" txn-code="620100110" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统使用情况按机构</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100110" input-node="select-key" output-node="record" description="系统使用情况按机构"/>
+      <forward error-code="success" path="homepage_log.jsp"/>
+      <forward error-code="failure" path="homepage_log.jsp"/>
+    </action>
+    
+    <action input="homepage_log.jsp" name="ViewSysAppLogQueryCountForm" txn-code="620100111" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统使用情况按功能</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100111" input-node="select-key" output-node="record" description="系统使用情况按功能"/>
+      <forward error-code="success" path="homepage_log.jsp"/>
+      <forward error-code="failure" path="homepage_log.jsp"/>
+    </action>
+    
+    <action input="homepage_log.jsp" name="ViewSysAppLogQueryCountForm" txn-code="620100112" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统使用情况</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100112" input-node="select-key" output-node="record" description="系统使用情况按功能"/>
+      <forward error-code="success" path="homepage_log.jsp"/>
+      <forward error-code="failure" path="homepage_log.jsp"/>
+    </action>
+    
+    <action input="data_growth_situation.jsp" name="ViewSysAppLogQueryCountForm" txn-code="620100113" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统使用情况</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100113" input-node="select-key" output-node="record" description="系统使用情况按功能"/>
+      <forward error-code="success" path="data_growth_situation.jsp"/>
+      <forward error-code="failure" path="data_growth_situation.jsp"/>
+    </action>
+    
+    <action input="data_growth_situation.jsp" name="ViewSysAppLogQueryCountForm" txn-code="620100114" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统使用情况</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100114" input-node="select-key" output-node="record" description="系统使用情况按功能"/>
+      <forward error-code="success" path="data_growth_situation.jsp"/>
+      <forward error-code="failure" path="data_growth_situation.jsp"/>
+    </action>
+    
+    <action input="data_growth_situation.jsp" name="ViewSysAppLogQueryCountForm" txn-code="620100115" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统使用情况</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100115" input-node="select-key" output-node="record" description="系统使用情况按功能"/>
+      <forward error-code="success" path="data_growth_situation.jsp"/>
+      <forward error-code="failure" path="data_growth_situation.jsp"/>
+    </action>
+    
+    <action input="data_growth_situation.jsp" name="ViewSysAppLogQueryCountForm" txn-code="620100116" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统使用情况</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewSysAppLogQuery" func-name="txn620100116" input-node="select-key" output-node="record" description="系统使用情况按功能"/>
+      <forward error-code="success" path="data_growth_situation.jsp"/>
+      <forward error-code="failure" path="data_growth_situation.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-view_sys_app_log_query.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/log/query-view_sys_app_log_query.jsp" description="查询日志查询列表"/>
+    <resource-file type="jsp" file-name="/page/log/insert-view_sys_app_log_query.jsp" description="增加日志查询信息"/>
+    <resource-file type="jsp" file-name="/page/log/update-view_sys_app_log_query.jsp" description="修改日志查询信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.log.vo.ViewSysAppLogQueryContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.log.vo.VoViewSysAppLogQuery" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.log.vo.VoViewSysAppLogQuerySelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.log.vo.VoViewSysAppLogQueryPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

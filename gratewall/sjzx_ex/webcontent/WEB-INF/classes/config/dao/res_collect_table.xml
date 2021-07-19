@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="res_collect_table" class-name="com.gwssi.resource.collect.dao.ResCollectTable" check-flag="false" backup-flag="false">
+    <description>采集数据表信息表</description>
+  </table-info>
+
+  <column name="collect_table_id" data-type="varchar" length="32" not-null="true" value-from="input" description="采集数据表ID"/>
+  <column name="service_targets_id" data-type="varchar" length="32" not-null="false" value-from="input" description="服务对象ID"/>
+  <column name="table_name_en" data-type="varchar" length="100" not-null="false" value-from="input" description="表名称"/>
+  <column name="table_name_cn" data-type="varchar" length="100" not-null="false" value-from="input" description="表中文名称"/>
+  <column name="table_type" data-type="varchar" length="20" not-null="false" value-from="input" description="表类型"/>
+   <column name="cj_ly" data-type="varchar" length="20" not-null="false" value-from="input" description="采集来源"/>
+    <column name="if_creat" data-type="varchar" length="1" not-null="false" value-from="input" description="采集库是否生成采集表"/>
+  <column name="table_desc" data-type="varchar" length="2000" not-null="false" value-from="input" description="表描述"/>
+  <column name="table_status" data-type="varchar" length="20" not-null="false" value-from="input" description="表状态"/>
+  <column name="is_markup" data-type="varchar" length="1" not-null="false" value-from="input" description="有效标记"/>
+  <column name="creator_id" data-type="varchar" length="32" not-null="false" value-from="input" description="创建人ID"/>
+  <column name="created_time" data-type="varchar" length="19" not-null="false" value-from="input" description="创建时间"/>
+  <column name="last_modify_id" data-type="varchar" length="32" not-null="false" value-from="input" description="最后修改人ID"/>
+  <column name="last_modify_time" data-type="varchar" length="19" not-null="false" value-from="input" description="最后修改时间"/>
+  <column name="fj_fk" data-type="varchar" length="2000" not-null="false" value-from="input" description="附件id"/>
+  <column name="fjmc" data-type="varchar" length="2000" not-null="false" value-from="input" description="附件名称"/>
+  <primary-key name="pk_res_collect_table" column-list="collect_table_id"/>
+  <index name="pk_res_collect_table" index-type="unique" cluster="cluster" column-list="collect_table_id"/>
+  <function func-name="select one res_collect_table" func-type="select" column-list="collect_table_id,service_targets_id,table_name_en,table_name_cn,table_type,table_desc,table_status,is_markup,creator_id,created_time,last_modify_id,last_modify_time,cj_ly,if_creat" sort-columns="created_time desc">
+    <filter-column column-name="collect_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select res_collect_table list" func-type="rowset" column-list="collect_table_id,service_targets_id,table_name_en,table_name_cn,table_type,table_desc,table_status,is_markup,creator_id,created_time,last_modify_id,last_modify_time,cj_ly,if_creat" sort-columns="created_time desc" max-record="10">
+    <filter-column column-name="service_targets_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="table_type" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="cj_ly" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="if_creat" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="table_name_en" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="table_name_cn" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询数据表</description>
+  </function>
+
+  <function func-name="insert one res_collect_table" func-type="insert" column-list="collect_table_id,service_targets_id,table_name_en,table_name_cn,table_type,table_desc,table_status,is_markup,creator_id,created_time,last_modify_id,last_modify_time,cj_ly,if_creat">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one res_collect_table" func-type="delete">
+    <filter-column column-name="collect_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one res_collect_table" func-type="update" column-list="service_targets_id,table_name_en,table_name_cn,table_type,table_desc,table_status,last_modify_id,last_modify_time,cj_ly,if_creat">
+    <filter-column column-name="collect_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

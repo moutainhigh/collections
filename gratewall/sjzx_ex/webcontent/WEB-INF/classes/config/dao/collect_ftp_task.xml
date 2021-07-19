@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>采集服务</sort-name>
+  <table-info name="collect_ftp_task" class-name="com.gwssi.collect.ftp.dao.CollectFtpTask" check-flag="false" backup-flag="false">
+    <description>FTP任务表</description>
+  </table-info>
+
+  <column name="ftp_task_id" data-type="varchar" length="32" not-null="true" value-from="input" description="FTP任务ID"/>
+  <column name="collect_task_id" data-type="varchar" length="32" not-null="false" value-from="input" description="采集任务ID"/>
+  <column name="service_no" data-type="varchar" length="20" not-null="false" value-from="input" description="任务编号"/>
+  <column name="file_name_en" data-type="varchar" length="100" not-null="false" value-from="input" description="文件名称"/>
+  <column name="file_name_cn" data-type="varchar" length="100" not-null="false" value-from="input" description="文件中文名称"/>
+  <column name="collect_mode" data-type="varchar" length="20" not-null="false" value-from="input" description="采集方式"/>
+  <column name="collect_table" data-type="varchar" length="32" not-null="false" value-from="input" description="对应采集表"/>
+  <column name="file_status" data-type="varchar" length="20" not-null="false" value-from="input" description="文件状态"/>
+  <column name="file_description" data-type="varchar" length="2000" not-null="false" value-from="input" description="文件描述"/>
+  <column name="fj_path" data-type="varchar" length="200" not-null="false" value-from="input" description="附件路径"/>
+  <column name="file_title_type" data-type="varchar" length="5" not-null="false" value-from="input" description="文件标题行类型"/>
+  <column name="file_sepeator" data-type="varchar" length="5" not-null="false" value-from="input" description="文件列分隔符"/>
+  <column name="month" data-type="varchar" length="5" not-null="false" value-from="input" description="取文件规则的月份"/>
+  <column name="day_month" data-type="varchar" length="5" not-null="false" value-from="input" description="取文件规则的日期"/>
+  <column name="name_type" data-type="varchar" length="2" not-null="false" value-from="input" description="文件后缀日期命名类型"/>
+  <column name="day_num" data-type="varchar" length="5" not-null="false" value-from="input" description="按日规则"/>
+  
+  <primary-key name="pk_collect_ftp_task" column-list="ftp_task_id"/>
+  <index name="pk_collect_ftp_task" index-type="unique" cluster="cluster" column-list="ftp_task_id"/>
+  <function func-name="select one collect_ftp_task" func-type="select" column-list="ftp_task_id,collect_task_id,service_no,file_name_en,file_name_cn,collect_mode,collect_table,file_status,file_description,fj_path,file_title_type,file_sepeator,month,day_month,name_type,day_num">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select collect_ftp_task list" func-type="rowset" column-list="ftp_task_id,collect_task_id,service_no,file_name_en,file_name_cn,collect_mode,collect_table,file_status,file_description,fj_path,file_title_type,file_sepeator,month,day_month,name_type,day_num" max-record="10">
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one collect_ftp_task" func-type="insert" column-list="ftp_task_id,collect_task_id,service_no,file_name_en,file_name_cn,collect_mode,collect_table,file_status,file_description,fj_path,file_title_type,file_sepeator,month,day_month,name_type,day_num">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one collect_ftp_task" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one collect_ftp_task" func-type="update" column-list="service_no,file_name_en,file_name_cn,collect_mode,collect_table,file_status,file_description,fj_path,file_title_type,file_sepeator,month,day_month,name_type,day_num">
+    <description>修改记录</description>
+  </function>
+</table>
+

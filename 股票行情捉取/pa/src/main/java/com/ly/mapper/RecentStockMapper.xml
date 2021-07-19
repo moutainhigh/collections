@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ly.dao.RecentStockDao">
+
+	<select id="getListByParam" resultType="RecentStock">
+			select * from RecentPrice t
+		limit #{pageIndex},#{pageSize}
+	</select>
+	
+	
+	<select id="getTotalByParam" resultType="int">
+		select count(1) from RecentPrice
+	</select>
+
+
+
+
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from RecentPrice t where t.code = #{code}
+		</selectKey>
+		<if test="count > 0">
+			update RecentPrice
+			<trim prefix="set" suffixOverrides=",">
+				<if test="code != null">code = #{code, jdbcType=VARCHAR},</if>
+				<if test="name != null">name = #{name, jdbcType=VARCHAR},</if>
+				<if test="day5 != null">day5 = #{day5, jdbcType=VARCHAR},</if>
+				<if test="day10 != null">day10 = #{day10, jdbcType=VARCHAR},</if>
+				<if test="day15 != null">day15 = #{day15, jdbcType=VARCHAR},</if>
+				<if test="day20 != null">day20 = #{day20, jdbcType=VARCHAR},</if>
+				<if test="day25 != null">day25 = #{day25, jdbcType=VARCHAR},</if>
+				<if test="day30 != null">day30 = #{day30, jdbcType=VARCHAR},</if>
+				<if test="day35 != null">day35 = #{day35, jdbcType=VARCHAR},</if>
+				<if test="day40 != null">day40 = #{day40, jdbcType=VARCHAR},</if>
+				<if test="day45 != null">day45 = #{day45, jdbcType=VARCHAR},</if>
+				<if test="day50 != null">day50 = #{day50, jdbcType=VARCHAR},</if>
+				<if test="day55 != null">day55 = #{day55, jdbcType=VARCHAR},</if>
+				<if test="day60 != null">day60 = #{day60, jdbcType=VARCHAR},</if>
+			</trim>
+			where code = #{code}
+		</if>
+		<if test="count == 0">
+			insert into RecentPrice
+			(
+			code,
+			name,
+			day5,
+			day10,
+			day15,
+			day20,
+			day25,
+			day30,
+			day35,
+			day40,
+			day45,
+			day50,
+			day55,
+			day60
+			)
+			values
+			(
+			#{code,jdbcType=VARCHAR},
+			#{name, jdbcType=VARCHAR},
+			#{day5,jdbcType=VARCHAR},
+			#{day10,jdbcType=VARCHAR},
+			#{day15,jdbcType=VARCHAR},
+			#{day20,jdbcType=VARCHAR},
+			#{day25,jdbcType=VARCHAR},
+			#{day30,jdbcType=VARCHAR},
+			#{day35,jdbcType=VARCHAR},
+			#{day40,jdbcType=VARCHAR},
+			#{day45,jdbcType=VARCHAR},
+			#{day50,jdbcType=VARCHAR},
+			#{day55,jdbcType=VARCHAR},
+			#{day60,jdbcType=VARCHAR}
+			)
+		</if>
+	</insert>
+</mapper>

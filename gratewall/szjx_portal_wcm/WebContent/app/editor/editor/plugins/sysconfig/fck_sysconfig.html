@@ -1,0 +1,218 @@
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<TITLE fcklang="SysConfign">系统配置</TITLE>
+	<script language="javascript">
+		var oEditor = window.parent.InnerDialogLoaded() ;
+		var FCK = oEditor.FCK;
+		var myActualTop = (top.actualTop||top);
+		function $(el) {
+			if (typeof el == 'string')
+				el = document.getElementById(el) || document.getElementsByName(el)[0];
+			return el;
+		}
+		function OnLoad(){
+			oEditor.FCKLanguageManager.TranslatePage( document);
+			//初始化各选择框值
+			//自动粘贴
+			var sEditorEnableAutoPaste = oEditor.FCKConfig.AutoDetectPaste;
+			if(sEditorEnableAutoPaste == false){
+				$('autoPaste_status').innerHTML = oEditor.FCKLang.FINISHED;
+				$('autoPaste').value = '1';
+				$('lbl_autoPaste').innerHTML = oEditor.FCKLang.OPEN;
+			}else if(sEditorEnableAutoPaste == true){
+				$('autoPaste_status').innerHTML = oEditor.FCKLang.OPENED;
+				$('autoPaste').value = '0';
+				$('lbl_autoPaste').innerHTML = oEditor.FCKLang.FINISH;
+			}
+			//粘贴为纯文本
+			var sEditorEnableTextPaste = oEditor.FCKConfig.ForcePasteAsPlainText;
+			if(sEditorEnableTextPaste == false){
+				$('textPaste_status').innerHTML = oEditor.FCKLang.FINISHED;
+				$('textPaste').value = '1';
+				$('lbl_textPaste').innerHTML = oEditor.FCKLang.OPEN;
+			}else if(sEditorEnableTextPaste == true){
+				$('textPaste_status').innerHTML = oEditor.FCKLang.OPENED;
+				$('textPaste').value = '0';
+				$('lbl_textPaste').innerHTML = oEditor.FCKLang.FINISH;
+			}
+			//粘贴统一样式
+			/*
+			*注释掉统一样式功能
+			var sEditorEnablePasteStyle = oEditor.FCKConfig.PasteToUnionStyle;
+			if(sEditorEnablePasteStyle == false){
+				$('pastestyle_status').innerHTML = oEditor.FCKLang.FINISHED;
+				$('pastestyle').value = '1';
+				$('lbl_pastestyle').innerHTML = oEditor.FCKLang.OPEN;
+			}else if(sEditorEnablePasteStyle == true){
+				$('pastestyle_status').innerHTML = oEditor.FCKLang.OPENED;
+				$('pastestyle').value = '0';
+				$('lbl_pastestyle').innerHTML = oEditor.FCKLang.FINISH;
+			}
+			*/
+			//自定义样式
+			var sEditorEnableAutoStyle = oEditor.FCKConfig.AutoAppendStyle;
+			if(sEditorEnableAutoStyle == false){
+				$('autostyle_status').innerHTML = oEditor.FCKLang.FINISHED;
+				$('autostyle').value = '1';
+				$('lbl_autostyle').innerHTML = oEditor.FCKLang.OPEN;
+			}else if(sEditorEnableAutoStyle == true){
+				$('autostyle_status').innerHTML = oEditor.FCKLang.OPENED;
+				$('autostyle').value = '0';
+				$('lbl_autostyle').innerHTML = oEditor.FCKLang.FINISH;
+			}
+			//如果不是管理员的话，这里的自定义样式操作隐藏掉。
+			if(!FCK.isAdmin){
+				$("autostyleset").style.display="none";
+			}
+
+			//剪切板粘贴模式
+			var sEditorClipBoardMode = oEditor.FCKConfig.ClipBoardMode;
+			if(sEditorClipBoardMode == true){
+				$('clipdatamode_status').innerHTML = oEditor.FCKLang.OPENED;
+				$('clipdatamode').value = "1";
+				$('lbl_clipdatamode').innerHTML = oEditor.FCKLang.FINISH;
+			}else if(sEditorClipBoardMode == false){
+				$('clipdatamode_status').innerHTML = oEditor.FCKLang.FINISHED;
+				$('clipdatamode').value = "0";
+				$('lbl_clipdatamode').innerHTML = oEditor.FCKLang.OPEN;
+			}
+		}
+
+		function Ok(){
+			var config = oEditor.FCKConfig;
+			if($('autoPaste').checked){
+				FCK.setCookie("AutoDetectPaste",$('autoPaste').value);
+				config.AutoDetectPaste = ($('autoPaste').value == "1" ? true:false);
+			}
+
+			if($('textPaste').checked){
+				FCK.setCookie("ForcePasteAsPlainText",$('textPaste').value);
+				config.ForcePasteAsPlainText = ($('textPaste').value == "1" ? true:false);
+			}
+
+			/*
+			*注释掉统一样式功能
+			if($('pastestyle').checked){
+				FCK.setCookie("PasteToUnionStyle",$('pastestyle').value);
+				config.PasteToUnionStyle = ($('pastestyle').value == "1" ? true:false);
+			}
+			*/
+
+			if($('autostyle').checked){
+				FCK.setCookie("AutoAppendStyle",$('autostyle').value);
+				config.AutoAppendStyle = ($('autostyle').value == "1" ? true:false);
+			}
+			
+
+			if($("clipdatamode").checked){
+				FCK.setCookie("ClipBoardMode",$('clipdatamode').value);
+				config.ClipBoardMode = ($('clipdatamode').value == "0" ? true:false);
+			}
+			return true;	
+		}
+	</script>
+	<style type="text/css">
+		body {
+			padding-top:0px;
+			background-color: #CCCCCC;
+		}
+		.input_btn{
+			width:60px;
+			margin-right:10px;
+		}
+		.row{
+			margin-top:5px;
+		}
+		.label{
+			width:50px;
+			text-align:right;
+			margin-left:5px;
+			margin-right:15px;
+		}
+		.value{
+			border:0px solid gray;
+		}
+		.input_text{
+			width:250px;
+		}
+		.center{
+			text-align:center;
+			color:red;
+			font-size:15px;
+			margin-left:100px;
+			margin-top :40px;
+		}
+		label{
+			cursor:pointer;
+		}
+		input{
+			cursor:pointer;
+		}
+	</style>
+</HEAD>
+<BODY onload="OnLoad();" style="margin:0;padding:0;">
+	<table height="100%" width="100%">
+		<tr>
+			<td align="left" valign="top" style="padding-left:5px;margin-top:5px;">
+				<TABLE cellSpacing=2 cellPadding=2 width="100%" border="1px solid gray" style="background-color: white;">
+					<TR>
+						<TD class=app style="PADDING-LEFT: 12px; PADDING-TOP: 3px" colspan="2" align=left>
+							<label style="font-weight:bold" fcklang="AUTOPASTECONFIG">自动粘贴开启设置</label>(<span style="color:red;" id="autoPaste_status"></span>):
+						</TD>
+						<TD>
+							<INPUT id="autoPaste" name="autoPaste" type="checkbox" value="1">
+							<LABEL id="lbl_autoPaste" for="autoPaste" fcklang="SWITCH">开启/停止</LABEL>
+						</TD>
+					</TR>
+					<TR>
+						<TD class=app style="PADDING-LEFT: 12px; PADDING-TOP: 3px" colspan="2" align=left>
+							<label style="font-weight:bold" fcklang="TEXTPASTECONFIG">粘贴纯文本开启设置</label>(<span style="color:red;" id="textPaste_status"></span>):
+						</TD>
+						<TD>
+							<INPUT id="textPaste" name="textPaste" type="checkbox" value="1">
+							<LABEL id="lbl_textPaste" for="textPaste" fcklang="SWITCH">开启/停止</LABEL>
+						</TD>
+					</TR>
+					<TR style="display:none">
+						<TD class=app style="PADDING-LEFT: 12px; PADDING-TOP: 3px" colspan="2" align=left>
+							<label style="font-weight:bold" fcklang="CLIPDATAMODECONFIG">剪切板粘贴模式开启设置</label>(<span style="color:red;" id="clipdatamode_status"></span>):
+						</TD>
+						<TD>
+							<INPUT id="clipdatamode" name="clipdatamode" type=checkbox value="1">
+							<LABEL id="lbl_clipdatamode" for="clipdatamode" fcklang="SWITCH">开启/停止</LABEL>
+						</TD>
+					</TR>
+					<!-- 注释掉统一样式功能
+					<TR style="display:none">
+						<TD class=app style="PADDING-LEFT: 12px; PADDING-TOP: 3px" colspan="2" align=left>
+							<label style="font-weight:bold" fcklang="PASTESTYLECONFIG">粘贴统一样式开启设置</label>(<span style="color:red;" id="pastestyle_status"></span>):
+						</TD>
+						<TD>
+							<INPUT id="pastestyle" name="pastestyle" type=checkbox value="1">
+							<LABEL id="lbl_pastestyle" for="pastestyle" fcklang="SWITCH">开启/停止</LABEL>
+						</TD>
+					</TR> -->
+					<TR id="autostyleset" style="display:none">
+						<TD class=app style="PADDING-LEFT: 12px; PADDING-TOP: 3px" colspan="2" align=left>
+							<label style="font-weight:bold" fcklang="AUTOSTYLECONFIG">自定义样式开启设置</label>(<span style="color:red;" id="autostyle_status"></span>):
+						</TD>
+						<TD>
+							<INPUT id="autostyle" name="autostyle" type=checkbox value="1">
+							<LABEL id="lbl_autostyle" for="autostyle" fcklang="SWITCH">开启/停止</LABEL>
+						</TD>
+					</TR>
+				</TABLE>
+			</td>
+			<td width="10" align="center" valign="top">
+				<div style="width:2px;border-left:1px solid gray;background:white;overflow:hidden;height:60px;"></div></td>
+			<td width="90" valign="top">
+				<input id="btnOk" class="input_btn" onclick="window.parent.Ok();"
+					type="button" value="确定" fcklang="DlgBtnOK"/>
+				<div style="height:5px;overflow:hidden"></div>
+				<input name="button2" class="input_btn" type="button" value="取消" onclick="window.parent.Cancel();" fcklang="DlgBtnCancel"/>
+			</td>
+		</tr>
+	</table>
+</BODY>
+</HTML>

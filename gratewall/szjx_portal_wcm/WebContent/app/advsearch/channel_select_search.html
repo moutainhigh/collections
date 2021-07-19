@@ -1,0 +1,224 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<TITLE WCMAnt:param="channel_select_search.html.title">检索栏目选择</TITLE>
+<script src="../js/runtime/myext-debug.js"></script>
+<script src="../js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../js/data/locale/system.js"></script>
+<script src="../js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+<script language="javascript">
+window.m_fpCfg = {
+	m_arrCommands : [{
+		cmd : 'getSeletedIds',
+		name : wcm.LANG.SURE || '确定'
+	}],
+	size : [320, 400]
+};
+</script>
+<script>
+	var PageContext = {};
+	Object.extend(PageContext, {
+		channelids: getParameter('channelids'),
+		siteids: getParameter('siteids'),
+		sitetype: getParameter('sitetype')
+	});
+	function getSeletedIds(){
+		var result = {};
+		if($('rdSiteType').checked) {
+            var selectedSiteTypeId = 0;
+            var selectedSiteTypeDesc =  wcm.LANG.TEXT_LIB || '文字库';
+            var aSiteType = document.getElementsByName("siteType");
+            for (var i = 0; i < aSiteType.length; i++){
+                if(aSiteType[i].checked){
+                    selectedSiteTypeId = aSiteType[i].value;
+                    selectedSiteTypeDesc = aSiteType[i].parentNode.innerText;
+                    break;
+                }
+            }
+			result['sitetype'] = [{id: selectedSiteTypeId, name: selectedSiteTypeDesc}];
+		}else{
+			if($('rdChnlChild').checked) {//栏目
+				Object.extend(result, __getSelectedNavIds('frmTreeNavChnl', 'channels'));
+
+			}else{//站点
+				Object.extend(result, __getSelectedNavIds('frmTreeNavSite', 'sites'));
+			}
+		}
+		notifyFPCallback(result);
+	}
+	function __getSelectedNavIds(_sNavId, _sFieldName){
+		var arrSelIds = $(_sNavId).contentWindow.getCheckValues();
+		var arrSelNames = $(_sNavId).contentWindow.getCheckNames();
+		var result = {};
+		if(arrSelIds.length != 0) {
+			var arrIds = [];
+			for (var i = 0; i < arrSelIds.length; i++){
+				arrIds.push({id: arrSelIds[i], name: arrSelNames[i]});
+			}
+			if(arrIds.length != 0) {
+				result[_sFieldName] = arrIds;
+			}
+		}
+		return result;
+	}
+	var m_bFirstShowSite = true, m_bFirstShowChnl = true;
+	function switch2SiteList(_bFlag){
+		Element.hide('divSiteType');
+		if(_bFlag === true) {// 站点
+			//TODO
+			if(m_bFirstShowSite) {
+				loadSiteNav();
+				m_bFirstShowSite = false;
+			}
+			Element.hide('divTreeNavChnl');
+			Element.show('divTreeNavSite');
+		}else{//栏目
+			if(m_bFirstShowChnl) {
+				loadChnlNav();
+				m_bFirstShowChnl = false;
+			}
+			Element.hide('divTreeNavSite');
+			Element.show('divTreeNavChnl');
+		}
+	}
+	function switch2SiteType(){
+		Element.hide('divTreeNavChnl');
+		Element.hide('divTreeNavSite');
+		Element.show('divSiteType');
+		var rdType = $('siteType'+PageContext.sitetype);
+		if(rdType)rdType.checked = true;
+	}
+	function loadChnlNav(){
+		var arrUrl = [
+			WCMConstants.WCM6_PATH,
+			'nav_tree/nav_tree_select.jsp',
+			'?SiteTypes=0,4&CurrSiteType=0&IsRadio=0&MultiSites=0&ExcludeSelf=0',
+			'&ExcludeChildren=0&ExcludeInfoview=0&ExcludeTop=0&ExcludeLink=1&RightIndex=30'
+		];
+		if(PageContext.channelids != '') {
+			arrUrl.push('&SelectedChannelIds=' + PageContext.channelids);
+		}
+		var html = [
+			'<iframe id="frmTreeNavChnl" src="',
+			arrUrl.join(''),
+			'" frameborder="0" scrolling="no" allowtransparency="true">',
+			'</iframe>'
+		];
+		Element.update('divTreeNavChnl', html.join(''));
+		m_bFirstShowChnl = false;
+	}
+	function loadSiteNav(){
+		var arrUrl = [
+			WCMConstants.WCM6_PATH,
+			'nav_tree/nav_tree_select_site.jsp',
+			'?SiteTypes=0,4&CurrSiteType=0&IsRadio=0&RightIndex=30'
+		];
+		if(PageContext.siteids != '') {
+			arrUrl.push('&SelectedSiteIds=' + PageContext.siteids);
+		}
+		var html = [
+			'<iframe id="frmTreeNavSite" src="',
+			arrUrl.join(''),
+			'" frameborder="0" scrolling="no" allowtransparency="true">',
+			'</iframe>'
+		];
+		Element.update('divTreeNavSite', html.join(''));
+		m_bFirstShowSite = false;
+	}
+</SCRIPT>
+<style type="text/css">
+	.selection_row{line-height:25px;height:25px;text-align:center;font-size:12px;color:#010101;}
+	.page_desc{font-size:12px;width:100%;hegith:100%;height:25px;line-height:25px;font-weight:normal;font-size:14px;width:300px;}
+	.page_desc_wicon{width:100%;height:100%;background-image:url(../images/include/pagedesc_bg.png);padding-left:5px;border-bottom:1px solid silver;}
+	#divSiteType{height: 310px; width: 300px;padding-top:10px;padding-left:10px;font-size:12px;}
+</style>
+</HEAD>
+
+<BODY>
+<div class="page_desc">
+	<div class="page_desc_wicon" WCMAnt:param="channel_select_search.html.select">检索位置</div>
+</div>
+<div id="divOptions" style="border-bottom:1px solid #efefef; padding-top: 3px; padding-bottom: 3px;">
+	<span class="selection_row"><input id="rdSiteType" type="radio" name="Position" value="" onclick="switch2SiteType()">&nbsp;<span WCMAnt:param="channel_select_search.html.libSearch">库节点下检索</span></span>
+	<span class="selection_row"><input id="rdSiteChnl" type="radio" name="Position" value="" onclick="switch2SiteList(true)">&nbsp;<span WCMAnt:param="channel_select_search.html.siteSearch">站点下检索</span></span>
+	<span class="selection_row"><input id="rdChnlChild" type="radio" name="Position" value="" onclick="switch2SiteList(false)">&nbsp;<span WCMAnt:param="channel_select_search.html.channelSearch">栏目下检索</span></span>
+</div>
+<div id="divSiteType">
+    <div id="r_0" style="height:25px;line-height:25px;">
+        <input type="radio" name="siteType" id="siteType0" value="0"> <label for="siteType0" WCMAnt:param="channel_select_search.html.site1">文字库</label>
+    </div>
+    <!--<div style="height:25px;line-height:25px;">
+        <input type="radio" name="siteType" id="siteType2" value="2"> <label for="siteType2" WCMAnt:param="channel_select_search.html.site2">视频库</label>
+    </div>-->
+    <div id="r_4" style="height:25px;line-height:25px;">
+        <input type="radio" name="siteType" id="siteType4" value="4"> <label for="siteType4" WCMAnt:param="channel_select_search.html.site4">资源库</label>
+    </div>
+</div>
+<div id="divTreeNavChnl" style="display: none; height: 310px; width: 100%;">
+</div>
+<div id="divTreeNavSite" style="display: none; height: 310px; width: 100%;">
+</div>
+<script language="javascript">
+(function(){
+	if(PageContext.siteids != '') {
+		$('rdSiteChnl').checked = true;
+		switch2SiteList(true);
+		return;
+	}
+	if(PageContext.channelids != '') {
+		$('rdChnlChild').checked = true;
+		switch2SiteList(false);
+		return;
+	}
+	//PageContext.sitetype != ''
+	$('rdSiteType').checked = true;
+	switch2SiteType();	
+})();
+</script>
+<!--WCM-1763 | 提供一个系统工具，可以对WCM导航树中的某些节点设置为显示或不显示-->
+<script language="javascript">
+<!--
+	Event.observe(window, 'load', function(){
+		
+		var CustomizeInfo = window.top.m_CustomizeInfo;
+		if(!CustomizeInfo){
+			var oHelper = new com.trs.web2frame.BasicDataHelper();
+			oHelper.JspRequest("../individuation/systemindividuation_get.jsp",{},false, 
+				function(transport,json){
+					if(!json){
+						return;
+					}
+					var adiv=document.getElementsByTagName("div");
+					for(var i=0;i<adiv.length;i++){
+
+						if(adiv[i].id=="r_0" && json["TEXTLIB"]=="false"){
+							document.getElementById("r_0").style.display = "none"; 
+						}else if(adiv[i].id=="r_4" && json["RESOURCESLIB"]=="false"){
+							document.getElementById("r_4").style.display = "none";
+						}
+					}
+				}
+			);
+		}else{
+			var adiv=document.getElementsByTagName("div");
+			if(!CustomizeInfo["textLib"]){
+				return;
+			}
+			for(var i=0;i<adiv.length;i++){
+				if(adiv[i].id=="r_0" && CustomizeInfo["textLib"].paramValue=="false"){
+					document.getElementById("r_0").style.display = "none";
+				}else if(adiv[i].id=="r_4" && CustomizeInfo["resourcesLib"].paramValue=="false"){
+					document.getElementById("r_4").style.display = "none";
+				}
+			}
+		}
+	});
+
+//-->
+</script>
+</BODY>
+</HTML>

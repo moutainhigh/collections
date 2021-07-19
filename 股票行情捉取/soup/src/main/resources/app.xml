@@ -1,0 +1,169 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:task="http://www.springframework.org/schema/task" xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context-4.3.xsd  
+    http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd  
+    http://www.springframework.org/schema/tx  
+    http://www.springframework.org/schema/tx/spring-tx-4.3.xsd  
+    http://www.springframework.org/schema/jdbc  
+    http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd  
+    http://www.springframework.org/schema/cache  
+    http://www.springframework.org/schema/cache/spring-cache-4.3.xsd  
+    http://www.springframework.org/schema/aop  
+    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd  
+    http://www.springframework.org/schema/util  
+    http://www.springframework.org/schema/util/spring-util-4.3.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task-4.3.xsd">
+     
+ 
+	<!-- <bean class="com.ly.placeholder.EncryptPropertyPlaceholderConfigurer"
+	    p:locations="classpath:*.properties"
+		p:fileEncoding="utf-8"/> -->
+		
+
+
+	<bean id="propertyConfigurer"
+	class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="locations">
+		<list>
+			<value>classpath:*.properties</value>
+		</list>
+	</property>
+</bean>
+
+
+	<!-- 扫描包 -->
+	<context:component-scan base-package="com.ly" >
+	         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>  
+	</context:component-scan>
+	
+	
+
+	<!-- 数据源 写 -->
+	<!-- https://blog.csdn.net/qq_31384551/article/details/81022643?utm_source=blogxgwz1 -->
+	<!-- <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"   destroy-method="close">
+        <property name="driverClassName" value="${driverClassName}"></property>
+        <property name="jdbcUrl" value="${url}"></property>
+        <property name="username" value="${userName}"></property>
+        <property name="password" value="${password}"></property>
+        <property name="readOnly" value="false" />
+        <property name="connectionTimeout" value="60000" />
+        <property name="idleTimeout" value="600000" />
+        <property name="maxLifetime" value="1800000" />
+        <property name="maximumPoolSize" value="15" />
+        <property name="minimumIdle" value="5"></property>
+    </bean>
+ -->
+
+
+
+
+
+
+<!-- http://www.html580.com/9880 -->
+<!-- https://www.cnblogs.com/jiligalaer/p/4783827.html -->
+<!-- 数据源配置, 使用 BoneCP 数据库连接池 -->
+<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+  <!-- 数据源驱动类可不写，Druid默认会自动根据URL识别DriverClass -->
+  <property name="driverClassName" value="${driverClassName}" />
+    <!-- 基本属性 url、user、password -->
+    <property name="url" value="${url}" />
+    <property name="username" value="${userName}" />
+    <property name="password" value="${password}" />
+ 
+    <!-- 配置初始化大小、最小、最大 -->
+    <property name="initialSize" value="3" />
+    <property name="minIdle" value="3" />
+    <property name="maxActive" value="20" />
+ 
+    <!-- 配置获取连接等待超时的时间 -->
+    <property name="maxWait" value="60000" />
+ 
+    <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+    <property name="timeBetweenEvictionRunsMillis" value="60000" />
+ 
+    <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+    <property name="minEvictableIdleTimeMillis" value="300000" />
+ 
+    <property name="validationQuery" value="SELECT 'x'" />
+    <property name="testWhileIdle" value="true" />
+    <property name="testOnBorrow" value="false" />
+    <property name="testOnReturn" value="false" />
+ 
+    <!-- 打开PSCache，并且指定每个连接上PSCache的大小（Oracle使用）
+    <property name="poolPreparedStatements" value="true" />
+    <property name="maxPoolPreparedStatementPerConnectionSize" value="20" /> -->
+ 
+    <!-- 配置监控统计拦截的filters -->
+  <property name="filters" value="stat" />
+</bean>
+
+
+
+
+
+
+
+	<!-- https://www.cnblogs.com/juaner767/p/5597009.html -->
+	<!-- https://www.cnblogs.com/xujian2014/p/5282335.html -->
+	<!-- https://www.oschina.net/question/584851_139301 -->
+   <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean" lazy-init="false">
+        <!-- 注入datasource，给sessionfactoryBean内setdatasource提供数据源 -->
+        <property name="dataSource" ref="dataSource" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+                <prop key="hibernate.jdbc.batch_size">1000</prop>
+            </props>
+        </property>
+        <property name="packagesToScan" value="com.ly.pojo"></property>
+    </bean>  
+    
+    <!-- 配置Spring声明式事务 -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean> 
+    
+   <!--  <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/> -->  
+    
+
+
+
+ <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*" read-only="false"/>
+        </tx:attributes>
+    </tx:advice>
+    <!-- aop配置 -->
+    <aop:config>
+       	<aop:pointcut id="txPointcut" expression="execution(* com.ly.dao.impl.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+    </aop:config> 
+
+
+<aop:config proxy-target-class="true"/>
+
+
+<!-- https://blog.csdn.net/verseboys/article/details/79898906 -->
+ <!-- <aop:aspectj-autoproxy/> -->
+ 
+<!--  <aop:config proxy-target-class="true"/> -->
+ <!-- https://www.jianshu.com/p/538c58f6c9e1 -->
+ 
+ 
+<!-- 定时任务 -->
+<task:executor id="executor" pool-size="30" />
+<task:scheduler id="scheduler" pool-size="40" />
+<task:annotation-driven executor="executor"	scheduler="scheduler" />
+	
+</beans>

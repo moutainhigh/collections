@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+<script>
+
+	var setting = {
+		data: {
+			simpleData: {
+				enable: true,
+				idKey: "id",
+				pIdKey: "pid"
+			}
+		},
+		callback: {
+			onClick: treeOnClick
+		}
+	};
+	
+	var selectedGnId ; //当前选中的功能ID
+	var selectedGnMc;
+	function treeOnClick(event, treeId, treeNode){
+		clearForm();
+		selectedGnId = treeNode.id;
+		selectedGnMc = selectedGnId=="0"? "" : treeNode.name ;
+		$("#sjgnMc").textfield("setValue", selectedGnMc);
+		$('#formpanel').formpanel('option', 'dataurl',
+				'/optimus/auth/funcDetail.do?gnId='+selectedGnId);
+		$('#formpanel').formpanel('reload');
+	}
+	
+	var tree;
+	$(document).ready(function(){
+		refreshFuncTree();
+	});
+	
+	function datarender(data) {
+		for(var i=0;i<data.length;i++){
+			data[i]["sjgn"] = selectedGnMc? selectedGnMc : "";
+			var encodedGnMc = encodeURI(encodeURI(data[i]["gnMc"]));
+			var htm = '<a href="javascript:void(0);" onclick="editUrl(\''+data[i]["gnId"]+'\', \''
+					+encodedGnMc+'\')">'
+				+ "URL资源" + '</a> &nbsp;&nbsp;'
+				+ '<a href="javascript:void(0);" onclick="editZj(\''+data[i]["gnId"]+'\')">'
+				+ "组件资源" + '</a>'
+				;
+			data[i]["edit"] = htm; 
+		}
+		//return data;
+	}
+	
+	var win;
+	function editUrl(gnId, gnMc) {
+		win = jazz.widget({
+   	     	vtype: 'window',
+   	     	frameurl: 'func_url_list.html?gnId='+gnId+'&gnMc='+gnMc,
+  			name: 'win',
+  	    	title: 'URL资源列表',
+  	    	titlealign: 'center',
+  	    	titledisplay: true,
+  	        width: 1000,
+  	        height: 600,
+  	        modal:true,
+  	        visible: true,
+  	      	resizable: true
+   		});
+	}
+	
+	function refresh(){
+		$('#gridpanel').gridpanel('reload');
+		refreshFuncTree();
+	}
+	
+	function refreshFuncTree(){
+		var params = {
+			url : '/optimus/auth/queryFuncTree.do',
+			callback : function(data, r, res) { 
+				var data = data["data"];
+				tree = $.fn.zTree.init($("#funcTree"), setting, data);
+				tree.expandAll(true);
+			}
+		}
+		$.DataAdapter.submit(params);
+	}
+	
+	function editFunc(event, rowdata){
+		var gnId = rowdata.gnId;
+		$("#sjgnMc").textfield("setValue", selectedGnMc);
+		$('#formpanel').formpanel('option', 'dataurl',
+				'/optimus/auth/funcDetail.do?gnId='+gnId);
+		$('#formpanel').formpanel('reload');
+	}
+	
+	function saveFunc() {
+		$("#sjgnId").hiddenfield("setValue", selectedGnId);
+		var params = {
+			url : '/optimus/auth/saveFunc.do',
+			components : [ 'formpanel' ],
+			callback : function(data, r, res) { 
+				jazz.info("保存成功")
+				refresh();
+			}
+		};
+		$.DataAdapter.submit(params);
+	}
+	
+	function clearForm(){
+		$('#gnId').hiddenfield("setValue", "");
+		$('#gnMc').textfield("setValue", "");
+		$('#url').textfield("setValue", "");
+	}
+	
+	function deleteData(){
+		var selectedData = $("#gridpanel").gridpanel("getSelection");
+		if(selectedData==null || selectedData.length==0){
+			jazz.warn("请选择数据");
+			return ;
+		}		
+		jazz.confirm("确定删除所选记录？", function(){
+			var params = {
+				url : '/optimus/auth/deleteFunc.do',
+				components: ['gridpanel'],
+				callback : function(data, r, res) { 
+					jazz.info("删除成功");
+					refresh();
+				}
+			}
+			$.DataAdapter.submit(params);
+		}, function(){})
+	}
+	
+</script>
+</head>
+<body>
+	<div id="table" vtype="panel" layout="column" showborder=false 
+			layoutconfig="{columnwidth: ['25%','*']}" width="*"> 
+        <div id="demo" >
+        	<div id="toolbar" name="toolbar" vtype="toolbar" align="left">
+					<div id="btn1" name="btn1" vtype="button" text="新增"
+						icon="../../../style/default/images/save.png" click="clearForm()"></div>
+					<div id="btn2" name="btn2" vtype="button" text="删除"
+						icon="../../../style/default/images/fh.png" click="deleteFunc()"></div>
+				</div>
+			<!-- <div id="funcTree" name="funcTree" class="ztree" vtype="tree" 
+				settting="{ data: {simpleData: {enable: true, rootPId: '0'}}}"
+				 url="/optimus/dic/queryFunc.do" ></div> -->
+			<div id="funcTree" name="funcTree" class="ztree"  ></div>
+		</div>
+    	
+    	<div>
+	   		<div id="formpanel" name="formpanel" vtype="formpanel" showborder=false
+				tableStyleClass="tablecss" titledisplay="true" title="功能信息"
+				width="100%" layout="table" height="150" 
+				layoutconfig="{cols:2, columnwidth: ['50%','*']}">
+				
+				<div name='gnId' id="gnId"  vtype="hiddenfield" label="功能ID" labelAlign="right" ></div>
+				<div name='gnMc' id="gnMc" vtype="textfield" label="功能名称" labelAlign="right"
+					rule="must" width="400"></div>
+				<div name='sjgnMc' id="sjgnMc" vtype="textfield" label="上级功能" labelAlign="right" 
+					readonly=true width="400" ></div>
+				<div name='sjgnId' id="sjgnId" vtype="hiddenfield" label="上级功能ID" labelAlign="right" ></div>
+				<div name='sfcd' vtype="comboxfield" label="是否菜单"
+					labelAlign="right" rule="must" width="400" defaultvalue="0"
+					dataurl='[{"text":"是","value":"1"},{"text":"否","value":"0"}]'></div>
+				<div name='url' id="url" vtype="textfield" label="URL"
+					labelAlign="right"  width="400" ></div>
+				<div id="toolbar" name="toolbar" vtype="toolbar" align="center">
+					<div id="btn1" name="btn1" vtype="button" text="保存"
+						icon="../../../style/default/images/save.png" click="saveFunc()"></div>
+					<div id="btn2" name="btn2" vtype="button" text="重置"
+						icon="../../../style/default/images/fh.png" click="clearForm()"></div>
+				</div>
+			</div>
+			
+   			<div vtype="gridpanel" name="urlGrid" id="urlGrid"  datarender="gridDatarender"
+				titleDisplay="true" title="URL资源列表" dataurl="" showborder=false>
+				<div name="toolbar" vtype="toolbar">
+					<div id="btn1" name="btn1" vtype="button" text="新增"
+							icon="../../../style/default/images/save.png" click="addUrl()"></div>
+					<div name="delete_button" vtype="button" text="删除"
+						icon="../query/queryssuo.png" onClick="deleteUrl();"></div>
+				</div>
+				<!-- 表头 -->
+				<div vtype="gridcolumn" name="grid_column">
+					<div>
+						<!-- 单行表头 -->
+						<div name='urlId' text="url ID"  textalign="center" isshowcolumn=false></div>
+						<div name='urlMc' text="URL名称" textalign="center" width='20%' ></div>
+						<div name='gnMc' id=""gnMc text="所属功能" textalign="center" width='20%'  ></div>
+						<div name='sfjyqx' text="是否校验权限" textalign="center" width='20%' 
+							dataurl='[{"text":"是","value":"1"},{"text":"否","value":"0"}]'></div>
+						<div name='url' text="URL" textalign="center" width='40%' ></div>
+					</div>
+				</div>
+				<!-- 表格 -->
+				<!-- ../../grid/reg3.json -->
+				<div vtype="gridtable" name="grid_table" rowdblclick="rowdblclick()"></div>
+				<!-- 分页 -->
+		
+				<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10"></div>
+			</div>
+		
+			<div vtype="gridpanel" name="zjGrid" id="zjGrid"  datarender="zjDatarender"
+				titleDisplay="true" title="组件资源列表" dataurl="" showborder=false>
+				<div name="toolbar" vtype="toolbar">
+					<div id="btn1" name="btn1" vtype="button" text="新增"
+							icon="../../../style/default/images/save.png" click="addZj()"></div>
+					<div name="delete_button" vtype="button" text="删除"
+						icon="../query/queryssuo.png" onClick="deleteZj();"></div>
+				</div>
+				<!-- 表头 -->
+				<div vtype="gridcolumn" name="grid_column">
+					<div>
+						<!-- 单行表头 -->
+						<div name='urlId' text="url ID"  textalign="center" isshowcolumn=false></div>
+						<div name='urlMc' text="URL名称" textalign="center" width='20%' ></div>
+						<div name='gnMc' id=""gnMc text="所属功能" textalign="center" width='20%'  ></div>
+						<div name='sfjyqx' text="是否校验权限" textalign="center" width='20%' 
+							dataurl='[{"text":"是","value":"1"},{"text":"否","value":"0"}]'></div>
+						<div name='url' text="URL" textalign="center" width='40%' ></div>
+					</div>
+				</div>
+				<!-- 表格 -->
+				<!-- ../../grid/reg3.json -->
+				<div vtype="gridtable" name="grid_table" rowdblclick="rowdblclick()"></div>
+				<!-- 分页 -->
+		
+				<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10"></div>
+			</div>
+   		
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title WCMAnt:param="edit_image.html.insertPhoto">插入图片</title>
+		<style type="text/css">
+			body, td, span, div, input {
+				font-size: 12px;
+				font-family: "宋体", "Courier New", Courier, monospace;
+				margin: 0px;
+			}
+		</style>
+		<script language="JavaScript">
+		<!--
+		window.isIE = (navigator.appName == "Microsoft Internet Explorer");
+		if(window.isIE) {
+			if(navigator.userAgent.indexOf("Opera")>-1) window.isIE = null;
+		}
+		else {
+			if(navigator.userAgent.indexOf("Gecko")==-1) window.isIE = null;
+		}
+		function $(sID) {
+			return document.getElementById(sID);
+		}
+		function adjustDialog(){
+			var w = $("tabDialogSize").offsetWidth + 6;
+			var h = $("tabDialogSize").offsetHeight + 25;
+			window.dialogLeft = (screen.availWidth - w) / 2;
+			window.dialogTop = (screen.availHeight - h) / 2;
+		}
+		window.onload = init;
+		function init () {
+			adjustDialog();
+			$("imgpath").select();
+		}
+		function chk_imgpath () {
+			var editor = window.dialogArguments.EDiaryEditor;
+			var oRTE = editor.iframe.contentWindow;
+			if($("imgpath").value == "http://" || $("imgpath").value == "") {
+				window.close();
+				return;
+			}
+			var html = "<img src='" + $("imgpath").value + "'>";
+			if(window.isIE) {
+				try{
+					oRTE.focus();
+					var oRng = oRTE.document.selection.createRange();
+					oRng.pasteHTML(html);
+					oRng.collapse(false);
+					oRng.select();
+				}
+				catch(e){}
+			}
+			else {
+				editor.runCMD('insertHTML', html);
+			}
+			window.close();
+		}
+		document.onkeydown = function (el) {
+			var event = window.event || el;
+			if(event.keyCode == 13) {
+				chk_imgpath();
+			}
+		}
+		//-->
+		</script>
+	</head>
+	<body>
+	<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0" id="tabDialogSize">
+    <tr>
+      <td height="24" bgcolor="#DDE7EE" style="padding-left: 10px;" WCMAnt:param="edit_image.html.insertPhoto">插入图片</td>
+    </tr>
+    <tr>
+      <td height="30" align="center"><span WCMAnt:param="edit_image.html.inputPicLink">输入图片链接</span>:&nbsp;
+      <input type="text" value="http://" style="border: 1px solid #7e9eb7; width: 180px;" id="imgpath"></td>
+    </tr>
+   
+    <tr>
+      <td height="40" align="center" style="padding-bottom: 10px;"><a href="#" onclick="chk_imgpath()"><img border="0" src="../images/dilog_bt_ok.gif" alt="确定" style="margin-right: 10px;" WCMAnt:paramattr="alt:editor_image.html.ok" id="cancelFieldSelected"/></a><a href="#" onclick="window.close();"><img border="0" src="../images/dilog_bt_cancel.gif" alt="取消" WCMAnt:paramattr="alt:editor_image.html.cancel" id="cancelFieldSelected"/></a></td>
+    </tr><tr><td bgcolor="#DDE7EE" height="5"></td>
+    </tr>
+	</table>
+	</body>
+</html>

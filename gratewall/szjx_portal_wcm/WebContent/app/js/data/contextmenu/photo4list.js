@@ -1,0 +1,19 @@
+//右键单击导航树上站点节点的处理
+wcm.cms.menu.CMSMenu.on('beforeshow', function(){
+	if(!this.filter(WCMConstants.OBJ_TYPE_PHOTO)) return;
+	var items = this.getArgs().items;
+	items.select('edit','delete', '/', 
+			'changestatus', 'docpositionset','detailpublish','recallpublish', '/', 
+			'quote', 'move','/',
+			'setright');
+	try{
+		var regExp = new RegExp(wcm.LANG['TREE_REPLACE_THISDOC'] || '这(?:篇|些)文档(?:的)?');
+		items.applyCfgsMapping(function(item){
+			var desc = item.desc || '';
+			item.desc = desc.replace(regExp, '');
+			if(item.oprKey == "backup") item.desc = item.desc.replace(wcm.LANG.photo4list_1001 || "为", "");
+		});
+	}catch(error){
+		//just skip it.
+	}
+});

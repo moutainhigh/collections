@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0"  id="cms.trsdocsserver">
+	<beans>
+		<bean id="DocsFromTRSServer" class="com.trs.components.wcm.content.trsserver.DocsFromTRSServer" 
+			singleton="false"/>
+		<bean id="KMTRSServer" class="com.trs.components.wcm.content.trsserver.KMTRSServer" 
+			singleton="true"/>		
+	</beans>
+</plugin>

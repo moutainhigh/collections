@@ -1,0 +1,212 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TRS WCM 图片库检索</title>
+<link href="../style/style.css" rel="stylesheet" type="text/css">
+<script src="../js/com.trs.util/Common.js"></script>
+<script>
+	$import('wcm52.calendar.Calendar');	
+</script>
+<script>
+var m_oHostId = {};
+function init(_oArgs) {
+	var sDocStatus="0", sDocTitle = "", sAuthor = "", sCrUser = "", sKeywords = "", sDocDesc = "", sPeople = "", sPlace = "";
+	var sStartTime = "", sEndTime = "";
+	if(_oArgs) {
+		sDocStatus = _oArgs.DocStatus || "0";
+		sDocTitle = _oArgs.DocTitle || "";
+		sAuthor = _oArgs.Author || "";
+		sCrUser = _oArgs.CrUser || "";
+		sKeywords = _oArgs.Keywords || "";
+		sDocDesc = _oArgs.DocDesc || "";
+		sPeople = _oArgs.People || "";
+		sPlace = _oArgs.Place || "";
+		sStartTime = _oArgs.StartTime || "";
+		sEndTime = _oArgs.EndTime || "";
+		if(_oArgs.channelid){
+			m_oHostId = {ChannelId:_oArgs.channelid};
+		}else{
+			m_oHostId = {SiteId:_oArgs.siteid};
+		}
+	}
+	document.getElementById("DocStatus").value = sDocStatus;
+	document.getElementById("DocTitle").value = sDocTitle;
+	document.getElementById("Author").value = sAuthor;
+	document.getElementById("CrUser").value = sCrUser;
+	document.getElementById("Keywords").value = sKeywords;
+	//document.getElementById("DocDesc").value = sDocDesc;
+	document.getElementById("People").value = sPeople;
+	document.getElementById("Place").value = sPlace;
+	document.getElementById("StartTime").value = sStartTime;
+	document.getElementById("EndTime").value = sEndTime;
+}
+function closeMe() {
+	if (window.parent){
+		window.parent.notifyParent2CloseMe(document.FRAME_NAME);
+	}
+}
+function onOK() {
+	if(!window.parent) {
+		alert("Can not find window.parent!");
+		return;
+	}
+
+	if(!validateTimeRange()) return;
+	
+	var dtStart = document.getElementById("StartTime").value || "";
+	if(dtStart.length > 0) dtStart += ":00";
+
+	var dtEnd = document.getElementById("EndTime").value || "";
+	if(dtEnd.length > 0) dtEnd += ":59";
+	
+	var oArgs = {
+		DocStatus : document.getElementById("DocStatus").value || "0",
+		DocTitle : document.getElementById("DocTitle").value || "",
+		DocAuthor : document.getElementById("Author").value || "",
+		CrUser : document.getElementById("CrUser").value || "",
+		DocKeywords : document.getElementById("Keywords").value || "",
+		//DocContent : document.getElementById("DocDesc").value || "",
+		DocPeople : document.getElementById("People").value || "",
+		DocPlace : document.getElementById("Place").value || "",
+		StartDate :dtStart,
+		EndDate : dtEnd
+	};
+	
+	Object.extend(oArgs,m_oHostId);
+	window.parent.notifyParent2CloseMe(document.FRAME_NAME);
+	window.parent.notifyParentOnFinished(document.FRAME_NAME, oArgs);
+}
+function validateTimeRange(){
+	var dtStart = document.getElementById("StartTime").value || "";	
+	var dtEnd = document.getElementById("EndTime").value || "";
+	
+	if(dtStart.length == 0 && dtEnd.length == 0){
+		return true;
+	}else if(dtEnd.length == 0){
+		alert("没有指定结束时间！");
+		return false;
+	}else if(dtStart.length == 0){
+		alert("没有指定开始时间！");
+		return false;
+	}
+	
+	dtStart = Date.parseDate(dtStart,"%y-%m-%d %H-%M");
+	dtEnd = Date.parseDate(dtEnd,"%y-%m-%d %H-%M");
+	
+	if ((dtEnd.getTime() - dtStart.getTime()) < 0){
+		alert("无效的时间段：结束时间早于开始时间！");
+		return false;
+	}
+
+	return true;
+}
+</script>
+<style>
+.inputtext{
+	border:1px solid black;
+	width:200px;
+}
+.btn{
+	height: 22px;
+	background: #eeeeee;
+	border: solid 1px silver;
+	font-size: 12px;
+	padding: 3px;
+	padding-right: 3px;
+	cursor:hand;
+}
+.attr_name{
+	font:bold 12px;
+	text-align:right;
+	margin:5px 10px;
+	padding:5px 10px;
+}
+.td_time{
+	font:12px;
+}
+</style>
+</head>
+<body>
+<center>
+<div style="margin:10px;padding:10px;background-color:#fff">
+	<table border="0" cellspacing="0" cellpadding="0">
+	<tbody>
+		<tr>
+			<td class="attr_name">状态</td>
+			<td>
+				<select name="DocStatus" id="DocStatus">
+					<option value="0" selected>全部
+					<option value="1">已发布
+					<option value="2">未发布
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name">标题</td>
+			<td>
+				<input type="text" name="DocTitle" id="DocTitle" class="inputtext">
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name">作者</td>
+			<td>
+				<input type="text" name="Author" id="Author" class="inputtext">
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name">创建人</td>
+			<td>
+				<input type="text" name="CrUser" id="CrUser" class="inputtext">
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name">关键词</td>
+			<td>
+				<input type="text" name="Keywords" id="Keywords" class="inputtext">
+			</td>
+		</tr>
+		<!--tr>
+			<td class="attr_name">描述</td>
+			<td>
+				<input type="text" name="DocDesc" id="DocDesc" class="inputtext">
+			</td>
+		</tr-->
+		<tr>
+			<td class="attr_name">人物</td>
+			<td>
+				<input type="text" name="People" id="People" class="inputtext">
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name">地点</td>
+			<td>
+				<input type="text" name="Place" id="Place" class="inputtext">
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name">创建时间</td>
+			<td class="td_time">
+				从&nbsp;&nbsp;&nbsp;&nbsp;
+				<script>TRSCalendar.drawWithTime("StartTime", "", true, true);</script>
+				&nbsp;&nbsp;(开始)
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name">&nbsp;</td>
+			<td class="td_time">
+				至&nbsp;&nbsp;&nbsp;&nbsp;
+				<script>TRSCalendar.drawWithTime("EndTime", "", true, true);</script>
+				&nbsp;&nbsp;(结束)
+			</td>
+		</tr>
+	</tbody>
+	</table>		
+	<div style="margin:20px;">
+		<input type="button" class="btn" value="确定" onclick="onOK()">
+		<span style="width:10px;"></span>
+		<input type="button" class="btn" value="取消" onclick="closeMe()">
+	</div>
+</div>
+</center>
+</body>
+</html>

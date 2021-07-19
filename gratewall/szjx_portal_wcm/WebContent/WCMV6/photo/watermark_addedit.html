@@ -1,0 +1,81 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS=""  xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>add or edit a certain contentextfield</title>
+<link href="../css/add_edit.css" rel="stylesheet" type="text/css" />
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<style type="text/css">	
+	.input_file{		
+		width:280px;
+		height:20px;
+		border:1px solid black;	
+		margin-top:2px;
+	}
+	.input_text{
+		width:205px;
+		height:20px;
+		border:1px solid green;
+		margin:0 1px;
+	}
+	.invalid_file{
+		border:1px solid red;
+	}
+	label{
+		font-weight:bold;
+		padding-right:5px;
+	}
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script label="SysImport">
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.QuickKey');
+	$import('com.trs.validator.Validator');
+	$import('com.trs.combox.Combox');
+	$import('com.trs.wcm.util.LockedUtil');
+	$import('com.trs.wcm.util.FileUploadHelper');	
+	$import('com.trs.util.YUIConnection');
+</script>
+<SCRIPT language=JavaScript src="../js/com.trs.util/Common.js"></SCRIPT>
+<script label="PageScope" src="watermark_addedit.js"></script>
+</head>
+<body>
+<script language="javascript">
+<!--	
+	FloatPanel.addCloseCommand();		
+	FloatPanel.addCommand('savebtn', '确定', 'saveWaterMark',null);		
+//-->
+</script>
+<form id="addEditForm" name="addEditForm" method="post" enctype="multipart/form-data" action="" onsubmit="return false;">	
+	<div id="area_holder" style="padding:20px">
+		<center>
+			<img src="../images/loading.gif" border=0 style="padding-top:20px;padding-left:45%">
+		</center>
+	</div>	
+</form>
+<textarea id="template_area" name="template_area" style="display:none;padding-top:20px" select="WaterMark">
+	<input type="hidden" id="LibId" name="LibId" value="{#LIBID.ID}"></input>
+	<input type="hidden" id="NotQuickEdit" name="NotQuickEdit" value="true"></input>
+	<input type="hidden" name="ObjectId" value="{#WATERMARKID}"></input>
+	<div style="padding:20px">
+		<div>
+			<label for="wmname">水印名称：</label>
+			<input type="text" name="wmname" value="{#WMNAME}" id="wmname" class="input_text" validation="required:'true',type:'string',max_len:'50',desc:'水印名称'"></input>
+		</div>
+		<div style="padding-top:20px">
+			<label for="wmpicture">水印图片：</label>
+			<input type="file" id="wmpicture_in" name="wmpicture_in" value="{#wmpicture}" class="input_file"></input>			
+			<input type="hidden" name="wmpicture" id="wmpicture" value="{#WMPICTURE.SRCNAME}"></input>
+		</div>
+		<div id="pic_showarea" style="display:{@showPic(#WMPICTURE.SRCNAME)};float:right;margin-top:-70px;margin-right:20px">
+			<img src="{#WMPICTURE.MAPNAME}" title="{#WMPICTURE.SRCNAME}" style="border:0;cursor:hand" id="wmpic">
+		</div>		
+	</div>		
+</textarea>
+</body>
+</html>

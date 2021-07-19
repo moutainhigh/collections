@@ -1,0 +1,374 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="record_quoteto.html.title">记录引用到...</title>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/metaviewdata.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--ProcessBar Start-->
+<script src="../../app/js/source/wcmlib/components/ProcessBar.js"></script>
+<link rel="stylesheet" type="text/css" href="../../app/js/source/wcmlib/components/processbar.css">
+<!--ProcessBar End-->
+<script language="javascript">
+	window.m_fpCfg = {
+		m_arrCommands : [{
+			cmd : 'getSeletedIds',
+			name : wcm.LANG.METAVIEWDATA_1 || '确定'
+		}],
+		size : [440, 455]
+	};
+</script>
+<script>
+	//gfc 来自于不同栏目
+	var sChannelIds = getParameter("channelids");
+    if(sChannelIds.indexOf(",") > 0){
+        //排除掉相同的
+        var oChannelIds = {};
+        var aChannelIds = sChannelIds.split(",");
+        for (var i = 0; i < aChannelIds.length; i++){
+            oChannelIds[aChannelIds[i]] = aChannelIds[i];
+        }
+        var sTempChnlIds = "";
+        for (var sChannelId in oChannelIds){
+            sTempChnlIds += sChannelId + ",";
+        }
+        sChannelIds = sTempChnlIds.substr(0, sTempChnlIds.length - 1);
+    }
+
+	var sObjectids = getParameter("objectids");
+
+	function getSeletedIds(){
+		var selectedModeValue = 2;
+		var modes = document.getElementsByName("mode");
+		var sSelIds = null;
+		var sSelNames = null;
+		var sIframeId = 'allTreeNav';
+		if(modes[0].checked){
+			sIframeId = 'clusterList';
+			selectedModeValue = 1;
+		}
+		else if(modes[1].checked){
+			sIframeId = 'allTreeNav';
+			selectedModeValue = 2;
+		}
+		else if(modes[2].checked){
+			sIframeId = 'individualNav';
+			selectedModeValue = 3;
+		}
+		else if(modes[3].checked){
+			sIframeId = 'searchNav';
+			selectedModeValue = 4;
+		}
+		else{
+			Ext.Msg.alert(wcm.LANG.METAVIEWDATA_2 || '没选中任何模式');
+			return false;
+		}
+		parent.parent.document.cookie = "selectedChannelMode=" + selectedModeValue;
+		var win = $(sIframeId).contentWindow;
+		try{
+			sSelIds =  win.getCheckValues();
+		}catch(err){
+			sSelIds = '';
+		}
+		setCookieForLatestSelChnlIds(sSelIds);
+		try{
+			sSelNames = win.getCheckNames();
+		}catch(err){
+			sSelNames = '';
+		}
+		if(!sSelIds||sSelIds.length==0) {
+			Ext.Msg.alert(wcm.LANG.METAVIEWDATA_17 || '请选择当前文档要引用到的目标栏目!');
+			return false;
+		}
+
+        isSameView(sSelIds, sSelNames, function(){
+		//else
+		ProcessBar.init(wcm.LANG.METAVIEWDATA_4 || '执行进度');
+		ProcessBar.addState(wcm.LANG.METAVIEWDATA_5 || '提交数据');
+		ProcessBar.addState(wcm.LANG.METAVIEWDATA_6 || '成功执行完成');
+		ProcessBar.start();
+		var sQuoteType = getQuoteType();
+		var oPostData = {
+			"ObjectIds" : sObjectids,
+			"channelids" : sChannelIds,
+			"ToChannelIds" : sSelIds.join(',')
+		}
+		var func =  null;
+		/*
+		if(false&&sSelIds.include(sChannelIds)){
+			var sFunc = "$MessageCenter.refresh('main','channelid="+sChannelIds+"');";
+			func = new (top.actualTop||top).Function(sFunc);
+		}
+		*/
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+		oHelper.Call('wcm6_viewdocument',sQuoteType,oPostData,true,
+			function(_transport,_json){
+				ProcessBar.close();
+				Ext.Msg.report(_json, (wcm.LANG.METAVIEWDATA_18 || '记录引用结果'), function(){
+					notifyFPCallback();
+					FloatPanel.close();
+				});
+			},
+			function(_transport,_json){
+				$render500Err(_transport,_json);
+				FloatPanel.close();
+			}
+		);
+        });
+		return false;
+	}
+
+    function isSameView(aChannelIds, aChannelNames, fCallBack){
+        //引用不需要校验视图是否相同
+        if(fCallBack){
+            fCallBack();
+        }
+        return;
+        var fromChannelId = sChannelIds.split(",")[0];
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+        var aCombine = [];
+        aCombine.push(oHelper.Combine('wcm6_metadatadef','findViewByChannel',{channelId : fromChannelId}));
+        for(var index = 0; index < aChannelIds.length; index++){
+            aCombine.push(oHelper.Combine('wcm6_metadatadef','findViewByChannel',{channelId : aChannelIds[index]})); 
+        }
+        oHelper.MultiCall(aCombine, function(_transport,_json){
+                var metaView = $a(_json, "MULTIRESULT.MetaView");
+                var fromViewId = $v(metaView[0], "VIEWINFOID") || "";
+                var fromViewDesc = $v(metaView[0], "VIEWDESC") || "";
+
+                var aResultInfo = [];
+                for(var index = 0; index < aChannelIds.length; index++){
+                    var toViewId = $v(metaView[index+1], "VIEWINFOID") || "";
+                    var toViewDesc = $v(metaView[index+1], "VIEWDESC") || "";
+                    if(fromViewId != toViewId){
+                        aResultInfo.push([
+                            "<br>" + (wcm.LANG.METAVIEWDATA_8 || "栏目名称:"),
+                            aChannelNames[index],
+                            "[" + aChannelIds[index] + "]",
+                            (wcm.LANG.METAVIEWDATA_9 || ",视图名称："),
+                            toViewDesc,
+                            "[" + toViewId + "]"
+                         ].join(""));
+                    }
+                }
+                if(aResultInfo.length > 0){
+                    Ext.Msg.alert(wcm.LANG.METAVIEWDATA_19 || "源栏目和目标栏目使用的视图不一致,无法进行引用");
+                }else if(fCallBack){
+                    fCallBack();
+                }
+            },
+            function(_transport,_json){
+                $render500Err(_transport,_json);
+                FloatPanel.close(true);
+            }
+        );        
+    }
+
+	function changeViewer(_i){
+		switch(parseInt(_i)){
+			case 1:
+				Element.show($('cluster_channels_list'));
+				Element.hide($('all_channels_tree'));
+				Element.hide($('individual_channels_tree'));
+				Element.hide($('search_channels_tree'));
+				break;
+			case 2:
+				Element.hide($('cluster_channels_list'));
+				Element.show($('all_channels_tree'));
+				Element.hide($('individual_channels_tree'));
+				Element.hide($('search_channels_tree'));
+				break;
+			case 3:
+				Element.hide($('cluster_channels_list'));
+				Element.hide($('all_channels_tree'));
+				Element.show($('individual_channels_tree'));
+				Element.hide($('search_channels_tree'));
+				break;
+			case 4:
+				Element.hide($('cluster_channels_list'));
+				Element.hide($('all_channels_tree'));
+				Element.hide($('individual_channels_tree'));
+				Element.show($('search_channels_tree'));
+				break;
+		}
+	}
+
+	function getQuoteType(){
+		var eQuoteTypes = document.getElementsByName("QuoteType");
+		for(var i=0;i<eQuoteTypes.length;i++){
+			if(eQuoteTypes[i].checked){
+				return eQuoteTypes[i].value;
+			}
+		}
+		return 'quote';
+	}
+	function initSelectedMode(){
+		var modeValue = getCookieValue('selectedChannelMode');
+		modeValue = (modeValue == '' ? '2 ': modeValue);
+		var modes = document.getElementsByName("mode");
+        modes[parseInt(modeValue) - 1].checked = true;
+		changeViewer(modeValue);
+	}
+	function getCookieValue(_cookieKey){
+		var cookieValue = '';
+		var arrStr = parent.parent.document.cookie.split(";");
+        for(var k = 0; k < arrStr.length; k++){
+            var temp = arrStr[k].split("=");
+            if(temp[0].trim() == _cookieKey){
+				cookieValue = temp[1];
+				break;
+			}
+        }
+		return cookieValue;
+	}
+    function setCookieForLatestSelChnlIds(_selIds){
+		if(_selIds.length == 0)return;
+		var currCookieForSelChnlIds = getCookieValue('latestSelChnlIds');
+		var aCurrCookieForSelChnlIds = currCookieForSelChnlIds.split('/');
+		//把重复的内容移除掉
+		for(var t = 0; t < _selIds.length; t++){
+			for(var r = 0; r < aCurrCookieForSelChnlIds.length; r++){
+				if(_selIds[t] == aCurrCookieForSelChnlIds[r]){
+					if(r < (aCurrCookieForSelChnlIds.length - 1)){
+						for(var p = r; p < aCurrCookieForSelChnlIds.length; p++){
+							if(p == aCurrCookieForSelChnlIds.length - 1)continue;
+							aCurrCookieForSelChnlIds[p] = aCurrCookieForSelChnlIds[p+1];
+						}
+					}
+					aCurrCookieForSelChnlIds = aCurrCookieForSelChnlIds.slice(0, (aCurrCookieForSelChnlIds.length-1));
+				}
+			}
+		}
+		currCookieForSelChnlIds = aCurrCookieForSelChnlIds.join('/');
+		//如果目前在cookie中为空，那么存储当前选择中的前5个
+		if(currCookieForSelChnlIds == '' || _selIds.length >=5){
+			for(var m = 0; m < _selIds.length; m++){
+				if(m == 0) 
+					currCookieForSelChnlIds = _selIds[m];
+				else if(m > 4) break;
+				else{
+					currCookieForSelChnlIds += '/' + _selIds[m];
+					continue;
+				}
+			}
+			parent.parent.document.cookie='latestSelChnlIds=' + currCookieForSelChnlIds;
+		}else{
+			if((5 - aCurrCookieForSelChnlIds.length) >= _selIds.length){
+				for(var p = 0; p < _selIds.length; p++){
+					currCookieForSelChnlIds+='/' + _selIds[p];
+				}
+			}else{
+				for(var j = 0; j < _selIds.length; j++){
+					
+					var nKongSize = (5 - aCurrCookieForSelChnlIds.length);
+					//如果当前存储的不足5个，那么往后追加
+					if(nKongSize > 0){
+						aCurrCookieForSelChnlIds[aCurrCookieForSelChnlIds.length] = _selIds[j];
+					}else{
+						//如果存储的已经有5个了，那么直接移动
+						for(var n = 0; n < aCurrCookieForSelChnlIds.length; n++){
+							if(n == 4) continue;
+							aCurrCookieForSelChnlIds[n] = aCurrCookieForSelChnlIds[n+1];
+						}
+						aCurrCookieForSelChnlIds[4] = _selIds[j];
+					}
+				}
+				currCookieForSelChnlIds = aCurrCookieForSelChnlIds.join('/');
+			}
+			parent.parent.document.cookie='latestSelChnlIds=' + currCookieForSelChnlIds;
+		}
+	}
+</SCRIPT>
+<link rel="stylesheet" type="text/css" WCMAnt:locale="./record_quoteto_$locale$.css" href="./record_quoteto_cn.css" />
+<style type="text/css">
+	.font_red{
+		color:red;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<DIV style="line-height:36px; height:auto;text-align:left;font-size:14px;color:#010101;border-bottom:1px solid gray;">
+	<SPAN WCMAnt:param="channel_select.html.channel">栏目：</SPAN>
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" value="1"><span WCMAnt:param="record_quoteto.html.clusterChnl">聚合</span>
+	</SPAN>
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" value="2"><span WCMAnt:param="record_quoteto.html.allChnl">所有</span>
+	</SPAN>
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" value="3"><span WCMAnt:param="channel_select.html.individualChnl">定制</span>
+	</SPAN>
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" value="4"><span WCMAnt:param="channel_select.html.searchChnl">搜索</span>
+	</SPAN>
+</DIV>
+<DIV id="all_channels_tree" class="iframe_container">
+	<DIV style="height:100%;">
+		<iframe id="allTreeNav" src="../include/blank.html" style="width:100%;height:100%" frameborder="0"  allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<DIV id="cluster_channels_list" class="iframe_container" style="display:none">
+	<DIV style="height:100%;">
+		<iframe id="clusterList" src="../include/blank.html" style="width:100%;height:100%" frameborder="0"  allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<DIV id="individual_channels_tree" class="iframe_container" style="display:none">
+	<DIV style="height:100%;">
+		<iframe id="individualNav" src="../include/blank.html" style="width:100%;height:100%" frameborder="0"  allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<DIV id="search_channels_tree" class="iframe_container" style="display:none">
+	<DIV style="height:100%;">
+		<iframe id="searchNav" src="../include/blank.html" style="width:100%;height:100%" frameborder="0"  allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<DIV style="font-size:12px;">
+	<INPUT TYPE="radio" id="QuoteType1" NAME="QuoteType" checked value="quote"><label for="QuoteType1" WCMAnt:param="record_quoteto.html.linkQuote">1.链接型引用（仅仅产生一个链接，文档表现形式保持完全一致）</label><BR>
+	<INPUT TYPE="radio" id="QuoteType2" NAME="QuoteType" value="mirror"><label for="QuoteType2" WCMAnt:param="record_quoteto.html.mirrorQuote">2.镜像型引用（在目标栏目产生文档的镜像）</label>
+	<BR>
+	<SPAN class="font_red" WCMAnt:param="record_quoteto.html.attention">
+	&nbsp;&nbsp;注意：如果选择镜像型引用时的目标栏目类型为头条新闻或图片新闻，则处理逻辑同链接型引用。
+	</SPAN>
+</DIV>
+<script language="javascript">
+<!--
+	var sURL = "?MultiSites=1&ExcludeSelf=1&ExcludeOnlySearch=1&RightIndex=31&SiteTypes=0,4&MultiSiteType=0&OnlyCluster=1";
+	//gfc 来自于不同栏目
+	if(sChannelIds != null && sChannelIds != ''){
+		var arChnlIds = sChannelIds.split(',');
+		if(arChnlIds.length == 1) {
+			sURL += "&CurrChannelId=" + arChnlIds[0];
+		}else if(arChnlIds.length > 1) {
+			sURL  += "&NotSelect=1&SelectedChannelIds="+sChannelIds; //TODO
+		}
+	}
+
+	var sExpandSiteId = getParameter("siteids");
+	if(sExpandSiteId != null && sExpandSiteId.length>0 && sExpandSiteId != "0"){
+		sURL += "&ExpandSiteId="+sExpandSiteId;
+	}
+	$('allTreeNav').src = "../nav_tree/nav_tree_select.jsp"+sURL;
+	//$('clusterList').src = "../nav_tree/channel_list.html";
+	$('clusterList').src = "../document/recommendto_channel.jsp"+sURL;
+	$('individualNav').src = "../nav_tree/nav_tree_select.jsp"+sURL + "&forIndividual=" + 1;
+	$('searchNav').src = "../include/show_search_channel.jsp"+sURL;
+	initSelectedMode();
+//-->
+</script>
+</BODY>
+</HTML>

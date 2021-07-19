@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="cell.html.title"> 导读详细配置 </title>
+	<script src="../../app/js/runtime/myext-debug.js"></script>
+	<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+	<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+	<link href="cell.css" rel="stylesheet" type="text/css" />	
+	<link href="default.css" rel="stylesheet" type="text/css" />
+	<link href="./regioncss/title.css" rel="stylesheet" type="text/css" />	
+	<script language="javascript" src="../js/core/core.js" type="text/javascript"></script>
+	<script language="javascript" src="../js/core/ajax.js" type="text/javascript"></script>
+	<script language="javascript" src="../js/core/wcm-ajax.js" type="text/javascript"></script>
+	<script src="../../app/js/data/locale/channel.js"></script>
+	<!--wcm-dialog start-->
+	<script src="../../app/js/source/wcmlib/Observable.js"></script>
+	<script src="../../app/js/source/wcmlib/Component.js"></script>
+	<script src="../../app/js/source/wcmlib/dragdrop/dd.js"></script>
+	<script src="../../app/js/source/wcmlib/dragdrop/wcm-dd.js"></script>
+	<script src="../../app/js/source/wcmlib/dialog/Dialog.js"></script>
+	<script src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></script>
+	<!--wcm-dialog End -->
+	<!-- CarshBoard Inner Start --> 
+	<script src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></script>
+	<script src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></script>
+	<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+	<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+	<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+	<!-- CarshBoard Inner End -->
+	<script src="../../app/js/source/wcmlib/core/LockUtil.js"></script>
+	<script language="javascript" src="cell.js" type="text/javascript"></script>
+	<style type="text/css" id="dynamicFields"></style>
+	<style type="text/css" id="dynamicCssText"></style>
+	<link rel="stylesheet" type="text/css" WCMAnt:locale="./cell_$locale$.css"  href="./cell_cn.css" />
+</head>
+<body>
+<div class="box" id="boxdiv">
+	<div class="left" id="leftdv">
+		<div class="top" id="data">
+			<input type="hidden" name="CssText" id="CssText" value="" />
+			<input type="hidden" name="ObjectId" id="ObjectId" value="" />
+			<input type="hidden" name="ChannelId" id="ChannelId" value="0" />
+			<input type="hidden" name="WebSiteId" id="WebSiteId" value="0" />
+			<input type="hidden" name="BPublish" id="BPublish" value="false" />
+		
+			<div class="label" WCMAnt:param="cell.html.regionname">导读名称：</div>
+			<div class="value">
+				<input type="text" name="RName" id="RName" value="" style="width:120px;"/>
+			</div>
+			<div class="label" WCMAnt:param="cell.html.width">宽度：</div>
+			<div class="value">
+				<input type="text" name="Width" id="Width" value="" style="width:50px;" />px
+			</div>		
+			<div class="label" WCMAnt:param="cell.html.fontsize">字体大小：</div>
+			<div class="value">
+				<input type="text" name="RegionFontSize" id="RegionFontSize" value="" style="width:50px;" />px
+			</div>		
+			<div class="label" WCMAnt:param="cell.html.cellpadding">单元间距：</div>
+			<div class="value">
+				<input type="text" name="CellPadding" id="CellPadding" value="" style="width:50px;" />px
+			</div>
+		</div>
+		<div id="tubiaooper" class="iconoperdv" onclick="ExecuteCommand(event);" unselectable="on">
+				<span class="buttonsp saveregion" unselectable="on" cmd="SaveRegion" WCMAnt:paramattr="title:cell.html.saveregion" title="保存导读信息"></span>
+				<span class="buttonsp setcss" unselectable="on" cmd="SetCssText" WCMAnt:paramattr="title:cell.html.setcsstext" title="设置导读样式"></span>
+				<span class="buttonsp revocate" unselectable="on" cmd="Revocate" WCMAnt:paramattr="title:cell.html.revocate" title="撤销"></span>
+				<span class="buttonsp redo" unselectable="on" cmd="Redo" WCMAnt:paramattr="title:cell.html.redo" title="重做"></span>
+				<span class="buttonsp sethtml" unselectable="on" cmd="SetHTMLFormat" WCMAnt:paramattr="title:cell.html.sethtmlformat" title="设置HTML格式"></span>
+				<span class="buttonsp inserticon" unselectable="on" cmd="InsertIcon" WCMAnt:paramattr="title:title:cell.html.inserticon" title="插入图标"></span>
+				<span class="buttonsp deleteicon" unselectable="on" cmd="RemoveIcon" WCMAnt:paramattr="title:title:cell.html.removeicon" title="移除图标"></span>
+				<span class="buttonsp setalldoc" unselectable="on" cmd="SetAllDocument" WCMAnt:paramattr="title:cell.html.setalldocument" title="批量设置文档"></span>
+				<span class="buttonsp setdocument" unselectable="on" cmd="SetDocument" WCMAnt:paramattr="title:cell.html.setrelateddocument" title="设置关联文档"></span>
+				<span class="buttonsp setchannel" unselectable="on" cmd="SetChannel" WCMAnt:paramattr="title:cell.html.setrelatedchnl" title="设置关联栏目"></span>
+				<span class="buttonsp setdocappendix" unselectable="on" cmd="SetDocAppendix" WCMAnt:paramattr="title:cell.html.setrelatedappendix" title="设置关联附件"></span>
+				<span class="buttonsp removedocappendix" unselectable="on" cmd="RemoveDocAppendix" WCMAnt:paramattr="title:cell.html.removerelatedappendix" title="移除关联附件"></span>
+				<span class="buttonsp insertrowafter" unselectable="on" cmd="InsertRowAfter" WCMAnt:paramattr="title:cell.html.insertrowafter" title="之后插入行"></span>
+				<span class="buttonsp insertrowbefore" unselectable="on" cmd="InsertRowBefore" WCMAnt:paramattr="title:cell.html.insertrowbefore" title="之前插入行"></span>
+				<span class="buttonsp deleterow" unselectable="on" cmd="DeleteRows" WCMAnt:paramattr="title:cell.html.deleterow" title="删除当前行"></span>
+				<span class="buttonsp moverowup" unselectable="on" cmd="MoveRowUp" WCMAnt:paramattr="title:cell.html.rowup" title="整行上移"></span>
+				<span class="buttonsp moverowdown" unselectable="on" cmd="MoveRowDown" WCMAnt:paramattr="title:cell.html.rowdown" title="整行下移"></span>
+				<span class="buttonsp insertcellafter" unselectable="on" cmd="InsertCellAfter" WCMAnt:paramattr="title:cell.html.insertcellafter" title="之后插入单元"></span>
+				<span class="buttonsp insertcellbefore" unselectable="on" cmd="InsertCellBefore" WCMAnt:paramattr="title:cell.html.insertcellbefore" title="之前插入单元"></span>
+				<span class="buttonsp deletecell" unselectable="on" cmd="DeleteCells" WCMAnt:paramattr="title:cell.html.deletecell" title="删除当前单元"></span>
+				<span class="buttonsp movecellup" unselectable="on" cmd="MoveCellUp" WCMAnt:paramattr="title:cell.html.cellup" title="单元上移"></span>
+				<span class="buttonsp movecelldown" unselectable="on" cmd="MoveCellDown" WCMAnt:paramattr="title:cell.html.celldown" title="单元下移"></span>
+				<span class="buttonsp movecellleft" unselectable="on" cmd="MoveCellLeft" WCMAnt:paramattr="title:cell.html.cellleft" title="单元左移"></span>
+				<span class="buttonsp movecellright" unselectable="on" cmd="MoveCellRight" WCMAnt:paramattr="title:cell.html.cellright" title="单元右移"></span>		
+		</div>
+		<div class="main"><div id="trs-region" class="trs-region"></div></div>
+	</div>
+	<div class="sep"><div class="nav_toggle" id="nav_toggle" onclick="toggleShowOrHide()"></div></div>
+	<div class="right" id="rightdv">
+		<div class="toolbar" id="toolbar" onclick="ExecuteCommand(event);" unselectable="on">
+			<div onclick="ShowAttrColumn('region')" class="areabox">
+				<div class="attr_column_title" id="region_attr_title" unselectable="on" WCMAnt:param="region.cell.html.guideset">
+					导读设置
+				</div>
+				<div class="attr_column_content" id="region_attr_content"  style="display:none">
+					<div class="buttondv saveregion" unselectable="on" cmd="SaveRegion" WCMAnt:param="cell.html.saveregion">保存导读信息</div>
+					<div class="buttondv setcss" unselectable="on" cmd="SetCssText" WCMAnt:param="cell.html.setcsstext">设置导读样式</div>
+				</div>
+			</div>
+			<div onclick="ShowAttrColumn('title')" class="areabox">
+				<div class="attr_column_title" id="title_attr_title" unselectable="on" WCMAnt:param="region.cell.html.titleset">
+					标题设置
+				</div>
+				<div class="attr_column_content" id="title_attr_content" style="display:none">
+					<div class="buttondv sethtml" unselectable="on" cmd="SetHTMLFormat" WCMAnt:param="cell.html.sethtmlformat">设置HTML格式</div>
+					<div class="buttondv inserticon" unselectable="on" cmd="InsertIcon" WCMAnt:param="region.cell.html.inserticon">插入图标</div>
+					<div class="buttondv deleteicon" unselectable="on" cmd="RemoveIcon" WCMAnt:param="region.cell.html.removeicon">移除图标</div>	
+				</div>
+			</div>
+			<div onclick="ShowAttrColumn('relation')" class="areabox">
+				<div class="attr_column_title" id="icon_attr_title" unselectable="on" WCMAnt:param="region.cell.html.relationset">
+					关联性设置
+				</div>
+				<div class="attr_column_content" id="relation_attr_content">
+					<div class="buttondv setalldoc" unselectable="on" cmd="SetAllDocument" WCMAnt:param="cell.html.batchsetdocument">批量设置文档</div>
+					<div class="buttondv setdocument" unselectable="on" cmd="SetDocument" WCMAnt:param="cell.html.setrelateddocument">设置关联文档</div>
+					<div class="buttondv setchannel" unselectable="on" cmd="SetChannel" WCMAnt:param="cell.html.setrelatedchnl">设置关联栏目</div>
+					<div class="buttondv setdocappendix" unselectable="on" cmd="SetDocAppendix" WCMAnt:param="cell.html.setrelatedappendix">设置关联附件</div>
+					<!--<div class="buttondv removedocappendix" unselectable="on" cmd="RemoveDocAppendix" WCMAnt:param="cell.html.removerelatedappendix">移除关联附件</div>-->
+				</div>
+			</div>
+			<div onclick="ShowAttrColumn('row')" class="areabox">
+				<div class="attr_column_title" id="row_attr_title" unselectable="on" WCMAnt:param="region.cell.html.rowset">
+					行设置
+				</div>
+				<div class="attr_column_content" id="row_attr_content" style="display:none">
+					<div class="buttondv insertrowafter" unselectable="on" cmd="InsertRowAfter" WCMAnt:param="cell.html.insertrowafter">之后插入行</div>
+					<div class="buttondv insertrowbefore" unselectable="on" cmd="InsertRowBefore" WCMAnt:param="cell.html.insertrowbefore">之前插入行</div>
+					<div class="buttondv deleterow" unselectable="on" cmd="DeleteRows" WCMAnt:param="cell.html.deleterow">删除当前行</div>
+					<div class="buttondv moverowup" unselectable="on" cmd="MoveRowUp" WCMAnt:param="cell.html.rowup">整行上移</div>
+					<div class="buttondv moverowdown" unselectable="on" cmd="MoveRowDown" WCMAnt:param="cell.html.rowdown">整行下移</div>
+				</div>
+			</div>
+			<div onclick="ShowAttrColumn('cell')" class="areabox">
+				<div class="attr_column_title" id="cell_attr_title" unselectable="on" WCMAnt:param="region.cell.html.cellset">
+					单元格设置
+				</div>
+				<div class="attr_column_content" id="cell_attr_content" style="display:none">
+					<div class="buttondv insertcellafter" unselectable="on" cmd="InsertCellAfter" WCMAnt:param="cell.html.insertcellafter">之后插入单元</div>
+					<div class="buttondv insertcellbefore" unselectable="on" cmd="InsertCellBefore" WCMAnt:param="cell.html.insertcellbefore">之前插入单元</div>
+					<div class="buttondv deletecell" unselectable="on" cmd="DeleteCells" WCMAnt:param="cell.html.deletecell">删除当前单元</div>
+					<div class="buttondv movecellup" unselectable="on" cmd="MoveCellUp" WCMAnt:param="cell.html.cellup">单元上移</div>
+					<div class="buttondv movecelldown" unselectable="on" cmd="MoveCellDown" WCMAnt:param="cell.html.celldown">单元下移</div>
+					<div class="buttondv movecellleft" unselectable="on" cmd="MoveCellLeft" WCMAnt:param="cell.html.cellleft">单元左移</div>
+					<div class="buttondv movecellright" unselectable="on" cmd="MoveCellRight" WCMAnt:param="cell.html.cellright">单元右移</div>
+				</div>
+			</div>
+			<div class="buttondv bottomdv">
+			    <span class="revocate" style="padding-left:20px;" unselectable="on" onclick="Revocate();return false;" WCMAnt:param="cell.html.revocate">撤销</span>
+				<span class="redo" style="padding-left:20px;" unselectable="on" onclick="Redo();return false;" WCMAnt:param="cell.html.redo">重做</span>
+			</div>
+		</div>			
+	</div>
+</div>
+</body>
+</html>

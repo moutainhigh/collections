@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT struts-config (menu-name, menu-path?, description?, form-beans?, action-mappings?, resource?)>
+<!ELEMENT menu-name (#PCDATA)>
+<!ELEMENT menu-path (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT form-beans (form-bean+)>
+<!ELEMENT action-mappings (action+)>
+
+<!ELEMENT form-bean (description?, set-property*, form-property*)>
+<!ATTLIST form-bean
+	name CDATA #REQUIRED
+>
+<!ELEMENT action (description?, step*, forward*)>
+
+<!-- input 输入的页面名称 !-->
+<!ATTLIST action	input CDATA #REQUIRED>
+<!-- name 对应的form名称 !-->
+<!ATTLIST action	name CDATA #REQUIRED>
+<!-- txn-code 功能对应的交易码 !-->
+<!ATTLIST action	txn-code CDATA #REQUIRED>
+<!-- check-type 是否需要检查交易的权限：public、login、check、system !-->
+<!ATTLIST action	check-type (public | login | check | system) "check">
+<!-- container 交易容器的名称 !-->
+<!ATTLIST action	container CDATA #IMPLIED>
+<!-- 业务类型：实时交易、批量交易、异步交易、限制交易、低优先级交易、系统交易 !-->
+<!ATTLIST action	txn-type (transaction | batch | async | restricted | system) "transaction">
+<!-- 是否允许重复提交 !-->
+<!ATTLIST action	re-entry (true | false) "false">
+<!-- 是否记录日志 !-->
+<!ATTLIST action	log-flag (true | false) "true">
+<!-- 交易对应的流程编号 !-->
+<!ATTLIST action	flow-id CDATA #IMPLIED>
+<!-- 重定向的页面地址 !-->
+<!ATTLIST action	domain-name CDATA #IMPLIED>
+
+<!ELEMENT form-property EMPTY>
+
+<!-- prefix 名称的前缀 !-->
+<!ATTLIST form-property	prefix CDATA #IMPLIED>
+<!-- name 变量的名称 !-->
+<!ATTLIST form-property	name CDATA #REQUIRED>
+<!-- type 变量的类型 !-->
+<!ATTLIST form-property	type (string | long | int | date | double | float | file | object) "string">
+<!-- size 变量的长度 !-->
+<!ATTLIST form-property	size CDATA #IMPLIED>
+<!-- cannull 变量是否能够为空值，缺省能够为空 !-->
+<!ATTLIST form-property	cannull (true | false) "true">
+<!-- 数据格式 !-->
+<!ATTLIST form-property	data-format CDATA #IMPLIED>
+<!-- valid-rule 数据有效性规则 !-->
+<!ATTLIST form-property	valid-rule CDATA #IMPLIED>
+<!-- init-value 变量的缺省值 !-->
+<!ATTLIST form-property	init-value CDATA #IMPLIED>
+<!-- input-type 变量的输入输出域类型 !-->
+<!ATTLIST form-property	input-type CDATA #IMPLIED>
+<!-- param-name 变量的有效值信息 !-->
+<!ATTLIST form-property	param-name CDATA #IMPLIED>
+<!-- 字段描述 !-->
+<!ATTLIST form-property	description CDATA #IMPLIED>
+
+
+<!ELEMENT step (init-value*, next-step*)>
+<!-- 序号 !-->
+<!ATTLIST step	index CDATA #REQUIRED>
+<!-- bean-name 业务组件的名称 !-->
+<!ATTLIST step	bean-name CDATA #REQUIRED>
+<!-- func-name 方法的名称 !-->
+<!ATTLIST step	func-name CDATA #IMPLIED>
+<!-- 输入节点名称 !-->
+<!ATTLIST step	input-node CDATA #IMPLIED>
+<!-- 输出节点名称 !-->
+<!ATTLIST step	output-node CDATA #IMPLIED>
+<!-- VO名称 !-->
+<!ATTLIST step	vo-bean CDATA #IMPLIED>
+<!-- 描述信息 !-->
+<!ATTLIST step	description CDATA #IMPLIED>
+
+
+<!-- 下一步信息 !-->
+<!ELEMENT next-step EMPTY>
+<!ATTLIST next-step	error-code CDATA #IMPLIED>
+<!ATTLIST next-step	next-index CDATA #REQUIRED>
+
+
+<!ELEMENT set-property EMPTY>
+<!ATTLIST set-property
+	property CDATA #REQUIRED
+	value CDATA #REQUIRED
+>
+
+<!ELEMENT init-value EMPTY>
+<!ATTLIST init-value
+	property CDATA #REQUIRED
+	value CDATA #REQUIRED
+>
+
+<!ELEMENT forward EMPTY>
+<!ATTLIST forward
+	name CDATA #IMPLIED
+	error-code CDATA #IMPLIED
+	path CDATA #REQUIRED
+	redirect (true | false) "false"
+>
+
+<!-- 功能的相关文件 -->
+<!ELEMENT resource (resource-file*)>
+<!ELEMENT resource-file EMPTY>
+<!ATTLIST resource-file type        CDATA #REQUIRED>
+<!ATTLIST resource-file file-name   CDATA #REQUIRED>
+<!ATTLIST resource-file description CDATA #IMPLIED>
+
+

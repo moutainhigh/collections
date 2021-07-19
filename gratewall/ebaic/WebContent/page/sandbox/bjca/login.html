@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+	<title>登录</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+	<SCRIPT language=JavaScript src="jquery-1.8.3.js"></SCRIPT>	
+</head>
+<body>
+	<h2>登录</h2>
+	<form method="post" ID="LoginForm" name="LoginForm" onsubmit='return false;'>
+	
+		<input type="hidden" ID="UserSignedData" name="UserSignedData">
+		<input type="hidden" ID="UserCert" name="UserCert">
+		<input type="hidden" ID="ContainerName" name="ContainerName">
+		
+		<div>选择证书 : <select id="UserList" name="UserList"></select> </div>
+		<div>选择口令 : <input type="password" name="pwd1" id="UserPwd" size="16" maxlength="16"></div>
+		
+		<button onclick="doServerLogin()">登录</button>
+	</form>
+	
+	
+	
+<SCRIPT ID=clientEventHandlersJS LANGUAGE=javascript>
+
+var strServerSignedData = '';
+var strServerRan = "";
+var strServerCert = "";
+
+$(function(){
+	loginInit();
+});
+/**
+ * 页面初始化。
+ */
+function loginInit(){
+	$.ajax({
+		url: '../../../bjca/service.do?m=preLogin',
+		dataType:'json',
+		data:{},
+		type:'post',
+		success:function(resp){
+			strServerSignedData = resp.strSignedData;
+			strServerRan = resp.strRandom ;
+			strServerCert = resp.strServerCert;
+			SetUserCertList("LoginForm.UserList");
+			AddOnLoadEvent($onLoadFunc);
+		},
+		error:function(e){
+			alert('连接服务器失败，请稍后重试。');;
+		}
+	});
+}
+/**
+ * 执行服务器端登录。
+ */
+function doServerLogin(){
+	var isClientLoginOK = doClientLogin();
+	if(isClientLoginOK==false){
+		return ;
+	}
+	var UserSignedData = $("#UserSignedData").val()||'';
+	var UserCert = $("#UserCert").val()||'';
+	var ContainerName = $("#ContainerName").val()||'';
+	
+	$.ajax({
+		url: '../../../bjca/service.do?m=login',
+		dataType:'json',
+		data:{
+			UserSignedData : UserSignedData,
+			UserCert : UserCert ,
+			ContainerName : ContainerName
+		},
+		type:'post',
+		success:function(resp){
+			if(resp){
+				if(resp.result=='success'){
+					alert('登录成功。');
+					return false;
+				}
+				if(resp.error){
+					alert(resp.error);
+				}
+			}
+		},
+		error:function(e){
+			alert('连接服务器失败，请稍后重试。');;
+		}
+	});
+	return false;
+}
+/**
+ * 执行客户端登录。
+ */
+function doClientLogin() 
+{
+	var strCertID =  LoginForm.UserList.value;
+	var strPin = LoginForm.UserPwd.value;
+	var ret = Login("LoginForm", strCertID, strPin);
+	if (ret) {
+		LoginForm.UserPwd.value = "";
+		return true;
+	} else {
+		return false;
+	}
+}
+</SCRIPT>
+
+<SCRIPT language=JavaScript src="date.js"></SCRIPT>
+<SCRIPT type="text/javascript" src="XTXSuite.js"></SCRIPT>
+</body>
+</html>

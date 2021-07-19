@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="gz_zb_zdzb.xml" app-path="/ysjgl/zbtxgl/zbzdgl/" app-name="gz_zb_zdzb" description="指标制度关联" template="single-table.xml"/>
+  <table name="gz_zb_zdzb.xml" app-name="gz_zb_zdzb" app-desc="指标" delete-action="delete" description="指标制度关联" class-name="cn.gwssi.csdb.ysjgl.txn.TxnGzZbZdzb" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-gz_zb_zdzb.jsp" txn-code="30206001" description="查询指标列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加指标" path="insert-gz_zb_zdzb.jsp" description="增加指标" func-name="addRecord"/>
+	    <button type="button" name="修改指标" path="/txn30206004.do" description="修改指标" func-name="updateRecord"/>
+	    <button type="button" name="删除指标" path="/txn30206005.do" description="删除指标" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn30206001.do" description="查询指标信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-gz_zb_zdzb.jsp" txn-code="30206003" description="增加指标信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn30206003.do" description="保存指标信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn30206003.do" description="保存指标信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn30206001.do" description="保存指标信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn30206001.do" description="返回到指标明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-gz_zb_zdzb.jsp" txn-code="30206002" description="修改指标信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn30206001.do" description="修改指标信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn30206001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-gz_zb_zdzb.jsp" txn-code="30206001" description="查询指标列表">
+	    <forward error-code="success" path="query-gz_zb_zdzb.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-gz_zb_zdzb.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-gz_zb_zdzb.jsp" txn-code="30206002" description="修改指标信息">
+	    <forward error-code="success" path="update-gz_zb_zdzb.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-gz_zb_zdzb.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-gz_zb_zdzb.jsp" txn-code="30206003" description="增加指标信息">
+	    <forward error-code="success" path="insert-gz_zb_zdzb.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-gz_zb_zdzb.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-gz_zb_zdzb.jsp" txn-code="30206004" description="查询指标用于修改">
+	    <forward error-code="success" path="update-gz_zb_zdzb.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-gz_zb_zdzb.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-gz_zb_zdzb.jsp" txn-code="30206005" description="删除指标信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.GzZbZdzbContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.VoGzZbZdzb" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.VoGzZbZdzbSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.VoGzZbZdzbPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

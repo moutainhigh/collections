@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<!-- <link rel="stylesheet" href="../../../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" type="text/css" /> -->
+<link rel="stylesheet" href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" type="text/css" />
+<link rel="stylesheet" href="../../../static/css/common.css" />
+<!-- <link rel="stylesheet" href="../../../../static/css/baseInfo.css" /> -->
+<style>
+article {
+    background-color: #fff;
+    width: 1000px;
+    margin: 0 auto;
+}
+.content{
+		background-color:#fff;
+		margin-top: -20px;
+		border:none;
+		width:1000px;
+	}
+
+    .jazz-form-text-label {
+	    font-size: 14px;
+	    font-weight: normal;
+	}
+	.content-top{
+		width:952px;
+		margin:0 auto;
+		margin-top:10px;
+	}
+.jazz-panel-border{
+	border-color:#74A7D9;
+}
+</style>
+</head>
+<body>
+<!-- 构建页面==开始 -->
+<article>
+<div class="content">
+<div class="content-top">
+	<img src="../../../static/image/img/icon/info-white.png"> <span>企业联系人</span>
+</div>
+﻿<div class="">
+	<!-- 数据展现 -->
+	<div vtype="formpanel" wid="cp_rs_entcontact" name="cpRsEntContact_Form" dataview="false"
+		titleDisplay="false" title="企业联系人" width="952" showborder="true" 
+		dataurl="" layout="table" layoutconfig="{cols:1, columnwidth: ['100%']}" labelstyleclass="labelstyle">
+		
+		
+		<div name="entId" vtype="hiddenfield" label="主键" labelwidth="200" labelalign="right" width="650"></div>
+		<div name="name" vtype="textfield" label="姓名" labelwidth="200" labelalign="right" width="650" tooltip="请输入正确的名字，否则可能会影响您后续的业务办理" rule="must_length;1;20" readonly=""></div>
+		<div name="cerType" vtype="comboxfield" label="证件类型" labelwidth="200" labelalign="right" width="650" tooltip="请输入有效证件" rule="must" dataurl="../../../../dictionary/queryData.do?dicId=CB16" readonly=""></div>
+		<div name="cerNo" vtype="textfield" label="证件号码" labelwidth="200" labelalign="right" width="650" tooltip="请输入证件号码" rule="must_length;1;20" readonly=""></div>
+		<div name="mobile" vtype="textfield" label="移动电话" labelwidth="200" labelalign="right" width="650" tooltip="例如：1820100****" rule="cellphone" readonly=""></div>
+		<div name="fax" vtype="textfield" label="传真" labelwidth="200" labelalign="right" width="650" tooltip="例如：010-66778899" rule="telephone" readonly=""></div>
+		<div name="postalCode" vtype="textfield" label="邮编" labelwidth="200" labelalign="right" width="650" tooltip="请输入国内有效的邮政编码" rule="postal" readonly=""></div>
+		<div name="email" vtype="textfield" label="电子邮件" labelwidth="200" labelalign="right" width="650" tooltip="输入常用的邮箱" rule="must_email_length;0,100" readonly=""></div>
+		<div name="tel" id="tel" vtype="textfield" label="固定电话" labelwidth="200" labelalign="right" width="650" tooltip="输入固定座机" rule="telephone"></div>
+	</div>
+	<div name="cp_rs_entcontactToolbar" vtype="toolbar" location="bottom" align="center">
+		<div name="cp_rs_entcontact_save_button" class="commonBt">保存</div>
+		<div name="cp_rs_entcontact_back_button" class="commonBt">返回</div>
+	</div>
+
+</div>
+</div>
+</article>
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../../static/js/config.js"></script>
+<script type="text/javascript" data-main="torch/cp_rs_entcontactTorch.js" src="../../../static/lib/require.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>信息实体管理</menu-name>
+  <menu-path>/page/resource/res/rd/standard/gfgl/</menu-path>
+  <description>信息实体管理</description>
+  <form-beans>
+    <form-bean name="SysRdStandardRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="standard_name" type="string" size="100" description="姓名"/>
+      <form-property prefix="record" name="sys_rd_standard_id" type="string" size="32" cannull="false" description="案件序列号"/>
+      <form-property prefix="record" name="standard_name" type="string" size="100" cannull="true" description="姓名"/>
+      <form-property prefix="record" name="standard_issued_unit" type="string" size="3" cannull="true" description="企业注册号"/>
+      <form-property prefix="record" name="standard_category_no" type="string" size="30" cannull="true" description="当事人类型"/>
+      <form-property prefix="record" name="standard_issued_time" type="string" size="30" cannull="true" description="当事人住所"/>
+      <form-property prefix="record" name="file_name" type="string" size="128" cannull="true" description="法定代表人(负责人)"/>
+      <form-property prefix="record" name="file_path" type="string" size="512" cannull="true" description="法定代表人(负责人)"/>
+      <form-property prefix="record" name="standard_range" type="string" size="4000" cannull="true" description="工作单位"/>
+      <form-property prefix="record" name="standard_category" type="string" size="1" cannull="true" description="现地址"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="联系电话"/>
+      <form-property prefix="record" name="sort" type="string" size="10" cannull="true" description="籍贯"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="案件登记编号"/>
+    </form-bean>
+
+    <form-bean name="SysRdStandardUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_rd_standard_id" type="string" size="32" cannull="false" description="案件序列号"/>
+      <form-property prefix="record" name="sys_rd_standard_id" type="string" size="32" cannull="false" description="案件序列号"/>
+      <form-property prefix="record" name="standard_name" type="string" size="100" cannull="true" description="姓名"/>
+      <form-property prefix="record" name="standard_issued_unit" type="string" size="3" cannull="true" description="企业注册号"/>
+      <form-property prefix="record" name="standard_category_no" type="string" size="30" cannull="true" description="当事人类型"/>
+      <form-property prefix="record" name="standard_issued_time" type="string" size="30" cannull="true" description="当事人住所"/>
+      <form-property prefix="record" name="file_name" type="string" size="128" cannull="true" description="法定代表人(负责人)"/>
+      <form-property prefix="record" name="file_path" type="string" size="512" cannull="true" description="法定代表人(负责人)"/>
+      <form-property prefix="record" name="standard_range" type="string" size="4000" cannull="true" description="工作单位"/>
+      <form-property prefix="record" name="standard_category" type="string" size="1" cannull="true" description="现地址"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="联系电话"/>
+      <form-property prefix="record" name="sort" type="string" size="10" cannull="true" description="籍贯"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="案件登记编号"/>
+    </form-bean>
+    
+    <form-bean name="SysRdStandardViewForm">
+      <description>单记录处理：查询</description>
+      <form-property prefix="primary-key" name="sys_rd_standard_id" type="string" size="32" cannull="false" description="案件序列号"/>
+      <form-property prefix="record" name="sys_rd_standard_id" type="string" size="32" cannull="false" description="案件序列号"/>
+      <form-property prefix="record" name="standard_name" type="string" size="100" cannull="true" description="姓名"/>
+      <form-property prefix="record" name="standard_issued_unit" type="string" size="3" cannull="true" description="企业注册号"/>
+      <form-property prefix="record" name="standard_category_no" type="string" size="30" cannull="true" description="当事人类型"/>
+      <form-property prefix="record" name="standard_issued_time" type="string" size="30" cannull="true" description="当事人住所"/>
+      <form-property prefix="record" name="file_name" type="string" size="128" cannull="true" description="法定代表人(负责人)"/>
+      <form-property prefix="record" name="file_path" type="string" size="512" cannull="true" description="法定代表人(负责人)"/>
+      <form-property prefix="record" name="standard_range" type="string" size="4000" cannull="true" description="工作单位"/>
+      <form-property prefix="record" name="standard_category" type="string" size="1" cannull="true" description="现地址"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="联系电话"/>
+      <form-property prefix="record" name="sort" type="string" size="10" cannull="true" description="籍贯"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="案件登记编号"/>
+    </form-bean>
+
+    <form-bean name="SysRdStandardDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_rd_standard_id" type="string" size="32" cannull="false" description="案件序列号"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_rd_standard.jsp" name="SysRdStandardRowsetForm" txn-code="7000201" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询规范列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandard" func-name="txn7000201" input-node="select-key" output-node="record" description="查询规范列表"/>
+      <forward error-code="success" path="query-sys_rd_standard.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_standard.jsp"/>
+    </action>
+	    <action input="query-sys_rd_standard.jsp" name="SysRdStandardRowsetForm" txn-code="7000207" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询规范列表,系统概览用</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandard" func-name="txn7000207" input-node="select-key" output-node="record" description="查询规范列表"/>
+      <forward error-code="success" path="query-sys_rd_standard_gl.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_standard_gl.jsp"/>
+    </action>
+
+    <action input="update-sys_rd_standard.jsp" name="SysRdStandardUpdateForm" txn-code="7000202" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改规范信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandard" func-name="txn7000202" input-node="record" description="修改规范信息"/>
+      <forward error-code="success" path="update-sys_rd_standard.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_standard.jsp"/>
+    </action>
+
+    <action input="insert-sys_rd_standard.jsp" name="SysRdStandardUpdateForm" txn-code="7000203" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加规范信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandard" func-name="txn7000203" input-node="record" description="增加规范信息"/>
+      <forward error-code="success" path="insert-sys_rd_standard.jsp"/>
+      <forward error-code="failure" path="insert-sys_rd_standard.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_standard.jsp" name="SysRdStandardUpdateForm" txn-code="7000204" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询规范用于修改</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandard" func-name="txn7000204" input-node="primary-key" output-node="record" description="查询规范用于修改"/>
+      <forward error-code="success" path="update-sys_rd_standard.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_standard.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_standard.jsp" name="SysRdStandardDeleteForm" txn-code="7000205" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除规范信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandard" func-name="txn7000205" input-node="primary-key" description="删除规范信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+    <action input="query-sys_rd_standard.jsp" name="SysRdStandardViewForm" txn-code="7000206" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询规范用于视图</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandard" func-name="txn7000206" input-node="primary-key" output-node="record" description="查询规范用于视图"/>
+      <forward error-code="success" path="view-sys_rd_standard.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_standard.jsp"/>
+    </action>
+    <!-- add by dwn 20121121 txn-code 7000001 - 7000007- -->
+    <action input="query-sys_rd_standard.jsp" name="SysRdStandardViewForm" txn-code="7000001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>数据库监控</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandard" func-name="txn7000001" input-node="primary-key" output-node="record" description="数据库监控"/>
+      <forward error-code="success" path="view-sys_rd_standard.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_standard.jsp"/>
+    </action>
+    
+    <action input="query-sys_rd_standard.jsp" name="SysRdStandardViewForm" txn-code="7000002" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>中间件监控</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandard" func-name="txn7000002" input-node="primary-key" output-node="record" description="数据库监控"/>
+      <forward error-code="success" path="view-sys_rd_standard.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_standard.jsp"/>
+    </action>
+    
+    <action input="query-sys_rd_standard.jsp" name="SysRdStandardViewForm" txn-code="7000003" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>主机监控</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandard" func-name="txn7000003" input-node="primary-key" output-node="record" description="数据库监控"/>
+      <forward error-code="success" path="view-sys_rd_standard.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_standard.jsp"/>
+    </action>
+    
+    <action input="query-sys_rd_standard.jsp" name="SysRdStandardViewForm" txn-code="7000004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>全文检索监控</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandard" func-name="txn7000004" input-node="primary-key" output-node="record" description="数据库监控"/>
+      <forward error-code="success" path="view-sys_rd_standard.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_standard.jsp"/>
+    </action>
+    
+    <action input="query-sys_rd_standard.jsp" name="SysRdStandardViewForm" txn-code="7000005" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>接口服务监控</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandard" func-name="txn7000005" input-node="primary-key" output-node="record" description="数据库监控"/>
+      <forward error-code="success" path="view-sys_rd_standard.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_standard.jsp"/>
+    </action>
+    
+    <action input="query-sys_rd_standard.jsp" name="SysRdStandardViewForm" txn-code="7000006" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>警情库</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandard" func-name="txn7000006" input-node="primary-key" output-node="record" description="数据库监控"/>
+      <forward error-code="success" path="view-sys_rd_standard.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_standard.jsp"/>
+    </action>
+    
+    <action input="query-sys_rd_standard.jsp" name="SysRdStandardViewForm" txn-code="7000007" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>监控管理</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandard" func-name="txn7000007" input-node="primary-key" output-node="record" description="数据库监控"/>
+      <forward error-code="success" path="view-sys_rd_standard.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_standard.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_rd_standard.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/dw/rd/standard/gfgl/query-sys_rd_standard.jsp" description="查询规范列表"/>
+    <resource-file type="jsp" file-name="/dw/rd/standard/gfgl/insert-sys_rd_standard.jsp" description="增加规范信息"/>
+    <resource-file type="jsp" file-name="/dw/rd/standard/gfgl/update-sys_rd_standard.jsp" description="修改规范信息"/>
+    <resource-file type="jsp" file-name="/dw/rd/standard/gfgl/view-sys_rd_standard.jsp" description="查询规范信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.SysRdStandardContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandard" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

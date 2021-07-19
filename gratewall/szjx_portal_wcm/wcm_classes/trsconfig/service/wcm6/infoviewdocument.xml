@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.InfoViewDocumentServiceProvider" objclass="com.trs.components.wcm.content.persistent.ChnlDoc">
+	<method name="findById">
+		<parameter name="ObjectId" desc="ChnlDoc中的RecID" type="int" required="true"/>
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>	
+		<parameter name="InfoViewId" desc="表单视图ID" type="int" required="false"/>	
+		<parameter name="ChnlDocSelectFields" default="DocStatus,Modal,CrTime,CrUser,RecId,DOCID,ChnlId" desc="提取的ChnlDoc字段列表" type="string" required="false"/>
+		<parameter name="DocumentSelectFields" default="" desc="提取的Document字段列表" type="string" required="false"/>
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>	
+	</method>
+	<method name="query">
+		<parameter name="ChannelIds" desc="检索的栏目ID序列" type="string" required="false"/>
+		<parameter name="ChannelId" desc="检索的栏目ID序列" type="string" required="false"/>
+		<parameter name="SiteIds" desc="检索的站点ID序列" type="string" required="false"/>	
+		<parameter name="SiteId" desc="检索的栏目ID序列" type="string" required="false"/>
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<parameter name="ContainsChildren" desc="是否递归检索子栏目" type="boolean" required="false" default="0"/>		
+		<parameter name="InfoViewId" desc="表单视图ID" type="int" required="false"/>	
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>		
+		<parameter name="FromTable" desc="查询的表" type="string" required="false" default="WCMChnlDoc"/>	
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" required="false"/>
+		<parameter name="CrUser" desc="创建者" type="string" required="false" search="true"
+			search-operator="like" search-field="WCMChnlDoc.CrUser"/>
+		<parameter name="DocStatus" desc="待查询的状态" type="string" required="false" search="true"
+			search-operator="in" search-type="pint" search-field="WCMChnlDoc.DocStatus"/>
+		<parameter name="StartDate" desc="开始时间" type="datetime" required="false"
+			search="true" search-operator="&gt;=" search-field="WCMChnlDoc.CrTime"/>
+		<parameter name="EndDate" desc="结束时间" type="datetime" required="false"
+			search="true" search-operator="&lt;=" search-field="WCMChnlDoc.CrTime"/>
+		<parameter name="StartPubDate" desc="发布开始时间" type="datetime" required="false"
+			search="true" search-operator="&gt;=" search-field="WCMChnlDoc.DocPubTime"/>
+		<parameter name="EndPubDate" desc="发布结束时间" type="datetime" required="false"
+			search="true" search-operator="&lt;=" search-field="WCMChnlDoc.DocPubTime"/>
+		<parameter name="maxrows" desc="最大文档数" type="int" required="false" />
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>			
+		<parameter name="ChnlDocSelectFields" desc="ChnlDoc提取的字段列表" type="string" required="false" default="WCMChnlDoc.DOCID,WCMChnlDoc.ChnlId,WCMChnlDoc.DocStatus,WCMChnlDoc.DocChannel,WCMChnlDoc.DocOrderPri,WCMChnlDoc.Modal,WCMChnlDoc.RecId"/>		
+		<parameter name="DocumentSelectFields" desc="提取的文档字段列表" type="string" required="false" default=""/>		
+	</method>
+	<method name="jQuery" truename="query"  convertor="uri:/infoview/infoview_document_query.jsp"/>
+	<method name="queryRecycle">
+		<parameter name="ChannelIds" desc="检索的栏目ID序列" type="string" required="false"/>
+		<parameter name="SiteIds" desc="检索的站点ID序列" type="string" required="false"/>	
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<parameter name="ContainsChildren" desc="是否递归检索子栏目" type="boolean" required="false" default="0"/>		
+		<parameter name="InfoViewId" desc="表单视图ID" type="int" required="false"/>	
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>		
+		<parameter name="FromTable" desc="查询的表" type="string" required="false" default="WCMChnlDoc"/>	
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" required="false"/>
+		<parameter name="CrUser" desc="创建者" type="string" required="false" search="true"
+			search-operator="like" search-field="WCMChnlDoc.CrUser"/>
+		<parameter name="DocStatus" desc="待查询的状态" type="string" required="false" search="true"
+			search-operator="in" search-type="pint" search-field="WCMChnlDoc.DocStatus"/>
+		<parameter name="StartDate" desc="开始时间" type="datetime" required="false"
+			search="true" search-operator="&gt;=" search-field="WCMChnlDoc.CrTime"/>
+		<parameter name="EndDate" desc="结束时间" type="datetime" required="false"
+			search="true" search-operator="&lt;=" search-field="WCMChnlDoc.CrTime"/>
+		<parameter name="StartPubDate" desc="发布开始时间" type="datetime" required="false"
+			search="true" search-operator="&gt;=" search-field="WCMChnlDoc.DocPubTime"/>
+		<parameter name="EndPubDate" desc="发布结束时间" type="datetime" required="false"
+			search="true" search-operator="&lt;=" search-field="WCMChnlDoc.DocPubTime"/>
+		<parameter name="maxrows" desc="最大文档数" type="int" required="false" />
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>			
+		<parameter name="ChnlDocSelectFields" desc="ChnlDoc提取的字段列表" type="string" required="false" default="WCMChnlDoc.DOCID,WCMChnlDoc.ChnlId,WCMChnlDoc.DocStatus,WCMChnlDoc.DocChannel,WCMChnlDoc.DocOrderPri,WCMChnlDoc.Modal,WCMChnlDoc.RecId"/>		
+		<parameter name="DocumentSelectFields" desc="提取的文档字段列表" type="string" required="false" default=""/>		
+	</method>
+</service>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.ChannelServiceProvider" objclass="com.trs.components.wcm.content.persistent.Channel">
+
+	<method name="save" desc="保存栏目" />
+
+	<method name="delete" desc="删除栏目">	
+		<parameter name="ObjectIds" desc="栏目ID序列" type="string" required="true" min-length="1"/>
+		<parameter name="Drop" desc="是否彻底删除" type="boolean" required="false" default="false"/>	
+	</method>	
+	
+	<method name="query">
+		<!-- 业务参数 -->
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="false"/>		
+		<parameter name="SiteId" desc="当前站点ID" type="int" required="false"/>
+		<parameter name="SiblingChannelId" desc="相邻栏目ID" type="int" required="false"/>
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>		
+		<parameter name="ExcludeTopOrPic" desc="是否排除头条和图片" type="boolean" required="false" default="false"/>		
+		
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="栏目排序字段及方式" type="string" default="ChnlOrder Desc" required="false"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="QueryChannelDesc" desc="栏目显示名称" type="string" required="false"
+			search="true" search-operator="like" search-field="ChnlDesc"/>
+		<parameter name="QueryChannelName" desc="栏目名称" type="string" required="false"
+			search="true" search-operator="like" search-field="ChnlName"/>			
+		<parameter name="QueryChannelId" desc="栏目ID" type="int" required="false"
+			search="true" search-operator="=" search-field="ChannelId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>					
+		<parameter name="ExcludeObjectId" desc="需要排除的栏目ID" type="int" required="false"
+			search="true" search-operator="!=" search-field="ChannelId"/>		
+		<!-- 检索相关配置 END -->	
+		
+	</method>
+	
+	<method name="filterChannels">
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="SiteId" desc="当前站点ID" type="int" required="false"
+			search="true" search-operator="=" search-field="SiteId"/>
+		<parameter name="OutChannelId" desc="栏目名称" type="string" required="false"
+			search="true" search-operator="=" search-field="OutChannelId"/>			
+		<parameter name="QueryChannelId" desc="栏目ID" type="int" required="false"
+			search="true" search-operator="=" search-field="ChannelId"/>
+	</method>
+
+	<method name="jQuery" truename="query"  convertor="uri:/WCMV6/channel/channel_query.jsp"/>
+	
+	<method name="findByIds" >
+		<!--默认的参数，可以不写-->
+		<parameter name="ObjectIds" desc="栏目ID序列" type="string" required="true" min-length="1"/>
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false"/>
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>		
+	</method>
+	
+	<method name="findById">
+		<!--默认的参数，可以不写-->
+		<parameter name="ObjectId" desc="栏目ID" type="int" required="true"/>
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false"/>
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>		
+	</method>
+
+	<!--获取操作列表-->
+	<method name="getOperators">
+		<parameter name="ObjectId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="ObjectIds" desc="栏目ID序列" type="string" required="false" min-length="1"/>
+	</method>	
+	
+	<method name="getDocumentOperators">
+		<parameter name="ObjectId" desc="栏目ID" type="int" required="true"/>
+	</method>	
+	
+	
+	<method name="getOperatorsInChannel">
+		<parameter name="ObjectId" desc="栏目ID" type="int" required="false"/>
+	</method>	
+	
+	<method name="export" desc="导出栏目">
+		<parameter name="ObjectIds" desc="栏目ID序列" type="string" required="false" min-length="0"/>
+		<parameter name="ParentChannelId" desc="父栏目ID" type="int" required="false" min-value="0"/>
+		<parameter name="ParentSiteId" desc="父站点ID" type="int" required="false" min-value="0"/>		
+		<parameter name="ContainsChildren" desc="是否导出所有的子栏目" type="boolean" required="false" default="true"/>			
+		<parameter name="ContainsRelated" desc="是否导出所有的相关内容" type="boolean" required="false" default="false"/>					
+	</method>	
+	
+	<method name="importChannels" desc="导入栏目" logger="com.trs.ajaxservice.logger.ChannelImportLogger">
+		<parameter name="ImportFile" desc="待导入文件" type="string" required="true" min-length="1"/>
+		<parameter name="DstChannelId" desc="目标栏目ID" type="int" required="false" min-value="1"/>
+		<parameter name="DstSiteId" desc="目标站点ID" type="int" required="false" min-value="1"/>		
+
+		<parameter name="ImportXSLFile" desc="待导入文件的转换器" type="string" required="false" min-length="1"/>		
+	</method>	
+	
+	<method name="createFrom" desc="类似创建栏目" logger="com.trs.ajaxservice.logger.ChannelCreateFromLogger">
+		<parameter name="SrcChannelId" desc="原始栏目ID" type="int" required="true" min-value="1"/>
+		<parameter name="DstChannelId" desc="目标栏目ID" type="int" required="false" min-value="1"/>
+		<parameter name="DstSiteId" desc="目标站点ID" type="int" required="false" min-value="1"/>		
+	</method>
+	
+	<method name="moveAsChild" desc="移动栏目" logger="com.trs.ajaxservice.logger.ChannelMoveLogger">
+		<parameter name="SrcChannelIds" desc="原始栏目IDS" type="string" required="true"/>
+		<parameter name="DstChannelId" desc="目标栏目ID" type="int" required="false" min-value="1"/>
+		<parameter name="DstSiteId" desc="目标站点ID" type="int" required="false" min-value="1"/>		
+	</method>		
+	
+	<method name="changeOrder" desc="调整栏目顺序">
+		<parameter name="SrcChannelId" desc="原始栏目ID" type="int" required="true" min-value="1"/>
+		<parameter name="DstChannelId" desc="目标栏目ID" type="int" required="true" min-value="0"/>
+	</method>	
+	
+	<method name="getRecycleChannels">
+		<!-- 业务参数 -->
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="当前站点ID" type="int" required="false"/>
+		<parameter name="NeedChannelPath" desc="是否需要返回栏目的路径" type="boolean" required="false" default="true"/>
+		
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="栏目排序字段及方式" type="string" default="ChnlType Desc, ChnlOrder Desc" required="false"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="QueryChannelDesc" desc="栏目显示名称" type="string" required="false"
+			search="true" search-operator="like" search-field="ChnlDesc"/>
+		<parameter name="QueryChannelName" desc="栏目名称" type="string" required="false"
+			search="true" search-operator="like" search-field="ChnlName"/>			
+		<parameter name="QueryChannelId" desc="栏目ID" type="int" required="false"
+			search="true" search-operator="=" search-field="ChannelId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="OperUser" desc="查询删除者" type="string" required="false" search="true"
+			search-operator="like"/>						
+		<!-- 检索相关配置 END -->
+	</method>
+	
+	<method name="restoreChannels" desc="恢复栏目" logger="com.trs.ajaxservice.logger.RestoreObjLogger">
+		<!-- 业务参数 -->
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="当前站点ID" type="int" required="false"/>
+		
+		<parameter name="ObjectIds" desc="需要恢复的栏目ID序列" type="string" required="false" min-length="1"/>			
+		<parameter name="RestoreAll" desc="恢复所有的回收站的栏目" type="boolean" required="false"/>			
+	</method>
+	
+	<method name="existsSimilarName" desc="判断指定站点下是否存在指定名称的栏目">
+		<parameter name="SiteId" desc="所属站点ID" type="int" required="false"/>
+		<parameter name="ObjectId" desc="当前栏目ID" type="int" required="true"/>
+		<parameter name="ChannelName" desc="栏目名称" type="string" required="true" min-length="1"/>					
+	</method>
+	
+	<method name="clearRecycle" desc="清空子栏目回收站"  logger="com.trs.ajaxservice.logger.RecycleClearLogger">
+		<!-- 业务参数 -->
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="当前站点ID" type="int" required="false"/>		
+	</method>
+	
+	<method name="existsSimilarDataPath" desc="判断指定站点或者指定栏目下是否存在指定路径的栏目">
+		<parameter name="SiteId" desc="所属站点ID" type="int" required="false"/>
+		<parameter name="ParentId" desc="所属父栏目ID" type="int" required="false"/>		
+		<parameter name="ObjectId" desc="当前栏目ID" type="int" required="true"/>
+		<parameter name="DataPath" desc="存放路径" type="string" required="true" min-length="1"/>					
+	</method>
+	
+	
+	<method name="checkSQLValid" desc="校验查询语句是否可执行">
+		<!-- 业务参数 -->
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="当前站点ID" type="int" required="false"/>
+		
+		<parameter name="queryby" desc="检索条件" type="string" required="false"/>			
+		<parameter name="orderby" desc="排序条件" type="string" required="false"/>		
+	</method>
+	
+	
+	
+</service>

@@ -1,0 +1,126 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="channel_import.html.title">import some channels</title>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/data/locale/channel.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<script src="../../app/js/source/wcmlib/components/ProcessBar.js"></script>
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog end-->
+
+<script language="javascript">
+window.m_fpCfg = {
+	m_arrCommands : [{
+		cmd : 'uploadFile',
+		name : wcm.LANG.CHANNEL_TRUE||'确定'
+	}],
+	size : [400, 100]
+};
+</script>
+<script>
+	var PageContext = {};
+	Object.extend(PageContext, {
+		folderId : getParameter('parentid'),
+		folderType : getParameter('objecttype')
+	});
+
+	function uploadFile(){
+		var winUpload = $("frmUploadFile").contentWindow;
+		var frm = winUpload.document.getElementById("frmPost");
+		var sFileName = winUpload.document.getElementById("fileUpload").value;
+		if(!winUpload.valid(sFileName)){
+			return false;
+		}
+		sFileName = sFileName.substring(sFileName.lastIndexOf("\\")+1);
+		document.getElementById("RealFileName").value = sFileName;
+
+		frm.submit();
+		return false;
+	}
+
+	function addFile(_sFilePath){
+		if(_sFilePath==null){
+			doAlert(wcm.LANG.CHANNEL_ALERT_2||"文件路径为空，上传失败！");
+			return false;
+		}
+		//ProcessBar.start();
+		var oPostData = {
+			ImportFile: _sFilePath
+		};
+		if(PageContext.folderType == 103) {
+			oPostData.DstSiteId = PageContext.folderId;
+		}else{
+			oPostData.DstChannelId = PageContext.folderId;
+		}
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+		ProcessBar.start(wcm.LANG.CHANNEL_IMPORT||'导入栏目');
+		oHelper.Call('wcm6_channel','importChannels', oPostData, true, function(_oTrans, _json){
+			ProcessBar.close();
+			var params = 'params = {folderType: ' + PageContext.folderType + ', folderId: ' + PageContext.folderId + '}';
+			Ext.Msg.report(_json, wcm.LANG.CHANNEL_1||'栏目导入结果', function(){
+				notifyFPCallback();
+				FloatPanel.close();
+			});
+			FloatPanel.hide();
+		});
+	}
+	function notifyOnUploadFileError(_sErrorMsg) {
+		doAlert(_sErrorMsg);
+//		FloatPanel.close();
+	}
+	function doAlert(_sAlertion){
+		Ext.Msg.$alert(_sAlertion);
+		//$('divClue').innerHTML = _sAlertion;
+		//$('divClue').style.color = 'red';
+	}
+</SCRIPT>
+<style type="text/css">
+	#divBox{
+		/*margin:10px;*/
+		background: lightblue;
+		padding:1px;
+		/*height:80%;
+		width: 80%;*/
+	}
+	#divContainer{
+		background: #ffffff;
+		padding:5px;
+	}
+	#divClue{
+		color:blue;
+		font-size:14px;
+	}
+	body{
+		background:whitesmoke;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<div id="divBox">
+<div id="divContainer">
+	<div id="divFileUpload">
+		<IFRAME name="frmUploadFile" id="frmUploadFile" style="height:40; width:330" frameborder="0" vspace="0" src="../../file/file_upload.jsp?SelfControl=0&AllowExt=XML,ZIP" scrolling="NO" noresize></IFRAME>
+		<INPUT TYPE="hidden" NAME="RealFileName" id="RealFileName">
+	</div>
+	<div id="divClue" WCMAnt:param="channel_import.html.filecode">
+		支持xml、zip格式文件
+	</div>
+</div>
+</div>
+</BODY>
+</HTML>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1">
+<title>北京工商网上登记申请平台全程电子化登录页</title>
+<link rel="stylesheet" href="../../../static/css/common.css">
+<link href="../../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" rel="stylesheet" type="text/css" />
+
+<style>
+	.license-main{
+		margin: 50px 0px 0px 0px;
+	}
+	#mobilebtn{
+	    padding: 6px 16px;
+	    margin-left: 10px;
+	    font: 12px simsun;
+	    font-weight: bold;
+	    color: #666;
+	    vertical-align: top;
+	}
+	.license-way-label{
+		font-size: 16px;
+		font-family: 'Microsoft YaHei,Songti TC,sans-serif';
+		margin: 10px 0px 0px 180px;
+	}
+	.licenseInfo{
+		display:none;
+		line-height: 2.5;
+		margin-left: 180px;
+		font-size: 16px;
+		font-family: 'Microsoft YaHei,Songti TC,sans-serif';
+	}
+	.licenseInfo-first{
+	
+	}
+	.licenseInfo-zero{
+		display:none;
+	}
+	.licenseInfo-second{
+		
+	}
+	.licenseInfo-third{
+		padding-left: 80px;
+		font-size: 20px;
+		color: blue;
+	}
+	.licenseInfo-four{
+	
+	}
+	.licenseInfo-five{
+	
+	}
+	.deliveryInfo{
+		display:none;
+		font-size: 16px;
+		line-height: 2;
+		margin-left: 280px;
+	}
+	.deliveryInfo-second{
+		margin-left: 100px;
+		font-size: 18px;
+	}
+	.deliveryInfo-third{
+		color: blue;
+	}
+	.submit_ems_button{
+		background-color: #2e9ee4;
+		width: 100px;
+		height: 30px;
+		color: #fff;
+		text-align: center;
+		line-height: 30px;
+		border-radius: 5px;
+		display: inline-block;
+		margin: 16px 5px 0;
+		cursor: pointer;
+		margin: 0 4px;
+	}
+</style>
+
+</head>
+<body>
+<article class="wrapper">
+	
+	<div id="license-main" class="license-main">
+		
+		<label class="license-way-label">您申请的公司登记已经通过审核。请您选择接收营业执照的方式：</label>
+		<div id="licenseWay" name="licenseWay" vtype="radiofield"  labelwidth="600" width="800" dataurl='[{"text":"自取","value":"2"},{"text":"寄递","value":"1"}]' style="margin: 20px 0px 0px 380px;" ></div>
+		
+		<div class="">
+			<span>:</span>
+			<span></span>
+			<span></span>
+		</div>
+		
+		<div class="licenseInfo" id="licenseInfo">
+			<div class="licenseInfo-zero">您选择的营业执照接收方式:自取</div>
+			<div class="licenseInfo-first" name="licenseInfo-first"></div>
+			<div class="licenseInfo-second" name="licenseInfo-second"></div>
+			<div class="licenseInfo-third" name="licenseInfo-third"></div>
+			<div class="licenseInfo-four" name="licenseInfo-four"></div>
+			<div class="licenseInfo-five" name="licenseInfo-five"></div>
+		</div>
+		
+		
+		<div vtype="formpanel" id="applySetupPostReceiverSave_Form" name="applySetupPostReceiverSave_Form" wid="applySetupPostReceiverSave" dataview="false"
+			titleDisplay="false" title="营业执照邮寄信息" width="600px" showborder="true" style="display:none;margin-left: 80px;"
+			dataurl="" layout="auto"  labelstyleclass="labelstyle">
+			<div name="postRegNo" vtype="textfield" label="执照发放机关" labelwidth="200" labelalign="right" width="500" tooltip="" readonly="true"></div>
+			<div name="postAddress" vtype="textfield" label="详细地址" labelwidth="200" labelalign="right" width="600" tooltip="" readonly="true"></div>
+			<div name="postMobile" vtype="textfield" label="联系电话" labelwidth="200" labelalign="right" width="500" tooltip="" readonly="true"></div>
+			
+			<div id="Prov-City-Other" style='width:1000px;'>
+				<div name="receiverProv" id="prov" vtype="comboxfield" label="收件地址" 
+					labelwidth="200" width="270" tooltip="" rule="must" dataurl="" readonly="true"></div>
+				<div name="receiverCity" id="city" vtype="comboxfield"  labelwidth="0"  
+					width="120" tooltip="" rule="must" dataurl="" readonly=""></div>
+				<div name="receiverDom" id="other" vtype="textfield"  labelwidth="0"   
+						width="300" tooltip="" rule="must_length;0;40" readonly=""></div>
+			</div>
+			
+			<div name="receiverName" id="receiverName" vtype="comboxfield" label="收件人" labelwidth="200" labelalign="right" width="500"  rule="must_length;0,50" editable="false" ></div>
+			<div name="receiverMobile" vtype="textfield" label="收件人移动电话" labelwidth="200" labelalign="right" width="500"  rule="must_cellphone" readonly=""></div>
+			<div>
+				<div name="mobileCode" id="mobileCode" vtype="textfield" label="验证码" labelalign="right" labelwidth="200" width="350" rule="must" style=""></div>
+				<input id="mobilebtn"  type="button" value="发送验证码" autocomplete="off" style=""> 
+			</div>
+		</div>
+		
+		<div class="deliveryInfo" id="deliveryInfo">
+			<div class="deliveryInfo-zero">您选择的营业执照接收方式：寄递</div>
+			<div class="deliveryInfo-first">您的营业执照已经邮寄，预计将于3个工作日内送达。请您保持联系电话畅通。</div>
+			<div class="deliveryInfo-second" name="licenseInfo-second"> </div>
+			<div class="deliveryInfo-third">订单编号：EMS </div>
+		</div>
+		
+	</div>
+	
+	<div name="applySetupPostReceiverToolbar" vtype="toolbar" location="bottom" align="center" style="margin-top: 10px;">
+			<div id="submit_ems_button" class="submit_ems_button" >提交寄递信息</div>
+			<div id="sure_selfget_button" class="commonBt" >确定</div>  
+			<div id="back_button"  class="commonBt" >返回</div>
+			<div id = "printLicense" class = "commonBt" style='display:none' >领照单打印</div>
+	</div>	 
+			
+<div id="domDiv" >
+<table id="domList"></table>			
+</article>
+	
+
+<script type="text/javascript" src="../../../static/js/config.js"></script>
+<script type="text/javascript" src="../../../static/lib/require.js" data-main="apply/getLicense.js" ></script>
+</body>
+</html>

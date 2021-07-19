@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="style.style_list_index.html.specialstylelistmainpage"> 专题风格列表主页面 </title>
+</head>
+<link href="style_list_index.css" rel="stylesheet" type="text/css" />
+<script src="../../js/easyversion/lightbase.js"></script>
+<script src="../../js/easyversion/extrender.js"></script>
+<script language="javascript">
+<!--
+	var m_last_Click_A = null;
+	function changeStyleListPage(_currEl, _flag){
+		var sIframeUrl = './resourcestyle_list.html';
+		if(_flag==1){
+			//资源框架风格
+			sIframeUrl = "./resourcestyle_list.html";
+
+		}else if(_flag==2){
+			//资源内容风格
+			sIframeUrl = "./contentstyle_list.html";
+		}
+		var iframe = document.getElementById('list_iframe');
+		iframe.src = sIframeUrl;
+		changeClickAStyle(_currEl);
+	}
+	function changeClickAStyle(_currEl){
+		Element.removeClassName(m_last_Click_A, "lmactive");
+		Element.addClassName(_currEl, "lmactive");
+		m_last_Click_A = _currEl;
+	}
+	Event.observe(window, 'load', function(){
+		m_last_Click_A = $('a_resource_1');
+	}) 
+//-->
+</script>
+<body>
+<!-- 主内容区域 @ BEGIN -->
+<table width="100%" height="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+	<tr>
+		<td width="4" valign="top" background="./images/lbg.gif"></td>
+		<td width="100%" valign="top" bgcolor="#FFFFFF" height="100%" >
+			<table border=0 cellspacing=0 cellpadding=0 height="100%" width="100%" bgcolor="#FFFFFF">
+				<tr>
+				<!-- 资源分类 @ begin -->
+					<td width="160px" height="100%" valign="top">
+						<table width="160px" height="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+							<!--左侧导航 begin-->
+							<tr>
+								<td colspan="2" class="rightbg" valign="top">
+									<div class="style_mgr_head" WCMAnt:param="style.style_list_index.html.allstyles">
+										 全部风格
+									</div>
+									<div class="leftcontent">
+									<!--
+										<div class="biaoqian">
+											<span class="biaoqiancon">
+												<img src="./images/page.gif" width="21px" height="20px"/>
+												<span class="lm"><a href="#" class="lm14 lmactive" id="a_resource_0" onclick="changeStyleListPage(this, 0);return false;">页面可用风格</a></span>
+											</span>
+										</div>
+									-->
+										<div class="biaoqian">
+											<span class="biaoqiancon">
+												<img src="./images/resource.gif" width="21px" height="20px"/>
+												<span class="lm"><a href="#" class="lm14 lmactive" id="a_resource_1" onclick="changeStyleListPage(this, 1);return false;" WCMAnt:param="style.style_list_index.html.systemresourcestyle">系统资源风格</a></span>
+											</span>
+										</div>
+										<div class="biaoqian">
+											<span class="biaoqiancon">
+												<img src="./images/content.gif" width="21px" height="20px"/>
+												<span class="lm"><a href="#" class="lm14" id="a_resource_2" onclick="changeStyleListPage(this, 2);return false;" WCMAnt:param="style.style_list_index.html.systemcontentstyle">系统内容风格</a></span>
+											</span>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td width="160"><div class="dvbottom">
+								</div></td>
+							</tr>
+							<!--左侧导航 end-->
+						</table>
+					</td>
+				<!-- 资源分类 @ end -->
+					<td width="100%" height="100%" valign="top">
+						<iframe src="./resourcestyle_list.html" width="100%" height="100%" id="list_iframe" frameborder="0" scrolling ="no"></iframe>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<!-- 主内容区域 @ END -->
+</body>
+</html>

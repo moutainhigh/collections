@@ -1,0 +1,51 @@
+<textarea id="template_chnlrecycle" select="MultiResult" >
+	<div class="attribute_row">
+		<div class="attribute_row_title_readonly" title="{#Channel.ChnlDesc, }">
+			{#Channel.ChnlDesc}
+		</div>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row wcm_desc_info_row">
+		<span title="栏目编号:{#Channel.ChannelId}&#13;创建者:{#Channel.CrUser}&#13;创建时间:{#Channel.CrTime} " style="white-space:nowrap;overflow:hidden;">
+			<span style="">用户</span><span class="desc_info_value">{#Channel.CrUser}</span><span>创建于</span><span class="desc_info_value">{#Channel.CrTime,,getPrettyTime}</span>
+		</span>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<span class="attribute_name">唯一标识:</span>
+		<span class="attribute_value wcm_readonly">{#Channel.ChnlName}</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">栏目类型:</span>
+		<span class="attribute_value wcm_readonly">
+			<input type="hidden" id="hdChnlType" value="{#Channel.ChnlType.Id}">
+			<a href="#" onclick="return false;" class="wcm_readonly">{#Channel.ChnlType.Name}</a>
+		</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">栏目位置:</span>
+		<span class="attr_value_short wcm_readonly" title="{#Channel.Parent.Name, }">{#Channel.Parent.Name}</span>
+	</div>
+<div id="divPublishAttrs" style="width: 100%; height: 100%; display: ">
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<span class="attribute_name">首页模板:</span>
+		<span class="attribute_value wcm_readonly">{#PublishConfig.OutlineTemplate, 无}</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">细览模板:</span>
+		<span class="attribute_value wcm_readonly">{#PublishConfig.DetailTemplate, 无}</span>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<span class="attribute_name">存放位置:</span>
+		<span class="attribute_value wcm_readonly">{#PublishConfig.DataPath}</span>
+	</div>
+</div>
+ </textarea>
+
+ <textarea id="template_chnlrecycles">
+	<div class="attribute_row">
+		当前共选中<span class="objects_num">{#Num}</span>个栏目.
+	</div>
+ </textarea>

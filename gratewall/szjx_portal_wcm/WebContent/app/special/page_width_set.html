@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> 设置页面宽度 </title>
+	<link href="css/common.css" rel="stylesheet" type="text/css" />
+	<link href="css/list.css" rel="stylesheet" type="text/css" />
+	<link href="list.css" rel="stylesheet" type="text/css" />
+	<script src="../js/easyversion/lightbase.js"></script>
+	<script src="../js/easyversion/extrender.js"></script>
+	<script src="../js/easyversion/elementmore.js"></script>
+	<script src="js/adapter4Top.js"></script>
+	<!--validator start-->
+	<script src="../js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+	<script src="../js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+	<script src="../js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+	<script src="../js/source/wcmlib/com.trs.validator/Validator.js"></script>
+	<!--validator end-->
+	<link href="../js/source/wcmlib/com.trs.validator/css/validator.css" rel="stylesheet" type="text/css" />
+	<style type="text/css">
+		body{
+			font-size:12px;
+		}
+		input{
+            border:1px solid silver;
+        }
+		.desc{
+			margin-right:10px;
+		}
+		.top-info{
+			padding-bottom:15px;
+			font-size:12px;
+			color:red;
+		}
+		.valid_result{
+			margin-left:10px;
+		}
+	</style>
+	<script language="javascript">
+	<!--
+		window.m_cbCfg = {
+			btns : [
+				{
+					text : '确定',
+					id : 'btnSave',
+					cmd : function(){
+						this.callback({width:$("page_width").value});
+					}
+				},
+				{
+					extraCls : 'wcm-btn-close',
+					text : '取消'
+				}
+			]
+		};
+
+		function init(param){
+			//注册校验成功时执行的回调函数
+			ValidationHelper.addValidListener(function(){
+				wcmXCom.get('btnSave').enable();
+			}, "frm");
+
+			//注册校验失败时执行的回调函数
+			ValidationHelper.addInvalidListener(function(){
+				wcmXCom.get('btnSave').disable();
+			}, "frm");
+
+			
+			if(param && param.width){
+				$("page_width").value = param.width;
+			}
+			//初始化页面中需要校验的元素
+			ValidationHelper.initValidation();
+		}
+	//-->
+	</script>
+</head>
+
+<body>
+<div style="margin:20px;">
+	<div class="top-info">页面宽度必须为：整数+单位(pt/em/px)</div>
+	<form method="post" action="" id="frm">
+		<span class="desc">页面宽度:</span><input type="text" name="page_width" id="page_width" value="" validation="desc:'页面宽度',type:'string',required:true,max_len:30,format:/(^[1-9]\d*|^0)(px|pt|em)$/,warning:'页面宽度必须为:整数+单位(pt/em/px)',showid:'width_valid_result'"/><span id="width_valid_result" class="valid_result"></span>
+	</form>
+</div>
+	
+	
+</body>
+</html>

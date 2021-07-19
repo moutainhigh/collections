@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.DocumentSynServiceProvider">
+
+	<method name="save">		
+		<parameter name="ObjectId" desc="操作的对象ID" type="int" required="true"/>
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="true"/>
+		<parameter name="ChannelAsTarget" desc="当前栏目是否作为汇集点" type="boolean" required="false"/>	
+		<parameter name="ChannelIds" desc="分发目标或者原始栏目Id序列" type="string" required="false"/>	
+	</method>
+
+	<method name="delete">	
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="true"/>
+		<parameter name="ObjectIds" desc="待删除的分发对象ID序列" type="string" required="true"/>
+	</method>
+	
+	<method name="query">
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="true"/>
+		<parameter name="ChannelAsTarget" desc="当前栏目是否作为汇集点" type="boolean" required="false"/>	
+
+
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false" default="CHANNELSYNID desc"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<!-- 检索相关配置 END -->
+	</method>
+	
+	<method name="findByIds"/>
+	
+	<method name="findById"/>
+	
+	<method name="isValidDocumentSyn" desc="校验当前分发是否有效">		
+		<parameter name="SrcChannelId" desc="源栏目ID" type="int" required="true"/>
+		<parameter name="ObjectIds" desc="目标栏目ID序列" type="string" required="true"/>
+		<parameter name="ChannelAsTarget" desc="当前栏目是否作为汇集点" type="boolean" required="false"/>	
+	</method>
+</service>

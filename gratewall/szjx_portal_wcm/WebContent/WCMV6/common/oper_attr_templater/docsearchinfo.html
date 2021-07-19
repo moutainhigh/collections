@@ -1,0 +1,79 @@
+<textarea id="template_docsearchinfo">
+<div style="background: #efefef">
+	<div class="search_attribute_row" id="divDOCTITLE" style="display: none;">
+		<span class="search_info_desc">标题包含:</span>
+		<span class="search_info_value" title="{#DocTitle, }">
+			{#DocTitle}
+		</span>
+	</div>
+	<div class="search_attribute_row" id="divCRUSER" style="display: none">
+		<span class="search_info_desc">发稿人:</span>
+		<span class="search_info_value" title="{#CrUser, }">
+			{#CrUser}
+		</span>
+	</div>
+	<div class="attribute_row_sep" id="sep1" style="display: none"></div>
+	<div class="search_attribute_row" id="divREGION" style="display: none;">
+		<span class="search_info_desc" style="width: 100%">搜索范围:</span>
+		<div style="width: 100%; overflow-y: auto; margin-bottom: 5px;" id="divRegionContainer">
+			<for select="REGION">
+			<span class="search_info_value_solo" title="{#Name, }">
+				{$$index}. {#Name}
+			</span>
+			</for>			
+		</div>
+	</div>
+	<div id="divRECURSIVE" class="search_attribute_row" style="display: none">
+		<span class="search_info_desc" style="width: 80px;">检索子栏目:</span>
+		<span class="search_info_value" style="width: 70px" >
+			{#RECURSIVE}
+		</span>
+	</div>
+	<div class="search_attribute_row" id="divSTARTDATE" style="display: none">
+		<span class="search_info_desc">创建时间:</span>
+		<span class="search_info_value_solo" style="height: 40px; line-height: 20px;">
+			<span style="padding-left: 22px;">{#StartDate} </span>
+			<br>至<span style="padding-left: 10px;">{#EndDate}</span>
+		</span>
+	</div>
+	<div class="search_attribute_row" id="divCRTIMEINTERVAL" style="display: none">
+		<span class="search_info_desc">创建时间:</span>
+		<span class="search_info_value" title="{#CrTimeInterval, }">
+			{#CrTimeInterval}
+		</span>
+	</div>
+	<div class="search_attribute_row" id="divSTARTPUBDATE" style="display: none">
+		<span class="search_info_desc">发布时间:</span>
+		<span class="search_info_value_solo" style="height: 40px; line-height: 20px;">
+			<span style="padding-left: 22px;">{#StartPubDate} </span>
+			<br>至<span style="padding-left: 10px;">{#EndPubDate}</span>
+		</span>
+	</div>
+	<div class="search_attribute_row" id="divPUBTIMEINTERVAL" style="display: none">
+		<span class="search_info_desc">发布时间:</span>
+		<span class="search_info_value" title="{#PubTimeInterval, }">
+			{#PubTimeInterval}
+		</span>
+	</div>
+	<div class="attribute_row_sep" id="sep2" style="display: none"></div>
+	<div class="search_attribute_row" id="divDOCSOURCENAME" style="display: none">
+		<span class="search_info_desc">文档来源:</span>
+		<span class="search_info_value" title="{#DocSourceName}">
+			{#DocSourceName}
+		</span>
+	</div>
+	<div class="search_attribute_row" id="divDOCSTATUS" style="display: none">
+		<span class="search_info_desc" style="width: 100%">文档状态:</span>
+		<for select="DOCSTATUS">
+			<span class="search_info_value_column">{#LABEL}</span>
+		</for>
+	</div>
+	<div class="attribute_row_sep" id="sep3" style="display: none"></div>
+	<div id="divDOCKEYWORDS" class="search_attribute_row" style="display: none">
+		<span class="search_info_desc" style="width: 80px;">关键词包含:</span>
+		<span class="search_info_value" style="width: 70px" title="{#DocKeywords, }">
+			{#DocKeywords}
+		</span>
+	</div>
+</div>
+</textarea>

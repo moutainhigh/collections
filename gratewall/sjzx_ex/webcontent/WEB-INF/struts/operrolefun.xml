@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>角色功能权限</menu-name>
+  <menu-path>/page/sysmgr/priv/func/</menu-path>
+  <description>角色功能权限</description>
+  <form-beans>
+    <form-bean name="OperrolefunRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="roleid" type="int" description="角色编号"/>
+      <form-property prefix="record" name="roleaccid" type="long" cannull="false" description="角色权限代码"/>
+      <form-property prefix="record" name="roleid" type="int" cannull="false" description="角色编号"/>
+      <form-property prefix="record" name="txncode" type="string" size="52" cannull="true" description="交易代码"/>
+      <form-property prefix="record" name="txnname" type="string" size="150" cannull="true" description="交易代码"/>
+      
+      <form-property prefix="record" name="dataaccrule" type="string" size="1" cannull="false" description="数据权限认证规则"/>
+    </form-bean>
+
+    <form-bean name="OperrolefunUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="roleaccid" type="long" cannull="false" description="角色权限代码"/>
+      <form-property prefix="record" name="roleaccid" type="long" cannull="false" description="角色权限代码"/>
+      <form-property prefix="record" name="roleid" type="int" cannull="false" description="角色编号"/>
+      <form-property prefix="record" name="txncode" type="string" size="52" cannull="true" description="交易代码"/>
+      <form-property prefix="record" name="dataaccrule" type="string" size="1" cannull="false" description="数据权限认证规则"/>
+    </form-bean>
+
+    <form-bean name="OperrolefunDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="roleaccid" type="long" cannull="false" description="角色权限代码"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-operrolefun.jsp" name="OperrolefunRowsetForm" txn-code="103031" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询角色功能权限列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnOperrolefun" func-name="txn103031" input-node="select-key" output-node="record" description="查询角色功能权限列表"/>
+      <forward error-code="success" path="query-operrolefun.jsp"/>
+      <forward error-code="failure" path="query-operrolefun.jsp"/>
+    </action>
+
+    <action input="update-operrolefun.jsp" name="OperrolefunUpdateForm" txn-code="103032" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改角色功能权限信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnOperrolefun" func-name="txn103032" input-node="record" description="修改角色功能权限信息"/>
+      <forward error-code="success" path="update-operrolefun.jsp"/>
+      <forward error-code="failure" path="update-operrolefun.jsp"/>
+    </action>
+
+    <action input="insert-operrolefun.jsp" name="OperrolefunUpdateForm" txn-code="103033" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加角色功能权限信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnOperrolefun" func-name="txn103033" input-node="record" description="增加角色功能权限信息"/>
+      <forward error-code="success" path="insert-operrolefun.jsp"/>
+      <forward error-code="failure" path="insert-operrolefun.jsp"/>
+    </action>
+
+    <action input="query-operrolefun.jsp" name="OperrolefunUpdateForm" txn-code="103034" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询角色功能权限用于修改</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnOperrolefun" func-name="txn103034" input-node="primary-key" output-node="record" description="查询角色功能权限用于修改"/>
+      <forward error-code="success" path="update-operrolefun.jsp"/>
+      <forward error-code="failure" path="update-operrolefun.jsp"/>
+    </action>
+
+    <action input="query-operrolefun.jsp" name="OperrolefunDeleteForm" txn-code="103035" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除角色功能权限信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnOperrolefun" func-name="txn103035" input-node="primary-key" description="删除角色功能权限信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    <action input="query-operrolefun.jsp" name="OperrolefunRowsetForm" txn-code="103037" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>根据角色ID查询交易代码</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnOperrolefun" func-name="txn103037" input-node="select-key" output-node="record" description="根据角色ID查询交易代码"/>
+      <forward error-code="success" path="update-operrolefun.jsp"/>
+      <forward error-code="failure" path="update-operrolefun.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-operrolefun.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/csdb/xtgl/query-operrolefun.jsp" description="查询角色功能权限列表"/>
+    <resource-file type="jsp" file-name="/csdb/xtgl/insert-operrolefun.jsp" description="增加角色功能权限信息"/>
+    <resource-file type="jsp" file-name="/csdb/xtgl/update-operrolefun.jsp" description="修改角色功能权限信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.OperrolefunContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.VoOperrolefun" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.VoOperrolefunSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.VoOperrolefunPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

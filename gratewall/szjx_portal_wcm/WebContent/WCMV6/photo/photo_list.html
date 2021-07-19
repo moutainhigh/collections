@@ -1,0 +1,258 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>图片列表</title>
+
+<!-- ~Common CSS Begin~ -->
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/wcm_list_abstract.css" rel="stylesheet" type="text/css" />
+<link href="../js/opensource/helptip/helptip.css" rel="stylesheet" type="text/css" />
+<link href="photo_list.css" rel="stylesheet" type="text/css" />
+<!-- ~Common CSS End~ -->
+<style>
+.grid_row_even{
+	background-color:#fff;
+}
+.grid_row_active{
+	background-color:#ffffef;
+}
+body, *{
+	font-size: 12px;
+}
+
+/*--order*/
+div.listOrders0{
+	background-color:#FFFFFF;
+	padding:1px;
+	background-image:url(../images/include/cbg1.gif);
+}
+div.listOrders1{
+	background-image:url(../images/include/ccdot.gif);
+}
+.listOrders1 a,.listOrders1 a:link,.listOrders1 a:visited {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #5a758d!important;
+	text-decoration: none;
+}
+.listOrders1 a:hover{
+	font-family: "宋体";
+	font-size: 12px;
+	text-decoration: none;
+	color: #FF6600!important;
+}
+.help-tooltip{
+	width: 125px;
+}
+.orderClue{
+	font-size:12px;
+	color: gray;
+	width: 80px;
+}
+ul.listOrders{
+	list-style-type: none;
+	line-height: 25px;
+	font-size:12px;
+	margin:0;
+	margin-left:20px;
+}
+.listOrders li{
+	height:25px;
+}
+.listOrderCurrent{
+	list-style-type: disc;
+}
+.listOrderOthers{
+	list-style-type: none;
+}
+#quicksearch{
+	width:46px;
+	height:18px;
+	background-image:url(../images/include/do_search.gif);
+	float:right;
+	margin:8px 10px;
+	cursor:hand;
+}
+.desc{
+	background:url(../images/photo/desc.gif) no-repeat 50 4;
+}
+.asc{
+	background:url(../images/photo/asc.gif) no-repeat 50 4;
+}
+.document_modal_2{
+	width:14px;
+	background-image:url(../images/document_normal_index/shortcutdoc2.gif);
+	background-repeat:no-repeat;
+	background-position:0 bottom;
+}
+.document_modal_3{
+	width:14px;
+	background-image:url(../images/document_normal_index/shortcutdoc3.gif);
+	background-repeat:no-repeat;
+	background-position:0 bottom;
+}
+.docstatus_10{
+	color:green;
+}
+</style>
+
+<!-- ~Imports Begin~    -->
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script label="Imports">
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.util.CommonHelper');
+   $import('com.trs.wcm.SheetChanger');
+	$import('com.trs.wcm.QuickKey');
+	$import('com.trs.wcm.SimpleDragger');
+	$import('com.trs.wcm.Grid');
+	$import('com.trs.wcm.PageFilter');
+	$import('com.trs.wcm.BubblePanel');
+	$import('com.trs.wcm.FloatPanel');		
+	$import('com.trs.crashboard.CrashBoarder');
+	$import('com.trs.wcm.domain.PhotoMgr');
+</script>
+<!-- ~Imports END~    -->
+
+<!-- ~PageJavaScript Begin~    -->
+<script language=JavaScript src="../js/opensource/helptip/helptip.js" type=text/javascript></script>
+<script src="../common/wcm_list_abstract.js" label="PageScope"></script>
+<script src="photo_list.js" label="PageScope" desc="图片列表"></script>
+<script src="../js/wcm52/CTRSAction.js"></script>
+<script src="../js/wcm52/CTRSHashtable.js"></script>
+<script src="../js/wcm52/CTRSRequestParam.js"></script>
+<!-- ~PageJavaScript END~    -->
+</head>
+<body>
+<div id="dy_list_adjust"></div>
+<table id="table_body" class="wcm_table_layout" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="wcm_list_view">
+			<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+			<tbody>
+				<tr class="list_pageinfo">
+					<td colSpan="3">
+						<div class="pageinfo">
+							<div class="pageinfo_left"></div>
+							<div class="pageinfo_right"></div>
+							<div id="quicksearch" onclick="quickSearch();" title="快速检索"></div>
+							<span id="pageinfo"></span>
+							<!--PageInfo模板-->
+							<textarea id="pageinfo_template" select="PageInfo" style='display:none'>
+								<table height="28" border="0" cellpadding="0" cellspacing="0">
+									<tr height="28">
+										<td align="left" valign="center">
+											<div height="28" class="pagefilter_container">
+												<for select="Filters.Filter">
+												<span class="pagefilter {#IsDefault,,PageFilter.filterClass}" pagefilter_type="{#Type}">
+													<table border="0" cellpadding="0" cellspacing="0">
+														<tr height="23">
+															<td class="left" width="7"></td>
+															<td class="middle" nowrap="nowrap" valign="middle">
+																<a href="#" onclick="return false">{#Name}</a>
+															</td>
+															<td class="right" width="7"></td>
+														</tr>
+													</table>
+												</span>
+												</for>
+												<span class="wcm_pointer pagefilter_more_btn" id="pagefilter_more_btn"></span>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</textarea>
+						</div> 
+					</td>
+				</tr>
+				<tr class="list_view">
+					<td class="list_view_border"></td>
+					<td valign="top">
+						<DIV id='objects_grid' class="grid">
+							<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0 style="table-layout:fixed;">
+								<tr style="height:29px">
+									<td>
+										<div class="grid_head" id="grid_head">
+											<!--列表头模板-->
+											<div style="float:right;margin-right:10px;margin-top:4px">
+		                                        <table width="114" height="24" border="0" cellpadding="0" cellspacing="0" background="../images/include/px2.gif" class="navtitle12">
+		                                          <tr> 
+		                                            <td width="29" style="cursor:pointer;">
+		                                                <a onclick="showOrderTypes(event); return false;" id="lnkFirer" style="width:29px; height:24px;background:url(../images/include/px1.gif)"></a>
+		                                            </td>
+		                                            <td width="75" valign="top" style="padding-top:4px;cursor:hand" id="spOrderClue" onclick="antitone(event);"  class="desc">创建时间</td>
+		                                            <td width="10" height="24" align="right" style="background:url(../images/include/px3.gif)"></td>
+		                                          </tr>
+		                                        </table>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td valign="top">
+										<div id="grid_data" class="grid_data"></div>
+										<!--Objects列表数据模板-->
+										<textarea id="objects_template" select="ViewDocuments.ViewDocument" style='display:none'>
+											<for select="." blankRef="divNoObjectFound" >
+											<span style="width:128px; height: 120px;display:inline;">													
+												<span style="width:190; height:180;" class="photo_item">													
+													<div style="background:#ffffff;">
+														<img src="../images/photo/picture_box.gif" width="150" height="150">
+													</div>
+													<div id="PhotoItem_{#DocId}" style="margin:-140,0,15,0">														
+														<a href="#" title="查看图片" onclick="showPic({#DocId},{#ChnlId},'{#Right}',{#RecId});return false;">
+															<img src="{@mapFileName(#DOCRELWORDS,1,#ATTRIBUTE.SRCFILE)}" style="cursor:hand;border:0"  id="listpic_{#DocId}">
+														</a>
+													</div>													
+												</span>												
+											</span>
+											<span style="width:128px; overflow:hidden; white-space: nowrap; text-overflow:ellipsis;margin:-20 0 0 -155" class="grid_row {@dealWithRightCss(#Right,34)}" style="border:0px;" grid_rowid="{#RecId}" docid="{#DocId}" right="{#Right}" index="{$$INDEX}" grid_function="multi">
+												<center>
+												<input id="chk_{#DocId}" type="checkbox" class="grid_checkbox wcm_pointer element_list_checkbox" name="DocId" value="{#RecId}" title="选中/取消选中" {@dealWithRight(#Right,34)}></input>
+												<span  class="document_modal_{#Modal}"></span>
+												<span title="{#DocTitle}" class="docstatus_{#DocStatus.Id}">{#DocTitle}</span>
+												</center>
+											</span>
+											</for>
+										</textarea>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+				<tr class="list_navigator">
+					<td class="list_view_border"></td>
+					<td>						
+						<div id="list_navigator" class="list_navigator_div">
+						</div>
+						<label for="selAll" style="float:left;padding-left:20px;padding-bottom:5px;cursor:hand">
+							全选 
+							<input type="checkbox" id="selAll" onclick="Grid.toggleAllRows();">
+						</label>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+</table>
+<div id="divNoObjectFound" style="display:none;">
+	<div class="no_object_found">不好意思, 没有找到符合条件的图片...-____-|||</div>	
+</div>
+<script language="javascript">
+<!--
+	PageContext.LoadPage();	
+//-->
+</script>
+</body>
+</html>
+

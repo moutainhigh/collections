@@ -1,0 +1,236 @@
+.wrapper{
+	margin:3px auto 0;
+	width:100%;
+}
+.pack-up, .pack-down{
+	display:block;
+	width:100%;
+	overflow:hidden;
+	border:1px solid #ddd;
+	margin-bottom:1px;
+	background:#fff;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.055);
+}
+.pack-up{
+	height:32px;
+	border:1px solid #ddd;
+}
+.pack-down{
+	height:auto;
+	border:1px solid #ddd;
+}
+
+.pack-list{
+	list-style-type: none;
+	background:#FFF;
+	width:100%;
+	margin:0px;
+	padding:0px;
+	
+}
+.pack-list li{
+	/*display:inline-block;*/
+	float:left;
+	margin-left:10px;
+	text-align:center;
+	white-space:nowrap;
+	word-break:keep-all;
+	line-height:26px;
+	height:30px;
+	cursor: pointer;
+}
+.pack-list .disabled{
+	padding: 0;
+	margin:0px;
+	border:0;
+}
+
+.pack-list .pull-out{
+	float:right;
+}
+.pack-list li a{
+	padding-left:5px;
+	padding-right:5px;
+	margin-top:1px;
+	font-size:14px;
+	text-decoration: none;
+	display:inline-block;
+	color:#006CCA;
+	text-align: center;
+}
+.pack-list li a span{
+	font-size:12px;
+	/*display:inline-block;*/
+	text-decoration: none;
+	color:#999999;
+}
+.pack-list li.active a, .pack-list li.inner_active a {
+    background:#39f !important;
+    margin-top:1px;
+    border: 1px solid #ECECEC;
+    height:22px;
+    color:#fff !important;
+}
+
+.pack-list li.inner_active a {
+    font-size: 9pt;
+}
+
+.pack-list li.active a span, .pack-list li.inner_active a span {
+	color: #eee;
+}
+.pack-list li.disabled{
+    color:#555555;
+}
+.pack-list li.disabled a{
+	background:#FFFFFF;
+    color:#555555;
+}
+.pack-list li.disabled a:hover{
+	text-decoration:none;
+    background:#FFFFFF;
+    color:#555555;
+}
+li.active a, li.inner_active a{
+	color:#555555;
+}
+.pack-list li a:hover{
+	color:#0088FF;
+	background: #EEEEEE;
+	text-decoration: none;
+}
+
+.pack-list li a:hover span{
+	cursor: pointer;
+}
+.pack-list .pull-right{
+	float:right;
+}
+
+.btn{
+   margin:0px;
+   border:0px;
+   cursor:pointer;
+}
+.btn_arrow_down{
+     height: 24px;
+     width: 24px;
+     margin-top: 3px;
+     margin-right: 3px;
+}
+.btn_more{
+    margin-top:3px;
+    margin-right:3px;
+    height: 24px;
+    width: 24px;
+}
+.close_modal{ 
+        position:absolute; /* important */
+        top:0px; /* start from top */
+        left:0px; /* start from left */
+        height:100%; /* cover the whole page */
+        width:100%;  /* cover the whole page */
+        display:none; /* don't show it '*/          
+        /* styling bellow */
+        background-color:#808080; 
+        opacity: 0;
+}
+.modal_window{
+    position:absolute; /* important so we can position it on center later */
+    display:none; /* don't show it */
+    width:600px;
+    height:auto;
+    border:1px solid gray;
+    border-bottom: 1px solid #d4d5d6 !important;
+    background: white;
+    overflow-x: hidden;
+}
+#modal_window ul.pack-list li.disabled{
+	width: 100%;
+	text-align: left;
+	white-space: nowrap;
+	padding: 2px 0 0 10px; 
+	font-weight: bold;
+}
+
+#modal_window ul.pack-list li a{
+	color:#0088FF;
+	background: #EEEEDE;
+	text-decoration: none;
+	margin: 3px 5px;
+}
+
+#modal_window ul.pack-list li a:hover{
+	color:#fff;
+	background: #39f;
+	text-decoration: none;
+}
+
+#modal_window ul.pack-list li a:hover span {
+	color: #fff;
+}
+
+div.tmp_layer{
+	width: 300px;
+	position: absolute;
+	background: white;
+	border: 1px solid #69c;
+	padding: 3px;
+	text-align: left;
+}
+
+div.tmp_layer a{
+	background: #EEEEDE;
+	text-decoration: none;
+}
+
+div.tmp_layer a span{
+	color:#0088FF;
+	white-space: nowrap;
+	padding: 3px;
+	display: inline-block;
+	margin: 5px;
+	cursor: hand;
+}
+
+div.tmp_layer a:hover span{
+	color:#fff;
+	background: #39f;
+	text-decoration: none;
+}
+
+div.tmp_layer a.active span{
+	color:#fff;
+	background: #39f;
+	text-decoration: none;
+}
+.closeMe{
+	position: relative;
+	left: 250px;
+	cursor: hand;
+}
+
+#searchDiv{
+	position: absolute;
+	width: 400px;
+	background: white;
+    border:1px solid gray;
+    border-bottom:0px solid gray !important;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+#searchDiv #searchBar {
+	width:180px;
+}
+#searchDiv span{
+	color: #666;
+}
+#searchBar{
+	border: 1px solid #d4d5d6;
+}
+#windowClose{
+	position: absolute;
+	cursor: hand;
+	color: #ddd;
+	top: 5px;
+}

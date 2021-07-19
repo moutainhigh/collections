@@ -1,0 +1,15 @@
+<chart caption='[${date_remark}]服务分布情况(按服务对象类型)'  palette='2' showLegend='1' formatNumberScale='0'
+	animation='1' formatNumberScale='0' numberSuffix='${unit}' pieSliceDepth='30'
+	startingAngle='125' baseFontSize='12'>
+	<#list list as t><set label='${t.type}' value='${t.count}' isSliced='0'/></#list>
+	<styles>
+		<definition>
+			<style type='font' name='CaptionFont' size='15' color='666666' />
+			<style type='font' name='SubCaptionFont' bold='0' />
+		</definition>
+		<application>
+			<apply toObject='caption' styles='CaptionFont' />
+			<apply toObject='SubCaption' styles='SubCaptionFont' />
+		</application>
+	</styles>
+</chart>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<link rel="stylesheet" href="../../../../static/css/common.css">
+<link href="../../../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+
+</head >
+<body style="overflow-x:hidden">
+	<!-- 构建页面==开始 -->
+	<!-- 查询条件 -->
+	<div vtype="formpanel" name="insertManageScope_Form" id="insertManageScope_Form" wid="37B99F7C0F863A45E055000000000001"
+	     dataview="false" titleDisplay="true" title="redis查询条件" style="text-align: center;" width="100%" showborder="true" 
+	     dataurl="" layout="table" layoutconfig="{cols:2, columnwidth: ['50%','50%']}" labelstyleclass="labelstyle">
+
+		<div name="selectRedis" vtype="comboxfield" rule="must" style="margin-left: 330px;text-align: center;" id="selectRedis" labelwidth="200" label="redis配置类型" valuetip="请选择..." width="450" dataurl='[{"text":"系统配置","value":"cfg_"},
+							 {"text":"文书配置","value":"chap_list_"},
+							 {"text":"文书章节","value":"chap_config_"},
+							 {"text":"文书数据","value":"doc_chapdata_"},
+							 {"text":"协议栈","value":"protocol_list_"},
+							 {"text":"协议","value":"protocol_"},
+							 {"text":"规则应用","value":"rule_app_"},
+							 {"text":"规则","value":"rule_"},
+							 {"text":"规则步骤","value":"rule_step_"},
+							 {"text":"短信模板","value":"sms_tpl_"},
+							 {"text":"业务步骤","value":"step_"},
+							 {"text":"上传类别","value":"upload_config_"},
+							 {"text":"上传列表","value":"upload_list_"}]'></div>
+
+		<!-- 数据展现 -->
+		<div name="redisToolbar" class="redisToolbar" vtype="toolbar" location="bottom" align="left" style="margin-left: 500px; float: left;">
+			<div name="redis_save_button" vtype="button" text="查询"></div>
+			<div name="redis_reset_button" vtype="button" text="重置"></div>
+
+
+		</div>
+	</div>
+	<div name="redisGrid" id="redisGrid" vtype="gridpanel" titleDisplay="true" title="key-value列表" 
+		labelStyleClass="labelstyle" lineno="true"  showborder=true width="100%" >
+		<div name="redis_batch_delete_button" id="redis_batch_delete_button" vtype='button' text='批次删除缓存' ></div>
+			<div name="redisGrid_column" vtype="gridcolumn">
+				<div>
+					<div name='key' text="key" textalign="center" width='253'></div>
+					<div name='value' text="value" textalign="center" width='580'></div>
+					<div name='opt' text="操作" textalign="center" width='253'></div>
+				</div>
+			</div>
+
+			<div vtype="gridtable" name="grid_table"></div>
+			<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10"></div>
+			<div class="nodata" style="display: none;"></div>
+		</div>
+
+	</div>
+
+
+	<!-- 构建页面==结束 -->
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" src="../../../static/lib/require.js" data-main="torch/redisListTorch.js"></script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>处罚决定书</title>
+</head>
+<script type="text/javascript" src="../../../static/js/jquery-1.8.3.js"></script>
+<script src="../../../static/js/sczt/base64.js" type="text/javascript"></script>
+<style>
+* {
+	margin: 0;
+	padding: 0
+}
+
+body {
+	overflow-y:hidden;
+}
+
+/*去掉外围 边框线*/
+input,button,select,textarea {
+	outline: none;
+}
+
+/*文本域的边框线*/
+textarea {
+	resize: none;
+}
+
+.test {
+	text-align: center;
+	font-size: 20px;
+}
+
+.docnum {
+	text-align: center;
+	font-size: 20px;
+}
+
+.m-center {
+	text-align: center;
+	font-size: 20px;
+}
+
+.docisstime {
+	text-align: center;
+	font-size: 20px;
+}
+
+.contents {
+	overflow-x: hidden;
+	width: 800px;
+	border: 2px solid #A6C1F0;
+	font-size: 18px;
+	min-height:366px;
+	padding: 0 4px;
+	line-height: 28px;
+}
+
+.title {
+	padding: 16px;
+}
+
+.fz28 {
+	font-size: 28px;
+	font-weight: bold;
+	margin-bottom: 12px;
+	margin-top: -8px;
+}
+
+.fz14 {
+	font-size: 20px;
+}
+
+.bg_padding {
+	background: #DBEFF7;
+	height: 28px;
+}
+
+.container {
+	width: 980px;
+	margin: 0 auto;
+}
+
+.docisstimeWrap {
+	width: 793px;
+	margin: 0 auto;
+	padding: 12px 0px;
+}
+
+#docisstime {
+	text-decoration: underline;
+	margin-top: 10px;
+	font-size: 18px;
+}
+
+.fr {
+	float: right;
+}
+
+.pr-30{padding-right: 33px;}
+</style>
+<script>
+	function isEmpty(val) {
+		val = $.trim(val);
+		if (val == null)
+			return true;
+		if (val == undefined || val == 'undefined')
+			return true;
+		if (val == "")
+			return true;
+		if (val.length == 0)
+			return true;
+		if (!/[^(^\s*)|(\s*$)]/.test(val))
+			return true;
+		return false;
+	}
+
+	function isNotEmpty(val) {
+		return !isEmpty(val);
+	}
+
+	var id = null;
+	$(function() {
+		id = getUrlParam("id");
+		$.ajax({
+			url : '../../../caseShow/casePenDoc.do',
+			data : {
+				id : id
+			},
+			type : "post",
+			dataType : 'json',
+			success : function(data) {
+				var data = data.data[0].data[0];
+				var dataStr = $.isEmptyObject(data);
+				if(!dataStr){
+					if (isNotEmpty(data.deptid)) {
+						//$('#deptid').text(data.deptid);
+						var dataid = data.deptid;
+						if(dataid.indexOf(",")>0){
+							 dataid = dataid.replace(",","<div style='margin:5px;'></div>");
+						}
+						$('#deptid').html(dataid);
+					} else {
+						$('#deptid').text('');
+					}
+					if (isNotEmpty(data.docnum)) {
+						$('#docnum').text(data.docnum);
+					} else {
+						$('#docnum').text('');
+					}
+					if (isNotEmpty(data.puncontent)) {
+						$('#puncontent').text(data.puncontent);
+					} else {
+						$('#puncontent').text('无数据');
+					}
+					if (isNotEmpty(data.docisstime)) {
+						$('#docisstime').text(data.docisstime);
+					} else {
+						$('#docisstime').text('_____________');
+						//$('#docisstime').css("")
+					}
+				}
+			}
+		});
+	});
+
+	function getUrlParam(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+		var r = window.location.search.substr(1).match(reg); //匹配目标参数
+		if (r != null)
+			return decode(unescape(r[2]));
+		return null; //返回参数值
+	}
+</script>
+<body>
+	<div class="header bg_padding"></div>
+	<div class="container">
+		<div class="title">
+			<div id='deptid' name='deptid' class="test fz28"></div>
+			<div id='test' name='test' class="test fz28">行政处罚决定书</div>
+			<div id='docnum' name='docnum' class="docnum fz14"></div>
+		</div>
+		<div class="puncontentWrap m-center"><!-- readonly="readonly" -->
+			<textarea id='puncontent' name='puncontent' class="contents"  readonly="readonly"></textarea>
+		</div>
+
+		<div class="docisstimeWrap">
+			<p class="fr fz18 pr-30">(印章)</p>
+			<div style="clear: both"></div>
+			<p id='docisstime' class="fr fz18" name='docisstime'></p>
+			<div style="clear: both"></div>
+		</div>
+	</div>
+	<div class="footer bg_padding"></div>
+	
+	<script type="text/javascript">
+	$(function(){
+		var scHeight = screen.height;
+		if(scHeight>768&&scHeight<=1080){
+			$("#puncontent").css("height","712");
+		}
+		if(scHeight>1080&&scHeight<=1440){
+			$("#puncontent").css("height","872");
+		}
+	})
+	
+	
+	
+	
+	
+	
+	/*暂定还不使用*/
+			/*  $(function(){
+				 var orginalHeight =$(document).height();
+				 console.log(orginalHeight)
+				 getHeight();
+				 $(window).resize(function() {
+					var t=  getHeight();
+					console.log(t);
+				 })
+				 
+				 
+			 });
+			 
+			 
+			 function getHeight(){
+				 var wHeight = $(window).height() ;
+				 var docHeight = $(document).height();
+				 var scHeight=screen.height;
+				 var calPdfHeight = scHeight - docHeight;
+				 if(scHeight>768){
+						//$("#puncontent").css("height",scHeight-calPdfHeight);
+				}
+				
+				
+				if(calPdfHeight>=437) {
+					//$("#puncontent").css("height",scHeight-200)
+				}
+				
+				
+				 return {
+					 windowHeight: wHeight,
+					 docHeight: docHeight,
+					 screenHeight: scHeight
+				 }
+				 
+			 } */
+	</script>
+</body>
+</html>

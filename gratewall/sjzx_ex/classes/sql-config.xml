@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlconfig>
+  <system name="中国统计数据库系统">
+    <model name="模块名称">
+	    <function id="807000" name ="例子">
+			<db2 id="0001" name="查询用户信息">
+				select yhid_pk from xt_zzjg_yh_new where sfyx ='0' and yhzh='${0}'
+			</db2>	    	
+			<oracle id="0001" name="查询用户信息">
+				select yhid_pk from xt_zzjg_yh_new where sfyx ='0' and yhzh='${0}'
+			</oracle>
+	    </function>
+    </model>
+    
+    <model name="抽取基础代码">
+	    <function id="901000" name ="例子">
+			<db2 id="0001" name="查询代码">
+				select GZ_DM_JCDM.JC_DM_DM,GZ_DM_JCDM_FX.JCSJFX_DM,GZ_DM_JCDM_FX.JCSJFX_MC from GZ_DM_JCDM,GZ_DM_JCDM_FX where GZ_DM_JCDM.JC_DM_ID = GZ_DM_JCDM_FX.JC_DM_ID order by GZ_DM_JCDM.JC_DM_DM,GZ_DM_JCDM_FX.JCSJFX_DM
+			</db2>
+	    </function>
+    </model>
+  </system>
+</sqlconfig>

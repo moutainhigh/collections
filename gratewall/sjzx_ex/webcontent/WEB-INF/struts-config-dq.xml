@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+	<action-mappings>
+		<action path="/treeList" 
+	    	type="com.gwssi.dw.dq.action.TreeListAction"  
+	    	scope="request" 
+	    	parameter="method"
+	     	unknown="false"
+	      	validate="false">
+	      <forward name="fail" path="/csdb/report/indiquery/common/dbtest.jsp" />
+	      <forward name="success" path="/csdb/report/indiquery/common/text.jsp" />
+	    </action>
+	
+		<action path="/fzxList" 
+	    	type="com.gwssi.dw.dq.action.FzxAction"  
+	    	scope="request" 
+	    	parameter="method"
+	     	unknown="false"
+	      	validate="false">
+	      <forward name="fail" path="/csdb/report/indiquery/common/dbtest.jsp" />
+	      <forward name="success" path="/csdb/report/indiquery/common/text.jsp" />
+	    </action>
+	    <action path="/model" 
+	     	type="com.gwssi.dw.dq.action.ModelAction"
+			scope="request" 
+			parameter="method" 
+			unknown="false"
+			validate="false">
+			<forward name="success" path="/dw/aic/dq/query.jsp" />
+		</action>
+		
+		<action path="/define" 
+	     	type="com.gwssi.dw.dq.action.DefinitionAction"
+			scope="request" 
+			parameter="method" 
+			unknown="false"
+			validate="false">
+		</action>
+		
+		<action path="/details" 
+	     	type="com.gwssi.dw.dq.action.DetailsAction"
+			scope="request" 
+			parameter="method" 
+			unknown="false"
+			validate="false">
+		</action>
+		
+	     <!-- dynamic query  -->
+	    <action path="/dqQuery" 
+	    	type="com.gwssi.dw.dq.action.DqQueryAction"  
+	    	scope="request" 
+	    	parameter="method"
+	     	unknown="false"
+	      	validate="false"></action>
+	      	
+	    <action path="/getJsonModel" 
+	    	type="com.gwssi.dw.dq.action.GetJsonModelAction"  
+	    	scope="request" 
+	      	validate="false"></action>
+	      	
+	    <action path="/getJsonList" 
+	    	type="com.gwssi.dw.dq.action.JsonListAction"  
+	    	scope="request" 
+	      	validate="false"></action>
+	      	
+	     <action path="/getTempList" 
+	    	type="com.gwssi.dw.dq.action.TemplatesAction"  
+	    	scope="request" 
+	    	parameter="method" 
+	      	validate="false"></action>
+	      	
+	    <action path="/check" 
+	    	type="com.gwssi.dw.dq.action.CheckAction"  
+	    	scope="request" 
+	    	parameter="method" 
+	      	validate="false"></action>
+	      	
+	    <action path="/link" 
+	    	type="com.gwssi.dw.dq.action.LinkAction"  
+	    	scope="request" 
+	      	validate="false">
+	      <forward name="fail" path="/dw/aic/dq/link.jsp" />
+	      <forward name="success" path="/dw/aic/dq/link.jsp" />
+	    </action>
+	      	
+	    <action path="/chart" 
+	    	type="com.gwssi.dw.dq.action.ChartAction"  
+	    	scope="request" 
+	    	parameter="method"
+	     	unknown="false"
+	      	validate="false">
+	      <forward name="fail" path="/chartTest.jsp" />
+	      <forward name="success" path="/chartTest.jsp" />
+	      
+	    </action>
+	</action-mappings>
+	
+</struts-config>

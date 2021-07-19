@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="sys_svr_log.xml" app-path="//dw/runmgr/services/svrlog/" app-name="sys_svr_log" description="服务日志" template="single-table.xml"/>
+  <table name="sys_svr_log.xml" app-name="sys_svr_log" app-desc="服务日志" delete-action="delete" description="服务日志" class-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrLog" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-sys_svr_log.jsp" txn-code="50207001" description="查询服务日志列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加服务日志" path="insert-sys_svr_log.jsp" description="增加服务日志" func-name="addRecord"/>
+	    <button type="button" name="修改服务日志" path="/txn50207004.do" description="修改服务日志" func-name="updateRecord"/>
+	    <button type="button" name="删除服务日志" path="/txn50207005.do" description="删除服务日志" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn50207001.do" description="查询服务日志信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-sys_svr_log.jsp" txn-code="50207003" description="增加服务日志信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn50207003.do" description="保存服务日志信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn50207003.do" description="保存服务日志信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn50207001.do" description="保存服务日志信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn50207001.do" description="返回到服务日志明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-sys_svr_log.jsp" txn-code="50207002" description="修改服务日志信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn50207001.do" description="修改服务日志信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn50207001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-sys_svr_log.jsp" txn-code="50207001" description="查询服务日志列表">
+	    <forward error-code="success" path="query-sys_svr_log.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-sys_svr_log.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-sys_svr_log.jsp" txn-code="50207002" description="修改服务日志信息">
+	    <forward error-code="success" path="update-sys_svr_log.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-sys_svr_log.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-sys_svr_log.jsp" txn-code="50207003" description="增加服务日志信息">
+	    <forward error-code="success" path="insert-sys_svr_log.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-sys_svr_log.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-sys_svr_log.jsp" txn-code="50207004" description="查询服务日志用于修改">
+	    <forward error-code="success" path="update-sys_svr_log.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-sys_svr_log.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-sys_svr_log.jsp" txn-code="50207005" description="删除服务日志信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.runmgr.services.vo.SysSvrLogContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrLog" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrLogSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrLogPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

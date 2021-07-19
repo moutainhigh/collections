@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="channelsyncol_list.html.title">WCM通用列表页面-文档同步</title>
+	<link href="../css/common_list.css" rel="stylesheet" type="text/css">
+    <link href="../js/resource/all_widgets.css" rel="stylesheet" type="text/css">
+<link href="../js/easyversion/resource/calendar.css" rel="stylesheet" type="text/css">
+<link href="../channelsyn/channelsyncol_list.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script src="../../app/js/easyversion/cssrender.js"></script>
+<div class="layout-container">
+    <div class="layout-left">
+        <div class="layout-top">
+            <div class="pageinfo">
+                <div class="pageinfo_left"></div>
+                <div class="pageinfo_right"></div>
+				<div class="mode_class" id="convertor" title="切换为栏目分发列表" onclick="convertStatus()" WCMAnt:paramattr="title:channelsyncol_list.html.convertTodis"></div>
+				<div class="search" id="search" style="float:right;"></div>
+				<span id="pageinfo"></span>
+				<span class="literator_path" style="margin-left:4px">
+					<span style="color:#8B0000"  WCMAnt:param="channelsyn_list.html.channelsyncolList">栏目汇总列表：</span>
+					<span WCMAnt:param="docrecycle_list.html.locale">当前位置：</span>
+					<span id="literator_path" WCMAnt:param="entity_path.loading" >
+						&nbsp;&nbsp;&nbsp;&nbsp;正在加载路径信息...
+					</span>
+				</span>
+				<span class="literator_path" id="literator_path" style=""></span>
+            </div>
+        </div>
+        <div class="layout-center">
+            <div id='wcm_table_grid' class="layout_center_container table_grid_data"><!--query页面ajax填充区域--></div>
+            <div id="list_navigator" class="list-navigator"></div>
+        </div>
+        <div class="layout-bottom" id="south_tabs"></div>
+    </div>
+    <div class="layout-right" id="east_opers"></div>
+</div>
+<script src="../js/runtime/lightlib.js"></script>
+<script src="../js/runtime/core_main.js"></script>
+<script src="../js/runtime/abs_list.js"></script>
+<script src="../js/runtime/data/list.js"></script>
+<script src="../js/runtime/data/oper_cmsobj_channelsyncol.js"></script>
+<script src="../js/runtime/data/oper_channelwebsite.js"></script>
+<script src="channelsyncol_list.html.compress.js"></script>
+<script src="channelsyncol_list.js"></script>
+</body>
+</html>

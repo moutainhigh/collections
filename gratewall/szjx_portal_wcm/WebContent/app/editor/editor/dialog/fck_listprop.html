@@ -1,0 +1,227 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" >
+<!--
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Bulleted List dialog window.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta content="noindex, nofollow" name="robots" />
+	<script src="common/fck_dialog_common.js" type="text/javascript"></script>
+	<script type="text/javascript">
+
+var oEditor = window.parent.InnerDialogLoaded() ;
+
+// Gets the document DOM
+var oDOM = oEditor.FCK.EditorDocument ;
+var sListType = ( location.search == '?OL' ? 'OL' : 'UL' ) ;
+
+var oActiveEl = oEditor.FCKSelection.MoveToAncestorNode( sListType ) ;
+var oActiveSel ;
+function getPrevHeading(listEl){
+	var tmpEl = listEl.previousSibling;
+	while(tmpEl!=null){
+		if(tmpEl.nodeType != 1) {
+			tmpEl = tmpEl.previousSibling;
+			continue;
+		}
+		if(tmpEl.tagName.match(/^H[2-6]$/))break;
+		if(tmpEl.tagName=='UL' || tmpEl.tagName=='OL'){
+			tmpEl = null;
+			break;
+		}
+		tmpEl = tmpEl.previousSibling;
+	}
+	return tmpEl;
+}
+window.onload = function()
+{
+	// First of all, translate the dialog box texts
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+
+	parent.dialogHeight = '180px' ;
+	if ( sListType == 'UL' )
+		oActiveSel = GetE('selBulleted') ;
+	else
+	{
+		if ( oActiveEl )
+		{
+			oActiveSel = GetE('selNumbered') ;
+			GetE('eStart').style.display = '' ;
+			GetE('txtStartPosition').value	= GetAttribute( oActiveEl, 'start' ) ;
+			if(GetE('txtStartPosition').value == "")
+				GetE('txtStartPosition').value = 1;
+		}
+	}
+
+	oActiveSel.style.display = '' ;
+
+	if ( oActiveEl )
+	{
+		if ( oActiveEl.getAttribute('type') )
+			oActiveSel.value = oActiveEl.getAttribute('type') ;
+	}
+
+	var mayH2 = getPrevHeading(oActiveEl);
+	if(mayH2){
+		GetE('txtIsNavi').checked = true;
+		GetE('txtHidNaviTip').checked = !!mayH2.className.match(/navi_tip_hide/);
+		GetE('txtLstNavTip').value = mayH2.innerHTML;
+		GetE('naviset').style.display = '';
+	}
+	window.parent.SetOkButton( true ) ;
+}
+
+function Ok()
+{
+	if ( oActiveEl ){
+		var sValue = GetE('txtStartPosition').value;
+		if(sValue == ""){
+			alert(oEditor.FCKLang.NoWordsFoundMsg);
+			return;
+		}
+		if ( sListType == 'OL' ){
+			oActiveSel = GetE('selNumbered') ;
+		}
+		var mayH2 = getPrevHeading(oActiveEl);
+		if(!isNaN(sValue)){
+			if((oActiveSel.value == 'a' || oActiveSel.value == 'A' || oActiveSel.value == 'i' || oActiveSel.value ==		'I')&&(sValue == 0)){
+				alert(oEditor.FCKLang.OutOfBoundMsg);
+				return;
+			}
+		}
+		if(GetE('txtIsNavi').checked && GetE('txtLstNavTip').value){
+			if(!mayH2){
+				mayH2 = oDOM.createElement('H2');
+				oActiveEl.parentNode.insertBefore(mayH2, oActiveEl);
+			}
+			var hidden = GetE('txtHidNaviTip').checked;
+			if(hidden){
+				mayH2.style.display = 'none';
+				mayH2.className = 'navi_tip_hide';
+			}else{
+				mayH2.style.display = '';
+				mayH2.className = '';
+				mayH2.removeAttribute('class');
+			}
+			mayH2.innerHTML = GetE('txtLstNavTip').value;
+		}else{
+			if(mayH2){
+				mayH2.parentNode.removeChild(mayH2);
+			}
+		}
+		SetAttribute( oActiveEl, 'type'	, oActiveSel.value ) ;
+		if(oActiveEl.tagName == 'OL'){
+			if(!isNaN(sValue)){
+				SetAttribute( oActiveEl, 'start', parseInt(sValue) ) ;
+			}
+		}
+	}
+
+	return true ;
+}
+
+function showNaviSet(b){
+	GetE('naviset').style.display = b ? '' : 'none';
+	window.parent.SetAutoSize( true );
+}
+
+</script>
+<style type="text/css">
+		body {
+			padding-top:0px;
+			background-color: #CCCCCC;
+		}
+		.input_btn{
+			width:60px;
+			margin-right:10px;
+		}
+		.textarea{
+			border:1px solid gray;
+		}
+		.input_text{
+			border:1px solid gray;
+			width:60px;
+		}
+</style>
+</head>
+<body style="overflow: hidden">
+		<table height="100%" width="100%">
+			<tr>
+				<td align="left" valign="top">
+	<table width="100%" style="height: 100%">
+		<tr>
+			<td style="text-align:left">
+				<table cellspacing="0" cellpadding="0" border="0" style="width:100%;">
+					<tr>
+						<td>
+							<div  id="navi" style="display:; padding-right: 5px; padding-left: 5px">
+							<label fcklang="DlgLstIsNavi" for="txtIsNavi">添加导航条</label>:
+							<input type="checkbox" id="txtIsNavi" onclick="showNaviSet(this.checked);"/><br />
+							<fieldset style="display:none;width:90%;padding:4px;margin:3px;border:1px solid gray;" id="naviset">
+								<legend><span fcklang="DlgLstNavSet">导航设置</span></legend>
+								<span fcklang="DlgLstNavTip">导航提示</span>:
+								<input type="text" id="txtLstNavTip" class="input_text" style="width:80px;" size="20" value=""/><br />
+								<label fcklang="DlgLstHidNaviTip" for="txtHidNaviTip">提示隐藏</label>:
+								<input type="checkbox" id="txtHidNaviTip" checked/><br />
+							</fieldset> 
+							</div>
+
+							<div  id="eStart" style="display: none; padding-right: 5px; padding-left: 5px">
+							<span fcklang="DlgLstStart">Start</span>:
+							<input type="text" id="txtStartPosition" class="input_text" maxlength="3" value="1" onkeypress="return IsDigit(event);" /><label fcklang="NUMBER">(数字)</label><br />
+							</div>
+							<span fcklang="DlgLstType">List Type</span>:
+							<select id="selBulleted" style="display: none">
+								<option value="" selected="selected" fcklang="DEFAULT">[默认]</option>
+								<option value="circle" fcklang="DlgLstTypeCircle">Circle</option>
+								<option value="disc" fcklang="DlgLstTypeDisc">Disc</option>
+								<option value="square" fcklang="DlgLstTypeSquare">Square</option>
+							</select>
+							<select id="selNumbered" style="display: none">
+								<option value="" selected="selected" fcklang="DEFAULT">[默认]</option>
+								<option value="1" fcklang="DlgLstTypeNumbers">Numbers (1, 2, 3)</option>
+								<option value="a" fcklang="DlgLstTypeLCase">Lowercase Letters (a, b, c)</option>
+								<option value="A" fcklang="DlgLstTypeUCase">Uppercase Letters (A, B, C)</option>
+								<option value="i" fcklang="DlgLstTypeSRoman">Small Roman Numerals (i, ii, iii)</option>
+								<option value="I" fcklang="DlgLstTypeLRoman">Large Roman Numerals (I, II, III)</option>
+							</select>
+							&nbsp;
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+				</td>
+				<td width="8%" align="center" valign="top">
+					<div style="width:2px;border-left:1px solid gray;background:white;overflow:hidden;height:95%;"></div></td>
+				<td width="16%" valign="top">
+					<input id="btnOk" class="input_btn" onclick="window.parent.Ok();"
+						type="button" value="Ok" fcklang="DlgBtnOK"/>
+					<div style="height:5px;overflow:hidden"></div>
+					<input name="button2" class="input_btn" type="button" value="Close" onclick="window.parent.Cancel();" fcklang="DlgBtnCancel">
+				</td>
+			</tr>
+		</table>
+</body>
+</html>

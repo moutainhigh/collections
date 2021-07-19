@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="主从表[子表采用TAB页维护]" page="master-detail-table-2.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="multi-table-3.gif"/>
+  <struts name="mon_brok_quali_cert.xml" app-path="/dw/aic/bj/htjg/bork/" app-name="mon_brok_quali_cert" description="经纪人员" template="master-detail-table-2.xml"/>
+  <table name="mon_brok_quali_cert.xml" app-name="mon_brok_quali_cert" app-desc="经纪人员" delete-action="delete" description="经纪人员" class-name="com.gwssi.dw.aic.bj.htjg.txn.TxnMonBrokQualiCert" template="master-detail-table-2.master.java" dao-class-template="single-table.java" type="master">
+	  <jsp page-name="frame-mon_brok_quali_cert-update.jsp" txn-code="81218204" description="经纪人员信息维护" template="master-detail-3/frame-detail-update.jsp">
+	    <button type="button" name="返 回" path="/txn81218201.do" description="返回到经纪人员明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="query-mon_brok_quali_cert.jsp" txn-code="81218201" description="查询经纪人员列表" template="master-detail-3/master-table-query.jsp">
+	    <button type="button" name="增加经纪人员" path="insert-mon_brok_quali_cert.jsp" description="增加经纪人员" func-name="addRecord"/>
+	    <button type="button" name="修改经纪人员" path="frame-mon_brok_quali_cert-update.jsp" description="修改经纪人员" func-name="updateRecord"/>
+	    <button type="button" name="删除经纪人员" path="/txn81218205.do" description="删除经纪人员" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn81218201.do" description="查询经纪人员信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-mon_brok_quali_cert.jsp" txn-code="81218203" description="增加经纪人员信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn81218203.do" description="保存经纪人员信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn81218203.do" description="保存经纪人员信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn81218201.do" description="保存经纪人员信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn81218201.do" description="返回到经纪人员明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-mon_brok_quali_cert.jsp" txn-code="81218202" description="修改经纪人员信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn81218201.do" description="修改经纪人员信息" func-name="saveRecord"/>
+	  </jsp>
+
+	  <txn input="query-mon_brok_quali_cert.jsp" txn-code="81218201" description="查询经纪人员列表">
+	    <forward error-code="success" path="query-mon_brok_quali_cert.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-mon_brok_quali_cert.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-mon_brok_quali_cert.jsp" txn-code="81218202" description="修改经纪人员信息">
+	    <forward error-code="success" path="update-mon_brok_quali_cert.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-mon_brok_quali_cert.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-mon_brok_quali_cert.jsp" txn-code="81218203" description="增加经纪人员信息">
+	    <forward error-code="success" path="insert-mon_brok_quali_cert.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-mon_brok_quali_cert.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-mon_brok_quali_cert.jsp" txn-code="81218204" description="查询经纪人员用于修改">
+	    <forward error-code="success" path="update-mon_brok_quali_cert.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-mon_brok_quali_cert.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-mon_brok_quali_cert.jsp" txn-code="81218205" description="删除经纪人员信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.htjg.vo.MonBrokQualiCertContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.htjg.vo.VoMonBrokQualiCert" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.htjg.vo.VoMonBrokQualiCertSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.htjg.vo.VoMonBrokQualiCertPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+</resource>

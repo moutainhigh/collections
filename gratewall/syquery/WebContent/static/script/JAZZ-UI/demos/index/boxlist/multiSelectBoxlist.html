@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jazz-ui.js" type="text/javascript"></script> 
+</head>
+<body>
+  
+<script type="text/javascript">
+$(function(){
+	$("#listId1").boxlist('option', 
+		{
+			"click": function(e, ui){alert("单击 ：label:"+ui.text+"   值:"+ui.val+"！  ");},
+			"dblclick":function(e,ui){alert("双击： label:"+ui.text+"   值:"+ui.val+"！  ");}
+		}
+	); 
+});
+
+
+
+</script>
+<div name='list1' id="listId1" vtype="boxlist" scrollheight="80" multiple=true 
+	dataurl="data.json"  
+	 >
+<!-- data="{'data':[{label:'杭州',value:'8'},{label:'杭州2',value:'9'}]}" -->
+</div>
+</body>
+</html>

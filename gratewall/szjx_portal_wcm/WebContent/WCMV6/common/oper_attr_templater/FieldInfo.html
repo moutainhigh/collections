@@ -1,0 +1,55 @@
+<textarea id="template_FieldInfo" select="DBFieldInfo" >
+    <div class="attribute_row wcm_desc_info_row">
+        <span title="元数据字段编号:{#DBFIELDINFOID}&#13;创建者:{#CRUser}&#13;创建时间:{#CrTime} " style="white-space:nowrap;overflow:hidden;">
+            <span style="">用户</span><span class="desc_info_value">{#CrUser}</span><span>创建于</span><span class="desc_info_value">{#CrTime,,getPrettyTime}</span>
+        </span>
+    </div>
+	<div class="attribute_row">
+		<span class="attribute_name">名称:</span>
+        <span class="attribute_value">
+            <TRS_UI:editPanel value="{#FIELDNAME}" class="attr_detail_4words_editor" inputClass="" _fieldName="FIELDNAME" validation="type:'string',max_len:'30',required:'',desc:'名称'"></TRS_UI:editPanel>
+        </span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">元数据名:</span>
+        <span class="attribute_value">
+            <TRS_UI:editPanel value="{#TABLENAME}" class="attr_detail_4words_editor" inputClass="" _fieldName="TABLENAME" validation="type:'string',max_len:'30',required:'',desc:'名称'"></TRS_UI:editPanel>
+        </span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">默认值:</span>
+        <span class="attribute_value">
+            <TRS_UI:editPanel value="{#FIELDTYPE}" class="attr_detail_4words_editor" inputClass="" _fieldName="FIELDTYPE" validation="type:'string',max_len:'30',required:'',desc:'名称'"></TRS_UI:editPanel>
+        </span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">字段类型:</span>
+        <span class="attribute_value">
+            <TRS_UI:editPanel value="{#TABLENAME}" class="attr_detail_4words_editor" inputClass="" _fieldName="TABLENAME" validation="type:'string',max_len:'30',required:'',desc:'名称'"></TRS_UI:editPanel>
+        </span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">允许为空:</span>
+        <span class="attribute_value">
+            <TRS_UI:editPanel value="{#NOTNULL}" class="attr_detail_4words_editor" inputClass="" _fieldName="NOTNULL" validation="type:'string',max_len:'30',required:'',desc:'名称'"></TRS_UI:editPanel>
+        </span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">分类法:</span>
+        <span class="attribute_value">
+            <TRS_UI:editPanel value="{#CLASSID}" class="attr_detail_4words_editor" inputClass="" _fieldName="CLASSID" validation="type:'string',max_len:'100',desc:'描述'"></TRS_UI:editPanel>
+        </span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">枚举值:</span>
+        <span class="attribute_value">
+            <TRS_UI:editPanel value="{#ENUVALUE}" class="attr_detail_4words_editor" inputClass="" _fieldName="ENUVALUE" validation="type:'string',max_len:'100',desc:'描述'"></TRS_UI:editPanel>
+        </span>
+	</div>
+ </textarea>
+
+ <textarea id="template_FieldInfos">
+	<div class="attribute_row">
+		当前共选中<span class="objects_num">{#Num}</span>个元数据字段.
+	</div>
+ </textarea>

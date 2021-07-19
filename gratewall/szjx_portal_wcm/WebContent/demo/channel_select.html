@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>WCM二次开发演示-选择频道 </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Author" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<META NAME="Description" CONTENT="">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script src="../js/CTRSHashtable.js"></script>
+<script src="../js/CTRSRequestParam.js"></script>
+<script src="../js/CTRSAction.js"></script>
+<script src="../js/CRunningProcessBar.js"></script>
+
+
+</HEAD>
+
+<BODY>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+/** @const {int} 树形结构的类型：普通型（0） */
+var TRSTREE_TYPE_NORMAL		= 0;
+/** @const {int} 树形结构的类型：多选型（1） */
+var TRSTREE_TYPE_CHECKBOX	= 1;
+/** @const {int} 树形结构的类型：单选型（2） */
+var TRSTREE_TYPE_RADIOBOX	= 2;
+
+
+function selectChannel(_sChannelIds){
+	//1.构造请求
+	var oTRSAction = new CTRSAction("../channel/channel_select.jsp");
+	oTRSAction.setParameter("ChannelIds", _sChannelIds);
+	oTRSAction.setParameter("TreeType", TRSTREE_TYPE_CHECKBOX);
+	oTRSAction.setParameter("TreeWidth", 490);
+	oTRSAction.setParameter("RightIndex", 30);
+	
+	//2.发出请求
+	var sResult = oTRSAction.doDialogAction(500, 600);
+	
+	//3.显示结果
+	if(sResult == null){
+		sResult = "";
+	}
+	document.getElementById("result").innerHTML = sResult;
+}
+	
+//-->
+</SCRIPT>
+
+选中的频道ID为：<span id="result" style="color:red"></span>
+<P><P>
+演示1：<P>
+<a href="#####" onclick="selectChannel('');return false;">点击弹出频道选择页面(不预先选中频道)</a>
+<P><P>
+
+演示2：<P>
+<a href="#####" onclick="selectChannel('3,4,8');return false;">点击弹出频道选择页面(预先选中频道ID为3, 4, 8)</a>
+
+
+</BODY>
+</HTML>

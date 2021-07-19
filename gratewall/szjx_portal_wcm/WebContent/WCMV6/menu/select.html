@@ -1,0 +1,536 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc">选择对象</title>
+<style type="text/css">
+	.selection_row{
+		line-height:25px;
+		height:25px;
+		text-align:center;
+		font-size:12px;
+		color:#010101;
+	}
+	body{
+		margin: 0;
+		padding: 0;
+	}
+    .alertNoObjFound{
+        font-size:14px;
+        color:gray;
+        font-style:italic;
+        padding-left:15px;
+        margin-top: 30px;
+    }
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script>
+	$import('com.trs.wcm.FloatPanel');
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.ProcessBar');
+</script>
+<script>
+	var PageContext = {};
+	Object.extend(PageContext, {
+		srcId: getParameter('srcId')
+	});
+
+    
+	FloatPanel.addCloseCommand();
+	FloatPanel.addCommand('okBtn', '确定', 'getSeletedIds', null);
+    Event.observe(window, 'unload', function(){
+        FloatPanel.removeCloseCommand();
+        FloatPanel.removeCommand('okBtn');
+    });
+    
+	function switchList(listType){
+        switch(listType){
+            case 'Channel':
+                Element.show('divChannelList');
+                Element.hide("divWebSiteList");
+                Element.hide("divWebSiteRootList");
+                loadChannels();
+                break;
+            case 'WebSite':
+                Element.hide('divChannelList');
+                Element.show("divWebSiteList");
+                Element.hide("divWebSiteRootList");
+                loadWebSites();
+                break;
+            case 'WebSiteRoot':
+                Element.hide('divChannelList');
+                Element.hide("divWebSiteList");
+                Element.show("divWebSiteRootList");
+                loadWebSiteRoots();
+                break;
+        }
+	}
+    /**
+    *将选中的并且disabled的radio/checkbox取消选中
+    *说明：没有权限是不能选中的
+    */
+    function dealWithInputStatus(){
+        
+    }
+	function loadWebSiteRoots(){//载入站点类型
+        if(!window.webSiteRootsLoaded){
+            var adminRight = "1111111111111111111111111111111111111111111111111111111111111111";
+            //BasicDataHelper.call('wcm6_website', 'querySiteType', null, false, 
+            //function(_trans, _json){
+                _json = {
+                    WEBSITETYPES:{
+                        WEBSITETYPE:[/*
+                            {
+                                RIGHT:isAdmin() ? adminRight : "0",
+                                SITETYPE : "0",
+                                SITETYPEDESC : '文字库'
+                            },
+                            {
+                                RIGHT:isAdmin() ? adminRight : "0",
+                                SITETYPE : 1,
+                                SITETYPEDESC : '图片库'
+                            },
+                            {
+                                RIGHT:isAdmin() ? adminRight : "0",
+                                SITETYPE : 2,
+                                SITETYPEDESC : '视频库'
+                            },
+                            {
+                                RIGHT:isAdmin() ? adminRight : "0",
+                                SITETYPE : 4,
+                                SITETYPEDESC : '资源库'
+                            }*/
+                        ]
+                    }
+                };
+                if(top.RegisterMgr.isRegister(0) && top.DeployMgr.isDeploy(0)){
+                    _json["WEBSITETYPES"]["WEBSITETYPE"].push({
+                                RIGHT:isAdmin() ? adminRight : "0",
+                                SITETYPE : "0",
+                                SITETYPEDESC : '文字库'
+                    });
+                }
+                if(top.RegisterMgr.isRegister(1) && top.DeployMgr.isDeploy(1)){
+                    _json["WEBSITETYPES"]["WEBSITETYPE"].push({
+                                RIGHT:isAdmin() ? adminRight : "0",
+                                SITETYPE : 1,
+                                SITETYPEDESC : '图片库'
+                    });
+                }
+                if(top.RegisterMgr.isRegister(2) && top.DeployMgr.isDeploy(2)){
+                    _json["WEBSITETYPES"]["WEBSITETYPE"].push({
+                                RIGHT:isAdmin() ? adminRight : "0",
+                                SITETYPE : 2,
+                                SITETYPEDESC : '视频库'
+                    });
+                }
+                if(top.RegisterMgr.isRegister(4) && top.DeployMgr.isDeploy(4)){
+                    _json["WEBSITETYPES"]["WEBSITETYPE"].push({
+                                RIGHT:isAdmin() ? adminRight : "0",
+                                SITETYPE : 4,
+                                SITETYPEDESC : '资源库'
+                    });
+                }
+                var sValue = TempEvaler.evaluateTemplater('webSiteRoot_template', _json);
+                Element.update($('divWebSiteRootList'), sValue);
+                var rightIndex = mappingRightIndex[getParameter("method")||'new'][getParameter("type").toLowerCase()];
+                var node = getFirstHTMLChild(getFirstHTMLChild($('divWebSiteRootList')));
+                while(node){
+                    var rightValue = node.getAttribute('rightValue');
+                    if(isAccessable4WcmObject(rightValue, rightIndex)){
+                        getFirstHTMLChild(node).disabled = false;
+                    }
+                    node = getNextHTMLSibling(node);
+                }
+                setInitValue('r');
+            //});
+            window.webSiteRootsLoaded = true;
+        }
+	}
+	function loadWebSites(){//载入站点
+        if(!window.webSitesLoaded){
+            var src = "../nav_tree/nav_tree_select_site.jsp?IsRadio=1&MultiSites=1&ExcludeVirtual=1";
+            src += "&RightIndex=" + mappingRightIndex[getParameter("method")||'new'][getParameter("type").toLowerCase()]
+            var focusNodeInfo = $nav().getPathNodeInfo();     
+            if(focusNodeInfo && focusNodeInfo.nodeId != 0){
+                if(focusNodeInfo.nodeType == 's'){
+                    src += "&SelectedSiteIds=" + focusNodeInfo.nodeId;
+                }else if(focusNodeInfo.nodeType == 'c'){
+                    src += "&SelectedChannelIds=" + focusNodeInfo.nodeId;
+                }
+                var siteType = $nav().findSiteType($nav().$(focusNodeInfo.nodeType + "_" + focusNodeInfo.nodeId));
+                if(siteType != null){
+                    src += "&CurrSiteType=" + siteType;
+                }
+            }
+            //过滤SiteType
+            var displaySiteTypes = mappingSiteType[getParameter("method")||'new'][getParameter("type").toLowerCase()];
+            if(displaySiteTypes){
+                src += "&SiteTypes=" + displaySiteTypes.join(",");
+            }
+           $('selectSiteTreeNav').src = src + "&unSelectDisabledNoRight=1";
+            window.webSitesLoaded = true;
+        }
+	}
+    function loadChannels(){//载入栏目
+        if(!window.channelsLoaded){
+            var src = "../nav_tree/nav_tree_select.jsp?IsRadio=1&MultiSites=1";
+            var method = getParameter("method").toLowerCase() || 'new';
+            var type = getParameter("type").toLowerCase();
+            if(mappingRetrieveChannel[method] && mappingRetrieveChannel[method][type]){
+                src += "&ExcludeTop=1&ExcludeLink=1";            
+            }else{
+                src += "&ExcludeVirtual=1";
+            }          
+            src += "&RightIndex=" + mappingRightIndex[getParameter("method")||'new'][getParameter("type").toLowerCase()]
+            var focusNodeInfo = $MessageCenter.getNav().getPathNodeInfo();
+            if(focusNodeInfo){
+                var currParams = '';
+                switch(focusNodeInfo.nodeType){
+                    case 'r':
+                        currParams = "CurrSiteType=" + (focusNodeInfo.nodeId || 0);
+                        break;
+                    case 's':
+                        currParams = "CurrSiteId=" + (focusNodeInfo.nodeId || 0);
+                        break;
+                    case 'c':
+                        currParams = "CurrChannelId=" + (focusNodeInfo.nodeId || 0);
+                        currParams += "&SelectedChannelIds=" + (focusNodeInfo.nodeId || 0);
+                    default:
+                }
+                if(currParams != ""){
+                    src += "&" + currParams;
+                }
+            }
+            var displaySiteTypes = (mappingSiteType[getParameter("method")||'new'] ||{})[getParameter("type").toLowerCase()];
+            if(displaySiteTypes){
+                src += "&SiteTypes=" + displaySiteTypes.join(",");
+                if(displaySiteTypes.length > 1){
+                    src += "&MultiSiteType=1";
+                }else{
+                    src += "&MultiSiteType=0";
+                }
+            }
+
+			//ge gfc add@2008-4-18 增加判断可否在表单栏目下进行的操作
+			if(isInfoviewOperator(type)) {
+				src += '&ExcludeInfoview=0';
+			}
+
+            $('selectChannelTreeNav').src = src + "&unSelectDisabledNoRight=1";
+            window.channelsLoaded = true;
+        }
+    }
+
+	//ge gfc add@2008-4-18 判断可否在表单栏目下进行的操作
+	//不能有的操作为：新建栏目，导入栏目，新建扩展字段，新建替换内容
+	function isInfoviewOperator(_type){
+		//alert(_type)
+        switch(_type){
+            case 'channel':
+			case 'extendfield':
+			case 'replace':
+                return false;
+            default:
+                return true;
+        }
+	}
+
+    function mgrMappingSheetType(mgr){
+        mgr = mgr.toLowerCase();
+        switch(mgr){
+            case 'docsyndis':
+            case 'docsyncol':
+                return 'documentsyn';
+            default:
+                return mgr;
+        }
+    }
+    /*
+    *@param type 可选值为：r,s,c
+    */
+    function setInitValue(type){
+        if(type == 'r'){
+            var siteType = $MessageCenter.getNav().findFocusNodeSiteType() || 0;
+            var target = $("_" + type + "_" + siteType);
+            if(!target || target.disabled) return;
+            target.checked = true;
+        }
+    }
+	function getSeletedIds(listType){//返回当前选中的ＩＤ序列
+        _oPageParams = {};
+        if(!listType){//得到列表类型
+            var listTypes = $("divOptions").getElementsByTagName("input");
+            for (var i = 0; i < listTypes.length; i++){
+                if(listTypes[i].checked){
+                    listType =  listTypes[i].value;   
+                    break;
+                }
+            }
+        }
+        var selectIds = '';
+        switch(listType){
+            case 'Channel':
+            case 'Replace':
+            case 'DocSynDis':
+            case 'DocSynCol':
+                try{
+                    selectIds = $('selectChannelTreeNav').contentWindow.getCheckValues();
+                    _oPageParams.channelid = selectIds;
+                }catch(error){
+                    selectIds = '';
+                }
+                break;
+            case 'WebSite':
+            case 'Distribution':
+                try{
+                    selectIds = $('selectSiteTreeNav').contentWindow.getCheckValues();
+                    _oPageParams.siteid = selectIds;
+                }catch(error){
+                    selectIds = '';
+                }
+                break;
+            case 'WebSiteRoot':
+                try{
+                    selectIds = _getSelectedIds(listType);
+                    _oPageParams.sitetype = selectIds;                
+                }catch(error){
+                    selectIds = '';
+                }
+                break;
+        }
+        if(selectIds == ''){
+            alert("必须选择一个对象！");
+            return false;
+        }
+        try{
+            FloatPanel.close();
+            //回调主页面中的函数
+            top.MenuOperates.callBack(selectIds, _oPageParams);
+        }catch(error){
+			//TODO logger
+            //alert(error.message);
+            return true;
+        }
+        return false;
+	}
+    function _getSelectedIds(listType){//获得选中的站点类型或站点的ＩＤ序列
+        var selectIds = [];
+        var inputArray = $("div" + listType + "List").getElementsByTagName("input");
+        for (var i = 0; i < inputArray.length; i++){
+            if(inputArray[i].checked){
+                selectIds.push(inputArray[i].value);
+            }
+        }
+        return selectIds.join();
+    }
+
+    Event.observe(window, 'load', function(){
+        var type = getParameter("type");
+        var targetType = null;
+		var sMethod = getParameter("method");
+        if(sMethod == 'import'){//导入类型的选择
+            switch(type){
+                case 'Channel':                
+                case 'Template':
+                    $('RWebSiteRoot').disabled = true;
+                    targetType = 'RWebSite';                    
+                    break;
+                case 'Document':
+                case 'ChnlDoc':
+                    $('RWebSiteRoot').disabled = true;
+                    $('RWebSite').disabled = true;
+                    targetType = 'RChannel';
+                    break;
+                default:
+                    alert('尚未实现' + type + '类型的新建');
+            }
+        }else if(sMethod == 'export' || sMethod == 'exportall'){//导出类型的选择
+            switch(type){
+                case 'WebSite':
+                    targetType = 'RWebSiteRoot';
+                    $("RWebSite").disabled = true;
+                    $('RChannel').disabled = true;
+                    break;
+                case 'Channel':
+                case 'Document':
+                case 'ChnlDoc':
+                case 'Template':
+                    $('RWebSiteRoot').disabled = true;
+                    targetType = 'RWebSite';
+                    break;
+                default:
+                    alert('尚未实现' + type + '类型的新建');
+            }
+        }else{//新建类型的选择
+            switch(type){
+                case 'WebSite':                    
+                    $("RWebSite").disabled = true;
+                    $("RChannel").disabled = true;
+                    targetType = 'RWebSiteRoot';
+                    break;
+                case 'Channel':
+                case 'Template':
+                    $('RWebSiteRoot').disabled = true;
+                    targetType = 'RWebSite';
+                    break;
+                case 'Document':
+				case 'ChnlDoc':
+                case 'Replace':
+                case 'DocSynDis':
+                case 'DocSynCol':
+                case "Photo":
+                    $('RWebSiteRoot').disabled = true;
+                    $("RWebSite").disabled = true;
+                    targetType = 'RChannel';
+                    break;
+                case 'ExtendField':
+                    targetType = 'RWebSiteRoot';
+                    break;
+                case 'Distribution':
+                    $('RWebSiteRoot').disabled = true;
+                    $("RChannel").disabled = true;
+                    targetType = 'RWebSite';
+                    break;
+                case 'Workflow':
+                    if(!isAdmin()){
+                        $('RWebSiteRoot').disabled = true;
+                        targetType = 'RWebSite';
+                    }else{
+                        targetType = 'RWebSiteRoot';
+                    }
+                    $("RChannel").disabled = true;
+                    break;   
+                default:
+                    alert('尚未实现' + type + '类型的新建');
+            }
+        }
+        if(!targetType) return;
+
+        //尽量选择和导航树一样类型的对象
+        var mappingType = {
+            r : 'RWebSiteRoot',
+            s : 'RWebSite',
+            c : 'RChannel'
+        };
+        var nodeInfo = $MessageCenter.getNav().getPathNodeInfo();
+        var currTreeType = mappingType[nodeInfo.nodeType];
+        
+        if(currTreeType && !$(currTreeType).disabled){
+            targetType = currTreeType;
+        }
+        $(targetType).click();
+    });
+
+    var mappingRightIndex = {
+        'new' : {
+            'channel' : 11,
+            'document': 31,
+            'chnldoc': 31,
+            'extendfield':19,
+            'template':21,
+            'replace':13,
+            'docsyndis':13,
+            'docsyncol':13,
+            'distribution':1,
+            'workflow':41,
+            'photo':31
+        },
+        'import' : {
+            'channel' : 11,
+            'document': 31,
+            'chnldoc': 31,
+            'extendfield':19,
+            'template':21
+        },
+        'export' : {
+            'channel' : 13,
+            'website' : 1,
+            'template': 24,
+            'document': 34,
+            'chnldoc': 34
+        },
+		'exportall' : {
+            'channel' : 13,
+            'website' : 1,
+            'template': 24,
+            'chnldoc' : 34            
+		}
+    };
+    /**
+    *是否在站点类型下存在的操作
+    */
+    var mappingSiteType = {
+        'new' : { 
+            'photo': [1],
+            'chnldoc': [0],
+            'docsyndis':[0],
+            'docsyncol':[0],
+            'document':[0]
+        },
+        'import' : {
+            'chnldoc': [0],
+            'document': [0]
+        },
+        'export' : {
+        },
+		'exportall' : {
+            'chnldoc' : [0]            
+		}
+    };
+    /**
+    *是否在检索栏目下存在的操作
+    */
+    var mappingRetrieveChannel = {
+        'new' : {
+            'channel': true,
+            'template': true,
+            'replace':true
+        },        
+        'export' : {
+            'channel': true,
+            'template': true
+        },        
+        'exportall' : {
+            'channel': true,
+            'template': true
+        },        
+        'import' : {
+            'channel': true,
+            'template': true
+        }        
+    };
+</SCRIPT>
+</HEAD>
+
+<BODY style="margin:0px;padding:0px;">
+<div id="divOptions" style="border-bottom:1px solid #efefef; padding:3px 30px;height:5%;">
+	<span class="selection_row"><input id="RWebSiteRoot" type="radio" name="listType" value="WebSiteRoot" onclick="switchList('WebSiteRoot')">&nbsp;选择站点类型</span>
+	<span class="selection_row"><input id="RWebSite" type="radio" name="listType" value="WebSite" onclick="switchList('WebSite')">&nbsp;选择站点</span>
+	<span class="selection_row"><input id="RChannel" type="radio" name="listType" value="Channel" onclick="switchList('Channel')">&nbsp;选择栏目</span>
+</div>
+<div id="divWebSiteRootList" style="display:none;height:90%;"></div>
+<textarea id="webSiteRoot_template" style="display: none;">
+	<div style="width:100%;height:100%; overflow: auto;">
+        <for select="WebSiteTypes.webSiteType" blankRef="divNoObjFound">
+            <div width="100%" style="font-family: Georgia; border-bottom: 1px solid #f5f5f5; font-size: 12px; height: 28px; line-height: 28px; padding-left: 5px;" rightValue="{#right}">{$$index}.&nbsp;<input type="radio" name="Roots" value="{#SITETYPE}" id="_r_{#SITETYPE}" disabled>&nbsp;{#SiteTypeDesc}</div>
+        </for>
+	</div>
+</textarea>
+<div id="divWebSiteList" style="overflow:auto; display:none;height:91%;">
+	<iframe id="SelectSiteTreeNav" src="about:blank" width="100%" height="100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+</div>
+<div id="divChannelList" style="overflow:auto; display:none;height:91%;">
+	<iframe id="selectChannelTreeNav" src="about:blank" width="100%" height="100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+</div>
+
+<div id="divNoObjFound" style="display:none;">
+	<div class="alertNoObjFound">不好意思, 没有找到符合条件的对象..-____-|||</div>
+</div>
+</BODY>
+</HTML>

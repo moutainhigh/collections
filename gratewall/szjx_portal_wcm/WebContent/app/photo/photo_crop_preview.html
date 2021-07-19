@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict/dtd">
+<html>
+ <head>
+  <title WCMAnt:param="photo_crop_preview.html.previewpic"> 预览图片 </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="Author" content="CH">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <style type="text/css">
+  body{
+	  font-size:12px;
+  }
+	*{
+		margin:0px;
+		padding:0px;
+	}
+	#picshow{
+		margin:10px;
+		overflow:hidden;
+	}
+	.photo_info div{
+		margin-left:20px;
+	}
+  </style>
+  <script language="javascript">
+  <!--
+	function getParameter(_sName, _sQuery, encode){
+		if(_sName ==null ||_sName=='undefined')
+			return '';
+		var query = _sQuery || location.search;
+		if(query == null || query.length==0) return '';
+		var fn = (typeof encode == 'function') ? encode : (encode === false ? (function(k){return k;}) : decodeURIComponent);
+		var arr = query.substring(1).split('&');
+		_sName = _sName.toUpperCase();
+		for (var i=0,n=arr.length; i<n; i++){
+			if(arr[i].toUpperCase().indexOf(_sName+'=')==0){
+				return fn(arr[i].substring(_sName.length + 1));
+			}
+		}
+		return '';
+	}
+	var cropParameter ={
+		src :getParameter('photo'),
+		width:parseInt(getParameter('width')) || 0,
+		height:parseInt(getParameter('height')) || 0,
+		top:parseInt(getParameter('top')) || 0,
+		left:parseInt(getParameter('left'))  || 0
+	}
+	function setStyle(){
+		el=$('pic');
+		el.style.width = cropParameter.width+"px";
+		el.style.height = cropParameter.height+"px";
+		el.style.top = -cropParameter.top+"px";
+		el.style.left = -cropParameter.left+"px";
+		el.style.background="url('"+cropParameter.src+"') "+el.style.left+" "+el.style.top +" no-repeat"
+		var maxHeight = Math.max(cropParameter.height,250);
+		var maxWidth = Math.max(cropParameter.width+20,480);
+		el.parentNode.style.height = Math.min(screen.height-250,maxHeight)+ "px";
+		el.parentNode.style.width = Math.min(screen.width-30,maxWidth)+ "px";
+		var padding = (parseInt(el.parentNode.style.height)-cropParameter.height)/2;
+		$("button").style.width = el.parentNode.style.width ;
+		if(padding>0)
+			el.style.marginTop = padding+"px";
+	}
+	function setPicinfo(){
+		$("picwidth").innerHTML = cropParameter.width+'px';
+		$("picheight").innerHTML = cropParameter.height+'px';
+	}
+	window.onload=function(){
+		setStyle();
+		setPicinfo();
+	};
+	function $(_el){
+		_el=(typeof(_el)=="string")? document.getElementById(_el):_el;
+		return _el;
+	}
+	//-->
+  </script>
+ </head>
+
+ <body scroll=no>
+  <div id="picshow" >
+	 <span WCMAnt:param="photo_crop_preview.html.photocroppreview">预览裁剪后的真实图片：</span>
+	 <hr />
+	 <div style="overflow:auto;text-align:center" id = "picDiv">
+		<div class="pic" id="pic" style="margin:auto" WCMAnt:paramattr="title:photo_crop_preview.html.previewcroppedpic" title="裁剪后的图片预览" ></div>
+	</div>
+	 <hr />
+	 <fieldset class="photo_info" style="margin-top:5px;border:1px solid #d0d0bf"><legend style="padding:4px;" WCMAnt:param="photo_crop_preview.html.picinfo">图片信息</legend>
+		<div><span  WCMAnt:param="photo_crop_preview.html.width">宽度：</span>&nbsp;&nbsp;<span id="picwidth"></span></div>
+		<div><span WCMAnt:param="photo_crop_preview.html.height">高度：</span>&nbsp;&nbsp;<span id="picheight"></span></div>
+	 </fieldset>
+	 <div id="button" style="text-align:center;margin-top:10px">
+		<input type="button" WCMAnt:paramattr="value:photo_crop_preview.html.close" value="关闭" style="width:100px" onclick="window.close()"/>
+	 </div>
+  </div>
+
+</html>

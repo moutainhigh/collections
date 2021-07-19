@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='utf-8'?>
+<chart  palette='2'  useEllipsesWhenOverflow='1' piefillAlpha='40' hoverFillColor='EEEEEE' plotborderColor='CCCCCC' showPlotBorder='1' useHoverColor='1' showLabels='1' bgcolor='ebf0f5'  baseFontSize='12' basefontColor='504D55'>
+	<category label='服务对象' toolText='&lt;LI&gt;共3大类用户{BR}共${total_user}个用户{BR}共${total_share}个共享服务&lt;/LI&gt;'>
+		<category label='内部系统' value='45' link='/txn53000210.do?${in_link2}' toolText='&lt;LI&gt;共${in_count}个系统{BR}共${in_share_total}个共享服务&lt;/LI&gt;' color='9dc0d6'>
+			<#list in_sys as x><category label='${x.NAME}'  <#if '${x.TOTAL}'=='0'>  toolText='&lt;LI&gt;服务${x.TOTAL}个&lt;/LI&gt;{BR}&lt;LI&gt;下级服务没有数据' <#else> link='/txn53000211.do?${x.LINK3}' toolText='&lt;LI&gt;服务${x.TOTAL}个&lt;/LI&gt;'</#if> color='9bbdd6'/></#list>
+		</category>
+		<category label='外部系统' value='35' link='/txn53000210.do?${out_link2}' toolText='&lt;LI&gt;共${out_count}个单位{BR}共${out_share_total}个共享服务&lt;/LI&gt;' color='e7c04b' >
+			<#list out_sys as y><category label='${y.NAME}'  <#if '${y.TOTAL}'=='0'>  toolText='&lt;LI&gt;服务${y.TOTAL}个&lt;/LI&gt;{BR}&lt;LI&gt;下级服务没有数据' <#else> link='/txn53000211.do?${y.LINK3}' toolText='&lt;LI&gt;服务${y.TOTAL}个&lt;/LI&gt;'</#if> color='e9c14f'/></#list>
+		</category>
+		<category label='区县分局' value='20' link='/txn53000210.do?${qx_link2}' toolText='&lt;LI&gt;共${qx_count}个分局{BR}共${qx_share_total}个共享服务&lt;/LI&gt;' color='afcb5d'>
+			<#list qx_sys as z><category label='${z.NAME}'  <#if '${z.TOTAL}'=='0'>  toolText='&lt;LI&gt;服务${z.TOTAL}个&lt;/LI&gt;{BR}&lt;LI&gt;下级服务没有数据qq' <#else> link='/txn53000211.do?${z.LINK3}' toolText='&lt;LI&gt;服务${z.TOTAL}个&lt;/LI&gt;'</#if> color='a6c54e'/></#list>
+		</category>
+	</category>
+   <styles>
+      <definition>
+         <style name='myHTMLFont' type='font' isHTML='1' />
+      </definition>
+      <application>
+         <apply toObject='TOOLTIP' styles='myHTMLFont' />
+      </application>
+   </styles>
+</chart>
+

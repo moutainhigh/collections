@@ -1,0 +1,310 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * Main page that holds the editor.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>FCKeditor</title>
+	<meta name="robots" content="noindex, nofollow" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Cache-Control" content="public" />
+	<script type="text/javascript">
+
+// Instead of loading scripts and CSSs using inline tags, all scripts are
+// loaded by code. In this way we can guarantee the correct processing order,
+// otherwise external scripts and inline scripts could be executed in an
+// unwanted order (IE).
+
+function LoadScript( url, sVersion )
+{
+	url = url + ((sVersion)?"?Version="+sVersion:'');
+	document.write( '<scr' + 'ipt type="text/javascript" src="' + url + '" onerror="alert(\'Error loading \' + this.src);"><\/scr' + 'ipt>' ) ;
+}
+
+function LoadCss( url )
+{
+	document.write( '<link href="' + url + '" type="text/css" rel="stylesheet" onerror="alert(\'Error loading \' + this.src);" />' ) ;
+}
+
+// Main editor scripts.
+var sSuffix = /msie/.test( navigator.userAgent.toLowerCase() ) ? 'ie' : 'gecko' ;
+
+LoadScript( '../../js/opensource/prototype.js' ) ;
+LoadScript( '../../js/com.trs.util/Common.js' ) ;
+</script>
+<script type="text/javascript">
+LoadScript( 'js/fckeditorcode_' + sSuffix + '.js' ) ;
+
+// Base configuration file.
+LoadScript( '../fckconfig.js' ) ;
+// TRS Extend.
+var sTrsCfgEx = getParameter('ConfigEx') || 'fckconfig_ex.js';
+var sVersion = getParameter('Version') || '';
+LoadScript( '../' + sTrsCfgEx, sVersion) ;
+LoadScript( '../fckeditor_ex.js', sVersion) ;
+LoadScript( '../fckeditor_ex_' + sSuffix + '.js', sVersion) ;
+LoadScript( '../format.js' ) ;
+	</script>
+	<script type="text/javascript">
+if(getParameter('Css')){
+    FCKConfig.EditorAreaCSS = FCKConfig.BasePath + 'css/' + getParameter('Css') ;
+}
+
+if ( FCKBrowserInfo.IsIE )
+{
+	// Remove IE mouse flickering.
+	try
+	{
+		document.execCommand( 'BackgroundImageCache', false, true ) ;
+	}
+	catch (e)
+	{
+		// We have been reported about loading problems caused by the above
+		// line. For safety, let's just ignore errors.
+	}
+
+	// Create the default cleanup object used by the editor.
+	FCK.IECleanup = new FCKIECleanup( window ) ;
+	FCK.IECleanup.AddItem( FCKTempBin, FCKTempBin.Reset ) ;
+	FCK.IECleanup.AddItem( FCK, FCK_Cleanup ) ;
+}
+
+// The config hidden field is processed immediately, because
+// CustomConfigurationsPath may be set in the page.
+FCKConfig.ProcessHiddenField() ;
+
+// Load the custom configurations file (if defined).
+if ( FCKConfig.CustomConfigurationsPath.length > 0 )
+	LoadScript( FCKConfig.CustomConfigurationsPath ) ;
+
+	</script>
+	<script type="text/javascript">
+
+// Load configurations defined at page level.
+FCKConfig_LoadPageConfig() ;
+
+FCKConfig_PreProcess() ;
+
+// Load the active skin CSS.
+LoadCss( FCKConfig.SkinPath + 'fck_editor.css' ) ;
+LoadCss( '../fckeditor_ex.css' ) ;
+
+// Load the language file.
+FCKLanguageManager.Initialize() ;
+LoadScript( 'lang/' + FCKLanguageManager.ActiveLanguage.Code + '.js' ) ;
+
+	</script>
+	<script type="text/javascript">
+
+// Initialize the editing area context menu.
+FCK_ContextMenu_Init() ;
+
+FCKPlugins.Load() ;
+
+	</script>
+	<script type="text/javascript">
+
+// Set the editor interface direction.
+window.document.dir = FCKLang.Dir ;
+
+// Activate pasting operations.
+if ( FCKConfig.ForcePasteAsPlainText || FCKConfig.AutoDetectPasteFromWord )
+	FCK.Events.AttachEvent( 'OnPaste', FCK.Paste ) ;
+
+	</script>
+	<script type="text/javascript">
+
+window.onload = function()
+{
+	InitializeAPI() ;
+	window.parent.FCKeditorAPI.editorWindow = window;
+	if ( FCKBrowserInfo.IsIE )
+		FCK_PreloadImages() ;
+	else
+		LoadToolbarSetup() ;
+}
+
+function LoadToolbarSetup()
+{
+	FCKeditorAPI._FunctionQueue.Add( LoadToolbar ) ;
+}
+
+function LoadToolbar()
+{
+	var oToolbarSet = FCK.ToolbarSet = FCKToolbarSet_Create(FCKURLParams['ToolbarLocation']) ;
+
+	if ( oToolbarSet.IsLoaded )
+		StartEditor() ;
+	else
+	{
+		oToolbarSet.OnLoad = StartEditor ;
+		oToolbarSet.Load( FCKURLParams['Toolbar'] || 'Default' ) ;
+	}
+}
+
+function StartEditor()
+{
+	// Remove the onload listener.
+	FCK.ToolbarSet.OnLoad = null ;
+	FCKeditorAPI._FunctionQueue.Remove( LoadToolbar ) ;
+
+	FCK.Events.AttachEvent( 'OnStatusChange', WaitForActive ) ;
+	if(parent.FCKEditor_Resize){
+		FCK.Events.AttachEvent( 'OnAfterSetHTML', parent.FCKEditor_Resize) ;
+	}
+	// Start the editor.
+	FCK.StartEditor() ;
+}
+
+function WaitForActive( editorInstance, newStatus )
+{
+	if ( newStatus == FCK_STATUS_ACTIVE )
+	{
+		if ( FCKBrowserInfo.IsGecko )
+			FCKTools.RunFunction( window.onresize ) ;
+
+		_AttachFormSubmitToAPI() ;
+
+		FCK.SetStatus( FCK_STATUS_COMPLETE ) ;
+
+		// Call the special "FCKeditor_OnComplete" function that should be present in
+		// the HTML page where the editor is located.
+		if ( typeof( window.parent.FCKeditor_OnComplete ) == 'function' )
+			window.parent.FCKeditor_OnComplete( FCK ) ;
+	}
+}
+
+// Gecko browsers doens't calculate well that IFRAME size so we must
+// recalculate it every time the window size changes.
+if ( FCKBrowserInfo.IsGecko )
+{
+	function Window_OnResize()
+	{
+		if ( FCKBrowserInfo.IsOpera )
+			return ;
+
+		var oCell = document.getElementById( 'xEditingArea' ) ;
+
+		var eInnerElement = oCell.firstChild ;
+		if ( eInnerElement )
+		{
+			eInnerElement.style.height = 0 ;
+			eInnerElement.style.height = oCell.scrollHeight - 2 ;
+		}
+	}
+	window.onresize = Window_OnResize ;
+}
+window.onunload = function(){
+	window.onload = null;
+	window.onresize = null;
+	window.onunload = null;
+}
+	</script>
+</head>
+<body style="background:transparent;padding:0;margin:0">
+<!--
+	<table width="100%" cellpadding="0" cellspacing="0" style="height: 100%; table-layout: fixed">
+		<tr id="xToolbarRow" style="display: none">
+			<td id="xToolbarSpace" style="overflow: hidden">
+				<table width="100%" cellpadding="0" cellspacing="0">
+					<tr id="xCollapsed" style="display: none">
+						<td id="xExpandHandle" class="TB_Expand" colspan="3">
+							<img class="TB_ExpandImg" alt="" src="images/spacer.gif" width="8" height="4" /></td>
+					</tr>
+					<tr id="xExpanded" style="display: none">
+						<td id="xTBLeftBorder" class="TB_SideBorder" style="width: 1px; display: none;"></td>
+						<td id="xCollapseHandle" style="display: none" class="TB_Collapse" valign="bottom">
+							<img class="TB_CollapseImg" alt="" src="images/spacer.gif" width="8" height="4" /></td>
+						<td id="xToolbar" class="TB_ToolbarSet"></td>
+						<td class="TB_SideBorder" style="width: 1px"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td id="xEditingArea" valign="top" style="height: 100%"></td>
+		</tr>
+	</table>
+-->
+	<table width="100%" cellpadding="0" cellspacing="0" border="0" style="height: 100%;">
+		<tr id="xToolbarRow" height="50" class="editor_toolbar">
+			<td id="xToolbarSpace">
+				<table cellpadding="0" cellspacing="0" style="width:100%;background:transparent;">
+					<tr id="xCollapsed" style="display: none">
+						<td id="xExpandHandle" class="TB_Expand" colspan="3">
+							<img class="TB_ExpandImg" alt="" src="images/spacer.gif" width="8" height="4" /></td>
+					</tr>
+					<tr id="xExpanded" style="display: none">
+						<td id="xTBLeftBorder" class="TB_SideBorder" style="width: 0px; display: none;"></td>
+						<td id="xCollapseHandle" style="display: none" class="TB_Collapse" valign="bottom">
+							<img class="TB_CollapseImg" alt="" src="images/spacer.gif" width="8" height="4" /></td>
+						<td id="xToolbar" class="TB_ToolbarSet xToolbar" style="width:100%;"></td>
+						<td class="TB_SideBorder" style="width: 0px"></td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr valign="top" align="center" height="100%">
+			<td>
+				<table border=0 cellspacing=0 cellpadding=0 width="100%" height="100%" style="table-layout:fixed;">
+				<tbody>
+					<tr class="top_ruler">
+						<td width="13">&nbsp;</td><td>&nbsp;</td>
+					</tr>
+					<tr align="center" valign="top">
+						<td class="left_ruler" width="13"></td>
+						<td class="editor_body" style="padding:15px;" id="xEditingArea" valign="top"></td>
+					</tr>
+				</tbody>
+				</table>
+			</td>
+		</tr>
+		<tr class="bottom_editor_toolbar">
+			<td>
+				<span id="btns4html">
+				<div id="editor_btn_source" class="toolbar_btn_basic toolbar_source" onclick="SwitchMode('Source');ExecuteCommand('Source')">代码</div>
+				<div id="editor_btn_design" class="toolbar_btn_basic toolbar_design toolbar_current_btn" onclick="SwitchMode('Design');ExecuteCommand('Design')">设计</div>
+				<div style="margin:0 5px;float:left;">|</div>
+				<div class="toolbar_btn_basic btn" onclick="ClearWordStyle();"><div class="btn_inner">WORD格式清理</div></div>
+				<div class="toolbar_btn_basic btn" onclick="ClearClasses();"><div class="btn_inner">清除(统一)样式</div></div>
+				<div class="toolbar_btn_basic btn" onclick="FormatHtml('ClearBlank');"><div class="btn_inner">去除空行</div></div>
+				<div class="toolbar_btn_basic btn" onclick="FormatHtml('OutdentPara');"><div class="btn_inner">首行缩进</div></div>
+				<div style="display:none;" class="toolbar_btn_basic btn" onclick="FormatHtml('ReplaceNbsps');"><div class="btn_inner">转换全角空格</div></div>
+				<div class="toolbar_btn_basic btn" onclick="FormatHtml('Db2Sb');"><div class="btn_inner">全角转半角</div></div>
+				<div class="toolbar_btn_basic btn" onclick="PasteAsPlainText();"><div class="btn_inner">纯文本粘贴(含图)</div></div>
+				<!--div class="toolbar_btn_basic btn" onclick="FormatHtml('HuaLongWang');"><div class="btn_inner">华龙网定制格式化</div></div-->
+				<script>
+				if(FCKConfig.FullScreenEditor){
+					document.write('<div class="toolbar_btn_basic btn" onclick="FullScreenEditor(this);"><div class="btn_inner">全屏编辑</div></div>');
+				}
+				</script>
+				</span>
+			</td>
+		</tr>
+	</table>
+<script>
+if(window.OfficeActiveX&&OfficeActiveX.IsEnableWordClient()){
+	OfficeActiveX.Init();
+}
+</script>
+</body>
+</html>

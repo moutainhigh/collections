@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin name="WCM内容组件" version="1.0" id="com.trs.components.govinfo">
+	<!--Config For ObjectLCMonitor BEGIN-->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		1：新增
+		2：修改后
+		3：删除前
+		4、删除后
+		5、修改前
+		多个以逗号隔开
+	-->
+	<extension 
+		element-class="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		id="components.wcm.content.ObjectLCMonitor">
+
+		<monitor-host name="政府信息公开视图" 
+			class-name="com.trs.components.metadata.definition.MetaView">
+			<listener bean-id="GovInfoLCListenerMetaView" event-type="1"/>
+		</monitor-host>
+	</extension>
+</plugin>

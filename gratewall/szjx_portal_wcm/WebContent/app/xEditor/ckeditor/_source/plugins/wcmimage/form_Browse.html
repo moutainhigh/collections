@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> Form_Browse </title>
+	<script language="javascript" src="../../../../../js/runtime/myext-debug.js" type="text/javascript"></script>
+	<script src="../../../../../js/source/wcmlib/WCMConstants.js"></script>
+	<script src="../../../../../js/data/locale/system.js"></script>	
+	<script src="../../../../../js/source/wcmlib/util/YUIConnection.js"></script>
+
+	<link href="form_Browse.css" rel="stylesheet" type="text/css" />
+	<script src="form_Browse.js"></script>
+</style>
+</head>
+<body>
+<form id="fm_pic" name="fm_pic" style="margin:0;" enctype='multipart/form-data'>
+	<div id="" class="Gray_Content">
+		<span class="Gray_Font">添加图片</span>
+		<input type="file" id="browserAddress" name="browserAddress" size="3" onchange="onOk()">
+	</div>
+</form>
+
+<div id="" class="allow_Style">
+	支持jpg/jpeg/gif/png/bmp格式的图片上传
+</div>
+<div id="preview_Box" class="preview_Box">
+	<img src="images/pre_view.png" border=0 style="vertical-align:middle;" onload="resizeIfNeed(this);"/>
+</div>
+<div id="upload_message" style="display:none;" class="upload_message"></div>
+<div id="btn_div" class="btn_div" onclick="ok()">
+	上  传
+</div>
+<input type="hidden" id='fileNames'>
+</body>
+</html>

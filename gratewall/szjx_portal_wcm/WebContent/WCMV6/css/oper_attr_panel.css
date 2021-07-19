@@ -1,0 +1,632 @@
+body{
+	font-size:12px;
+	padding:0px;
+	margin:0px;
+	margin-left:6px;
+	margin-top:6px;
+	width:190px;
+	background-repeat:no-repeat;
+}
+
+/*属性栏*/
+.oper_attr_panel {
+	float:left;
+	width:177px;
+}
+/*属性栏头*/
+.oper_attr_panel_header{
+	width:177px;
+	height:31px;
+	background-image: url(../images/document_attribute/item1_column.png);
+	background-repeat: no-repeat;
+}
+/*属性栏主体*/
+.oper_attr_panel_body{
+	float:left;
+	background-image: url(../images/document_attribute/item3_casingmorebg.png);
+	background-repeat: repeat-y;
+	background-color:#ffffff;
+	width: 177px;
+}
+/*属性栏标题文字*/
+.oper_attr_panel_title{
+	float:left;
+	height:14px;
+	font-weight:bold;
+	font-size:12px;
+	padding:8px 10px 2px;
+}
+/*属性栏收缩图标*/
+.oper_attr_panel_collapse{
+	float:right;
+	width:20px;
+	height:10px;
+	margin:8px 4px 0 0;
+	background-image: url(../images/document_attribute/up.png);
+	background-repeat: no-repeat;
+}
+/*属性栏展开图标*/
+.oper_attr_panel_expand{
+	float:right;
+	width:20px;
+	height:10px;
+	margin:8px 4px 0 0;
+	background-image: url(../images/document_attribute/down.png);
+	background-repeat: no-repeat;
+}
+/*属性栏内容区域*/
+.oper_attr_panel_content{
+	float:left;
+	width:163px;
+	margin:3px;
+	padding:0px;
+	background-image: url(../images/document_attribute/item1_casing.png);
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	border: 1px solid #5d5d5d;
+	overflow:hidden;
+}
+/*属性栏底部*/
+.oper_attr_panel_underside{
+	float:left;
+	background-image: url(../images/document_attribute/item3_casingdown.png);
+	background-repeat: no-repeat;
+	height: 5px;
+	width: 177px;
+	overflow:hidden;
+}
+/*更多操作图标*/
+.operator_more_btn{
+	float:right;
+	width:16px;
+	height:12px;
+	margin-right:5px;
+	background-image:url(../images/document_attribute/got_down.png);
+	background-repeat:no-repeat;
+	background-position:center top;
+}
+
+/*属性栏之间的分隔*/
+.oper_attr_panel_sep{
+	float:left;
+	height:4px;
+	width: 177px;
+	overflow:hidden;
+}
+/*栏目属性内部方框背景*/
+.oper_attr_panel_flexible_content{
+	float:left;
+	background-image: url(../images/document_attribute/item3_casingmore.png);
+	width: 163px;
+	border: 1px solid #5d5d5d;
+	background-repeat: repeat-y;
+	margin: 3px;
+	padding: 2px;
+	overflow:hidden;
+}
+.wcm_operators{
+	padding:4px 2px;
+}
+.wcm_operators_more{
+	padding:4px 0;
+	position: absolute;
+	background-image: url(../images/document_attribute/got_down_sash.png);
+	background-repeat: repeat-y;
+	width: 160px;
+	border:1px solid black;
+}
+.wcm_operator{
+}
+.wcm_operator_row{
+	cursor:pointer;
+	padding-left:32px;
+	padding-top:6px;
+	font-size:12px;
+	height:18px!important;
+	height:24px;
+	background-image:url();
+	background-repeat:no-repeat;
+	background-position:6px center;
+}
+.wcm_operators_more .wcm_operator_row{
+	padding-left:30px;
+	background-position:3px center;
+}
+.wcm_operator_active{
+	background-image:url(../images/document_attribute/highlight_150.png);
+	background-repeat:no-repeat;
+	background-position:4px center;
+}
+.wcm_operators_more .wcm_operator_active{
+	background-position:1px center;
+}
+.wcm_operator_seperate{
+	padding-top:4px;
+	height:0px!important;
+	height:4px;
+	background-image:url(../images/document_attribute/got_down_sash_divide.png);
+	background-repeat:no-repeat;
+	background-position:29px center;
+	overflow:hidden;
+}
+.wcm_operator_seperate .seperate{
+	display:none;
+}
+.attribute_row{
+	float:left;
+	width:100%;
+	height:24px;
+	overflow:visible;
+}
+.attribute_row_sep{
+	float:left;
+	width:100%;
+	height:4px;
+	overflow:hidden;
+	background-image:url(../images/document_attribute/divide_up.png);
+	background-repeat:no-repeat;
+	background-position:center 0;
+}
+.attribute_padding{
+	float:left;
+	padding-left:4px;
+	width:0!important;
+	width:4px;
+	height:24px;
+}
+.attribute_name{
+	float:left;
+	padding-left:4px;
+	width:60px!important;
+	width:64px;
+	font-weight:bold;
+	height:24px;
+}
+.attribute_value{
+	float:left;
+	height:24px;
+	text-decoration: none;
+}
+.inputClass_{
+	height:18px;
+	width:100px;
+}
+.attribute_row_title_readonly{
+	float:left;
+	border:0;
+	margin:0;
+	padding:1px 2px 0;
+	width:150px;
+	font-size: 14px;
+	color:#010101;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+}
+.wcm_readonly, .wcm_desc_info_row{
+	color:gray;
+	text-decoration: none;
+	cursor:default;
+}
+.wcm_desc_info_row{
+	padding-left:5px;
+	font-size:12px;
+	width:95%;
+}
+.desc_info_value{
+	color: #010101;
+}
+
+.wcm_readonly a,.wcm_readonly a:visited,.wcm_readonly a:hover,.wcm_readonly a:link{
+	color:gray;
+	text-decoration: none;
+	cursor:default;
+}
+
+/*选中多个对象的数量*/
+.objects_num{
+	padding:1px 5px;
+	color:blue;
+	font-weight:bold;
+}
+/*详细信息更多属性图标*/
+.object_attribute_more_btn{
+	float:right;
+	width:65px;
+	margin-right:2px;
+	background-image:url(../images/document_attribute/exclusive.png);
+	background-repeat:no-repeat;
+	background-position:0 center;
+	padding-left:10px;
+	overflow:hidden;
+}
+/*document的各种操作对应的图标*/
+.edit{
+	background-image:url(../images/icon/Update.png);
+}
+.preview{
+	background-image:url(../images/icon/Preview.png);
+}
+.basicpublish{
+	background-image:url(../images/icon/PublishComplete.gif);
+}
+.copy{
+	background-image:url(../images/icon/Copy.png);
+}
+.move{
+	background-image:url(../images/icon/Move.png);
+}
+.quote{
+	background-image:url(../images/icon/Quote.png);
+}
+.recycle,.trash{
+	background-image:url(../images/icon/Recycle.gif);
+}
+.delete{
+	background-image:url(../images/icon/Delete.png);
+}
+.changeStatus{
+	background-image:url(../images/icon/ChangeStatus.png);
+}
+.setRight{
+	background-image:url(../images/icon/Accessories.png);
+}
+.detailpublish{
+	background-image:url(../images/icon/PublishDetail.gif);
+}
+.backup{
+	background-image:url(../images/icon/SaveVersion.png);
+}
+.backupmgr{
+	background-image:url(../images/icon/ManageVersion.png);
+}
+.export{
+	background-image:url(../images/icon/Export.png);
+}
+.exportall{
+	background-image:url(../images/icon/export_all.gif);
+}
+.new{
+	background-image:url(../images/icon/New.png);
+}
+.add{
+	background-image:url(../images/icon/New.png);
+}
+.quicknew{
+	background-image:url(../images/icon/CreateArticle.png);
+}
+.importoffice{
+	background-image:url(../images/icon/CreateArticle.png);
+}
+.import{
+	background-image:url(../images/icon/Import.png);
+}
+.increasingpublish,.increasepublish{
+	background-image:url(../images/icon/PublishIncrease.gif);
+}
+.solopublish,.homepublish{
+	background-image:url(../images/icon/PublishIndex.gif);
+}
+.fullypublish,.completepublish{
+	background-image:url(../images/icon/PublishComplete.gif);
+}
+.refreshpublish,.updatepublish{
+	background-image:url(../images/icon/PublishRefresh.gif);
+}
+.recallpublish,.cancelpublish{
+	background-image:url(../images/icon/CancelPublish.gif);
+}
+.channel_synch, .channelMaster_synch, .website_synchtemplate{
+	background-image:url(../images/icon/SysTem2Chnl.gif);
+}
+.likecopy{
+	background-image:url(../images/icon/SimCreate.gif);
+}
+.docPositionSet{
+	background-image:url(../images/icon/docPositionSet.gif);
+}
+.settopdocument{
+	background-image:url(../images/icon/settopdocument.gif);
+}
+
+/*template*/
+.templateInChannel_synch, .templateInSite_synch, .template_synch, .templates_synch{
+	background-image:url(../images/template/temp_refresh_appendix.gif);
+}
+.templateInChannel_check, .templateInSite_check, .template_check, .templates_check{
+	background-image:url(../images/template/temp_check.gif);
+}
+
+/*废稿箱*/
+.deleteAll{
+	background-image:url(../images/icon/clear.gif);
+}
+.restoreAll{
+	background-image:url(../images/icon/restore_all.gif);
+}
+.delete{
+	background-image:url(../images/icon/delete.gif);
+}
+.restore{
+	background-image:url(../images/icon/restore.gif);
+}
+/*栏目*/
+.settempargs{
+	background-image:url(../images/icon/temparg_set.gif);
+}
+.commentmgr{
+	background-image:url(../images/icon/comment_mgr.gif);
+}
+/*站点分发*/
+.disableall{
+	background-image:url(../images/distribution/disableAll.gif);
+}
+.enableAll{
+	background-image:url(../images/distribution/enableAll.gif);
+}
+.disable{
+	background-image:url(../images/distribution/disable.gif);
+}
+.enable{
+	background-image:url(../images/distribution/enable.gif);
+}
+.sync{
+	background-image:url(../images/icon/sync.gif);
+}
+/*其他特殊设置*/
+.document_quote_add{
+	padding:2px;
+}
+.document_quote_remove{
+	padding:2px;
+}
+.document_quote_channels{
+	padding-left:10px;
+	height:20px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+}
+.attr_detail_value_cruser{
+	font-weight:bold;
+}
+.attr_detail_value_docpublishurl{
+	float:left;
+	width:150px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	/*color: gray;*/
+}
+.attr_detail_4words_editor{
+	width:90px;
+}
+.attr_detail_value_doctitle{
+	width:140px;
+	font-size:14px;
+	height:20px;
+	line-height: 20px;
+	font-weight: bold;
+}
+.attr_detail_value_long{
+	width:140px;
+}
+.docpeople{
+	display:inline;
+	width:80px;
+	font-size:12px;
+	height:17px;
+}
+.attr_detail_value_docstatus,.attr_detail_value_docindextitle,.attr_detail_value_docsectitle,.attr_detail_value_dockeys,.attr_detail_value_docsource{
+	width:80px;
+	font-size:12px;
+	height:17px;
+}
+
+.attribute_row_hidden{
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	width: 150px;
+	height:22px;
+	line-height:22px;
+	padding-left: 5px;
+}
+.attr_value_short{
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	width: 72px;
+}
+.selected_template{
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	overflow:hidden;
+	width: 72px;
+}
+.selected_template{
+	white-space:nowrap;
+}
+.temp_sel_icon{
+	background-image: url('../images/icon/TempSelect.gif');
+	width: 16px;
+	height: 16px;
+	cursor: pointer;
+}
+A:link{
+	color: #1571D5;
+	text-decoration: none;
+}
+A:hover{
+	color: #ff6600
+}
+A:visited{
+	color: #1571D5;
+	text-decoration: none;
+}
+.search_attribute_row{
+	float:none;
+	width:100%;
+	height:24px;
+	overflow:visible;
+}
+.search_info_desc{
+	float:none;
+	padding-left:4px;
+	width:60px!important;
+	width:64px;
+	font-weight:bold;
+	height:24px;
+	line-height: 24px;
+}
+.search_info_value{
+	float:none;
+	height:24px;
+	line-height: 24px;
+	text-decoration: none;
+	color: #789;
+	width: 90px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+
+}
+.search_info_value_solo{
+	float: none;
+	width: 100%;
+	color: #789;
+	white-space:nowrap;
+	overflow:hidden;
+	padding-left: 10px;
+	height:24px;
+	line-height: 24px;
+}
+.search_info_value_column{
+	height:24px;
+	line-height: 24px;
+	text-decoration: none;
+	color: #789;
+	padding-left: 15px;
+}
+
+.logomanage{
+	background-image:url(../images/icon/ImageSmall.png);
+}
+/*
+工作流的操作按钮
+*/
+.workflow_assign{
+	background-image:url(../images/icon/workflow_assign.gif);
+}
+.setemployer{
+	background-image:url(../images/icon/workflow_setemployer.gif);
+}
+.importSysPhoto{
+	background-image:url(../images/photo/importsysphoto.gif);
+}
+.upload{
+	background-image:url(../images/photo/upload_new.gif);
+}
+.confphotolib{
+	background-image:url(../images/photo/importsysphoto.gif);
+}
+.photo_publish{
+	background-image:url(../images/photo/publish.gif);
+}
+.photos_publish{
+	background-image:url(../images/photo/publish.gif);
+}
+.contentlinkInChannel_set{
+	background-image:url(../images/contentlink/contentlinkset.gif)
+}
+/*
+视频操作的图标
+*/
+/* fjh @ 2007-9-14 18:40 “视频库配置”的图标*/
+.confvideolib{
+	background-image:url(../images/photo/importsysphoto.gif);
+}
+.record{
+	background-image:url(../images/video/record.gif);
+}
+.live{
+	background-image:url(../images/video/live.gif);
+}
+.play{
+	background-image:url(../images/video/play.gif);
+}
+.snap{
+	background-image:url(../images/video/snap.gif);
+}
+.videoInChannel_upload{
+	background-image:url(../images/video/new.gif);
+}
+.videoInChannel_multiupload{
+	background-image:url(../images/video/multiupload.gif);
+}
+/*资源库的各种操作对应的图标*/
+.config{
+	background-image:url(../images/icon/config.gif);
+}
+.build{
+	background-image:url(../images/metadata/build.gif);
+}
+.createfromexcel{
+	background-image:url(../images/metadata/createfromexcel.gif);
+}
+.setSynRule{
+	background-image:url(../images/metadata/syn_rule.gif);
+}
+#input_docsource{
+	float:left;
+	color:black;
+	width:64px;
+	height:18px;
+	font-size:9pt;
+	padding:2px 0 0 2px;
+}
+#select_docsource{
+	float:left;
+	width:17px;
+	height:18px;
+	background:url(../images/ui/select_dropdown.gif) no-repeat 4px center;
+}
+#SourceContainer{
+	width:81px;
+	height:18px;
+}
+.deactive{
+	background:transparent;
+}
+.active{
+	background:#DCF1FC;
+}
+.deactive #DocSourceName{
+	float:left;
+	border:0;
+	padding:3px 0 0 3px;
+	width:60px;
+}
+.active #DocSourceName{
+	float:left;
+	border:1px solid gray;
+	padding:2px 0 0 2px;
+	border-right:0;
+	width:60px;
+}
+#divDocSource{
+	float:left;
+	width:16px;
+	overflow:hidden;
+	height:18px;
+}
+#DocSource{
+	margin-left:-94px;
+	margin-top:-2px;
+	width:111px;
+}
+.source_input_active{
+	background:#ffffef;
+}
+.source_input_deactive{
+	background:transparent;
+}

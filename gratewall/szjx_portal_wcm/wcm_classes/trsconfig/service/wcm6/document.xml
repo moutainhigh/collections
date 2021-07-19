@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.DocumentServiceProvider" objclass="com.trs.components.wcm.content.persistent.Document">
+
+	<method name="save" desc="保存文档">		
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>	
+		<parameter name="ObjectId" desc="文档ID" type="int" required="true"/>
+		<parameter name="FieldNamesNotTrim" desc="不需要做trim的字段" type="string" required="false"
+		 default="doccontent,DocPubHTMLCon,DocAbstract,DocHTMLCon"/>		
+	</method>
+
+	<method name="preview">		
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>	
+		<parameter name="ObjectId" desc="文档ID" type="int" required="false"/>
+		<parameter name="FieldNamesNotTrim" desc="不需要做trim的字段" type="string" required="false"
+		 default="doccontent,DocPubHTMLCon,DocAbstract,DocHTMLCon"/>		
+	</method>
+	
+	<method name="delete" desc="删除文档">	
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>	
+		<parameter name="ObjectIds" desc="待删除的文档ID序列" type="string" required="true"/>
+		<parameter name="Drop" desc="是否彻底删除" type="boolean" required="false"/>		
+	</method>
+	
+	<method name="query">
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="false" exclude-value="0"/>
+		<parameter name="SiteId" desc="当前站点ID" type="int" required="false"/>	
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>		
+			
+		<!--文档过滤器-->
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" required="false"/>
+		
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="DocTitle" desc="文档标题" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="DocStatus" desc="待查询的状态" type="string" required="false" search="true"
+			search-operator="in" search-type="pint"/>
+		<parameter name="StartDate" desc="开始时间" type="datetime" required="false"
+			search="true" search-operator="&gt;=" search-field="CrTime"/>
+		<parameter name="EndDate" desc="结束时间" type="datetime" required="false"
+			search="true" search-operator="&lt;=" search-field="CrTime"/>
+		<!-- 检索相关配置 END -->
+		
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>		
+		
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false" default="DOCID,DocTitle,DocType,DocChannel,CrUser,CrTime"/>		
+	</method>
+	
+	<method name="findByIds" >
+		<!--默认的参数，可以不写-->
+		<parameter name="ObjectIds" desc="文档ID序列" type="string" required="true"/>
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false"/>
+	</method>
+	
+	<method name="findById">
+		<!--默认的参数，可以不写-->
+		<parameter name="ObjectId" desc="文档ID" type="int" required="true"/>
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false"/>
+		
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>				
+	</method>
+
+	<method name="getPageInfo">
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>	
+	</method>
+
+	<!--获取操作列表-->
+	<method name="getOperators">
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>	
+		<parameter name="ObjectId" desc="文档ID" type="int" required="false"/>
+		<parameter name="ObjectIds" desc="文档ID序列" type="string" required="false"/>
+	</method>
+	
+	<!-- 获取引用指定文档的栏目 -->
+	<method name="getQuotedChannels">
+		<parameter name="ObjectId" desc="文档ID" type="int" required="true"/>
+	</method>
+	
+	<!-- 移动文档 -->
+	<method name="move">
+		<parameter name="ObjectIds" desc="文档ID序列" type="string" required="true"/>
+		<parameter name="FromChannelId" desc="文档所在栏目ID" type="int" required="false"/>
+		<parameter name="ToChannelId" desc="目标栏目ID" type="int" required="true"/>		
+	</method>
+	
+	<method name="transmit" desc="转发文档">
+		<parameter name="ObjectIds" desc="文档ID序列" type="string" required="true"/>
+		<parameter name="FromChannelId" desc="文档所在栏目ID" type="int" required="false"/>
+		<parameter name="ToChannelIds" desc="目标栏目ID序列" type="string" required="true"/>
+		<parameter name="TransmitType" desc="转发类型" type="int" required="true"/>
+	</method>	
+
+	<method name="copy" truename="transmit" desc="复制文档">
+		<parameter name="TransmitType" desc="转发类型" type="int" required="false" default="1"/>			
+	</method>
+	
+	<method name="quote" truename="transmit" desc="引用文档">
+		<parameter name="TransmitType" desc="转发类型" type="int" required="false" default="2"/>			
+	</method>
+
+	<method name="mirror" truename="transmit" desc="镜像文档">
+		<parameter name="TransmitType" desc="转发类型" type="int" required="false" default="3"/>			
+	</method>
+
+	<method name="setQuote" desc="引用文档到栏目">
+		<parameter name="QuoteType" desc="文档引用类型" type="string" required="false" default="quote"/>
+		<parameter name="DocumentId" desc="文档ID" type="int" required="true"/>
+		<parameter name="FromChannelId" desc="文档所在栏目ID" type="int" required="false"/>
+		<parameter name="ToChannelIds" desc="目标栏目ID序列" type="string" required="true"/>
+	</method>
+	
+	<method name="copyAll" desc="复制全部文档">
+		<parameter name="FromChannelId" desc="文档所在栏目ID" type="int" required="true"/>
+		<parameter name="ToChannelIds" desc="目标栏目ID序列" type="string" required="true"/>		
+	</method>
+	
+	
+	<!-- 改变文档顺序 -->
+	<method name="changeOrder">
+		<parameter name="ChannelId" desc="文档所在栏目ID" type="int" required="true"/>	
+		<parameter name="FromDocId" desc="需要改变顺序的文档ID" type="int" required="true"/>
+		<parameter name="ToDocId" desc="目标文档ID" type="int" required="true"/>		
+		
+		<parameter name="Position" desc="拖动的位置(之前/之后)(1/0)" type="int" required="false" default="1"/>		
+	</method>
+	
+	<!-- 导出文档 -->
+	<method name="export">
+		<parameter name="ObjectIds" desc="文档ID序列" type="string" required="true"/>
+		<parameter name="ExportFields" desc="导出那些字段" type="string" required="false"/>
+		<parameter name="ExportAppendix" desc="是否导出附件" type="boolean" required="false"/>
+	</method>
+	
+	<!-- 导入文档 -->
+	<method name="importDocuments"  desc="导入文档" logger="com.trs.ajaxservice.logger.DocImportLogger">
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>	
+		<parameter name="ImportFile" desc="导入的文件" type="string" required="true"/>
+		<parameter name="ImportXSLFile" desc="转换文件" type="string" required="false"/>
+		<parameter name="ImportToCurrChannel" desc="是否全部导入到当前栏目中" type="string" required="false"/>
+		<parameter name="IgnoreTitleSim" desc="是否忽略标题相同的文档" type="boolean" required="false"/>
+		<parameter name="IsTrsServerFile" desc="是否为TRS导出的XML文件" type="boolean" required="false"/>
+	</method>
+	
+	
+	<method name="backup" desc="保存一个新的文档版本" provider="com.trs.ajaxservice.DocumentBakServiceProvider">		
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>	
+		<parameter name="DocIds" desc="文档ID序列" type="string" required="true" min-len="1"/>
+	</method>
+	
+	
+	<method name="queryRelations" desc="获取指定文档手工设定的相关文档">
+		<parameter name="DocumentId" desc="指定文档ID" type="int" required="true"/>
+			
+		
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="Sern" required="false"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<!-- 检索相关配置 END -->
+		
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false" default="RELATIONID,DOCID,RELDOCID,SERN,CRUSER,CRTIME"/>				
+	</method>
+	
+	<method name="saveRelation" desc="保存指定文档手工设定的相关文档">
+		<parameter name="DocId" desc="指定文档ID" type="int" required="true"/>	
+		<parameter name="RelationsXML" desc="需要保存的相关文档内容" type="string" required="true"/>			
+		
+	</method>	
+	
+	<method name="queryRecycle" desc="获取指定站点/栏目的回收站文档">
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="false" exclude-value="0"/>
+		<parameter name="SiteId" desc="当前站点ID" type="int" required="false"/>	
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>		
+			
+		<!--文档过滤器-->
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" required="false"/>
+		
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" default="DocId Desc" required="false"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="DocTitle" desc="文档标题" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="DocId" desc="文档ID" type="int" required="false"
+			search="true" search-operator="=" search-field="DocId"/>			
+		<parameter name="DocStatus" desc="待查询的状态" type="string" required="false" search="true"
+			search-operator="in" search-type="pint"/>
+		<parameter name="StartDate" desc="开始时间" type="datetime" required="false"
+			search="true" search-operator="&gt;=" search-field="CrTime"/>
+		<parameter name="EndDate" desc="结束时间" type="datetime" required="false"
+			search="true" search-operator="&lt;=" search-field="CrTime"/>
+		<!-- 检索相关配置 END -->
+		
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false" default="DOCID,DocTitle,DocType,DocChannel,OperUser,OperTime,CrUser,CrTime"/>				
+	</method>
+	
+	<method name="restore" desc="恢复选中的文档">	
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>	
+		<parameter name="ObjectIds" desc="待恢复的文档ID序列" type="string" required="false"/>
+		<parameter name="restoreAll" desc="是否恢复全部文档" type="boolean" required="false"/>
+	</method>
+	
+	<method name="clearRecycle" desc="清空站点/栏目回收站中的文档">	
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>	
+	</method>	
+	
+	<method name="queryAppendixes" desc="获取指定文档指定类型">
+		<parameter name="DocumentId" desc="指定文档ID" type="int" required="true"/>
+		<parameter name="AppendixType" desc="文档类型" type="int" required="true"/>		
+			
+		
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="AppSern" required="false"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<!-- 检索相关配置 END -->
+	</method>
+	
+	<method name="saveAppendixes" desc="保存指定文档手工设定的相关文档">
+		<parameter name="DocId" desc="指定文档ID" type="int" required="true"/>	
+		<parameter name="AppendixType" desc="文档类型" type="int" required="true"/>		
+		
+		<parameter name="AppendixesXML" desc="需要保存的附件内容" type="string" required="true"/>			
+		
+	</method>
+	<method name="addAppendixes" desc="添加指定文档手工设定的附件">
+		<parameter name="DocId" desc="指定文档ID" type="int" required="true"/>	
+		<parameter name="AppendixType" desc="文档类型" type="int" required="true"/>		
+		<parameter name="AppendixesXML" desc="需要保存的附件内容" type="string" required="true"/>			
+	</method>	
+	
+	
+	<method name="changeStatus" desc="改变多篇文档的状态">
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>	
+
+		<parameter name="ObjectIds" desc="指定文档ID序列" type="string" required="true"/>	
+		<parameter name="StatusId" desc="新的文档ID" type="int" required="true"/>			
+	</method>	
+	
+	<method name="queryExtendFields" desc="获取指定文档的扩展字段细心你">
+		<parameter name="DocumentId" desc="指定文档ID" type="int" required="true"/>
+		
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="CONTENTEXTFIELDID" required="false"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<!-- 检索相关配置 END -->
+		<parameter name="PageSize" desc="分页大小" type="int" required="false" default="-1"/>		
+	</method>
+	
+	<method name="setTopDocument" desc="将文档设置为置顶">
+		<parameter name="ChannelId" desc="文档所在栏目ID" type="int" required="true"/>	
+		<parameter name="DocumentId" desc="设置置顶的文档ID" type="int" required="true"/>
+		<parameter name="TargetDocumentId" desc="目标文档ID" type="int" required="true"/>		
+		<parameter name="TopFlag" desc="置顶方式（取消/有限/永久）(0/1/2)" type="int" required="true"/>		
+		<parameter name="InvalidTime" desc="失效时间" type="datetime" required="false"/>		
+		
+		
+		
+		<parameter name="Position" desc="置顶相对于目标的位置(之前/之后)(1/0)" type="int" required="false" default="1"/>		
+	</method>	
+	
+	<method name="startDocumentInFlow" desc="让文档开始流转">		
+		<parameter name="ObjectId" desc="文档ID" type="int" required="true" min-value="0"/>
+	</method>
+	
+	<method name="trsSaveToWCM" desc="保存TRSServer记录">		
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="ServerId" desc="TRSServer记录ID" type="int" required="false"/>		
+	</method>
+</service>

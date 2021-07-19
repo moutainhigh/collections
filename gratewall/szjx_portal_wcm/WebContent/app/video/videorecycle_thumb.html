@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="watermark_list.html.title">WCM通用列表页面-水印</title>
+	<link href="../css/common_thumb.css" rel="stylesheet" type="text/css">
+    <link href="../js/resource/all_widgets.css" rel="stylesheet" type="text/css">
+<link href="../js/easyversion/resource/calendar.css" rel="stylesheet" type="text/css">
+<link href="../video/video_thumb.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script src="../../app/js/easyversion/cssrender.js"></script>
+<div class="layout-container">
+    <div class="layout-left">
+        <div class="layout-top">
+            <div class="pageinfo">
+                <div class="pageinfo_left"></div>
+                <div class="pageinfo_right"></div>
+				<div class="videoSearch" id="Videosearch" onclick="showVideoSearch()"></div>
+                <span id="pageinfo"></span>
+            </div>
+        </div>
+        <div class="layout-center thumb_grid">
+			<div class="layout_north thumb_grid_head">
+				<div id="list-order-box" style="float:right;margin-top:5px;margin-right:10px;"></div> 
+			</div>
+            <div id='wcm_table_grid' class="layout_center_container thumb_grid_data"><!--query页面ajax填充区域--></div>
+            <div id="grid_navigator" class="layout_south table_grid_navigator">
+                <div id="list_navigator" class="list_navigator_div"></div>
+            </div>        
+        </div>
+        <div class="layout-bottom" id="south_tabs"></div>
+    </div>
+    <div class="layout-right" id="east_opers"></div>
+</div>
+<div style="position:absolute;left:15px;bottom:42px;"><span WCMAnt:param="videorecycle_thumb.html.selectAll">全选</span><input type="checkbox" value="" onclick="myThumbList.toggleAll(true);" id="selectAll"></div>
+<script src="../js/runtime/lightlib.js"></script>
+<script src="../js/runtime/core_main.js"></script>
+<script src="../js/runtime/abs_thumb.js"></script>
+<script src="../js/runtime/data/list.js"></script>
+<script src="../js/runtime/data/oper_channelwebsite.js"></script>
+<script src="../js/runtime/data/oper_cmsobj_videorecycle.js"></script>
+<script language="javascript">
+<!--
+function checkConvertingVideos() {	
+	// 1. 获取所有还没转换完的视频(截图显示为"转换中")
+	var arr = document.getElementsByClassName('imgConverting');
+	// 2. 对每个没有转换完的视频, 每隔20秒查询其是否转换完
+	for(index=0; index<arr.length;index++){
+		var img = arr[index];
+		var curToken = img.getAttribute("videoToken");
+		var curDocId = img.getAttribute("docid");
+		var intervalID = setInterval("queryConvertStatus('" + curToken + "', '" + curDocId + "')", 20000);
+		img.setAttribute("intervalID", intervalID);
+		// ls@2007-11-19 15:53 立即查询一次，以disable掉转换失败的
+		queryConvertStatus(curToken, curDocId);
+	}
+}
+function queryConvertStatus(srcFileName, docid) {
+    new Ajax.Request("./queryConverted.jsp?token=" + srcFileName + "&docId=" + docid,
+					{method: "post", 
+					onComplete:	gotConvertStatus.bind(this,srcFileName)
+					});
+}
+function gotConvertStatus(srcFileName,request) {
+	var resultStr = request.responseText;
+	var json = eval('(' + resultStr + ')');
+	if(!json) return;
+	if (json.THUMB) {
+		var vToken = json.FILENAME;
+		var curImg = document.getElementById("thumb_" + srcFileName);
+		//var curArch = document.getElementById("va_" + docid + "_" + vToken);
+		//alert("json.thumb: " + json.thumb + "\ncurImg: " + curImg + "\ncurArch: " + curArch);
+		if (curImg) {
+			curImg.src = document.getElementById("thumbUrl").value + "/" + json.THUMB;
+			curImg.onclick = function() {
+				var sFeature = "location=no,resizable=no,menubar=no,scrollbars=no,status=no,titlebar=no,toolbar=no,top=0,left=0,border=0,width=640,height=450";
+				window.open("./player.jsp?v=" + vToken, "_blank", sFeature);
+			}
+			clearInterval(curImg.getAttribute("intervalID"));
+		}
+	} else if (json.CONVERT_STATUS == "-1") {
+		//alert("" + json.convertDone);
+		var curImg = document.getElementById("thumb_" + srcFileName);
+		curImg.src = "./convertFail.gif";
+		clearInterval(curImg.getAttribute("intervalID"));
+		var curRecId = curImg.getAttribute("itemId");
+		Grid.setSelectDisable(curRecId);
+		var curCheckbox = document.getElementById("cbx_" + curRecId);
+		curCheckbox.disabled = true;
+	}
+}
+function alertSaveConvertedFail(request) {
+	alert("fail to saveConverted! responseText:\n" + request.responseText);
+}
+//-->
+</script>
+<script src="videorecycle_thumb.html.compress.js"></script>
+<script src="videorecycle_thumb.js"></script>
+</body>
+</html>

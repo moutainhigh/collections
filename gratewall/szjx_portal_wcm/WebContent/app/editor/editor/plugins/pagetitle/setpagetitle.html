@@ -1,0 +1,148 @@
+<HTML xmlns:TRS_UI>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<TITLE fcklang="TrsInsertSepTitleBtn">插入分页标题</TITLE>
+	<script language="javascript">
+		var oEditor = window.parent.InnerDialogLoaded() ;
+		var FCK = oEditor.FCK;
+		var myActualTop = (top.actualTop||top);
+		var refEles = [];
+		var titles = [];
+
+		function OnLoad(){
+			oEditor.FCKLanguageManager.TranslatePage( document);
+		}
+
+		function Ok(){
+		    var refEle ;
+			var arrInputs = document.getElementsByName("title");
+			if(!arrInputs) return false;
+			for(var i = arrInputs.length - 1; i >= 1 ; i--){
+				refEle = refEles.pop();
+				if(!refEle) continue;
+				refEle.setAttribute("pagetitle", arrInputs[i].value);
+				refEle.setAttribute("firstpagetitle", arrInputs[0].value);
+			}
+			return true;	
+		}
+	</script>
+	<style type="text/css">
+		body {
+			padding-top:0px;
+			background-color: #CCCCCC;
+		}
+		.input_btn{
+			width:60px;
+			margin-right:10px;
+		}
+		.row{
+			margin-top:5px;
+		}
+		.label{
+			width:50px;
+			text-align:right;
+			margin-left:5px;
+			margin-right:15px;
+		}
+		.value{
+			border:0px solid gray;
+		}
+		.input_text{
+			width:250px;
+		}
+		.center{
+			text-align:center;
+			color:red;
+			font-size:15px;
+			margin-left:100px;
+			margin-top :40px;
+		}
+	</style>
+</HEAD>
+<BODY onload="OnLoad();" style="margin:0;padding:0;">
+		<table height="100%" width="100%">
+			<tr>
+				<td align="left" valign="top">
+					<div style="position:relative;">
+						<div id="titles" style="position:absolute;"></div><!-- 添加"使结构完整 -->
+					</div>
+				</td>
+				<td width="10" align="center" valign="top">
+					<div style="width:2px;border-left:1px solid gray;background:white;overflow:hidden;height:360px;"></div></td>
+				<td width="90" valign="top">
+					<input id="btnOk" class="input_btn" onclick="window.parent.Ok();"
+						type="button" value="确定" fcklang="DlgBtnOK"/>
+					<div style="height:5px;overflow:hidden"></div>
+					<input name="button2" class="input_btn" type="button" value="取消" onclick="window.parent.Cancel();" fcklang="DlgBtnCancel"/>
+				</td>
+			</tr>
+		</table>
+		<div id="container_tmp" style="display:none">
+		</div>
+</BODY>
+<script>
+	var imgs = FCK.EditorDocument.getElementsByTagName("img");
+	for(var i = 0, j = 0 ; i < imgs.length; i++){
+		if(imgs[i].className == "FCK__PageBreak"){
+			 var oRealEle = FCK.GetRealElement(imgs[i]);
+			 refEles.push(oRealEle);
+			 j++;
+			 var pagetitle = oRealEle.getAttribute("pagetitle");
+			 titles[j] = ((!pagetitle) ? "" : pagetitle );
+			 if(j == 1){
+				var firstpagetitle = oRealEle.getAttribute("firstpagetitle");
+				titles[0] = ((!firstpagetitle) ? "" : firstpagetitle) ;
+			 }
+		}		
+	}
+
+	var divTitles = [];
+	for(var k = 0; k < titles.length; k++){
+		divTitles.push("<div class=\"row\">");
+		divTitles.push("<span class=\"label\">" + (oEditor.FCKLang.Per || "第") + (k+1) + (oEditor.FCKLang.Index || "页") + "：</span>");
+		//添加转义20111110
+		titles[k] = $transHtml(titles[k]);
+
+		divTitles.push("<span class=\"value\"><input class=\"input_text\" type='text' name=\"title\" value=\"" + titles[k] + "\"/></span>");
+		divTitles.push("</div>");
+	}
+
+	if(titles.length == 0){
+		divTitles.push("<div class=\"center\">");
+		divTitles.push("未设置分页！");
+		divTitles.push("</div>");
+	}
+	document.getElementById("titles").innerHTML = divTitles.join("");
+	
+function $transHtml(_sContent) {
+	if (_sContent == null)
+		return '';
+
+	var nLen = _sContent.length;
+	if (nLen == 0)
+		return '';
+
+	var result = '';
+	for (var i = 0; i < nLen; i++) {
+		var cTemp = _sContent.charAt(i);
+		switch (cTemp) {
+		case '<': //&lt;
+			result += '&lt;';
+			break;
+		case '>': //&gt;
+			result += '&gt;';
+			break;
+		case '"': //&quot;
+			result += '&quot;';
+			break;
+		case '\'':
+			result += "&apos;";
+		break;
+		default:
+			result += cTemp;
+		}// case
+	}// end for
+	return result;
+}
+</script>
+</HTML>

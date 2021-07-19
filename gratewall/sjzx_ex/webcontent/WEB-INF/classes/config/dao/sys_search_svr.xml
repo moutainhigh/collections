@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="sys_search_svr" class-name="cn.gwssi.search.dao.SysSearchSvr" check-flag="false" backup-flag="false">
+    <description>检索服务</description>
+  </table-info>
+
+  <column name="sys_search_svr_id" data-type="varchar" length="32" not-null="true" value-from="input" description="检索服务ID"/>
+  <column name="svr_name" data-type="varchar" length="200" not-null="false" value-from="input" description="服务名称"/>
+  <column name="svr_db" data-type="varchar" length="4000" not-null="false" value-from="input" description="检索数据库"/>
+  <column name="svr_query" data-type="varchar" length="4000" not-null="false" value-from="input" description="检索查询串"/>
+  <column name="svr_template" data-type="varchar" length="4000" not-null="false" value-from="input" description="检索服务模板"/>
+  <column name="columns" data-type="varchar" length="4000" not-null="false" value-from="input" description="字段列表"/>
+  <primary-key name="pk_sys_search_svr_id" column-list="sys_search_svr_id"/>
+  <index name="pk_sys_search_svr_id" index-type="unique" cluster="cluster" column-list="sys_search_svr_id"/>
+  <function func-name="select one sys_search_svr" func-type="select" column-list="sys_search_svr_id,svr_name,svr_db,svr_query,svr_template,columns">
+    <filter-column column-name="sys_search_svr_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_search_svr list" func-type="rowset" column-list="sys_search_svr_id,svr_name,svr_db,svr_query,svr_template,columns" max-record="10">
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_search_svr" func-type="insert" column-list="sys_search_svr_id,svr_name,svr_db,svr_query,svr_template,columns">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_search_svr" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_search_svr" func-type="update" column-list="svr_name,svr_db,svr_query,svr_template,columns">
+    <filter-column column-name="sys_search_svr_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

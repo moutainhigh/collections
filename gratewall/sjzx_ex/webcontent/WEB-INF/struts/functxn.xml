@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>功能交易信息</menu-name>
+  <menu-path>/page/sysmgr/priv/func/txn/</menu-path>
+  <description>功能交易信息</description>
+<form-beans>
+  <form-bean name="FunctxnRowsetForm">
+    <description>功能交易信息多记录查询表单</description>
+    <form-property prefix="select-key" name="funccode" type="string" size="36" description="功能代码"/>
+    <form-property prefix="record" name="funccode" type="string" size="36" description="功能代码"/>
+    <form-property prefix="record" name="txncode" type="string" size="15" description="交易代码"/>
+    <form-property prefix="record" name="txnname" type="string" size="64" cannull="false" description="交易名称"/>
+    <form-property prefix="record" name="status" type="string" size="1" cannull="false" description="状态"/>
+    <form-property prefix="record" name="memo" type="string" size="256" cannull="false" description="备注信息"/>
+  </form-bean>
+
+  <form-bean name="FunctxnUpdateForm">
+    <description>功能交易信息单记录处理：查询、修改、增加</description>
+    <form-property prefix="primary-key" name="funccode" type="string" size="36" description="功能代码"/>
+    <form-property prefix="primary-key" name="txncode" type="string" size="15" description="交易代码"/>
+    <form-property prefix="record" name="funccode" type="string" size="36" description="功能代码"/>
+    <form-property prefix="record" name="txncode" type="string" size="15" description="交易代码"/>
+    <form-property prefix="record" name="txnname" type="string" size="64" cannull="false" description="交易名称"/>
+    <form-property prefix="record" name="status" type="string" size="1" cannull="false" description="状态"/>
+    <form-property prefix="record" name="memo" type="string" size="256" cannull="false" description="备注信息"/>
+  </form-bean>
+
+  <form-bean name="FunctxnDeleteForm">
+    <description>功能交易信息多记录和单记录删除</description>
+    <form-property prefix="primary-key" name="funccode" type="string" size="36" description="功能代码"/>
+    <form-property prefix="primary-key" name="txncode" type="string" size="15" description="交易代码"/>
+  </form-bean>
+
+  <form-bean name="BatchFunctxnForm">
+    <description>批量功能交易信息维护表单</description>
+    <form-property prefix="select-key" name="file-name" type="string" size="36" description="配置文件名称"/>
+    <form-property prefix="select-key" name="funccode" type="string" size="36" description="功能代码"/>
+    <form-property prefix="record" name="txncode" type="string" size="15" description="交易代码"/>
+    <form-property prefix="record" name="txnname" type="string" size="64" cannull="false" description="交易名称"/>
+    <form-property prefix="record" name="memo" type="string" size="256" cannull="false" description="备注信息"/>
+    <form-property prefix="record" name="dw_sy" type="string" size="256" cannull="false" description="党务_私营"/>
+  </form-bean>
+  
+  <form-bean name="PartyFunctxnForm">
+    <description>黨建维护表单</description>
+    <form-property prefix="record" name="a0" type="string" size="36" description="统计截止日期"/>
+    <form-property prefix="record" name="a1" type="string" size="36" description="黨委-私營"/>
+    <form-property prefix="record" name="a2" type="string" size="36" description="黨總支-私營"/>
+    <form-property prefix="record" name="a3" type="string" size="15" description="黨支部-私營"/>
+    <form-property prefix="record" name="a4" type="string" size="64" cannull="false" description="组建方式-单独"/>
+    <form-property prefix="record" name="a5" type="string" size="256" cannull="false" description="组建方式-联合"/>
+    <form-property prefix="record" name="a6" type="string" size="256" cannull="false" description="组建方式-其他"/>
+    <form-property prefix="record" name="a7" type="string" size="256" cannull="false" description="本年党组织数"/>
+    <form-property prefix="record" name="a8" type="string" size="256" cannull="false" description="党员数"/>
+    <form-property prefix="record" name="a9" type="string" size="256" cannull="false" description="法人党员数"/>
+    <form-property prefix="record" name="a10" type="string" size="256" cannull="false" description="法人党组织书记数"/>
+    
+    <form-property prefix="record" name="b1" type="string" size="36" description="黨委-个体"/>
+    <form-property prefix="record" name="b2" type="string" size="36" description="黨總支-个体"/>
+    <form-property prefix="record" name="b3" type="string" size="15" description="黨支部-个体"/>
+    <form-property prefix="record" name="b4" type="string" size="64" cannull="false" description="组建方式-单独"/>
+    <form-property prefix="record" name="b5" type="string" size="256" cannull="false" description="组建方式-联合"/>
+    <form-property prefix="record" name="b6" type="string" size="256" cannull="false" description="组建方式-其他"/>
+    <form-property prefix="record" name="b7" type="string" size="256" cannull="false" description="本年党组织数"/>
+    <form-property prefix="record" name="b8" type="string" size="256" cannull="false" description="党员数"/>
+    <form-property prefix="record" name="b9" type="string" size="256" cannull="false" description="经营者党员数"/>
+    <form-property prefix="record" name="b10" type="string" size="256" cannull="false" description="组织书记人数"/>
+  </form-bean>
+</form-beans>
+<action-mappings>
+  <action input="query-functxn.jsp" name="FunctxnRowsetForm" txn-code="980311" check-type="check" container="default" re-entry="true" log-flag="true">
+    <description>查询功能交易列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980311" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="query-functxn.jsp"/>
+      <forward error-code="failure" path="query-functxn.jsp"/>
+  </action>
+
+  <!--action input="update-functxn.jsp" name="FunctxnUpdateForm" txn-code="980312"  container="default" log-flag="true">
+    <description>修改功能交易资料</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980312" input-node="record">
+      </step>
+      <forward error-code="success" path="update-functxn.jsp"/>
+      <forward error-code="failure" path="update-functxn.jsp"/>
+  </action!-->
+
+  <action input="insert-functxn.jsp" name="FunctxnUpdateForm" txn-code="980313" check-type="check" container="default" log-flag="true">
+    <description>增加功能交易资料</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980313" input-node="record">
+      </step>
+      <forward error-code="success" path="insert-functxn.jsp"/>
+      <forward error-code="failure" path="insert-functxn.jsp"/>
+  </action>
+
+  <!--action input="query-functxn.jsp" name="FunctxnUpdateForm" txn-code="980314"  container="default" re-entry="true" log-flag="true">
+    <description>查询功能交易用于修改</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980314" input-node="primary-key" output-node="record">
+      </step>
+      <forward error-code="success" path="update-functxn.jsp"/>
+      <forward error-code="failure" path="update-functxn.jsp"/>
+  </action!-->
+
+  <action input="query-functxn.jsp" name="FunctxnDeleteForm" txn-code="980315" check-type="check" container="default" log-flag="true">
+    <description>删除功能交易信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980315" input-node="primary-key">
+      </step>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+  </action>
+
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="980316" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>批量查询交易列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980316" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="batch-add-functxn.jsp"/>
+      <forward error-code="failure" path="batch-add-functxn.jsp"/>
+  </action>
+
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="980317" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>批量增加交易列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980317" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="batch-add-functxn.jsp"/>
+      <forward error-code="failure" path="batch-add-functxn.jsp"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41400001" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>统计报表权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="batch-add-functxn.jsp"/>
+      <forward error-code="failure" path="batch-add-functxn.jsp"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41301010" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>主体登记查询权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=QYGL&amp;type=query&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=QYGL&amp;type=query&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41301020" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>主体登记分析权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=QYGL&amp;type=analysis&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=QYGL&amp;type=analysis&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41305010" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>企业监管查询权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=QYJG&amp;type=query&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=QYJG&amp;type=query&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41305020" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>企业监管分析权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=QYJG&amp;type=analysis&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=QYJG&amp;type=analysis&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41306010" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>案件管理查询权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=AJGL&amp;type=query&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=AJGL&amp;type=query&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41306020" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>案件管理分析权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=AJGL&amp;type=analysis&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=AJGL&amp;type=analysis&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41307010" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>申诉举报查询权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=12315&amp;type=query&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=12315&amp;type=query&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41307020" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>申诉举报分析权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=12315&amp;type=analysis&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=12315&amp;type=analysis&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41308010" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>商品监管查询权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=SP&amp;type=query&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=SP&amp;type=query&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41308020" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>商品监管分析权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=SP&amp;type=analysis&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=SP&amp;type=analysis&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41309010" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>广告管理查询权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=GGGL&amp;type=query&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=GGGL&amp;type=query&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41309020" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>广告管理分析权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=GGGL&amp;type=analysis&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=GGGL&amp;type=analysis&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41302010" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>食品安全查询权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=SPAQ&amp;type=query&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=SPAQ&amp;type=query&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41302020" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>食品安全分析权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=SPAQ&amp;type=analysis&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=SPAQ&amp;type=analysis&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41310010" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>灵活报表权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=LHBB&amp;type=query&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=LHBB&amp;type=query&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41311010" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>食品许可查询权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=SPXK&amp;type=query&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=SPXK&amp;type=query&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41311020" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>食品许可分析权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=SPXK&amp;type=analysis&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=SPXK&amp;type=analysis&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41312010" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>个人报表权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=PRIVATE&amp;type=query&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=PRIVATE&amp;type=query&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="41313010" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>公共报表权限控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/link.action?method=PUBLIC&amp;type=query&amp;link=first"/>
+      <forward error-code="failure" path="/link.action?method=PUBLIC&amp;type=query&amp;link=first"/>
+  </action>
+  
+  <action input="batch-add-functxn.jsp" name="BatchFunctxnForm" txn-code="60700001" check-type="check" re-entry="true"  container="default" log-flag="true">
+    <description>全文检索控制交易</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFunctxn" func-name="txn980318" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="/page/search/search-pages/index.jsp"/>
+      <forward error-code="failure" path="/page/search/search-pages/index.jsp"/>
+  </action>
+</action-mappings>
+<jsp-pages>
+  <jsp-page name="query-functxn.jsp" txn-code="980311" width="350" height="250" description="查询功能交易列表">
+      <frame frame-name="select-key" frame-type="frame" caption="查询条件" width="95%">
+        <field field-name="funccode" field-type="hidden" caption="功能代码" property="style=width:90%,datatype=string,maxlength=6"/>
+      </frame>
+      <frame frame-name="record" frame-type="grid" caption="功能交易信息列表" keylist="record:funccode,record:txncode" width="95%" property="navbar=bottom,fixrow=true">
+        <button button-name="record_addRecord" function-name="addRecord" caption="增加功能交易" next-page="insert-functxn.jsp" hint="增加功能交易" txn-code="980313" property="enablerule=0,hotkey=ADD"/>
+        <button button-name="record_deleteRecord" function-name="deleteRecord" caption="删除功能交易" next-page="/txn980315.do" hint="删除功能交易" page-variable="primary-key:funccode,primary-key:txncode" value-list="record:funccode,record:txncode" txn-code="980315" property="enablerule=2,hotkey=DELETE"/>
+        <field field-name="funccode" field-type="cell" caption="功能代码" property="style=width:10%,datatype=string,maxlength=6,visible=false"/>
+        <field field-name="txncode" field-type="cell" caption="交易代码" property="style=width:10%,datatype=string,maxlength=6"/>
+        <field field-name="txnname" field-type="cell" caption="交易名称" property="style=width:40%,datatype=string,maxlength=64"/>
+        <field field-name="status" field-type="cell" caption="状态" value-set="启用标志" property="style=width:10%,datatype=string,maxlength=1,visible=false"/>
+        <field field-name="memo" field-type="cell" caption="备注信息" property="style=width:50%,datatype=string,maxlength=256"/>
+      </frame>
+  </jsp-page>
+
+  <jsp-page name="insert-functxn.jsp" txn-code="980313" width="350" height="250" description="增加功能交易信息">
+      <frame frame-name="record" frame-type="block" caption="增加功能交易信息" width="95%" property="columns=1,captionWidth=0.2">
+        <button button-name="record_saveRecord" function-name="saveRecord" caption="保 存" next-page="/txn980313.do" hint="保存功能交易信息" txn-code="980313" property="hotkey=SAVE"/>
+        <button button-name="record_saveAndContinue" function-name="saveAndContinue" caption="保存并继续" next-page="/txn980313.do" hint="保存功能交易信息并解析" txn-code="980313" property="hotkey=SAVE_CONTINUE"/>
+        <button button-name="record_saveAndExit" function-name="saveAndExit" caption="保存并关闭" next-page="/txn980313.do" hint="保存功能交易信息并返回" txn-code="980313" property="hotkey=SAVE_CLOSE"/>
+        <button button-name="record_goBack" function-name="goBack" caption="返 回" next-page="/txn980311.do" hint="返回到功能交易明细窗口" property="hotkey=CLOSE"/>
+        <field field-name="funccode" field-type="hidden" caption="功能代码" property="style=width:90%,datatype=string,maxlength=6,minlength=1"/>
+        <field field-name="txncode" field-type="text" caption="交易代码" property="style=width:40%,datatype=string,maxlength=6,minlength=1"/>
+        <field field-name="txnname" field-type="text" caption="交易名称" property="style=width:90%,datatype=string,maxlength=64"/>
+        <field field-name="status" field-type="hidden" caption="状态" property="style=width:40%,datatype=string,maxlength=1,value=1"/>
+        <field field-name="memo" field-type="text" caption="备注信息" property="style=width:90%,datatype=string,maxlength=256"/>
+      </frame>
+  </jsp-page>
+
+  <jsp-page name="update-functxn.jsp" txn-code="980312" width="350" height="250" description="修改功能交易信息">
+      <frame frame-name="primary-key" frame-type="frame" width="95%">
+        <field field-name="funccode" field-type="hidden" caption="功能代码" property="style=width:90%,datatype=string,maxlength=6"/>
+        <field field-name="txncode" field-type="hidden" caption="交易代码" property="style=width:90%,datatype=string,maxlength=6"/>
+      </frame>
+      <frame frame-name="record" frame-type="block" caption="修改功能交易信息" width="95%">
+        <button button-name="record_saveAndExit" function-name="saveAndExit" caption="保 存" next-page="/txn980312.do" hint="修改功能交易信息" txn-code="980312" property="hotkey=SAVE"/>
+        <button button-name="record_goBack" function-name="goBack" caption="返 回" next-page="/txn980311.do" hint="返回到明细窗口" property="hotkey=CLOSE"/>
+        <field field-name="funccode" field-type="hidden" caption="功能代码" property="style=width:90%,datatype=string,maxlength=6"/>
+        <field field-name="txncode" field-type="hidden" caption="交易代码" property="style=width:90%,datatype=string,maxlength=6"/>
+        <field field-name="txnname" field-type="text" caption="交易名称" property="style=width:90%,datatype=string,maxlength=64"/>
+        <field field-name="status" field-type="text" caption="状态" property="style=width:90%,datatype=string,maxlength=1"/>
+        <field field-name="memo" field-type="text" caption="备注信息" property="style=width:90%,datatype=string,maxlength=256"/>
+      </frame>
+  </jsp-page>
+
+</jsp-pages>
+</struts-config>

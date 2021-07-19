@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+ <HEAD>
+  <TITLE> New Document </TITLE>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <META NAME="Author" CONTENT="CH">
+  <META NAME="Keywords" CONTENT="">
+  <META NAME="Description" CONTENT="">
+
+<script src="../js/com.trs.util/Common.js"></script>
+<script>
+	$import('com.trs.dialog.Dialog');	
+</script>
+<script>
+	$import('com.trs.crashboard.CrashBoard');	
+</script>
+
+ </HEAD>
+
+ <BODY>
+  <SCRIPT LANGUAGE="JavaScript">
+  <!--
+	function selectImpartMode(){
+		var oSelectImpartModeDialog = TRSDialogContainer.register('DIALOG_SELECT_IMPART_MODE',
+			'选择权限传递模式', 'impart_mode_select.html', '320px', '200px');
+		oSelectImpartModeDialog.onFinished = function(_args){
+			alert(_args.ImpartMode);			
+		}
+
+		TRSDialogContainer.display('DIALOG_SELECT_IMPART_MODE');	
+	}
+  //-->
+  </SCRIPT>
+
+  <A href="####" onclick="selectImpartMode();return false;">打开</a>
+ </BODY>
+</HTML>

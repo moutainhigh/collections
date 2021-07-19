@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="ad_mon_paper.xml" app-path="/dw/aic/bj/ad/wfgg/" app-name="ad_mon_paper" description="平面广告登记信息" template="single-table.xml"/>
+  <table name="ad_mon_paper.xml" app-name="ad_mon_paper" app-desc="平面广告登记信息" delete-action="delete" description="平面广告登记信息" class-name="com.gwssi.dw.aic.bj.ad.txn.TxnAdMonPaper" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-ad_mon_paper.jsp" txn-code="60182001" description="查询平面广告登记信息列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加平面广告登记信息" path="insert-ad_mon_paper.jsp" description="增加平面广告登记信息" func-name="addRecord"/>
+	    <button type="button" name="修改平面广告登记信息" path="/txn60182004.do" description="修改平面广告登记信息" func-name="updateRecord"/>
+	    <button type="button" name="删除平面广告登记信息" path="/txn60182005.do" description="删除平面广告登记信息" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60182001.do" description="查询平面广告登记信息信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-ad_mon_paper.jsp" txn-code="60182003" description="增加平面广告登记信息信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60182003.do" description="保存平面广告登记信息信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60182003.do" description="保存平面广告登记信息信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60182001.do" description="保存平面广告登记信息信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60182001.do" description="返回到平面广告登记信息明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-ad_mon_paper.jsp" txn-code="60182002" description="修改平面广告登记信息信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60182001.do" description="修改平面广告登记信息信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60182001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-ad_mon_paper.jsp" txn-code="60182001" description="查询平面广告登记信息列表">
+	    <forward error-code="success" path="query-ad_mon_paper.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-ad_mon_paper.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-ad_mon_paper.jsp" txn-code="60182002" description="修改平面广告登记信息信息">
+	    <forward error-code="success" path="update-ad_mon_paper.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-ad_mon_paper.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-ad_mon_paper.jsp" txn-code="60182003" description="增加平面广告登记信息信息">
+	    <forward error-code="success" path="insert-ad_mon_paper.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-ad_mon_paper.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-ad_mon_paper.jsp" txn-code="60182004" description="查询平面广告登记信息用于修改">
+	    <forward error-code="success" path="update-ad_mon_paper.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-ad_mon_paper.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-ad_mon_paper.jsp" txn-code="60182005" description="删除平面广告登记信息信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.vo.AdMonPaperContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.vo.VoAdMonPaper" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.vo.VoAdMonPaperSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.vo.VoAdMonPaperPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

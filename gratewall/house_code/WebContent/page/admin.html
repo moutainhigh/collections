@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>房屋编码查询</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no" />
+<link rel="shortcut icon" href="../static/images/house_home_1.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="../static/bt/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
+<link rel="stylesheet" type="text/css" href="../static/css/TzAdmin.css">
+<link rel="stylesheet" type="text/css" href="../static/css/TzMobile.css">
+<script src="../static/bt/js/jquery.min.js"></script>
+<script src="../static/bt/js/bootstrap.min.js"></script>
+<script src="../static/bt/js/bootstrap-paginator.js"></script>
+<script src="../static/js/queryList.js"></script>
+<script src="../static/js/queryHouseList.js"></script>
+<script src="../static/js/StringUtil.js"></script>
+<style>
+
+
+/*细节样式修正*/
+.logs {
+	display: table;
+	margin: 40px auto;
+}
+
+</style>
+</head>
+<body>
+	<div class="topdiv">
+		<a style="float: left;margin-left: 21%" class="topLink" style="margin-left: 21%" href="http://www.szscjg.gov.cn/"> <img src="../static/images/logo.png">
+		</a>
+		<h2 style="float: left;color: #fff;">深圳市市场和质量监督管理委员会</h2>
+		<div style="clear:both;"></div>
+	</div>
+
+
+	<div class="container" id="queryPanel">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div class="row clearfix">
+					<div class="tabbable" id="tabs-240900">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#panel-62892" data-toggle="tab">房屋编码查询</a></li>
+							<!-- <li>
+											<a href="#panel-565845" data-toggle="tab">反馈进度查询</a>
+										</li> -->
+						</ul>
+						<div class="tab-content">
+							<div class="tab-pane active" id="panel-62892">
+								<div class="container-fluid">
+									<div class="row clearfix">
+										<div class="col-md-6 column">
+											<form class="form-horizontal" role="form">
+												<div class="form-group">
+													<label class="col-sm-2 control-label"> 区：</label>
+													<div class="col-sm-10">
+														<select tabindex="1" id="qu" name="usertype" class="selectpicker show-tick form-control" data-live-search="false">
+															<option value="0" selected="selected">请选择</option>
+														</select>
+													</div>
+												</div>
+											</form>
+
+											<form class="form-horizontal" role="form">
+												<div class="form-group">
+													<label for="sheQu" class="col-sm-2 control-label">社区：</label>
+													<div class="col-sm-10">
+														<input type="text" tabindex="3" class="form-control" id="sheQu" placeholder="请输入社区名称，例如景龙社区，东方社区" />
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="jianZhuWu" class="col-sm-2 control-label" style="line-height:100%;">建筑物（小区）:</label>
+													<div class="col-sm-10">
+														<input type="text" tabindex="5" class="form-control" id="jianZhuWu" placeholder="请输入小区或建筑物名称，例如深康村，裕华园" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="louCeng" class="col-sm-2 control-label">楼层:</label>
+													<div class="col-sm-10">
+														<input type="text" tabindex="5" class="form-control" id="louCeng" placeholder="请输入楼层，例如6，8" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="FangWuBianMa" class="col-sm-2 control-label">房屋编码:</label>
+													<div class="col-sm-10">
+														<input type="text" tabindex="5" class="form-control" id="FangWuBianMa" placeholder="请输入房屋编号……" />
+													</div>
+												</div>
+											</form>
+										</div>
+										<div class="col-md-6 column">
+											<form class="form-horizontal" role="form">
+												<div class="form-group">
+													<label class="col-sm-2 control-label">街道：</label>
+													<div class="col-sm-10">
+														<select id="jieDao" tabindex="2" name="usertype" class="selectpicker show-tick form-control" data-live-search="false" disabled="disabled">
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="lu" class="col-sm-2 control-label">路：</label>
+													<div class="col-sm-10">
+														<input type="text" tabindex="4" class="form-control" id="lu" placeholder="请输入路，例如中环路，富安街" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="louDong" class="col-sm-2 control-label">楼栋：</label>
+													<div class="col-sm-10">
+														<input type="text" tabindex="4" class="form-control" id="louDong" placeholder="请输入楼栋,例如16号，3栋" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="fangHao" class="col-sm-2 control-label">房号：</label>
+													<div class="col-sm-10">
+														<input type="text" tabindex="4" class="form-control" id="fangHao" placeholder="请输入房号，例如：808,606" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="FangWuDiZhi" class="col-sm-2 control-label" style="line-height:100%;">房屋地址：</label>
+													<div class="col-sm-10">
+														<input type="text" tabindex="4" class="form-control" id="FangWuDiZhi" placeholder="请输入地址，例如9号，6F，306" />
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div style="display: table; margin: 0 auto;">
+								<button type="button" class="btn btn-default btn-primary active" onclick="query(this)">查询</button>
+								<button type="button" style="margin-left: 5px;" class="btn btn-default" id="reset">清空</button>
+							</div>
+
+							<!-- 表格开始 -->
+							<div class="wraper">
+								<table class="table condensed" id="list">
+									<thead>
+										<tr>
+											<th>序号</th>
+											<th>区</th>
+											<th>街道</th>
+											<th>社区</th>
+											<th>路</th>
+											<th>小区</th>
+											<th>楼栋</th>
+											<th>楼层</th>
+											<!-- <th>房号</th> -->
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+								<!-- 表格结束-->
+							</div>
+							<div style="text-align: right;">
+								<ul id="example"></ul>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="showDetail"></div>
+	<div id="feedback"></div>
+
+
+	<script>
+		function loadingQu() {
+			$.ajax({
+				url : "",
+				datType : "json",
+				success : function(data) {
+					$("#qu").append(
+							"<option value='南山区'>南山区</option>\n" + "<option value='盐田区'>盐田区</option>\n" + "<option value='龙华区'>龙华区</option>\n"
+									+ "<option value='福田区'>福田区</option>\n" + "<option value='光明新区'>光明新区</option>\n" + "<option value='龙岗区'>龙岗区</option>\n"
+									+ "<option value='宝安区'>宝安区</option>\n" + "<option value='市直属'>市直属</option>\n" + "<option value='大鹏新区'>大鹏新区</option>\n"
+									+ "<option value='罗湖区'>罗湖区</option>\n" + "<option value='坪山区'>坪山区</option>");
+					$('#qu').change(function() {
+						var qu = $("#qu").val();
+						qu = encodeURI(qu);
+						if (qu == 0) {
+							$("#jieDao").empty();
+							$("#jieDao").attr("disabled", "disabled");
+						} else {
+							$("#jieDao").removeAttr("disabled");
+							$("#jieDao").empty();
+							$.ajax({
+								url : "../houseCode/getStrCode.do",
+								datType : "json",
+								data : {
+									regioncode : qu
+								},
+								success : function(data) {
+									var dataStr = eval("(" + data + ")");
+									var data = dataStr.data[0].data;
+									for (var i = 0; i < data.length; i++) {
+										$("#jieDao").append("<option value="+data[i].value+">" + data[i].text + "</option>");
+									}
+								},
+								error : function() {
+
+								}
+							});
+						}
+
+					})
+				},
+				error : function() {
+
+				}
+			});
+		}
+
+		$(window).load(function() {
+			loadingQu();
+		});
+
+		function query(obj) {
+			var _this = $(obj);
+			_this.removeAttr("onclick");
+			_this.html("查询中...");
+			var qu = $("#qu").val();
+			qu = encodeURI(qu);
+			if (isEmpty(qu) || qu == 0) {
+				$("#qu").focus();
+				_this.html("查询");
+				_this.attr("onclick", "query(this)");
+				alert("至少要选择到街道！");
+				return;
+			}
+			var jieDao = $("#jieDao").val();
+			jieDao = encodeURI(jieDao);
+			if (isEmpty(jieDao) || jieDao == 'undefined' || jieDao == 'undefined' || jieDao == 'null' || jieDao == null) {
+				$("#jieDao").focus();
+				_this.html("查询");
+				_this.attr("onclick", "query(this)");
+				alert("至少要选择到街道！");
+				return;
+			}
+			var sheQu = $("#sheQu").val();
+			sheQu = encodeURI(sheQu);
+			/* if (isEmpty(louDongMingCheng)) {
+				$("#louDongMingCheng").focus();
+				//return;
+			}
+			 */
+			var lu = $("#lu").val();
+			lu = encodeURI(lu);
+			/* if (isEmpty(louDongDiZhi)) {
+				$("#louDongDiZhi").focus();
+				//return;
+			}
+			 */
+			var jianZhuWu = $("#jianZhuWu").val();
+			jianZhuWu = encodeURI(jianZhuWu);
+			/* if (isEmpty(louDongDiZhi)) {
+				$("#louDongBianMa").focus();
+				//return;
+			} */
+			var louDong = $("#louDong").val();
+			louDong = encodeURI(louDong);
+			var louCeng = $("#louCeng").val();
+			louCeng = encodeURI(louCeng);
+			var fangHao = $("#fangHao").val();
+			fangHao = encodeURI(fangHao);
+			var FangWuBianMa = $("#FangWuBianMa").val();
+			FangWuBianMa = encodeURI(FangWuBianMa);
+			var FangWuDiZhi = $("#FangWuDiZhi").val();
+			FangWuDiZhi = encodeURI(FangWuDiZhi);
+			var dataFrom = {
+				qu : qu,
+				jieDao : jieDao,
+				sheQu : sheQu,
+				lu : lu,
+				jianZhuWu : jianZhuWu,
+				louDong : louDong,
+				louCeng : louCeng,
+				fangHao : fangHao,
+				FangWuBianMa : FangWuBianMa,
+				FangWuDiZhi : FangWuDiZhi
+			}
+			$("#example").empty();
+			initTable(_this, dataFrom);
+			_this.attr("onclick", "query(this)");
+		}
+
+		function queryhouse(obj) {
+			var _this = $(obj);
+			_this.removeAttr("onclick");
+			$("#example2").empty();
+			var louDong = _this.parents(".modal").data("code");
+			var floor = _this.parents(".modal").data("floor");
+			var houseNum = $("#inputEmail13").val();
+			var houseAdd = $("#inputEmail14").val();
+			houseAdd = encodeURI(houseAdd);
+			houseNum = encodeURI(houseNum);
+			louDong = encodeURI(louDong);
+			floor = encodeURI(floor);
+			_this.html("查询中...");
+			$.ajax({
+				url : "../houseCode/getHouseInfoByForm.do",
+				data : {
+					houseNum : houseNum,
+					houseAdd : houseAdd,
+					buildingNum : louDong,
+					floor : floor
+				},
+				type : "post",
+				dataType : "json",
+				success : function(data) {
+					_this.html("查询");
+					var data = data.data[0].data.rows;
+					if (data.length == 0) {
+						if (confirm("没有找到对应的房屋信息，需要进行反馈吗？")) {
+							showFeedBack();
+							$("#feedback").show();
+						} else {
+							_this.html("查询");
+							_this.attr("onclick", "queryhouse(this)");
+							return;
+						}
+					} else {
+						$("#list2 tbody").empty();
+						var _html = "";
+						for (var i = 0; i < data.length; i++) {
+							if (i % 2 == 0) {
+								_html += "<tr class='active'>";
+								_html += "<td>" + data[i].rownum + "</td>";
+								_html += "<td>" + data[i].houseId + "</td>";
+								_html += "<td>" + data[i].houseAdd + "</td>";
+								_html += "</tr>";
+							} else {
+								_html += "<tr class='success'>";
+								_html += "<td>" + data[i].rownum + "</td>";
+								_html += "<td>" + data[i].houseId + "</td>";
+								_html += "<td>" + data[i].houseAdd + "</td>";
+								_html += "</tr>";
+							}
+
+						}
+						_this.attr("onclick", "queryhouse(this)");
+						$("#list2 tbody").append(_html);
+					}
+				},
+				error : function(data) {
+					alert(data)
+				}
+			});
+		}
+		function showDetail(obj) {
+			var _this = $(obj);
+			var louDong = _this.data("code");
+			$("#queryPanel").hide();
+			var floor = _this.data("floor");
+			_this.html("查询中，请稍后...");
+			$("#showDetail").empty();
+			$("#showDetail").append("<div class='panel panel-default'>"+
+					"		<div class='panel-body'>房屋信息<div style='text-align:right' class='close'>X</div></div>"+
+					"		<div class='panel-footer'>"+
+					"			<div class='col-md-6 column'>"+
+					"				<form class='form-horizontal' role='form'>"+
+					"					<div class='form-group'>"+
+					"						<label for='inputEmail3' class='col-sm-3 control-label'>房屋编码</label>"+
+					"						<div class='col-sm-9'>"+
+					"							<input type='text' class='form-control' id='inputEmail13'>"+
+					"						</div>"+
+					"					</div>"+
+					"				</form>"+
+					"			</div>"+
+					"			<div class='col-md-6 column'>"+
+					"				<form class='form-horizontal' role='form'>"+
+					"					<div class='form-group'>"+
+					"						<label for='inputEmail3' class='col-sm-3 control-label'>房屋地址</label>"+
+					"						<div class='col-sm-9'>"+
+					"							<input type='text' class='form-control' id='inputEmail14'>"+
+					"						</div>"+
+					"					</div>"+
+					"				</form>"+
+					"			</div>"+
+					"			<div style='display: table;margin: 0 auto;'>"+
+					"				<button type='button' class='btn btn-default btn-primary active' onclick='queryhouse(this)'>查询</button>"+
+					"				<button type='button' style='margin-left: 5px;' class='btn btn-default' id='reset2'>清空</button>"+
+					"			</div>"+
+					"			<div id='list21' class='wraper'>"+
+					"				<!-- 表格开始 -->"+
+					"				<table class='table' id='list2'>"+
+					"					<thead>"+
+					"						<tr>"+
+					"							<th>序号</th>"+
+					"							<th>房屋编码</th>"+
+					"							<th>房屋地址</th>"+
+					"						</tr>"+
+					"					</thead>"+
+					"					<tbody></tbody>"+
+					"				</table>"+
+					"				<!-- 表格结束-->"+
+					"				<div>"+
+					"					<div style='float:left;margin-left:5rem'>"+
+					"						<a href='javascript:showFeedBack();' class='btn btn-default btn-primary active'>反馈救济</a>"+
+					"					</div>"+
+					"					<div style='float:right'>"+
+					"						<ul id='example2'>"+
+					"						</ul>"+
+					"					</div>"+
+					"					<div style='clear:both'></div>"+
+					"				</div>"+
+					"			</div>"+
+					"		</div>"+
+					"	</div>");
+			
+			$(".close").on("click",function(){
+				$("#showDetail").empty();
+				$("#queryPanel").show();
+			})
+
+			$("#reset2").on("click", function() {
+				$(this).parents(".panel-footer").find("input").val("");
+			});
+			
+			_this.html("查询");
+			var codeId = _this.data("code");
+			initHouseTable(_this, codeId, floor);
+			var codeId = _this.data("code");
+		}
+
+		function showFeedBack() {
+			$("#queryPanel").hide();
+			$("#showDetail").hide();
+			$("#feedback").empty();
+			$('#feedback')
+					.append(
+							"<div class='panel panel-default'>"
+									+ "		<div class='panel-body'><div style='text-align:right' class='close'>X</div></div>"
+									+ "		<div class='panel-footer'>"
+									+ "			<form class='form-horizontal' role='form'>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='fangWuBianMa' class='col-sm-3 control-label'>房屋编码</label>"
+									+ "					<div class='col-sm-8'>"
+									+ "						<input type='text' class='form-control' id='fangWuBianMa' disabled=''>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='qiYeMingCheng' class='col-sm-3 control-label'>企登业务编号</label>"
+									+ "					<div class='col-sm-8'>"
+									+ "						<input type='text' class='form-control' id='qiDengYeWuBianHao'>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='qiYeMingCheng' class='col-sm-3 control-label'>企业名称</label>"
+									+ "					<div class='col-sm-8'>"
+									+ "						<input type='text' class='form-control' id='qiYeMingCheng'>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='zhuSuo' class='col-sm-3 control-label'>房屋地址</label>"
+									+ "					<div class='col-sm-8'>"
+									+ "						<input type='text' class='form-control' id='fangWuDiZhi'>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='jingBanRen' class='col-sm-3 control-label'>经办人</label>"
+									+ "					<div class='col-sm-8'>"
+									+ "						<input type='text' class='form-control' id='jingBanRen'>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='jingBanRen' class='col-sm-3 control-label'>房屋地址位置描述</label>"
+									+ "					<div class='col-sm-8'>"
+									+ "						<textarea class='form-control' rows='3' id='fangWuDiZhiMiaoShu'></textarea>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='jingBanRen' class='col-sm-3 control-label'>反馈原因</label>"
+									+ "					<div class='col-sm-8'>"
+									+ "						<textarea class='form-control' rows='3' id='fanKuiYuanYin'></textarea>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='jingBanRenShouJi' class='col-sm-3 control-label'>经办人手机号</label>"
+									+ "					<div class='col-sm-6'>"
+									+ "						<div class='fl'>"
+									+ "							<input type='text' class='form-control' id='jingBanRenShouJi'>"
+									+ "						</div>"
+									+ "						<div class='pos fl'>"
+									+ "							<input type='text' class='form-control' id='yanZhenMa'> <a id='getCode' class='btn btn-primary' onclick='getPhoneCode(this)'>获取验证码</a>"
+									+ "						</div>"
+									+ "						<div style='clear:both'></div>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "		</div>"
+									+ "		</form>"
+									+ "		<div style='display:table;margin:0 auto;'>"
+									+ "			<a class='btn btn-primary' onclick='subInfo(this)'>提交反馈</a> <a class='btn btn-primary' style='margin-left: 14px;' onclick='subInfo(this)'>查询反馈结果</a>"
+									+ "		</div>" + "	</div>");
+			
+			
+			
+				$(".close").on("click",function(){
+					//$("#showDetail").empty();
+					$("#showDetail").show();
+					$("#feedback").hide();
+				})
+
+		}
+
+		//提交反馈信息
+		function subInfo() {
+			var _this = $(this);
+			var qiYeMingCheng = $("#qiYeMingCheng").val();
+			var fangWuBianMa = $("#fangWuBianMa").val();
+			var zhuSuo = $("#zhuSuo").val();
+			var jingBanRenShouJi = $("#jingBanRenShouJi").val();
+			var jingBanRen = $("#jingBanRen").val();
+			var wenTiMiaoShu = $("#wenTiMiaoShu").val();
+			var flag = false;
+
+			if (isEmpty(qiYeMingCheng)) {
+				alert("企业名称不能为空");
+				$("#qiYeMingCheng").focus();
+				return;
+			}
+			if (isEmpty(fangWuBianMa)) {
+				alert("房屋编码不能为空");
+				$("#fangWuBianMa").focus();
+				return;
+			}
+
+			if (isEmpty(zhuSuo)) {
+				alert("住所不能为空");
+				$("#zhuSuo").focus();
+				return;
+			}
+
+			if (isEmpty(jingBanRenShouJi)) {
+				alert("经办人手机号能为空");
+				$("#jingBanRenShouJi").focus();
+				return;
+			}
+			if (isEmpty(jingBanRen)) {
+				alert("经办人不能为空");
+				$("#jingBanRen").focus();
+				return;
+			}
+			if (isEmpty(wenTiMiaoShu)) {
+				alert("问题描述不能为空");
+				$("#wenTiMiaoShu").focus();
+				return;
+			}
+
+			var reg = /^1[0-9]{10}$/;
+			flag = reg.test(jingBanRenShouJi)
+			if (!flag) {
+				alert("输入的手机号不合法，请重新输入");
+				$("#jingBanRenShouJi").focus();
+				$("#jingBanRenShouJi").select();
+				return;
+			}
+
+			$.ajax({
+				url : "../feedbackController/feedbackInfo.do",
+				type : "post",
+				data : {
+					qiYeMingCheng : qiYeMingCheng,
+					fangWuBianMa : fangWuBianMa,
+					zhuSuo : zhuSuo,
+					jingBanRenShouJi : jingBanRenShouJi,
+					jingBanRen : jingBanRen,
+					wenTiMiaoShu : wenTiMiaoShu
+				},
+				beforeSend : function() {
+
+				},
+				success : function(data) {
+
+					data = eval("(" + data + ")");
+					data = data.data[0].data;
+					if (data == '003') {
+						alert("企业名称有误或者不存在，请重新核实");
+						return;
+					} else if (data == '002') {
+						alert("反馈问题成功");
+						$('#myModal1').modal('hide');
+						return;
+					} else if (data == '001') {
+						alert("该问题已经反馈过");
+						return;
+					}
+				},
+				error : function(data) {
+
+				}
+
+			});
+
+		}
+
+		//重置
+		$(function() {
+			$("#qu").focus();
+
+			$("#reset").on("click", function() {
+				$(this).parents(".tab-content").find("input").val("");
+			});
+
+		})
+		
+		
+	</script>
+</body>
+</html>

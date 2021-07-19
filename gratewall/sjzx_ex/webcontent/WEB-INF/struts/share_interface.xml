@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>共享服务-接口管理</menu-name>
+  <menu-path>/page/share/interfaces/</menu-path>
+  <description>共享服务-接口管理</description>
+  <form-beans>
+    <form-bean name="ShareInterfaceRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="interface_name" type="string" size="100" description="接口名称"/>
+      <form-property prefix="select-key" name="interface_state" type="string" size="20" description="接口状态"/>
+	  <form-property prefix="select-key" name="interface_id" type="string" size="20" description="接口ID"/>
+	  <form-property prefix="select-key" name="created_time" type="string" size="11" description="创建时间"/>
+      <form-property prefix="record" name="interface_id" type="string" size="32" cannull="false" description="接口ID"/>
+      <form-property prefix="record" name="interface_name" type="string" size="100" cannull="true" description="接口名称"/>
+      <form-property prefix="record" name="table_id" type="string" size="2000" cannull="true" description="表代码串"/>
+      <form-property prefix="record" name="table_name_cn" type="string" size="2000" cannull="true" description="表中文名串"/>
+      <form-property prefix="record" name="sql" type="string" size="4000" cannull="true" description="sql语句"/>
+      <form-property prefix="record" name="interface_description" type="string" size="2000" cannull="true" description="接口描述"/>
+      <form-property prefix="record" name="interface_state" type="string" size="20" cannull="true" description="接口状态"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="代码表"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人ID"/>
+      <form-property prefix="record" name="yhxm" type="string" size="32" cannull="true" description="创建人"/>
+      <form-property prefix="record" name="created_time" type="string" size="11" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="11" cannull="true" description="最后修改时间"/>
+	  <form-property prefix="record" name="interfaceusednum" type="string" size="11" cannull="true" description="接口调用数量"/>
+	  
+      <form-property name="dataString" type="string"  description="ajax返回select里json数据"/>
+      <form-property name="key" type="string"  description="select选择的key"/>
+    </form-bean>
+
+    <form-bean name="ShareInterfaceUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="interface_id" type="string" size="32" cannull="false" description="接口ID"/>
+      <form-property prefix="primary-key" name="being_used" type="string" size="32" cannull="false" description="接口是否使用"/>
+      <form-property prefix="primary-key" name="interface_state" type="string" size="20" cannull="false" description="接口状态"/>
+      <form-property prefix="record" name="interface_id" type="string" size="32" cannull="false" description="接口ID"/>
+      <form-property prefix="record" name="interface_name" type="string" size="100" cannull="true" description="接口名称"/>
+      <form-property prefix="record" name="table_id" type="string" size="2000" cannull="true" description="表代码串"/>
+      <form-property prefix="record" name="table_name_cn" type="string" size="2000" cannull="true" description="表中文名串"/>
+      <form-property prefix="record" name="sql" type="string" size="4000" cannull="true" description="sql语句"/>
+      <form-property prefix="record" name="condition" type="string" size="4000" cannull="true" description="关联条件"/>
+      <form-property prefix="record" name="param" type="string" size="4000" cannull="true" description="关联条件"/>
+      <form-property prefix="record" name="interface_description" type="string" size="2000" cannull="true" description="接口描述"/>
+      <form-property prefix="record" name="interface_state" type="string" size="20" cannull="true" description="接口状态"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="代码表"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人ID"/>
+      <form-property prefix="record" name="created_time" type="string" size="11" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="11" cannull="true" description="最后修改时间"/>
+    </form-bean>
+
+    <form-bean name="ShareInterfaceDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="interface_id" type="string" size="32" cannull="false" description="接口ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+   <action input="list-share_interface.jsp" name="ShareInterfaceRowsetForm" txn-code="40109001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询接口</description>
+      <step index="10" bean-name="com.gwssi.share.interfaces.txn.TxnShareInterface" func-name="txn40100015" input-node="select-key" output-node="record" description="查询共享服务基础接口配置列表"/>
+      <forward error-code="success" path="query-share_interface.jsp"/>
+      <forward error-code="failure" path="query-share_interface.jsp"/>
+    </action>
+    <action input="list-share_interface.jsp" name="ShareInterfaceRowsetForm" txn-code="40109002" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询接口列表</description>
+      <step index="10" bean-name="com.gwssi.share.interfaces.txn.TxnShareInterface" func-name="txn401001" input-node="select-key" output-node="record" description="查询共享服务基础接口配置列表"/>
+      <forward error-code="success" path="query-share_interface.jsp"/>
+      <forward error-code="failure" path="query-share_interface.jsp"/>
+    </action>
+     <action input="query-share_interface.jsp" name="ShareInterfaceRowsetForm" txn-code="401001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询接口列表</description>
+      <step index="10" bean-name="com.gwssi.share.interfaces.txn.TxnShareInterface" func-name="txn401001" input-node="select-key" output-node="record" description="查询共享服务基础接口配置列表"/>
+      <forward error-code="success" path="query-share_interface.jsp"/>
+      <forward error-code="failure" path="query-share_interface.jsp"/>
+    </action>
+    
+    <action input="update-share_interface.jsp" name="ShareInterfaceUpdateForm" txn-code="401002" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改共享接口</description>
+      <step index="10" bean-name="com.gwssi.share.interfaces.txn.TxnShareInterface" func-name="txn401002" input-node="record" description="修改共享服务基础接口配置信息"/>
+      <forward error-code="success" path="update-share_interface.jsp"/>
+      <forward error-code="failure" path="update-share_interface.jsp"/>
+    </action>
+
+    <action input="insert-share_interface.jsp" name="ShareInterfaceUpdateForm" txn-code="401003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加共享接口</description>
+      <step index="10" bean-name="com.gwssi.share.interfaces.txn.TxnShareInterface" func-name="txn401003" input-node="record" description="增加共享服务基础接口配置信息"/>
+      <forward error-code="success" path="/script/insertsuccess.jsp?nextPage=txn40109002.do" redirect="true"/>
+      <forward error-code="failure" path="insert-share_interface.jsp"/>
+    </action>
+
+    <action input="query-share_interface.jsp" name="ShareInterfaceUpdateForm" txn-code="401004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>去修改共享接口</description>
+      <step index="10" bean-name="com.gwssi.share.interfaces.txn.TxnShareInterface" func-name="txn401004" input-node="primary-key" output-node="record" description="查询共享服务基础接口配置用于修改"/>
+      <forward error-code="success" path="update-share_interface.jsp"/>
+      <forward error-code="failure" path="update-share_interface.jsp"/>
+    </action>
+
+    <action input="query-share_interface.jsp" name="ShareInterfaceDeleteForm" txn-code="401005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除共享接口</description>
+      <step index="10" bean-name="com.gwssi.share.interfaces.txn.TxnShareInterface" func-name="txn401005" input-node="primary-key" description="删除共享服务基础接口配置信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+    <action input="query-share_interface.jsp" name="ShareInterfaceUpdateForm" txn-code="401010" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查看共享接口配置</description>
+      <step index="10" bean-name="com.gwssi.share.interfaces.txn.TxnShareInterface" func-name="txn401004" input-node="primary-key" output-node="record" description="查询共享服务基础接口配置用于修改"/>
+      <forward error-code="success" path="view-share_interface.jsp"/>
+      <forward error-code="failure" path="view-share_interface.jsp"/>
+    </action>
+    
+    <action input="query-share_interface.jsp" name="ShareInterfaceRowsetForm" txn-code="401006" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询共享主题列表</description>
+      <step index="10" bean-name="com.gwssi.share.interfaces.txn.TxnShareInterface" func-name="txn401006" input-node="select-key" output-node="record" description="查询共享主题列表"/>
+      <forward error-code="success" path="../../homepage/home/front.jsp"/>
+      <forward error-code="failure" path="../../homepage/home/front.jsp"/>
+    </action>
+    
+    <action input="query-share_interface.jsp" name="ShareInterfaceRowsetForm" txn-code="401007" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>根据业务系统ID获取本业务系统下的所有主题</description>
+      <step index="10" bean-name="com.gwssi.share.interfaces.txn.TxnShareInterface" func-name="txn401007" input-node="select-key" output-node="record" description="根据业务系统ID获取本业务系统下的所有主题"/>
+      <forward error-code="success" path="../../homepage/home/front.jsp"/>
+      <forward error-code="failure" path="../../homepage/home/front.jsp"/>
+    </action>
+    
+    <action input="query-share_interface.jsp" name="ShareInterfaceRowsetForm" txn-code="401008" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>根据业务主题ID获取本业务主题下的所有表</description>
+      <step index="10" bean-name="com.gwssi.share.interfaces.txn.TxnShareInterface" func-name="txn401008" input-node="select-key" output-node="record" description="根据业务主题ID获取本业务主题下的所有表"/>
+      <forward error-code="success" path="../../homepage/home/front.jsp"/>
+      <forward error-code="failure" path="../../homepage/home/front.jsp"/>
+    </action>
+    
+    <action input="query-share_interface.jsp" name="ShareInterfaceRowsetForm" txn-code="401009" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>根据表ID获取本表下的所有共享数据项</description>
+      <step index="10" bean-name="com.gwssi.share.interfaces.txn.TxnShareInterface" func-name="txn401009" input-node="select-key" output-node="record" description="根据表ID获取本表下的所有共享数据项 "/>
+      <forward error-code="success" path="../../homepage/home/front.jsp"/>
+      <forward error-code="failure" path="../../homepage/home/front.jsp"/>
+    </action>
+    
+	<action input="query-share_interface.jsp" name="ShareInterfaceDeleteForm" txn-code="401011" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除共享接口</description>
+      <step index="10" bean-name="com.gwssi.share.interfaces.txn.TxnShareInterface" func-name="txn401011" input-node="record" description="逻辑删除"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletesuccess.jsp"/>
+    </action>
+	
+	<action input="query-share_interface.jsp" name="ShareInterfaceRowsetForm" txn-code="401012" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询此接口是否被服务调用</description>
+      <step index="10" bean-name="com.gwssi.share.interfaces.txn.TxnShareInterface" func-name="txn401012" input-node="select-key" output-node="record" description="查询此接口是否被服务调用"/>
+      <forward error-code="success" path="query-share_interface.jsp"/>
+      <forward error-code="failure" path="query-share_interface.jsp"/>
+    </action>
+	
+	<action input="query-share_interface.jsp" name="ShareInterfaceUpdateForm" txn-code="401013" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>接口(启用/停用)</description>
+      <step index="10" bean-name="com.gwssi.share.interfaces.txn.TxnShareInterface" func-name="txn401013" input-node="primary-key" description="修改启用/停用状态"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-share_interface.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/share/interfaces/query-share_interface.jsp" description="查询共享服务基础接口配置列表"/>
+    <resource-file type="jsp" file-name="/page/share/interfaces/insert-share_interface.jsp" description="增加共享服务基础接口配置信息"/>
+    <resource-file type="jsp" file-name="/page/share/interfaces/update-share_interface.jsp" description="修改共享服务基础接口配置信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.interfaces.vo.ShareInterfaceContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.interfaces.vo.VoShareInterface" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.interfaces.vo.VoShareInterfaceSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.interfaces.vo.VoShareInterfacePrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

@@ -1,0 +1,17 @@
+.wcm-btn{display:inline-block;height:35px;margin:2px 5px;}
+.ext-ie6 .wcm-btn{display:inline;width:1px;}
+.ext-ie7 .wcm-btn{display:inline;}
+.ext-ie8 .wcm-btn{display:inline-block;}
+.ext-gecko2 .wcm-btn{display:-moz-inline-stack;}
+.wcm-btn-left{padding-left:0px;background:transparent;}
+.wcm-btn-right{height:100%;padding-right:0px;background:transparent;}
+.wcm-btn-center{zoom:1;height:100%;padding-left:5px;padding-right:5px;background:url(an-bc.gif) center center no-repeat;}
+.wcm-btn a{display:block;cursor:default;font-size:12px;line-height:24px;min-width:75px;white-space:nowrap;text-decoration:none;}
+.ext-ie6 .wcm-btn a{width:85px;}
+.ext-ie7 .wcm-btn{width:75px;}
+.ext-strict .ext-ie7 .wcm-btn{width:auto;}
+/*fix firefox bug:link element can't trigger click event in line-block container*/
+.ext-gecko2 .wcm-btn a{position:relative;overflow:hidden;}
+.wcm-btn a:link, .wcm-btn a:visited{color:#03459D;}
+.wcm-btn a:hover, .wcm-btn a:active{color:#A7401F;}
+.wcm-btn .wcm-btn-text{margin-left:12px;}

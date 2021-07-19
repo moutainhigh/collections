@@ -1,0 +1,169 @@
+body {
+	margin-left: 10px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	font-family: "宋体";
+	font-size: 12px;
+	color:  #000000; 
+	background-image: url(bg4.gif);
+    scrollbar-face-color: #E4E8EF;
+    scrollbar-track-color:#E4E8EF;
+    scrollbar-shadow-color:#0078F0;
+   /* scrollbar-highlight-color: #84BE3C;
+    scrollbar-3dlight-color: #B6A1D7;
+    scrollbar-darkshadow-color: #84BE3C;
+    scrollbar-track-color: #E3F1D1;
+     scrollbar-arrow-color: #FFFFFF;*/
+}
+td {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+}
+
+td.cell{
+	border-right: 1px solid #0078F0;
+	border-bottom: 1px solid #0078F0;
+	padding:3px;
+}
+
+
+.border {
+	border: 1px solid #0078F0;
+}
+.tdbg1 {
+	background-color: #E4E8EF;
+}
+.tdbg2 {
+	text-align: center;
+	background-color: #E4E8EF;
+}
+.titlebg1 {
+	color: #FFFFFF;
+	background-image:  url("h4.gif");
+}
+.dynamic-tab-pane-control.tab-pane {
+	position:	absolute;
+	width:		100%;
+}
+/*----------所有标签页的背景色---------------*/
+.dynamic-tab-pane-control .tab-row .tab {
+	font-family:   "宋体";
+	font-size:		14px;
+	cursor:			Default;
+	display:		inline;
+	/*margin:			1px -5px 1px 5px; */
+	float:			center;
+	padding:		3px 6px 3px 6px;
+/*	background:		expression(bgcolor);rgb(234,242,255);*/
+		background-image:  url(h4.gif);
+/*background:		expression(skinFaceColor);*/
+	border:			1px solid;
+	border-color:	expression(skinFaceColor);/*rgb(120,172,255);*/
+	border-left:	0;
+	border-bottom:	0;
+	border-top:		0;
+	
+	cursor:			hand;
+	cursor:			pointer;
+	
+	z-index:		1;
+	position:		relative;
+	top:			0;
+ /*   filter:           progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=50); */
+}
+/*---------------选中的标签页的背景色----------------*/
+.dynamic-tab-pane-control .tab-row .tab.selected {
+	border:			1px solid #0078F0;
+	border-bottom:	0;
+	z-index:		3;
+	padding:		2px 6px 5px 6px;
+	margin:			1px -6px -4px 0px;  /*1px -6px -2px 0px;*/
+	top:			-2px;  
+	/*background:		expression(skinFaceColor);*/
+			background-image:  url(h4.gif);
+
+	
+	/*background:      rgb(124,189,255);*/
+}
+
+/*--------------标签页的字体颜色--------------------*/
+.dynamic-tab-pane-control .tab-row .tab a {
+    font-family:        "宋体";
+	font-size:			12px;
+	color:				black/*rgb(0,66,174)*/;
+	text-decoration:	none;
+	cursor:			hand;
+	cursor:			pointer;	
+}
+
+/*--------------鼠标指定时------------------*/
+.dynamic-tab-pane-control .tab-row .hover a {
+	color:	black; /* expression(bgcolor) rgb(0,66,174)*/;
+}
+
+/*-------------鼠标移开时-----------------*/
+.dynamic-tab-pane-control .tab-row .tab.selected a {
+	font-weight:	bold;
+	color:    white;
+}
+
+/*--------------提示窗口的字体颜色------------------*/
+.dynamic-tab-pane-control .tab-page {
+	clear:			both;
+	border:			1px solid #0078F0;
+	background:     expression(bgcolor);/*Red;*/
+	/*background:		White; */
+	z-index:		2;
+	position:		relative;
+	top:			-2px;
+	color:			expression(skinFaceColor);/*black;*/
+    font-family:        "宋体";
+	font-size:			12px;
+	padding:		10px;
+	filter:			progid:DXImageTransform.Microsoft.Gradient(StartColorStr=#fffcfcfe, EndColorStr=#fff4f3ee, GradientType=1)
+}
+
+/*--------------标签页框的颜色--------------------*/
+.dynamic-tab-pane-control .tab-row {
+	z-index:		1;
+	white-space:	nowrap;
+/*	background:		expression(bgcolor);/*rgb(234,242,255);*/
+	background-image:  url(h4.gif);
+	height:			1.85em;
+	width:			100%;
+
+}
+.dynamic-tab-pane-control .tab-page {
+ /* height:		500px;
+	width:		780px;
+	overflow:	auto;*/
+}
+
+.dynamic-tab-pane-control .tab-page .dynamic-tab-pane-control .tab-page {
+	height:		100px;
+}
+
+form {
+	margin:		0;
+	padding:	0;
+}
+
+.dynamic-tab-pane-control h2 {
+	text-align:	center;
+	width:		auto;
+}
+
+.dynamic-tab-pane-control h2 a {
+	display:	inline;
+	width:		auto;
+}
+
+.dynamic-tab-pane-control a:hover {
+	background: transparent;
+}
+
+.dynamic-tab-pane-control .tab-page h2 {
+	text-align:	left;
+}

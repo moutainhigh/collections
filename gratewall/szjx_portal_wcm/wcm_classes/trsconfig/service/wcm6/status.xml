@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.StatusServiceProvider">
+	<method name="save"/>
+	<method name="delete"/>	
+	
+	<method name="query">
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="状态排序字段及方式" type="string" default="StatusId Desc" required="false"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<!-- 检索相关配置 END -->
+	</method>
+	
+	<method name="findByIds" >
+		<!--默认的参数，可以不写-->
+		<parameter name="ObjectIds" desc="状态ID序列" type="string" required="true"/>
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false"/>
+	</method>
+	
+	<method name="findById">
+		<!--默认的参数，可以不写-->
+		<parameter name="ObjectId" desc="状态ID" type="int" required="true"/>
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false"/>
+	</method>
+
+	<!--获取操作列表-->
+	<method name="getOperators">
+		<parameter name="ObjectId" desc="状态ID" type="int" required="false"/>
+		<parameter name="ObjectIds" desc="状态ID序列" type="string" required="false"/>
+	</method>	
+
+	<method name="queryDocumentStatuses" desc="获取在指定栏目下可改变的状态">
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>	
+		<parameter name="ChannelIds" desc="栏目ID序列" type="string" required="false"/>			
+		<parameter name="DocumentIds" desc="文档ID序列" type="string" required="false"/>
+		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="ExcludeStatusId1" desc="排除的状态ID1" type="int" required="false" search="true"
+			search-operator="&lt;&gt;" search-field="StatusId" default="10"/>
+		<!--<parameter name="ExcludeStatusId2" desc="排除的状态ID2" type="int" required="false" search="true"
+			search-operator="&lt;&gt;" search-field="StatusId" default="27"/>-->
+		<!-- 检索相关配置 END -->	
+		
+		
+		<parameter name="SelectFields" desc="返回那些字段信息" type="string" required="false" default="StatusId"/>
+	</method>	
+
+	<method name="queryPublishStatuses" truename="query" desc="获取可设置的发布状态">
+		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="ExcludeStatusId2" desc="排除的状态ID" type="int" required="false" search="true"
+			search-operator="&lt;&gt;" search-field="StatusId" default="15"/>
+		<parameter name="ExcludeStatusId3" desc="排除的状态ID" type="int" required="false" search="true"
+			search-operator="&lt;&gt;" search-field="StatusId" default="3"/>
+		<!-- 检索相关配置 END -->	
+	</method>		
+</service>

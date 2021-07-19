@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../common.js" type="text/javascript"></script> 
+<style type="text/css">
+.jazz-row-selected {
+	background-color: white;
+}
+</style>
+<script>
+  	//数据加载完成回调
+    function dataload(data){
+    	alert(jazz.jsonToString(data));
+    }
+  	function callcustom(data){
+  		alert(jazz.jsonToString(data));
+  	}
+  	//数据渲染函数
+    function renderdata(event, obj){
+  		var data = obj.data;
+		for(var i=0;i<data.length;i++){
+			var a = data[i]["name"];
+			data[i]["custom"] = '<div class="jazz-grid-cell-inner"><a href="javascript:void(0);" onclick="callcustom()">'+data[i]["name"]+'</a></div>';
+		}
+		return data;
+    }
+  	function add(){
+  		$('div[name="gridpanel"]').gridpanel('addEidtorRow',"19");
+  		//$('div[name="gridpanel"]').gridpanel('addEidtorRow',"last");
+  	}
+  	function getdata(){
+  		var data = $('div[name="gridpanel"]').gridpanel('getAllData');
+  		alert(jazz.jsonToString(data));
+  	}
+  	function geteditdata(){
+  		var data = $('div[name="gridpanel"]').gridpanel("getUpdatedRowData");
+  		alert(jazz.jsonToString(data));
+  	}
+</script> 
+</head>
+<body>
+
+<div vtype="gridpanel" name="gridpanel" width="680" datarender="renderdata()" rowselectable=false editortype="row" 
+	 titledisplay="true" title="查询结果" dataurl="regeditor.json" isshowselecthelper="true" selecttype="2">
+	<div name="toolbar" vtype="toolbar">
+		<div name="btn1" vtype="button" text="新增" click="add()"></div>
+		<div name="btn2" vtype="button" text="查看" click="getdata()"></div>
+		<div name="btn3" vtype="button" text="已修改数据" click="geteditdata()"></div>
+    </div>
+	<div vtype="gridcolumn" name="grid_column">
+		<div>
+			<div name="id" key="true" visible="false"></div>
+			<div datatype="comboxtreefield" dataurl="region_comboxtree.json" 
+				 name="name" text="地点" textalign="center" sort="true" width="150px" iseditable=true></div>
+			<div datatype="comboxfield" iseditable=true name="sex" text="性别" textalign="center" sort="true" dataurl='[{"text": "男","value": "1"},{"text": "女", "value": "2"}]' width="50px"></div>
+			<div datatype="numberfield" iseditable=true name="age" text="年龄" textalign="center" sort="true" width="100px"></div>
+			<div datatype="datefield" iseditable=true name="birthday" text="出生日期" textalign="center" sort="true" dataformat="YYYY-MM-DD" width="150px"></div>
+			<div iseditable=true name="org" text="所属机构" textalign="center" sort="true" dataurl="/JAZZ/dictionary/queryData.do?dicId=org" width="50px"></div>
+			<div name="custom" text="自定义" textalign="center" width="100px"></div>
+		</div>
+	</div>
+	<div vtype="gridtable" name="grid_table"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service-listeners>
+	<!-- 栏目类似创建时，同步视图信息 -->
+	<service-listener service="channel" method="createFrom" 
+		class="com.trs.components.metadata.service.listener.ChannelCreateFromListenerForMetaView"/>
+	<!-- 移动栏目时，同步设置栏目的路径可见性 -->
+	<service-listener service="channel" method="moveAsChild" 
+		class="com.trs.ajaxservice.listener.MoveChannelListenerForChannel"/>
+</service-listeners>

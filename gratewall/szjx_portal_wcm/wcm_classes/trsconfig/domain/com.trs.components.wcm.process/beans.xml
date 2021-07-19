@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin name="WCM内容流转组件-Beans" version="1.0" id="wcm.process">	
+	<beans>
+		<bean id="Flow.Notify.Worker" 
+			class="com.trs.components.wcm.process.FlowNotifyWorkerImpl" 
+			singleton="true"/>		
+		<bean id="ChnlDocLCListenerForFlow" 
+			class="com.trs.components.wcm.process.ChnlDocLCListenerForFlow" 
+			singleton="true"/>			
+		<bean id="ChannelLCListenerForFlow" 
+			class="com.trs.components.wcm.process.ChannelLCListenerForFlow" 
+			singleton="true"/>			
+		<bean id="FlowEmployLCListenerForChange" 
+			class="com.trs.components.wcm.process.FlowEmployLCListenerForChange" 
+			singleton="true"/>
+		<bean id="FlowableLCListenerAfterModify" class="com.trs.cms.process.engine.FlowableLCListenerAfterModify" 
+			singleton="true"/>
+		<bean id="FlowableLCListenerBeforeDelete" class="com.trs.cms.process.engine.FlowableLCListenerBeforeDelete" 
+			singleton="true"/>
+	</beans>
+
+</plugin>

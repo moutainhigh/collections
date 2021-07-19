@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="xt_ccgl_wjys.xml" app-path="/page/file/manage/" app-name="xt_ccgl_wjys" description="文件映射" template="single-table.xml"/>
+  <table name="xt_ccgl_wjys.xml" app-name="xt_ccgl_wjys" app-desc="文件映射" delete-action="delete" description="文件映射" class-name="com.gwssi.file.manage.txn.TxnXtCcglWjys" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-xt_ccgl_wjys.jsp" txn-code="604060101" description="查询文件映射列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加文件映射" path="insert-xt_ccgl_wjys.jsp" description="增加文件映射" func-name="addRecord"/>
+	    <button type="button" name="修改文件映射" path="/txn604060104.do" description="修改文件映射" func-name="updateRecord"/>
+	    <button type="button" name="删除文件映射" path="/txn604060105.do" description="删除文件映射" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn604060101.do" description="查询文件映射信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-xt_ccgl_wjys.jsp" txn-code="604060103" description="增加文件映射信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn604060103.do" description="保存文件映射信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn604060103.do" description="保存文件映射信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn604060101.do" description="保存文件映射信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn604060101.do" description="返回到文件映射明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-xt_ccgl_wjys.jsp" txn-code="604060102" description="修改文件映射信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn604060101.do" description="修改文件映射信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn604060101.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-xt_ccgl_wjys.jsp" txn-code="604060101" description="查询文件映射列表">
+	    <forward error-code="success" path="query-xt_ccgl_wjys.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-xt_ccgl_wjys.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-xt_ccgl_wjys.jsp" txn-code="604060102" description="修改文件映射信息">
+	    <forward error-code="success" path="update-xt_ccgl_wjys.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-xt_ccgl_wjys.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-xt_ccgl_wjys.jsp" txn-code="604060103" description="增加文件映射信息">
+	    <forward error-code="success" path="insert-xt_ccgl_wjys.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-xt_ccgl_wjys.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-xt_ccgl_wjys.jsp" txn-code="604060104" description="查询文件映射用于修改">
+	    <forward error-code="success" path="update-xt_ccgl_wjys.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-xt_ccgl_wjys.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-xt_ccgl_wjys.jsp" txn-code="604060105" description="删除文件映射信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.file.manage.vo.XtCcglWjysContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.file.manage.vo.VoXtCcglWjys" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.file.manage.vo.VoXtCcglWjysSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.file.manage.vo.VoXtCcglWjysPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

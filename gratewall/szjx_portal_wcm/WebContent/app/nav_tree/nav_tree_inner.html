@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="nav_tree_inner.html.title">Navigator Tree</title>
+	<link href="../css/common_tree.css" rel="stylesheet" type="text/css">
+<link href="../nav_tree/nav_tree.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<style type="text/css">
+	.nav_tree {border:1;}
+	/*strict*/
+	.ext-strict .layout_center_container{top:0;bottom:0;height:auto;}
+	/*ie6*/
+	.ext-ie6 .layout_container{padding-top:0;padding-bottom:0;height:100%;}
+	/*ie7*/
+	.ext-ie7 .nav_tree{position:absolute;top:0;bottom:0;}
+	/*all*/
+	.layout_north{display:none;}
+	.layout_south{display:none;}
+</style>
+<div id="bodyContainer" class="layout_container" style="overflow:hidden;">
+	<div class="layout_north"></div>
+	<div id="chnl_expl_ctn" class="layout_center_container" style="height:100%;">
+        <div class="TreeView" id="TreeViewContainer">
+            <div title="文字库" id="r_0" classPre="SiteType0" SiteType="0" style="display:none" WCMAnt:paramattr="title:nav_tree_inner.html.textWarehouse">
+                <a href="#" name="ar_0" SiteType="0" WCMAnt:param="nav_tree_inner.html.textWarehouse">文字库</a>
+            </div>
+            <ul id="r_0_children" SiteType="0"></ul>
+            <div title="图片库" class="plugins" id="r_1" classPre="SiteType1" SiteType="1" style="display:none" WCMAnt:paramattr="title:nav_tree_inner.html.picWarehouse">
+                <a href="#" name="ar_1" SiteType="1" WCMAnt:param="nav_tree_inner.html.picWarehouse">图片库</a>
+            </div>
+            <ul id="r_1_children" SiteType="1"></ul>
+            <div title="视频库" class="plugins" id="r_2" classPre="SiteType2" SiteType="2" style="display:none" WCMAnt:paramattr="title:nav_tree_inner.html.viedoWarehouse">
+                <a href="#" name="ar_2" SiteType="2" WCMAnt:param="nav_tree_inner.html.viedoWarehouse">视频库</a>
+            </div>
+            <ul id="r_2_children" SiteType="2"></ul>
+            <div title="资源库" class="plugins" id="r_4" classPre="SiteType4" SiteType="4" style="display:none" WCMAnt:paramattr="title:nav_tree_inner.html.resourceWarehouse">
+                <a href="#" name="ar_4" WCMAnt:param="nav_tree_inner.html.resourceWarehouse">资源库</a>
+            </div>
+            <ul id="r_4_children" SiteType="4"></ul>
+        </div>
+	</div>
+</div>
+	<script src="../js/runtime/lightlib.js"></script>
+	<script language="javascript">
+		initExtCss();
+	</script>
+    <script src="../js/runtime/core_main.js"></script>
+	<script src="../js/source/wcmlib/com.trs.tree/TreeNav.js"></script>
+	<!--<script src="../js/easyversion/ajax.js"></script>
+<script src="../js/runtime/components_dd.js"></script>-->
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+Ext.ns('wcm.TreeNode');
+wcm.TreeNode = function(_element){
+	var context = (_element)?this.buildContext(_element):null;
+	this.objType = WCMConstants.OBJ_TYPE_TREENODE;
+	wcm.TreeNode.superclass.constructor.call(this, null, context);
+	this.addEvents(['click', 'afterclick', 'contextmenu']);
+};
+CMSObj.register(WCMConstants.OBJ_TYPE_TREENODE, 'wcm.TreeNode');
+Ext.extend(wcm.TreeNode, wcm.CMSObj, {
+	buildContext : function(_element){
+		return null;
+	}
+});
+(function(){
+	var _tmpTreeNode = new wcm.TreeNode(null);
+	wcm.TreeNode.fly = function(_element){
+		var oTreeNode = {};
+		Ext.apply(oTreeNode, _tmpTreeNode);
+		oTreeNode.context = (_element && _tmpTreeNode.buildContext)?
+								_tmpTreeNode.buildContext(_element):null;
+		return oTreeNode;
+	}
+})();
+Ext.apply(com.trs.tree.TreeNav, {
+	onClickNode : function(_event){
+		var event = window.event || _event;
+		var oSrcElement = Event.element(event);
+		var sOnclick = null;
+		if((sOnclick = oSrcElement.getAttribute('onclick', 2)) != null
+		&& (sOnclick != '')) {
+			try{
+				eval(sOnclick);
+				return false;
+			}catch(err){
+			//just skip over
+			}
+		}
+		//var oTreeNode = new wcm.TreeNode(oSrcElement);
+		//使用更为高效的构造TreeNode的方法，避免重复创建事件监听方法
+		var oTreeNode = wcm.TreeNode.fly(oSrcElement);
+		switch(oSrcElement.tagName){
+			case "DIV":
+				var bReturn = oTreeNode.click();
+				if(bReturn!==false){
+					com.trs.tree.TreeNav._onClickFolder(oSrcElement);
+					oTreeNode.afterclick();
+				}
+				break;
+			case "A":
+				if(oSrcElement.getAttribute("_stop", 2)!=null){
+					var oSrcElement = oSrcElement.parentNode;
+					oTreeNode = wcm.TreeNode.fly(oSrcElement);
+					var bReturn = oTreeNode.click();
+					if(bReturn!==false){
+						com.trs.tree.TreeNav._onClickFolder(oSrcElement);
+						oTreeNode.afterclick();
+					}
+					Event.stop(event);
+					return false;
+				}
+				if(com.trs.tree.TreeNav.oPreSrcElementA != null){
+					Element.removeClassName(com.trs.tree.TreeNav.oPreSrcElementA, "Selected");
+				}
+				Element.addClassName(oSrcElement, "Selected");
+				com.trs.tree.TreeNav.lastSecondSrcElementA = com.trs.tree.TreeNav.oPreSrcElementA;//modified by hxj
+				com.trs.tree.TreeNav.oPreSrcElementA = oSrcElement;
+				var bReturn = oTreeNode.click();
+				if(bReturn!==false){
+					bReturn = com.trs.tree.TreeNav._onClickFolder(oSrcElement);
+					oTreeNode.afterclick();
+				}
+				if(bReturn==false){
+					Event.stop(event);
+					return false;
+				}
+				break;
+			default:
+				return;
+		}
+		Event.stop(event);
+		return false;
+	}
+});
+//覆写动态获取指定节点的子节点HTML方法
+com.trs.tree.TreeNav.makeGetChildrenHTMLAction = function(_elElementLi){
+	var nPos = _elElementLi.id.indexOf("_");
+	if(nPos <= 0){
+		alert(wcm.LANG.nav_tree_alert_1 || "不符合规则！");
+		return;
+	}
+	var sParentType	= _elElementLi.id.substring(0, nPos);
+	var sParentId		= _elElementLi.id.substring(nPos+1);
+	return "tree_html_creator.jsp?Type=0&ParentType=" + sParentType + "&ParentId=" + sParentId + "&forIndividual=0";
+}
+function findSiteType(_element){
+    if(_element == null) return null;
+    var sSiteType = _element.getAttribute("SiteType");
+    if(sSiteType == null){
+		var oParentNade = _element.parentNode;
+		if( oParentNade == null 
+				|| (oParentNade.tagName != null && oParentNade.tagName == 'BODY') ) return null;
+		sSiteType = findSiteType(oParentNade);
+		if(sSiteType!=null){
+	        _element.setAttribute("SiteType", sSiteType);
+		}
+    }
+    return sSiteType;
+}
+/**
+ *  定位到指定站点
+ **/
+function focusSite(_nSiteId, _sNodePath, callBack){
+	focus("s", _nSiteId, _sNodePath, callBack);
+}
+/**
+ *  定位到指定栏目
+ **/
+function focusChannel(_nChannelId, _sNodePath, callBack){
+	focus("c", _nChannelId, _sNodePath, callBack);	
+}
+/** 
+ *	
+ * 聚焦到指定节点
+ *
+ */
+function focus(_sNodeType, _nNodeId, _sNodePath, callBack){
+	m_bNodeClicked = true;
+	//判断指定的节点是否存在
+	var sNodeHTMLElementId = _sNodeType + "_" + parseInt(_nNodeId, 10);
+	var oNodeHTMLElement = $(sNodeHTMLElementId);
+	//=======================================
+	//====1.如果存在,直接聚焦到节点===========
+	//=======================================
+	if( oNodeHTMLElement != null){
+		//执行刷新操作
+		var oTreeViewContainer = $('TreeViewContainer');
+//		var nLeft = oTreeViewContainer.scrollLeft;
+		com.trs.tree.TreeNav.focus(oNodeHTMLElement);
+		oTreeViewContainer.scrollLeft -= 40;
+        (callBack || Ext.emptyFn)(sNodeHTMLElementId);
+        delete callBack;
+		return;
+	}
+	//=========================================================
+	//====2.如果不存在,需要获取数据，初始化再聚焦================
+	//=========================================================	
+	reloadChildrenAndFocus(_sNodeType, _nNodeId, false, _sNodePath, true, callBack);	
+}
+function reloadChildrenAndFocus(_sNodeType, _nFocusNodeId, _bReloadFocusChildren, _sNodePath, _bDoFocus, callBack){
+	reloadNode(_sNodeType, _nFocusNodeId, _bReloadFocusChildren, _sNodePath, _bDoFocus, callBack);
+}
+function reloadNode(_sNodeType, _nFocusNodeId, _bReloadFocusChildren, _sNodePath, _bDoFocus, callBack){
+	//树尚未初始化完，等待再发出请求
+	if(!com.trs.tree.TreeNav.loaded){
+        var fMethod = arguments.callee, oScope = this, args = arguments;
+        setTimeout(function(){fMethod.apply(oScope, args)}, 20);
+        return;
+	}
+	var sNodeHTMLElementId = _sNodeType + "_" + parseInt(_nFocusNodeId, 10);
+	//由于还没有理清楚这个逻辑，先特殊处理一下库的Focus
+	if(!_bReloadFocusChildren && _sNodeType=="r"){
+		com.trs.tree.TreeNav.focus(sNodeHTMLElementId);
+        (callBack || Ext.emptyFn)(sNodeHTMLElementId);
+        delete callBack;
+		return;
+	}
+	//没有传入NodePath,需要从服务器端读取NodePath
+	var sNodePath = _sNodePath;
+	if(_sNodeType.toLowerCase() == "r"){
+		sNodePath = "0";
+	}
+	if(sNodePath == null || sNodePath == 'null' || typeof sNodePath == "undefined" || sNodePath.trim().length<=0){
+		sNodePath = findPath(_sNodeType, _nFocusNodeId);	
+		if(sNodePath == null || sNodePath.trim().length<=0){
+			alert(String.format("指定的对象[{0}.{1}}]可能已经被删除!栏目树的同步刷新操作不能进行!",_sNodeType,_nFocusNodeId));
+            $("ar_0").click();
+			return;
+		}
+	}
+	//依次判断路径
+	var sNeedLoadPath = "";
+	var pNodePaths = sNodePath.split(",");
+	var nPathLevel = pNodePaths.length;		
+	//判断最后一个节点是否就是自己
+	if(pNodePaths[pNodePaths.length-1].trim() == _nFocusNodeId 
+	&& getTypeByPathIndex(pNodePaths.length-1) == _sNodeType)
+		nPathLevel = nPathLevel - 1;
+	var sLastExistNodeId = null;
+	var sTempNodeId = null;
+	for(var i=0; i<nPathLevel; i++){
+		pNodePaths[i] = pNodePaths[i].trim();
+		sTempNodeId = getTypeByPathIndex(i) + "_" + parseInt(pNodePaths[i], 10);		
+		if( $( sTempNodeId )  != null){
+			sLastExistNodeId = sTempNodeId;			
+			sNeedLoadPath = sTempNodeId;
+			continue;
+		}		
+		for(; i<nPathLevel; i++){
+			pNodePaths[i] = pNodePaths[i].trim();
+			sNeedLoadPath += "," + getTypeByPathIndex(i) + "_" + parseInt(pNodePaths[i], 10);
+		}
+	}
+	if(_bReloadFocusChildren)
+		sNeedLoadPath += "," + sNodeHTMLElementId;
+	//将产生的数据更新到指定元素上同时执行聚焦
+	if(sLastExistNodeId == null){
+		alert("Root" + (wcm.LANG.nav_tree_alert_4 || "节点元素") + " [Id=r_"+pNodePaths[0]+"]" + (wcm.LANG.nav_tree_alert_5 || "竟然都不存在") + "？？？\n"
+		+"(reloadChildrenAndFocus)" + (wcm.LANG.nav_tree_alert_6 || "相关信息") + "：NodeType:["+_sNodeType+"], _nFocusNodeId:["+_nFocusNodeId+"], sNodePath:["+sNodePath+"]\n"
+		+ "nPathLevel:"+nPathLevel + "; sTempNodeId:"+sTempNodeId+"; NodeElement:"+$(sTempNodeId)+";\n"
+		+(wcm.LANG.nav_tree_alert_7 || "相关HTML代码：")+$("TreeViewContainer").innerHTML);
+		//alert("指定的路径["+sNodePath+"]在树中都不存在???");
+		return;
+	}
+	//var oOnUpdateComplete		= (_bDoFocus == true) ? com.trs.tree.TreeNav.focus : null;
+    if(_bDoFocus){
+        oOnUpdateComplete = function(){
+            var result = com.trs.tree.TreeNav.focus.apply(com.trs.tree.TreeNav, arguments);
+            if(result == false){
+                var strMsg = wcm.LANG.nav_tree_alert_8 || "不能定位到指定树节点！造成这种现象的原因可能是：\n";
+                strMsg += (wcm.LANG.nav_tree_alert_9 || "\t1)当前要定位的树节点已被其他用户删除.\n");
+                strMsg += (wcm.LANG.nav_tree_alert_10 || "\t2)选择了自定义站点过滤条件，但当前要选中的站点或站点下的栏目不包含在自定义站点中.\n");
+                strMsg += (wcm.LANG.nav_tree_alert_11 || "如果为2，你可以先取消自定义站点的选择，然后再次尝试执行此操作。\n");
+                alert(strMsg);
+                setTimeout(function(){
+                    if(ProcessBar.isProcessing()){
+                        setTimeout(arguments.callee, 10);
+                    }else{
+                        //防止com.trs.tree.TreeNav.oPreSrcElementA存在但被其他用户删除的情况
+                        if(com.trs.tree.TreeNav.oPreSrcElementA && $(com.trs.tree.TreeNav.oPreSrcElementA.name)){
+                            var nameInfo = com.trs.tree.TreeNav.oPreSrcElementA.name.substr(1).split("_");
+                            focus(nameInfo[0], nameInfo[1], null, refreshMain);        
+                        }else{//com.trs.tree.TreeNav.oPreSrcElementA存在但被其他用户删除的情况，定位到树根
+                            $("ar_0").click();
+                        }
+                    }
+                }, 200);
+            }else{
+                (callBack || Ext.emptyFn).apply(null, arguments);
+                delete callBack;
+            }
+        }
+    }else{
+         oOnUpdateComplete = function(){
+            (callBack || Ext.emptyFn).apply(null, arguments);
+            delete callBack;
+        }       
+    }
+	var oOnUpdateCompleteArgs	= sNodeHTMLElementId;
+	//首先需要确保指定的父结点有子结点元素
+	com.trs.tree.TreeNav.ensureTopChildElementExist(sLastExistNodeId);
+	//发出请求，更新子结点
+	com.trs.tree.TreeNav.updateNodeChildrenHTML(sLastExistNodeId, 
+		makeURLofGetChildrenHTML(sNeedLoadPath), 
+		oOnUpdateComplete, oOnUpdateCompleteArgs);
+}
+function findPath(_sNodeType, _nNodeId){
+	var sAction = "treenode_path_make.jsp?NodeType=" + _sNodeType + "&NodeId=" + _nNodeId;
+	var localAjaxRequest = new Ajax.Request(
+                    sAction,
+                    {method: 'get', parameters: "", asynchronous: false}
+                    );
+    if(localAjaxRequest.responseIsFailure()){
+        return null;
+    }
+	return localAjaxRequest.transport.responseText;
+}
+function getTypeByPathIndex(_nPathIndex){
+	switch(_nPathIndex){
+		case 0:
+			return "r";
+		case 1:
+			return "s";
+		default:
+			return "c";
+	}
+}
+function makeURLofGetChildrenHTML(_sNodePath){
+	var sAction = "tree_html_creator.jsp?forIndividual=0&Type=1&NodeIds=" + _sNodePath;
+	return sAction;	
+}
+function evalate(nodeType){
+	switch(nodeType){
+		case 'r':
+			return WCMConstants.OBJ_TYPE_WEBSITEROOT;
+		case 's':
+			return WCMConstants.OBJ_TYPE_WEBSITE;
+		case 'c':
+			return WCMConstants.OBJ_TYPE_CHANNEL;
+		case 'mywork':
+			return WCMConstants.OBJ_TYPE_MYFLOWDOCLIST;
+		case 'mymsg':
+			return WCMConstants.OBJ_TYPE_MYMSGLIST;
+		case 'trsserver':
+			return WCMConstants.OBJ_TYPE_TRSSERVERLIST;
+	}
+	return WCMConstants.OBJ_TYPE_UNKNOWN;
+}
+wcm.TreeNode.prototype.buildContext = function(_element){
+	if(_element.tagName!='A' && _element.tagName!='DIV')
+		return null;
+	var bIsFolder = true;
+	var eCurrParent = _element;
+	if(_element.tagName=='A'){
+		eCurrParent = _element.parentNode;
+		bIsFolder = false;
+	}
+	var nPos = eCurrParent.id.indexOf("_");
+	if(nPos <= 0){
+		return null;
+	}
+	var sSiteType = findSiteType(eCurrParent);
+	var sType = eCurrParent.id.substring(0, nPos);
+	var sObjectId = eCurrParent.id.substring(nPos+1);
+	return {
+		innerTree : true,
+		siteType : sSiteType,
+		objType : evalate(sType),
+		objId : sObjectId,
+		isFolder : bIsFolder,
+		right : eCurrParent.getAttribute('RV', 2) || '',
+		channelType	: eCurrParent.getAttribute("ChannelType", 2) || 0,
+		isVirtual	: eCurrParent.getAttribute("IsV", 2) || '',
+		element : _element
+	}
+}
+$MsgCenter.on({
+	objType : WCMConstants.OBJ_TYPE_TREENODE,
+	beforeclick : function(event){
+		var context = event.getContext();
+		return context!=null;
+	},
+	beforeafterclick : function(event){
+		var context = event.getContext();
+		return context!=null && !context.isFolder;
+	},
+	afterclick : function(event){
+		var context = event.getContext();
+		if(context.element){
+			context.element.blur();
+		}
+		m_bNodeClicked = true;
+	}
+});
+//-->
+</SCRIPT>
+<script language="javascript">
+<!--
+	var siteTypes = getParameter("SiteTypes") || '0,1,2,4';
+	var arrSiteTypes = siteTypes.split(',');
+	com.trs.tree.TreeNav.observe('onload',function(){
+		var nCurrChannel = getParameter("ChannelId");
+		var nCurrSite = getParameter("SiteId");
+		if(nCurrChannel!=null&&nCurrChannel!='' && nCurrChannel!='0'){
+			focusChannel(nCurrChannel, null, function(){
+				var node = $('c_' + nCurrChannel);
+				var nodeA = node.getElementsByTagName('A')[0];
+				var oTreeNode = wcm.TreeNode.fly(nodeA);
+				var bReturn = oTreeNode.click();
+				if(bReturn!==false){
+					oTreeNode.afterclick();
+				}
+			});
+		}else if(nCurrSite != null && nCurrSite !='' && nCurrSite !='0'){
+			focusSite(nCurrSite, null, function(){
+				var node = $('s_' + nCurrSite);
+				var nodeA = node.getElementsByTagName('A')[0];
+				var oTreeNode = wcm.TreeNode.fly(nodeA);
+				var bReturn = oTreeNode.click();
+				if(bReturn!==false){
+					oTreeNode.afterclick();
+				}
+			})
+		}else{
+			com.trs.tree.TreeNav._onClickFolder($('r_' + arrSiteTypes[0]));
+			focus('r', arrSiteTypes[0]);
+		}
+	});
+	for(var i=0,n=arrSiteTypes.length;i<n;i++){
+		Element.show('r_' + arrSiteTypes[i]);
+	}
+//-->
+</script>
+<script language="javascript">
+<!--
+	Event.observe(window, 'load', function(){
+		var CustomizeInfo = window.top.m_CustomizeInfo;	//获得父页面关于是否显示导航树的相关值
+		if(!CustomizeInfo){
+			var oHelper = new com.trs.web2frame.BasicDataHelper();
+			oHelper.JspRequest("../individuation/systemindividuation_get.jsp",{},false, 
+				function(transport,json){
+					if(!json){
+						return;
+					}
+					var adiv=document.getElementsByTagName("div");
+					for(var i=0;i<adiv.length;i++){
+						if(adiv[i].id=="r_0" && json["TEXTLIB"]=="false"){
+							document.getElementById("r_0").style.display = "none"; 
+						}else if(adiv[i].id=="r_1" && json["PICTURELIB"]=="false"){
+							document.getElementById("r_1").style.display = "none";
+						}else if(adiv[i].id=="r_2" && json["VIDEOLIB"]=="false"){
+							document.getElementById("r_2").style.display = "none";
+						}else if(adiv[i].id=="r_4" && json["RESOURCESLIB"]=="false"){
+							document.getElementById("r_4").style.display = "none";
+						}
+					}
+				}
+			);
+		}else{
+			var adiv=document.getElementsByTagName("div");
+			if(!CustomizeInfo["textLib"]){
+				return;
+			}
+			for(var i=0;i<adiv.length;i++){
+				if(adiv[i].id=="r_0" && CustomizeInfo["textLib"].paramValue=="false"){
+					document.getElementById("r_0").style.display = "none";
+				}else if(adiv[i].id=="r_1" && CustomizeInfo["pictureLib"].paramValue=="false"){
+					document.getElementById("r_1").style.display = "none";
+				}else if(adiv[i].id=="r_2" && CustomizeInfo["videoLib"].paramValue=="false"){
+					document.getElementById("r_2").style.display = "none";
+				}else if(adiv[i].id=="r_4" && CustomizeInfo["resourcesLib"].paramValue=="false"){
+					document.getElementById("r_4").style.display = "none";
+				}
+			}
+		}
+	});
+//-->
+</script>
+<script src="nav_tree_inner.html.compress.js"></script>
+</body>
+</html>

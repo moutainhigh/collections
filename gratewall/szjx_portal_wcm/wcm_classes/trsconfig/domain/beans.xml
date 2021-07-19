@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0" id="db.connnection">
+	<beans>
+		<bean id="DBManager" class="com.trs.infra.persistent.db.DBManager" 
+			singleton="true"/>
+		<bean id="DBConnectionMapper" 
+			class="com.trs.infra.persistent.db.DBConnectionMapper" 
+			singleton="true"/>
+	</beans>
+</plugin>

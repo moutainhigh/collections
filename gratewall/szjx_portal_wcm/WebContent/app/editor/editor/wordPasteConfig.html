@@ -1,0 +1,256 @@
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<TITLE fcklang="SysConfign">Word粘贴格式配置</TITLE>
+	<script language="javascript">
+		var oEditor = window.parent.InnerDialogLoaded() ;
+		var FCK = oEditor.FCK;
+		var myActualTop = (top.actualTop||top);
+		function $(el) {
+			if (typeof el == 'string')
+				el = document.getElementById(el) || document.getElementsByName(el)[0];
+			return el;
+		}
+		function OnLoad(){
+			oEditor.FCKLanguageManager.TranslatePage( document);
+			//初始化word清理各选择框
+			var oCookie = FCK.loadCookie();
+			var config = oEditor.FCKConfig;
+//			if(oCookie.EditWidth && oCookie.EditWidth == "1"){
+//				$('a4Width').checked = true;
+//			}else if(oCookie.EditWidth && oCookie.EditWidth == "2"){
+//				$('a4WideWidth').checked = true;
+//			}else{
+//				$('defaultWidth').checked = true;
+//			}
+
+			if(config.IgnoreFont){
+				$("fontstyle").checked = true;
+			}
+			if(config.IgnoreBlock){
+				$("blockstyle").checked = true;
+			}
+			if(config.RemoveStyles){
+				$("removestyle").checked = true;
+			}
+			if(config.RemoveEmpty){
+				$("removeempty").checked = true;
+			}
+
+			if(config.RemovePosition){
+				$("removeposition").checked = true;
+			}
+
+			if(config.KeepLineHeight){
+				$("keeplineheight").checked = true;
+			}
+
+			if(config.RemovePageWidth){
+				$("removePageWidth").checked = true;
+			}
+
+//			if(oCookie.ShowWordPasteDialog && oCookie.ShowWordPasteDialog == "0"){
+//				$('noRemember').checked = true;
+//			}
+		}
+
+		function Ok(){
+			var oCookie = FCK.loadCookie();
+			var config = oEditor.FCKConfig;
+//			var bChanged = true;
+//			var oldValue = "";
+//			if(oCookie.EditWidth){
+//				oldValue = oCookie.EditWidth;
+//			}
+//			var newValue = ""
+//			if($('defaultWidth').checked){
+//				FCK.setCookie("EditWidth",$('defaultWidth').value);
+//				newValue = $('defaultWidth').value;
+//			}else if($('a4Width').checked){
+//				FCK.setCookie("EditWidth",$('a4Width').value);
+//				newValue = $('a4Width').value;
+//			}else{
+//				FCK.setCookie("EditWidth",$('a4WideWidth').value);
+//				newValue = $('a4WideWidth').value;
+//			}
+//			if(oldValue == newValue){
+//				bChanged = false;
+//			}
+//			if($('noRemember').checked){
+//				FCK.setCookie("ShowWordPasteDialog",$('noRemember').value);
+//			}else{
+//				FCK.setCookie("ShowWordPasteDialog","1");
+//			}
+			
+			if($('fontstyle').checked){
+				FCK.setCookie("IgnoreFont",$('fontstyle').value);
+				config.IgnoreFont = true;
+			}else{
+				FCK.clearCookie("IgnoreFont");
+				config.IgnoreFont = false;
+			}
+			
+			if($('blockstyle').checked){
+				FCK.setCookie("IgnoreBlock",$('blockstyle').value);
+				config.IgnoreBlock = true;
+			}else{
+				FCK.clearCookie("IgnoreBlock");
+				config.IgnoreBlock = false;
+			}
+			if($('removeempty').checked){
+				FCK.setCookie("RemoveEmpty",$('removeempty').value);
+				config.RemoveEmpty = true;
+			}else{
+				FCK.clearCookie("RemoveEmpty");
+				config.RemoveEmpty = false;
+			}
+			if($('removestyle').checked){
+				FCK.setCookie("RemoveStyles",$('removestyle').value);
+				config.RemoveStyles = true;
+			}else{
+				FCK.clearCookie("RemoveStyles");
+				config.RemoveStyles = false;
+			}
+			if($('removeposition').checked){
+				FCK.setCookie("RemovePosition",$('removeposition').value);
+				config.RemovePosition = true;
+			}else{
+				FCK.setCookie("RemovePosition","0");
+				config.RemovePosition = false;
+			}
+
+			if($('removePageWidth').checked){
+				FCK.setCookie("RemovePageWidth",$('removePageWidth').value);
+				config.RemovePageWidth = true;
+			}else{
+				FCK.setCookie("RemovePageWidth","0");
+				config.RemovePageWidth = false;
+			}
+
+			if($('keeplineheight').checked){
+				FCK.setCookie("KeepLineHeight",$('keeplineheight').value);
+				config.KeepLineHeight = true;
+			}else{
+				FCK.clearCookie("KeepLineHeight");
+				config.KeepLineHeight = false;
+			}
+//			if(bChanged){
+//				var Iframewindow = myActualTop.frames[0].frames[0];
+//				if(oCookie.EditWidth && newValue == "1"){
+//						//采用A4纸横板
+//						Iframewindow.$("xEditingArea").style.width = "800px";
+//					}else if(oCookie.EditWidth && newValue == "2"){
+//						//采用A4纸竖版
+//						Iframewindow.$("xEditingArea").style.width = "1140px";
+//					}else{
+//						Iframewindow.$("xEditingArea").style.width = "";
+//					}	
+//			}
+//			FCK.PasteFromWord(false) ;
+			return true;	
+		}
+	</script>
+	<style type="text/css">
+		body {
+			padding-top:0px;
+			background-color: #CCCCCC;
+			line-height:25px;
+		}
+		.input_btn{
+			width:60px;
+			margin-right:10px;
+		}
+		.row{
+			margin-top:5px;
+		}
+		.label{
+			width:50px;
+			text-align:right;
+			margin-left:5px;
+			margin-right:15px;
+		}
+		.desc{
+			padding-left:5px;
+		}
+		.margin{
+			width:10px;
+		}
+		input{
+			cursor:pointer;
+		}
+		label{
+			cursor:pointer;
+		}
+	</style>
+</HEAD>
+<BODY onload="OnLoad();" style="margin:0;padding:0;">
+	<table height="100%" width="100%">
+		<tr>
+			<td align="left" valign="top">
+				<TABLE cellSpacing=2 cellPadding=2 width="100%" border="0">
+					<TR>
+						<TD class=app style="PADDING-LEFT: 12px; PADDING-TOP: 3px" colspan="2" align=left>
+							<div style="height:40px;font-weight:bold" WCMAnt:param="wordPasteConfig.html.systemtip">
+								系统检测出你所粘贴的内容来源于MS-Word<br/>你可以根据以下优化选项设置对内容的过滤：
+							</div>
+							<fieldset style="width:100%;">
+								<legend WCMAnt:param="wordPasteConfig.html.optimize">优化选项</legend>
+								<!--<div style="height:25px;">
+								<span class="desc" fcklang="EDITWIDTH">编辑区域设置:</span>
+								<INPUT id="defaultWidth" name="editWidth" type="radio" value="0">
+								<LABEL id="lbl_defaultWidth" for="defaultWidth" fcklang="DEFAULTWIDTH">默认宽度</LABEL>
+								<span class="margin">&nbsp;</span>
+								<INPUT id="a4Width" name="editWidth" type="radio" value="1">
+								<LABEL id="lbl_a4Width" for="a4Width" fcklang="A4WIDTH">A4纸竖版</LABEL>
+								<span class="margin">&nbsp;</span>
+								<INPUT id="a4WideWidth" name="editWidth" type="radio" value="2" checked>
+								<LABEL id="lbl_a4WideWidth" for="a4WideWidth" fcklang="A4WIDEWIDTH">A4纸横板</LABEL>
+								</div>-->
+
+								<div style="height:50px;">
+									<div class="desc" fcklang="CLEANOPTIONS">选择清理内容(除去以下选项的其它效果都将被保留)</div>
+									<div>
+										<INPUT id="fontstyle" name="fontstyle" type="checkbox" value="1">
+										<LABEL id="lbl_fontstyle" for="fontstyle" fcklang="BREMOVEFONTSTYLE">清理字体格式</LABEL>
+										<span class="margin">&nbsp;</span>
+										<INPUT id="blockstyle" name="blockstyle" type="checkbox" value="1">
+										<LABEL id="lbl_blockstyle" for="blockstyle" fcklang="BREMOVEBLOCKSTYLE">清理段落格式</LABEL>
+										<span class="margin">&nbsp;</span>
+										<INPUT id="removeempty" name="removeempty" type="checkbox" value="1">
+										<LABEL id="lbl_removeempty" for="removeempty" fcklang="BREMOVEEMPTY">去除空行</LABEL>
+										<br/>
+										<INPUT id="removestyle" name="removestyle" type="checkbox" value="1">
+										<LABEL id="lbl_removestyle" for="removestyle" fcklang="BREMOVESTYLE">清理内联样式</LABEL>
+										<span style="width:9px">&nbsp;</span>
+										<INPUT id="removeposition" name="removeposition" type="checkbox" value="1">
+										<LABEL id="lbl_removeposition" for="removeposition" fcklang="BREMOVEPOSITION">去除浮动</LABEL>
+										<span style="width:34px">&nbsp;</span>
+										<INPUT id="keeplineheight" name="keeplineheight" type="checkbox" value="1">
+										<LABEL id="lbl_keeplineheight" for="keeplineheight" fcklang="KEEPLINEHEIGHT">启用中文行距</LABEL>
+										<br/>
+										<INPUT id="removePageWidth" name="removePageWidth" type="checkbox" value="1">
+										<LABEL id="lbl_removePageWidth" for="removePageWidth" fcklang="REMOVEPAGEWIDTH">移除行宽</LABEL>
+									</div>
+								</div>
+							</fieldset>
+						</TD>
+					</TR>
+					<TR>
+						<TD>
+							<span class="desc">
+								<!--<INPUT id="noRemember" name="noRemember" type="checkbox" value="0">
+								<LABEL id="lbl_noRemember" for="noRemember" fcklang="NOREMEMBER">下次不再提示</LABEL>-->
+								<span style="float:right;">
+									<input id="btnOk" class="input_btn" onclick="window.parent.Ok();"
+										type="button" value="确定" fcklang="DlgBtnOK"/>
+									<input name="button2" class="input_btn" type="button" value="取消" onclick="window.parent.Cancel();" fcklang="DlgBtnCancel"/>
+								</span>
+							</span>
+						</TD>
+					</TR>
+				</TABLE>
+			</td>
+		</tr>
+	</table>
+</BODY>
+</HTML>

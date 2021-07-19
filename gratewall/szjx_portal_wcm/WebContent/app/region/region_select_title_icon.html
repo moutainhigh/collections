@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="region_select_title_icon.title"> 选择标题图标 </title>
+	<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/locale/cn.js" WCMAnt:locale="../../app/js/locale/$locale$.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<!-- CarshBoard Inner Start -->
+<script src="../../app/js/source/wcmlib/Observable.js"></script>
+<script src="../../app/js/source/wcmlib/Component.js"></script>
+<script src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></script>
+<script src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></script>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Inner End -->
+<link href="./regioncss/title.css" rel="stylesheet" type="text/css" />	
+<style type="text/css">
+	html,body{
+		width:100%;
+		height:100%;
+		overflow:hidden;
+	}
+	*{
+		margin:0px;
+		padding:0px;
+		font-size:12px;
+	}
+	.wcm-table{
+		width:100%;
+	}
+	.wcm-table td{
+		padding-left:5px;
+		padding-top:10px;
+		vertical-align:middle;
+		background:#ffffff;
+
+	}
+	.subjectsp{
+		background-position:right 30%; 
+	}
+	.parentsp{
+		height:30px;
+		line-height:30px;
+	}
+</style> 
+</head>
+<script language="javascript">
+<!--
+	window.m_cbCfg = {
+        btns : [
+            {
+                text : '确定',
+                cmd : function(){
+                     return onOk();
+                }
+            },{
+                text : '取消'
+            }
+        ]
+    };
+	function onOk(){
+		var subjectOptions = document.getElementsByName('iconSubject');
+		var subject = null;
+		for(var i =0 ; i < subjectOptions.length; i++){
+			if(subjectOptions[i].checked){
+				subject = subjectOptions[i].value;
+				break;
+			}
+		}
+		var params = {
+			'position' : document.getElementById('positionIndex').value, 
+			'subject'  : subject
+		}
+		var cbr = wcm.CrashBoarder.get('Trs_Region_Set_Icon');
+		cbr.notify(params);
+		return false;
+	}
+
+//-->
+</script>
+<body>
+	<table border="0" cellspacing="0" cellpadding="0" class="wcm-table">
+	<tbody>
+		<tr>
+			<td><span WCMAnt:param="region_select_title_icon.html.selectpostionneedtoset">选择需要设置的位置：</span>
+				&nbsp;&nbsp;
+				<select name="positionIndex" id="positionIndex">
+					<option value="left" WCMAnt:param="region_select_title_icon.titleleft">标题前</option>
+					<option value="right" WCMAnt:param="region_select_title_icon.titleright">标题后</option>
+				</select>
+			</td>
+		</tr>
+		 
+		<tr>
+			<td ><span WCMAnt:param="region_select_title_icon.html.selecticonneedtoset">选择需要设置的图标：</span>
+			<br><br>
+				<span class="parentsp"><input type="radio" name="iconSubject" value="video" id="videord" checked/>&nbsp;<LABEL for="videord"><span class="right_video subjectsp" WCMAnt:param="region_select_title_icon.videosuject">视频</span></LABEL></span>&nbsp;&nbsp;
+				<span class="parentsp"><input type="radio" name="iconSubject" value="music" id="musicrd"/>&nbsp;<LABEL for="musicrd"><span class="right_music subjectsp" WCMAnt:param="region_select_title_icon.musicsuject">音频</span></LABEL></span>&nbsp;&nbsp;
+				<span class="parentsp"><input type="radio" name="iconSubject" value="photo" id="photord"/>&nbsp;<LABEL for="photord"><span class="right_photo subjectsp" WCMAnt:param="region_select_title_icon.photosuject">图片</span></LABEL></span>&nbsp;&nbsp;
+				<span class="parentsp"><input type="radio" name="iconSubject" value="flash" id="flashrd"/>&nbsp;<LABEL for="flashrd"><span class="right_flash subjectsp" WCMAnt:param="region_select_title_icon.flashsuject">flash</span></LABEL></span>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+</body>
+</html>

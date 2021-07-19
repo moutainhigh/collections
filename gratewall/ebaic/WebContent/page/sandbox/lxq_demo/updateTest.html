@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../../../static/script/jazz.js" type="text/javascript"></script>
+<link href="../../../static/css/global.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/company/change/tabs_style.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/company/change/main_change.css" rel="stylesheet                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     " type="text/css" />
+<script src="../../../static/script/service/company/change/cp_change.js" type="text/javascript"></script>
+<title>修改用户信息</title>
+</head>
+<script type="text/javascript">
+	function user_update(){
+		var params = {
+				url : '../../my/test/updateUser.do',
+				components:['updateUserPanel'],
+				callback:function(data,r,res){
+					jazz.info("修改成功");
+				}
+		}
+		$.DataAdapter.submit(params);
+	}
+	
+	//窗口加载事件
+	$(function() {
+       var id=getUrlParam("id");
+       //$('#updateUserPanel').formpanel("option","dataurl","../../my/test/toUpdateUser.do?id="+id);
+      // $('#updateUserPanel').formpanel("reload");
+       alert(id);
+
+	});
+	
+</script>
+<body>
+	<div id="updateUserPanel" name="updateUserPanel" vtype="formpanel" title="修改用户信息" layout="auto" showborder="true">
+		
+		<div id='userId' name='id' vtype='textfield' 
+			width='400' defaultheight='28' label='用户编号' labelwidth='150'>
+		</div>
+		
+		<div vtype="textfield" id="userName" name="name"
+		   width="400" defaultheight="28" label="用户名" labelwidth="150">
+		 </div>
+		
+		<div id='userPassword' name='password' vtype='textfield' 
+			width='400' defaultheight='28' label='密码' labelwidth='150'>
+		</div>
+		
+		<div id='userAge' name='age' vtype='textfield' 
+			width='400' defaultheight='28' label='年龄' labelwidth='150'>
+		</div>
+		
+		<div id='userSex' name='sex' vtype='textfield' 
+			width='400' defaultheight='28' label='性别' labelwidth='150'>
+		</div>
+		
+	</div>
+	<input type="button" value="修改用户信息" onclick="user_update()"/>
+</body>
+</html>

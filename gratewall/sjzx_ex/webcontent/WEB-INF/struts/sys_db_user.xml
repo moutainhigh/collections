@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>数据库共享对象管理</menu-name>
+  <menu-path>/page/resource/res/runmgr/dbmgr/dbuser/</menu-path>
+  <description>服务对象管理</description>
+  <form-beans>
+    <form-bean name="SysDbUserRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="login_name" 	type="string" size="20" description="用户名"/>
+      <form-property prefix="select-key" name="user_type" 	type="string" size="10" description="用户类型"/>
+      <form-property prefix="select-key" name="state" 		type="string" size="32" cannull="false" description="密码"/>
+      <form-property prefix="select-key" name="showall" 	type="string" size="32" description="临时变量"/>
+      <form-property prefix="record" name="sys_db_user_id" type="string" size="32" cannull="false" description="数据库共享对象编号"/>
+      <form-property prefix="record" name="login_name" 		type="string" size="32" cannull="false" description="用户名"/>
+      <form-property prefix="record" name="user_name" 		type="string" size="32" cannull="false" description="名称"/>
+      <form-property prefix="record" name="password" 		type="string" size="32" cannull="false" description="密码"/>
+      <form-property prefix="record" name="old_password" 	type="string" size="32" cannull="false" description="旧密码"/>
+      <form-property prefix="record" name="create_date" 	type="string" size="10" cannull="false" description="创建日期"/>
+      <form-property prefix="record" name="create_by" 		type="string" size="32" cannull="false" description="创建人"/>
+      <form-property prefix="record" name="state" 			type="string" size="1"  cannull="false" description="状态"/>
+      <form-property prefix="record" name="user_desc" 		type="string" size="1000" cannull="true" description="描述"/>
+      <form-property prefix="record" name="user_type" 		type="string" size="10" cannull="true" description="用户类型"/>
+      <form-property prefix="record" name="hasConfig" 		type="string" size="10" cannull="true" description="是否配置视图"/>
+      <form-property prefix="record" name="grant_table" 	type="string" size="2000" cannull="true" description="被授权的表"/>
+      <form-property prefix="record" name="oper" 		type="string" size="10" cannull="true" description="操作"/>
+    </form-bean>
+
+  </form-beans>
+
+  <action-mappings>
+
+    <action input="update-sys_db_user.jsp" name="SysDbUserRowsetForm" txn-code="52101002" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改数据库共享对象信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.db.txn.TxnSysDbUser" func-name="txn52101002" input-node="record" description="修改数据库共享对象信息"/>
+      <forward error-code="success" path="update-sys_db_user.jsp"/>
+      <forward error-code="failure" path="update-sys_db_user.jsp"/>
+    </action>
+
+    <action input="insert-sys_db_user.jsp" name="SysDbUserRowsetForm" txn-code="52101003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加数据库共享对象信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.db.txn.TxnSysDbUser" func-name="txn52101003" input-node="record" description="增加数据库共享对象信息"/>
+      <forward error-code="success" path="insert-sys_db_user.jsp"/>
+      <forward error-code="failure" path="insert-sys_db_user.jsp"/>
+    </action>
+
+    <action input="update-sys_db_user.jsp" name="SysDbUserRowsetForm" txn-code="52101010" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>初始化数据库共享对象密码</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.db.txn.TxnSysDbUser" func-name="txn52101010" input-node="record" output-node="record" description="初始化数据库共享对象密码"/>
+      <forward error-code="success" path="update-sys_db_user.jsp"/>
+      <forward error-code="failure" path="update-sys_db_user.jsp"/>
+    </action>
+  </action-mappings>
+</struts-config>
+

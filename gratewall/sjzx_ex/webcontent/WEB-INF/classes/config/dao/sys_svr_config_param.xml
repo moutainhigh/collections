@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="sys_svr_config_param" class-name="com.gwssi.dw.runmgr.services.dao.SysSvrConfigParam" check-flag="false" backup-flag="false">
+    <description>服务配置参数表</description>
+  </table-info>
+
+  <column name="sys_svr_config_param_id" data-type="varchar" length="32" not-null="true" value-from="input" description="共享服务配置参数编号"/>
+  <column name="sys_svr_config_id" data-type="varchar" length="32" not-null="true" value-from="input" description="共享服务配置编号"/>
+  <column name="operator1" data-type="varchar" length="10" not-null="false" value-from="input" description="连接符1"/>
+  <column name="left_paren" data-type="varchar" length="5" not-null="false" value-from="input" description="左括号"/>
+  <column name="left_table_no" data-type="varchar" length="32" not-null="true" value-from="input" description="左表"/>
+  <column name="left_table_name" data-type="varchar" length="32" not-null="true" value-from="input" description="左表英文名"/>
+  <column name="left_table_name_cn" data-type="varchar" length="32" not-null="true" value-from="input" description="左表中文名"/>
+  <column name="left_column_no" data-type="varchar" length="32" not-null="true" value-from="input" description="左字段"/>
+  <column name="left_column_name" data-type="varchar" length="32" not-null="true" value-from="input" description="左字段英文名"/>
+  <column name="left_column_name_cn" data-type="varchar" length="32" not-null="true" value-from="input" description="左字段中文名"/>
+  <column name="operator2" data-type="varchar" length="10" not-null="true" value-from="input" description="连接符2"/>
+  <column name="param_value" data-type="varchar" length="2000" not-null="true" value-from="input" description="参数值"/>
+  <column name="right_paren" data-type="varchar" length="5" not-null="false" value-from="input" description="右括号"/>
+  <column name="param_type" data-type="varchar" length="32" not-null="true" value-from="input" description="参数类型：0 系统参数；1 用户参数"/>
+  <column name="param_order" data-type="long" length="0" not-null="true" value-from="input" description="排序字段"/>
+  <column name="param_text" data-type="varchar" length="4000" not-null="true" value-from="input" description="参数中文"/>
+  <primary-key name="pk_sys_svr_config_param" column-list="sys_svr_config_param_id"/>
+  <index name="pk_sys_svr_config_param" index-type="unique" cluster="cluster" column-list="sys_svr_config_param_id"/>
+  <function func-name="select one sys_svr_config_param" func-type="select" column-list="sys_svr_config_param_id,sys_svr_config_id,operator1,left_paren,left_table_no,left_table_name,left_table_name_cn,left_column_no,left_column_name,left_column_name_cn,operator2,param_value,right_paren,param_type,param_text">
+    <filter-column column-name="sys_svr_config_param_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_svr_config_param list" func-type="rowset" column-list="sys_svr_config_param_id,sys_svr_config_id,operator1,left_paren,left_table_no,left_table_name,left_table_name_cn,left_column_no,left_column_name,left_column_name_cn,operator2,param_value,right_paren,param_type,param_text" sort-columns="param_order" max-record="10">
+    <filter-column column-name="sys_svr_config_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_svr_config_param" func-type="insert" column-list="sys_svr_config_param_id,sys_svr_config_id,operator1,left_paren,left_table_no,left_table_name, left_table_name_cn, left_column_no,left_column_name,left_column_name_cn, operator2,param_value,right_paren,param_type,param_order,param_text">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_svr_config_param" func-type="delete">
+    <filter-column column-name="sys_svr_config_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+</table>
+

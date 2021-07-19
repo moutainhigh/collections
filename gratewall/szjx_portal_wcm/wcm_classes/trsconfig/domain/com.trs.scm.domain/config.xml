@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.1">
+	<!-- CacheMgrs Config For CacheServer BEGIN -->
+	<extension element-class="com.trs.infra.support.cache.CacheMgrConfig" id="CacheMgrs">
+		<cache-manager beanId="SCMGroupUserCacheMgr" name="分组维护人员缓冲管理器"/>
+		<cache-manager beanId="SCMGroupAccountCacheMgr" name="分组账号缓冲管理器"/>
+	</extension>
+	<!-- CacheMgrs Config For CacheServer BEGIN -->
+	
+	
+	<!--Config For ObjectLCMonitor BEGIN-->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+	EventType:
+		1：新增
+		2：修改
+		3：删除前
+		4、删除后
+		多个以逗号隔开
+	-->
+	<extension element-class="com.trs.infra.persistent.listener.MonitorHostConfig" id="ObjectLCMonitor">
+		<!--分组维护人员-->
+		<monitor-host name="分组维护人员" class-name="com.trs.scm.persistent.SCMGroupUser">
+			<listener bean-id="SCMGroupUserCacheMgr"  event-type="1,2,4"/>
+		</monitor-host>
+		
+		<!--分组账号-->
+		<monitor-host name="分组账号" class-name="com.trs.scm.persistent.GroupAccount">
+			<listener bean-id="SCMGroupAccountCacheMgr"  event-type="1,2,4"/>
+		</monitor-host>
+		
+		<!--微博帐号-->
+		<monitor-host name="微博账号" class-name="com.trs.scm.persistent.Account">
+			<listener bean-id="SCMGroupAccountCacheMgr"  event-type="1,2,4"/>
+		</monitor-host>
+		
+				
+		<!--帐号分组-->
+		<monitor-host name="账号分组" class-name="com.trs.scm.persistent.SCMGroup">
+			<listener bean-id="SCMGroupUserCacheMgr"  event-type="1,2,4"/>
+		</monitor-host>
+	</extension>
+	<!--Config For ObjectLCMonitor END-->
+		
+</plugin>

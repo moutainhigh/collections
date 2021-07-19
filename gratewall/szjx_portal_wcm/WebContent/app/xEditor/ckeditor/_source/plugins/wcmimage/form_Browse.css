@@ -1,0 +1,118 @@
+﻿/*
+*添加图片用到的样式
+*/
+/*form_Browse*/
+*{
+	margin:0px;
+	padding:0px;
+}
+.Gray_Content input{
+	opacity:0;
+	filter:alpha(opacity=0);
+	cursor:pointer;
+	margin:0px auto;
+	margin-left:-30px;
+	position:absolute;
+	z-index:100;
+	top:5px;
+}
+.Gray_Content{
+	width:100px;
+	height:30px;
+	background:url(images/gray_circle.png) no-repeat 10px center #f3f3f3; 
+	line-height:30px;
+	/*margin:0px auto;*/
+	position:absolute;
+	/*left:80px;top:20px;*/
+	left:48px;
+	top:20px;
+	border:1px solid #ebebeb;
+	cursor:pointer;
+	z-index:-200;
+}
+.Gray_Content:hover{
+	width:100px;
+	height:30px;
+	background:url(images/blue_circle.png) no-repeat 10px center #f3f3f3; 
+	line-height:30px;
+	/*margin:0px auto;*/
+	position:absolute;
+	/*left:80px;
+	top:20px;*/
+	left:48px;top:20px;
+	border:1px solid #ebebeb;
+	cursor:pointer;
+}
+.Gray_Font{
+	font-size:14px;
+	font-family:"微软雅黑";
+	color:#b6b6b6;
+	position:absolute;
+	left:30px;
+	top:-1px;
+	/*z-index:-100;*/
+}
+.allow_Style{
+	/*border:1px solid #ebebeb;*/
+	color:#b6b6b6;
+	font-size:14px;
+	width:300px;
+	height:30px;
+	line-height:30px;
+	position:absolute;
+	/*left:200px;*/
+	left:230px;
+	top:20px;
+	text-align:center;
+}
+.btn_div{
+	color:white;
+	font-size:14px;
+	text-align:center;
+	line-height:29px;
+	font-weight:600;
+	font-family:'微软雅黑';
+	position:absolute;
+	left:238px;
+	top:345px;
+	background:url(images/btn_div.png) no-repeat;
+	width:76px;
+	height:29px;
+	cursor:pointer;
+}
+/*form_Text*/
+.inputAddress{
+	position:absolute;
+	left:48px;
+	top:25px;
+	width:85px;	
+}
+.gray_Value{
+	color:#b6b6b6;
+}
+/*
+*预览效果用到的样式
+*/
+.preview_Box{
+	position:absolute;
+	top:60px;
+	left:48px;
+	border:2px solid #ebebeb;
+	width:480px;
+	height:280px;
+	margin:0px auto;
+	overflow:auto;
+	display: table-cell;
+	vertical-align:middle;
+	text-align:center;
+}
+
+
+.upload_message{
+	margin-top:5px;
+	background:orangered;
+	color:white;
+	padding:2px 5px;
+	white-space : nowrap;
+	overflow:hidden;
+}

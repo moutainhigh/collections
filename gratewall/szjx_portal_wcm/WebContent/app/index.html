@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<TITLE WCMAnt:param="index.html.title"> 全屏跳转页 </TITLE>
+</HEAD>
+
+<BODY>
+<script src="/wcm/app/js/data/locale/login.js"></script>
+<script>
+window.opener = null;
+var iWidth = window.screen.width - 12;
+var iHeight = window.screen.height - 60;
+var sFeature = 'location=no,resizable=yes,menubar=no,scrollbars=no,status=no,titlebar=no,toolbar=no,top=0,left=0,width='+iWidth+',height='+iHeight;
+//"fullscreen=yes";
+if(location.href.indexOf('/app')!=-1){
+    var sURL = "../app/login.jsp";
+}
+else{
+    var sURL = "app/login.jsp";
+}
+//wenyh@2010-03-12  hostname中包含符号(-)时,IE系列泳览器会出现错误,替换为(_)符号
+var w = window.open(sURL,"WCM61INDEX_"+location.hostname.replace(/[\.-]/ig,'_'),sFeature);
+var isSafari = (/webkit|khtml/).test(navigator.userAgent.toLowerCase());
+if(isSafari || !w){
+	var msg = wcm.LANG.INDEX_1||"窗口可能被拦截工具拦截，当前页面将退出！\n";
+	msg +=    wcm.LANG.INDEX_2||"请先关闭可能的拦截工具，\n";
+	msg +=    wcm.LANG.INDEX_3||"您是否确认不采用全屏模式操作?";
+	if(confirm(msg)){
+		window.location.href = sURL;
+	}else{
+//		window.open("","_self");//fix ie7
+//		setTimeout("window.close();",1);
+	}
+}
+else{
+	w.focus();
+	var isGecko = navigator.userAgent.toLowerCase().indexOf("gecko") > -1;
+	if(window.name!="WCM61INDEX_"+location.hostname.replace(/\.|-/ig,'_')){
+		if(isGecko){
+			window.open('about:blank','_parent','');
+			setTimeout("window.close();", 1); 
+		}else{
+			window.open("","_self");//fix ie7
+			setTimeout("window.close();",1);
+		}
+	}
+}
+</script>
+</BODY>
+</HTML>

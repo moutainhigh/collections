@@ -1,0 +1,104 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE WCMAnt:param="reports_confirm.html.title">TRS WCM 系统信息 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::</TITLE>
+<LINK href="../../style/style.css" rel="stylesheet" type="text/css">
+<style>
+.style5 {font-size: 18px}
+</style>
+<SCRIPT src="../../js/CWCMDialogHead.js"></SCRIPT>
+<script src="../js/data/locale/include.js"></script>
+<SCRIPT>
+var m_oDialogArguments = window.parent.getDialogArguments();
+
+function onOk() {
+	window.returnValue = true;
+	window.close();
+}
+
+var sImgSrc = "warning.gif";
+var bInfo = false;
+if(m_oDialogArguments && m_oDialogArguments.IsInfo){
+	bInfo = true;
+	sImgSrc = "succeed.gif";
+}
+</SCRIPT>
+</HEAD>
+
+<BODY>
+<TABLE width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+<TR>
+<TD height="25">
+	<SCRIPT LANGUAGE="JavaScript">
+		WCMDialogHead.draw(wcm.LANG.INCLUDE_TITLE_1 || "系统信息", true);
+	</SCRIPT>
+</TD>
+</TR>
+<TR>
+<TD align="left" valign="top" class="tanchu_content_td">
+	<TABLE width="100%" border="0" cellspacing="0" cellpadding="0">
+	<TR>
+	<TD>
+		<TABLE width="98%" border="0" cellpadding="5" cellspacing="1" bgcolor="a6a6a6">
+		<TR>
+		<TD valign="top" bgcolor="#FFFFFF">
+			<TABLE width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+			<TR>
+			<TD width="100%">
+				<TABLE width="100%" border="0" cellspacing="5" cellpadding="0">
+				<TR>
+					<TD width="60" valign=top><script>document.write('<IMG src="../images/'+sImgSrc+'" width="60" height="60">');</script></TD>
+					<TD width="10">&nbsp;</TD>
+					<TD align=left><span class="font_bluebold style5"><script>document.write(bInfo?(wcm.LANG.INCLUDE_TITLE_2 || "成功信息"):(wcm.LANG.INCLUDE_TITLE_3 || "提示信息"));</script></span><BR><BR>
+					<SCRIPT LANGUAGE="JavaScript">
+					<!--
+					if(m_oDialogArguments && m_oDialogArguments.InfoHTML){
+						document.write("<span id=\"spMsg\">" + m_oDialogArguments.InfoHTML + "</span>");
+					}
+					//-->
+					</SCRIPT>
+					
+					</TD>
+				</TR>
+				</TABLE>
+			</TD>
+			</TR>
+	
+			</TABLE>
+		</TD>
+		</TR>
+		</TABLE>
+	</TD>
+	</TR>
+	<TR>
+	<TD align="center" height=10>&nbsp;</TD>
+	</TR>
+
+	<TR>
+	<TD align="center">
+		<script src="../../js/CTRSButton.js"></script>
+		<script>
+		//定义一个TYPE_ROMANTIC_BUTTON按钮
+		var oTRSButtons = new CTRSButtons();
+		
+		oTRSButtons.cellSpacing = "0";
+		oTRSButtons.nType = TYPE_ROMANTIC_BUTTON;
+
+		oTRSButtons.addTRSButton(wcm.LANG.INCLUDE_BUTTON_1 || "确定", "onOk()");
+		oTRSButtons.addTRSButton(wcm.LANG.INCLUDE_BUTTON_2 || "取消", "window.close()");
+
+		oTRSButtons.draw();
+		</script>
+	</TD>
+	</TR>
+	</TABLE>
+</TD>
+</TR>
+</TABLE>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+window.setTimeout("window.location.reload(true);", 100000);
+//-->
+</SCRIPT>
+</BODY>
+</HTML>

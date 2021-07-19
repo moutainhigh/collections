@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chart caption="今天在线人数统计" xAxisName="" yAxisName="" numberPrefix="" showValues="0"> 
+<set label="${day1!}" value="${online1!}" />  
+<set label="${day2!}" value="${online2!}" />  
+<set label="${day3!}" value="${online3!}" /> 
+<set label="${day4!}" value="${online4!}" />  
+<set label="${day5!}" value="${online5!}" /> 
+<set label="${day6!}" value="${online6!}" /> 
+<set label="${day7!}" value="${online7!}" />  
+<set label="${day8!}" value="${online8!}" />  
+<set label="${day9!}" value="${online9!}" />  
+<set label="${day10!}" value="${online10!}" />  
+<set label="${day11!}" value="${online11!}" />  
+<set label="${day12!}" value="${online12!}" /> 
+<set label="${day13!}" value="${online13!}" />  
+<set label="${day14!}" value="${online14!}" />   
+<trendLines>    
+<line startValue="700000" color="009933" displayvalue="Target" />
+</trendLines>
+<styles>
+<definition>
+<style name="CanvasAnim" type="animation" param="_xScale" start="0" duration="1" />
+</definition>
+<application>
+<apply toObject="Canvas" styles="CanvasAnim" />
+</application>
+</styles>
+</chart>

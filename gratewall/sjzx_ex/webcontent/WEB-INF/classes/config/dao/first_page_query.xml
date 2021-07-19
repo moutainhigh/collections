@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="first_page_query" class-name="com.gwssi.dw.runmgr.etl.dao.FirstPageQuery" check-flag="false" backup-flag="false">
+    <description>查询次数</description>
+  </table-info>
+
+  <column name="first_page_query_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="1"/>
+  <column name="first_cls" data-type="char" length="30" not-null="false" value-from="input" description="2"/>
+  <column name="second_cls" data-type="char" length="30" not-null="false" value-from="input" description="3"/>
+  <column name="count" data-type="long" length="22" not-null="false" value-from="input" description="4"/>
+  <column name="num" data-type="long" length="22" not-null="false" value-from="input" description="5"/>
+  <column name="query_date" data-type="varchar" length="10" not-null="false" value-from="input" description="6"/>
+  <column name="query_time" data-type="varchar" length="30" not-null="false" value-from="input" description="7"/>
+  <column name="username" data-type="varchar" length="24" not-null="false" value-from="input" description="8"/>
+  <column name="opername" data-type="varchar" length="24" not-null="false" value-from="input" description="9"/>
+  <column name="orgid" data-type="varchar" length="32" not-null="false" value-from="input" description="10"/>
+  <column name="orgname" data-type="varchar" length="64" not-null="false" value-from="input" description="11"/>
+  <column name="ipaddress" data-type="varchar" length="16" not-null="false" value-from="input" description="12"/>
+  <column name="user_id" data-type="varchar" length="32" not-null="false" value-from="input" description="用户ID"/>
+  
+  <primary-key name="pk_first_page_query" column-list="first_page_query_id"/>
+  <index name="pk_first_page_query" index-type="unique" cluster="cluster" column-list="first_page_query_id"/>
+  <function func-name="insert one first_page_query" func-type="insert" column-list="first_page_query_id,first_cls,second_cls,count,num,query_date,query_time,username,opername,orgid,orgname,ipaddress,user_id">
+    <description>插入记录</description>
+  </function>
+</table>
+

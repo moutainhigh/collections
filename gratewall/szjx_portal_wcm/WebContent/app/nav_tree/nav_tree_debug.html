@@ -1,0 +1,386 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title WCMAnt:param="nav_tree_debug.html.resourcetree">资源树</title>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/nav_tree.css" rel="stylesheet" type="text/css" />
+<style>
+	body{
+		height:100%;
+		width:100%;
+		padding:0;
+		background:transparent;
+		margin:0;
+	}
+	.wcm_fixed_layout{
+		table-layout:fixed;
+		width:100%;
+		height:100%;
+	}
+	.nav_top_tr{
+		height:43px;
+	}
+	.nav_body_tr{
+	}
+	.nav_top_td{
+		background-image: url(../images/nav_tree/top_bg_e.png);
+		background-repeat: no-repeat;
+		float: left;
+		height: 43px;
+		width: 196px;
+		padding:0px;
+		overflow: hidden;
+	}
+	.nav_tree {
+		float:left;
+		height:100%;
+		width:190px!important;/*FF,MOZ系列*/
+		width:192px;
+		overflow: hidden;
+		border:0;
+		padding:0px;
+		margin-top:-1px!important;/*FF,MOZ系列*/
+		margin-top:0px;
+		border:1px solid #686868;
+		border-top:0;
+		background:#FFFFFF;
+	}
+	.nav_btns{
+		float:left;
+		width:90px!important;/*FF,MOZ系列*/
+		width:100px;
+		height:100%;
+		padding-left:10px;
+	}
+	.user_welcome{
+		float:right;
+		font-size: 12px;
+		font-weight: bold;
+		color: #40608f;
+		width:92px;
+		height: 15px;
+		overflow:hidden;
+		text-decoration: none;
+		text-align:center;
+	}
+	.user_btns{
+		float:right;
+		width:72px!important;/*FF,MOZ系列*/
+		width:92px;
+		height:28px;
+		padding-left:20px;
+	}
+	.nav_tree_toolbar_tr{
+		height:18px;
+	}
+	.nav_tree_toolbar{
+		float:left;
+		height:100%;
+		width:190px!important;/*FF,MOZ系列*/
+		width:192px;
+		overflow:hidden;
+		border:0;
+		padding:0px;
+		margin-top:0px;
+		border:1px solid #686868;
+		border-top:0;
+		border-bottom:0;
+		background:#FFFFFF;
+	}
+	.refresh_btn{
+		float: right;
+		background-image: url(../images/nav_tree/icon_gfd1.png);
+		background-repeat: no-repeat;
+		height: 15px;
+		width: 15px;
+		overflow:hidden;
+		margin:3px 0 0 5px;
+	}
+	.position_btn{
+		float: right;
+		background-image: url(../images/nav_tree/icon_gfd1.png);
+		background-repeat: no-repeat;
+		height: 15px;
+		width: 15px;
+		overflow:hidden;
+		margin:3px 0 0 5px;
+	}
+	.more_btn{
+		float: right;
+		background-image: url(../images/nav_tree/xia.png);
+		background-repeat: no-repeat;
+		height: 15px;
+		width: 15px;
+		overflow:hidden;
+		margin:3px 0 0 5px;
+	}
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<!--
+<SCRIPT LANGUAGE="JavaScript">$import('com.trs.wcm.MessageCenter');</SCRIPT>
+-->
+<SCRIPT LANGUAGE="JavaScript">$import('com.trs.wcm.SheetChanger');</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">$import("com.trs.tree.TreeNav");</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+//覆写动态装载指定节点子节点的方法
+/*com.trs.tree.TreeNav.makeGetChildrenHTMLAction = function(_elElementLi){
+	var sParentType = _elElementLi.getAttribute("_type") || '';
+	var sParentId = _elElementLi.getAttribute("_objectid");
+	return "/wcm/channel/treehtml_get.jsp?ParentType="+sParentType+"&ParentId="+sParentId;
+}*/
+
+com.trs.tree.TreeNav.doActionOnClickA = function(_event, _elElementA){
+	var eCurrParent = _elElementA.parentNode;
+	var nPos = eCurrParent.id.indexOf("_");
+	if(nPos<0){
+		alert(String.format("Id[{0}]规则不一致",eCurrParent.id));
+		return;
+	}
+
+	var sType = eCurrParent.id.substring(0, nPos);
+	var sObjectId = eCurrParent.id.substring(nPos+1);
+	var sSrc = 'document/document_normal_index.html';
+	switch(sType.toLowerCase()){
+		case 'sitehost':
+			sSrc = 'website/website_thumbs_index.html?SiteType='+sObjectId;
+			$MessageCenter.changeSrc('main',sSrc);
+			break;
+		case 'site':
+			//sSrc = 'channel/channel_list_icons.html?siteid='+sObjectId;
+			$changeSheet("?siteid="+sObjectId);
+			break;
+		case 'channel':
+			//sSrc = 'channel/channel_list_icons.html?channelid='+sObjectId;
+			$changeSheet("?channelid="+sObjectId);
+			break;
+	}
+	Event.stop(_event);
+	return false;
+}
+
+
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+var bIsLocal = true;
+
+/**
+  *获取
+ **/
+function findPath(_sNodeType, _nNodeId){
+	var sAction = "../nav/path_find.jsp?NodeType=" + _sNodeType + "&NodeId=" + _nNodeId;
+	if(bIsLocal){
+		sAction = getCurrentPath() + "path_" + _sNodeType + "_" + _nNodeId;
+	}
+	prompt("findPath URL", sAction);
+	var localAjaxRequest = new Ajax.Request(
+                    sAction,
+                    {method: 'get', parameters: "", asynchronous: false}
+                    );
+	return localAjaxRequest.transport.responseText;
+}
+
+function makeURLofGetChildrenHTML(_sNodePath){
+	var sAction = "../nav/treenodes_html_make.jsp?NodePath=" + _sNodePath;
+	if(bIsLocal){
+		sAction = getCurrentPath() + _sNodePath + ".html";
+	}
+	prompt("makeURLofGetChildrenHTML URL", sAction);
+	return sAction;	
+}
+
+
+/** 
+ *	
+ * 刷新文字库的子站点列表
+ *
+ */
+function refreshSiteType(_nSiteType, _sPath){
+	refresh("r", _nSiteType, _sPath);
+}
+
+/** 
+ *	
+ * 刷新指定站点的一级子节点
+ *
+ */
+function refreshSite(_nSiteId, _sPath){
+	refresh("s", _nSiteId, _sPath);
+}
+
+
+/** 
+ *	
+ * 刷新指定栏目的一级子节点
+ *
+ */
+function refreshChannel(_nChannelId, _sPath){
+	refresh("c", _nChannelId, _sPath);
+}
+
+function getTypeByPathIndex(_nPathIndex){
+	switch(_nPathIndex){
+		case 0:
+			return "r";
+		case 1:
+			return "s";
+		default:
+			return "c";
+	}
+}
+
+/** 
+ *	
+ * 刷新指定节点的一级子节点
+ *
+ */
+function refresh(_sNodeType, _nNodeId, _sNodePath){
+	//判断指定的节点是否存在
+	var sNodeHTMLElementId = _sNodeType + "_" + _nNodeId;
+	var oNodeHTMLElement = $(sNodeHTMLElementId);
+
+	//1.如果存在,重新装载一次数据
+	if( oNodeHTMLElement != null){
+		//执行刷新操作
+		com.trs.tree.TreeNav.reloadChildren(sNodeHTMLElementId);
+		return;
+	}
+	
+	//2.如果不存在,根据路径判断是否需要载入那些元素
+	
+	//没有传入NodePath,需要从服务器端读取NodePath
+	if(_sNodePath == null || _sNodePath.trim().length<=0){
+		_sNodePath = findPath(_sNodeType, _nNodeId);	
+		if(_sNodePath == null || _sNodePath.trim().length<=0){
+			alert(String.format("指定的对象[{0}.{1}}]可能已经被删除!栏目树的同步刷新操作不能进行!",_sNodeType,_nNodeId));
+			return;
+		}
+	}
+	
+	//依次判断路径
+	var sNeedLoadPath = "";
+	var pNodePaths = _sNodePath.split(",");
+	var nPathLevel = pNodePaths.length;		
+	//判断最后一个节点是否就是自己
+	if(pNodePaths[pNodePaths.length-1].trim() == _nNodeId 
+	&& getTypeByPathIndex(pNodePaths.length-1) == _sNodeType)
+		nPathLevel = nPathLevel - 1;
+	var sLastExistNodeId = null;
+	for(var i=0; i<nPathLevel; i++){
+		pNodePaths[i] = pNodePaths[i].trim();
+		if( $(getTypeByPathIndex(i) + "_" + pNodePaths[i] )  != null){
+			sLastExistNodeId = getTypeByPathIndex(i) + "_" + pNodePaths[i];
+			sNeedLoadPath = pNodePaths[i];
+			continue;
+		}
+		
+		for(; i<nPathLevel; i++){
+			sNeedLoadPath += "," + pNodePaths[i];
+		}
+	}
+	sNeedLoadPath += "," + _nNodeId;
+
+	//将产生的数据更新到指定元素上同时执行聚焦
+	if(sLastExistNodeId == null){
+		alert(String.format("指定的路径[{0}]在树中都不存在???",_sNodePath));
+		return;
+	}
+	var oOnUpdateComplete		= com.trs.tree.TreeNav.focus;
+	var oOnUpdateCompleteArgs	= sNodeHTMLElementId;
+	com.trs.tree.TreeNav.updateNodeChildrenHTML(sLastExistNodeId, 
+		makeURLofGetChildrenHTML(sNeedLoadPath), 
+		oOnUpdateComplete, oOnUpdateCompleteArgs);
+}
+
+
+
+/**
+ *  定位到指定站点
+ **/
+function focusSite(_nSiteId){
+	focus("site_" + _nSiteId);
+}
+
+/**
+ *  定位到指定栏目
+ **/
+function focusChannel(_nChannelId){
+	focus("channel_" + _nChannelId);
+}
+
+/** 
+ *	
+ * 聚焦到指定节点
+ *
+ */
+function focus(_nNodeId){
+	com.trs.tree.TreeNav.focus(_nNodeId);
+}
+
+
+
+function doAfterMove(_nSrcChannelId, _nDstChannelId, _nDstSiteId){
+}
+
+
+function doAfterDelChannel(_nChannelId){
+}
+
+function doAfterDelSite(_nSiteId){
+}
+
+function doAfterModifyChannel(_nChannelId){
+}
+
+function doAfterModifySite(_nSiteId){
+
+}
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+function testRefreshSiteType(){
+	refreshSiteType(prompt("请输入站点类型", "0"));
+}
+
+function testRefreshChannel(){
+	refreshChannel(prompt("请输入栏目ID", "1"));
+}
+
+function testRefreshSite(){
+	refreshSite(prompt("请输入站点ID", "1"));
+}
+
+function doTest(){
+	eval(document.frmAction.TestMethod.value);
+}
+//-->
+</SCRIPT>
+</head>
+
+<body>
+<DIV id="TestRegion">
+	<form name="frmAction">
+	<SELECT name="TestMethod" onchange="doTest();">
+		<OPTION value="alert('==选择需要测试的内容==');"  WCMAnt:param="nav_tree_debug.html.selecttestcontent">==选择需要测试的内容==</OPTION>
+		<OPTION value="testRefreshSiteType();" WCMAnt:param="nav_tree_debug.html.ruploadsitechildnode">重载指定站点类型子节点</OPTION>
+		<OPTION value="testRefreshChannel();" WCMAnt:param="nav_tree_debug.html.ruploadchnlchildnode">重载指定栏目子节点</OPTION>
+	</SELECT>
+	<input type="button" name="再执行" value="再执行" onclick="doTest();" WCMAnt:paramattr="value:nav_tree_debug.html.rexecute">
+	
+	</form>
+	
+</DIV>
+
+	<div style="overflow : auto; width:100px;height:98%;">
+									<div class="TreeView">
+										<div title="文字站点" id="r_0"  WCMAnt:paramattr="title:nav_tree_debug.html.charwebsite">
+											<a href="#"  WCMAnt:param="nav_tree_debug.html.charwebsite">文字站点</a>
+										</div>
+										<ul></ul>
+									</div>
+								</div>
+</body>
+</html>

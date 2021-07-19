@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> New Document </title>
+	<script src="../../js/easyversion/lightbase.js"></script>
+	<script src="../../js/source/wcmlib/WCMConstants.js"></script>
+	<script src="../../js/easyversion/extrender.js"></script>
+	<script src="../../js/easyversion/elementmore.js"></script>
+	<script src="../../js/easyversion/bubblepanel.js"></script>
+
+	<script src="../../js/source/wcmlib/core/MsgCenter.js"></script>
+	<script src="../../js/source/wcmlib/Observable.js"></script>
+	<script src="../../js/source/wcmlib/Component.js"></script>
+	<script src="../js/tabpage/tabpage.js"></script>
+	<link href="../main.css" rel="stylesheet" type="text/css" />
+	<link href="../js/tabpage/tabpage.css" rel="stylesheet" type="text/css" />
+	<style type="text/css">
+		#more_menubar-shldbp{
+			display:none;
+		}
+	</style>
+</head>
+
+<body>
+<div class="container" id="tabpage">
+	<!-- 标签项区域内容 -->
+    <div class="header" style="z-index:999;">
+		<div class="logo">
+			<div class="wcm-tab-page" id="tabpage">
+				<div class="head-box" style="padding-left:20px;" id="tab_head_box">
+					<!-- 需要菜单项就添加下面这个节点，如果不需要菜单项，可以不添加 -->
+					<div class="menu" id="">
+						<div class="l"><div class="r"><div class="c"><div class="desc" WCMAnt:param="tabpage.html.menu">菜单</div><div class="more_tb"></div><div id="more_menubar" class="more_menubar" style="display:none;"></div></div></div></div>
+					</div>
+					<!--<div class="base_main" id="base_main"><div class="l active"><div class="r"><div class="c"><div class="desc">百度网站</div></div></div></div><span class="closepic"></span></div>-->
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 必须要有下面这样的一个div容器 -->
+	<div class="main" id="main">
+
+	</div>
+</div>
+</body>
+</html>
+<script language="javascript">
+<!--
+	var currTabPage = new wcm.TabPage();
+	//通过下面的onRender方法去指定菜单的操作
+	/**
+	* new wcm.TabPage().onRender(params);
+	* 参数 params 是一个数组，数组的每一个元素代表一个操作项的信息
+	* 数组的每个元素都是一个json，描述操作项的信息，有3个部分
+	* id描述的是操作的唯一标识，text是操作的名称，cmd是操作的响应事件
+	*/
+	currTabPage.onRender([
+		{
+			id : 'baidu',
+			text : '百度网站',
+			cmd : function(){
+				openBaiDutab();
+			}
+		},
+		{
+			id : 'google',
+			text : '谷歌搜索',
+			cmd : function(){
+				openGgtab();
+			}
+		}
+	]);
+	//通过openTabPage方法来打开一个新的标签页
+	/**
+	* new wcm.TabPage().openTabPage(sUrl,json,callback);
+	* 参数sUrl 是打开的标签页的页面url
+	* json 指定标签的名称和id
+	* callback 标签关闭后响应的事件
+	*/
+	function openBaiDutab(){
+		currTabPage.openTabPage('http://www.baidu.com',{id:'baidu_list',text:'百度网站',withClose:true},null);
+	}
+
+	function openGgtab(){
+		currTabPage.openTabPage('http://www.google.com',{id:'google_list',text:'谷歌搜索',withClose:true},null);
+	}
+//-->
+</script>

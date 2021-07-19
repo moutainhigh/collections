@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>采集服务</sort-name>
+  <table-info name="collect_webservice_task" class-name="com.gwssi.collect.webservice.dao.CollectWebserviceTask" check-flag="false" backup-flag="false">
+    <description>webservice任务表</description>
+  </table-info>
+
+  <column name="webservice_task_id" data-type="varchar" length="32" not-null="true" value-from="input" description="WEBSERVICE任务ID"/>
+  <column name="collect_task_id" data-type="varchar" length="32" not-null="false" value-from="input" description="采集任务ID"/>
+  <column name="service_no" data-type="varchar" length="20" not-null="false" value-from="input" description="任务编号"/>
+  <column name="method_name_en" data-type="varchar" length="100" not-null="false" value-from="input" description="方法名称"/>
+  <column name="method_name_cn" data-type="varchar" length="100" not-null="false" value-from="input" description="方法中文名称"/>
+  <column name="collect_table" data-type="varchar" length="32" not-null="false" value-from="input" description="对应采集表"/>
+  <column name="collect_mode" data-type="varchar" length="20" not-null="false" value-from="input" description="采集方式"/>
+  <column name="is_encryption" data-type="varchar" length="20" not-null="false" value-from="input" description="是否加密"/>
+  <column name="encrypt_mode" data-type="varchar" length="20" not-null="false" value-from="input" description="加密方式"/>
+  <column name="method_description" data-type="varchar" length="2000" not-null="false" value-from="input" description="方法描述"/>
+  <column name="method_status" data-type="varchar" length="20" not-null="false" value-from="input" description="方法状态"/>
+  <column name="web_name_space" data-type="varchar" length="500" not-null="false" value-from="input" description="命名空间"/>
+  <primary-key name="pk_collect_webservice_task" column-list="webservice_task_id"/>
+  <index name="pk_collect_webservice_task" index-type="unique" cluster="cluster" column-list="webservice_task_id"/>
+  <function func-name="select one collect_webservice_task" func-type="select" column-list="webservice_task_id,collect_task_id,service_no,method_name_en,method_name_cn,collect_table,collect_mode,is_encryption,encrypt_mode,method_description,method_status,web_name_space">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select collect_webservice_task list" func-type="rowset" column-list="webservice_task_id,collect_task_id,service_no,method_name_en,method_name_cn,collect_table,collect_mode,is_encryption,encrypt_mode,method_description,method_status,web_name_space" sort-columns="collect_task_id,service_no" max-record="10">
+    <filter-column column-name="collect_task_id" operator="eq" value-from="input" empty-flag="skip"/>
+  </function>
+
+  <function func-name="insert one collect_webservice_task" func-type="insert" column-list="webservice_task_id,collect_task_id,service_no,method_name_en,method_name_cn,collect_table,collect_mode,is_encryption,encrypt_mode,method_description,method_status,web_name_space">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one collect_webservice_task" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one collect_webservice_task" func-type="update" column-list="collect_task_id,service_no,method_name_en,method_name_cn,collect_table,collect_mode,is_encryption,encrypt_mode,method_description,method_status,web_name_space">
+    <description>修改记录</description>
+  </function>
+</table>
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.bootssm1.mapper.BookMapper">
+    <select id="getBookById" resultType="bookInfo">
+        select book_id, book_name, book_author, book_price, book_date
+          from t_book where book_id = #{id}
+    </select>
+
+    <insert id="saveBook" parameterType="bookInfo">
+         insert into t_book(book_name, book_author, book_price, book_date)
+          values(#{bookName}, #{bookAuthor}, #{bookPrice}, #{bookDate})
+    </insert>
+    
+    <insert id="batchBook" parameterType="list">
+        insert into t_book(book_name, book_author, book_price, book_date) 
+          values 
+          <foreach collection="books" item="val" open="(" close=")" separator=",">
+              #{val.bookName}, #{val.bookAuthor}, #{val.bookPrice},#{val.bookDate}
+          </foreach>
+    </insert>
+</mapper>

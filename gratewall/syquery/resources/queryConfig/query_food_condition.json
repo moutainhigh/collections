@@ -1,0 +1,42 @@
+{
+	name : "食品查询 > 餐饮服务",
+	condition:[
+		{
+			label : "证书编号1",
+			name : "CERTIFICATE_NO",
+			code : "CERTIFICATE_NO",
+			type : "text",
+			op:"full_like"
+		},{
+			label : "单位名称2",
+			name : "UNIT_NAME",
+			code : "UNIT_NAME",
+			type : "text",
+			op:"full_like"
+		},{
+			label : "经济性质3",
+			name : "BODY_TYPE",
+			code : "BODY_TYPE",
+			type : "combox",
+			op:"eq"
+		},{
+			label : "发证日期4",
+			name : "ISSUE_DATE_START",
+			code : "ISSUE_DATE",
+			type : "date",
+			op:"ge"
+		},{
+			label : "",
+			name : "ISSUE_DATE",
+			code : "ISSUE_DATE",
+			type : "date",
+			op:"le"
+		},{
+			label : "食品安全员5",
+			name : "NAME",
+			code : "NAME",
+			type : "text",
+			op : "full_like"
+		}
+	]
+}

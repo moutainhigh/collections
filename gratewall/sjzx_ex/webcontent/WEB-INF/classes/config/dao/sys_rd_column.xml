@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="sys_rd_column" class-name="cn.gwssi.dw.rd.metadata.dao.SysRdColumn" check-flag="false" backup-flag="false">
+    <description>已认领表字段表</description>
+  </table-info>
+
+  <column name="sys_rd_column_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="字段ID"/>
+  <column name="sys_rd_table_id" data-type="varchar" length="32" not-null="false" value-from="input" description="物理表ID"/>
+  <column name="sys_rd_data_source_id" data-type="varchar" length="32" not-null="false" value-from="input" description="数据源ID"/>
+  <column name="table_code" data-type="varchar" length="100" not-null="false" value-from="input" description="物理表名"/>
+  <column name="column_code" data-type="varchar" length="100" not-null="false" value-from="input" description="字段名"/>
+  <column name="column_name" data-type="varchar" length="100" not-null="false" value-from="input" description="字段中文名"/>
+  <column name="column_type" data-type="varchar" length="50" not-null="false" value-from="input" description="字段类型"/>
+  <column name="column_length" data-type="long" length="22" not-null="false" value-from="input" description="字段长度"/>
+  <column name="alia_name" data-type="varchar" length="100" not-null="false" value-from="input" description="字段别名"/>
+  <column name="code_name" data-type="varchar" length="100" not-null="false" value-from="input" description="系统代码名"/>
+  <column name="standard_status" data-type="varchar" length="1" not-null="false" value-from="input" description="合标状态"/>
+  <column name="column_codeindex" data-type="varchar" length="200" not-null="false" value-from="input" description="系统代码集名称"/>
+  <column name="is_extra_col" data-type="varchar" length="2" not-null="false" value-from="input" description="是否为必查字段"/>
+  <column name="sys_column_type" data-type="varchar" length="2" not-null="false" value-from="input" description="字段类型"/>
+  <column name="jc_data_element" data-type="varchar" length="10" not-null="false" value-from="input" description="基础数据元"/>
+  <column name="jc_data_index" data-type="varchar" length="10" not-null="false" value-from="input" description="基础代码集"/>
+  <column name="domain_value" data-type="varchar" length="10" not-null="false" value-from="input" description="值域"/>
+  <column name="unit" data-type="varchar" length="32" not-null="false" value-from="input" description="计量单位"/>
+  <column name="claim_operator" data-type="varchar" length="32" not-null="false" value-from="input" description="认领人"/>
+  <column name="claim_date" data-type="varchar" length="10" not-null="false" value-from="input" description="认领时间"/>
+  <column name="default_value" data-type="varchar" length="64" not-null="false" value-from="input" description="缺省值"/>
+  <column name="is_null" data-type="varchar" length="1" not-null="false" value-from="input" description="是否为空"/>
+  <column name="use_type" data-type="varchar" length="2" not-null="false" value-from="input" description="是否有效"/>  
+  
+  <column name="is_primary_key" data-type="varchar" length="1" not-null="false" value-from="input" description="是否主键"/>
+  <column name="is_index" data-type="varchar" length="1" not-null="false" value-from="input" description="是否索引"/>
+  <column name="changed_status" data-type="varchar" length="1" not-null="false" value-from="input" description="字段变化状态"/>
+  <column name="sync_sign" data-type="varchar" length="20" not-null="false" value-from="input" description="同步标识串"/>
+  <column name="description" data-type="varchar" length="2000" not-null="false" value-from="input" description="说明"/>
+  <column name="column_level" data-type="varchar" length="10" not-null="false" value-from="input" description="字段级别"/>
+  <column name="basic_flag" data-type="varchar" length="50" not-null="false" value-from="input" description="基础字段标识"/>
+  <column name="data_from" data-type="varchar" length="50" not-null="false" value-from="input" description="数据来源"/>
+  <column name="data_from_column" data-type="varchar" length="50" not-null="false" value-from="input" description="数据来源字段"/>
+  <column name="transform_desp" data-type="varchar" length="200" not-null="false" value-from="input" description="数据转换描述"/>
+  <column name="sort" data-type="long" length="5" not-null="false" value-from="input" description="排序"/>
+  <column name="timestamp" data-type="varchar" length="32" not-null="false" value-from="input" description="时间戳"/>
+  <primary-key name="pk_jc_column" column-list="sys_rd_column_id"/>
+  <index name="pk_jc_column" index-type="unique" cluster="cluster" column-list="sys_rd_column_id"/>
+  <function func-name="select one sys_rd_column" func-type="select" column-list="sys_rd_column_id,sys_rd_table_id,sys_rd_data_source_id,table_code,column_code,column_name,column_type,column_length,alia_name,code_name,standard_status,column_codeindex,is_extra_col,sys_column_type,jc_data_element,jc_data_index,domain_value,unit,claim_operator,claim_date,default_value,is_null,is_primary_key,is_index,changed_status,sync_sign,description,column_level,basic_flag,data_from,data_from_column,transform_desp,sort,timestamp,use_type">
+    <filter-column column-name="sys_rd_column_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_rd_column list" func-type="rowset" column-list="sys_rd_column_id,sys_rd_table_id,sys_rd_data_source_id,table_code,column_code,column_name,column_type,column_length,alia_name,code_name,standard_status,column_codeindex,is_extra_col,sys_column_type,jc_data_element,jc_data_index,domain_value,unit,claim_operator,claim_date,default_value,is_null,is_primary_key,is_index,changed_status,sync_sign,description,column_level,basic_flag,data_from,data_from_column,transform_desp,sort,timestamp,use_type" sort-columns="column_code" max-record="10">
+    <filter-column column-name="sys_rd_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_rd_column_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="column_code" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="column_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="column_type" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="column_codeindex" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_rd_column" func-type="insert" column-list="sys_rd_column_id,sys_rd_table_id,sys_rd_data_source_id,table_code,column_code,column_name,column_type,column_length,alia_name,code_name,standard_status,column_codeindex,is_extra_col,sys_column_type,jc_data_element,jc_data_index,domain_value,unit,claim_operator,claim_date,default_value,is_null,is_primary_key,is_index,changed_status,sync_sign,description,column_level,basic_flag,data_from,data_from_column,transform_desp,sort,timestamp">
+    <filter-column column-name="column_code" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="column_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="column_type" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="column_codeindex" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_rd_column" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_rd_column" func-type="update">
+    <filter-column column-name="sys_rd_column_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

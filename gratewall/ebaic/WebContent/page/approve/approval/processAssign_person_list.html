@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>config.title</title>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/common.css" rel="stylesheet" type="text/css" />
+<style>
+.content{
+	width: 760px;
+}
+
+
+.conbtns{
+ width: 450px; margin: 0 auto;
+}
+</style>
+
+</head>
+<body style='background-color:#FFF;' >
+
+
+<div class="conent">
+
+	<!-- 构建页面==开始 -->
+	<!-- 查询条件 -->
+	<div name="queryGrid_Form" wid="queryCheckPeople"
+		vtype="formpanel" width="100%" layout="table"
+		layoutconfig="{cols:2, columnwidth: ['50%','50%']}" 
+		labelstyleclass="labelstyle" title="选择审核人员" 
+		titledisplay="false" showborder="true" toggleable="true">
+		<div name="orgCodeFk" vtype="hiddenfield" label="当前机关ID" labelwidth="200" labelalign="right" width="500" tooltip="" rule=""></div>
+		<div name="userName" vtype="textfield" label="姓名" labelwidth="200" labelalign="right" width="400" tooltip="" rule="" style="margin-left:-98px"></div>
+		
+		<div style="margin-top:6px;margin-left:28px">
+			<div name="queryCheckPeople_query"  class="commonBt" >查询</div>
+			<div name="queryCheckPeople_reset"  class="commonBt" >重置</div>
+		</div>
+		
+	</div>
+	
+	
+	<!-- 数据展现 -->
+	<div vtype="gridpanel" name="queryGrid_Grid" wid="98aa9570a1194bfa9421725cbb9ea2a8" 
+		datarender="tf.processAssign_person_list.queryGrid_datarender"
+		titleDisplay="false" title="查询审核人员" width="100%" showborder="false" 
+		selecttype='1'
+		dataurl="../../../torch/service.do?fid=0f71f2385e3c486ea0872175327f413f&wid=98aa9570a1194bfa9421725cbb9ea2a8">
+		<div vtype="gridcolumn" name="grid_column" width="100%">
+			<div>
+				<div name="userName" text="姓名" textalign="center" width="" dataurl=""></div>
+				<!-- <div name="adminFlag" text="是否管理员" textalign="center" width="" dataurl=""></div>
+				<div name="userId" visible="false" textalign="right" width="" dataurl=""></div> -->
+			</div>
+		</div>
+		<div vtype="gridtable" name="grid_table" width="100%"></div>
+		<div vtype="paginator" name="grid_paginator" theme="2" pagerows="5" width="100%"></div>
+		</div>
+		
+		<div name="processAssign_person_listToolbar" vtype="toolbar" location="bottom" align="center"  class="conbtns">
+			<div style="margin-top:5px" name="processAssign_person_list_query_button" class="commonBt"  >确定</div>
+			<div name="processAssign_person_list_reset_button" class="commonBt" >返回</div>
+		</div>
+
+</div>
+
+<!-- 构建页面==结束 -->
+<script>
+	var tf = {};
+	tf.processAssign_person_list = {};
+	
+	tf.processAssign_person_list.queryGrid_datarender = function (event,obj){
+	
+	};
+	
+	tf.processAssign_person_list.query_fromNames = [ 'queryGrid_Form'];
+
+
+</script>
+<script type="text/javascript" src="../../../static/js/config.js"></script> 
+<script type="text/javascript" src="../../../static/lib/require.js"  data-main="approve/ApproveProcessAssignPerson.js"></script>
+</body>
+</html>

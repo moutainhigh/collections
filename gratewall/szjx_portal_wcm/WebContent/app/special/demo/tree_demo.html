@@ -1,0 +1,367 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict/dtd">
+<html>
+ <head>
+  <title WCMAnt:param="tree_demo.html.treecomponentdemo"> 树组件DEMO </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="Author" content="CH">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <link href="../../js/source/wcmlib/com.trs.tree/resource/TreeNav.css" rel="stylesheet" type="text/css" />
+  	<script src="../../js/easyversion/lightbase.js"></script>
+	<script src="../../js/source/wcmlib/WCMConstants.js"></script>
+	<script src="../../js/data/locale/system.js"></script>
+	<script src="../../js/easyversion/extrender.js"></script>
+	<script src="../../js/easyversion/elementmore.js"></script>
+	<script src="../../js/source/wcmlib/core/MsgCenter.js"></script>
+	<script src="../../js/source/wcmlib/Observable.js"></script>
+  <script language="javascript" src="../../js/source/wcmlib/com.trs.tree/TreeNav.js" type="text/javascript"></script>
+  <style type="text/css">
+	.containerRootOpened{
+		background:url(container_opened.gif) no-repeat 1px 2px;
+	}
+	.containerRoot{
+		background:url(container_closed.gif) no-repeat 1px 2px;
+	}
+	.layoutFolderOpened{
+		background:url(layout_opened.gif) no-repeat 1px 2px;
+	}
+	.layoutFolder{
+		background:url(layout_closed.gif) no-repeat 1px 2px;
+	}
+
+	.columnPage{
+		background:url(widget.gif) no-repeat 1px 2px;
+	}
+	.columnFolderOpened{
+		background:url(column_opened.gif) no-repeat 1px 2px;
+	}
+	.columnFolder{
+		background:url(column_closed.gif) no-repeat 1px 2px;
+	}
+	.widgetPage{
+		background:url(widget.gif) no-repeat 1px 2px;
+	}
+  </style>
+
+ </head>
+
+ <body>
+<button onclick="Operate.remove()" WCMAnt:param="tree_demo.html.deletenode">删除节点</button>
+<input type="text" name=""  id="luh"value="">
+<button onclick="eval($('sas').value)" WCMAnt:param="tree_demo.html.clickToAddContent">点击添加内容</button>
+<input type="text" id="sas" style="width:300px" name="" value="Operate.add()">
+<button onclick="Operate.modify()" WCMAnt:param="tree_demo.html.modifylayout">修改布局</button>
+ <div class="" id="tree">
+ </div>
+
+<script language="javascript">
+	var JSON1=[{id:'trs_wrap',type:'wrap',children:[{id:'part_0',type:'layout',children:[{id:'part_0_c_4',type:'column',children:[]},{id:'part_0_c_3',type:'column',children:[]},{id:'part_0_c_2',type:'column',children:[]},{id:'part_0_c_1',type:'column',children:[]}]},{id:'part_1',type:'layout',children:[{id:'part_1_c_1',type:'column',children:[]},{id:'part_1_c_2',type:'column',children:[]},{id:'part_1_c_3',type:'column',children:[]}]}]}]
+	// 从JSON到树结构代码
+	function drawWrap(_json){
+		var sHtml="";
+		if(typeof(_json)=='string')
+			_json=eval(_json);
+		for(var i=0;i<_json.length;i++){
+			sHtml+="<div class='TreeView'>";
+			sHtml+="<div  type='"+_json[i].type+"' id='"+_json[i].id+"' classPre='container'><a href='#'>"+String.format("容器{0}",i)+"</a></div>";
+			if(_json[i] && _json[i].children && _json[i].children.length>0){
+				sHtml+="<ul>";
+				sHtml+=drawLayout(_json[i].children);
+				sHtml+="</ul>";
+			}
+			sHtml+="</div>";
+		}
+		return sHtml;
+	}
+	function drawLayout(_json){
+		var sHtml="";
+		for(var i=0;i<_json.length;i++){
+			sHtml+="<DIV type='"+_json[i].type+"' id='"+_json[i].id+"' classPre='layout'><A href='#' >"+String.format("第{0}行",(i+1))+"</A></DIV>";
+			if(_json[i] && _json[i].children && _json[i].children.length>0){
+				sHtml+="<ul>";
+				sHtml+=drawColumn(_json[i].children);
+				sHtml+="</ul>";
+			}
+		}
+		return sHtml;
+	}
+	function drawColumn(_json){
+		var sHtml="";
+		for(var i =0;i<_json.length;i++){
+			var hasChild =_json[i] && _json[i].children && _json[i].children.length>0;
+			sHtml+="<DIV  type='"+_json[i].type+"' id='"+_json[i].id+"' classPre='column'><A href='#'>"+String.format("第{0}列",(i+1))+"</A></DIV>";
+			if(hasChild){
+				sHtml+="<ul>";
+				sHtml+=drawWidget(_json[i].children);
+				sHtml+="</ul>";
+			}
+		}
+		return sHtml;
+	}
+	function drawWidget(_json){
+		var sHtml="";
+		for(var i=0;i<_json.length;i++){
+			if(_json[i].type=="widget")
+				sHtml+="<DIV type='widget' id='"+_json[i].id+"'  classPre='widget'><A href='#' >"+_json[i].name+"</A></DIV>";
+			else if(_json[i].type=="layout")
+				sHtml+=drawLayout([_json[i]]);
+		}
+		return sHtml;
+	}
+	$('tree').innerHTML=drawTree(JSON1);
+	var TreeNav=com.trs.tree.TreeNav;
+	/*
+	*	删除节点
+	*	需要参数：节点的ID
+	*	
+	*/
+	function deleteNode(){
+		var parent = TreeNav.oPreSrcElementA.parentNode.parentNode;
+		TreeNav.removeNode(TreeNav.oPreSrcElementA.parentNode);
+		
+		/*var parent = $(_id).parentNode;
+		if(parent.getElementsByTagName("DIV").length==1){
+			var supParent=parent.parentNode;
+			TreeNav.removeNode(parent.previousSibling);
+			refresh(supParent);
+			return;
+		}
+		TreeNav.removeNode(_id);*/
+		return {parent:parent};
+	}
+	var _json=[{
+		id:"part_0",
+		type:"layout",
+		children:[{
+			id:"part_40_c_1",
+			type:"column",
+			children:[{
+				id:"widget_00",
+				type:"widget",
+				name:"专题的LOGO"
+			}]
+		},{
+			id:"part_40_c_2",
+			type:"column"
+		},{
+			id:"part_40_c_3",
+			type:"column"
+		}]
+	}]
+	
+	var parame={
+		parentId:"trs_wrap",
+		json:_json,
+		nextId:null
+	}
+	var parame1={
+		parentId:"part_1_c_3",
+		json:[{
+			id:"widget_1",
+			type:"widget",
+			name:"资源块1"
+		}],
+		nextId:null
+	}
+	/*
+	*	添加节点，可能的节点有布局，资源块
+	*/
+	function addNode(parame){
+		//构造相关结构代码
+		var sHtml=drawTree(parame.json);
+		var parent =Element.next($(parame.parentId));
+		var refreshElem=parent;
+		if(!parent){
+			parent=document.createElement("UL");
+			_insertAfter(parent,$(parame.parentId));
+			refreshElem=parent.parentNode;
+		}
+		if(parame.nextId)
+			addHtmlBeforeElem(sHtml,$(parame.nextId));
+		else
+			appendHtmlToElem(sHtml,parent)
+		TreeNav._initChildrenNodes(refreshElem);
+		return{parent:refreshElem,currNode:$(parame.json[0].id)}
+	}
+
+	// 往后插入一个元素
+	_insertAfter=function (newEl,tarElem){
+		if(!tarElem)
+			return;
+		if(tarElem.parentNode.lastChild==tarElem){
+			tarElem.parentNode.appendChild(newEl);
+			// TODO 撤销重做堆栈更新
+		}else{
+			_insertBefore(newEl,tarElem.nextSibling);
+		}
+	}
+	/**
+	*	更新节点，更新子节点的行号、列号信息
+	*/
+	function refresh(_elem){
+		if(_elem.tagName=="DIV")
+			_elem=_elem.nextSibling;
+		for(i=0,j=1;i<_elem.childNodes.length;i++){
+			if(_elem.childNodes[i].tagName!="DIV")
+				continue;
+			var aElem = _elem.childNodes[i].getElementsByTagName("A")[0];
+			var sHtml = aElem.innerHTML;
+			sHtml=sHtml.replace(/\d+/,j++);
+			aElem.innerHTML=sHtml;
+		}
+	}
+	var modifyParame={
+			parentId:"trs_wrap",
+			json:[{id:'part_0',type:'layout',children:[{id:'part_0_c_4',type:'column',children:[]},{id:'part_0_c_3',type:'column',children:[]},{id:'part_0_c_2',type:'column',children:[]}]}],
+			currId:"part_0"
+		}
+	var modifyParame1={
+			parentId:"part_1",
+			json:[{id:'part_1_c_1',type:'column',children:[{id:'part_0_c_4',type:'widget',children:[]},{id:'part_0_c_3',type:'widget',children:[]},{id:'part_0_c_2',type:'widget',children:[]}]}]
+		}
+	function modifyNode(parame){
+		var json=parame.json[0] || parame.json; 
+		var nextNode=Element.next(Element.next($(json.id)));
+		var parent = Element.next($(parame.parentId));
+		TreeNav.removeNode(json.id);
+		if(nextNode!=null){
+			addNode({nextId:nextNode.id,
+			json:parame.json,
+			parentId:parame.parentId});
+		}else{
+			// 根据类型来改变执行方法
+			var sHtml=drawTree(parame.json);
+			appendHtmlToElem(sHtml,parent);
+		}
+		return {parent:parent,currNode:$(json.id)};
+	}
+	/**
+	*	将字符串追加到某个元素末尾
+	*/
+	function appendHtmlToElem(sHtml,elem){
+		var tempHtml = elem.innerHTML;
+		elem.innerHTML=tempHtml+sHtml;
+	}
+	
+	/**
+	*	将HTML内容添加到某元素之前
+	*/
+	function addHtmlBeforeElem(sHtml,elem){
+		var el=document.createElement("div");
+		el.innerHTML=sHtml;
+		for(var i=0;i<el.childNodes.length;i++){
+			if(!el.childNodes[i].tagName)
+				continue;
+			var newElem = el.childNodes[i].cloneNode(true);
+			elem.parentNode.insertBefore(newElem,elem);
+		}
+	}
+	
+	function drawTree(json){
+		var type=getNodeTypeByJson(json);
+		if(type=="wrap"){
+			return drawWrap(json);
+		}else if(type=="layout"){
+			return drawLayout(json);
+		}else if(type=="column"){
+			return drawColumn(json);
+		}else if(type=="widget"){
+			return drawWidget(json);
+		}
+		return "";
+	}
+	/*
+	*	获取更新节点的类型
+	*/
+	function getNodeTypeByJson(json){
+		if(typeof(json)=="string")
+			json=eval(json);
+		if(json[0])
+			return json[0].type;
+		else
+			return json.type;
+	}
+
+Ext.ns("ViewTree.Operate");
+ViewTree.Operate=function(config){
+	ViewTree.Operate.superclass.constructor.apply(this, arguments);
+	Ext.apply(this, config);
+	this.init();
+};
+
+Ext.extend(ViewTree.Operate, wcm.util.Observable, {
+	init : function(){
+		this.addEvents(
+			/**
+			*@event focus
+			*before send request for load data.
+			*/
+			'focus',
+			/**
+			*@event select
+			*after get the data from server and before render the html to page.
+			*/
+			'select',
+			/**
+			*@event afterrender
+			*after render the html to page.
+			*/
+			'afterrender',
+			/**
+			*@event save
+			*after save the channel data to server, and then save other datas.
+			*/
+			'save',
+			/**
+			*@event aftersave
+			*after while all datas saved.
+			*/
+			'aftersave'
+		);
+	},
+	remove : function(){
+		//==》通知设计页面，删除已标识的内容 参数（无）
+		
+		//《==设计页面删除后返回参数 (标识内容的类型、ID)
+		// 删除该ID对应的节点
+		var result = deleteNode();
+		this.fireEvent('afterrender',result);
+	},
+	add:function(){
+		//==》通知设计页面，执行布局的添加操作
+		
+		//《==设计页面添加完成后，返回参数（类型，前一个布局的ID，JSON）
+
+		//添加节点
+		var result = addNode(parame1);
+		this.fireEvent('afterrender',result);
+	},
+	modify:function(){
+		//==》通知设计页面，执行布局的修改操作
+
+		//《==修改完成后，返回参数（当前布局的ID，布局的JSON）
+
+		//根据参数修改相关节点
+		var result = modifyNode(modifyParame1);
+		this.fireEvent('afterrender',result);
+	}
+})
+
+var Operate=new ViewTree.Operate({
+	selectElemId:"",
+	refreshElem:null
+});
+
+Operate.on("afterrender",function(parame){
+	if(!parame)
+		return;
+	if(parame.parent)
+		// 刷新父节点
+		refresh(parame.parent);
+	if(parame.currNode)
+		TreeNav.focus(parame.currNode)
+});
+//-->
+</script>
+ </body>
+</html>

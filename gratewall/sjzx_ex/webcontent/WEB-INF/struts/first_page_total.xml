@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>首页</menu-name>
+  <menu-path>/page/homepage/home/</menu-path>
+  <description>首页</description>
+  <form-beans>
+    <form-bean name="FirstPageTotalForm">
+      <description>多记录查询</description>
+      <form-property prefix="record" name="first_page_total_cls" type="string" size="50" cannull="true" description="类型"/>
+      <form-property prefix="record" name="first_page_total_num" type="double" size="40" cannull="true" description="数量"/>
+    
+      <form-property prefix="select-key" name="ent_type" type="string" size="40" cannull="true" description="企业类型"/>
+      <form-property prefix="select-key" name="ent_class" type="string" size="40" cannull="true" description="查询类型"/>
+      <form-property prefix="record" name="hs" type="string" size="50" cannull="true" description="户数"/>
+      <form-property prefix="record" name="zbje" type="string" size="50" cannull="true" description="资本金额"/>
+      <form-property prefix="record" name="ent_state" type="string" size="50" cannull="true" description="开业类型"/>
+      <form-property prefix="record" name="ent_stas_state" type="string" size="50" cannull="true" description="统计信息"/>
+    </form-bean> 
+  </form-beans>
+
+  <action-mappings>
+    <action input="front.jsp" name="FirstPageTotalForm" txn-code="81000001" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询首页数据总量</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnFirstPageTotal" func-name="txn81000001" input-node="select-key" output-node="record" description="查询首页数据总量"/>
+      <forward error-code="success" path="front.jsp"/>
+      <forward error-code="failure" path="front.jsp"/>
+    </action>
+
+  </action-mappings>
+
+</struts-config>
+

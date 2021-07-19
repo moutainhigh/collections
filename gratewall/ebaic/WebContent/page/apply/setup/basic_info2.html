@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1">
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<link rel="stylesheet" href="../../../static/css/common.css"/>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" 	rel="stylesheet" />
+<link rel="stylesheet" href="../../../static/css/baseInfo.css" />
+</head>
+<body>
+	<article class="wrapper">
+		<div class="main">
+			<div class="content-top">
+				<img src="../../../static/image/img/icon/info-white.png"> <span>企业基本信息</span>
+			</div>
+			<!-- 数据展现 -->
+			<div vtype="formpanel" name="applySetupNameInfo_Form" id="namepanel"
+				dataview="true" titleDisplay="false" title="名称信息" width="400"
+				showborder="false" dataurl="" layout="table" style="margin-left:40px;"
+				layoutconfig="{cols:1, columnwidth: ['100%']}"
+				labelstyleclass="labelstyle" class='hidden'>
+				<div name="entName" vtype="textfield" label="企业名称" labelwidth="80"
+					labelalign="right" width="400"></div>
+				<div name="notNo" vtype="textfield" label="名称文号" labelwidth="80"
+					labelalign="right" width="400"></div>
+				<div name="entType" vtype="textfield" label="企业类型" labelwidth="80"
+					labelalign="right" width="400"></div>
+				<div name="transactAuth" vtype="textfield" label="审批机关"
+					labelwidth="80" labelalign="right" width="400"></div>
+				<div name="industryPhy" vtype="textfield" label="行业门类"
+					labelwidth="80" labelalign="right" width="400"></div>
+				<div name="industryCo" vtype="textfield" label="行业代码"
+					labelwidth="80" labelalign="right" width="400"></div>
+			</div>
+			﻿
+			<!-- 数据展现 -->
+			<div vtype="formpanel" wid="applySetupBasic" style="margin: 0 auto;"
+				name="applySetupBasic_Form" id="applySetupBasic_Form"
+				dataview="false" titleDisplay="false" title="企业基本信息" width="80%"
+				showborder="false" dataurl="" layout="table"
+				layoutconfig="{cols:1, columnwidth: ['100%']}"
+				labelstyleclass="labelstyle">
+				<div name="gid" vtype="hiddenfield" label="主键" labelwidth="200"
+					labelalign="right" width="700"></div>
+				<div name="entName" vtype="textfield" label="名称信息" labelwidth="142"
+					labelalign="right" width="600" editable="false" readonly="true">
+				</div>
+				<div name="regCap" vtype="textfield" label="注册资本" labelwidth="142"
+					labelalign="right" width="700" tooltip=""
+					rule="must_number(17,6)_contrast;>0" suffix='万元'></div>
+				<div id="tradeTerm" name="tradeTerm" vtype="autocompletecomboxfield"
+					label="营业期限" labelwidth="142" labelalign="right" width="700"
+					tooltip=""
+					rule="must_customFunction;{validator.validateTradeTermNotNegative('tradeTerm')}"
+					minquerylength='0'
+					dataurl='[{"text":"5","value":"5"},{"text":"10","value":"10"},{"text":"20","value":"20"},{"text":"30","value":"30"},{"text":"长期","value":"999999"}]'
+					datatype='value' suffix='年'></div>
+				<div>
+					<div id="domDistrict" name="domDistrict" vtype="comboxfield"
+						label="住所（经营场所）" labelwidth="142" labelalign="right" width="297"
+						dataurl="../../../dictionary/queryData.do?dicId=CA01" readonly="true" rule="must"
+						prefix="北京市" change="" valuetip="请选择"></div>
+					<div name="domDetail" vtype="textfield" id="domDetail" width="400"
+						minquerylength="1" rule="must_length;0,100"></div>
+				</div>
+				<div>
+					<div id="proLocCity" name="proLocCity" vtype="comboxfield"
+						label="生产经营地" labelwidth="142" labelalign="right" width="297"
+						tooltip="" dataurl="" rule="must" prefix="北京市" change=""
+						valuetip="请选择"></div>
+					<div name="proLocOther" id="proLocOther" vtype="textfield"
+						id="pro_loc_other" width="400" minquerylength="1" change=""
+						rule="must_length;0,100"></div>
+				</div>
+				<div name="domOwner" id="zs_department" vtype="textfield"
+					label="住所（产权人）" labelwidth="142" labelalign="right" width="700"
+					tooltip="" rule="must_length;0,50"></div>
+				<div name="domOwnType" id="domOwnType" vtype="comboxfield"
+					label="住所产权类型" labelwidth="142" labelalign="right" width="700"
+					tooltip="" rule="must"></div>
+				<dl id="cq_option2_suggest_tips" class="suggest_tips"
+					style="width: 550px; margin-left: 149px; font-size: 12px;">
+					<dd id="suggest_dd2" class="blue_info_box"></dd>
+					<dd id="suggest_dd" class="blue_info_box">住房底层规划为商务用途的房屋
+						不得从事餐饮服务、歌舞娱乐、提供互联网上网服务、生产加工和制造、经营危险化学品等涉及国家安全、存在严重安全隐患、影响人民身体健康、污染环境的生产经营活动，以及法律法规规定的不得从事的其他行业。</dd>
+				</dl>
+				<div id="domAcreage" name="domAcreage" vtype="textfield"
+					label="营业面积" labelwidth="142" labelalign="right" width="700"
+					suffix='平方米' rule="must_number(9,2)_contrast;>0" tooltip=""></div>
+				<div name="copyNo" id="copyNo" vtype="textfield" label="执照副本数"
+					labelwidth="142" labelalign="right" width="700" tooltip=""
+					rule="must_numberInt_contrast;>=0;<100" suffix='份'></div>
+				<div id="approve">
+				    
+				    <div id="approve-license" name="approve-license" vtype="textareafield" label="许可经营范围" width="700" height="80" editable="false" labelwidth="142" style="margin-bottom:16px;"></div>
+				    <div id="approve-scope" name="approveScope" vtype="textareafield" label="一般经营范围" width="700" height="80" editable="false" labelwidth="142" style="margin-bottom:16px;"></div>
+				    <div id="approve-custom" name="approveCustom" vtype="textareafield" label="手输经营范围" width="700" height="80" labelwidth="142" style="margin-bottom:16px;"></div>
+				    <div id="approve-suffix" name="approveSuffix" vtype="textareafield" label="项下标注" width="700" height="80" editable="false" labelwidth="142" style="margin-bottom:16px;"></div>
+				</div>
+			</div>
+			<div class="content-form">
+				<div vtype="radiofield" id="scopeType" name="scopeType" label="经营范围"
+					labelwidth="142" labelalign="right" itemwidth="190"
+					dataurl="[{checked: true,value: '2',text: '具体核定经营范围'},{value: '1',text: '不具体核定经营范围'}]"
+					width="700" rule="must"></div>
+				<div class="business_scope">
+					<div class="dotted-line"></div>
+					<div id="scope_tags">
+						<a class="common scope-tips moreScope">更多</a>
+						<a class="common right-tips addLicense">添加后置许可经营用语</a>
+					</div>
+					<div id="nodefiniteScope" class="gap">
+						<div vtype="autocompletecomboxfield" name="mainSc" id="mainSc" dataurl="../../../apply/setup/scope/mainScope.do" minquerylength=0
+							width="550" label="主要经营项目" labelwidth="120"></div>
+						<div class="box">
+							<a class="addLicense common">添加后置许可经营用语</a><small>（工商登记完成后还需去其他机关办理许可登记）</small>
+						</div>
+					</div>
+					<div id="scope"></div>
+					<div class="gap dotted-top" id="customContent">
+						如果选出的经营范围不能满足您的要求，您可以<span class="littleBt" id="customInput">手动输入</span>
+						<textarea class="hide" rows="3" cols="82" id="customScope"></textarea>
+						<div class="hide" id="customScopeTips">提示：手动输入的部分，工商登记人员将依据规范表述进行调整，最终以工商机关核定为准。</div>
+						<br />
+					</div>
+					<div class="blue_content">
+						<h5>根据您输入的信息生成的经营范围如下：</h5>
+						<div id="scope_text" class="scope_text"></div>
+					</div>
+					<div class="gap">使用系统提供的经营范围用语或模板而且没有修改，经营范围项人工审核环节可以直接通过。</div>
+				</div>
+			</div>
+			
+		</div>
+			<div class="button_container">
+				<div name="applySetupBasic_back_button"
+					id="applySetupBasic_back_button" class="commonBt">返回</div>
+				<div name="applySetupBasic_query_button"
+					id="applySetupBasic_query_button" class="commonBt">保存</div>
+				<div name="applySetupBasic_next_button"
+					id="applySetupBasic_next_button" class="commonBt">下一步</div>
+			</div>
+
+			<section class="wrapAdvice">
+			<section class="advice">
+				<section class="adviceTop">
+					<span>退回修改意见</span>
+					<img src='../../../static/image/img/icon/minus.png' name="back">
+				</section>
+				<section class="tips">
+					<!-- <p>1.技术开发,技术转让,技术咨询,技术服务;销售计算机软件辅助设备;电子产品,机械设备</p>
+					<p>2.通讯设备,五金交电,安技术防范产品,化工产品(不含危险化学品及一类易制毒化学品)金属</p>
+					<p>3.材料,非金属矿石,金属石;货物进出口,代理进出口</p> -->
+				</section>
+			</section>
+			<section class="modifyBackAdvice">
+				<img src="../../../static/image/img/icon/plusign.png">
+				<p>退回修改意见</p>
+			</section>
+		</section>
+		<div class="moreDetail" id="check">
+			<span class="checkdetail">&nbsp;&nbsp;查看详细</span>
+		</div>
+		<!--点击个人中心后弹出-->
+		<div id="bg"></div>
+		<div id="hint-box">
+			<div class="hint-boxtop">
+				<span class="applicantfont">尊敬的申请人:</span>
+				<p class="noticeInfo">欢迎您首次登录北京工商登记申请服务平台(全流程</p>
+				<p class="noticeInfo-indent">
+					电子化),您在办理业务之前,需要先完成个人的 <span class="notice">身份认证!</span>
+				</p>
+			</div>
+			<div class="full-line"></div>
+			<div class="enter">
+				<a href=""> <span class="enter-font">进入个人中心</span>
+				</a>
+			</div>
+		</div>
+	</article>
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" src="../../../static/lib/require.js" 	data-main="apply/setupBasicInfo.js"></script>
+</body>
+</html>

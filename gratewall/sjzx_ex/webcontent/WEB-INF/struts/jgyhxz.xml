@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>选择机构用户</menu-name>
+  <menu-path>/page/sysmgr/choice/orguserchoice/</menu-path>
+  <description>选择用户</description>
+  <form-beans>
+    <form-bean name="JgyhxzRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="jgid_pk" type="string" size="32" cannull="false" description="机构ID"/>
+      <form-property prefix="select-key" name="sjjgid_fk" type="string" size="32" cannull="true" description="上级机构ID"/>
+      <form-property prefix="select-key" name="jgmc" type="string" size="60" cannull="false" description="机构名称"/>
+      <form-property prefix="input-data" name="jgid_pk" type="string" size="32" cannull="false" description="机构ID"/>
+      <form-property prefix="input-data" name="jgid_fk" type="string" size="32" cannull="false" description="机构ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="main.jsp" name="JgyhxzRowsetForm" txn-code="808002" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <step index="808002" bean-name="com.gwssi.sysmgr.choice.TxnJgyhxz" func-name="txn808002" input-node="input-data" output-node="select-key" description="机构用户选择"/>
+      <forward error-code="success" path="tree.jsp" redirect="false"/>
+      <forward error-code="failure" path="tree.jsp" redirect="false"/>
+    </action>
+  </action-mappings>
+</struts-config>
+

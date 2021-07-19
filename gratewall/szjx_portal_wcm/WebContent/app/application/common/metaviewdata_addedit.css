@@ -1,0 +1,92 @@
+/*编辑样式*/
+*{
+	font-size:12px;
+}
+html,body{
+	height:100%;
+	width:100%;
+	padding:0px;
+	margin:0px;
+	overflow-x:hidden;
+	overflow-y:auto;
+}
+#tabs{
+	position:static;
+}
+.ui-state-default{
+	position:static !important;
+}
+.box{
+	overflow:hidden;
+}
+.row{	
+	margin:2px;
+	clear:both;
+	overflow:hidden;
+	min-height:22px;
+}
+.label{
+	float:left;
+	width:100px;
+	text-align:right;
+	white-space:normal;
+	overflow:hidden;
+}
+.sep{
+	float:left;
+	width:10px;
+	text-align:left;
+	white-space:normal;
+	overflow:hidden;
+	margin-left:5px;
+}
+.value{
+	margin-left:145px;
+	text-align:left;
+}
+input[type=text]{
+	border:1px solid #7F9DB9;
+}
+.topset_row{display:inline;}
+.topset_up,.topset_down{cursor:pointer;width:16px;height:16px;line-height:16px;margin-left:3px;float:left;padding:0;zoom:1;background-image: url(../../images/icon/icons2.gif);background-repeat: no-repeat; }
+.topset_up{background-position: 0 -400px;}
+.topset_down{background-position: 0 -384px;}
+.topset_row{padding-left:10px;}
+#pri_set_deadline{margin-left:4px;}
+.ext-ie7 .imgDate{margin:0;padding:0;zoom:1.0;cursor:pointer;}
+#topset_order{overflow:visible;height:auto;}
+.buttonBox{
+	height:53px;
+	overflow:hidden;
+	vertical-align:middle;
+	text-align:center;
+}
+.buttonBox button{
+	margin-top:10px;
+	width:100px;
+}
+fieldset{padding:5px 0 5px 0px;margin-bottom:5px;border:1px dashed #f7b64a;}
+legend{font-weight:bold;font-family:arial;border:0px;background-color:#eeeeee;}
+
+fieldset .row{
+	margin-left:0px;
+}
+
+.ext-strict .errorStyle input, .ext-strict .errorStyle table, .ext-strict .errorStyle textarea,.ext-strict .errorStyle select{
+	border:1px solid red!important;
+}
+.ext-strict .XCheckbox input, .ext-strict .XRadio input{
+	border:none!important;
+}
+.ext-strict div.errorStyle[class~=XCheckbox ]{
+	border:1px solid red!important;
+}
+.ext-strict div.errorStyle[class~=XRadio]{
+	border:1px solid red!important;
+}
+.ext-strict div.errorStyle[class~=XEditor ]{
+	border:1px solid red!important;
+}
+.ext-ie6 .errorStyle{
+	border:1px solid red;
+}

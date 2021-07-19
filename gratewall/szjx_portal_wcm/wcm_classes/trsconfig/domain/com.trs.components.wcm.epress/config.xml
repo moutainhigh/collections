@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin name="WCM电子报组件" version="1.0" id="wcm.epress">
+	<!--Config For ObjectLCMonitor BEGIN-->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		1：新增
+		2：修改后
+		3：删除前
+		4、删除后
+		5、修改前
+		多个以逗号隔开
+	-->	
+	<extension 
+		element-class="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		id="components.wcm.content.ObjectLCMonitor">
+		<!--文档-->
+		<monitor-host name="文档" 
+			class-name="com.trs.components.wcm.content.persistent.Document">
+			<listener bean-id="DocumentLCListenerHistoryIndex" event-type="2,4"/>	
+		</monitor-host>
+		<monitor-host name="栏目" 
+			class-name="com.trs.components.wcm.content.persistent.Channel">
+			<listener bean-id="ChannelLCListener4EPress" event-type="4"/>	
+		</monitor-host>
+	</extension>
+</plugin>

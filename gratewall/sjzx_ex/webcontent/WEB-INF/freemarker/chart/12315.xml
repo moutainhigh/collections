@@ -1,0 +1,29 @@
+<chart palette="2" caption="近一月申诉举报办结情况"  showBorder="0"
+showValues="0" divLineDecimalPrecision="1" limitsDecimalPrecision="1" 
+captionPadding="1" chartTopMargin="1" chartBottomMargin="5" chartLeftMargin="5" showLabels="0"
+PYAxisName="Amount" SYAxisName="Quantity" numberPrefix="" formatNumberScale="0" >
+<categories>
+<category label="第一周" />
+<category label="第二周" />
+<category label="第三周" />
+<category label="第四周" />
+
+</categories>
+
+<dataset seriesName="申诉办结数">
+<set value="${ss1!}" />
+<set value="${ss2!}" />
+<set value="${ss3!}" />
+<set value="${ss4!}" />
+
+</dataset>
+<dataset seriesName="举报办结数" renderAs="Line">
+<set value="${jb1!}" />
+<set value="${jb2!}" />
+<set value="${jb3!}" />
+<set value="${jb4!}" />
+
+</dataset>
+
+
+</chart>

@@ -1,0 +1,214 @@
+<html>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+<title>Infoview Fields Tree</title>
+<style languageStyle="languageStyle">
+BODY {
+	FONT-SIZE: 10pt; FONT-FAMILY: SimSun
+}
+</style>
+<script src="../../app/js/easyversion/lightbase.js"></script>
+<script>
+var m_oMainPage = null;
+var m_sXPath = null;
+var m_oCurrInfo = null;
+var m_oConfig = null;
+var m_nFieldType = 0;
+var m_nDataType = 'string'
+var m_cb = null;
+function init(_args, cb) {
+	try{
+		m_sXPath = _args.XPath;
+		m_oMainPage = _args._Window;
+		m_oCurrInfo = _args.CurrInfo;
+		m_oConfig = _args.Config;
+		m_nFieldType = _args.FieldType || 0;
+		m_nDataType = _args.DataType || 'string';
+		$('fieldname').value = _args.IVFieldName || '';
+		LoadCreators(m_oConfig, m_oCurrInfo);
+		LoadData(m_oCurrInfo, m_nFieldType, _args.InitValue);
+		m_cb = cb;
+	}catch(err){
+		alert(err.message);
+	}
+}
+function LoadCreators(_oConfig, _oInfo){
+	var hCreators = _oConfig;
+	if(!hCreators) {
+		return;
+	}
+	_oInfo = _oInfo || {};
+	//alert($toQueryStr(_oConfig) + ',  ' + $toQueryStr(_oInfo))
+	//else
+	for( var sName in hCreators){
+		var type = hCreators[sName]['type'];
+		if((m_nDataType == 'date' || m_nDataType == 'datetime') && m_nDataType != type)
+			continue;
+		var elOption = document.createElement('Option');
+		elOption.value = sName;
+		elOption.innerHTML = hCreators[sName]['name'];
+		if(_oInfo['initvaluecreator'] == sName) {
+			elOption.selected = true;
+			$('displayValueEl').value = hCreators[sName]['name']; //添加初始化显示值
+		}
+		$('selInitvalueCreators').appendChild(elOption);
+	}
+
+}
+function LoadData(_oInfo, _nFieldType, _sInitValue){
+	$('initvalue').value = ((_sInitValue==null)?(_oInfo?_oInfo['initvalue']:''):_sInitValue)||'';
+	var sDisplayValue = $('displayValueEl').value;
+	if(!sDisplayValue){
+		//添加判断，判断下拉选择是否初始化了displayValueEl元素，假如没有初始化则使用initvalue初始化displayValueEl的value属性
+		$('displayValueEl').value = (_oInfo?_oInfo['initvalue']:'') || '';
+	}
+	if(!_oInfo)return;
+	$('readfield').checked = _oInfo['readfield']!='0';
+	$('writefield').checked = _oInfo['writefield']!='0';
+	if(_nFieldType!=0){
+		Element.hide($('row_writefield'));
+		Element.hide($('row_initvalue'));
+		Element.hide($('row_creator'));
+		return;
+	}
+}
+function Ok() {
+	var oInfo = {
+		'initvalue': null,
+		'initvaluecreator': null,
+		'fieldtype' : m_nFieldType
+	};//Object.extend({}, m_oCurrInfo);
+	oInfo['XPath'] = m_sXPath;
+	oInfo['readfield'] = $('readfield').checked?1:0;
+	oInfo['writefield'] = $('writefield').checked?1:0;
+	if($('selInitvalueCreators').value!=''){
+		//假如选择了下拉列表中的值，那么就将其值赋给oInfo对象的initvaluecreator属性
+		oInfo['initvaluecreator'] = $('selInitvalueCreators').value; 
+	}
+	oInfo['initvalue'] = $('initvalue').value;
+	m_cb.callback(oInfo);
+	m_cb.close();
+	return false;
+}
+function Cancel(){
+	m_cb.close();
+}
+function setSltedValue(index){
+	var sltedEl = $('selInitvalueCreators').options[index];
+	var value = sltedEl.value;
+	var name = sltedEl.innerHTML;
+	$('displayValueEl').value = name;
+	$('initvalue').value = "";//清空initvalue属性
+}
+function changeValue(el){
+	$('selInitvalueCreators').options[0].selected = true; //选中第一个下拉选择项，即value为空的option
+	$('initvalue').value = el.value;
+	setTimeout(function(){$('initvalue').blur()},1000);
+}
+</script>
+<style>
+	body{
+		font-size:14px;
+		line-height:22px;
+	}
+	fieldset{
+		padding:5px 0 5px 5px;
+		margin-bottom:5px;
+	}
+	legend{
+		font-weight:bold;
+	}
+	.inputtext{
+		height:20px;
+		font-size:14px;
+		line-height:18px;
+		border:1px solid gray;
+		width:120px;
+	}
+	.label{
+		display:inline;
+		width:100px;
+	}
+	.value{
+		display:inline;
+	}
+	.input_checkbox{
+	}
+	.desc{
+		color:gray;
+		font-size:12px;
+		margin-left:10px;
+	}
+	#selInitvalueCreators{
+		width:120px;
+		position: absolute; 
+		margin-left: -100px;
+	}
+	#displayValueEl{
+		position:absolute;
+		width:115px;
+	}
+	.initSp{
+		position: absolute; 
+		width: 21px; 
+		height: 19px; 
+		margin-left: 100px;
+		overflow:hidden;
+	}
+</style>
+</head>
+<body style="padding:0;margin:0;">
+	<fieldset><legend WCMAnt:param="infoview_workflow_setting.html.nomalinfo">基本信息</legend>
+    <div class="row">
+        <span class="label" WCMAnt:param="infoview_workflow_setting.html.fieldname">字段名称：</span>
+        <span class="value">
+            <input value="" class="inputtext" id="fieldname" name="fieldname" readOnly disabled>
+        </span>
+    </div>
+    <div class="row">
+        <span class="label" WCMAnt:param="infoview_workflow_setting.html.allowshow">允许查看：</span>
+        <span class="value">
+            <input value="1" class="input_checkbox" id="readfield" name="readfield" type="checkbox" checked>
+        </span>
+    </div>
+    <div class="row" id="row_writefield">
+        <span class="label" WCMAnt:param="infoview_workflow_setting.html.allowedit">允许编辑：</span>
+        <span class="value">
+            <input value="1" class="input_checkbox" id="writefield" name="writefield" type="checkbox" checked>
+        </span>
+    </div>
+    <!-- 
+    <div class="row" id="row_initvalue">
+        <span class="label" WCMAnt:param="infoview_workflow_setting.html.fieldinitvalue">字段默认值：</span>
+        <span class="value">
+            <input class="inputtext" type="text" name="initvalue" id="initvalue" value="">
+        </span>
+    </div>
+    -->
+    <div class="row" id="row_creator">
+	    <div class="row" id="row_initvalue">
+	        <span class="label" WCMAnt:param="infoview_workflow_setting.html.fieldinitvalue">默认值/变量：</span>
+	        <span class="value" style="position:absolute;">
+	            <input type="hidden" name="initvalue" id="initvalue" value="">
+				<input class="inputtext" type="text" name="displayValueEl" id="displayValueEl" onchange="changeValue(this);" value="">
+				<span class="initSp" style="">
+					<select id="selInitvalueCreators" onchange="setSltedValue(this.selectedIndex);" name="selInitvalueCreators">
+						<option value=""></option>
+					</select>
+				</span>
+	        </span>
+	    </div>
+    </div>
+	</fieldset>
+	<table border=0 cellspacing=0 cellpadding=0 width="100%" height="40">
+	<tbody>
+		<tr>
+			<td align="center" valign="middle">
+				<input type="button" value="确定" onclick="Ok();" WCMAnt:paramattr="value:infoview_workflow_setting.html.okvalue">&nbsp;&nbsp;&nbsp;
+				<input type="button" value="取消" onclick="Cancel();" WCMAnt:paramattr="value:infoview_workflow_setting.html.calcelvalue">
+			</td>
+		</tr>
+	</tbody>
+	</table>
+</body>
+</html>

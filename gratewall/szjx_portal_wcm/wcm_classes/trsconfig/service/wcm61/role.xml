@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.RoleServiceProvider" objclass="com.trs.cms.auth.persistent.Role">
+	<method name="saveRoles" desc="保存用户角色信息">
+		<parameter name="UserId" desc="获取用户的ID" type="string" required="true"/>
+		<parameter name="CurrRoleIds" desc="获取用户现有角色信息" type="string" required="false"/>
+		<parameter name="OrigRoleIds" desc="获取用户原有角色信息" type="string" required="false"/>
+	</method>		
+	<method name="save" desc="保存角色信息">
+		<parameter name="ObjectId" desc="当前角色的ID" type="int" required="false"/>
+		<parameter name="RoleType" desc="当前角色的类型" type="int" required="false"/>
+		<parameter name="RoleRange" desc="当前角色的范围" type="int" required="true"/>
+		<parameter name="GroupIds" desc="当前角色关联的组织ID序列" type="string" required="false"/>
+	</method>		
+	<method name="getSiteRoleUsersInfo" desc="获取指定用户的站点角色用户信息">
+		<parameter name="UserId" desc="当前角色的ID" type="int" required="true"/>
+	</method>	
+		
+	<method name="getRolesForCurrUser" desc="获取当前登录用户可以查看的所有角色信息">
+		<!--排序字段-->
+		<parameter name="OrderBy" desc="角色排序字段及方式" type="string" default="ROLEORDER ASC" required="false"/>
+		<parameter name="RoleType" desc="角色类型" type="int" required="false"/>
+		<parameter name="RoleRange" desc="角色范围" type="int" required="false"/>		
+		<parameter name="Viewable" desc="是否可见" type="int" required="false"/>	
+		<parameter name="IncludeEveryone" desc="是否包含Everyone角色" type="boolean" required="false" default="0"/>	
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="ROLENAME" desc="角色名" type="string" required="false" search="true"
+			search-operator="like"/>		
+		<parameter name="CRUSER" desc="创建用户" type="string" required="false" search="true"
+			search-operator="like"/>
+		<!-- 检索相关配置 END -->
+	</method>		
+	
+	<method name="saveRoleUsers" desc="绑定角色,站点和用户的关联，同时将清除原来的关联">
+		<parameter name="RoleId" desc="角色ID" type="int" required="true" />
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>				
+		<parameter name="UserIds" desc="用户的ID序列" type="string" required="true" />				
+	</method>		
+
+	<method name="saveUsersOfSystemRoleOnSite" desc="将用户添加到指定站点的系统级角色上">
+		<parameter name="RoleId" desc="角色ID" type="int" required="true" />
+		<parameter name="SiteId" desc="站点ID" type="int" required="true"/>				
+		<parameter name="UserIds" desc="用户的ID序列" type="string" required="true" />				
+	</method>		
+
+	<method name="saveUsersOfSpecialRole" desc="将用户添加到特定的角色上">
+		<parameter name="RoleId" desc="角色ID" type="int" required="true" />
+		<parameter name="UserIds" desc="用户的ID序列" type="string" required="true" />				
+	</method>		
+	
+	<method name="removeUsersFromCurrRole" desc="从角色中删除用户">
+		<parameter name="RoleId" desc="角色ID" type="int" required="true" />
+		<parameter name="SiteId" desc="站点ID" type="int" required="true"/>		
+		<parameter name="UserIds" desc="要删除用户的ID序列" type="string" required="true" />				
+	</method>	
+
+	<method name="getSystemRolesOfUser" desc="获取指定用户在指定站点上的系统级角色">
+		<parameter name="SiteId" desc="站点ID" type="int" required="true"/>				
+		<parameter name="UserId" desc="用户ID" type="int" required="true" />
+	</method>		
+
+	<method name="getSpecialRolesOfUser" desc="获取指定用户的特定角色">
+		<parameter name="UserId" desc="用户ID" type="int" required="true" />
+	</method>		
+	
+	<method name="saveSystemRolesOfUser" desc="保存指定用户的系统级角色">
+		<parameter name="UserId" desc="用户ID" type="int" required="true" />
+		<parameter name="SiteId" desc="站点ID" type="int" required="true" />
+		<parameter name="RoleIds" desc="角色ID序列" type="string" required="true" />
+	</method>	
+	<method name="saveSpecialRolesOfUser" desc="保存指定用户的系统级角色">
+		<parameter name="UserId" desc="用户ID" type="int" required="true" />
+		<parameter name="SpecialRoleIds" desc="特定角色ID序列" type="string" required="true" />
+	</method>	
+</service>

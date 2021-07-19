@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+function closewin(){
+	alert('close');
+	parent.$("div[name='win']").window('close');
+}
+</script>
+</head>
+
+<body>
+<br><br><br>
+			<div style="background-color:#fff; border: 1px solid #ddd">iframe</div>
+			<input type="button" value="¹Ø±Õ" onclick="closewin()">
+</body>
+</html>

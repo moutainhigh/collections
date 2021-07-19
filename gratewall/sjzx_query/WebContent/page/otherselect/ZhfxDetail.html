@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="../../static/js/jquery-1.8.3.js"></script>
+<script src="../../static/script/jquery.cookie.js"></script>
+<title>深圳市商事主体综合统计分析</title>
+<style>
+body{font-family: "微软雅黑"}
+
+img{border: none;vertical-align:middle;display: block;float: left;}
+a{float: left;display: block;cursor: pointer;}
+
+
+.container{min-width:960px;width:1100px;margin: 0 auto;}
+
+
+/*表头的颜色*/
+
+tr:hover{
+	background: #ccc;
+}
+
+ tr:hover td {background:none;}
+
+th{
+	background: #E0ECFA;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 4px;
+	text-align: center;
+	color: #465886;
+}
+
+td{
+  color: #465886;
+  padding:0 4px;
+  font-size: 14px;
+}
+
+/*各分局的通用样式*/
+.regionAll{
+	background: #fff;
+	font-size: 14px;
+}
+
+.regionDetail{
+	background: #fff;
+	color: #465886;
+	padding: 4px 6px;
+	text-align: center;
+}
+
+
+.regionChildRows{
+	background: #E1F6CD;
+}
+
+.regionChildColum{
+	font-size: 12px;
+	padding:4px 6px;
+	
+}
+
+.regSel{
+	background: #EEEEEE;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<h2 style="text-align: center;">深圳市商事主体综合统计分析</h2>
+		<!-- <table width="980" border="1" cellspacing="0" cellpadding="0" bcolor="#f1f1f1"> -->
+		<table width = "1050" width = "1100" cellspacing="1" cellpadding="0" border="0" bgcolor="#C5D6E0">
+			<thead>
+				<tr>
+					<th  rowspan="2"><div align="center">序号</div></th>
+					<th rowspan="2"><div align="center">管辖区域</div></th>
+					<th colspan="4"><div align="center">商事主体</div></th>
+					<th colspan="2"><div align="center">年报</div></th>
+					<th colspan="1"><div align="center">案件</div></th>
+					<th colspan="1"><div align="center">消保</div></th>
+					<th colspan="2"><div align="center">食品</div></th>
+				</tr>
+				<tr>
+					<th><div align="center">合计</div></th>
+					<th><div align="center">续存</div></th>
+					<th><div align="center">注销</div></th>
+					<th><div align="center">吊销</div></th>
+					<th><div align="center">已年报户数</div></th>
+					<th><div align="center">未年报户数</div></th>
+					<th><div align="center">涉案主体数量</div></th>
+					<th><div align="center">涉及主体数量</div></th>
+					<th><div align="center">食品企业数量</div></th>
+					<th><div align="center">有证食品企业数量</div></th>
+				</tr>
+			</thead>
+
+			<tbody id="contents">
+				<!-- <tr>
+					<td>1</td>
+					<td><a onclick="openLuoHu(this)">福田局</a></td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr> -->
+			</tbody>
+
+		</table>
+	<div style="color:red;padding-top:6px;font-size: 12px;">
+		注：数据更新时间&nbsp;&nbsp;<span id="time"></span>
+	</div>
+	</div>
+
+
+
+
+	<script type="text/javascript">
+	var dataSet = "";
+		$.ajax({
+			url : "../../otherselect/getZhfxInfo.do",
+			type : "post",
+			dataType : "json",
+			success : function(data) {
+				//var data = data.data[0].data.rows;
+				var html='';
+				var num  = 0;
+				//var add = "<img  src='../../page/otherselect/images/add.png' width='16' height='16'/>";
+				for (var i = 0; i < data.length; i++) {
+					var str = data[i].codename;
+						if(data[i].comCnt==undefined){
+							data[i].comCnt ="0";
+						}
+						
+						if(data[i].existenceCnt==undefined||data[i].existenceCnt==""||data[i].existenceCnt==null||data[i].existenceCnt=="undefined"){
+							data[i].existenceCnt ="0";
+						}
+						if(data[i].logoffCnt==undefined||data[i].logoffCnt==""||data[i].logoffCnt==null||data[i].logoffCnt=="undefined"){
+							data[i].logoffCnt ="0";
+						}
+						if(data[i].revokeCnt==undefined||data[i].revokeCnt==""||data[i].revokeCnt==null||data[i].revokeCnt=="undefined"){
+							data[i].revokeCnt ="0";
+						}
+						if(data[i].reportCnt==undefined||data[i].reportCnt==""||data[i].reportCnt==null||data[i].reportCnt=="undefined"){
+							data[i].reportCnt ="0";
+						}
+						if(data[i].noReportCnt==undefined||data[i].noReportCnt==""||data[i].noReportCnt==null||data[i].noReportCnt=="undefined"){
+							data[i].noReportCnt ="0";
+						}
+					
+						if(data[i].inCaseCnt==undefined||data[i].inCaseCnt==""||data[i].inCaseCnt==null||data[i].inCaseCnt=="undefined"){
+							data[i].inCaseCnt ="0";
+						}
+					
+						if(data[i].inProtectCnt==undefined||data[i].inProtectCnt==""||data[i].inProtectCnt==null||data[i].inProtectCnt=="undefined"){
+							data[i].inProtectCnt ="0";
+						}
+					
+						if(data[i].foodEnterpriseCnt==undefined||data[i].foodEnterpriseCnt==""||data[i].foodEnterpriseCnt==null||data[i].foodEnterpriseCnt=="undefined"){
+							data[i].foodEnterpriseCnt ="0";
+						}
+						if(data[i].cardFoodEnterpriseCnt==undefined||data[i].cardFoodEnterpriseCnt==""||data[i].cardFoodEnterpriseCnt==null||data[i].cardFoodEnterpriseCnt=="undefined"){
+							data[i].cardFoodEnterpriseCnt ="0";
+						}
+					
+						html+="<tr >"+
+							"<td class='regionAll'>"+(++num)+"</td>"+
+							"<td class='regionAll'><a onclick='openLuoHu("+data[i].code+")'>"+data[i].codename+"</a></td>"+
+							"<td class='regionDetail'>"+data[i].comCnt+"</td>"+
+							"<td class='regionDetail'>"+data[i].existenceCnt+"</td>"+
+							"<td class='regionDetail'>"+data[i].logoffCnt+"</td>"+
+							"<td class='regionDetail'>"+data[i].revokeCnt+"</td>"+
+							"<td class='regionDetail'>"+data[i].reportCnt+"</td>"+
+							"<td class='regionDetail'>"+data[i].noReportCnt+"</td>"+
+							"<td class='regionDetail'>"+data[i].inCaseCnt+"</td>"+
+							"<td class='regionDetail'>"+data[i].inProtectCnt+"</td>"+
+							"<td class='regionDetail'>"+data[i].foodEnterpriseCnt+"</td>"+
+							"<td class='regionDetail'>"+data[i].cardFoodEnterpriseCnt+"</td>"+
+						"</tr>";
+						
+						var ynbArray = new Array();
+						ynbArray[0] = data[i].comCnt;
+						ynbArray[1] = data[i].existenceCnt;
+						ynbArray[2] = data[i].logoffCnt;
+						ynbArray[3] = data[i].revokeCnt;
+						ynbArray[4] = data[i].reportCnt;
+						ynbArray[5] = data[i].noReportCnt;
+						ynbArray[6] = data[i].inCaseCnt;
+						ynbArray[7] = data[i].inProtectCnt;
+						ynbArray[8] = data[i].foodEnterpriseCnt;
+						ynbArray[9] = data[i].cardFoodEnterpriseCnt;
+						
+						$.cookie(data[i].code,ynbArray); 
+				}
+				$("#contents").append(html);
+				
+				var obj = [];
+				
+				for(var i = 0;i<10;i++){
+					var total = 0;
+					$("#contents tr").each(function(){
+						var _this = $(this);
+						var rownum = 0;
+						rownum = _this.find(".regionDetail").eq(i).html();
+						total += parseInt(rownum);
+						
+					});
+					obj.push(total);
+				}
+				
+				$("#contents").append("<tr bgcolor='#f1f1f1'>"+
+						"<td class='regionAll'>"+(++num)+"</td>"+
+						"<td align='left'>合计</td>"+
+						"<td align='center' bgcolor=''>"+obj[0]+"</td>"+
+						"<td align='center'>"+obj[1]+"</td>"+
+						"<td align='center'>"+obj[2]+"</td>"+
+						"<td align='center'>"+obj[3]+"</td>"+
+						"<td align='center'>"+obj[4]+"</td>"+
+						"<td align='center'>"+obj[5]+"</td>"+
+						"<td align='center'>"+obj[6]+"</td>"+
+						"<td align='center'>"+obj[7]+"</td>"+
+						"<td align='center'>"+obj[8]+"</td>"+
+						"<td align='center'>"+obj[9]+"</td>"+
+					"</tr>");
+			}
+		});
+		
+		//昨天的时间
+		var day1 = new Date();
+		day1.setTime(day1.getTime()-24*60*60*1000);
+		var s1 = day1.getFullYear()+"-" + (day1.getMonth()+1) + "-" + day1.getDate() +"  21:00";
+		//time = year + "-" + month + "-" + date;
+		document.getElementById("time").innerText = s1;
+		
+		function openLuoHu(code){
+			
+			var url = "../../page/otherselect/ZhfxSonDetail.html?code="+code;
+			window.open(url);
+		}
+</script>
+</body>
+</html>

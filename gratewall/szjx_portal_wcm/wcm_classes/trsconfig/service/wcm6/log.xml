@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trsothers.LogServiceProvider">	
+
+	<!-- 记录客户端日志 -->
+	<!--
+		LogType:
+		public final static int ID_ERROR = 1;
+	    public final static int ID_WARN = 2;
+	    public final static int ID_INFO = 3;
+	    public final static int ID_DEBUG = 4;
+	-->
+	<method name="recordBrowserLog">
+		<parameter name="LogType" desc="日志类型" type="int" required="false" default="1"/>
+		<parameter name="LogInfo" desc="日志内容" type="string" required="true"/>
+	</method>	
+	
+	
+</service>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="res_share_dataitem" class-name="com.gwssi.resource.share.dao.ResShareDataitem" check-flag="false" backup-flag="false">
+    <description>共享数据项信息表</description>
+  </table-info>
+
+  <column name="share_dataitem_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="共享数据项ID"/>
+  <column name="share_table_id" data-type="varchar" length="32" not-null="false" value-from="input" description="共享表ID"/>
+  <column name="dataitem_name_en" data-type="varchar" length="100" not-null="false" value-from="input" description="数据项名称"/>
+  <column name="dataitem_name_cn" data-type="varchar" length="100" not-null="false" value-from="input" description="数据项中文名称"/>
+  <column name="dataitem_type" data-type="varchar" length="20" not-null="false" value-from="input" description="数据项类型"/>
+  <column name="dataitem_long" data-type="varchar" length="4" not-null="false" value-from="input" description="数据项长度"/>
+  <column name="code_table_name" data-type="varchar" length="32" not-null="false" value-from="input" description="系统代码名"/>
+  <column name="code_table" data-type="varchar" length="32" not-null="false" value-from="input" description="对应代码集"/>
+  <column name="is_key" data-type="varchar" length="1" not-null="false" value-from="input" description="是否主键"/>
+  <column name="dataitem_desc" data-type="varchar" length="2000" not-null="false" value-from="input" description="描述"/>
+  <column name="show_order" data-type="long" length="0" not-null="false" value-from="input" description="显示顺序"/>
+  <column name="is_markup" data-type="varchar" length="1" not-null="false" value-from="input" description="有效标记"/>
+  <primary-key name="pk_res_share_dataitem" column-list="share_dataitem_id"/>
+  <index name="pk_res_share_dataitem" index-type="unique" cluster="cluster" column-list="share_dataitem_id"/>
+  <function func-name="select one res_share_dataitem" func-type="select" column-list="share_dataitem_id,share_table_id,dataitem_name_en,dataitem_name_cn,dataitem_type,dataitem_long,code_table_name,code_table,is_key,dataitem_desc,show_order,is_markup">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select res_share_dataitem list" func-type="rowset" column-list="share_dataitem_id,share_table_id,dataitem_name_en,dataitem_name_cn,dataitem_type,dataitem_long,code_table_name,code_table,is_key,dataitem_desc,show_order,is_markup" sort-columns="show_order" max-record="10">
+    <filter-column column-name="share_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+	<description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one res_share_dataitem" func-type="insert" column-list="share_dataitem_id,share_table_id,dataitem_name_en,dataitem_name_cn,dataitem_type,dataitem_long,code_table_name,code_table,is_key,dataitem_desc,show_order,is_markup">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one res_share_dataitem" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one res_share_dataitem" func-type="update" column-list="share_dataitem_id,share_table_id,dataitem_name_en,dataitem_name_cn,dataitem_type,dataitem_long,code_table_name,code_table,is_key,dataitem_desc,show_order,is_markup">
+    <description>修改记录</description>
+  </function>
+</table>
+

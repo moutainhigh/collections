@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.wcm.advisor.AdvisorCenterServiceProvider">
+	<method name="queryStepsByAdvisor" desc="获取指定顾问下的所有步骤">			
+		<parameter name="ObjectId" desc="顾问id" type="int" required="true" min-value="1"/>
+	</method>
+	<method name="queryOptionGroupsByStep" desc="获取指定步骤下的所有选项组集合">			
+		<parameter name="ObjectId" desc="顾问步骤id" type="int" required="true" min-value="1"/>
+	</method>
+	<method name="queryOptionsByGroup" desc="获取指定选项组下的所有选项集合">			
+		<parameter name="ObjectId" desc="顾问选项组id" type="int" required="true" min-value="1"/>
+	</method>
+	<method name="saveStep" desc="保存步骤">			
+		<parameter name="ObjectId" desc="顾问步骤id" type="int" required="true"/>
+		<parameter name="AdvisorId" desc="顾问id" type="int" required="false"/>
+	</method>
+	<method name="deleteAdvisor" desc="删除顾问对象">			
+		<parameter name="AdvisorIds" desc="需要删除的顾问id序列" type="string" required="false"/>
+	</method>
+	<method name="deleteStep" desc="删除步骤">			
+		<parameter name="ObjectId" desc="顾问步骤id" type="int" required="true"/>
+	</method>
+	<method name="saveOptionGroup" desc="保存选项组">			
+		<parameter name="ObjectId" desc="选项组ID" type="int" required="true"/>
+		<parameter name="StepId" desc="顾问步骤ID" type="int" required="false"/>
+	</method>
+	<method name="deleteOptionGroup" desc="删除选项组">			
+		<parameter name="ObjectId" desc="选项组id" type="int" required="true"/>
+	</method>
+	<method name="saveOption" desc="保存选项">			
+		<parameter name="ObjectId" desc="选项ID" type="int" required="true"/>
+		<parameter name="GroupId" desc="选项组id" type="int" required="false"/>
+	</method>
+	<method name="deleteOption" desc="删除选项">			
+		<parameter name="ObjectId" desc="选项id" type="int" required="true"/>
+	</method>
+	<method name="queryOptionsOtherSteps" desc="获取指定步骤外的其他所有选项">			
+		<parameter name="StepId" desc="步骤id" type="int" required="true" min-value="1"/>
+	</method>
+	<method name="queryOtherOptionsInOneGroup" desc="获取同组下的其他选项">			
+		<parameter name="OptionId" desc="当前选项id" type="int" required="true" min-value="1"/>
+	</method>
+	<method name="createXMLForAdvisor" desc="生成顾问xml文件以及资源图片到栏目的发布目录下">			
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="true" min-value="1"/>
+		<parameter name="AdvisorIds" desc="需要分发的顾问id序列" type="string" required="false"/>
+	</method>
+	<method name="copy" desc="将顾问复制到指定的栏目下">			
+		<parameter name="ChannelIds" desc="栏目ID序列" type="string" required="true"/>
+		<parameter name="AdvisorIds" desc="需要分发的顾问id序列" type="string" required="true"/>
+	</method>
+	
+	<method name="export" desc="导出指定的顾问">			
+		<parameter name="AdvisorIds" desc="需要导出的顾问id序列" type="string" required="true"/>
+	</method>
+	
+	<method name="importAdvisors" desc="将顾问导入到指定的栏目下">			
+		<parameter name="ChannelId" desc="栏目ID" type="string" required="true"/>
+		<parameter name="ImportFile" desc="需要导入的文件" type="string" required="true"/>
+		<parameter name="ImportToCurrChnl" desc="是否导入当前栏目" type="boolean" required="false"/>
+	</method>
+	
+</service>

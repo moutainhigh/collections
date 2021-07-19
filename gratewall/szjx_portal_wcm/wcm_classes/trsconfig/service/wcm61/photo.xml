@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.PhotoServiceProvider">
+	<method name="save">
+	</method>
+	<method name="findById"/>
+	<method name="jFindById" truename="findById"  convertor="uri:/app/photo/photo_findbyid.jsp"/>
+	<method name="recyleFindById" truename="findById"  convertor="uri:/app/photorecycle/recycle_findbyid.jsp"/>
+	<method name="query">
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>		
+		<!--文档过滤器-->
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" required="false"/>
+		<!-- 检索相关配置 BEGIN -->
+				<parameter name="DocTitle" desc="文档标题" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.DocTitle"/>
+		<parameter name="CrUser" desc="创建者" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.CrUser"/>
+		<parameter name="DocAuthor" desc="作者" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.DocAuthor"/>
+		<parameter name="DocPeople" desc="人物" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.DocPeople"/>
+		<parameter name="DocPlace" desc="地点" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.DocPlace"/>
+		<parameter name="DocKeywords" desc="地点" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.DocKeywords"/>
+		<parameter name="DocStatus" desc="待查询的状态" type="string" 
+			required="false" search="true" search-operator="in" 
+			search-type="int" search-field="WCMChnlDoc.DocStatus"/>
+		<parameter name="NotDocStatus" desc="待查询的状态" type="string" 
+			required="false" search="true" search-operator="not in" 
+			search-type="int" search-field="WCMChnlDoc.DocStatus"/>
+		<parameter name="StartDate" desc="开始时间" type="datetime" 
+			required="false" search="true" search-operator="&gt;=" 
+			search-field="WCMDocument.CrTime"/>
+		<parameter name="EndDate" desc="结束时间" type="datetime" required="false" 
+			search="true" search-operator="&lt;=" 
+			search-field="WCMDocument.CrTime"/>
+		<!-- 检索相关配置 END -->
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="yy-MM-dd HH:mm"/>		
+	</method>
+	<method name="getSysPics">
+		<parameter type="int" required="false" name="ChannelId" desc="栏目ID"></parameter>
+		<parameter type="int" required="false" name="SiteId" desc="站点ID"></parameter>
+		<parameter type="string" required="false" name="SearchKey" default="DocTitle,DocKeywords,DocHtmlCon" desc="检索字段"></parameter>
+		<parameter type="string" required="false" name="SearchValue" desc="检索值"></parameter>
+		<parameter type="string" required="false" name="StartTime" desc="检索时间起始"></parameter>
+		<parameter type="string" required="false" name="EndTime" desc="检索时间结束"></parameter>
+	</method>
+	<method name="jQuery" truename="query"  convertor="uri:/app/photo/photo_query.jsp"/>
+	<method name="jThumbQuery" truename="query"  convertor="uri:/app/photo/photo_thumb_query.jsp"/>
+	<method name="tQuery" truename="getSysPics"  convertor="uri:/app/photo/photo_syspics_query.jsp"/>
+	<method name="tThumbQuery" truename="query"  convertor="uri:/app/photo/photo_list_editor_query.jsp"/>
+	<method name="tGetSysPics" truename="getSysPics"  convertor="uri:/app/photo/photo_syspics_query.jsp"/>
+	<method name="addWaterMark">
+		<parameter name="UploadedFiles" desc="已经上传的文件名，满足WCM的命名规则" type="string" 
+			required="true"/>
+		<parameter name="WatermarkFile" desc="水印文件名，满足WCM的命名规则" type="string" required="false"/>
+		<parameter name="WatermarkPos" desc="水印位置，1表示左上，2表示中间，3表示右下，用逗号分隔" type="string" required="false"/>
+	</method>
+	<method name="queryRecycle">
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>		
+		<!--文档过滤器-->
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" required="false"/>
+		<!-- 检索相关配置 BEGIN -->
+				<parameter name="DocTitle" desc="文档标题" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.DocTitle"/>
+		<parameter name="CrUser" desc="创建者" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.CrUser"/>
+		<parameter name="DocAuthor" desc="作者" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.DocAuthor"/>
+		<parameter name="DocPeople" desc="人物" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.DocPeople"/>
+		<parameter name="DocPlace" desc="地点" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.DocPlace"/>
+		<parameter name="DocKeywords" desc="地点" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.DocKeywords"/>
+		<parameter name="DocStatus" desc="待查询的状态" type="string" 
+			required="false" search="true" search-operator="in" 
+			search-type="int" search-field="WCMChnlDoc.DocStatus"/>
+		<parameter name="NotDocStatus" desc="待查询的状态" type="string" 
+			required="false" search="true" search-operator="not in" 
+			search-type="int" search-field="WCMChnlDoc.DocStatus"/>
+		<parameter name="StartDate" desc="开始时间" type="datetime" 
+			required="false" search="true" search-operator="&gt;=" 
+			search-field="WCMDocument.CrTime"/>
+		<parameter name="EndDate" desc="结束时间" type="datetime" required="false" 
+			search="true" search-operator="&lt;=" 
+			search-field="WCMDocument.CrTime"/>
+		<!-- 检索相关配置 END -->
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="yy-MM-dd HH:mm"/>
+			
+		<parameter name="ChnlDocSelectFields" desc="ChnlDoc提取的字段列表" type="string" required="false" default="WCMChnlDoc.DOCID,WCMChnlDoc.ChnlId,WCMChnlDoc.DocStatus,WCMChnlDoc.DocChannel,WCMChnlDoc.DocOrderPri,WCMChnlDoc.Modal,WCMChnlDoc.RecId,WCMChnlDoc.OperTime,WCMChnlDoc.OperUser"/>		
+		<parameter name="DocumentSelectFields" desc="提取的文档字段列表" type="string" required="false" default="DOCID,DocTitle,DocType,CrUser,CrTime"/>		
+	</method>
+	<method name="RecycleQuery" truename="queryRecycle"  convertor="uri:/app/photorecycle/recycle_thumb_query.jsp"/>
+	
+	<method name="cropImage">
+		<parameter type="int" required="true" name="x" desc="x"></parameter>
+		<parameter type="int" required="true" name="y" desc="y"></parameter>
+		<parameter type="int" required="true" name="width" desc="width"></parameter>
+		<parameter type="int" required="true" name="height" desc="height"></parameter>
+		<parameter type="string" required="true" name="FileName" desc="图片文件名"></parameter>
+	</method>
+	<method name="saveExtif">
+		<parameter type="string" required="false" name="ObjectIds" desc="图片IDS"></parameter>
+		<parameter type="string" required="false" name="SrcFiles" desc="上传的图片名"></parameter>
+	</method>
+	
+</service>

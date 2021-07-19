@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="xt_zd" class-name="cn.gwssi.csdb.xt.dao.XtZd" check-flag="false" backup-flag="false"/>
+  <column name="dm_zd" data-type="varchar" length="8" not-null="true" value-from="input" description="制度代码"/>
+  <column name="zd_mc" data-type="varchar" length="40" not-null="true" value-from="input" description="制度名称"/>
+  <column name="dm_cs" data-type="varchar" length="2" not-null="true" value-from="input" description="处室代码"/>
+  <primary-key name="p_xtkey3" column-list="dm_zd"/>
+  <index name="p_xtkey3" index-type="unique" cluster="cluster" column-list="dm_zd"/>
+  <foreign-key foreign-table="wjg_wjml" foreign-type="one-to-many" on-delete="none" on-update="none" column-names="dm_zd" foreign-names="dm_zd"/>
+  <function func-name="select one xt_zd" func-type="select" column-list="dm_zd,zd_mc,dm_cs">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select xt_zd list" func-type="rowset" column-list="dm_zd,zd_mc,dm_cs" max-record="10">
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one xt_zd" func-type="insert" column-list="dm_zd,zd_mc,dm_cs">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one xt_zd" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="zd_codeList" func-type="rowset" column-list="dm_zd as codevalue,zd_mc as codename" max-record="-1">
+    <description>多记录查询</description>
+  </function>
+</table>
+

@@ -1,0 +1,3 @@
+<!--简易编辑器-->
+<textarea name="${FieldName}" id="${FieldName}" style="display:none;"><%=CMyString.filterForHTMLValue(makeHtmlCon(obj.getRealProperty("${FieldName}")))%></textarea>
+<iframe src="../core/com.trs.ui/ckeditor/blank.html?fieldname=${FieldName}" style="width:520px;height:250px;border:1px solid silver;" frameborder="0" class="editorIframe"></iframe>

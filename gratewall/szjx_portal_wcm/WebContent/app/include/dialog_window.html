@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=6">
+<TITLE WCMAnt:param="dialog_window.html.title">TRS WCM Dialog ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::</TITLE>
+<script src="../js/data/locale/include.js"></script>
+<SCRIPT LANGUAGE="JavaScript">
+function init(){
+	var arArgs = window.dialogArguments;
+	if(!arArgs || !arArgs[0] || !arArgs[1]){
+		alert(wcm.LANG.INCLUDE_ALERT_2 || "传入无效的参数对象，对话框初始化失败！");
+		window.close();
+		return;
+	}
+	var sUrl = arArgs[0];
+	if(sUrl.indexOf("../") < 0){
+		var sParentUrl = arArgs[1];
+		var nPos = sParentUrl.lastIndexOf("/");
+		var sPreFix = sParentUrl.substring(0, nPos+1);
+		sUrl = sPreFix + sUrl;
+	}
+	var subWin = document.getElementById("subWindow");
+	subWin.src = sUrl;
+}
+
+function getDialogArguments(){
+	var arArgs = window.dialogArguments;
+	try{
+		return arArgs[2];
+	} catch(e) {return null;}
+}
+</SCRIPT>
+</HEAD>
+
+<BODY>
+<IFRAME name="subWindow" id="subWindow" src="about:blank" frameborder="NO" border="0" framespacing="0" width="100%" height="100%" Scrolling="auto"></IFRAME>
+<SCRIPT LANGUAGE="JavaScript">
+	init();
+</SCRIPT>
+</BODY>
+</HTML>

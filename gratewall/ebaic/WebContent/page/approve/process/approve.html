@@ -1,0 +1,113 @@
+<!-- 
+	审批页面：
+	适用于辅助审查与核准。
+	根据不同状态显示不同页签。
+ -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>北京工商登记管理系统</title>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+<style>
+
+body{
+	overflow-x:hidden;
+	
+}
+.tabTitle {
+	background: #fff;
+	height: 32px;
+}
+
+ul, li {
+	list-style: none;
+}
+
+.tab {
+	position: relative;
+	margin: 0px auto;
+	width: 100%;
+	border:1px solid #c1d3de;
+}
+
+.tab .tabTitle ul li {
+	float: left;
+	/* background: #EAF3FA;
+	background:-moz-linear-gradient(top, #fefefe, #ededed);	
+	background:-o-linear-gradient(left top,left bottom, from(#fefefe), to(#ededed));
+	background:-webkit-gradient(linear,left top,left bottom, from(#fefefe), to(#ededed)); */
+	padding: 5px 0;
+	width: 100px;
+	text-align: center;
+	position: relative;
+	cursor: pointer;
+	background: #d0ebff;
+	font-family:"songti";
+	font-weight:bold;
+}
+
+.tab .tabContent div {
+	/* padding:10px;
+	position:absolute;
+	width:100%; */
+	
+}
+
+.tab .tabTitle li.currentTab {
+	border-bottom: none;
+	background: #edf7ff;
+	color:#68aee7;
+}
+
+.censor {
+	width: 18px;
+	background: #2488C6;
+	color: #fff;
+	padding: 4px 6px 4px 6px;
+	float: right;
+	/* margin-top: 100px; */
+	cursor: pointer;
+}
+#contentMain{
+	margin-top:2100px;
+}
+
+/*去掉jazz的边框线条*/
+/*jazz grid表格头部*/
+.jazz-grid-headerCell {
+	border-style: none;
+}
+/*单元格*/
+.jazz-grid-cell {
+	border-style: none;
+}
+
+body {
+	height: 1000px;
+	/* overflow: hidden; */
+}
+
+</style>
+</head>
+<body style='background-color: #FFF;'>
+	<div class="tab">
+		<div class="tabTitle"></div>
+		<div class="tabContent">
+			<iframe id="frametabcontent" src="" width="100%"  scrolling="no" frameborder="0"></iframe>
+		</div>
+	</div>
+	<div class="contentBt">
+		<div class="commonBt" name="preStep">上一步</div>
+		<div class="commonBt" name="nextStep">下一步</div>
+		<div class="commonBt" name="returnButton">返回</div>
+	</div>
+
+	<div name="curIndex" vtype="hiddenfield"></div>
+	<div name="tabCount" vtype="hiddenfield"></div>
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" src="../../../static/lib/require.js" data-main="approve/approve.js"></script>
+
+</body>
+</html>

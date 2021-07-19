@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<chart palette='1' piefillAlpha='24' hoverFillColor='EEEEEE' plotborderColor='CCCCCC' bgcolor='ebf0f5' showPlotBorder='1' useHoverColor='1' showLabels='1'  baseFontSize='12' basefontColor='504D55'>
+	<category label='${object_name}' toolText='&lt;LI&gt;服务数:${object_num}个{BR}当月日均访问${day_ave_visit}次{BR}当月日均获取数据量${day_ave_data}条{BR}' link='${link2}'>
+		<#list sys as x>
+		<category label='${x.NAME}' <#if '${x.COUNT}'=='0' > value='1' <#else> value='${x.SHARE_AMOUNT}' </#if> toolText='&lt;LI&gt;当月共享数据量${x.SHARE_AMOUNT}条&lt;/LI&gt;' />
+		</#list>
+	</category>
+	<styles>
+		<definition>
+			<style name='myHTMLFont' type='font' isHTML='1' />
+		</definition>
+		<application>
+			<apply toObject='TOOLTIP' styles='myHTMLFont' />
+		</application>
+	</styles>
+</chart>
+

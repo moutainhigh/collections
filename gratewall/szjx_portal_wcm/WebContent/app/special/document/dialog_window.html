@@ -1,0 +1,43 @@
+﻿<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>TRS WCM Dialog Window :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::</TITLE>
+<script src="../../js/easyversion/lightbase.js"></script>
+<script src="../../js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/adapter4Top.js"></script>
+<SCRIPT LANGUAGE="JavaScript">
+function init(params, cb){
+	var sUrlparams = getParameter("URL");
+	var wcmurl = params.WCMURL;
+	var adLocationIds = params.AdLocationIds;
+	var sUrl = WCMConstants.WCM_ROOTPATH + "console/integrate_installed/admanage_introduction2.jsp?URL="+sUrlparams+"&WCMURL="+encodeURIComponent(wcmurl)+"&AdLocationIds="+adLocationIds+"&ForSpecial=1";
+	var subWin = document.getElementById("subWindow");
+	subWin.src = sUrl;
+}
+//debugger
+var c_bWin = wcm.CrashBoarder.get('adintrs_slt');
+function onOk(sResult,sAdLocationIds){
+	if(sResult){
+		var params = {
+			result : sResult,
+			adLocationIds : sAdLocationIds
+		};
+		setTimeout(function(){
+			c_bWin.notify(params);
+			c_bWin.hide();
+		}, 100);
+		return false;
+	}
+}
+
+function onCancel(){
+	c_bWin.hide();
+}
+</SCRIPT>
+</HEAD>
+
+<BODY style="overflow:hidden">
+<input type="hidden" id="inp" value="">
+<IFRAME name="subWindow" id="subWindow" src="about:blank" frameborder="NO" border="0" framespacing="0" width="100%" height="100%" Scrolling="no"></IFRAME>
+</BODY>
+</HTML>

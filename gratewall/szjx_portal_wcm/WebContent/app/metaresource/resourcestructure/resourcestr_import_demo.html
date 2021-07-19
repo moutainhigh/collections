@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="resourcestr_import_demo.html.import_exportresourcestr">导入/导出资源结构</title>
+	<script src="../js/jquery.js"></script>
+	<script src="../js/jquery-ui.js"></script>
+	<script src="../js/jquery-wcm-extend.js"></script>
+	<script src="../js/jquery-wcm-ui-extend.js"></script>
+
+	<link href="../js/crashboard/crashboard.css" rel="stylesheet" type="text/css" />
+	<script language="javascript">
+	<!--
+		function show(){
+		$.CrashBoard({
+			id : 'selectField-crashboard',
+			maskable : true,
+			draggable : true,
+			url : 'resourcestr_import.html',
+			width : '500px',
+			height : '200px',
+			params : {},
+			callback : function(){
+				//这是处理导入资源结构的url
+				alert("这里是回调函数的链接url");
+			}
+		}).show();
+	}
+	//-->
+	</script>
+</head>
+
+<body>
+	<div >
+		<button onclick="show();" WCMAnt:param="resourcestr_import_demo.html.importresourcestr">导入资源结构</button>
+	</div>
+</body>
+</html>

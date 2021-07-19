@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>图片查看</title>
+	<link href="../css/common.css" rel="stylesheet" type="text/css" />
+	<style>
+		.template{
+			display:none;
+		}
+		.attr_row{
+			margin-left:10px;
+			font-size:12px;
+		}
+		.attr_name{
+			font-weight:bold;
+		}
+		.attr_value{
+			margin-left:10px;
+		}
+		.publishtime{
+			display:none;
+		}
+		.publishtime_10{
+			display:block;
+		}
+	</style>
+	<script src="../js/com.trs.util/Common.js"></script>	
+	<script label="TagParser">
+		$import('com.trs.web2frame.DataHelper');
+		$import('com.trs.web2frame.TempEvaler');
+		$import('com.trs.wcm.Web2frameDefault');
+	</script>
+	<script src="photo_show_editor.js"></script>
+</head>
+<body>
+<div style="overflow:auto;width:330px;height:400px">
+<div id="imageprops"></div>
+<textarea id="template_imageprops" class="template" select=".">
+	<div align="center" style="padding:5px 0;"><img src="{@mapFileName(#DOCRELWORDS)}" border=0 alt="{#DOCTITLE}" style="visibility:hidden" onload="ImgScale(this);"></div>
+	<div class='attr_row'>
+		<span class='attr_name'>图片类型:</span><span class='attr_value'>{@getFileType(#DOCRELWORDS)}</span>
+	</div>
+	<div class='attr_row'>
+		<span class='attr_name'>标题:</span><span class='attr_value'>{#DOCTITLE}</span>
+	</div>
+	<div class='attr_row'>
+		<span class='attr_name'>描述:</span><span class='attr_value'>{#DocContent}</span>
+	</div>
+	<div class='attr_row'>
+		<span class='attr_name'>创建人:</span><span class='attr_value'>{#CRUSER}</span>
+	</div>
+	<div class='attr_row'>
+		<span class='attr_name'>创建时间:</span><span class='attr_value'>{#CRTIME}</span>
+	</div>
+	<div class="attr_row publishtime publishtime_{#DocStatus.id}">
+		<span class='attr_name'>发布时间:</span><span class='attr_value'>{#DocPubTIME}</span>
+	</div>
+</textarea>
+<div id="quotes"></div>
+<textarea id="template_quotes" class="template">
+	<div class='attr_row'>
+		<span class='attr_name'>引用此图的文档：</span>
+	</div>
+	<ul>
+	<for select="Documents">
+		<li>{#DOCTITLE}&nbsp;<em>[{#CHNLPATH}]</em>
+	</for>
+	</ul>
+</textarea>	
+</div>
+<script language="javascript">
+<!--
+	PageContext.loadPage();
+//-->
+</script>
+</body>
+</html>

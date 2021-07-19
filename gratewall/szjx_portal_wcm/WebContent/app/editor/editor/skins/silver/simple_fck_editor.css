@@ -1,0 +1,110 @@
+/*strict*/
+.ext-strict .layout_center_container{top:29px;bottom:30px;}
+.ext-strict .layout_center{left:0px;right:0px;bottom:0px;top:0;z-index:1000;}
+/*ie6*/
+.ext-ie6 .layout_container{padding-top:29px;padding-bottom:32px;}
+.ext-ie6 .layout_center_container{padding-left:0px;padding-right:0px;padding-bottom:0px;}
+/*all*/
+.layout_north{height:29px;}
+.layout_south{height:28px;padding-top:2px;}
+/*ie6 height=ie7 padding + ie7 width*/
+.ext-ie6 .layout_south{height:30px;}
+/*strict*/
+.ext-strict .layout_center_container2{top:78px;}
+/*ie6*/
+.ext-ie6 .layout_container2{padding-top:78px;}
+/*all*/
+.editor_toolbar_adv{height:78px;}
+.xToolbarBody{padding:1px;background:transparent;}
+#xEditingArea{font-size:10.5pt;font-family:Arial,宋体,'Microsoft Sans Serif';}
+.SourceField{padding:10px;width:98%;font-size:10.5pt;font-family:Courier New,Monospace,宋体;background:#FFFFFF;}
+/*Toolbar */
+.TB_ToolbarSet, .TB_Expand, .TB_Collapse{cursor:default;}
+.TB_ToolbarSet{padding:1px;}
+.TB_ToolbarSet {height:38px;overflow:hidden;background-repeat:repeat-x;}
+.TB_ToolbarSet TD {font-size:12px;font-family:宋体,'Microsoft Sans Serif', Tahoma, Arial, Verdana, Sans-Serif;}
+.TB_Toolbar {display:table;clear:both;}
+.TB_Separator {width:2px;height:18px;margin:2px;background-image:url(../../images/icon_xian.png);}
+.TB_Start {background-image:url(images/toolbar.start.gif);margin-left:2px;margin-right:2px;width:3px;background-repeat:no-repeat;height:22px;background-position:center center;}
+.TB_End {display:none;}
+.TB_ExpandImg {background-image:url(images/toolbar.expand.gif);background-repeat:no-repeat;}
+.TB_CollapseImg {background-image:url(images/toolbar.collapse.gif);background-repeat:no-repeat;}
+.TB_SideBorder {background-color:#696969;}
+.TB_Expand, .TB_Collapse {padding:2px 2px 2px 2px;border:#efefde 1px outset;}
+.TB_Collapse {border:#efefde 1px outset;width:5px;}
+.TB_Break {height:22px;}
+/*Toolbar Button */
+.TB_Button_Off,.TB_Button_Disabled{border:0;padding:2px;margin:0;height:20px;overflow:hidden;}
+.TB_Button_On,.TB_Button_On_Over,.TB_Button_Off_Over{padding:1px;margin:0;height:20px;border:#316ac5 1px solid;background-color:#dff1ff;overflow:hidden;}
+.TB_Button_Off, .TB_Combo_Off {opacity:0.70;/* Safari, Opera and Mozilla */filter:alpha(opacity=70);/* IE *//* -moz-opacity:0.70;Mozilla (Old) */}
+.TB_Button_Disabled {opacity:0.30;/* Safari, Opera and Mozilla */filter:gray() alpha(opacity=30);/* IE */}
+.TB_Button_Padding {visibility:hidden;width:3px;height:18px;}
+.TB_Button_Image {overflow:hidden;width:16px;height:16px;margin:0 2px;background-repeat:no-repeat;}
+/* For composed button ( icon + text, icon + arrow ), we must compensate the table */
+.TB_Button_On TABLE .TB_Button_Image, .TB_Button_Off TABLE .TB_Button_Image, .TB_Button_On_Over TABLE .TB_Button_Image, .TB_Button_Off_Over TABLE .TB_Button_Image, .TB_Button_Disabled TABLE .TB_Button_Image {margin-top:0;}
+.TB_Button_Image img {position:relative;}
+.TB_ConnectionLine {background-color:#ffffff;height:1px;margin-left:1px;  /* ltr */margin-right:1px; /* rtl */}
+/*Menu */
+.MN_Menu {border:1px solid #8f8f73;padding:2px;background-color:#f7f7f7;cursor:default;}
+.MN_Menu, .MN_Menu .MN_Label {font-size:12px;font-family:'Microsoft Sans Serif' , Tahoma, Arial, Verdana, Sans-Serif;}
+.MN_Item_Padding {visibility:hidden;width:3px;height:20px;}
+.MN_Icon {background-color:#dedede;text-align:center;height:20px;}
+.MN_Label {padding-left:3px;padding-right:3px;}
+.MN_Separator {height:3px;}
+.MN_Separator_Line {border-top:#b9b99d 1px solid;}
+.MN_Item .MN_Icon IMG {filter:alpha(opacity=70);opacity:0.70;}
+.MN_Item_Over {color:#ffffff;background-color:#8a857d;}
+.MN_Item_Over .MN_Icon {background-color:#6c6761;}
+.MN_Item_Disabled IMG {filter:gray() alpha(opacity=30);/* IE */opacity:0.30;/* Safari, Opera and Mozilla */}
+.MN_Item_Disabled .MN_Label {color:#b7b7b7;}
+.MN_Arrow {padding-right:3px;padding-left:3px;}
+.MN_ConnectionLine {background-color:#ffffff;}
+.Menu .TB_Button_On, .Menu .TB_Button_On_Over {border:#8f8f73 1px solid;background-color:#ffffff;}
+/*### Panel Styles */
+.FCK_Panel {border:#8f8f73 1px solid;padding:2px;background:#FFF;}
+.FCK_Panel, .FCK_Panel TD {font-family:宋体,'Microsoft Sans Serif';font-size:12px;}
+/*### Special Combos */
+.SC_Panel {overflow:auto;white-space:nowrap;cursor:default;border:1px solid #8f8f73;padding-left:2px;padding-right:2px;background:#FFF;}
+.SC_Panel, .SC_Panel TD {font-size:12px;font-family:宋体,'Microsoft Sans Serif' , Tahoma, Arial, Verdana, Sans-Serif;}
+.SC_Item, .SC_ItemSelected {margin-top:1px;margin-bottom:1px;background-position:left center;padding-left:11px;padding-right:3px;padding-top:2px;padding-bottom:2px;text-overflow:ellipsis;overflow:hidden;background-repeat:no-repeat;border:#dddddd 1px solid;}
+.SC_Item *, .SC_ItemSelected * {margin-top:0px;margin-bottom:0px;}
+.SC_ItemSelected {border:#9a9afb 1px solid;background-image:url(images/toolbar.arrowright.gif);}
+.SC_ItemOver {border:#316ac5 1px solid;}
+.SC_Field {margin-top:1px ;border:#b7b7a6 1px solid;height:20px;cursor:default;}
+.SC_FieldCaption {padding-top:1px ;overflow:visible;padding-right:5px;padding-left:5px;height:18px;}
+.SC_FieldLabel {white-space:nowrap;padding:2px;width:100%;cursor:default;text-overflow:ellipsis;overflow:hidden;}
+.SC_FieldButton {background-position:center center;background-image:url(images/toolbar.buttonarrow.gif);border-left:#b7b7a6 1px solid;width:14px;height:18px;background-repeat:no-repeat;}
+.SC_FieldDisabled .SC_FieldButton, .SC_FieldDisabled .SC_FieldCaption {opacity:0.30;/* Safari, Opera and Mozilla */filter:gray() alpha(opacity=30);/* IE */ /* -moz-opacity:0.30;Mozilla (Old) */}
+.SC_FieldOver {border:#316ac5 1px solid;}
+.SC_FieldOver .SC_FieldButton {border-left:#316ac5 1px solid;}
+/*### Color Selector Panel */
+.ColorBoxBorder {border:#808080 1px solid;position:static;}
+.ColorBox {font-size:1px;width:10px;position:static;height:10px;}
+.ColorDeselected, .ColorSelected {cursor:default;}
+.ColorDeselected {border:#ffffff 1px solid;padding:2px;float:left;}
+.ColorSelected {border:#316ac5 1px solid;padding:2px;float:left;background-color:#c1d2ee;}
+P{margin-top:0px;margin-bottom:0px;}
+body, td{font-family:Arial,宋体;font-size:12px;}
+.editor_toolbar_button{background-image:url(fck_strip.gif);width:16px;height:16px;}
+/* 自定义工具栏的按钮 END */
+.editor_toolbar{background-image:url(../../images/toolbar_bg.png);background-repeat:repeat-x;background-position:50% -29px;}
+.xToolbar{padding-top:2px;overflow:hidden;height:29px;}
+.editor_bottom{height:21px;background-image:url(../../images/bottom_bg.png);background-repeat:repeat-x;}
+.editor_body {background:#808080;scrollbar-face-color :threedhighlight;scrollbar-darkshadow-color :threedhighlight;}
+.ext-strict .editor_body iframe{position:absolute;left:0;right:0;top:0;bottom:0;}
+.ext-strict #xEditingArea{position:absolute;top:21px;bottom:10px;left:23px;right:10px;}
+.ext-ie6 .editor_body{padding:10px;}
+.ext-ie6 .editor_body iframe{width:100%;height:100%;}
+.ext-ie6 #xEditingArea{width:100%;height:100%;}
+.ext-strict .SourceField{position:absolute;left:0;right:0;top:0;bottom:0;}
+.ext-ie6 .SourceField{width:100%;height:100%;}
+.top_ruler {background-image:url(../../images/staff_guage.png);background-repeat:repeat-x;height:11px;line-height:11px;background-position:0 bottom;overflow:hidden;}
+.left_ruler {background-image:url(../../images/staff_guage1.png);width:13px;background-repeat:repeat-y;}
+.editor_container{}
+.bottom_editor_toolbar{BACKGROUND:#F5F5F5;height:30px;}
+.toolbar_btn_basic .toolbar_source,.toolbar_btn_basic .toolbar_design{float:left;top:2px;height:14px!important;height:20px;padding:3px;padding-left:20px;background-position:2px 2px;background-repeat:no-repeat;margin-left:5px;cursor:pointer;}
+.toolbar_btn_basic .toolbar_source{background-image:url(../../images/source.png);margin-left:8px;}
+.toolbar_btn_basic .toolbar_design{background-image:url(../../images/design.png);} 
+.toolbar_current_btn{border:1px solid gray!important;border-right:1px solid white!important;border-bottom:1px solid white!important;border:1px solid inset;padding:2px;padding-left:20px;background-color:#E6E6E6;}
+.btn{float:left;padding:0;height:22px;margin-right:2px;cursor:pointer;border-width:1px;border-style:solid;border-color:#adb9c2 #6a8193 #6a8193 #adb9c2;BACKGROUND-COLOR:#f0f4f6;}
+.btn_inner{padding:2px 5px;border-width:1px;border-style:solid;border-color:white #c7d3db #c7d3db white;color:#062a6c;BACKGROUND-COLOR:#f0f4f6;width:65px!important;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}

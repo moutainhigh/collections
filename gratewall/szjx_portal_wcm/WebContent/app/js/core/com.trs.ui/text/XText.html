@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> text demo </title>
+	<!-- 组件依赖的代码 BEGIN -->
+	<script language="javascript" src="../../core.js" type="text/javascript"></script>
+	<script language="javascript" src="../../com.trs.util/Observable.js" type="text/javascript"></script>
+	<script language="javascript" src="../BaseComponent.js" type="text/javascript"></script>
+	<!-- 组件依赖的代码 END -->
+
+	<script language="javascript" src="XText.js" type="text/javascript"></script>
+	<link href="resource/XText.css" rel="stylesheet" type="text/css" />	
+</head>
+
+<body>
+<script language="javascript">
+<!--
+	new com.trs.ui.XText({name : 'myText', value : wcm.LANG.XText_101 || '美国-text'}).render();
+	new com.trs.ui.XPassword({name : 'myPassword', value : '美国-password'}).render();
+	new com.trs.ui.XTextArea({name : 'myTextArea', value : '美国-textarea'}).render();
+//-->
+</script>
+<br />
+<button onclick="getData();">getData()</button>
+<script language="javascript">
+<!--
+	function getData(){	
+		var oMyText = com.trs.ui.ComponentMgr.get('myText');
+		alert(oMyText.getValue());	
+		
+		var oMyPassword = com.trs.ui.ComponentMgr.get('myPassword');
+		alert(oMyPassword.getValue());	
+		
+		var oMyTextArea = com.trs.ui.ComponentMgr.get('myTextArea');
+		alert(oMyTextArea.getValue());		
+	}
+//-->
+</script>
+</body>
+</html>

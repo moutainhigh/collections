@@ -1,0 +1,402 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../css/footer_tab.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	span{
+		cursor:pointer;
+		font-size:12px
+	}
+    .wcm_footer{
+    }
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script>
+	$import('com.trs.wcm.MessageCenter');
+    $import('com.trs.wcm.SheetChanger');
+    $import('com.trs.dialog.Dialog');
+</script>
+<script language="javascript">
+<!--
+	var myActualTop = (top.actualTop||top);
+    function go(_sType){
+		//ge gfc add @ 2008-2-20 加上try-catch，以防没有常规main页面(例如表单列表文档)时出错
+		try{
+			var mainWin = $main();
+			if(mainWin){
+				 var txtQueryVal = mainWin.$("txtQueryVal");
+				 if(txtQueryVal){
+					txtQueryVal.value = "";
+				 }
+			}			
+		}catch(err){
+			//just skip it
+		}
+
+        var winObj = myActualTop.document.getElementById("main").contentWindow;
+        var query = myActualTop.location_search||winObj.location.search;
+        $changeSheet(query, _sType, true);
+    }
+
+	function setCurrentSheet(sType){
+        var _tab = $('tab_' + sType);
+        if(_tab == null) return;
+        if(window.lastTab != null){
+            if(Element.hasClassName(window.lastTab,'footer_tab_item')){
+                Element.removeClassName(window.lastTab, 'footer_tab_item_active');
+                Element.addClassName(window.lastTab, 'footer_tab_item_deactive');
+            }
+            else{
+                Element.removeClassName(window.lastTab, 'footer_tab_item4_active');
+                Element.addClassName(window.lastTab, 'footer_tab_item4_deactive');
+            }  
+        }
+        if(Element.hasClassName(_tab,'footer_tab_item')){
+            Element.removeClassName(_tab, 'footer_tab_item_deactive');
+            Element.addClassName(_tab, 'footer_tab_item_active');
+        }
+        else{
+            Element.removeClassName(_tab, 'footer_tab_item4_deactive');
+            Element.addClassName(_tab, 'footer_tab_item4_active');
+        }
+        window.lastTab = _tab;
+	}
+
+    function hideSheets(sheetArray){//隐藏指定的sheets
+        for (var i = 0; i < sheetArray.length; i++){
+            $('tab' + sheetArray[i]).style.display = 'none';
+        }
+    }
+
+    function showSheets(sheetArray){//显示指定的sheets
+        for (var i = 0; i < sheetArray.length; i++){
+            $('tab' + sheetArray[i]).style.display = '';
+        }
+    }
+
+    function getCurrentTabType(){
+        return window.lastTab ? window.lastTab.getAttribute("_type") : null;
+    }
+    /*
+    *tab类型定义
+    */
+    var tabArray = {
+        system : {//系统类tab，选中导航树中的库类节点
+            website         : {type: 'website', desc:'站点',   rightIndex :-1},
+            workflow        : {type: 'workflow', desc:'工作流', needIsAdmin:true},
+            extendfield     : {type: 'extendfield', desc:'扩展字段', needIsAdmin:true},
+            /*------------------------------------------metadata------------------------------------------------*/
+            tableinfo         : {type: 'tableinfo', desc:'元数据',   rightIndex :-2,hideInSiteType:[0,1,2]},
+            viewinfo         : {type: 'viewinfo', desc:'视图',   rightIndex :-2,hideInSiteType:[0,1,2]},
+            classinfo        : {type: 'classinfo', desc:'分类法', rightIndex :-2,hideInSiteType:[0,1,2]}
+        },
+        site : {//站点类tab，选中导航树中的站点类节点   
+            document        : {type: 'document', desc:'文档',     rightIndex :30},
+            channel         : {type: 'channel', desc:'栏目',     rightIndex :-1},
+            template        : {type: 'template', desc:'模板',     rightIndex :["21-25", 29]},
+            right           : {type: 'right', desc:'权限',     rightIndex :-1},
+            workflow        : {type: 'workflow', desc:'工作流',   rightIndex :["41-47"]},
+            extendfield     : {type: 'extendfield', desc:'扩展字段', rightIndex :19},
+            distribution    : {type: 'distribution', desc:'站点分发', rightIndex :1},
+            trashbox        : {type: 'trashbox', desc:'废稿箱',   rightIndex :18, hideInSiteType:[1]}, // ls@2007-9-25 9:12 视频库显示废稿箱: 去掉hideInSiteType中的2
+			watermark		: {type: 'watermark',desc:'水印', rightIndex:[1,13], hideInSiteType:[0,2,4]}
+        },
+        channel : {//频道类tab，选中导航树中的频道类节点   
+            document        : {type: 'document', desc:'文档',     rightIndex :30},
+            viewinfo         : {type: 'viewinfo', desc:'视图',   rightIndex :13,hideInSiteType:[0,1,2,13], hideInChannelType:[1, 2, 11, 13]},
+            channel         : {type: 'channel', desc:'子栏目',    rightIndex :-1, hideInChannelType:[1, 2, 11, 13]},
+            template        : {type: 'template', desc:'模板',     rightIndex :["21-25",29], hideInChannelType:[1, 2, 11]},
+            right           : {type: 'right', desc:'权限',     rightIndex :-1},
+            flowemployee	: {type: 'flowemployee', desc:'工作流',   rightIndex :-1, hideInChannelType:[1, 2, 11], hideInRetrieval: true},
+            replace         : {type: 'replace', desc:'替换内容', rightIndex :13, hideInChannelType:[1, 2, 11, 13]},
+            extendfield     : {type: 'extendfield', desc:'扩展字段', rightIndex :19, hideInChannelType:[1, 2, 11, 13], hideInRetrieval: true},
+            documentsyn     : {type: 'documentsyn', desc:'文档同步', rightIndex :13,
+			hideInChannelType:[11], hideInRetrieval: true, hideInSiteType:[1,2]},
+            trashbox        : {type: 'trashbox', desc:'废稿箱',   rightIndex :18, hideInChannelType:[11, 13], hideInRetrieval: true, hideInSiteType:[1]}, // ls@2007-9-25 9:12 视频库显示废稿箱: 去掉hideInSiteType中的2
+			contentlink     : {type: 'contentlink', desc:'热词',   rightIndex :13, hideInChannelType:[1, 2, 11, 13], hideInRetrieval: true, hideInSiteType:[1,2]}
+            /*------------------------------------------metadata------------------------------------------------*/
+        },
+        classinfo : {//频道类tab，选中导航树中的频道类节点   
+            record        : {type: 'record', desc:'资源', rightIndex :-1, click : function(){
+                $main().frameElement.src = $main().frameElement.src;
+            }}
+        }
+    };
+
+    /**
+    *满足一些需要动态修改描述信息的需求
+    */
+    var dynamicDesc = {
+        'documentsyn' : {
+            '0' : '文档同步',
+            '1' : '图片同步',
+            '2' : '视频同步',
+            '4' : '资源同步'
+        },
+        'document' : {
+            '0' : '文档',
+            '1' : '图片',
+            '2' : '视频',        
+            '4' : '资源'
+        }
+    };
+
+    /*
+    *   判断在rightValue,channelType下是否有tab类型为type,sheet类型为sheet的sheet
+    */
+    function checkExistSheet(type, sheet, rightValue, channelType, isVirtual){
+        var type = type.toLowerCase();
+        try{
+            return isShow(tabArray[type][sheet], rightValue, channelType, type, isVirtual);
+        }catch(error){
+			//TODO logger
+            //alert(error.message);
+            return false;
+        }
+    }
+
+    function getSheetsForTabType(tabType, rightValue, channelType){
+        var tabType = tabType.toLowerCase();
+        var sheetArray = [];
+        for (var sheetType in tabArray[tabType]){
+            if(checkExistSheet(tabType, sheetType, rightValue, channelType)){
+                sheetArray.push(tabArray[tabType][sheetType]);
+            }
+        }
+        return sheetArray;
+    }
+
+    /*
+    *   判断sheet在rightValue,channelType下是显示还是隐藏
+    */
+    function isShow(sheet, rightValue, channelType, _tabType, isVirtual){
+    /*
+        if((_tabType || tabType) == 'system'){
+            if(isAdmin()) return true;
+            return sheet.type == 'website';
+        }
+    */
+        if(sheet.hideInChannelType && sheet.hideInChannelType.include(channelType)){
+            return false;
+        }
+		if(isVirtual === true && channelType == 0 && sheet.hideInRetrieval) return false;
+        if(sheet.hideInSiteType){
+            try{
+                var siteType = $MessageCenter.getNav().findFocusNodeSiteType() || 0;
+            }catch(error){
+                var siteType = 0;
+            }
+            if(sheet.hideInSiteType.include(siteType)){
+                return false;
+            }
+        }
+        if(isAdmin()) return true;
+        if(sheet.needIsAdmin) return false;
+        return checkRight(rightValue, sheet.rightIndex);
+    }
+    
+    //显示的sheet个数，更多的则在more中显示
+	var MAX_SHEET_DISPLAY = 6; 
+    var sheetCountConfig = top.PageContext.individuationConfig.sheetCount;
+    if(sheetCountConfig){
+        MAX_SHEET_DISPLAY = sheetCountConfig.paramValue;
+    }
+
+    /*
+    *装载type类型的tab，同时选中currSheet类型的sheet
+    */
+    function loadTab(type, currSheet, rightValue, channelType, isVirtual){
+        tabType = type = type.toLowerCase();
+
+        //记录type, currSheet, rightValue, channelType，
+        //用来处理footer_tab页面的单独刷新
+        myActualTop.PageContext.tab_configs = {
+            tab_sheet_configs : [type, currSheet, rightValue, channelType, isVirtual]
+        };
+
+        var tab = tabArray[type];
+        var realShowSheetNum = 0;
+        var hasMoreSheetFlag = false;
+        var tabHTML = '<table border="0" cellpadding="0" cellspacing="0" class="block_indent" id="tblSheets"><tr align="center" valign="middle">';
+        try{
+            var siteType = $nav().findFocusNodeSiteType() || 0;
+        }catch(error){
+            siteType = 0;
+        }
+        for (var sheetKey in tab){
+            var sheet = tab[sheetKey];
+
+            /*
+            *set desc for dynamic start
+            */
+            if(dynamicDesc[sheet.type] && dynamicDesc[sheet.type][siteType]){
+                sheet.desc = dynamicDesc[sheet.type][siteType];
+            }
+            //set desc for dynamic end
+
+            if(realShowSheetNum >= MAX_SHEET_DISPLAY && myActualTop.PageContext.tabMoreStatus == 'close'){
+                hasMoreSheetFlag = true;
+                if(isShow(sheet, rightValue, channelType, null, isVirtual)){
+                    if(sheet.desc.length == 4){
+                        tabHTML += '<td style="display:none;" onclick="clickSheet(this);" class="wcm_footer footer_tab_item4 footer_tab_item4_deactive" _type="' + sheet.type + '" id="tab_' + sheet.type + '"><span>' + sheet.desc + '</span></td>';
+                    }else{
+                        tabHTML += '<td style="display:none;" onclick="clickSheet(this);" class="wcm_footer footer_tab_item footer_tab_item_deactive" _type="' + sheet.type + '" id="tab_' + sheet.type + '"><span>' + sheet.desc + '</span></td>';
+                    } 
+                }
+            }else{
+                if(isShow(sheet, rightValue, channelType, null, isVirtual)){
+                    if(sheet.desc.length == 4){
+                        tabHTML += '<td onclick="clickSheet(this);" class="wcm_footer footer_tab_item4 footer_tab_item4_deactive" _type="' + sheet.type + '" id="tab_' + sheet.type + '"><span>' + sheet.desc + '</span></td>';
+                    }else{
+                        tabHTML += '<td onclick="clickSheet(this);" class="wcm_footer footer_tab_item footer_tab_item_deactive" _type="' + sheet.type + '" id="tab_' + sheet.type + '"><span>' + sheet.desc + '</span></td>';
+                    }
+                    realShowSheetNum++;
+                }
+            }
+        }
+        if(hasMoreSheetFlag || realShowSheetNum > MAX_SHEET_DISPLAY){
+            tabHTML += '<td id="sheetMoreTd" onclick="clickSheetMore(this, event);" class="wcm_pointer footer_tab_item_more_' + myActualTop.PageContext.tabMoreStatus + '">&nbsp;&nbsp;</td>';                
+        }
+        tabHTML += '</tr></table>';
+        $('tabTd').innerHTML = tabHTML;
+        
+        if(currSheet){
+            setCurrentSheet(currSheet);
+            return;
+        }
+
+        if(type == 'system'){
+            setCurrentSheet(myActualTop.PageContext.rootHost);
+        }else if(type == 'site'){
+            setCurrentSheet(myActualTop.PageContext.siteHost);
+        }else if(type == 'channel'){
+            setCurrentSheet(myActualTop.PageContext.channelHost);
+        }else{
+            setCurrentSheet('record');
+        }
+    }
+
+    function clickSheet(currSheet){
+        var _type = currSheet.getAttribute('_type');
+        try{
+            var tabType = myActualTop.PageContext.tab_configs.tab_sheet_configs[0];
+            var fClickHandler = tabArray[tabType][_type]['click'];
+            if(fClickHandler){
+                fClickHandler();
+                return;
+            }
+        }catch(error){
+        }
+        setCurrentSheet(_type);
+        go(_type);
+    }
+
+    function setCurrentSheetAndAction(type){
+        if(!Element.visible("tab_" + type)){
+            clickSheetMore($('sheetMoreTd'), null);
+        }
+		setCurrentSheet(type);
+        go(type);        
+    }
+
+    function clickSheetMore(currSheet, event){
+        if(Element.hasClassName(currSheet, 'footer_tab_item_more_close')){
+            Element.removeClassName(currSheet, 'footer_tab_item_more_close');
+            Element.addClassName(currSheet, 'footer_tab_item_more_open');
+            var sheetArray = $('tabTd').getElementsByTagName("td");
+            for (var i = MAX_SHEET_DISPLAY; i < sheetArray.length-1; i++){
+                Element.show(sheetArray[i]);
+            }
+            myActualTop.PageContext.tabMoreStatus = 'open';
+        }else{
+            Element.removeClassName(currSheet, 'footer_tab_item_more_open');
+            Element.addClassName(currSheet, 'footer_tab_item_more_close');
+            var sheetArray = $('tabTd').getElementsByTagName("td");
+            for (var i = MAX_SHEET_DISPLAY; i < sheetArray.length-1; i++){
+                Element.hide(sheetArray[i]);
+            }
+            myActualTop.PageContext.tabMoreStatus = 'close';
+        }
+    }
+
+    function getSheets(){
+        var tempTab = {};
+        var tdArray = $('tblSheets').getElementsByTagName("td");
+        for (var i = 0; i < tdArray.length; i++){
+            if(tdArray[i].className.indexOf("footer_tab_item_more_") < 0){
+                tempTab[tdArray[i].getAttribute("_type")] = tdArray[i].innerText; 
+            }
+        }
+        return tempTab;
+    }
+    Event.observe(window, 'load', function(){
+        if(myActualTop.PageContext.tab_configs){
+            loadTab.apply(window, myActualTop.PageContext.tab_configs.tab_sheet_configs);
+        }else{
+            var PageConfig = top.PageContext.PageConfig;
+            window.tabType = "SYSTEM";
+            var sItemKey = PageConfig["itemKey"];
+            if(sItemKey != 'nav_tree' && sItemKey != "adv_search"){
+                window.tabType = "classinfo";
+            }
+            loadTab(window.tabType);
+        }
+
+		//ge gfc add @ 2007-8-17 10:41 
+		Event.observe('tblFooterTab', 'resize', function(){
+			if($('tblSheets').disabled == true) {
+				Position.clone($('divSheetsTab'), $('divMask'));
+			}
+		}, false);
+    });
+
+
+    /*
+    *取消注册的click事件
+    */
+    Event.observe(window, 'unload', function(){
+        var sheetArray = $('tabTd').getElementsByTagName('td');
+		for (var i = 0; i < sheetArray.length; i++){
+			sheetArray[i].onclick = null;		
+        }
+    });
+
+	var m_bFirstShowMask = true;
+	function enableTabSheets(_bFlag){
+		if($('tblSheets') == null) {
+			return;
+		}
+		if(_bFlag === false) {
+			if(m_bFirstShowMask) {
+				Position.clone($('divSheetsTab'), $('divMask'));
+				m_bFirstShowMask = false;
+			}
+			Element.show('divMask');
+			$('tblSheets').disabled = true;
+			setCurrentSheet('document');
+			(top.actualTop || top).PageContext[tabType + 'Host'] = 'document';
+		}else{
+			Element.hide('divMask');
+			$('tblSheets').disabled = false;
+		}
+	}
+
+    function isTabDisabled(){
+        return $('tblSheets').disabled;
+    }
+//-->
+</script>
+</head>
+<body>
+<div class="footer_tab" id="divSheetsTab">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" id="tblFooterTab">
+<tr>
+  <td width="2%">&nbsp;</td>
+  <td width="98%" id="tabTd">
+  </td>
+</tr>
+</table>
+</div>
+<div id="divMask" style="position: absolute; z-index: 999; -moz-opacity:0; filter:alpha(opacity=50); background: whitesmoke; display: none">&nbsp;</div>
+</body>
+</html>

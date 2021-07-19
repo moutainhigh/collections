@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.ViewDocumentServiceProvider" objclass="com.trs.components.wcm.content.persistent.ChnlDoc">
+
+	<method name="findById">
+		<parameter name="ObjectId" desc="ChnlDoc中的RecID" type="int" required="true"/>
+		
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>	
+		
+		<parameter name="SelectFieldsOfChnlDoc" default="DocStatus,CrTime,CrUser,RecId,DOCID,ChnlId" desc="提取的ChnlDoc字段列表" type="string" required="false"/>
+		<parameter name="SelectFieldsOfDocument" default="DOCID,CrTime,DocTitle,DocType,DocKeyWords,DocPeople,SubDocTitle,DocChannel,DocSource,DocSourceName,CrUser" desc="提取的Document字段列表" type="string" required="false"/>		                 
+		
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>				
+	</method>
+	<method name="save" provider="com.trs.ajaxservice.DocumentServiceProvider" logger="com.trs.ajaxservice.logger.DocSaveLogger" desc="保存表单文档">		
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>	
+		<parameter name="ObjectId" desc="文档ID" type="int" required="true"/>
+	</method>
+	<method name="infoViewFindById" truename="findById"  convertor="uri:/app/infoview/infoviewdoc_findbyid.jsp"/>
+</service>

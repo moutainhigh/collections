@@ -1,0 +1,25 @@
+<textarea id="template_ViewInfo" select="MetaView" >
+    <div class="attribute_row wcm_desc_info_row">
+        <span title="视图编号:{#VIEWINFOID}&#13;创建者:{#CRUser}&#13;创建时间:{#CrTime} " style="white-space:nowrap;overflow:hidden;">
+            <span style="">用户</span><span class="desc_info_value">{#CrUser}</span><span>创建于</span><span class="desc_info_value">{#CrTime,,getPrettyTime}</span>
+        </span>
+    </div>
+	<div class="attribute_row">
+		<span class="attribute_name" style="width:40px;">名称:</span>
+        <span class="attribute_value">
+            <TRS_UI:editPanel id="ViewDesc" value="{#ViewDesc}" class="inputClass_" inputClass="inputClass_" _fieldName="ViewDesc" validation="type:'string',required:'',max_len:'60',desc:'名称'"></TRS_UI:editPanel>
+        </span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name" style="width:60px;">主表名:</span>
+        <span class="attribute_value">
+            <span class="desc_info_value">{#MAINTABLENAME}</span>
+        </span>
+	</div>
+ </textarea>
+
+ <textarea id="template_ViewInfos">
+	<div class="attribute_row">
+		当前共选中<span class="objects_num">{#Num}</span>个视图.
+	</div>
+ </textarea>

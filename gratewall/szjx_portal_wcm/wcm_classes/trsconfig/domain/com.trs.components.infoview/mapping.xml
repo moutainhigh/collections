@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="GB2312"?>
+<mapping>
+	<description>***-InfoView config mapping</description>
+	<!--Mapping for InfoView BEGIN-->
+	<class
+		name="com.trs.components.infoview.InfoViewConfig">
+		<map-to xml="InfoViewManager" />
+		<field name="extractProgram">
+			<bind-xml name="extract-program" node="element" />
+		</field>
+		<field name="scriptURI">
+			<bind-xml name="script-uri" node="element" />
+		</field>
+		<field name="styleURI">
+			<bind-xml name="style-uri" node="element" />
+		</field>
+		<field name="pubScriptURI">
+			<bind-xml name="pub-script-uri" node="element" />
+		</field>
+		<field name="pubStyleURI">
+			<bind-xml name="pub-style-uri" node="element" />
+		</field>
+		<field name="innerFilloutAction">
+			<bind-xml name="inner-fillout-action" node="element" />
+		</field>
+		<field name="infoviewBindings" collection="collection"
+			 type="com.trs.components.infoview.config.BindingBean" container="false">
+			<bind-xml name="infoview-binding"/>
+		</field>
+		<field name="enumsConfigFile">
+			<bind-xml name="file" location="infoview-enumsconfig" node="attribute"/>
+		</field>
+		<field name="publicRandomSerialRequired" >
+			<bind-xml name="randomserial-required" location="public-randomserial" node="element" />
+		</field>
+		<field name="publicRandomSerialPattern" >
+			<bind-xml name="randomserial-pattern" location="public-randomserial" node="element" />
+		</field>		
+		<field name="publicPasswordPattern">
+			<bind-xml name="password-pattern" location="public-password" node="element" />
+		</field>	
+		<field name="publicPasswordRequired"  type="boolean">
+			<bind-xml name="password-required" location="public-password" node="element" />
+		</field>	
+		<field name="publicPasswordField">
+			<bind-xml name="password-field" location="public-password" node="element" />
+		</field>		
+		<field name="gatewayConfig" type="com.trs.components.infoview.config.GatewayConfig" container="false">
+			<bind-xml name="infogate-configs"/>
+		</field>
+	</class>
+	<class name="com.trs.components.infoview.config.BindingBean" auto-complete="true">
+		<map-to xml="field" />
+		<field name="name">
+			<bind-xml name="name" node="attribute" />
+		</field>
+		<field name="desc">
+			<bind-xml name="desc" node="attribute" />
+		</field>
+		<field name="format">
+			<bind-xml name="format" node="attribute" />
+		</field>
+		<field name="classname">
+			<bind-xml name="classname" node="attribute" />
+		</field>
+		<field name="dataType">
+			<bind-xml name="data-type" node="attribute" />
+		</field>
+	</class>
+	<class name="com.trs.components.infoview.config.GatewayPage" auto-complete="true">
+		<map-to xml="page_item" />
+		<field name="name">
+			<bind-xml name="name" node="attribute" />
+		</field>
+		<field name="desc">
+			<bind-xml name="desc" node="attribute" />
+		</field>
+		<field name="url">
+			<bind-xml name="url" node="attribute" />
+		</field>
+	</class>
+	<class name="com.trs.components.infoview.config.GatewayConfig" auto-complete="true">
+		<field name="gatewayBindings" collection="collection"
+			 type="com.trs.components.infoview.config.BindingBean" container="false">
+			<bind-xml name="infogate-binding"/>
+		</field>
+		<field name="gatewayPages" collection="collection"
+			 type="com.trs.components.infoview.config.GatewayPage" container="false">
+			<bind-xml name="infogate-page"/>
+		</field>		
+	</class>
+	<!--Mapping for InfoView END-->
+</mapping>

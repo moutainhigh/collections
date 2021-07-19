@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>基础代码</menu-name>
+  <menu-path>/page/resource/res/rd/standard/jcdmjgl/jcdm/</menu-path>
+  <description>基础代码</description>
+  <form-beans>
+    <form-bean name="SysRdStandardCodedataRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="sys_rd_standar_codeindex" type="string" size="10" description="代码标识符"/>
+      <form-property prefix="select-key" name="sys_rd_standard_codevalue" type="string" size="20" description="代码标识符"/>
+      <form-property prefix="select-key" name="sys_rd_standard_codename" type="string" size="1000" description="代码标识符"/>
+      <form-property prefix="select-key" name="codeindex_name" type="string" size="32" description="代码集名称"/>
+      <form-property prefix="record" name="id" type="string" size="32" cannull="false" description="代码值ID"/>
+      <form-property prefix="record" name="sys_rd_standar_codeindex" type="string" size="10" cannull="true" description="代码标识符"/>
+      <form-property prefix="record" name="sys_rd_standard_codevalue" type="string" size="20" cannull="true" description="代码值"/>
+      <form-property prefix="record" name="sys_rd_standard_codename" type="string" size="1000" cannull="true" description="代码内容"/>
+      <form-property prefix="record" name="description" type="string" size="2000" cannull="true" description="说明"/>
+    </form-bean>
+
+    <form-bean name="SysRdStandardCodedataUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="id" type="string" size="32" cannull="false" description="代码值ID"/>
+      <form-property prefix="record" name="id" type="string" size="32" cannull="false" description="代码值ID"/>
+      <form-property prefix="record" name="sys_rd_standar_codeindex" type="string" size="10" cannull="true" description="代码标识符"/>
+      <form-property prefix="record" name="sys_rd_standard_codevalue" type="string" size="20" cannull="true" description="代码值"/>
+      <form-property prefix="record" name="sys_rd_standard_codename" type="string" size="1000" cannull="true" description="代码内容"/>
+      <form-property prefix="record" name="description" type="string" size="2000" cannull="true" description="说明"/>
+    </form-bean>
+
+    <form-bean name="SysRdStandardCodedataDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="id" type="string" size="32" cannull="false" description="代码值ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_rd_standard_codedata.jsp" name="SysRdStandardCodedataRowsetForm" txn-code="7000411" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询基础代码列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardCodedata" func-name="txn7000411" input-node="select-key" output-node="record" description="查询基础代码列表"/>
+      <forward error-code="success" path="query-sys_rd_standard_codedata.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_standard_codedata.jsp"/>
+    </action>
+
+    <action input="update-sys_rd_standard_codedata.jsp" name="SysRdStandardCodedataUpdateForm" txn-code="7000412" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改基础代码信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardCodedata" func-name="txn7000412" input-node="record" description="修改基础代码信息"/>
+      <forward error-code="success" path="update-sys_rd_standard_codedata.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_standard_codedata.jsp"/>
+    </action>
+
+    <action input="insert-sys_rd_standard_codedata.jsp" name="SysRdStandardCodedataUpdateForm" txn-code="7000413" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加基础代码信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardCodedata" func-name="txn7000413" input-node="record" description="增加基础代码信息"/>
+      <forward error-code="success" path="insert-sys_rd_standard_codedata.jsp"/>
+      <forward error-code="failure" path="insert-sys_rd_standard_codedata.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_standard_codedata.jsp" name="SysRdStandardCodedataUpdateForm" txn-code="7000414" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询基础代码用于修改</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardCodedata" func-name="txn7000414" input-node="primary-key" output-node="record" description="查询基础代码用于修改"/>
+      <forward error-code="success" path="update-sys_rd_standard_codedata.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_standard_codedata.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_standard_codedata.jsp" name="SysRdStandardCodedataDeleteForm" txn-code="7000415" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除基础代码信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardCodedata" func-name="txn7000415" input-node="primary-key" description="删除基础代码信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_rd_standard_codedata.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/standard/jcdmjgl/jcdm/query-sys_rd_standard_codedata.jsp" description="查询基础代码列表"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/standard/jcdmjgl/jcdm/insert-sys_rd_standard_codedata.jsp" description="增加基础代码信息"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/standard/jcdmjgl/jcdm/update-sys_rd_standard_codedata.jsp" description="修改基础代码信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.SysRdStandardCodedataContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardCodedata" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardCodedataSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardCodedataPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

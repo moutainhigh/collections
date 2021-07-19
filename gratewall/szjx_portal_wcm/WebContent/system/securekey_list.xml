@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="gb2312"?>
+<parameters>
+	<parameter name="PageIndex" desc="当前页码" min-value="1" default="1" type="int" required="false"/>
+	<parameter name="PageItemCount" desc="页面记录数" min-value="1" default="15" type="int" required="false"/>
+
+	<!--检索相关配置 BEGIN-->
+	<parameter name="SearchTable"  desc="检索的表名"  type="string" required="false" default="WCMSECUREKEY"/>
+	<parameter name="SearchKey"  desc="检索的字段"  type="string" required="false" default="KEYNAME,ALGORITHM"/>
+	<parameter name="SearchValue"  desc="检索的数据"  type="string" default="" required="false"/>
+<!--检索相关配置 END-->
+
+<!--排序相关配置 BEGIN-->
+	<parameter name="OrderField"  desc="排序字段"  type="string" required="false"/>
+	<parameter name="OrderType"  desc="排序方式"  type="string" required="false"/>	
+<!--排序相关配置 END-->
+</parameters>

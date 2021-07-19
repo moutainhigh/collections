@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.WorkflowDelegateServiceProvider" objclass="com.trs.cms.process.engine.WorkflowDelegate">
+	<method name="getDelegateUsers" desc="获取委托用户">
+		<!--配置相关参数-->
+		<parameter name="ObjectId" desc="委托对象ID" type="int" required="true"/>
+	</method>
+
+	<method name="setEnableDelegate" desc="获取/保存开关开启状态">
+		<!--配置相关参数-->
+		<parameter name="ObjectId" desc="委托对象ID" type="int" default="0" required="true"/>
+		<parameter name="IsEnable" desc="开关开启/关闭的状态" type="int" default="0" required="true"/>
+	</method>
+
+	<method name="saveDelegateUsers" desc="保存委托对象的委托用户串">
+		<!--配置相关参数-->
+		<parameter name="ObjectId" desc="委托对象ID" type="int" default="0" required="true"/>
+		<parameter name="DelegateUserIds" desc="需要保存的委托用户串" type="string" required="true"/>
+	</method>
+
+	<method name="saveDelegate" desc="保存委托信息">
+		<!--配置相关参数-->
+		<parameter name="ObjectId" desc="委托对象ID" type="int" default="0" required="true"/>
+		<parameter name="DelegateUserIds" desc="需要保存的委托用户串" type="string" required="false"/>
+		<parameter name="IsEnable" desc="开关开启/关闭的状态" type="int" default="1" required="false"/>
+	</method>
+
+	<method name="getDelegateByUser" desc="获取委托对象">
+		<!--配置相关参数-->
+		<parameter name="CurrUserId" desc="委托对象ID" type="int" required="true"/>
+	</method>
+</service>

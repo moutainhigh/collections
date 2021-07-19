@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>系统在线用户查询</menu-name>
+  <menu-path>/page/sysmgr/loginsessionhs/</menu-path>
+  <description>系统在线用户查询</description>
+  <form-beans>
+    <form-bean name="LoginSessionHsRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="username" type="string" size="24" cannull="true" description="操作员代码"/>
+      <form-property prefix="select-key" name="orgid" type="string" size="24" cannull="true" description="机构代码"/>
+      <form-property prefix="select-key" name="orgname" type="string" size="64" cannull="true" description="机构名称"/>
+      <form-property prefix="select-key" name="login_date_from" type="string" size="8" cannull="true" description="登录日期自"/>
+      <form-property prefix="select-key" name="login_date_to" type="string" size="8" cannull="true" description="登录日期至"/>
+      <form-property prefix="select-key" name="trdcode" type="string" size="12" cannull="true" description="交易码"/>
+      <form-property prefix="select-key" name="trdtype" type="string" size="64" cannull="true" description="分类名称"/>
+      <form-property prefix="select-key" name="errcode" type="string" size="10" cannull="true" description="错误代码"/>
+      <form-property prefix="select-key" name="reqflowno" type="string" size="24" cannull="true" description="请求流水号"/>
+      <form-property prefix="select-key" name="opername" type="string" size="24" cannull="true" description="操作员姓名"/>
+      <form-property prefix="select-key" name="jgid_fk" type="string" size="32" cannull="true" description="所属机构ID"/>
+      <form-property prefix="select-key" name="rolenames" type="string" size="200" cannull="true" description="角色"/>
+      
+      <form-property prefix="record" name="session_id" type="string" cannull="false" description="流水号"/>
+      <form-property prefix="record" name="username" type="string" size="24" cannull="true" description="请求流水号"/>
+      <form-property prefix="record" name="ipaddress" type="string" size="24" cannull="true" description="操作员代码"/>
+      <form-property prefix="record" name="login_date" type="string" size="24" cannull="true" description="操作员姓名"/>
+      <form-property prefix="record" name="login_time" type="string" size="24" cannull="true" description="机构代码"/>
+      <form-property prefix="record" name="jgid_pk" type="string" size="64" cannull="true" description="机构名称"/>
+      <form-property prefix="record" name="yhid_pk" type="string" size="10" cannull="true" description="操作日期"/>
+      <form-property prefix="record" name="jgname" type="string" size="10" cannull="true" description="操作日期"/>
+      <form-property prefix="record" name="rolenames" type="string" size="200" cannull="true" description="角色"/>
+    </form-bean>
+    
+    <form-bean name="StatForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="jgid_fk" type="string" size="24" cannull="true" description="机构代码"/>
+      <form-property prefix="select-key" name="orgname" type="string" size="64" cannull="true" description="机构名称"/>
+      <form-property prefix="select-key" name="login_date_from" type="string" size="8" cannull="true" description="登录日期自"/>
+      <form-property prefix="select-key" name="login_date_to" type="string" size="8" cannull="true" description="登录日期至"/>
+      <form-property prefix="record" name="jgmc_all" type="string" size="32" cannull="true" description="机构名称"/>
+      <form-property prefix="record" name="yhxm" type="string" size="64" cannull="true" description="用户名称"/>
+      <form-property prefix="record" name="login_times" type="string" size="8" cannull="true" description="登录次数"/>      
+    </form-bean>
+    
+    <form-bean name="StatUseForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="startDate" type="string" size="8" cannull="true" description="日期自"/>
+      <form-property prefix="select-key" name="endDate" type="string" size="8" cannull="true" description="日期至"/>
+      <form-property prefix="select-key" name="session_id" type="string" size="8" cannull="true" description="sessionID"/>
+      <form-property prefix="record" name="jgid_pk" type="string" size="32" cannull="true" description="机构名称"/>
+      <form-property prefix="record" name="jgmc" type="string" size="100" cannull="true" description="机构名称"/>
+      <form-property prefix="record" name="query_times" type="string" size="64" cannull="true" description="查询次数"/>
+      <form-property prefix="record" name="login_times" type="string" size="64" cannull="true" description="登录次数"/>
+      <form-property prefix="record" name="download_times" type="string" size="64" cannull="true" description="登录次数"/>  
+      <form-property prefix="record" name="download_total" type="string" size="64" cannull="true" description="登录次数"/>      
+    </form-bean>  
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-login_session_hs.jsp" name="LoginSessionHsRowsetForm" txn-code="81100001" check-type="check" txn-type="transaction" re-entry="true" log-flag="false">
+      <description>查询系统在线用户列表</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnLoginSessionHs" func-name="txn81100001" input-node="select-key" output-node="record" description="查询业务日志列表"/>
+      <forward error-code="success" path="query-login_session_hs.jsp" redirect="false"/>
+      <forward error-code="failure" path="query-login_session_hs.jsp" redirect="false"/>
+    </action>
+    <action input="stat-query.jsp" name="StatForm" txn-code="81100002" check-type="check" txn-type="transaction" re-entry="true" log-flag="false">
+      <description>用户访问统计</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnLoginSessionHs" func-name="txn81100002" input-node="select-key" output-node="record" description="用户访问统计"/>
+      <forward error-code="success" path="stat-query.jsp"/>
+      <forward error-code="failure" path="stat-query.jsp"/>
+    </action>
+    <action input="stat-use.jsp" name="StatUseForm" txn-code="81100003" check-type="check" txn-type="transaction" re-entry="true" log-flag="false">
+      <description>使用情况统计</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnLoginSessionHs" func-name="txn81100003" input-node="select-key" output-node="record" description="使用情况统计"/>
+      <forward error-code="success" path="stat-use.jsp"/>
+      <forward error-code="failure" path="stat-use.jsp"/>
+    </action>
+    <action input="stat-use.jsp" name="StatUseForm" txn-code="81100004" check-type="login" txn-type="transaction" re-entry="true" log-flag="false">
+      <description>更新用户登录时间</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnLoginSessionHs" func-name="txn81100004" input-node="select-key" output-node="record" description="更新用户登录时间"/>
+      <forward error-code="success" path="stat-use.jsp"/>
+      <forward error-code="failure" path="stat-use.jsp"/>
+    </action>
+
+  </action-mappings>
+
+  <jsp-pages>
+    <jsp-page name="query-login_session_hs.jsp" txn-code="81100001" description="查询系统在线用户列表">
+      <frame frame-name="select-key" frame-type="query" caption="查询系统在线用户" width="95%">
+        <field field-name="username" field-type="text" caption="操作员代码" property="style=width:90%,maxlength=24,datatype=string"/>
+        <field field-name="orgid" field-type="text" caption="机构代码" property="style=width:90%,maxlength=24,datatype=string"/>
+        <field field-name="orgname" field-type="text" caption="机构名称" property="style=width:90%,maxlength=64,datatype=string"/>
+        <field field-name="login_date_from" field-type="text" caption="操作日期" property="style=width:90%,maxlength=8,datatype=string"/>
+        <field field-name="login_date_to" field-type="text" caption="操作日期" property="style=width:90%,maxlength=8,datatype=string"/>
+        <field field-name="trdcode" field-type="text" caption="交易码" property="style=width:90%,maxlength=12,datatype=string"/>
+        <field field-name="trdtype" field-type="text" caption="分类名称" property="style=width:90%,maxlength=64,datatype=string"/>
+      </frame>
+
+      <frame frame-name="record" frame-type="grid" caption="系统在线用户列表" keylist="record:flowno" width="95%" property="navbar=bottom,fixrow=true">
+        <button button-name="record_addRecord" function-name="addRecord" caption="查看日志" next-page="/txn981214.do" hint="查询业务日志" page-variable="primary-key:flowno" value-list="record:flowno" txn-code="981214" property="align=right,enablerule=0,hotkey=ADD"/>
+        <field field-name="flowno" field-type="cell" caption="流水号" property="width=10%,datatype=int,visible=false"/>
+        <field field-name="reqflowno" field-type="cell" caption="请求流水号" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="username" field-type="cell" caption="操作员代码" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="opername" field-type="cell" caption="操作员姓名" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="orgid" field-type="cell" caption="机构代码" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="orgname" field-type="cell" caption="机构名称" property="width=10%,maxlength=64,datatype=string"/>
+        <field field-name="regdate" field-type="cell" caption="操作日期" property="width=10%,maxlength=8,datatype=string"/>
+        <field field-name="regtime" field-type="cell" caption="操作时间" property="width=10%,maxlength=6,datatype=string"/>
+        <field field-name="trdcode" field-type="cell" caption="交易码" property="width=10%,maxlength=12,datatype=string"/>
+        <field field-name="trdname" field-type="cell" caption="交易名称" property="width=10%,maxlength=64,datatype=string"/>
+        <field field-name="trdtype" field-type="cell" caption="分类名称" property="width=10%,maxlength=64,datatype=string"/>
+        <field field-name="errcode" field-type="cell" caption="错误代码" property="width=10%,maxlength=10,datatype=string"/>
+        <field field-name="errdesc" field-type="cell" caption="错误描述" property="width=10%,maxlength=128,datatype=string"/>
+      </frame>
+
+    </jsp-page>
+
+    <jsp-page name="view-bizlog.jsp" txn-code="981214" width="500" height="350" description="查询系统在线用户">
+      <frame frame-name="primary-key" frame-type="frame" width="95%">
+        <field field-name="flowno" field-type="hidden" caption="流水号" property="width=90%,datatype=int"/>
+      </frame>
+
+      <frame frame-name="record" frame-type="view" caption="日志信息" width="95%">
+        <button button-name="record_goBack" function-name="goBack" caption="返 回" next-page="/txn981211.do" hint="查询系统在线用户列表" property="hotkey=CLOSE"/>
+        <field field-name="flowno" field-type="hidden" caption="流水号" property="style=width:90%,datatype=int"/>
+        <field field-name="reqflowno" field-type="hidden" caption="请求流水号" property="style=width:90%,maxlength=24,datatype=string"/>
+        <field field-name="username" field-type="cell" caption="操作员代码" property="style=width:90%,maxlength=24,datatype=string"/>
+        <field field-name="opername" field-type="cell" caption="操作员姓名" property="style=width:90%,maxlength=24,datatype=string"/>
+        <field field-name="orgid" field-type="cell" caption="机构代码" property="style=width:90%,maxlength=24,datatype=string"/>
+        <field field-name="orgname" field-type="cell" caption="机构名称" property="style=width:90%,maxlength=64,datatype=string"/>
+        <field field-name="regdate" field-type="cell" caption="操作日期" property="style=width:90%,maxlength=8,datatype=string"/>
+        <field field-name="regtime" field-type="cell" caption="操作时间" property="style=width:90%,maxlength=6,datatype=string"/>
+        <field field-name="trdcode" field-type="cell" caption="交易码" property="style=width:90%,maxlength=12,datatype=string"/>
+        <field field-name="trdname" field-type="cell" caption="交易名称" property="style=width:90%,maxlength=64,datatype=string"/>
+        <field field-name="trdtype" field-type="cell" caption="分类名称" property="style=width:90%,maxlength=64,datatype=string"/>
+        <field field-name="errcode" field-type="cell" caption="错误代码" property="style=width:90%,maxlength=10,datatype=string"/>
+        <field field-name="errdesc" field-type="cell" caption="错误描述" property="style=width:90%,maxlength=128,datatype=string"/>
+        <field field-name="resultdata" field-type="textarea" caption="处理结果" property="style=width:90%,maxlength=0,datatype=string"/>
+      </frame>
+
+    </jsp-page>
+
+    <jsp-page name="listUserLogger.jsp" txn-code="981216" description="系统在线用户查询">
+      <frame frame-name="select-key" frame-type="query" caption="系统在线用户查询" width="95%">
+        <field field-name="startdate" field-type="datebox" caption="开始日期" property="style=width:90%,maxlength=8,datatype=string"/>
+        <field field-name="stopdate" field-type="datebox" caption="结束日期" property="style=width:90%,maxlength=8,datatype=string"/>
+        <field field-name="trdtype" field-type="text" caption="分类名称" property="style=width:90%,maxlength=64,datatype=string"/>
+      </frame>
+
+      <frame frame-name="record" frame-type="grid" caption="系统在线用户列表" keylist="record:flowno" width="95%" property="navbar=bottom,fixrow=true">
+        <button button-name="record_viewRecord" function-name="addRecord" caption="查看系统在线用户" next-page="view-bizlog.jsp" hint="查看系统在线用户" page-variable="primary-key:flowno" value-list="record:flowno" txn-code="981214" property="align=right,enablerule=2,hotkey=VIEW"/>
+        <field field-name="flowno" field-type="cell" caption="流水号" property="width=10%,datatype=int"/>
+        <field field-name="reqflowno" field-type="cell" caption="请求流水号" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="username" field-type="cell" caption="操作员代码" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="opername" field-type="cell" caption="操作员姓名" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="orgid" field-type="cell" caption="机构代码" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="orgname" field-type="cell" caption="机构名称" property="width=10%,maxlength=64,datatype=string"/>
+        <field field-name="regdate" field-type="cell" caption="操作日期" property="width=10%,maxlength=8,datatype=string"/>
+        <field field-name="regtime" field-type="cell" caption="操作时间" property="width=10%,maxlength=6,datatype=string"/>
+        <field field-name="trdcode" field-type="cell" caption="交易码" property="width=10%,maxlength=12,datatype=string"/>
+        <field field-name="trdname" field-type="cell" caption="交易名称" property="width=10%,maxlength=64,datatype=string"/>
+        <field field-name="trdtype" field-type="cell" caption="分类名称" property="width=10%,maxlength=64,datatype=string"/>
+        <field field-name="errcode" field-type="cell" caption="错误代码" property="width=10%,maxlength=10,datatype=string"/>
+        <field field-name="errdesc" field-type="cell" caption="错误描述" property="width=10%,maxlength=128,datatype=string"/>
+      </frame>
+
+    </jsp-page>
+  </jsp-pages>
+</struts-config>
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jazz-ui.js" type="text/javascript"></script> 
+</head>
+<script>
+	
+	function closepanel() {
+		$('#panel_1').panel('close');
+	}
+	function openpanel(){
+		$('#panel_1').panel('open');
+	}
+	
+	function save(){
+		alert('保存！');
+	}
+	function reset(){
+		alert('重置！');
+	}
+	
+</script> 
+<body id="view"> 
+	<div id="demo">
+		<div id="panel_1" vtype="panel" name="panel_1" title="panel的标题" titledisplay="true" closable="true" 
+		     width="400" height="300">  
+			<div id="toolbar" name="toolbar" vtype="toolbar" >
+		    	<div id="btn3" name="btn3" vtype="button" text="保存"  icon="../query/queryssuo.png" click="save()"></div>
+		    	<div id="btn4" name="btn4" vtype="button" text="重置"  icon="../query/queryssuo.png" click="reset()"></div>
+		    </div>			
+		<p>&nbsp;&nbsp;基础面板</p> 
+		</div><br><br>
+		<button type="button" onclick="closepanel()">close</button>
+		<button type="button" onclick="openpanel()">open</button>
+	</div>
+
+   <div class="description">描述信息：基础panel组件</div>
+<br> 
+</body>
+</html>

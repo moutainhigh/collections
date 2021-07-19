@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<project name="sjzx_ex" default="copy-webcontent" basedir=".">
+	<!-- 
+	<project name="bjaic" default="copy-webcontent" basedir=".">
+		project:csdb 
+		author:liqiang
+		date:2007-07-16
+	-->
+	
+	<!-- ==================== 文件 和 目录 定义 ======================== -->
+
+	<!--
+	  app.name            应用程序打成的war包名称
+	  src.home			  java源码的目录
+	  web.home			  中间件的发布目录（weblogic下默认是在c:\beacon。如果在websphere下发布需要修改）
+	  classes.home		  发布目录下的class文件目录
+	  webcontent.home     webcontent
+	  lib.home			  编译时用到的lib目录			   
+	  war.home			  war包的存放目录
+	-->
+
+	<property name="app.name" value="beacon.war" />
+	<property name="src.home" value="${basedir}/src" />
+	<property name="web.home" value="D:/sjzx_ex_fb" />
+	<property name="classes.home" value="${web.home}/WEB-INF/classes" />
+	<property name="webcontent.home" value="${basedir}/webcontent" />
+	<property name="lib.home" value="${webcontent.home}/WEB-INF/lib" />
+	<property name="war.home" value="${basedir}/dist" />
+	<property name="bea.home" value="D:/Oracle/Middleware" />
+
+	<!--  ==================== Compilation Control Options ==================== -->
+
+	<!--
+	  使用 <javac> task.
+	  compile.debug        Should compilation include the debug option?
+	  compile.deprecation  Should compilation include the deprecation option?
+	  compile.optimize     Should compilation include the optimize option?
+	-->
+
+	<property name="compile.debug" value="true" />
+	<property name="compile.deprecation" value="false" />
+	<property name="compile.optimize" value="true" />
+
+	<!-- ==================== 编译组织的类路径=========================== -->
+
+
+	<path id="compile.classpath">
+		<fileset dir="${lib.home}">
+			<include name="*.jar" />
+			<include name="*.zip" />
+		</fileset>
+	</path>
+
+	<path id="jspc.classpath">
+		<fileset dir="${bea.home}/wlserver_10.3/server/lib">
+			<include name="*.jar" />
+		</fileset>		
+	</path>
+
+	<!-- ==================== All Target ====================================== -->
+
+	<target name="all" depends="build-war" description="Clean build and dist directories, then compile,copy,war" />
+
+
+
+	<!-- ==================== Init Target ================================== -->
+	<target name="init" description="Initialize for build">
+		<echo message="/**************init start***************" />
+		<mkdir dir="${war.home}" />
+		<delete includeemptydirs="true">
+			<fileset dir="${war.home}">
+				<include name="**/*" />
+			</fileset>
+		</delete>
+		<echo message="**************init end***************/" />
+	</target>
+
+	<!-- ==================== Compile Target ================================== -->
+
+	<target name="compile" depends="init" description="Compile Java sources">
+		<echo message="/**************compile start***************" />
+		<mkdir dir="${classes.home}/cn"/>
+		<mkdir dir="${classes.home}/com"/>
+		<mkdir dir="${classes.home}/rpProcessor"/>
+		<mkdir dir="${classes.home}/hello"/>
+		<mkdir dir="${classes.home}/jsp_servlet"/>
+		<delete includeemptydirs="true">
+			<fileset dir="${classes.home}/cn" />
+			<fileset dir="${classes.home}/com" />
+			<fileset dir="${classes.home}/rpProcessor" />
+			<fileset dir="${classes.home}/hello" />
+			<fileset dir="${classes.home}/jsp_servlet" />
+		</delete>
+		<!-- Compile Java classes as necessary -->
+		<javac srcdir="${src.home}" encoding="GBK" destdir="${classes.home}" fork="true" debug="${compile.debug}" deprecation="${compile.deprecation}" optimize="${compile.optimize}">
+			<classpath refid="compile.classpath" />
+		</javac>
+		<echo message="**************compile start***************/" />
+	</target>
+	
+	<!-- ==================== copy-webcontent Target ================================== -->
+	<target name="copy-webcontent" depends="compile" description="copy webcontent to ${web.home}">
+		<echo message="/**************copy-webcontent start***************" />
+		<copy todir="${web.home}" overwrite="true">
+			<fileset dir="${webcontent.home}">
+			</fileset>
+		</copy>
+		<copy todir="${classes.home}" overwrite="true">
+			<fileset dir="${src.home}">
+				<include name="**/*.xml" />
+				<include name="**/*.properties" />
+				<include name="**/*.bat" />
+			</fileset>
+		</copy>
+		<echo message="**************copy-webcontent end***************/" />
+	</target>
+	<!-- ==================== build-war Target ================================== -->
+	<target name="build-war" depends="copy-webcontent,jspc" description="build the *.war">
+		<echo message="/**************build-war start***************" />
+		<war warfile="${war.home}/${app.name}" webxml="${web.home}/WEB-INF/web.xml">
+			<fileset dir="${web.home}">
+				<exclude name="**/*.bak" />
+				<exclude name="**/*.svn*" />
+			</fileset>
+		</war>
+		<echo message="**************build-war end***************/" />
+	</target>
+	
+	<!-- ==================== jspc Target ================================== -->
+	<taskdef name="wlappc" classpathref="jspc.classpath" classname="weblogic.ant.taskdefs.j2ee.Appc"></taskdef>
+	
+	<target name="jspc">
+		<wlappc source="${web.home}" classpathref="jspc.classpath" verbose = "true">
+		</wlappc>
+	</target>
+	<target name="cleanjspclass">
+		<delete includeemptydirs="true">
+			<fileset dir="${classes.home}/jsp_servlet" />
+		</delete>
+	</target>
+</project>

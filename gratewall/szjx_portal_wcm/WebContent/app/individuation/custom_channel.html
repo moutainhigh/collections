@@ -1,0 +1,169 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title WCMAnt:param="custom_channel.html.title">选择栏目::::::::::::::::::::::::::::::::::::::::::::::::::::::</title>
+<style type="text/css">
+    *{
+        font-size:12px;
+    }
+    .loading{
+        background:url('../images/individuation/loading.gif') center center no-repeat;
+    }
+	.spFieldReqiredTip{
+		font-size: 12px;
+		color: red;
+		padding-left: 5px;
+		padding-left: 5px;
+	}
+</style>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/TempEvaler.js"></script>
+<script src="../../app/js/data/locale/individual.js"></script>
+<script src="../../app/js/data/locale/system.js"></script>
+<script language="javascript">
+<!--
+    var treeWin = null;//选择树窗体对象
+
+	var topHandler = window.dialogArguments || window.opener;	
+    if(!topHandler){
+        Ext.Msg.alert('非法打开方式');
+    }
+    Event.observe(window, 'load', function(){
+        var treeIframe = $('mainIframe');  
+        treeWin = treeIframe.contentWindow;           
+        var infoObj = window.dialogArguments;
+        var params = "../nav_tree/nav_tree_select.jsp?IsRadio=0&CurrSiteType=-1";//默认为栏目
+
+        
+        if(infoObj.newUpdateFlag == 'update'){//如果是更新，则初始化categroyName的值
+            $('categoryName').value = infoObj.categoryName; 
+			params += "&SelectedChannelIds="+infoObj.ids;   
+			if(infoObj.isShared == 1) 
+				$('isShared').checked = true;
+        }
+		if(infoObj.isAdmin == 'true'){
+			//modified by hp @ 2013/4/24 个性化栏目不需要分享功能
+			$('sharedSp').style.display = "none";
+		}
+        setTimeout(function(){
+            treeIframe.src = params;
+        }, 200);
+        treeIframe.onreadystatechange = statusChanged;
+        //邦定按钮事件
+        Event.observe('selectAll', 'click', toggleSelectAll.bind(window, true));
+        Event.observe('dselectAll', 'click', toggleSelectAll.bind(window, false));
+
+        Event.observe('ok', 'click', clickOk);
+        Event.observe('cancel', 'click', clickCancel);
+    });
+
+    function statusChanged(currObj){
+        if(this.readyState == 'complete'){
+            $('processbar').style.display = 'none';
+        }
+    }
+
+    /*
+    *选中(取消选中)所有的树节点
+    */
+    function toggleSelectAll(checked){        
+        var inputArray = treeWin.document.getElementsByTagName("input");
+        for (var i = 0; i < inputArray.length; i++){
+            inputArray[i].checked = checked;
+        }
+    }
+
+    /*
+    *点击确定按钮执行的操作
+    */
+    function clickOk(){
+        if(!checkValue()) return;
+        var ids = treeWin.getCheckValues().join();
+		var isShared = getIsSharedValue();
+        window.returnValue = {
+            categoryName: $F('categoryName').trim(),
+            ids         : ids,
+			isShared    : isShared
+        };
+        window.close();
+    }
+
+    /*
+    *点击取消按钮执行的操作
+    */
+    function clickCancel(){
+        window.close();
+    }
+
+    function checkValue(){
+        var categoryName = $('categoryName');
+        if(categoryName.value.trim() == ''){
+            alert("栏目名称不能为空！"); 
+            categoryName.focus();
+            return false;
+        }
+        var txtValue = categoryName.value;//.escapeHTML();
+        if(txtValue.length > 50){
+            alert("栏目名称长度超过50个字符");
+            categoryName.focus();
+            categoryName.select();
+            return false;
+        }
+		if(treeWin.getCheckValues().join()==""){
+			alert("请选择栏目内容");
+			return false;
+		}
+        return true;
+    }
+	function getIsSharedValue(){
+		if($('isShared').checked)
+			return 1;
+		else return 0;
+	}
+//-->
+</script>
+</head>
+<body style="background-color:#ECE9D8;padding:5px;">
+<table border=0 cellspacing=0 cellpadding=0 style="width:100%; height:100%;">
+    <tr height="30px;">
+        <td>
+            <div id="title" WCMAnt:param="custom_channel.html.sitetypename">栏目名称:</div>
+            <div style="padding-top:2px;">
+                <input type="text" name="categoryName" id="categoryName" value="" style="width:95%;"><span class="spFieldReqiredTip">*</span>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div id="content" WCMAnt:param="custom_channel.html.sitetypecontent">栏目内容:</div>
+            <div style="margin-top:2px;overflow:hidden;width:100%;">
+                <iframe id="mainIframe" src="" style="width:300px;height:90%;border:1px solid gray;overflow:hidden;"></iframe>    
+            </div>            
+            <div id="processbar" style="position:absolute;display:none;width:214px;height:15px;" class="loading"></div>
+        </td>
+    </tr>
+    <tr style="padding-top:5px;height:50px;">
+        <td>
+            <span>
+                <button type="button" id="selectAll" style="width:80px;" WCMAnt:param="custom_channel.html.selectall">选择全部</button>&nbsp;
+                <button type="button" id="dselectAll" style="width:80px;" WCMAnt:param="custom_channel.html.cancelall">取消全部</button>
+            </span>
+			<span style="padding-left:50px;display:none;" id="sharedSp"><input type="checkbox" name="isShared" id="isShared" value="" /><span WCMAnt:param="custom_channel.html.setshared">设置为共享</span></span>
+        </td>
+    </tr>
+    <tr>
+        <td style="text-align:right;">
+            <div style="border-top:1px inset; height:1px; overflow:hidden;margin-top:5px;margin-bottom:3px;"></div>
+            <span>
+                <button id="ok" type="button" style="width:80px;" WCMAnt:param="custom_channel.html.confirm">确定</button>&nbsp;
+                <button id="cancel" type="button" style="width:80px;" WCMAnt:param="custom_channel.html.cancel">取消</button>
+            </span>              
+        </td>
+    </tr>
+</table>
+</body>
+</html>

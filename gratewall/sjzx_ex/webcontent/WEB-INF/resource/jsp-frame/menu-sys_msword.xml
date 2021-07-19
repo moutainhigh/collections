@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="sys_msword.xml" app-path="/template/" app-name="sys_msword" description="word模板" template="single-table.xml"/>
+  <table name="sys_msword.xml" app-name="sys_msword" app-desc="word模板" delete-action="delete" description="word模板" class-name="cn.gwssi.template.txn.TxnMsWord" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-sys_msword.jsp" txn-code="30200101" description="查询word模板列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加word模板" path="insert-sys_msword.jsp" description="增加word模板" func-name="addRecord"/>
+	    <button type="button" name="修改word模板" path="/txn30200104.do" description="修改word模板" func-name="updateRecord"/>
+	    <button type="button" name="删除word模板" path="/txn30200105.do" description="删除word模板" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn30200101.do" description="查询word模板信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-sys_msword.jsp" txn-code="30200103" description="增加word模板信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn30200103.do" description="保存word模板信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn30200103.do" description="保存word模板信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn30200101.do" description="保存word模板信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn30200101.do" description="返回到word模板明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-sys_msword.jsp" txn-code="30200102" description="修改word模板信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn30200101.do" description="修改word模板信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn30200101.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-sys_msword.jsp" txn-code="30200101" description="查询word模板列表">
+	    <forward error-code="success" path="query-sys_msword.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-sys_msword.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-sys_msword.jsp" txn-code="30200102" description="修改word模板信息">
+	    <forward error-code="success" path="update-sys_msword.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-sys_msword.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-sys_msword.jsp" txn-code="30200103" description="增加word模板信息">
+	    <forward error-code="success" path="insert-sys_msword.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-sys_msword.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-sys_msword.jsp" txn-code="30200104" description="查询word模板用于修改">
+	    <forward error-code="success" path="update-sys_msword.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-sys_msword.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-sys_msword.jsp" txn-code="30200105" description="删除word模板信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="cn.gwssi.template.vo.SysMswordContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="cn.gwssi.template.vo.VoSysMsword" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="cn.gwssi.template.vo.VoSysMswordSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="cn.gwssi.template.vo.VoSysMswordPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

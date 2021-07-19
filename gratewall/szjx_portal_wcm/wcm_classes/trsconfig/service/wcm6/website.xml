@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.WebSiteServiceProvider" objclass="com.trs.components.wcm.content.persistent.WebSite">
+
+	<method name="save" desc="保存站点"/>
+	<method name="delete" desc="删除站点"/>	
+	
+	<method name="query">	
+		<!-- 业务参数 -->
+		<parameter name="SiteType" desc="站点类型" type="int" required="false"/>
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>				
+	
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="站点排序字段及方式" type="string" default="SiteOrder Desc" required="false"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="QuerySiteDesc" desc="站点显示名称" type="string" required="false"
+			search="true" search-operator="like" search-field="SiteDesc"/>
+		<parameter name="QuerySiteName" desc="站点名称" type="string" required="false"
+			search="true" search-operator="like" search-field="SiteName"/>			
+		<parameter name="QuerySiteId" desc="站点ID" type="int" required="false"
+			search="true" search-operator="=" search-field="SiteId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>				
+		<parameter name="ExcludeObjectId" desc="需要排除的站点ID" type="int" required="false"
+			search="true" search-operator="!=" search-field="SiteId"/>								
+		<!-- 检索相关配置 END -->
+	</method>
+
+	<method name="jQuery" truename="query"  convertor="uri:/WCMV6/website/website_query.jsp"/>
+	
+	<method name="findByIds" >
+		<!--默认的参数，可以不写-->
+		<parameter name="ObjectIds" desc="站点ID序列" type="string" required="true"/>
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false"/>
+	</method>
+	
+	<method name="findById">
+		<!--默认的参数，可以不写-->
+		<parameter name="ObjectId" desc="站点ID" type="int" required="true"/>
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false"/>
+	</method>
+
+	<!--获取操作列表-->
+	<method name="getOperators">
+		<parameter name="ObjectId" desc="站点ID" type="int" required="false"/>
+		<parameter name="ObjectIds" desc="站点ID序列" type="string" required="false"/>
+	</method>	
+	
+	<method name="getDocumentOperators">
+		<parameter name="ObjectId" desc="站点ID" type="int" required="true"/>
+	</method>	
+	
+	<method name="getOperatorsInSite">
+		<parameter name="ObjectId" desc="站点ID" type="int" required="false"/>
+	</method>	
+
+	<method name="getOperatorsInSiteRoot" params-required="false"/>
+	
+	<method name="findSiteTypeDesc">
+		<parameter name="ObjectId" desc="站点类型" type="int" required="true"/>
+	</method>	
+	
+	<method name="export" desc="导出站点">
+		<parameter name="ObjectIds" desc="站点ID序列" type="string" required="true" min-length="1"/>
+		<parameter name="ContainsChildren" desc="是否导出所有的子栏目" type="boolean" required="false" default="true"/>			
+		<parameter name="ContainsRelated" desc="是否导出所有的相关内容" type="boolean" required="false" default="true"/>					
+	</method>	
+	
+	<method name="importSites" desc="导入站点" logger="com.trs.ajaxservice.logger.SiteImportLogger">
+		<parameter name="ImportFile" desc="待导入文件" type="string" required="true" min-length="1"/>
+		<parameter name="ImportXSLFile" desc="待导入文件的转换器" type="string" required="false"/>
+	</method>	
+	
+	<method name="createFrom" desc="类似创建站点" logger="com.trs.ajaxservice.logger.SiteCreateFromLogger">
+		<parameter name="SrcSiteId" desc="原始站点ID" type="int" required="true" min-value="1"/>
+	</method>	
+	
+	<method name="changeOrder" desc="调整站点顺序">
+		<parameter name="SrcSiteId" desc="原始站点ID" type="int" required="true" min-value="1"/>
+		<parameter name="DstSiteId" desc="目标站点ID" type="int" required="true" min-value="0"/>
+	</method>	
+	
+	<method name="getRecycleSites">
+		<!-- 业务参数 -->
+		<parameter name="SiteType" desc="站点类型(限定检索的范围)" type="int" required="false"/>
+	
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="站点排序字段及方式" type="string" default="SiteOrder Desc" required="false"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="QuerySiteDesc" desc="站点显示名称" type="string" required="false"
+			search="true" search-operator="like" search-field="SiteDesc"/>
+		<parameter name="QuerySiteName" desc="站点名称" type="string" required="false"
+			search="true" search-operator="like" search-field="SiteName"/>
+		<parameter name="QuerySiteId" desc="站点ID" type="int" required="false"
+			search="true" search-operator="=" search-field="SiteId"/>	
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="OperUser" desc="查询删除者" type="string" required="false" search="true"
+			search-operator="like"/>						
+		<parameter name="ExcludeObjectId" desc="需要排除的站点ID" type="int" required="false"
+			search="true" search-operator="!=" search-field="SiteId"/>								
+		<!-- 检索相关配置 END -->
+	</method>
+	
+	<method name="restoreSites" desc="恢复站点" logger="com.trs.ajaxservice.logger.WebSiteRestoreLogger">
+		<!-- 业务参数 -->
+		<parameter name="SiteType" desc="站点类型" type="int" required="false"/>		
+		
+		<parameter name="ObjectIds" desc="需要恢复的站点ID序列" type="string" required="false"/>			
+		<parameter name="RestoreAll" desc="恢复所有的回收站的站点" type="boolean" required="false"/>			
+	</method>
+	
+	<method name="autoCreate" desc="智能建站">
+		<parameter name="SiteKind" desc="站点类型" type="string" required="true"/>		
+		<parameter name="SiteStyle" desc="站点风格" type="string" required="true"/>		
+		<parameter name="SiteName" desc="站点名称" type="string" required="true" min-length="1"/>			
+		<parameter name="SiteDesc" desc="站点显示名称" type="string" required="true" min-length="1"/>			
+	</method>
+	
+	<method name="existsSimilarName" desc="判断是否存在指定名称的站点">
+		<parameter name="ObjectId" desc="站点ID" type="int" required="false"/>
+		<parameter name="SiteName" desc="站点名称" type="string" required="true" min-length="1"/>					
+	</method>
+	
+	<method name="clearRecycle" desc="清空站点回收站" params-required="false" logger="com.trs.ajaxservice.logger.SiteRecycleClearLogger"/>	
+	
+	<method name="existsSimilarDataPath" desc="判断是否存在相同的存放路径的站点">
+		<parameter name="ObjectId" desc="当前站点ID" type="int" required="true"/>
+		<parameter name="DataPath" desc="存放路径" type="string" required="true" min-length="1"/>					
+	</method>
+	
+</service>

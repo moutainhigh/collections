@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin name="WCM内容组件" version="1.0" id="wcm.content">
+	<!--Config For ObjectLCMonitor BEGIN-->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		1：新增
+		2：修改
+		3：删除前
+		4、删除后
+		多个以逗号隔开
+	-->
+	<extension 
+		element-class="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		id="components.wcm.content.ObjectLCMonitor">
+		<!--栏目-->
+		<monitor-host name="栏目" 
+			class-name="com.trs.components.wcm.content.persistent.Channel">
+			<listener bean-id="FlowEmployerLCListener" event-type="3"/>
+			<listener bean-id="ChannelLCListenerForFlow" event-type="2"/>
+		</monitor-host>
+		<!--文档-->
+		<monitor-host name="文档" 
+			class-name="com.trs.components.wcm.content.persistent.Document">
+			<listener bean-id="FlowContentLCListener" event-type="3"/>
+		</monitor-host>
+		<!--monitor-host name="文档假 删除" 
+			class-name="com.trs.components.wcm.content.persistent.ChnlDoc">
+			<listener bean-id="ChnlDocLCListenerForFlow" event-type="2"/>
+		</monitor-host-->
+
+	</extension>
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		1：新增
+		2：修改
+		3：删除前
+		4、删除后
+		多个以逗号隔开
+	-->
+	<extension element-class="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		id="ObjectLCMonitor">		
+		<!-- Flowable -->
+		<monitor-host name="Flowable" 
+			class-name="com.trs.cms.process.Flowable">
+			<listener bean-id="FlowableLCListenerAfterModify" event-type="2"  used-in-children="true" />
+			<listener bean-id="FlowableLCListenerBeforeDelete" event-type="3" used-in-children="true" />
+		</monitor-host>	
+	</extension>
+	<!--Config For System Collocation BEGIN-->
+
+</plugin>

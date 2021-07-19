@@ -1,0 +1,1 @@
+<div id="loading" style="font-size:12px;position:absolute;left:340px;top:120px;background:#c1c1c1;width:140px;height:40px;line-height:40px;text-align:center;">页面正在加载...</div>

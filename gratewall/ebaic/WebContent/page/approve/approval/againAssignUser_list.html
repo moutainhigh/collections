@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>config.title</title>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/common.css" rel="stylesheet" type="text/css" />
+</head>
+<body style='background-color:#FFF;'>
+<!-- 构建页面==开始 -->
+<!-- 查询条件 -->
+
+<!-- 数据展现 -->
+<div vtype="gridpanel" name="queryGrid_Grid" wid="33D0BE8994310305E055000000000001" datarender="tf.againAssignUser_list.queryGrid_datarender"
+	titleDisplay="false" title="审核人员查询" width="100%" showborder="true" 
+	dataurl="../../../torch/service.do?fid=06755af087454423a5004abe6e1f75d7&wid=33D0BE8994310305E055000000000001">
+	<div vtype="gridcolumn" name="grid_column" width="100%">
+		<div>
+			<div name="approveName" text="上次核准人" textalign="center" width="" dataurl=""></div>
+			<div name="taskcount" text="任务数" textalign="center" width="" dataurl=""></div>
+		</div>
+	</div>
+	<div vtype="gridtable" name="grid_table" width="100%"></div>
+	<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10" width="100%"></div>
+</div>
+<div name="againAssignUser_listToolbar" vtype="toolbar" location="bottom" align="center">
+	<div name="assign_button" vtype="button" text="分配" >
+	</div>
+	<div name="return_button" vtype="button" text="返回">
+	</div>
+</div>
+<!-- 构建页面==结束 -->
+<script>
+var tf = {};
+	tf.againAssignUser_list = {};
+
+	tf.againAssignUser_list.queryGrid_datarender = function (event,obj){
+};
+
+	tf.againAssignUser_list.query_fromNames = [ 'queryGrid_Form'];
+
+</script>
+<script type="text/javascript" src="../../../static/js/config.js"></script> 
+<script type="text/javascript" src="../../../static/lib/require.js"  data-main="approve/ApproveBackAgainAssignPerson.js"></script>
+</body>
+</html>

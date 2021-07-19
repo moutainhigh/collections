@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> otherfield demo </title>
+	<!-- 组件依赖的代码 BEGIN -->
+	<script src="../../core.js" type="text/javascript"></script>
+	<script src="../../com.trs.util/Observable.js" type="text/javascript"></script>
+	<script src="../BaseComponent.js" type="text/javascript"></script>
+	<!-- 组件依赖的代码 END -->
+
+	<script src="../../wcm-adapter.js" type="text/javascript"></script>
+
+	<!-- 窗口组件依赖的代码 BEGIN -->
+	<script src="../../../../js/runtime/components_dd.js"></script>
+	<link href="../../../../js/resource/component_dd.css" rel="stylesheet" type="text/css" />	
+	<!-- 窗口组件依赖的代码 END -->
+
+	<script language="javascript" src="XOtherField.js" type="text/javascript"></script>
+	<link href="resource/XOtherField.css" rel="stylesheet" type="text/css" />	
+	<style type="text/css">
+		*{
+			font-size:12px;
+		}
+		.row{
+			clear:both;
+		}
+		.label{
+			float:left;
+			text-align:right;
+			width:80px;
+		}
+		.value{
+			margin-left:85px;
+		}
+	</style>
+</head>
+
+<body>
+<div class="row">
+	<div class="label" WCMAnt:param="XOtherField.html.otherfield">其它表字段1：</div>
+	<div class="value">
+		<script language="javascript">
+		<!--
+			new com.trs.ui.XOtherField({
+				viewId : 7,
+				tableName : 'WCMMetaTableB',
+				anotherName : wcm.LANG.XOtherField_101 || '其它表字段1', 
+				name : 'b1', 
+				value : wcm.LANG.XOtherField_102 || '谓自娱自乐，政府网站建设的理念是便民、服务，这是正确的，但是在建设过程中却甚少从市民的角度出发来审视自己的网站。举个很简单的例子，目前搞得热'
+			}).render();
+		//-->
+		</script>
+	</div>
+</div>
+<div class="row">
+	<div class="label" WCMAnt:param="XOtherField.html.otherfield2">其它表字段1：</div>
+	<div class="value">
+		<script language="javascript">
+		<!--
+			new com.trs.ui.XOtherField({
+				viewId : 7,
+				tableName : 'WCMMetaTableB',
+				name : 'b2', 
+				value : wcm.LANG.XOtherField_103 || '可能少让公众点击鼠标，从首页开始，最好是点三次就能找到所需要的内容。这个原则，很大程度被“场景式服务”打破了，当建设者以为这个很'
+			}).render();
+		//-->
+		</script>
+	</div>
+</div>
+<br />
+<button onclick="getValue();" WCMAnt:param="XOtherField.html.getotherfield">获取其它表字段的值</button>
+<script language="javascript">
+<!--
+	function getValue(){	
+		var oMyOtherField = com.trs.ui.ComponentMgr.get('b1');
+		alert("b1:" + oMyOtherField.getValue());	
+		alert(com.trs.ui.XOtherFieldMgr.getTableValue("WCMMetaTableB"));
+	}
+//-->
+</script>
+</body>
+</html>

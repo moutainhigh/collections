@@ -1,0 +1,90 @@
+/*
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * This is the default CSS file used by the editor area. It defines the
+ * initial font of the editor and background color.
+ *
+ * A user can configure the editor to use another CSS file. Just change
+ * the value of the FCKConfig.EditorAreaCSS key in the configuration
+ * file.
+ */
+
+/*
+    The "body" styles should match your editor web site, mainly regarding
+    background color and font family and size.
+*/
+
+
+.H1
+{
+	font-weight: bold;
+	font-size: 18pt;
+	color: #cc3300;
+}
+
+.H1Centered
+{
+	font-weight: bold;
+	font-size: 18pt;
+	color: #cc3300;
+	text-align:center;
+}
+
+.H2
+{
+	font-weight: bold;
+	font-size: 16pt;
+	color: #cc3300;
+}
+
+.H3
+{
+	font-weight: bold;
+	font-size: 14pt;
+	color: #cc3300;
+}
+
+.Code
+{
+	border: #8b4513 1px solid;
+	padding-right: 5px;
+	padding-left: 5px;
+	color: #000066;
+	font-family: 'Courier New' , Monospace;
+	background-color: #ff9933;
+}
+ .cas_content P{
+	text-indent:21pt;
+	line-height:140%;
+	margin-top:10px;
+}
+ .cas_content P font,.cas_content P span{
+	line-height:140%;
+}
+/*为了确保编辑器中的表格和word中的表格样式一致，所以对table子元素的样式置为默认值*/
+ .cas_content table *{
+	text-indent:0px;
+	line-height:auto;
+	margin-top:auto;
+}
+
+.cas_content img{
+	border : 1px solid black;
+}

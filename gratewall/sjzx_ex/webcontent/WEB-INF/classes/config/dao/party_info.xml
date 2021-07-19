@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="party_info" class-name="com.gwssi.csdb.report.partyInfo.dao.PartyInfo" check-flag="false">
+    <description>党建信息表</description>
+  </table-info>
+
+  <column name="PA_ID" data-type="varchar" length="50" not-null="true" empty-is-null="false" unique="true" value-from="input" description="主键"/>
+  <column name="EST_ORG_SIGN" data-type="varchar" length="4" not-null="false" empty-is-null="false" unique="false" value-from="input" description="是否建立党组织"/>
+  <column name="SETUP_TIME" data-type="varchar" length="20" not-null="false" empty-is-null="false" unique="false" value-from="input" description="党组织建立时间"/>
+  <column name="PAR_INS" data-type="varchar" length="64" not-null="false" empty-is-null="false" default="1" unique="false" value-from="input" description="党组织组建方式"/>
+  <column name="PAR_ORG_W" data-type="varchar" length="64" not-null="false" empty-is-null="false" unique="false" value-from="input" description="备注信息"/>
+  <column name="NUM_PAR_M" data-type="integer" length="10" not-null="false" empty-is-null="false" unique="false" value-from="input" description="党员（预备党员）人数"/>
+  <column name="RES_PAR_M_SIGN" data-type="varchar" length="4" not-null="false" empty-is-null="false" unique="false" value-from="input" description="法定代表人（执行合伙事务人、投资人、经营者）党员标志"/>
+  <column name="RES_PAR_SEC_SIGN" data-type="varchar" length="4" not-null="false" empty-is-null="false" unique="false" value-from="input" description="法定代表人（执行合伙事务人、投资人、经营者）党组织书记标志"/>
+  <column name="AN_ORG_PAR_SIGN" data-type="varchar" length="4" not-null="false" empty-is-null="false" unique="false" value-from="input" description="本年检年度组建党组织标志"/>
+  <column name="REG_BUS_ENT_ID" data-type="varchar" length="36" not-null="false" empty-is-null="false" unique="false" value-from="input" description="主体身份代码"/>
+  <column name="ENT_NAME" data-type="varchar" length="200" not-null="false" empty-is-null="false" unique="false" value-from="input" description="企业(机构)名称"/>
+  <column name="REG_NO" data-type="varchar" length="50" not-null="false" empty-is-null="false" unique="false" value-from="input" description="注册号"/>
+  <column name="ENT_TYPE" data-type="varchar" length="64" not-null="false" empty-is-null="false" unique="false" value-from="input" description="企业(机构)类型"/>
+  <column name="REG_CAP" data-type="decimal" length="40" not-null="false" empty-is-null="false" unique="false" value-from="input" description="注册资金"/>
+  <column name="P_NAME" data-type="varchar" length="1000" not-null="false" empty-is-null="false" unique="false" value-from="input" description="法定代表人姓名"/>
+  <column name="ADDR" data-type="varchar" length="600" not-null="false" empty-is-null="false" unique="false" value-from="input" description="地址"/>
+  <column name="TEL" data-type="varchar" length="200" not-null="false" empty-is-null="false" unique="false" value-from="input" description="法定代表人联系电话"/>
+  <column name="EMP_NUM" data-type="integer" length="10" not-null="false" empty-is-null="false" unique="false" value-from="input" description="从业人数"/>
+  <column name="REG_ORG" data-type="varchar" length="64" not-null="false" empty-is-null="false" unique="false" value-from="input" description="登记机关"/>
+  <column name="INSPE_YEAR" data-type="char" length="4" not-null="false" empty-is-null="false" unique="false" value-from="input" description="年检日期"/>
+  <column name="UPDATE_DATE" data-type="varchar" length="20" not-null="false" empty-is-null="false" unique="false" value-from="input" description="更新日期"/>
+  <function func-name="select one partyInfo" func-type="select" column-list="PA_ID">
+    <filter-column column-name="PAR_INS" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="ENT_TYPE" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+</table>
+

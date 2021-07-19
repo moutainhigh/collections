@@ -1,0 +1,1428 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by skywoo (freeze) -->
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<taglib>
+	<tlibversion>1.2</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>freeze</shortname>
+	<tag>
+		<name>html</name>
+		<tagclass>cn.gwssi.common.web.tag.html.GhtmlTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>lang</name>          <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>locale</name>        <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>xhtml</name>         <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>css</name>           <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>script</name>        <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>layout</name>        <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>namespace</name>     <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>body</name>
+		<tagclass>cn.gwssi.common.web.tag.html.GbodyTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>style</name>        <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>   <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>background</name>   <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>      <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>text</name>         <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>link</name>         <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>vlink</name>        <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>alink</name>        <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>onload</name>       <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>onunload</name>     <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>onscroll</name>     <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>onresize</name>     <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>      <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>       <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>onhelp</name>       <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>form</name>
+		<tagclass>cn.gwssi.common.web.tag.html.GformTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>action</name>        <required>true</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>flowid</name>        <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>acceptCharset</name> <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>enctype</name>       <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>focus</name>         <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>focusIndex</name>    <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>method</name>        <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>onreset</name>       <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>onsubmit</name>      <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>scriptLanguage</name> <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>target</name>        <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>forward</name>       <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>include</name>
+		<tagclass>cn.gwssi.common.web.tag.html.GincludeTag</tagclass>
+		<attribute> <name>href</name>          <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>errors</name>
+		<tagclass>cn.gwssi.common.web.tag.html.GerrorsTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute> <name>bundle</name>        <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>locale</name>        <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>title</name>
+		<tagclass>cn.gwssi.common.web.tag.html.GtitleTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<attribute> <name>caption</name>       <required>true</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>icon</name>          <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>forecolor</name>     <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>true</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>section</name>
+		<tagclass>cn.gwssi.common.web.tag.layout.SectionTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>name</name>          <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>includeSection</name>
+		<tagclass>cn.gwssi.common.web.tag.layout.IncludeSectionTag</tagclass>
+		<attribute> <name>name</name>          <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>defaultPage</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>callService</name>
+		<tagclass>cn.gwssi.common.web.tag.logic.CallServiceTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>txncode</name>       <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>parameter</name>
+		<tagclass>cn.gwssi.common.web.tag.logic.ParameterTag</tagclass>
+		<attribute> <name>name</name>          <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>loop</name>
+		<tagclass>cn.gwssi.common.web.tag.logic.LoopTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>data</name>
+		<tagclass>cn.gwssi.common.web.tag.bean.GdataTag</tagclass>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>fields</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>txnCode</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hint</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>parameter</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onload</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>get</name>
+		<tagclass>cn.gwssi.common.web.tag.bean.GetTag</tagclass>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>scope</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>value</name>
+		<tagclass>cn.gwssi.common.web.tag.bean.ValueTag</tagclass>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>scope</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>set</name>
+		<tagclass>cn.gwssi.common.web.tag.jstl.SetTag</tagclass>
+		<attribute> <name>var</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>target</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>scope</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>out</name>
+		<tagclass>cn.gwssi.common.web.tag.jstl.OutTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>default</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>escapeXml</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>if</name>
+		<tagclass>cn.gwssi.common.web.tag.jstl.IfTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>test</name>         <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>var</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>scope</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>choose</name>
+		<tagclass>cn.gwssi.common.web.tag.jstl.ChooseTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+	</tag>
+	<tag>
+		<name>when</name>
+		<tagclass>cn.gwssi.common.web.tag.jstl.WhenTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>test</name>         <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>otherwise</name>
+		<tagclass>cn.gwssi.common.web.tag.jstl.OtherwiseTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+	</tag>
+	<tag>
+		<name>forTokens</name>
+		<tagclass>cn.gwssi.common.web.tag.jstl.ForTokensTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>items</name>         <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>delims</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>begin</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>end</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>step</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>var</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>varStatus</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>grid</name>
+		<tagclass>cn.gwssi.common.web.tag.frame.GridTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>fixrow</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>nowrap</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titlestyle</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headstyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headheight</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headcolor</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>rowheight</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>oddstyle</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>evenstyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>activestyle</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>selectedstyle</name> <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>menustyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>navbar</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>keylist</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>sortColumn</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>checkbox</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>multiselect</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>rowselect</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onselect</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onshow</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousemove</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>print</name>
+		<tagclass>cn.gwssi.common.web.tag.frame.GprintTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>note</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>fixrow</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>pageRows</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headscript</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tailscript</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>nowrap</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headstyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headheight</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headcolor</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>rowheight</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>oddstyle</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>evenstyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>activestyle</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>selectedstyle</name> <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>menustyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>frame</name>
+		<tagclass>cn.gwssi.common.web.tag.frame.GframeTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>icon</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tail</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headheight</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headcolor</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headalign</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headstyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tailheight</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tailcolor</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tailstyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tailalign</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>menustyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>block</name>
+		<tagclass>cn.gwssi.common.web.tag.frame.GblockTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>theme</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bodyline</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>nowrap</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>icon</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headheight</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headcolor</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headalign</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headstyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tailheight</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tailcolor</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tailstyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tailalign</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>columns</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>captionWidth</name>  <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>labelstyle</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bodystyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>rowheight</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>menustyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>submit</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>reset</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>embedTable</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>query</name>
+		<tagclass>cn.gwssi.common.web.tag.frame.QueryFrameTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bodyline</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>nowrap</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>icon</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headheight</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headcolor</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headalign</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>headstyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tailheight</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tailcolor</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tailstyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tailalign</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>columns</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>captionWidth</name>  <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>labelstyle</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bodystyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>rowheight</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>menustyle</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>submit</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>reset</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>cell</name>
+		<tagclass>cn.gwssi.common.web.tag.frame.GcellTag</tagclass>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>valueset</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>show</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>datatype</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>locale</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>colspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>rowspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>nowrap</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>valign</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>visible</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>redisplay</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hint</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>text</name>
+		<tagclass>cn.gwssi.common.web.tag.input.GtextTag</tagclass>
+		<attribute> <name>accesskey</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>maxlength</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>minlength</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>datatype</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>numberformat</name>  <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>validator</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>readonly</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>visible</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hint</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>size</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabindex</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabkey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>colspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>notnull</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>hidden</name>
+		<tagclass>cn.gwssi.common.web.tag.input.GhiddenTag</tagclass>
+		<attribute> <name>accesskey</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>maxlength</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>minlength</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>datatype</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>readonly</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hint</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>password</name>
+		<tagclass>cn.gwssi.common.web.tag.input.GpasswordTag</tagclass>
+		<attribute> <name>accesskey</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>maxlength</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>minlength</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>validator</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>readonly</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>visible</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hint</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>redisplay</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>crypt</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>size</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabindex</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>colspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>file</name>
+		<tagclass>cn.gwssi.common.web.tag.input.GfileTag</tagclass>
+		<attribute> <name>accesskey</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>accept</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>maxlength</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>minlength</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>validator</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>size</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>visible</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hint</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabindex</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>colspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>select</name>
+		<tagclass>cn.gwssi.common.web.tag.select.GselectTag</tagclass>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>multiple</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>valueset</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>show</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>data</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>codebox</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>namebox</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>mixbox</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>notnull</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>size</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>visible</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hint</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabindex</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>readonly</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>colspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>filter</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>radio</name>
+		<tagclass>cn.gwssi.common.web.tag.select.GradioTag</tagclass>
+		<attribute> <name>accesskey</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>valueset</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>show</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>data</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>codebox</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>namebox</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>mixbox</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>notnull</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>visible</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hint</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabindex</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>readonly</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>colspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>filter</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>checkbox</name>
+		<tagclass>cn.gwssi.common.web.tag.select.GcheckTag</tagclass>
+		<attribute> <name>accesskey</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>valueset</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>show</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>data</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>codebox</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>namebox</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>mixbox</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>notnull</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>visible</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hint</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabindex</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>readonly</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>colspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>filter</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>browsebox</name>
+		<tagclass>cn.gwssi.common.web.tag.select.GbrowseboxTag</tagclass>
+		<attribute> <name>accesskey</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>multiple</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>size</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>visible</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hint</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabindex</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>readonly</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>show</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>data</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>codebox</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>namebox</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>mixbox</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>notnull</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>check</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>valueset</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>colspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>parameter</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>filter</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>maxlength</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>datebox</name>
+		<tagclass>cn.gwssi.common.web.tag.input.GdateboxTag</tagclass>
+		<attribute> <name>accesskey</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>readonly</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>notnull</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>validator</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>size</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>visible</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hint</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabindex</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>datatype</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>maxlength</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>		 
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>colspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>numberformat</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>	
+	</tag>
+	<tag>
+		<name>button</name>
+		<tagclass>cn.gwssi.common.web.tag.button.GbuttonTag</tagclass>
+		<attribute> <name>accesskey</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hotkey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>true</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>size</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>visible</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hint</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabindex</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>valign</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>position</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>enablerule</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>txncode</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>action</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>img</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>activeImage</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>selectedImage</name> <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>icon</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>submit</name>
+		<tagclass>cn.gwssi.common.web.tag.button.GsubmitTag</tagclass>
+		<attribute> <name>accesskey</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hotkey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>size</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabindex</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>valign</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>position</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>enablerule</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>txncode</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>action</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>img</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>activeImage</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>selectedImage</name> <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>reset</name>
+		<tagclass>cn.gwssi.common.web.tag.button.GresetTag</tagclass>
+		<attribute> <name>accesskey</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hotkey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>size</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabindex</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>valign</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>position</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>enablerule</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>txncode</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>img</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>activeImage</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>selectedImage</name> <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>link</name>
+		<tagclass>cn.gwssi.common.web.tag.html.GlinkTag</tagclass>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>href</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>colspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>rowspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>nowrap</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>valign</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>visible</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>img</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>activeImage</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>selectedImage</name> <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>allShow</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>textarea</name>
+		<tagclass>cn.gwssi.common.web.tag.input.GtextareaTag</tagclass>
+		<attribute> <name>accesskey</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>maxlength</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>minlength</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>validator</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>readonly</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>size</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>rows</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>cols</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>visible</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hint</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabindex</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>valign</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>colspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>edit</name>
+		<tagclass>cn.gwssi.common.web.tag.input.GeditTag</tagclass>
+		<attribute> <name>accesskey</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>readonly</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>rows</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>cols</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabindex</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>colspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>prefix</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>postfix</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>richedit</name>
+		<tagclass>cn.gwssi.common.web.tag.input.GricheditTag</tagclass>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>show</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>rows</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>cols</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>image</name>
+		<tagclass>cn.gwssi.common.web.tag.control.GimageTag</tagclass>
+		<attribute> <name>accesskey</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>readonly</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>size</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>visible</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hint</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabindex</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>colspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>tabs</name>
+		<tagclass>cn.gwssi.common.web.tag.control.GtabsTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute> <name>name</name>          <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabcount</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabwidth</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabheight</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>imagepath</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>focusIndex</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>frameClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>scrolling</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>tab</name>
+		<tagclass>cn.gwssi.common.web.tag.control.GtabTag</tagclass>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>valueset</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>icon</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>pageurl</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>scrolling</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>toolmenu</name>
+		<tagclass>cn.gwssi.common.web.tag.control.GtoolbarTag</tagclass>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>aspect</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>top</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>left</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>topimage</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>subimage</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcoloron</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>color</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>coloron</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>src</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>toolitem</name>
+		<tagclass>cn.gwssi.common.web.tag.control.GtoolitemTag</tagclass>
+		<attribute> <name>id</name>            <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>link</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>target</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>image</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>imageon</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>xtree</name>
+		<tagclass>cn.gwssi.common.web.tag.control.GtreeTag</tagclass>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>dtdfile</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>aspect</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>filter</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>txnCode</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>root</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>rootpage</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>color</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>openicon</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>closeicon</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>nodeicon</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>nodename</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>pidname</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>idname</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>textname</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>memoname</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>flodername</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>iconname</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>openname</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>visible</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>precreate</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousemove</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>search</name>
+		<tagclass>cn.gwssi.common.web.tag.control.GsearchTag</tagclass>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>txnCode</name>       <required>true</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>scope</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>color</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>nodeicon</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>chart</name>
+		<tagclass>cn.gwssi.common.web.jchart.tag.SimpleChartTag</tagclass>
+		<attribute> <name>id</name>            <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>type</name>          <required>true</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>xvalue</name>        <required>true</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>yvalue</name>        <required>true</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>category</name>      <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>legendtitle</name>   <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>xtype</name>         <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ytype</name>         <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>xlabel</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ylabel</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>xalign</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>yalign</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>background</name>    <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>backgroundimagealpha</name>  <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>antialias</name>     <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>legend</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>legendset</name>     <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>overlaidchart</name>
+		<tagclass>cn.gwssi.common.web.jchart.tag.OverlaidChartTag</tagclass>
+		<attribute> <name>id</name>            <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>type</name>          <required>true</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>xtype</name>         <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ytype</name>         <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>xlabel</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ylabel</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>xalign</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>yalign</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>background</name>    <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>backgroundimagealpha</name>  <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>antialias</name>     <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>legend</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>legendset</name>     <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>combinedchart</name>
+		<tagclass>cn.gwssi.common.web.jchart.tag.CombinedChartTag</tagclass>
+		<attribute> <name>id</name>            <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>type</name>          <required>true</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>layout</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>xtype</name>         <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ytype</name>         <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>xlabel</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ylabel</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>xalign</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>yalign</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bgcolor</name>       <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>background</name>    <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>backgroundimagealpha</name>  <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>antialias</name>     <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>legend</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>legendset</name>     <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>plot</name>
+		<tagclass>cn.gwssi.common.web.jchart.tag.PlotTag</tagclass>
+		<attribute> <name>type</name>          <required>true</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>property</name>      <required>true</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>xvalue</name>        <required>true</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>yvalue</name>        <required>true</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>category</name>      <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>xlabel</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ylabel</name>        <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>legendtitle</name>   <required>false</required>  <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+	<tag>
+		<name>chartimg</name>
+		<tagclass>cn.gwssi.common.web.jchart.tag.ChartImgTag</tagclass>
+		<attribute> <name>chartid</name>       <required>true</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmapclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>accesskey</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>alt</name>           <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>altKey</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>disabled</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>name</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>readonly</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>style</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleClass</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>styleId</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>visible</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hint</name>          <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>tabindex</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>title</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>titleKey</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>value</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>caption</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>border</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>bordercolor</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>width</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>height</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>vspace</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>hspace</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>align</name>         <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>colspan</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>newline</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onblur</name>        <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onchange</name>      <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onclick</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>ondblclick</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onfocus</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeydown</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeypress</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onkeyup</name>       <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmousedown</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseout</name>    <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseover</name>   <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+		<attribute> <name>onmouseup</name>     <required>false</required> <rtexprvalue>false</rtexprvalue> </attribute>
+	</tag>
+
+</taglib>
+

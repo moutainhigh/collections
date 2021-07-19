@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow-config>
+	<content-types>
+		<content-type name="SCMMicroContent" desc="微博" class-name="com.trs.scm.process.FlowContentSCMMicroContentImpl"
+		table-name="XWCMSCMMICROCONTENT"/>
+	</content-types>
+	
+	<action-handlers>
+		<handler name="发布当前流转的微博" class-name="com.trs.scm.process.PublishMicroContentActionHandler"/>
+	</action-handlers>
+
+</workflow-config>

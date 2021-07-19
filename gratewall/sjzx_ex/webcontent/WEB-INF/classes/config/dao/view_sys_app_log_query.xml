@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>日志查询</sort-name>
+  <table-info name="view_sys_app_log_query" class-name="cn.gwssi.dw.rd.log.dao.ViewSysAppLogQuery" check-flag="false" backup-flag="false">
+    <description>日志查询</description>
+  </table-info>
+
+  <column name="username" data-type="varchar" length="100" not-null="false" value-from="input" description="用户姓名"/>
+  <column name="query_time" data-type="varchar" length="32" not-null="false" value-from="input" description="查询时间"/>
+  <column name="orgid" data-type="varchar" length="32" not-null="false" value-from="input" description="机构id"/>
+  <column name="ipaddress" data-type="varchar" length="100" not-null="false" value-from="input" description="ip地址"/>
+  <column name="type" data-type="long" length="22" not-null="false" value-from="input" description="类型"/>
+  <primary-key name="用户名称" column-list="username"/>
+  <function func-name="select one view_sys_app_log_query" func-type="select" column-list="username,query_time,orgid,ipaddress,type">
+    <filter-column column-name="username" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select view_sys_app_log_query list" func-type="rowset" column-list="username,query_time,orgid,ipaddress,type" max-record="10">
+    <filter-column column-name="username" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="query_time" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="orgid" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="ipaddress" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="type" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one view_sys_app_log_query" func-type="insert" column-list="username,query_time,orgid,ipaddress,type">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one view_sys_app_log_query" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one view_sys_app_log_query" func-type="update" column-list="username,query_time,orgid,ipaddress,type">
+    <filter-column column-name="username" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

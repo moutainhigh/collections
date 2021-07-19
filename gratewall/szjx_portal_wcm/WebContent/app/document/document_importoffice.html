@@ -1,0 +1,183 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE WCMAnt:param="document_importoffice.html.title">智能创建文档</TITLE>
+<style>
+	body{
+		font-size:12px;
+	}
+	div{
+		width:100%;
+		display:block;
+		line-height:24px;
+		height:24px;
+	}
+	SPAN{
+		float:left;
+	}
+</style>
+<script src="../js/runtime/myext-debug.js"></script>
+<script src="../js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/locale/cn.js" WCMAnt:locale="../js/locale/$locale$.js"></script>
+<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+<script src="../js/source/wcmlib/util/YUIConnection.js"></script>
+<script src="../js/source/wcmlib/com.trs.dialog/FaultDialog.js"></script>
+
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog end-->
+<script type="text/javascript" src="batchupload/swfobject.js" ></script>
+<script language="javascript">
+	window.m_fpCfg = {
+		m_arrCommands : [{
+			cmd : function(){
+				
+				FloatPanel.close();
+			},
+			name :  wcm.LANG.DOCUMENT_PROCESS_46 || '关闭'
+		}],
+		withclose : false,
+		size : [500, 230]
+	};
+</script>
+<script language="javascript">
+<!--
+var sDocHtml = null;
+var m_nDocId = 0;
+var oParams = {
+	'ChannelId' : getParameter('ChannelId'),
+	'FromEditor' : 1
+}
+/*function importDocument(){
+	//ProcessBar.init(wcm.LANG.DOCUMENT_PROCESS_33 || '执行进度，请稍候...');
+	var sDocFileName = $("DocFile").value;
+	try{
+		FileUploadHelper.validFileExt(sDocFileName, "doc,docx,rtf");
+	}catch(err){
+		Ext.Msg.$alert(err.message, function(){
+			$("DocFile").focus();
+		});
+		return false;
+	}
+	//ProcessBar.addState((wcm.LANG.DOCUMENT_PROCESS_48 || '正在上传文件:')+sDocFileName);
+	//ProcessBar.addState(wcm.LANG.DOCUMENT_PROCESS_34 || '正在提交数据');
+	//ProcessBar.addState(wcm.LANG.DOCUMENT_PROCESS_35 || '成功执行完成');
+	ProcessBar.start();
+	var isSSL = location.href.indexOf("https://")!=-1;
+	var callBack1 = {
+		"upload":function(_transport){
+			var sResponseText = _transport.responseText;
+			var bAlert = FileUploadHelper.fileUploadedAlert(sResponseText,{
+				succ:function(){
+					oParams['OfficeSid'] = sResponseText;
+					ProcessBar.exit();
+					var oWin = $openMaxWin("document_addedit.jsp?" + $toQueryStr(oParams));
+					FloatPanel.hide();
+					setTimeout(function(){
+						oWin.focus();
+	//					FloatPanel.close(true);
+					},100);
+				}
+			});
+			if(bAlert)return;
+		}
+	}
+	YUIConnect.setForm('frmUploadDocFile',true,isSSL);
+	YUIConnect.asyncRequest('POST','../system/upload_office_doc.jsp?FileParamName=DocFile',callBack1);
+	return false;
+}*/
+function onComplete(){
+	if(m_nDocId > 0){
+		var info = {
+			objId : m_nDocId,
+			objType : WCMConstants.OBJ_TYPE_CHNLDOC
+		};
+		CMSObj.createFrom(info, null)['afteradd']();
+	}
+}
+
+/*Event.observe(window,'beforeunload',function(){
+	if(m_nDocId > 0){
+		var info = {
+			objId : m_nDocId,
+			objType : WCMConstants.OBJ_TYPE_CHNLDOC
+		};
+		CMSObj.createFrom(info, null)['afteradd']();
+	}
+});*/
+var bError2 = false;
+function onSuccess(index,statusCode,jsonStr,fileName,size,nSuccCount){
+	var arrResult = (jsonStr||jsonStr).split('<!--##########-->');
+	arrResult[0] = (arrResult[0] || '').trim();
+	var faultInfo = {
+		code		: arrResult[1],
+		message		: arrResult[2],
+		detail		: arrResult[3],
+		suggestion  : arrResult[4]
+	}
+	if(arrResult[0]=="<!--ERROR2-->"){
+		if(!bError2){
+			bError2 = true;
+			Ext.Msg.fault(faultInfo, wcm.LANG.DOCUMENT_PROCESS_51 || '与服务器交互时出现错误');
+//			alert(jsonStr);
+		}
+		return 0;
+	}
+	if(arrResult[0]=="<!--ERROR1-->"){
+		Ext.Msg.fault(faultInfo, wcm.LANG.DOCUMENT_PROCESS_51 || '与服务器交互时出现错误');
+		return 0;
+	}
+
+	m_nDocId = jsonStr.split('<!--RIGHT-->')[1];
+	return 1;
+}
+</SCRIPT>
+</HEAD>
+
+<BODY>
+<div>
+	<div id="flashcontent" WCMAnt:param="document_importoffice.html.errorMessage">浏览器或Flash环境异常, 导致该内容无法显示!</div>
+	<noscript WCMAnt:param="document_importoffice.html.noSupportExp">您使用的浏览器不支持或没有启用javascript，请启用javascript后再访问, 谢谢!</noscript>
+	<script type="text/javascript">
+		// <![CDATA[
+	
+		// swf, id, w, h, ver, c, useExpressInstall, quality, xiRedirectUrl, redirectUrl, detectKey
+		var so = new SWFObject("batchupload/fMultiUpload.swf", "flexApp", "480", "250", "9.0.28", "#FF6600");
+		so.useExpressInstall('batchupload/expressinstall.swf');
+		so.addVariable("uploadUrl", "../system/import_office_doc.jsp?ChannelId=" + getParameter('ChannelId'));
+		so.addVariable("ext", "*.doc;*.docx;*.rtf;*.txt"); 
+		so.addVariable("maxSize", "10485760");
+		so.addVariable("onSuccess", "onSuccess");
+		so.addVariable("onFailure", "onFailure");
+		so.addVariable("onComplete", "onComplete");
+		so.addParam("quality", "high");
+		so.addParam("wmode", "transparent");
+		so.addParam("scale", "exactfit");
+		so.addParam("allowScriptAccess", "sameDomain");
+		so.write("flashcontent");
+		
+		// ]]>
+	</script>
+</div>
+	<DIV style="display:none">
+		<SPAN WCMAnt:param="document_importoffice.html.toSelectFile">选择您要上传的文件(目前只支持Word格式文件)：</SPAN>
+		<SPAN>
+			<FORM name="frmUploadDocFile" style="margin:0;padding:0;display:" enctype='multipart/form-data'>
+				<input type="file" id="DocFile" name="DocFile">
+			</FORM>
+		</SPAN>
+	</DIV>
+</BODY>
+</HTML>

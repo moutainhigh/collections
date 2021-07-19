@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>弹窗设置</menu-name>
+  <menu-path>/page/sysmgr/popWindow/</menu-path>
+  <description>弹窗设置</description>
+  <form-beans>
+    <form-bean name="SysPopwindowRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="sys_popwindow_id" type="string" size="32" description="系统任务ID"/>
+      <form-property prefix="select-key" name="expire_date" type="string" size="10" description="到期日期"/>
+      <form-property prefix="record" name="sys_popwindow_id" type="string" size="32" cannull="false" description="系统任务ID"/>
+      <form-property prefix="record" name="content" type="string" size="4000" cannull="true" description="内容"/>
+      <form-property prefix="record" name="publish_date" type="string" size="10" cannull="true" description="发布日期"/>
+      <form-property prefix="record" name="expire_date" type="string" size="10" cannull="true" description="到期日期"/>
+      <form-property prefix="record" name="roles" type="string" size="1000" cannull="true" description="角色列表"/>
+      <form-property prefix="record" name="countnumber" type="string" size="10" cannull="true" description="通知记录条数"/>
+      <form-property prefix="record" name="PUBLISH_DEPART" type="string" size="25" cannull="true" description="发布部门"/>
+	  <form-property prefix="record" name="AUTHOR" type="string" size="10" cannull="true" description="发布人"/>
+   
+    </form-bean>
+
+    <form-bean name="SysPopwindowUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_popwindow_id" type="string" size="32" cannull="false" description="系统任务ID"/>
+      <form-property prefix="record" name="sys_popwindow_id" type="string" size="32" cannull="false" description="系统任务ID"/>
+      <form-property prefix="record" name="content" type="string" size="4000" cannull="true" description="内容"/>
+      <form-property prefix="record" name="publish_date" type="string" size="10" cannull="true" description="发布日期"/>
+      <form-property prefix="record" name="expire_date" type="string" size="10" cannull="true" description="到期日期"/>
+      <form-property prefix="record" name="roles" type="string" size="1000" cannull="true" description="角色列表"/>
+	  <form-property prefix="record" name="PUBLISH_DEPART" type="string" size="25" cannull="true" description="发布部门"/>
+	  <form-property prefix="record" name="AUTHOR" type="string" size="10" cannull="true" description="发布人"/>
+    </form-bean>
+
+    <form-bean name="SysPopwindowDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_popwindow_id" type="string" size="32" cannull="false" description="系统任务ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_popwindow.jsp" name="SysPopwindowRowsetForm" txn-code="60800001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询弹窗任务列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnSysPopwindow" func-name="txn60800001" input-node="select-key" output-node="record" description="查询弹窗任务列表"/>
+      <forward error-code="success" path="query-sys_popwindow.jsp"/>
+      <forward error-code="failure" path="query-sys_popwindow.jsp"/>
+    </action>
+
+    <action input="update-sys_popwindow.jsp" name="SysPopwindowUpdateForm" txn-code="60800002" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改弹窗任务信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnSysPopwindow" func-name="txn60800002" input-node="record" description="修改弹窗任务信息"/>
+      <forward error-code="success" path="update-sys_popwindow.jsp"/>
+      <forward error-code="failure" path="update-sys_popwindow.jsp"/>
+    </action>
+
+    <action input="insert-sys_popwindow.jsp" name="SysPopwindowUpdateForm" txn-code="60800003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加弹窗任务信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnSysPopwindow" func-name="txn60800003" input-node="record" description="增加弹窗任务信息"/>
+      <forward error-code="success" path="insert-sys_popwindow.jsp"/>
+      <forward error-code="failure" path="insert-sys_popwindow.jsp"/>
+    </action>
+
+    <action input="query-sys_popwindow.jsp" name="SysPopwindowUpdateForm" txn-code="60800004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询弹窗任务用于修改</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnSysPopwindow" func-name="txn60800004" input-node="primary-key" output-node="record" description="查询弹窗任务用于修改"/>
+      <forward error-code="success" path="update-sys_popwindow.jsp"/>
+      <forward error-code="failure" path="update-sys_popwindow.jsp"/>
+    </action>
+
+    <action input="query-sys_popwindow.jsp" name="SysPopwindowDeleteForm" txn-code="60800005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除弹窗任务信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnSysPopwindow" func-name="txn60800005" input-node="primary-key" description="删除弹窗任务信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+    <action input="query-sys_popwindow.jsp" name="SysPopwindowRowsetForm" txn-code="60800006" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>查询当前用户的弹窗信息列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnSysPopwindow" func-name="txn60800006" input-node="select-key" output-node="record" description="查询当前用户的弹窗信息列表"/>
+      <forward error-code="success" path="list-sys_popwindow.jsp"/>
+      <forward error-code="failure" path="list-sys_popwindow.jsp"/>
+    </action>
+    
+    <action input="query-sys_popwindow.jsp" name="SysPopwindowRowsetForm" txn-code="60800007" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>查询当前用户的弹窗信息个数</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnSysPopwindow" func-name="txn60800007" input-node="select-key" output-node="record" description="查询当前用户的弹窗信息列表"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+	
+	<action input="query-sys_popwindow.jsp" name="SysPopwindowRowsetForm" txn-code="60800008" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询弹窗任务列表主頁用</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnSysPopwindow" func-name="txn60800008" input-node="select-key" output-node="record" description="查询弹窗任务列表"/>
+      <forward error-code="success" path="query-sys_popwindow.jsp"/>
+      <forward error-code="failure" path="query-sys_popwindow.jsp"/>
+    </action>
+  </action-mappings>
+
+
+    
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_popwindow.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/sysmgr/popWindow/query-sys_popwindow.jsp" description="查询弹窗任务列表"/>
+    <resource-file type="jsp" file-name="/sysmgr/popWindow/insert-sys_popwindow.jsp" description="增加弹窗任务信息"/>
+    <resource-file type="jsp" file-name="/sysmgr/popWindow/update-sys_popwindow.jsp" description="修改弹窗任务信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.vo.SysPopwindowContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.vo.VoSysPopwindow" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.vo.VoSysPopwindowSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.vo.VoSysPopwindowPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

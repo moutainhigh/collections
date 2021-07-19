@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ly.dao.MonthLineUpByAutoDao">
+
+	<!-- #是采用占用符 $是直接取到值 -->
+	<select id="getAllByParam" resultType="StockMonthLineUpByAuto">
+		select * from stock_month_line_up_by_auto t
+		limit #{pageIndex},#{pageSize}
+	</select>
+
+
+	<select id="getCountByParam" resultType="int">
+		select count(1) from stock_month_line_up_by_auto t
+	</select>
+
+
+
+
+	<select id="getSingleByParam" resultType="StockMonthLineUpByAuto">
+		select * from stock_month_line_up_by_auto t
+		<where>
+			<if test="stock.code != null">code = #{stock.code, jdbcType=VARCHAR}</if>
+		</where>
+	</select>
+
+
+
+
+
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from stock_month_line_up_by_auto t where t.code = #{code}
+		</selectKey>
+		<if test="count > 0">
+			update stock_month_line_up_by_auto
+			<trim prefix="set" suffixOverrides=",">
+				<if test="code != null">code = #{code, jdbcType=VARCHAR},</if>
+				<if test="name != null">name = #{name,jdbcType=VARCHAR},</if>
+				<if test="closePrice != null">closePrice = #{closePrice,jdbcType=VARCHAR},</if>
+				<if test="openPrice != null">openPrice = #{openPrice,jdbcType=VARCHAR},</if>
+				<if test="prevClose != null">prevClose = #{prevClose,jdbcType=VARCHAR},</if>
+				<if test="minPrice != null">minPrice = #{minPrice,jdbcType=VARCHAR},</if>
+				<if test="maxPrice != null">maxPrice = #{maxPrice,jdbcType=VARCHAR},</if>
+				<if test="maxPrice != null">maxPrice = #{maxPrice,jdbcType=VARCHAR},</if>
+				<if test="isAddToBuy != null">isAddToBuy = #{isAddToBuy,jdbcType=VARCHAR},</if>
+			</trim>
+			where code = #{code}
+		</if>
+		<if test="count == 0">
+			insert into stock_month_line_up_by_auto
+			(
+			code,
+			name,closePrice,openPrice,prevClose,minPrice,maxPrice
+			)
+			values(
+			#{code, jdbcType=VARCHAR},
+			#{name, jdbcType=VARCHAR},
+			#{closePrice, jdbcType=VARCHAR},
+			#{openPrice, jdbcType=VARCHAR},
+			#{prevClose, jdbcType=VARCHAR},
+			#{minPrice, jdbcType=VARCHAR},
+			#{maxPrice, jdbcType=VARCHAR}
+			)
+		</if>
+	</insert>
+
+
+
+
+	<insert id="insertBatch">
+		insert into stock_month_line_up_by_auto
+		(
+		code,
+		name,
+		closePrice,
+		openPrice,
+		prevClose,
+		minPrice,
+		maxPrice
+		)
+		values
+		<foreach collection="list" item="stocks" separator=",">
+			(#{stocks.code, jdbcType=VARCHAR},
+			#{stocks.name, jdbcType=VARCHAR},
+			#{stocks.closePrice, jdbcType=VARCHAR},
+			#{stocks.openPrice, jdbcType=VARCHAR},
+			#{stocks.prevClose, jdbcType=VARCHAR},
+			#{stocks.minPrice, jdbcType=VARCHAR},
+			#{stocks.maxPrice, jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<update id="truncateTable">
+		truncate table stock_month_line_up_by_auto
+	</update>
+
+</mapper>

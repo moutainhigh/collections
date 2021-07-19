@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common/common::commonHeader"></head>
+
+<body class="page-sub-page page-blog-detail" id="page-top">
+<!-- Wrapper -->
+<div class="wrapper">
+    <!-- Navigation -->
+    <div th:replace="common/common::nav"></div><!-- /.navigation -->
+    <!-- end Navigation -->
+    <!-- Page Content -->
+    <div id="page-content">
+        <!-- Breadcrumb -->
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="/blog/list">Home</a></li>
+                <li class="active">Blog Detail</li>
+            </ol>
+        </div>
+        <!-- end Breadcrumb -->
+
+        <div class="container">
+            <div class="row">
+                <!-- Content -->
+                <div class="col-md-9 col-sm-9">
+                    <section id="content">
+                        <header><h1>BLOG Detail</h1></header>
+                        <article class="blog-post">
+                            <header><a href="javascript:;"><h2 th:text="${blog.title}"></h2></a></header>
+                            <figure class="meta">
+                                <a href="javascript:;" class="link-icon"><i class="fa fa-user"></i>Admin</a>
+                                <a href="javascript:;" class="link-icon"><i class="fa fa-calendar"></i><td th:text="${#dates.format(blog.createTime,'yyyy-MM-dd')}"></td></a>
+                                <div class="tags">
+                                    <div th:each="tag : ${blog.tagList}" th:remove="tag">
+                                        <a href="javascript:;" class="tag article" th:text="${tag}"></a>
+                                    </div>
+                                </div>
+                            </figure>
+                            <span th:utext="${blog.content}" th:remove="tag"></span>
+                        </article><!-- /.blog-post-listing -->
+                        
+                    </section><!-- /#content -->
+                   <section id="comments">
+                        <div class="agent-form">
+                            <form role="form" id="form-contact-agent" method="post" action="/comment/leaveBlogComment" class="clearfix">
+                                <input type="hidden" name="blogId" th:value="${blog.id}">
+                                <div class="form-group">
+                                    <label for="form-contact-agent-message">评论</label>
+                                    <textarea class="form-control" id="form-contact-agent-message" rows="2" name="content" required></textarea>
+                                </div><!-- /.form-group -->
+                                <div class="form-group">
+                                    <button type="submit" class="btn pull-right btn-default" id="form-contact-agent-submit">评论</button>
+                                </div><!-- /.form-group -->
+                                <div id="form-contact-agent-status"></div>
+                            </form><!-- /#form-contact -->
+                        </div>
+                        <header><h2 class="no-border">评论列表</h2></header>
+                        <ul th:each="comment:${commentList}" class="comments">
+                            <li class="comment" style="width: 830px;">
+                                <figure>
+                                    <div class="image">
+                                        <img alt="" th:src="@{${comment.avatar}}">
+                                    </div>
+                                </figure>
+                                <div class="comment-wrapper">
+                                    <div class="name pull-left" th:text="${comment.userName}"></div>
+                                    <span class="date pull-right"><span class="fa fa-calendar"></span><label th:text="${#dates.format(comment.createTime,'yyyy-MM-dd')}" th:remove="tag"></label></span>
+                                    <p th:text="${comment.content}"></p>
+                                    <hr>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul th:if="${#lists.size(commentList)==0}" class="comments">
+                           <li class="comment" style="width: 830px;">
+                               暂无评论
+                           </li>
+                        </ul>
+                    </section>
+                </div><!-- /.col-md-9 -->
+                <!-- end Content -->
+
+                <!-- sidebar -->
+                <div class="col-md-3 col-sm-3">
+                    <section id="sidebar">
+                        <aside id="edit-search">
+                            <header><h3>搜索房产</h3></header>
+                            <form role="form" id="searchForm" class="form-search" method="post" action="/house/list">
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="search-box-property-id" name="name" placeholder="尝试输入小区名">
+                                </div>
+                                <div class="form-group">
+                                    <select name="type">
+                                        <option value="" >类型</option>
+                                        <option value="1">售卖</option>
+                                        <option value="2">出租</option>
+                                    </select>
+                                </div><!-- /.form-group -->
+                                <input type="text" name=sort hidden="true">
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-default">搜索</button>
+                                </div><!-- /.form-group -->
+                            </form><!-- /#form-map -->
+                        </aside><!-- /#edit-search -->
+                        <aside id="featured-properties">
+                            <header><h3>热门房产</h3></header>
+                            <div th:each="house : ${hotHouses}" class="property small">
+                                <a th:href="@{/house/detail(id=${house.id})}">
+                                    <div class="property-image">
+                                        <img alt="" th:src="${house.firstImg}" style="width: 100px;height: 75px">
+                                    </div>
+                                </a>
+                                <div class="info">
+                                    <a href="/house/detail?id=${house.id}"><h4 th:text="${house.name}"></h4></a>
+                                    <figure th:text="${house.address}"> </figure>
+                                    <div class="tag price" th:text="|￥${house.price} 万|"></div>
+                                </div>
+                            </div><!-- /.property -->
+                        </aside><!-- /#featured-properties -->
+
+                    </section><!-- /#sidebar -->
+                </div><!-- /.col-md-3 -->
+                <!-- end Sidebar -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div>
+    <!-- end Page Content -->
+    <!-- Page Footer -->
+    <footer th:replace="common/common::footer"></footer>
+    <!-- end Page Footer -->
+</div>
+
+
+<span th:replace="common/common::commonJs"></span>
+<!--[if gt IE 8]>
+<script type="text/javascript" src="assets/js/ie.js"></script>
+<![endif]-->
+<script  th:inline="javascript" >
+    $(document).ready(function() {
+        var errorMsg   = "[(${errorMsg})]";
+        var successMsg = "[(${successMsg})]";
+        if(errorMsg){
+            errormsg("error",errorMsg);
+        }
+        if(successMsg) {
+            successmsg("success",successMsg);
+        }
+    })
+        
+ </script>
+</body>
+</html>

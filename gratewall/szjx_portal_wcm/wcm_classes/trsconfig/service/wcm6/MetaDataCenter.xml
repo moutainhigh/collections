@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service
+	provider="com.trs.components.metadata.service.MetaDataCenterServiceProvider">
+	<method name="saveMetaViewData" desc="保存资源记录" logger="com.trs.ajaxservice.logger.MetaViewDataSaveLogger">
+		<parameter name="ObjectId" desc="要保存的视图数据ID" type="int"
+			required="true" />
+
+		<parameter name="ViewId" desc="视图ID（新增是否必须传入）" type="int"
+			required="false" min-value="0" />
+		<parameter name="ChannelId" desc="所属栏目ID（新增是否必须传入）" type="int"
+			required="false" min-value="0" />
+	</method>
+
+	<method name="queryViewDatas">
+		<parameter name="ViewId" desc="视图ID（优先级大于栏目ID）" type="int"
+			required="false" min-value="0" />
+		<parameter name="ChannelId" desc="所属栏目ID（优先级小于视图ID）" type="int"
+			required="false" min-value="0" />
+
+		<!--排序字段及方式-->
+		<parameter name="OrderBy" desc="排序字段及方式" type="string"
+			required="false" />
+
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string"
+			required="false" default="yyyy-MM-dd" />
+		<parameter name="ChnlDocSelectFields" desc="ChnlDoc提取的字段列表"
+			type="string" required="false"
+			default="WCMChnlDoc.DOCID,WCMChnlDoc.ChnlId,WCMChnlDoc.DocStatus,WCMChnlDoc.DocChannel,WCMChnlDoc.DocOrderPri,WCMChnlDoc.Modal,WCMChnlDoc.RecId" />
+	</method>
+	<method name="jQueryViewDatas" truename="queryViewDatas"
+		convertor="uri:/WCMV6/metadata/list_of_view_query.jsp" />
+
+	<method name="findViewDataById">
+		<parameter name="ObjectId" desc="视图数据ID" type="int"
+			required="true" />
+
+		<parameter name="ViewId" desc="视图ID（优先级大于栏目ID）" type="int"
+			required="false" min-value="0" />
+		<parameter name="ChannelId" desc="所属栏目ID（优先级小于视图ID）" type="int"
+			required="false" min-value="0" search-field="true" />
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string"
+			required="false" default="yyyy-MM-dd" />
+	</method>
+
+	<method name="deleteViewDatas">
+		<parameter name="ObjectIds" desc="视图数据ID序列" type="string"
+			required="true" />
+	</method>
+
+	<method name="exportViewDatas">
+		<parameter name="ViewId" desc="视图ID（优先级大于栏目ID）" type="int"
+			required="false" min-value="0" />
+		<parameter name="ChannelId" desc="所属栏目ID（优先级小于视图ID）" type="int"
+			required="false" min-value="0" />
+
+		<parameter name="ObjectIds" desc="导出元数据" type="string"
+			required="true" />
+	</method>
+
+	<method name="exportAllViewDatas">
+		<parameter name="ViewId" desc="视图ID（优先级大于栏目ID）" type="int"
+			required="false" min-value="0" />
+		<parameter name="ChannelId" desc="所属栏目ID（优先级小于视图ID）" type="int"
+			required="false" min-value="0" />
+	</method>
+
+	<method name="copy" desc="批量复制不同栏目下不同文档">
+		<parameter name="ObjectIds" desc="指定ChnlDoc ID序列" type="string"
+			required="true" />
+		<parameter name="ToChannelIds" desc="目标栏目ID序列" type="string"
+			required="true" />
+	</method>
+
+	<method name="importMetaViewDatas">
+		<parameter name="ViewId" desc="视图ID" type="int" required="true"
+			min-value="0" />
+		<parameter name="ChannelId" desc="所属栏目ID" type="int"
+			required="true" min-value="0" />
+
+		<parameter name="ImportFile" desc="需要导入的文件" type="string"
+			required="true" />
+		<parameter name="XSLFile" desc="XML转换文件" type="string"
+			required="false" />
+	</method>
+
+	<method name="moveViewDatas">
+		<parameter name="ObjectIds" desc="视图数据ID序列" type="string"
+			required="true" />
+		<parameter name="srcClassInfoIds" desc="源分类法IDs" type="string"
+			required="true" />
+		<parameter name="destClassInfoId" desc="目标分类法ID" type="int"
+			required="true" min-value="0" />
+	</method>
+	<method name="copyViewDatas">
+		<parameter name="ObjectIds" desc="视图数据ID序列" type="string"
+			required="true" />
+		<parameter name="destClassInfoIds" desc="目标分类法IDs" type="string"
+			required="true" />
+	</method>
+	<method name="preview">
+		<parameter name="ObjectId" desc="预览记录ID" type="string"
+			required="true" />
+		<parameter name="ChannelId" desc="当前栏目ID" type="string"
+			required="true" />
+	</method>
+</service>

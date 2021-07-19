@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0"  id="com.trs.scm.domain">
+	<beans>		
+		<bean id="ISCMAccountMgr" 
+			class="com.trs.scm.domain.impl.SCMAccountMgr" 
+			singleton="true"/>
+		<bean id="ISCMCommentMgr" 
+			class="com.trs.scm.domain.impl.SCMCommentMgr" 
+			singleton="true"/>
+		<bean id="ISCMFavoriteMgr" 
+			class="com.trs.scm.domain.impl.SCMFavoriteMgr" 
+			singleton="true"/>
+		<bean id="ISCMGroupMgr" 
+			class="com.trs.scm.domain.impl.SCMGroupMgr" 
+			singleton="true"/>
+		<bean id="ISCMMessageMgr" 
+			class="com.trs.scm.domain.impl.SCMMessageMgr" 
+			singleton="true"/>
+		<bean id="ISCMMicroContentMgr" 
+			class="com.trs.scm.domain.impl.SCMMicroContentMgr" 
+			singleton="true"/>
+		<bean id="ISCMMicroUserMgr" 
+			class="com.trs.scm.domain.impl.SCMMicroUserMgr" 
+			singleton="true"/>
+		<bean id="ISCMMicroContentTemplateMgr" 
+			class="com.trs.scm.domain.impl.SCMMicroContentTemplateMgr" 
+			singleton="true"/>
+		
+		<bean id="SCMGroupUserCacheMgr" class="com.trs.scm.domain.SCMGroupUserCacheMgr" singleton="true">
+		</bean>
+		<bean id="SCMGroupAccountCacheMgr" class="com.trs.scm.domain.SCMGroupAccountCacheMgr" singleton="true">
+		</bean>
+		<bean id="ISCMRetweededMCMgr" class="com.trs.scm.domain.impl.SCMRetweetedMCMgr" singleton="true">
+		</bean>
+		
+	</beans>
+		
+</plugin>

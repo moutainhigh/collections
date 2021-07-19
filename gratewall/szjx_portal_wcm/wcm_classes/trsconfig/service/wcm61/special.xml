@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.special.SpecialServiceProvider">
+	<method name="save" desc="保存专题" />
+
+	<method name="delete" desc="删除专题">
+		<parameter name="ObjectIds" desc="专题ID序列" type="string"
+			required="true" min-length="1" />
+		<parameter name="Drop" desc="是否彻底删除" type="boolean"
+			required="false" default="0" />
+	</method>
+
+	<method name="query">
+		<parameter name="OnlyMine" desc="只显示当前登录用户创建的专题" type="string"
+			required="false" default="false" />
+		<parameter name="Status" desc="专题状态。0为正常状态，-1为已删除状态" type="int"
+			required="false" default="0"/>
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="SpecialName" desc="专题名称" type="string"
+			required="false" search="true" search-operator="like" />
+		<parameter name="SpecialDesc" desc="专题描述" type="string"
+			required="false" search="true" search-operator="like" />
+		<parameter name="CrUser" desc="查询创建者" type="string"
+			required="false" search="true" search-operator="like" />
+		<!-- 检索相关配置 END -->
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string"
+			required="false" default="yyyy-MM-dd HH:mm:ss" />
+
+		<!--排序字段及方式 -->
+		<parameter name="OrderBy" desc="专题排序字段" type="string"
+			required="false" default="CrTime desc" />
+	</method>
+
+	<method name="jQuery" truename="query"
+		convertor="uri:/app/special/special_query.jsp" />
+	<method name="tQuery" truename="query"
+		convertor="uri:/app/special/special_select_query.jsp" />
+	<method name="restoreQuery" truename="query"
+		convertor="uri:/app/special/special_recycle_list.jsp" />
+
+	<method name="existsSimilarName">
+		<!-- 风格重名校验 -->
+		<parameter name="ObjectId" desc="专题标识id" type="int"
+			required="true" />
+		<parameter name="SpecialName" desc="专题名称" type="string"
+			required="false" />
+	</method>
+
+	<method name="setStyle">
+		<!-- 设置专题页面风格 -->
+		<parameter name="ObjectId" desc="专题标识id" type="int"
+			required="true" />
+		<parameter name="StyleId" desc="风格id" type="int" required="false" />
+		<parameter name="StyleName" desc="风格名称" type="string"
+			required="false" />
+	</method>
+
+	<method name="getStyle">
+		<!-- 获取专题页面风格 -->
+		<parameter name="ObjectId" desc="专题标识id" type="int"
+			required="true" />
+	</method>
+
+	<method name="createFrom">
+		<!-- 获取专题页面风格 -->
+		<parameter name="ObjectId" desc="源专题标识id" type="int"
+			required="true" />
+	</method>
+	
+	<method name="restore" desc="恢复专题">
+		<parameter name="ObjectIds" desc="专题ID序列" type="string"
+			required="true" min-length="1" />
+	</method>
+	<method name="findByChnlIds" desc="根据栏目Id查找对应的专题">
+		<parameter name="ChannelIds" desc="栏目Id" type="string"
+			required="true" min-length="1" />
+	</method>
+</service>

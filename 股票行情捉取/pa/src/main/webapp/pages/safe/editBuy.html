@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>买编辑</title>
+<meta charset="utf-8" />
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<script type="text/javascript" src="../../statics/js/public.js"></script>
+</head>
+
+<body>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">买编辑</h3>
+		</div>
+		<div class="panel-body">
+			<ul class="list-group">
+				<li class="list-group-item">
+					<div class="container">
+						<div class="row clearfix">
+							<div class="col-md-12 column">
+								<form class="form-horizontal" role="form">
+									<div class="form-group">
+										<label for="code" class="col-sm-2 control-label">代码</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="code" autofocus="autofocus" />
+										</div>
+									</div>
+									<!-- <div class="form-group">
+										<label for="inputPassword3" class="col-sm-2 control-label">名称</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="sname" />
+										</div>
+									</div> -->
+
+									<div class="form-group">
+										<div class="col-sm-offset-2 col-sm-10">
+											<a class="btn btn-default" id="doSubmints" data-toggle="tooltip" data-placement="right">保存</a>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">当前买单列表</h3>
+		</div>
+		<div class="panel-body">
+			<ul class="list-group" id="lists"></ul>
+		</div>
+	</div>
+	<script>
+	
+		var timer = null;
+		$("#doSubmints").click(function() {
+			clearTimeout(timer);
+	
+			timer = setTimeout(function() {
+				doSave();
+	
+			}, 1000)
+		})
+	
+	
+	
+	
+		$(function() {
+			loadData();
+	
+			$(document).keydown(function(e) {
+				if (e.keyCode == 13) {
+					//$("#doSubmints").trigger("click");
+					doSave();
+				}
+			});
+	
+		});
+	
+		function loadData() {
+			$.ajax({
+				url : "../../services/buyList.do?rand=" + Math.random(),
+				data : {},
+				dataType : "json",
+				beforeSend : function() {
+					$("#lists").empty();
+	
+				},
+				success : function(data) {
+					setURL(nowurl);
+					var datas = data.pageList;
+					if (datas != undefined) {
+						var _html = "";
+						for (var i = 0; i < datas.length; i++) {
+							_html += '<li class="list-group-item" ><div class="container-fluid"><div class="row clearfix"><div class="col-md-4 column">代码：【' + datas[i].code + '】</div><div class="col-md-4 column">名称：【' + datas[i].name + '】</div><div class="col-md-4 column">委托价：【' + datas[i].weituoprice + '】</div><div class="col-md-4 column">操作：【<a href="javascript:;" onclick="delCode(this)" data-code=' + datas[i].code + '>删除</a>】</div></div></div></li>';
+						}
+						$("#lists").append(_html);
+					} else {
+						window.location.href = "../login.html";
+					}
+				}
+			});
+	
+		}
+	
+	
+		function doSave() {
+			var _this = $("#doSubmints");
+			var code = $("#code").val();
+			$.ajax({
+				url : "../../services/editBuy.do?rand=" + Math.random(),
+				data : {
+					code : code
+				},
+				dataType : 'json',
+				type : "post",
+				beforeSend : function(data) {
+					_this.html("保存中...");
+	
+				},
+				success : function(data) {
+					var mess = "";
+					$("#code").val("");
+					_this.html("保存");
+					loadData();
+					if (data.code == "0000") {
+						window.location.href = "login.html";
+					} else {
+						mess = data.msg;
+					}
+					showPopover($("#doSubmints"), mess);
+				},
+				error : function(data) {
+					console.log(data)
+				}
+			});
+	
+	
+	
+		}
+	
+	
+	
+	
+	
+	
+		function delCode(obj) {
+			var _this = $(obj);
+			var code = _this.data("code");
+	
+			$.ajax({
+				url : "../../services/delBuy.do?rand=" + Math.random(),
+				data : {
+					code : code
+				},
+				beforeSend : function(data) {},
+				success : function(data) {
+					loadData();
+				}
+			});
+	
+		}
+	
+	
+		setInterval(function() {
+			loadData();
+		}, 5000)
+	</script>
+</body>
+</html>

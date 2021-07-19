@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+</head>
+<body>
+  
+<script>
+    
+    var opt = [{  
+    	vtype:"menu",
+    	width:200,  
+    	target: null,
+        items:[{
+				text:"CUT",
+				iconurl:"../../../themes/default/toolbar/images/cut.png",
+				click:function(e){
+					alert("aid click....");
+				}
+			},{
+				text:"Delphi",
+				iconurl:"../../../themes/default/toolbar/images/pencil.png",
+				click:function(e){
+					
+				},
+				items:[{
+						text:"Delphi",
+						iconurl:"",
+						click:function(e){
+				
+						}
+					},{
+						text:"Saarland",
+						iconurl:"",
+						click:function(e){
+				
+						}
+					},{
+						text:"AMMS",
+						iconurl:"",
+						click:function(e){
+				
+						}
+					}
+				]
+			},{
+				text:"Amesville",
+				iconurl:"",
+				click:function(e){
+				
+				}
+			}
+		]
+    } 
+];
+</script>
+<div id="btn-01"  name="btn01" text="basicMenu" vtype="button" items="opt" defaultview=1></div>
+<div id="btn-02"  name="btn02" text="splitMenu" vtype="button" items="opt" issplitbutton=true arrowalign="right" defaultview=1></div>
+
+<script type="text/javascript">
+$(function(){
+    //调整父页面iframe高度
+    try{
+        parent.setWinHeight(200);           
+    }catch(e){
+        jazz.log(e);
+    }
+});
+</script>   
+</body>
+</html>

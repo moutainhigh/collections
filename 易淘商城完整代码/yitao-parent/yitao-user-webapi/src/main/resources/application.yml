@@ -1,0 +1,13 @@
+server:
+  port: 10050
+dubbo:
+  application:
+    name: yitao-user-web
+    qos-enable: false
+  registry:
+    address: zookeeper://192.168.3.201:2181
+spring:
+  jackson:
+    default-property-inclusion: non_null
+  profiles:
+    active: common

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0"  id="cms.process">
+	<!--Config For Server BEGIN-->
+	<extension element-class="com.trs.infra.ServerConfig" id="Server">
+		<server bean-id="FlowConfigServer" name="工作流配置服务器" />
+		<server bean-id="FlowServer" name="工作流服务器" />
+		<server bean-id="IFlowServer" name="新工作流服务器" />		
+		<server bean-id="IFlowRuleCacheServer" name="工作流规则缓冲服务器" />		
+	</extension>
+	<!--Config For Server END-->
+	
+	<!-- Cached-Object Config For ICachePOMgr BEGIN -->
+	<extension element-class="com.trs.infra.persistent.cache.CachedObjectConfig" id="CachedObjs">
+		<cached-object Name="工作流" 
+			ClassName="com.trs.cms.process.definition.Flow"/>
+		<cached-object Name="工作流节点" 
+			ClassName="com.trs.cms.process.definition.FlowNode"/>
+		<cached-object Name="工作流节点连线" 
+			ClassName="com.trs.cms.process.definition.FlowNodeBranch"/>
+	</extension>
+	<!-- Cached-Object Config For ICachePOMgr END -->
+	
+	<!-- CacheMgrs Config For CacheServer BEGIN -->
+	<extension element-class="com.trs.infra.support.cache.CacheMgrConfig" id="CacheMgrs">
+		<cache-manager beanId="IFlowCacheMgr" name="工作流缓冲管理器"/>
+	</extension>
+	<!-- CacheMgrs Config For CacheServer END -->
+	
+	<!-- Config For ObjectLCMonitor BEGIN -->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		1：新增
+		2：修改
+		3：删除前
+		4、删除后
+		多个以逗号隔开
+	-->
+	<extension element-class="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		id="ObjectLCMonitor">		
+		<!-- 工作流 -->
+		<monitor-host name="工作流节点" 
+			class-name="com.trs.cms.process.definition.FlowNode">
+			<listener bean-id="IFlowCacheMgr"/>
+			<listener bean-id="FlowNodeLCListenerForForceEnd" event-type="3"/>
+			<listener bean-id="RuleHostLCListnerForCache" event-type="4"/>			
+		</monitor-host>
+		<!-- 工作流模块 -->
+		<monitor-host name="工作流的应用关系" 
+			class-name="com.trs.cms.process.definition.FlowEmploy">
+			<listener bean-id="FlowEmployCacheMgr"/>
+		</monitor-host>
+	</extension>
+	<!-- Config For ObjectLCMonitor END -->
+
+</plugin>

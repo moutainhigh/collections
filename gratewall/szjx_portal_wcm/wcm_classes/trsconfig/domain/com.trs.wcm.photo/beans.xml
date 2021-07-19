@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0" id="wcm.photo">
+	<beans>
+		<bean id="IImageLibConfig" 
+			class="com.trs.wcm.photo.impl.ImageLibConfigImpl" singleton="true"/>
+		<bean id="IImageLibService" 
+			class="com.trs.wcm.photo.impl.ImageLibServiceImpl" 
+			singleton="true"/>
+		<bean id="IMagicImage" class="com.trs.wcm.photo.impl.MagicImageImpl" 
+			singleton="false"/>
+		<bean id="IImageLibMgr" class="com.trs.wcm.photo.impl.ImageLibMgrImpl" 
+			singleton="false"/>
+		<bean id="DocumentLCLisenterForPhoto" 
+			class="com.trs.wcm.photo.DocumentLCLisenterForPhoto" 
+			singleton="true"/>
+	</beans>
+</plugin>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.wcm.publish.region.CellServiceProvider">
+	
+	<method name="saveCells" desc="保存当前导读所有的单元格信息">
+		<parameter name="RegionInfoId" desc="导读ID" type="int" required="true"/>
+		<parameter name="CellsXML" desc="单元格信息" type="string" required="true"/>
+		<parameter name="BPublish" desc="是否需要触发发布" type="boolean" required="false"/>
+	</method>
+	
+		
+	<method name="query">
+		<parameter name="RegionInfoId" desc="所属导读ID" type="int" required="true"/>
+
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="单元格排序字段及方式" type="string" required="false"/>		
+			
+		<!-- 检索相关配置 BEGIN -->
+		<!-- 检索相关配置 END -->	
+	</method>
+	
+	
+</service>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.SystemServiceProvider" desc="系统相关服务提供者">
+	
+	<method name="findNodesByPath" desc="根据路径获取当前节点列表">
+		<parameter name="Path" desc="路径(以\分隔)" type="string" required="false"/>
+	</method>	
+	
+	<method name="isValidChannelId" desc="判断指定的栏目Id是否有效">
+		<parameter name="ObjectId" desc="栏目Id" type="int" required="true"/>
+	</method>		
+	
+	<method name="isValidSiteId" desc="判断指定的栏目Id是否有效">
+		<parameter name="ObjectId" desc="站点Id" type="int" required="true"/>
+	</method>		
+	
+</service>

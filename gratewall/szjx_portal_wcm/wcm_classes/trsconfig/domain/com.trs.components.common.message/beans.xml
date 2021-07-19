@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0" id="components.common.message">
+	<beans>
+		<bean id="NotificationServer" 
+			class="com.trs.components.common.message.notify.NotificationServer" 
+			singleton="true" />
+		<!-- Message SendWorker BEGIN -->
+		<bean id="MsgSendWorker" 
+			class="com.trs.components.common.message.MsgSendWorker" 
+			singleton="true"/>
+		<bean id="EmailSendWorker" 
+			class="com.trs.components.common.message.EmailSendWorker" 
+			singleton="true"/>
+		<bean id="SMSSendWorker" 
+			class="com.trs.components.common.message.SMSSendWorker" 
+			singleton="true"/>
+		<!-- Message SendWorker END -->
+		<bean id="MessageSendingMapper" 
+			class="com.trs.components.common.message.MessageSendingMapper" 
+			singleton="true"/>
+	</beans>
+</plugin>

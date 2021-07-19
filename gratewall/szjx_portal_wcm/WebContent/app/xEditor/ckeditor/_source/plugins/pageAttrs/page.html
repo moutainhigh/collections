@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> 页面属性设置</title>
+	<script language="javascript" src='./page.js'></script>
+	<style type="text/css">
+		body{
+			font-size:14px;
+		}
+		.title{
+			font-weight:bold;
+		}
+		.wrap{
+			margin:15px 0;
+		}
+		.previewBox{
+			float:left;
+		}
+		.preview{
+			width:240px;
+			height:248px;
+			overflow:auto;
+			border:1px solid gray;
+		}
+		.preview p{
+			margin:0;
+			text-indent:2em;
+		}
+		.attrset{
+			width:240px;
+			height:258px;
+			float:left;
+		}
+	</style>
+</head>
+
+<body>
+<fieldset class='attrset'>
+	<legend>页面属性设置</legend>
+	<div class='attrsSet'>
+		<div class='wrap'>
+			<span class='title'>段落间距：</span>
+			<input type='radio' value='yes' name='paraSpace' onclick='showDetail()'>有
+			<input type='radio' value='no'  checked='checked' name='paraSpace' onclick='hideDetail()'>无
+		</div>
+		<div id='ParaSpaceSet' class='ParaSpaceSet'>
+			段前：<input type='text' value='1' size='2' id='previousSpaceSet' disabled='true' onchange='previousSpaceHandle(this.value)'>(em) 
+			段后：<input type='text' value='0' size='2' id='nextSpaceSet' disabled='true' onchange='nextSpaceHandle(this.value)'>(em)
+		</div>
+		<div class='wrap'>
+			<span class='title'>
+				行间距：
+			</span>
+			<select name="" onchange ="lineSpaceHandle(this.options[selectedIndex].value)" style="width:100px;margin-left:15px">
+				<option value="1.0">1.0</option>
+				<option value="1.15" selected='seleceted'>1.15</option>
+				<option value="1.5">1.5</option>
+				<option value="2">2.0</option>
+				<option value="2.5">2.5</option>
+				<option value="3.0">3.0</option>
+			</select>
+		</div>
+
+		<div class='wrap'>
+			<span class='title'>段落缩进：</span>
+			<select name="" onchange ="lineIndentHandle(this.options[selectedIndex].value)" style="width:100px">
+				<option value="normal">常规</option>
+				<option value="one">一个字符</option>
+				<option value="two" selected='seleceted'>二个字符</option>
+				<option value="three">三个字符</option>
+				<option value="four">四个字符</option>
+			</select>
+		</div>
+		
+		<div class='wrap'>
+			<span class='title'>字体大小：</span><input type="text" name="" id="" value="15" size='2' style='margin-left:4px' onchange='fontSizeHandle(this.value)'/>(px)
+		</div>
+
+		<div class='wrap'>
+			<span class='title'>统一格式：</span>
+			<input type='radio' value='yes' name='format'>是 
+			<input type='radio' value='no' checked='checked' name='format'>否
+		</div>
+	</div>
+</fieldset >
+<div class='previewBox'>
+	<span class='title'>预览</span>
+	<div class='preview' id='preview'>
+		<p>
+		<span style='font-weight:bold'>北京拓尔思(TRS)信息技术有限公司</span>成立于1993年,是中文全文检索的创始者,在企业和互联网搜索,内容管理和信息挖掘等领域具有领先的技术和产品,是国内最大的搜索和内容管理技术提供者,在大中华地区拥有约2000家企业级用户,是非结构化信息处理技术领域的创新者和领导者.
+		</p>
+		<p >
+		公司总部在北京,现有员工200多人,已在全国主要城市建立了分公司,办事处或合作伙伴网络,为当地客户提供高水平的本地化服务.
+		</p>
+		<p>
+		公司成立十余年来,销售收入和利润始终保持持续的增长,自1996年以来连续10年盈利,是中国从事自主核心技术和软件产品研发的典范企业之一.
+		</p>
+	</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="share_ftp_service" class-name="com.gwssi.share.ftp.dao.ShareFtpService" check-flag="false" backup-flag="false">
+    <description>共享ftp服务</description>
+  </table-info>
+
+  <column name="ftp_service_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="FTP服务ID"/>
+  <column name="service_id" data-type="varchar" length="32" not-null="false" value-from="input" description="服务ID"/>
+  <column name="datasource_id" data-type="varchar" length="32" not-null="false" value-from="input" description="数据源ID"/>
+  <column name="srv_scheduling_id" data-type="varchar" length="32" not-null="false" value-from="input" description="服务调度ID"/>
+  <column name="file_name" data-type="varchar" length="100" not-null="false" value-from="input" description="文件名称"/>
+  <column name="file_type" data-type="varchar" length="20" not-null="false" value-from="input" description="文件类型"/>
+  <primary-key name="pk_share_ftp_service" column-list="ftp_service_id"/>
+  <index name="pk_share_ftp_service" index-type="unique" cluster="cluster" column-list="ftp_service_id"/>
+  <function func-name="select share_ftp_service list" func-type="rowset" column-list="ftp_service_id,service_id,datasource_id,srv_scheduling_id,file_name,file_type" max-record="10">
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one share_ftp_service" func-type="insert" column-list="ftp_service_id,service_id,datasource_id,srv_scheduling_id,file_name,file_type">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="select one share_ftp_service" func-type="select" column-list="ftp_service_id,service_id,datasource_id,srv_scheduling_id,file_name,file_type">
+    <filter-column column-name="ftp_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="delete one share_ftp_service" func-type="delete">
+    <filter-column column-name="ftp_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one share_ftp_service" func-type="update" column-list="service_id,datasource_id,srv_scheduling_id,file_name,file_type">
+    <filter-column column-name="ftp_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

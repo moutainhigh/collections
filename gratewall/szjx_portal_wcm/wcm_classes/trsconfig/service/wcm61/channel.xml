@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.ChannelServiceProvider" objclass="com.trs.components.wcm.content.persistent.Channel">
+	<method name="save" desc="保存栏目" />
+	<method name="findById"/>
+	<method name="jFindById" truename="findById"  convertor="uri:/app/channel/channel_findbyid.jsp"/>
+	<method name="recycleFindbyid" truename="findById"  convertor="uri:/app/chnlrecycle/chnlrecycle_findbyid.jsp"/>
+	
+	<method name="query">
+		<!-- 业务参数 -->
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="false"/>		
+		<parameter name="SiteId" desc="当前站点ID" type="int" required="false"/>
+		<parameter name="SiblingChannelId" desc="相邻栏目ID" type="int" required="false"/>
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>		
+		<parameter name="ExcludeTopOrPic" desc="是否排除头条和图片" type="boolean" required="false" default="false"/>	
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="栏目排序字段及方式" type="string" default="ChnlOrder Desc" required="false"/>				
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="ChnlDesc" desc="栏目显示名称" type="string" required="false"
+			search="true" search-operator="like" search-field="ChnlDesc"/>
+		<parameter name="ChnlName" desc="栏目名称" type="string" required="false"
+			search="true" search-operator="like" search-field="ChnlName"/>			
+		<parameter name="id" desc="栏目ID" type="int" required="false"
+			search="true" search-operator="=" search-field="ChannelId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>					
+		<parameter name="ExcludeObjectId" desc="需要排除的栏目ID" type="int" required="false"
+			search="true" search-operator="!=" search-field="ChannelId"/>		
+		<!-- 检索相关配置 END -->	
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>
+	</method>
+	<method name="getRecycleChannels">
+		<!-- 业务参数 -->
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="当前站点ID" type="int" required="false"/>
+		<parameter name="NeedChannelPath" desc="是否需要返回栏目的路径" type="boolean" required="false" default="true"/>
+		
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="栏目排序字段及方式" type="string" default="ChnlType Desc, ChnlOrder Desc" required="false"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="QueryChannelDesc" desc="栏目显示名称" type="string" required="false"
+			search="true" search-operator="like" search-field="ChnlDesc"/>
+		<parameter name="QueryChannelName" desc="栏目名称" type="string" required="false"
+			search="true" search-operator="like" search-field="ChnlName"/>			
+		<parameter name="QueryChannelId" desc="栏目ID" type="int" required="false"
+			search="true" search-operator="=" search-field="ChannelId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="OperUser" desc="查询删除者" type="string" required="false" search="true"
+			search-operator="like"/>						
+		<!-- 检索相关配置 END -->
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>
+	</method>
+	<method name="jQuery" truename="getRecycleChannels"  convertor="uri:/app/chnlrecycle/chnlrecycle_query.jsp"/>
+	<method name="jListQuery" truename="query"  convertor="uri:/app/channel/channel_query.jsp"/>
+	<method name="jThumbQuery" truename="query"  convertor="uri:/app/channel/channel_thumb_query.jsp"/>
+	<method name="restoreChannels" desc="恢复栏目" logger="com.trs.ajaxservice.logger.RestoreObjLogger">
+		<!-- 业务参数 -->
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="当前站点ID" type="int" required="false"/>
+		
+		<parameter name="ObjectIds" desc="需要恢复的栏目ID序列" type="string" required="false"/>			
+		<parameter name="RestoreAll" desc="恢复所有的回收站的栏目" type="boolean" required="false"/>			
+	</method>
+	
+	<method name="createFromFile" desc="批量创建栏目" logger="com.trs.ajaxservice.logger.BatchChannelCreateFromFileLogger">
+		<parameter name="ImportFile" desc="待导入文件" type="string" required="true" />
+		<parameter name="DstChannelId" desc="目标栏目ID" type="int" required="false" />
+		<parameter name="DstSiteId" desc="目标站点ID" type="int" required="false" />		
+	</method>	
+
+	<method name="createChannelTreeHTMLOfIds" desc="构造指定栏目的子栏目序列树">
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="true" />		
+	</method>
+
+	<method name="delete" desc="删除栏目">	
+		<parameter name="ObjectIds" desc="栏目ID序列" type="string" required="true" min-length="1"/>
+		<parameter name="Drop" desc="是否彻底删除" type="boolean" required="false" default="false"/>	
+	</method>	
+
+	<method name="changeOrder" desc="调整栏目顺序">
+		<parameter name="SrcChannelId" desc="原始栏目ID" type="int" required="true" min-value="1"/>
+		<parameter name="DstChannelId" desc="目标栏目ID" type="int" required="true" min-value="0"/>
+	</method>	
+
+	<method name="saveForSpecial" desc="保存专题所属栏目"/>
+	
+	<method name="findChannelByPath" desc="通过栏目路径获取指定的栏目">
+		<parameter name="ChnlPath" desc="栏目全路径，从站点开始" type="string" required="true" />
+	</method>	
+</service>

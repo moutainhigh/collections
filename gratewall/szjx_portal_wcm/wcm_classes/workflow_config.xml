@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<workflow-config> 
+  <content-types> 
+    <content-type name="Document" desc="文档" class-name="com.trs.components.wcm.process.element.FlowContentDocumentImpl" table-name="WCMDocument"> 
+      <field name="标题" db-name="DocTitle"/>  
+      <field name="关键词" db-name="DocKeyWords"/>  
+      <field name="正文" db-name="DocCotent"/> 
+    </content-type>  
+    <content-type name="Infoview" desc="表单" class-name="com.trs.components.wcm.process.element.FlowContentDocumentImpl"/>  
+    <content-type name="ApplyForm" desc="依申请公开" class-name="com.trs.components.gkml.sqgk.process.element.FlowContentApplyFormImpl" table-name="XWCMAPPLYFORM"/>
+    <content-type name="DestroyTask" desc="撤销申请" class-name="com.trs.haier.destroytask.DestroyTaskFlowContent" table-name="XWCMDESTROYTASK"/> 
+  </content-types>  
+  <condition-handlers> 
+    <handler name="处理超过指定时间" class-name="com.trs.cms.process.engine.handlers.OverTimeHandler"> 
+      <param name="WorkTime" desc="工作时间" type="int"> 
+        <operators> 
+          <operator name="超过(含)" value="&gt;="/> 
+        </operators>  
+        <!-- unit的枚举值可以参考CMyDateTime中常量定义 -->  
+        <units> 
+          <unit name="小时" value="4"/>  
+          <unit name="天" value="3"/>  
+          <unit name="周" value="12"/> 
+        </units> 
+      </param> 
+    </handler>  
+    <handler name="文档标题包含指定的信息" class-name="com.trs.cms.process.engine.handlers.ContentPropertyHandler"> 
+      <param name="DocTitle" desc="文档标题" type="string"> 
+        <operators> 
+          <operator name="包含" value="like"/> 
+        </operators> 
+      </param> 
+    </handler> 
+  </condition-handlers>  
+  <action-handlers> 
+    <handler name="发送消息通知指定的人" class-name="com.trs.cms.process.engine.handlers.MsgSendHandler"> 
+      <param name="Receiver" desc="接收消息的人" type="string" type-desc="枚举并且可输入"> 
+        <values> 
+          <value name="CrUser" desc="申请人"/>  
+          <value name="CurrDealer" desc="当前结点处理人"/>  
+          <value name="PreDealer" desc="上一个结点处理人"/>  
+          <value name="DeptMgr" desc="所在部门经理"/>  
+          <value name="SpDeptMgr" desc="支持部门经理"/>  
+          <value name="Admin" desc="管理员"/> 
+        </values> 
+      </param>  
+      <param name="MsgTitle" desc="文档标题" type="string" type-desc="可输入有默认值"> 
+        <default-value> <![CDATA[工作流消息提醒——${ContentTitle}]]></default-value> 
+      </param>  
+      <param name="MsgTemplate" desc="消息格式" type="text" type-desc="可输入有默认值"> 
+        <default-value> <![CDATA[${ReceiverName}:
+您好!
+${ContentTitle}等待您处理!
+
+${CurrDateTime}]]> </default-value> 
+      </param>  
+      <param name="MsgTypes" desc="发送消息的方式" type="enum" type-desc="仅仅枚举"> 
+        <default-value>Email,Message</default-value>  
+        <values> 
+          <value name="Email" desc="邮件"/>  
+          <value name="Message" desc="在线短消息"/>  
+          <value name="SMS" desc="手机短信"/> 
+        </values> 
+      </param> 
+    </handler>  
+    <handler name="自动转到下一个节点" class-name="com.trs.cms.process.engine.handlers.AutoToNextHandler"> 
+      <param name="NextNode" desc="下一个节点名称" type="string"></param> 
+    </handler>  
+    <handler name="依申请公开-发送通知书（附件）" class-name="com.trs.components.gkml.sqgk.process.engine.handlers.ReplyAppendixNotifyHandler"> 
+      <param name="Receiver" desc="申请人邮件字段" type="readonly_string" type-desc="只读"> 
+        <default-value><![CDATA[EMAIL]]></default-value> 
+      </param>  
+      <param name="NotifyFile" desc="通知书" type="enum" type-desc="枚举"> 
+        <values> 
+          <value name="" desc="无"/>  
+          <value name="%All%" desc="全部附件"/>  
+          <value name="%First%" desc="第一个附件"/>  
+          <value name="补正申请通知书.doc" desc="补正申请通知书"/>  
+          <value name="非本机关政府信息告知书.doc" desc="非本机关政府信息告知书"/>  
+          <value name="政府信息不存在告知书.doc" desc="政府信息不存在告知书"/>  
+          <value name="政府信息部分公开告知书.doc" desc="政府信息部分公开告知书"/>  
+          <value name="政府信息不予公开告知书.doc" desc="政府信息不予公开告知书"/> 
+        </values> 
+      </param>  
+      <param name="MsgTitle" desc="通知书标题" type="string" type-desc="可输入有默认值"> 
+        <default-value> <![CDATA[对您申请公开的【${ApplyDesc}】的处理反馈]]></default-value> 
+      </param>  
+      <param name="MsgTemplate" desc="消息格式" type="text" type-desc="可输入有默认值"> 
+        <default-value> <![CDATA[${APPLYERNAME}:
+<br>您好!
+<br><p>您于[${CrTime}]向我们申请公开的【${ApplyDesc}】，我们已经处理，请查看附件的通知书!</p>
+<br>
+<p>感谢您的参与！</p>
+<br>
+${CurrDateTime}]]> </default-value> 
+      </param> 
+    </handler>  
+    <handler name="发布当前流转的内容" class-name="com.trs.haier.destroytask.PublishContentActionHandlerContainsDestory"/>  
+    <handler name="依申请公开-发送通知书（固定文件）" class-name="com.trs.components.gkml.sqgk.process.engine.handlers.ReplyNotifyHandler"> 
+      <param name="Receiver" desc="申请人邮件字段" type="readonly_string" type-desc="只读"> 
+        <default-value><![CDATA[EMAIL]]></default-value> 
+      </param>  
+      <param name="NotifyFile" desc="通知书" type="enum" type-desc="枚举"> 
+        <values> 
+          <value name="" desc="无"/>  
+          <value name="补正申请通知书.doc" desc="补正申请通知书"/>  
+          <value name="非本机关政府信息告知书.doc" desc="非本机关政府信息告知书"/>  
+          <value name="政府信息不存在告知书.doc" desc="政府信息不存在告知书"/>  
+          <value name="政府信息部分公开告知书.doc" desc="政府信息部分公开告知书"/>  
+          <value name="政府信息不予公开告知书.doc" desc="政府信息不予公开告知书"/> 
+        </values> 
+      </param>  
+      <param name="MsgTitle" desc="通知书标题" type="string" type-desc="可输入有默认值"> 
+        <default-value> <![CDATA[对您申请公开的【${ApplyDesc}】的处理反馈]]></default-value> 
+      </param>  
+      <param name="MsgTemplate" desc="消息格式" type="text" type-desc="可输入有默认值"> 
+        <default-value> <![CDATA[${APPLYERNAME}:
+<br>您好!
+<br><p>您于[${CrTime}]向我们申请公开的【${ApplyDesc}】，我们已经处理，请查看附件的通知书!</p>
+<br>
+<p>感谢您的参与！</p>
+<br>
+${CurrDateTime}]]> </default-value> 
+      </param> 
+    </handler>  
+    <handler name="依申请公开-发送信息" class-name="com.trs.components.gkml.sqgk.process.engine.handlers.ApplyFormReplyHandler"> 
+      <param name="Receiver" desc="申请人邮件字段" type="readonly_string" type-desc="只读"> 
+        <default-value><![CDATA[EMAIL]]></default-value> 
+      </param>  
+      <param name="MsgTitle" desc="信息标题" type="string" type-desc="可输入有默认值"> 
+        <default-value> <![CDATA[对您申请公开的【${ApplyDesc}】的处理反馈]]></default-value> 
+      </param>  
+      <param name="MsgTemplate" desc="消息格式" type="text" type-desc="可输入有默认值"> 
+        <default-value> <![CDATA[${APPLYERNAME}:
+<br>您好!
+<br><p>您于[${CrTime}]向我们申请公开的【${ApplyDesc}】，我们已经处理，请查收!</p>
+<br>
+<p>感谢您的参与！</p>
+<br>
+${CurrDateTime}]]> </default-value> 
+      </param> 
+    </handler>  
+    <handler name="自动填充依申请公开信息内容" class-name="com.trs.components.gkml.sqgk.process.engine.handlers.AutoFillApplyFormHandler"> 
+      <param name="MetaViewIds" desc="数据存储视图" type="readonly_string" type-desc="不可见,以逗号分隔"> 
+        <default-value><![CDATA[39]]></default-value> 
+      </param> 
+    </handler>  
+    <handler name="自动修改申请的类型" class-name="com.trs.components.gkml.sqgk.process.engine.handlers.ApplyFormTypeHandler"> 
+      <param name="ApplyType" desc="申请的类型" type="string" type-desc="枚举并且可输入"> 
+        <values> 
+          <value name="1" desc="公开的"/>  
+          <value name="2" desc="部分公开的"/>  
+          <value name="3" desc="不公开的"/> 
+        </values> 
+      </param> 
+    </handler>
+    <handler name="自动创建重复表" class-name="com.trs.components.infoview.process.AutoInsertRepeatTableForToUsers">
+      <param name="RepeatField" desc="重复节字段" type="string" type-desc="可输入有默认值">
+        <default-value>gourp1_group2</default-value>
+      </param>
+      <param name="ReplyDep" desc="回复部门字段" type="string" type-desc="可输入有默认值">
+        <default-value>ReplyDep</default-value>
+      </param>
+      <param name="Deadline" desc="回复截止字段" type="string" type-desc="可输入有默认值">
+        <default-value>Deadline</default-value>
+      </param>
+      <param name="WorkDays" desc="延迟工作日天数" type="int" type-desc="可输入有默认值">
+        <default-value>10</default-value>
+      </param>
+      <param name="VacationDays" desc="国家法定假日" type="string" type-desc="可输入有默认值">
+        <default-value>10,1;10,2;1,1</default-value>
+      </param>
+    </handler>
+    <handler name="自动删除当前用户所在的重复节区域" class-name="com.trs.components.infoview.process.DelRepeatSectionForCurrUser">
+      <param name="RepeatField" desc="重复节字段" type="string" type-desc="可输入有默认值">
+        <default-value>group1_group2</default-value>
+      </param>
+      <param name="ReplyDep" desc="回复部门字段" type="string" type-desc="可输入有默认值">
+        <default-value>ReplyDep</default-value>
+      </param>
+    </handler>
+    <handler name="修改表单字段的值" class-name="com.trs.components.infoview.process.ModifyInfoviewFieldValue">
+      <param name="ReplyDepField" desc="回复部门字段名" type="string" type-desc="可输入" REQUIRED="false"/>
+      <param name="FieldName" desc="待修改的字段名" type="string" type-desc="可输入">
+        <default-value>办理状态</default-value>
+      </param>
+      <param name="FieldValue" desc="修改为字段值" type="string" type-desc="枚举并且可输入">
+        <values>
+          <value name="CurrUser" desc="当前用户"/>
+          <value name="CurrTime" desc="当前时间"/>
+        </values>
+      </param>
+    </handler> 
+  </action-handlers>  
+  <tousers-creators> 
+    <tousers-creator name="所在部门经理" class-name="com.trs.cms.process.engine.creators.DeptMgrAsToUsersCreator"/>  
+    <tousers-creator name="发起人|申请人|提交人" class-name="com.trs.cms.process.engine.creators.CrUserAsToUsersCreator"/>  
+    <tousers-creator name="特定组织或部门经理" class-name="com.trs.cms.process.engine.creators.GroupAdminsAsToUsersCreator" GroupIds=""/>  
+    <tousers-creator name="当前组织或部门内成员" class-name="com.trs.cms.process.engine.creators.GroupMembersAsToUsersCreator"/>  
+    <tousers-creator name="支持部门经理" class-name="com.trs.cms.process.engine.creators.GroupAdminsFromSupportPartAsToUsersCreator" FieldName="支持部门"/>  
+    <tousers-creator name="特定表单文档字段查询经理" class-name="com.trs.cms.process.engine.creators.GroupAdminsFromFlowAsToUsersCreator" FieldName=""/>  
+    <tousers-creator name="特定用户角色" class-name="com.trs.cms.process.engine.creators.RoleAsToUsersCreator" RoleIds=""/>  
+    <!--政府信息公开配置-->  
+    <tousers-creator name="法制办审核人员" class-name="com.trs.components.gkml.sqgk.process.engine.creators.LawGovTousersCreator"/>  
+    <tousers-creator name="受理机关审查人员" class-name="com.trs.components.gkml.sqgk.process.engine.creators.ApplyFormToUsersCreator" FieldName="DestDpt" Suffix="_审查员" Type="1"/>  
+    <tousers-creator name="受理机关处理人员" class-name="com.trs.components.gkml.sqgk.process.engine.creators.ApplyFormToUsersCreator" FieldName="DestDpt" Suffix="_处理员" Type="1"/>  
+    <tousers-creator name="受理机关人员" class-name="com.trs.components.gkml.sqgk.process.engine.creators.ApplyFormToUsersCreator" FieldName="DestDpt" UserIds="" Type="2"/>
+    <tousers-creator name="受理机关审查人员" class-name="com.trs.components.gkml.sqgk.process.engine.creators.ApplyFormToUsersCreator" FieldName="DestDpt" Suffix="_审查员" Type="1"/>
+    <tousers-creator name="所在部门的特定角色" class-name="com.trs.cms.process.engine.creators.GroupRoleAsToUsersCreator" RoleIds=""/> 
+  </tousers-creators>  
+  <initvalue-creators> 
+    <initvalue-creator name="当前用户名" class-name="com.trs.cms.process.engine.creators.CurrentUserNameCreator" type="string"/>  
+    <initvalue-creator name="当前日期" class-name="com.trs.cms.process.engine.creators.CurrentDateCreator" format="yyyy-MM-dd" type="date"/>  
+    <initvalue-creator name="当前时间" class-name="com.trs.cms.process.engine.creators.CurrentTimeCreator" format="yyyy-MM-dd hh:mm" type="datetime"/>  
+    <initvalue-creator name="当前文档状态" class-name="com.trs.cms.process.engine.creators.CurrentDocStatusCreator" type="string"/> 
+  </initvalue-creators> 
+</workflow-config>

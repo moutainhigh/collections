@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="主从表[主表通过导航按钮，维护子表信息]" page="master-detail-table-2.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="multi-table-2.gif"/>
+  <struts name="food_emerg_base.xml" app-path="/dw/aic/bj/foo/tfsj/" app-name="food_emerg_base" description="突发事件" template="master-detail-table-2.xml"/>
+  <table name="food_emerg_base.xml" app-name="food_emerg_base" app-desc="突发事件" delete-action="delete" description="突发事件" class-name="com.gwssi.dw.aic.bj.foo.txn.TxnFoodEmergBase" template="master-detail-table-2.master.java" dao-class-template="single-table.java" type="master">
+	  <jsp page-name="query-food_emerg_base.jsp" txn-code="60144001" description="查询突发事件列表" template="master-detail-2/master-table-query.jsp">
+	    <button type="button" name="增加突发事件" path="insert-food_emerg_base.jsp" description="增加突发事件" func-name="addRecord"/>
+	    <button type="button" name="修改突发事件" path="/txn60144004.do" description="修改突发事件" func-name="updateRecord"/>
+	    <button type="button" name="删除突发事件" path="/txn60144005.do" description="删除突发事件" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60144001.do" description="查询突发事件信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-food_emerg_base.jsp" txn-code="60144003" description="增加突发事件信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60144003.do" description="保存突发事件信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60144003.do" description="保存突发事件信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60144001.do" description="保存突发事件信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60144001.do" description="返回到突发事件明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-food_emerg_base.jsp" txn-code="60144002" description="修改突发事件信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60144001.do" description="修改突发事件信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60144001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-food_emerg_base.jsp" txn-code="60144001" description="查询突发事件列表">
+	    <forward error-code="success" path="query-food_emerg_base.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-food_emerg_base.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-food_emerg_base.jsp" txn-code="60144002" description="修改突发事件信息">
+	    <forward error-code="success" path="update-food_emerg_base.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-food_emerg_base.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-food_emerg_base.jsp" txn-code="60144003" description="增加突发事件信息">
+	    <forward error-code="success" path="insert-food_emerg_base.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-food_emerg_base.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-food_emerg_base.jsp" txn-code="60144004" description="查询突发事件用于修改">
+	    <forward error-code="success" path="update-food_emerg_base.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-food_emerg_base.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-food_emerg_base.jsp" txn-code="60144005" description="删除突发事件信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.FoodEmergBaseContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.VoFoodEmergBase" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.VoFoodEmergBaseSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.VoFoodEmergBasePrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="food_emerg_toxic.xml" app-name="food_emerg_toxic" app-desc="突发事件明细" delete-action="delete" description="食物中毒信息表" class-name="com.gwssi.dw.aic.bj.foo.txn.TxnFoodEmergToxic" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60144011">
+	  <jsp page-name="food_emerg_toxic/query-food_emerg_toxic.jsp" txn-code="60144011" description="查询突发事件明细列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加突发事件明细" path="food_emerg_toxic/insert-food_emerg_toxic.jsp" description="增加突发事件明细" func-name="addRecord"/>
+	    <button type="button" name="修改突发事件明细" path="/txn60144014.do" description="修改突发事件明细" func-name="updateRecord"/>
+	    <button type="button" name="删除突发事件明细" path="/txn60144015.do" description="删除突发事件明细" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60144001.do" description="返回到突发事件明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60144011.do" description="查询突发事件明细信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="food_emerg_toxic/insert-food_emerg_toxic.jsp" txn-code="60144013" description="增加突发事件明细信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60144013.do" description="保存突发事件明细信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60144013.do" description="保存突发事件明细信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60144011.do" description="保存突发事件明细信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60144011.do" description="返回到突发事件明细明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="food_emerg_toxic/update-food_emerg_toxic.jsp" txn-code="60144012" description="修改突发事件明细信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60144011.do" description="修改突发事件明细信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60144011.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="food_emerg_toxic/query-food_emerg_toxic.jsp" txn-code="60144011" description="查询突发事件明细列表">
+	    <forward error-code="success" path="food_emerg_toxic/query-food_emerg_toxic.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="food_emerg_toxic/query-food_emerg_toxic.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="food_emerg_toxic/update-food_emerg_toxic.jsp" txn-code="60144012" description="修改突发事件明细信息">
+	    <forward error-code="success" path="food_emerg_toxic/update-food_emerg_toxic.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="food_emerg_toxic/update-food_emerg_toxic.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_emerg_toxic/insert-food_emerg_toxic.jsp" txn-code="60144013" description="增加突发事件明细信息">
+	    <forward error-code="success" path="food_emerg_toxic/insert-food_emerg_toxic.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="food_emerg_toxic/insert-food_emerg_toxic.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_emerg_toxic/query-food_emerg_toxic.jsp" txn-code="60144014" description="查询突发事件明细用于修改">
+	    <forward error-code="success" path="food_emerg_toxic/update-food_emerg_toxic.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="food_emerg_toxic/update-food_emerg_toxic.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_emerg_toxic/query-food_emerg_toxic.jsp" txn-code="60144015" description="删除突发事件明细信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.FoodEmergToxicContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.VoFoodEmergToxic" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.VoFoodEmergToxicSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.VoFoodEmergToxicPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+</resource>

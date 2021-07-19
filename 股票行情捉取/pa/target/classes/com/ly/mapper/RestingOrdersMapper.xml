@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ly.dao.RestingOrdersDao">
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from resting_orders t where t.stock_code = #{stock_code}
+		</selectKey>
+		<if test="count > 0">
+			update resting_orders
+			<trim prefix="set" suffixOverrides=",">
+				<if test="entrust_no!= null">entrust_no=  #{entrust_no, jdbcType=VARCHAR},</if>
+				<if test="stock_code != null">stock_code= #{stock_code, jdbcType=VARCHAR},</if>
+				<if test="stock_name != null">stock_name= #{stock_name, jdbcType=VARCHAR},</if>
+				<if test="bs_name != null">bs_name= #{bs_name, jdbcType=VARCHAR},</if>
+				<if test="status_name != null">status_name= #{status_name, jdbcType=VARCHAR},</if>
+				<if test="entrust_price != null">entrust_price = #{entrust_price, jdbcType=VARCHAR},</if>
+				<if test="business_price != null">business_price = #{business_price, jdbcType=VARCHAR},</if>
+				<if test="entrust_amount != null">entrust_amount = #{entrust_amount, jdbcType=VARCHAR},</if>
+				<if test="business_amount != null">business_amount = #{business_amount, jdbcType=VARCHAR},</if>
+				<if test="entrust_bs != null">entrust_bs= #{entrust_bs, jdbcType=VARCHAR},</if>
+				<if test="entrust_status != null">entrust_status = #{entrust_status, jdbcType=VARCHAR},</if>
+				<if test="entrust_time != null">entrust_time = #{entrust_time, jdbcType=VARCHAR},</if>
+				<if test="entrust_date != null">entrust_date= #{entrust_date, jdbcType=VARCHAR},</if>
+				<if test="business_balance != null">business_balance = #{business_balance, jdbcType=VARCHAR},</if>
+				<if test="exchange_type != null">exchange_type= #{exchange_type, jdbcType=VARCHAR},</if>
+				<if test="entrust_banlance != null">entrust_banlance = #{entrust_banlance, jdbcType=VARCHAR},</if>
+			</trim>
+			where stock_code = #{stock_code}
+		</if>
+		<if test="count == 0">
+			insert into resting_orders
+			(
+			entrust_no,
+			stock_code,
+			stock_name,
+			bs_name,
+			status_name,
+			entrust_price,
+			business_price,
+			entrust_amount,
+			business_amount,
+			entrust_bs,
+			entrust_status,
+			entrust_time,
+			entrust_date,
+			business_balance,
+			exchange_type,
+			entrust_banlance
+			)
+			values
+			(
+			#{entrust_no, jdbcType=VARCHAR},
+			#{stock_code, jdbcType=VARCHAR},
+			#{stock_name, jdbcType=VARCHAR},
+			#{bs_name, jdbcType=VARCHAR},
+			#{status_name, jdbcType=VARCHAR},
+			#{entrust_price, jdbcType=VARCHAR},
+			#{business_price, jdbcType=VARCHAR},
+			#{entrust_amount, jdbcType=VARCHAR},
+			#{business_amount, jdbcType=VARCHAR},
+			#{entrust_bs, jdbcType=VARCHAR},
+			#{entrust_status, jdbcType=VARCHAR},
+			#{entrust_time, jdbcType=VARCHAR},
+			#{entrust_date, jdbcType=VARCHAR},
+			#{business_balance, jdbcType=VARCHAR},
+			#{exchange_type, jdbcType=VARCHAR},
+			#{entrust_banlance, jdbcType=VARCHAR}
+			)
+		</if>
+	</insert>
+</mapper>

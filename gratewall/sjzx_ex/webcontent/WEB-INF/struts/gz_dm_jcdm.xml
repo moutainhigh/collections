@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>基础代码管理</menu-name>
+  <menu-path>/page/resource/res/metadata/basecode/</menu-path>
+  <description>基础代码管理</description>
+  <form-beans>
+    <form-bean name="GzDmJcdmRowsetForm">
+      <description>基础代码管理多记录查询</description>
+      <form-property prefix="select-key" name="jc_dm_id" type="string" size="36" description="基础代码ID"/>
+      <form-property prefix="select-key" name="jc_dm_dm" type="string" size="255" cannull="true" description="基础代码"/>
+      <form-property prefix="select-key" name="jc_dm_mc" type="string" size="255" cannull="true" description="基础代码名称"/>
+      <form-property prefix="select-key" name="jc_dm_bzly" type="string" size="1" cannull="true" description="标准来源"/>
+      <form-property prefix="select-key" name="jcsjfx_mc" type="string" size="255" cannull="true" description="基础数据分项名称"/>
+      <form-property prefix="record" name="jc_dm_id" type="string" size="36" cannull="false" description="基础代码ID"/>
+      <form-property prefix="record" name="jc_dm_dm" type="string" size="36" cannull="true" description="基础代码"/>
+      <form-property prefix="record" name="jc_dm_mc" type="string" size="255" cannull="true" description="基础代码名称"/>
+      <form-property prefix="record" name="jc_dm_bzly" type="string" size="1" cannull="true" description="标准来源"/>
+      <form-property prefix="record" name="jc_dm_ms" type="string" size="32700" cannull="true" description="基础代码描述"/>
+    </form-bean>
+
+    <form-bean name="GzDmJcdmUpdateForm">
+      <description>基础代码管理单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="jc_dm_id" type="string" size="36" cannull="false" description="基础代码ID"/>
+      <form-property prefix="record" name="jc_dm_id" type="string" size="36" cannull="false" description="基础代码ID"/>
+      <form-property prefix="record" name="jc_dm_dm" type="string" size="36" cannull="true" description="基础代码"/>
+      <form-property prefix="record" name="jc_dm_mc" type="string" size="255" cannull="true" description="基础代码名称"/>
+      <form-property prefix="record" name="jc_dm_bzly" type="string" size="1" cannull="true" description="标准来源"/>
+      <form-property prefix="record" name="jc_dm_ms" type="string" size="32700" cannull="true" description="基础代码描述"/>
+    </form-bean>
+
+    <form-bean name="GzDmJcdmDeleteForm">
+      <description>基础代码管理多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="jc_dm_id" type="string" size="36" cannull="false" description="基础代码ID"/>
+      <form-property prefix="select-key" name="jc_dm_id" type="string" size="36" cannull="false" description="基础代码ID"/>
+      <form-property prefix="select-key" name="jc_dm_mc" type="string" size="255" cannull="true" description="基础代码名称"/> 
+      <form-property prefix="select-key" name="jc_dm_dm" type="string" size="36" cannull="true" description="基础代码"/>     
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-gz_dm_jcdm.jsp" name="GzDmJcdmRowsetForm" txn-code="301011" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询基础代码列表</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdm" func-name="txn301011" input-node="select-key" output-node="record" description="查询基础代码列表"/>
+      <forward error-code="success" path="query-gz_dm_jcdm.jsp"/>
+      <forward error-code="failure" path="query-gz_dm_jcdm.jsp"/>
+    </action>
+	
+    <action input="query-gz_dm_jcdm_gl.jsp" name="GzDmJcdmRowsetForm" txn-code="301016" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询基础代码列表_概览</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdm" func-name="txn301016" input-node="select-key" output-node="record" description="查询基础代码列表"/>
+      <forward error-code="success" path="query-gz_dm_jcdm_gl.jsp"/>
+      <forward error-code="failure" path="query-gz_dm_jcdm_gl.jsp"/>
+    </action>
+	
+    <action input="update-gz_dm_jcdm.jsp" name="GzDmJcdmUpdateForm" txn-code="301012" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改基础代码信息</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdm" func-name="txn301012" input-node="record" description="修改基础代码信息"/>
+      <forward error-code="success" path="update-gz_dm_jcdm.jsp"/>
+      <forward error-code="failure" path="update-gz_dm_jcdm.jsp"/>
+    </action>
+
+    <action input="insert-gz_dm_jcdm.jsp" name="GzDmJcdmUpdateForm" txn-code="301013" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加基础代码信息</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdm" func-name="txn301013" input-node="record" description="增加基础代码信息"/>
+      <forward error-code="success" path="insert-gz_dm_jcdm.jsp"/>
+      <forward error-code="failure" path="insert-gz_dm_jcdm.jsp"/>
+    </action>
+
+    <action input="query-gz_dm_jcdm.jsp" name="GzDmJcdmUpdateForm" txn-code="301014" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询基础代码用于修改</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdm" func-name="txn301014" input-node="primary-key" output-node="record" description="查询基础代码用于修改"/>
+      <forward error-code="success" path="update-gz_dm_jcdm.jsp"/>
+      <forward error-code="failure" path="update-gz_dm_jcdm.jsp"/>
+    </action>
+
+    <action input="query-gz_dm_jcdm.jsp" name="GzDmJcdmDeleteForm" txn-code="301015" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除基础代码信息</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdm" func-name="txn301015" input-node="primary-key" output-node="record" description="删除基础代码信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-gz_dm_jcdm.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/dw/metadata/basecode/query-gz_dm_jcdm.jsp" description="查询基础代码列表"/>
+    <resource-file type="jsp" file-name="/dw/metadata/basecode/insert-gz_dm_jcdm.jsp" description="增加基础代码信息"/>
+    <resource-file type="jsp" file-name="/dw/metadata/basecode/update-gz_dm_jcdm.jsp" description="修改基础代码信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.metadata.basecode.vo.VoGzDmJcdm" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.metadata.basecode.vo.VoGzDmJcdmSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.metadata.basecode.vo.VoGzDmJcdmPrimaryKey" description="数据库主键对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.metadata.basecode.vo.GzDmJcdmContext" description="应用对应的数据上下文对象"/>
+  </resource>
+</struts-config>
+

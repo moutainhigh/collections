@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="functxn_new" class-name="com.gwssi.sysmgr.priv.func.dao.Functxn" check-flag="false">
+    <description>交易权限表</description>
+  </table-info>
+
+  <column name="funccode" data-type="varchar" length="36" not-null="true" empty-is-null="false" unique="false" value-from="input" description="功能代码"/>
+  <column name="txncode" data-type="varchar" length="15" not-null="true" empty-is-null="false" unique="false" value-from="input" description="交易代码"/>
+  <column name="txnname" data-type="varchar" length="64" not-null="false" empty-is-null="false" unique="false" value-from="input" description="交易名称"/>
+  <column name="status" data-type="char" length="1" not-null="false" empty-is-null="false" default="1" unique="false" value-from="input" description="状态"/>
+  <column name="memo" data-type="varchar" length="256" not-null="false" empty-is-null="false" unique="false" value-from="input" description="备注信息"/>
+  <column name="regname" data-type="varchar" length="24" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="operName" description="录入人"/>
+  <column name="regdate" data-type="char" length="8" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="currentDate" description="录入时间"/>
+  <column name="modname" data-type="varchar" length="24" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="operName" description="修改人"/>
+  <column name="moddate" data-type="char" length="8" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="currentDate" description="修改时间"/>
+  <primary-key name="functxn_pk" column-list="funccode,txncode"/>
+  <foreign-key foreign-table="funcinfo" foreign-type="many-to-one" on-delete="none" on-update="none" column-names="funccode" foreign-names="funccode"/>
+  <function func-name="select one functxn" func-type="select" column-list="funccode,txncode,txnname,status,memo">
+    <filter-column column-name="funccode" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="txncode" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select functxn list" func-type="rowset" column-list="funccode,txncode,txnname,status,memo" max-record="0">
+    <filter-column column-name="funccode" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one functxn" func-type="insert" column-list="funccode,txncode,txnname,status,memo,regname,regdate">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one functxn" func-type="delete">
+    <filter-column column-name="funccode" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="txncode" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="delete func txns" func-type="delete">
+    <filter-column column-name="funccode" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除功能的所有交易记录</description>
+  </function>
+
+  <function func-name="update one functxn" func-type="update" column-list="txnname,status,memo,modname,moddate">
+    <filter-column column-name="funccode" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="txncode" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

@@ -1,0 +1,144 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>编辑注释属性</TITLE>
+<script src="../../../../js/com.trs.util/Common.js"></script>
+<script language="javascript">
+	var oEditor = window.parent.InnerDialogLoaded() ;
+	var FCK = oEditor.FCK;
+	var oCurrStyle = null;
+	var FCKLang = oEditor.FCKLang ;
+	var FCKComments = oEditor.FCKComments ;
+
+	window.onload = function ()
+	{
+		// First of all, translate the dialog box texts
+		oEditor.FCKLanguageManager.TranslatePage( document ) ;
+
+		LoadSelected() ;
+
+		// Show the "Ok" button.
+		window.parent.SetOkButton( true ) ;
+		window.parent.SetBtnsRow(false);
+		window.parent.SetAutoSize( true );
+	}
+
+	var eSelected = oEditor.FCKSelection.GetSelectedElement() ;
+
+	function LoadSelected()
+	{
+		if ( !eSelected )
+			return ;
+
+		if ( eSelected.tagName == 'SPAN' && eSelected._fckComment ){
+			$('txtComment').value = eSelected.getElementsByTagName("SPAN")[0].innerHTML ;
+			$('selBgColor').value = eSelected._fckCommentBgColor ;
+		}
+		else{
+			eSelected == null ;
+			var oCookies = FCK.loadCookie();
+			if(oCookies['EditorCommentBgColor']){
+				$('selBgColor').value = oCookies['EditorCommentBgColor'];
+			}
+		}
+	}
+
+	function Ok()
+	{
+		var sValue = $('txtComment').value ;
+		var sBgColor = $('selBgColor').value ;
+
+		if ( eSelected && eSelected._fckComment == sValue )
+			return true ;
+
+		FCKComments.Add( sValue , sBgColor ) ;
+		return true ;
+	}
+</SCRIPT>
+<style>
+body {
+	padding:8px;
+	margin:0;
+	background-color: #CCCCCC;
+}
+td{
+	height:30px;
+}
+.input_btn{
+	width:60px;
+	margin-right:10px;
+}
+.input_file{
+	border:1px solid gray;
+	width:260px;
+}
+.lpl {
+	PADDING-LEFT: 0px
+}
+.lpr {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 8px
+}
+.preview{
+	FONT-SIZE: 12pt;
+	OVERFLOW: auto;
+	WIDTH: 240px;
+	COLOR: #000000;
+	BACKGROUND-COLOR:#ffffef;
+	FONT-FAMILY: Arial;
+	HEIGHT: 250px;
+	border:1px solid gray;
+	padding:5px;
+}
+.app{
+	font-size:12px;
+}
+</STYLE>
+</HEAD>
+
+<BODY>
+	<table cellspacing="0" cellpadding="0" width="100%" border="0" height="100%">
+		<tr>
+			<td valign="top">
+				<table cellspacing="1" cellpadding="1" width="100%" border="0">
+					<tr>
+						<td width="92%" valign="top">
+						<fieldset style="padding:10px">
+							<legend>设置批注内容和背景色</legend>
+							<br>
+							<table border=0 cellspacing=0 cellpadding=0 width="100%">
+							<tbody>
+								<tr>
+									<td width="80">批注:</td>
+									<td><input type="text" id="txtComment" name="txtComment" value=""></td>
+								</tr>
+								<tr>
+									<td>背景色</td>
+									<td><select name="selBgColor" id="selBgColor" style="width:80px;">
+										<option value="#FFFFD7" style="background-color:#FFFFD7">黄色</option>
+										<option value="#FFE3C0" style="background-color:#FFE3C0">橙色</option>
+										<option value="#FFD7FF" style="background-color:#FFD7FF">粉色</option>
+										<option value="#D7FFD7" style="background-color:#D7FFD7">绿色</option>
+										<option value="#D7FFFF" style="background-color:#D7FFFF">蓝色</option>
+										<option value="#EED7FF" style="background-color:#EED7FF">紫色</option>
+									</select></td>
+								</tr>
+							</tbody>
+							</table>
+							<br>
+						</fieldset>
+						</td>
+						<td width="2%" align="center" valign="top">
+							<div style="width:2px;border-left:1px solid gray;background:white;overflow:hidden;height:128px;"></div></td>
+						<td width="6%" valign="top">
+							<input id="btnOk" class="input_btn" onclick="window.parent.Ok();"
+								type="button" value="Ok" fcklang="DlgBtnOK"/>
+							<div style="height:5px;overflow:hidden"></div>
+							<input id="btnCancel" name="button2" class="input_btn" type="button" value="Close" onclick="window.parent.Cancel();" fcklang="DlgBtnCancel">
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</BODY>
+</HTML>

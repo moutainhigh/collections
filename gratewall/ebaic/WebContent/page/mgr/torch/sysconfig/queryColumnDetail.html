@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+
+<title>页面editColumn配置</title>
+<link rel="stylesheet" href="../../../../static/css/common.css">
+    <link href="../../../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+	<link href="../../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" rel="stylesheet" type="text/css" />	
+
+</head>
+
+<body style="overflow-x:hidden">
+<div  name="queryColumnPanel" vtype="formpanel" id="queryColumnPanel" displayrows="1"
+			titleDisplay="false" width="100%"  showborder=false  layout='table' style="text-align: center;"
+			layoutconfig="{cols:2, columnwidth: ['50%','50%']}"  height="100%"
+			labelStyleClass="labelstyle" title="sys_query_column_config ">
+			
+			<div name='configId' id='configId' vtype="hiddenfield" label="配置ID" labelAlign="right"
+				width="350" labelwidth='150'></div>
+			<div name='columnId' id='columnId' vtype="hiddenfield" label="列ID" labelAlign="right"
+				width="350" labelwidth='150'  ></div>
+			<div name='columnIndex' id='columnIndex' vtype="textfield" label="查询列序号" labelAlign="right" rule="must" tooltip="必须依次填写：1,2,3。。。"
+				width="350" labelwidth='150'  ></div>
+			<div name='columnTitle' id='columnTitle' vtype="textfield" label="查询列标题" labelAlign="right" tooltip="最好是中文。。。"
+				width="350" labelwidth='150'  ></div>
+			<div name='columnName' id='columnName' vtype="textfield" label="查询列名称（驼峰）" labelAlign="right" tooltip="驼峰命名，比如：testDemo。。。"
+				width="350" labelwidth='150'  ></div>
+			<div name='columnField' id='columnField' vtype="textfield" label="对应数据库字段名" labelAlign="right" rule="must" tooltip="必须是数据库中的字段。。。"
+				width="350" labelwidth='150'></div>
+			<div name='columnFieldType' id='columnFieldType' vtype="comboxfield" label="查询组件类型" labelAlign="right"
+				rule="must" valuetip="请选择..." 
+				dataurl="[{'value':'text','text':'text'},
+				{'value':'combox','text':'combox'},
+				{'value':'date','text':'date'},
+				{'value':'number','text':'number'},
+				{'value':'textarea','text':'textarea'},
+				{'value':'hide','text':'hide'},
+				{'value':'password','text':'password'},
+				{'value':'radio','text':'radio'}]"
+				width="350" labelwidth='150'  ></div>
+			<div name='columnDict' id='columnDict' vtype="textfield" label="查询列代码集" labelAlign="right" tooltip="请输入。。。"
+				width="350" labelwidth='150'  ></div>
+			<div name='columnFormat' id='columnFormat' vtype="textfield" label="查询列数据格式" labelAlign="right" tooltip="请输入。。。"
+				width="350" labelwidth='150'  ></div>
+			<div name='columnWidth' id='columnWidth' vtype="textfield" label="查询列组件宽度" labelAlign="right" tooltip="请输入。。。"
+				width="350" labelwidth='150'  ></div>
+			<div id="toolbar" name="toolbar" vtype="toolbar" location="bottom"
+				align="center" width="100%">
+				<div name="save_button" id="save_button" vtype="button" text="保存"
+					icon="../query/queryssuo.png"  ></div>
+				<div name="reset_button" id="reset_button" vtype="button" text="重置"></div>
+				<!-- <div name="back_button" id="back_button" vtype="button" text="返回"
+					icon="../query/queryssuo.png" ></div> -->
+			</div>
+		</div>
+	<script type="text/javascript" src="../../../../static/js/config.js"></script> 
+		<script type="text/javascript" src="../../../../static/lib/require.js"  data-main="sysconfig/queryColumnConfig.js"></script>
+</body>
+</html>

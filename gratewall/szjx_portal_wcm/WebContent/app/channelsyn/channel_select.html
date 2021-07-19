@@ -1,0 +1,132 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../../app/js/easyversion/lightbase.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/data/locale/channelsyn.js"></script>
+<script src="../../app/js/easyversion/extrender.js"></script>
+<script src="../../app/js/easyversion/ajax.js"></script>
+<script src="../../app/js/easyversion/basicdatahelper.js"></script>
+<script src="../../app/js/easyversion/web2frameadapter.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></SCRIPT>
+<script language="javascript">
+<!--
+window.m_cbCfg = {
+	btns : [
+		{
+			text : wcm.LANG.CHANNELSYN_SURE || '确定',
+			cmd : function(){
+				return onOk();
+			}
+		},{
+			text : wcm.LANG.CHANNELSYN_CANCEL || '取消'
+		}
+	]
+};
+
+function init(arrayId) {
+    window.channelId = arrayId[0];
+    window.objectId = arrayId[1];
+    window.dstChannelIds = arrayId[2];
+	window.disType = arrayId[3];
+    window.isDis = arrayId[4];
+	window.channelType = arrayId[5];
+    //默认为新建
+    var isRadio = 0;
+    if(window.objectId != 0){
+        isRadio = 1;
+    }
+	var link = "../nav_tree/nav_tree_select.jsp?SiteTypes=0,4&MultiSiteType=0&MultiSites=1&RightIndex=13&ExcludeSelf=1&ShowOneType=1&CurrChannelId=" + window.channelId + "&SelectedChannelIds=" + window.dstChannelIds + "&IsRadio=" + isRadio + '&ExcludeInfoview=' + (window.channelType == 13 ? 0 : 1);
+    if(window.isDis){
+        if(window.disType=='1'){//'copy'
+            link += "&ExcludeVirtual=1";
+        }
+        else{
+            link += "&ExcludeOnlySearch=1";
+        }
+    }else{
+        link += "&ExcludeVirtual=1";
+    }
+    $('select_tree').src = link;
+
+}
+function onOk(){
+	var cbr = wcm.CrashBoarder.get("select_channel");
+    try{	
+        var sSelIds = $('select_tree').contentWindow.getCheckValues();
+        var sSelNames = $('select_tree').contentWindow.getCheckNames();
+        BasicDataHelper.call('wcm6_documentSyn', 'isValidDocumentSyn', {
+            SrcChannelId : window.channelId,
+            ObjectIds : sSelIds.join(","),
+            ChannelAsTarget : window.isDis ? false : true
+        }, true, function(transport, json){
+            var docText = transport.responseText.trim();
+			//else 形成了回路
+			if(docText.length > 0){//形成回路
+				alert((wcm.LANG.CHANNELSYN_VALID_21 || "以下栏目会和当前栏目形成回路:\n") + docText);
+				return;
+			}
+			//else 再发送一次请求判断栏目是否使用同一个表单
+			if(window.disType == 1){
+				try{
+					var sUrl = '../../app/infoview/infoview_employer_filter2.jsp';
+					sUrl += '?FromChannelId=' + window.channelId;
+					sUrl += '&ToChannelIds=' + sSelIds.join(",");
+					new Ajax.Request(sUrl, {'onSuccess' : 
+						function(_trans, _json){
+							var result = _trans.responseText.trim();
+							var sFilterIds = '';
+							if(parseInt(result,10) > 1){
+								alert(wcm.LANG.CHANNELSYN_VALID_20 || "所选的栏目中有与源栏目使用的表单不一致!");
+								return;
+							}
+							//else 可以执行了
+							if(window.parent){
+								cbr.notify({ids:sSelIds,names:sSelNames});
+								return false;
+							}
+						}
+					});
+
+				}catch(err){
+					alert(err.message);
+					//just skip it
+				}
+			}else{
+				if(window.parent){
+					cbr.notify({ids:sSelIds,names:sSelNames});
+					return false;
+				}
+			}
+        });
+    }catch(error){
+        //防止选择树iframe没有加载完成就单击确定按钮而导致脚本错误
+    }
+	return false;
+}
+//-->
+</script>
+<style type="text/css">
+	html,body{
+		margin:0pX;
+		padding:0px;
+		overflow:hidden;
+	}
+</style>
+</head>
+
+<body>
+<table border=0 cellspacing=0 cellpadding=0 style="width:100%;height:100%;">
+	<tr>
+		<td valign="top" style="width:100%;height:100%;">
+            <iframe id="select_tree" src="about:blank" width="100%"  height="100%" frameborder="0" border="0"></iframe>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

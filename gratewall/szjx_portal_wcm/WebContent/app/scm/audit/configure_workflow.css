@@ -1,0 +1,229 @@
+.bodyColor{
+	margin:0px;
+	padding:0px;
+	background:#fff;
+	color:#606060;
+}
+.showSelectContain{
+	float:left;
+	font-size:15px;
+	color:#0D4B9B;
+}
+.currentSelect{
+	color:#000;
+	font-weight:bold;
+}
+.pointerHand{
+	cursor:pointer;
+}
+.checkedMessageTop{
+	background:#FAFAFA;
+	margin:10px;
+	padding:10px 10px 0px 10px;
+	border-bottom:1px solid #E4E4E4;
+}
+.checkedMessageBottom{
+	margin:14px 15px 0px;
+	color:#444;
+	font-size:14px;
+	line-height:24px;
+}
+.checkedMessageTopUp{
+	padding-bottom:8px;
+}
+.checkedMessageTopDown{
+	line-height:24px;
+	padding-left:25px;
+	padding-top:5px;
+	padding-bottom:5px;
+	border-top:1px solid #E4E4E4;
+	display:none;
+}
+.floatLeftMarginLeft5px{
+	float:left;
+	font-size:15px;
+	margin-left:5px;
+}
+.floatLeftMarginLeft5px img{
+	margin-bottom:2px;
+}
+.paddingLeftRight5Px{
+	padding:0px 5px;
+}
+.checkedMessageContainer{
+	position:relative;
+	border:1px solid #E4E4E4;
+	background:#FAFAFA;
+	margin-top:8px;
+}
+.checkedMessageContainerTriangle{
+	background:url(../images/triangle_up3.png) no-repeat;
+	width:26px;
+	height:12px;
+	margin-top:-9px;
+	margin-left:30px;
+}
+.checkedMessageContent{
+	padding:6px 20px 5px;
+	color:#737373;
+	font-size:12px;
+}
+.sentTime{
+	color:#737373;
+	font-size:12px;
+	padding-left:10px;
+	cursor:pointer;
+}
+.configHeader{
+	background:url(../images/cofing_top_bg.png) repeat;height:92px;
+}
+.configHeaderContainer{
+	margin:0px 25px 10px 25px;
+	padding-top:14px;
+	font-size:14px;
+	color:#434343;
+}
+.configHeaderImg{
+	vertical-align:middle;
+	cursor:pointer;
+}
+.configHeaderFont{
+	font-size:12px;
+	margin-top:8px;
+	line-height:18px;
+}
+.configContent{
+	padding:16px 10px 16px 16px;
+}
+.configContentOut{
+	border-bottom:2px solid #DCE0E2;
+	line-height:35px;
+	font-size:12px;
+	color:#AD251A;
+	padding-bottom:6px;
+}
+.configContentImg{
+	float:right;
+	width:88px;
+	height:32px;
+	line-height:32px;
+	background:url(../images/config_btn.png) no-repeat;
+	vertical-align:center;
+	margin-right:15px;
+	cursor:pointer;
+	text-align:center;
+	font-size:14px;
+	color:#0078b6;
+}
+.configItem{
+	border-bottom:1px dashed #DADADA;
+	color:#474747;
+	font-size:14px;
+	height:28px;
+	line-height:28px;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:10px;
+	margin-left:10px;
+}
+.configItemImg{
+	vertical-align:middle;
+	cursor:pointer;
+}
+.delete{
+	vertical-align:middle;
+	float:right;
+	padding-right:40px;
+	color:#949494;
+	cursor:pointer;
+	font-size:12px;
+}
+.defaultFont{
+	float:left;
+	height:23px;
+	line-height:23px;
+}
+/*ul显示所有分组*/
+.allGroup{
+	height:92px;
+	padding:20px;
+	background:#fff;
+}
+div.allGroup ul{
+	list-style:none;
+	margin: 0px; 
+	padding: 0px;   
+	width: auto;
+}
+.allGroupFont{
+	float:left;
+	font-size:14px;
+	margin-top:3px;
+	padding-right:10px;
+}
+div.allGroup ul li{  
+	float:left;
+	margin:5px;
+}
+div.allGroup ul li a, div.menu ul li a:visited{ 
+	background-color: #465c71;
+	border: 1px #4e667d solid;
+	color: #dde4ec; 
+	display: block; /* 此元素将显示为块级元素，此元素前后会带有换行符 */   
+	line-height: 1.35em; /* 行高 */  
+	padding: 4px 20px; /* 内部填充的距离 */ 
+	text-decoration: none;
+	white-space: nowrap; /* 对于文本内的空白处，不会换行，文本会在在同一行上继续，直到遇到 <br> 标签为止。 */
+}
+div.allGroup ul li a:hover{   
+	background-color: #bfcbd6;   
+	color: #465c71;
+	text-decoration: none;
+}
+div.allGroup ul li a:active{
+	background-color: #465c71;
+	color: #cfdbe6;
+	text-decoration: none;
+}
+.configDialog{
+	width:303px;
+	height:160px;
+	position:absolute;
+	top:200px;
+	left:200px;
+	display:none;
+	z-index:1005;
+	border:1px solid #C9C9C9;
+}
+.configDialogCloseContainer{
+	background:#EFEFEF;
+	border-bottom:1px solid #D7D7D7;
+	height:24px;
+	line-height:24px;
+}
+.configDialogCloseFont{
+	cursor:pointer;
+	font-size:12px;
+	float:right;
+	margin-right:14px;
+}
+.addConfigPic,.cancelConfigPic{
+	float:right;
+	margin-left:20px;
+	margin-top:20px;
+	width:57px;
+	height:24px;
+	cursor:pointer;
+}
+.addConfigPic{
+	background:url(../images/cofirm.png) no-repeat;
+}
+.cancelConfigPic{
+	background:url(../images/cancel.png) no-repeat;
+}
+.margin_top_2Px{
+	margin-top:-2px;
+}
+.margin_top_6Px{
+	margin-top:-6px;
+}

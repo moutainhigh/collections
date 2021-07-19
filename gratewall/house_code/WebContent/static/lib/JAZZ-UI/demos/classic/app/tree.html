@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="../../index/common.js"></script>
+</head>
+<script type="text/javascript">
+var setting = {
+		check: {
+			enable: true,
+			chkboxType:{ "Y":'ps', "N":'ps'},
+			chkDisabledInherit: true
+		},
+		data: {
+			simpleData: {
+				enable: true
+			}
+		}
+	};
+
+	var zNodes =[
+		{ id:1, pId:0, name:"随意勾选 1", open:true},
+		{ id:11, pId:1, name:"随意勾选 1-1", open:true},
+		{ id:111, pId:11, name:"随意勾选 1-1-1"},
+		{ id:112, pId:11, name:"随意勾选 1-1-2"},
+		{ id:12, pId:1, name:"随意勾选 1-2", open:true},
+		{ id:121, pId:12, name:"不可选",chkDisabled:true},
+		{ id:122, pId:12, name:"随意勾选 1-2-2"},
+		{ id:2, pId:0, name:"随意勾选 2", checked:true, open:true},
+		{ id:21, pId:2, name:"随意勾选 2-1"},
+		{ id:22, pId:2, name:"随意勾选 2-2", open:true},
+		{ id:221, pId:22, name:"随意勾选 2-2-1", checked:true},
+		{ id:222, pId:22, name:"随意勾选 2-2-2"},
+		{ id:23, pId:2, name:"随意勾选 2-3"}
+	];
+	$(function(){
+		$("#treeDemo").tree({setting: setting, data: zNodes});
+	});
+	
+</script>
+<body>
+<!-- 整体的框架 -->
+<div vtype="panel" name="panel_1" title="框架页面" titledisplay="true" titleicon="images/title_image.png" width="100%" height="100%"
+     layout="column" layoutconfig="{width: ['200','*']}" >
+     
+     <!-- 第一列 -->
+     <div>
+		<div id="treeDemo" class="ztree"></div>
+     </div>
+     
+     <!-- 第二列 -->
+     <div>
+		<!-- 查询区域 -->
+		<div name="formpanel_1" vtype="formpanel" titledisplay="false" showborder="false" width="100%" layout="auto">
+			 <div name='textfield_name' vtype="textfield" label="姓名" labelalign="right" width="40%"></div>
+			 <div name='number_name' vtype="numberfield" label="年龄" labelalign="right" width="40%"></div>
+			 <div name='date_name' vtype="datefield" label="出生日期" labelalign="right" width="40%"></div>
+			 <div name='combox_name' vtype="comboxfield" label="下拉框" labelalign="right" width="40%" dataurl="combox.json"></div>
+			 
+			 <div name="toolbar_1" vtype="toolbar"> 
+			    <div name="btn1" vtype="button" text="文件" align="center" click=""></div> 
+			    <div name="btn2" vtype="button" text="增加" align="center" click=""></div> 
+			    <div name="btn3" vtype="button" text="修改" align="center" click=""></div> 
+			</div> 
+		</div>      	
+     </div>
+</div>
+
+<!-- 	<div id="formpanel" name="formpanel" vtype="formpanel" titleDisplay="true" width="660" layout="table" 
+	    layoutconfig="{cols:2, columnwidth: ['300px','*']}"
+		height="400" labelStyleClass="labelstyle" title="人员信息" >
+		<div name='textfield_name' vtype="textfield" label="姓名"
+			labelAlign="right" rule="must" width="300" editable="false"></div>
+		<div name='textfield_name2' vtype="textfield" label="姓名2"
+			labelAlign="right" rule="must" width="300" editable="false"></div>	
+		<div name='number_name' vtype="numberfield" label="年龄"
+			labelAlign="right" width="300"></div>
+		<div name='wdatepicker_name' vtype="datefield"
+			label="生日" labelAlign="right" width="300"
+			isShowWeek="true" ></div>
+		<div name="checkboxfield_name" vtype="checkboxfield"
+			label="爱好" labelAlign="right" width="200"
+			dataurl="[{checked: true,value: '1',text: '旅游'},{value: '2',text: '足球'},{value: '3',text: '篮球'}]"></div>
+		<div name="radiofield_name" vtype="radiofield"
+			label="性别" labelAlign="right" width="300"
+			dataurl="[{checked: true,value: '1',text: '男'},{value: '2',text: '女'}]"></div>
+		<div name='password_name' vtype="passwordfield" label="密码"
+			labelAlign="right" width="300"></div>
+		<div name='textarea_name'  
+			vtype="textareafield" label="简历" labelAlign="right" width="300"></div>
+		<div name='combox_name'  rowspan="1"
+			vtype="comboxfield" label="下拉框" labelAlign="right" width="300" dataurl="combox.json"></div>
+		<div id='combox_tree' name='comboxtree_name' vtype="comboxtreefield" 
+			label="下拉树" labelAlign="right" width="300" multiple="true"  onCheck="chktree"  dataurl="comboxtree.json"></div>	
+		<div id="attach1" colspan="2" name="attach_name" vtype="attachment" fileuploadlimit="5"></div>	 
+        <div name="id" vtype="hiddenfield" value="2333"></div>
+        
+		<div id="toolbar" name="toolbar" vtype="toolbar" >
+			<div id="btn1" name="btn1" vtype="button" text="重新加载数据"  click="reloadData()"></div>
+			<div id="btn2" name="btn2" vtype="button" text="切换编辑状态"  click="toggleEditable()"></div>
+	    	<div id="btn3" name="btn3" vtype="button" text="保存"  click="save()"></div>
+	    	<div id="btn4" name="btn4" vtype="button" text="重置"  click="reset()"></div>
+	    </div>
+		
+	</div> -->
+
+<script type="text/javascript">
+$(function(){
+    //调整父页面iframe高度
+    try{
+        parent.setWinHeight(500);           
+    }catch(e){
+        jazz.log(e);
+    }
+});
+</script>
+</body>
+</html>

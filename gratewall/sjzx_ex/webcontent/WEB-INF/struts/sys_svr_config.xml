@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>服务配置</menu-name>
+  <menu-path>/page/share/svrcfg/</menu-path>
+  <description>服务配置</description>
+  <form-beans>
+    <form-bean name="SysSvrConfigForm">
+      <description>多记录查询</description>
+      <form-property prefix="primary-key" name="sys_svr_config_id" type="string" size="32" cannull="false" description="共享服务配置编码"/>
+      <form-property prefix="select-key" name="sys_svr_user_id" type="string" size="32" description="服务对象编码"/>
+      <form-property prefix="select-key" name="sys_svr_service_id" type="string" size="32" description="共享服务编码"/>
+      <form-property prefix="select-key" name="login_name" type="string" size="32" cannull="false" description="用户代码"/>
+      <form-property prefix="select-key" name="user_name" type="string" size="32" cannull="false" description="用户名"/>
+      <form-property prefix="select-key" name="svr_code" type="string" size="32" cannull="false" description="服务代码"/>
+      <form-property prefix="select-key" name="svr_name" type="string" size="32" cannull="false" description="服务名称"/>
+      <form-property prefix="select-key" name="create_date_from" type="string" size="32" cannull="false" description="创建日期自"/>
+      <form-property prefix="select-key" name="create_date_to" type="string" size="32" cannull="false" description="创建日期至"/>      
+      <form-property prefix="select-key" name="state" type="string" size="32" cannull="false" description="用户状态"/>
+      <form-property prefix="select-key" name="sys_svr_config_id" type="string" size="32" description="共享服务配置编号"/>
+      
+      <form-property prefix="record" name="sys_svr_config_id" type="string" size="32" cannull="false" description="共享服务配置编码"/>
+      <form-property prefix="record" name="sys_svr_service_id" type="string" size="32" cannull="false" description="共享服务编码"/>
+      <form-property prefix="record" name="sys_svr_user_id" type="string" size="32" cannull="false" description="服务对象编码"/>
+      <form-property prefix="record" name="permit_column" type="string" size="2000" cannull="true" description="允许访问的字段"/>
+      <form-property prefix="record" name="create_date" type="string" size="10" cannull="false" description="创建日期"/>
+      <form-property prefix="record" name="create_by" type="string" size="32" cannull="false" description="创建人"/>
+      <form-property prefix="record" name="config_order" type="long" cannull="false" description="排序字段"/>
+      <form-property prefix="record" name="query_sql" type="string" size="4000" description="SQL"/>
+      
+      <form-property prefix="record" name="svr_name" type="string" size="32" cannull="false" description="服务名称"/>
+      <form-property prefix="record" name="params" type="string" size="32" cannull="false" description="服务参数"/>
+      <form-property prefix="record" name="permit_column_en_array" type="string" size="4000" cannull="false" description="所有共享字段的英文名"/>
+      <form-property prefix="record" name="permit_column_cn_array" type="string" size="4000" cannull="false" description="所有共享字段的中文名"/>
+      <form-property prefix="record" name="column_alias" type="string" size="4000" cannull="false" description="所有共享字段的别名"/>
+      
+      
+      <form-property prefix="config-inf" name="sys_svr_config_id" type="string" size="32" cannull="true" description="共享服务配置编码"/>
+      <form-property prefix="config-inf" name="permit_column" type="string" size="2000" cannull="true" description="允许访问的字段"/>
+      <form-property prefix="config-inf" name="column_alias" type="string" size="4000" cannull="false" description="所有共享字段的别名"/>
+      
+      <!-- 字段相关 -->
+      <form-property prefix="col-info" name="table_no" type="string" size="2000" cannull="false" description="业务表编码"/>
+      <form-property prefix="col-info" name="table_name" type="string" size="60" cannull="false" description="业务表名"/>
+      <form-property prefix="col-info" name="table_name_cn" type="string" size="100" cannull="false" description="业务表中文名"/>
+      <form-property prefix="col-info" name="column_no" type="string" size="32" cannull="false" description="业务字段编码"/>
+      <form-property prefix="col-info" name="column_name" type="string" size="60" cannull="false" description="业务字段名"/>
+      <form-property prefix="col-info" name="column_name_cn" type="string" size="100" cannull="false" description="业务字段中文名"/>
+      
+      <!-- 数据表相关 -->
+      <form-property prefix="tbl-info" name="table_no" type="string" size="2000" cannull="false" description="业务表编码"/>
+      <form-property prefix="tbl-info" name="table_name" type="string" size="60" cannull="false" description="业务表名"/>
+      <form-property prefix="tbl-info" name="table_name_cn" type="string" size="100" cannull="false" description="业务表中文名"/>
+      <form-property prefix="tbl-info" name="sys_id" type="string" size="32" cannull="false" description="业务系统编码"/>
+      
+      <form-property prefix="record" name="sysParams" type="string" size="2000" cannull="false" description="系统参数"/>
+      <form-property prefix="record" name="userParams" type="string" size="2000" cannull="false" description="用户参数"/>
+      
+      <form-property prefix="config-param" name="sys_svr_config_param_id" type="string" size="32" cannull="false" description="共享服务配置参数编号"/>
+      <form-property prefix="config-param" name="operator1" type="string" size="10" cannull="true" description="连接符1"/>
+      <form-property prefix="config-param" name="left_paren" type="string" size="5" cannull="true" description="左括号"/>
+      <form-property prefix="config-param" name="left_table_no" type="string" size="32" cannull="false" description="左表"/>
+      <form-property prefix="config-param" name="left_column_no" type="string" size="32" cannull="false" description="左字段"/>
+      <form-property prefix="config-param" name="operator2" type="string" size="5" cannull="false" description="连接符2"/>
+      <form-property prefix="config-param" name="right_table_no" type="string" size="32" cannull="false" description="右表"/>
+      <form-property prefix="config-param" name="right_column_no" type="string" size="32" cannull="false" description="右字段"/>
+      <form-property prefix="config-param" name="right_paren" type="string" size="5" cannull="true" description="右括号"/>
+      <form-property prefix="config-param" name="param_value" type="string" size="32" cannull="true" description="参数值"/>
+      <form-property prefix="config-param" name="params" type="string" size="2000" cannull="true" description="参数"/>
+      <form-property prefix="config-param" name="param_type" type="string" size="32" cannull="false" description="参数类型：0 系统参数；1 用户参数"/>
+    </form-bean>
+
+	<form-bean name="SysSvrConfigParamForm">
+      <description>多记录查询</description>
+      <form-property prefix="primary-key" name="sys_svr_config_param_id" type="string" size="32" cannull="false" description="共享服务配置参数编号"/>
+      <form-property prefix="select-key" name="sys_svr_config_id" type="string" size="32" description="共享服务配置编号"/>
+      
+      <form-property prefix="record" name="sys_svr_config_param_id" type="string" size="32" cannull="false" description="共享服务配置参数编号"/>
+      <form-property prefix="record" name="sys_svr_config_id" type="string" size="32" cannull="false" description="共享服务配置编号"/>
+      <form-property prefix="record" name="operator1" type="string" size="10" cannull="true" description="连接符1"/>
+      <form-property prefix="record" name="left_paren" type="string" size="5" cannull="true" description="左括号"/>
+      <form-property prefix="record" name="left_table_no" type="string" size="32" cannull="false" description="左表"/>
+      <form-property prefix="record" name="left_column_no" type="string" size="32" cannull="false" description="左字段"/>
+      <form-property prefix="record" name="operator2" type="string" size="5" cannull="false" description="连接符2"/>
+      <form-property prefix="record" name="right_table_no" type="string" size="32" cannull="false" description="右表"/>
+      <form-property prefix="record" name="right_column_no" type="string" size="32" cannull="false" description="右字段"/>
+      <form-property prefix="record" name="right_paren" type="string" size="5" cannull="true" description="右括号"/>
+      <form-property prefix="record" name="param_type" type="string" size="32" cannull="false" description="参数类型：0 系统参数；1 用户参数"/>
+      <form-property prefix="record" name="param_order" type="long" cannull="false" description="排序字段"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_svr_config.jsp" name="SysSvrConfigForm" txn-code="50203001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务配置列表</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrConfig" func-name="txn50203001" input-node="select-key" output-node="record" description="查询服务配置列表"/>
+      <forward error-code="success" path="query-sys_svr_config.jsp"/>
+      <forward error-code="failure" path="query-sys_svr_config.jsp"/>
+    </action>
+
+    <action input="insert-sys_svr_config.jsp" name="SysSvrConfigForm" txn-code="50203003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加服务配置信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrConfig" func-name="txn50203003" input-node="record" description="增加服务配置信息"/>
+      <forward error-code="success" path="insert-sys_svr_config.jsp"/>
+      <forward error-code="failure" path="insert-sys_svr_config.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_config.jsp" name="SysSvrConfigForm" txn-code="50203005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除服务配置信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrConfig" func-name="txn50203005" input-node="select-key" description="删除服务配置信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_config.jsp" name="SysSvrConfigForm" txn-code="50203006" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>查询用户的服务配置信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrConfig" func-name="txn50203006" input-node="select-key" output-node="record" description="查询用户的服务配置信息"/>
+      <forward error-code="success" path="insert-sys_svr_config.jsp"/>
+      <forward error-code="failure" path="insert-sys_svr_config.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_config.jsp" name="SysSvrConfigForm" txn-code="50203007" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除用户所有的服务配置信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrConfig" func-name="txn50203007" input-node="select-key" output-node="record" description="删除用户所有的服务配置信息"/>
+      <forward error-code="success" path="insert-sys_svr_config.jsp"/>
+      <forward error-code="failure" path="insert-sys_svr_config.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_config.jsp" name="SysSvrConfigForm" txn-code="50203008" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>查询某用户可以享受的服务列表</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrConfig" func-name="txn50203008" input-node="select-key" output-node="record" description="查询某用户可以享受的服务列表"/>
+      <forward error-code="success" path="insert-sys_svr_config.jsp"/>
+      <forward error-code="failure" path="insert-sys_svr_config.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_config.jsp" name="SysSvrConfigForm" txn-code="50203009" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>生成SQL语句</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrConfig" func-name="txn50203009" input-node="record" output-node="record" description="生成SQL语句"/>
+      <forward error-code="success" path="insert-sys_svr_config.jsp"/>
+      <forward error-code="failure" path="insert-sys_svr_config.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_config.jsp" name="SysSvrConfigForm" txn-code="50203010" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除用户所有的服务配置信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrConfig" func-name="txn50203010" input-node="select-key" output-node="record" description="删除用户所有的服务配置信息"/>
+      <forward error-code="success" path="insert-sys_svr_config.jsp"/>
+      <forward error-code="failure" path="insert-sys_svr_config.jsp"/>
+    </action>
+    <action input="query-sys_svr_config.jsp" name="SysSvrConfigForm" txn-code="50203011" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务配置列表</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrConfig" func-name="txn50203011" input-node="select-key" output-node="record" description="查询服务配置列表"/>
+      <forward error-code="success" path="query-sys_svr_config.jsp"/>
+      <forward error-code="failure" path="query-sys_svr_config.jsp"/>
+    </action>
+    
+    <!-- <<<<<<<<<<<<<<<<<<<<<<< 服务配置参数相关 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>-->
+    <action input="query-sys_svr_config_param.jsp" name="SysSvrConfigParamForm" txn-code="50206005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除服务配置所有参数信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrConfigParam" func-name="txn50206005" input-node="select-key" description="删除服务配置所有参数信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_config_param.jsp" name="SysSvrConfigParamForm" txn-code="50206006" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除服务配置所有参数信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrConfigParam" func-name="txn50206006" input-node="select-key" description="删除服务配置所有参数信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_svr_config.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/resouce/res/runmgr/services/svrcfg/query-sys_svr_config.jsp" description="查询服务配置列表"/>
+    <resource-file type="jsp" file-name="/page/resouce/res/runmgr/services/svrcfg/insert-sys_svr_config.jsp" description="增加服务配置信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.SysSvrConfigContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrConfig" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrConfigSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrConfigPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

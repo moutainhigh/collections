@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+	<title>企业登录信息</title>
+	</head>
+	<body>
+	    <h3>快速入门</h3>
+	    <div class="content">
+	        <h4>1、什么是JAZZ？</h4>
+	        <p>JAZZ是一种基于jQuery的用户界面插件集合。为创建现代化，互动，JavaScript应用程序，提供必要的功能。
+	                       使用JAZZ你不需要写很多代码，你只需要通过编写一些简单HTML标记，就可以定义用户界面。节省网页开发的时间和规模。
+            </p>
+            <h4>2、引用文件</h4>
+            <p>要引用jquery1.8，jquery ui，jazz-all.js</p>
+            <p>要引用jazz-all.css，在lib/themes 中有几个主题的样式</p>
+            <h4>3、如何声明一个JAZZ组件</h4>
+            <p>
+				1. 直接在 HTML 声明组件。
+				
+				<xmp><div name="test" id="_test" vtype="textfield" label="这是一个测试输入框" 
+				     width="700" labelwidth="300"> </div></xmp>
+				2. 编写 JavaScript 代码来创建组件。
+				
+				<xmp><div id="_test" > </div>
+				$('#_test').textfield({
+				    name: 'test',
+					label: '这是一个测试输入框',
+					width: '700',
+					labelwidth: '300'
+				});</xmp>
+            </p>
+            <p>
+                                            组件有很多的属性，例如 vtype（组件名）、label、width、labelwidth等都是组件的属性，更多的属性请参考
+                <a target="_black" href="./api/doc/index.html">API</a>，组件可以生成后动态改变它的属性
+                $(selecter选择器).targetName组件名('option必须值','attribute属性名','arguement1参数','arguement2参数')
+                                             例如$('#_test').textfield('option','readonly',true)把textfield只读模式。
+            </p>
+            <p>
+                
+                                            组件的方法，例如reset、reload、setValue、getValue等都是组件的方法，更多的方法请参考<a target="_black" href="./api/doc/index.html">API</a>，
+                                            组件的方法调用为  $(selecter选择器).targetName组件名('method方法名','arguement1参数','arguement2参数')
+                                            例如$('#_test').formpanel('setValue',data); 就是调用formpanel的setValue方法，传入的参数为data。
+                                            
+            </p>
+            <p>
+                                             组件的事件，例如change、enter、itemselect等都是组件的事件，更多的事件请参考<a target="_black" href="./api/doc/index.html">API</a>，
+                                             组件的事件绑定为$(selecter选择器).targetName组件名("option", "event事件", function(event,ui){});
+                                             或者$(selecter选择器).on("targetName组件名+event事件", function(event,ui){})
+                                             例如$('#_test').textfield('option','enter',function(){alert('change);})
+                                             给输入框绑定了一个失去焦点的事件，当它失去焦点时弹出 change。
+            </p>
+            <h4>4、写一个简单的表单</h4>
+            <p>JAZZ的组件都是用 name 作为唯一标识，请给每个组件都加name&nbsp;&nbsp;
+            <a target="_black" href="./demos/index/form/basicForm.html">点击查看表单例子</a></p>
+            <h4>5、写一个简单的列表</h4>
+            <p>列表gridpanel由几个组件（gridcolumn、gridtable、paginator）组成&nbsp;&nbsp;
+            <a target="_black" href="./demos/index/grid/gridPanelWithPaginator.html">点击查看列表例子</a>
+            </p>
+            <h4>6、更多文档</h4>
+            <p>
+                <a target="_black" href="./index.html">组件列表（请用火狐打开）</a>
+                <a target="_black" href="./api/doc/index.html">API</a>
+            </p>
+	    </div>
+	    <p></p>
+	</body>
+</html>

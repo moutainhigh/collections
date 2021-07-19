@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.ChnlDocServiceProvider">	
+	
+	<method name="changeStatus" desc="批量改变不同栏目下不同文档的状态">
+		<parameter name="ObjectIds" desc="指定ChnlDoc ID序列" type="string" required="true" min-len="1"/>	
+		<parameter name="StatusId" desc="新的状态ID" type="int" required="true"/>			
+	</method>	
+	
+	<method name="copy" desc="批量复制不同栏目下不同文档">
+		<parameter name="ObjectIds" desc="指定ChnlDoc ID序列" type="string" required="true"/>
+		<parameter name="ToChannelIds" desc="目标栏目ID序列" type="string" required="true"/>		
+	</method>
+	
+	<method name="quote" desc="批量引用不同栏目下不同文档">
+		<parameter name="ObjectIds" desc="指定ChnlDoc ID序列" type="string" required="true"/>
+		<parameter name="ToChannelIds" desc="目标栏目ID序列" type="string" required="true"/>		
+	</method>
+
+	<method name="mirror" desc="批量镜像不同栏目下不同文档">
+		<parameter name="ObjectIds" desc="指定ChnlDoc ID序列" type="string" required="true"/>
+		<parameter name="ToChannelIds" desc="目标栏目ID序列" type="string" required="true"/>		
+	</method>
+	
+	<method name="delete" desc="批量删除不同栏目下不同文档">
+		<parameter name="ObjectIds" desc="指定ChnlDoc ID序列" type="string" required="true"/>
+		<parameter name="Drop" desc="是否彻底删除" type="boolean" required="false"/>				
+	</method>
+	
+	<method name="export" desc="批量导出不同栏目下不同文档">
+		<parameter name="ObjectIds" desc="指定ChnlDoc ID序列" type="string" required="true"/>
+		<parameter name="ExportFields" desc="导出那些字段" type="string" required="false"/>
+		<parameter name="ExportAppendix" desc="是否导出附件" type="boolean" required="false"/>
+	</method>
+	
+	<method name="move" desc="批量移动不同栏目下不同文档到指定栏目中">
+		<parameter name="ObjectIds" desc="指定ChnlDoc ID序列" type="string" required="true"/>
+		<parameter name="ToChannelId" desc="目标栏目ID" type="int" required="true" min-value="1"/>		
+	</method>
+	
+	<!-- 发布指定的对象（站点/栏目/文档） 
+	2006-11-14 15:52:12 gongfuchang 加入按照PublishType的特殊发布方法 
+	发布类型PublishType:
+	1, 增量发布
+	2, 完全发布
+	3, publish type: publish a content 
+	5, 更新发布
+	8, 独立发布(仅发布首页)
+	7, 撤销发布
+	10,文档的直接发布，绕开关于发布状态的限制，直接单篇（将来也许多篇）发布文档
+	默认为1=增量发布
+	-->	
+	<method name="publish" desc="批量发布不同栏目下不同文档">
+		<parameter name="ObjectIds" desc="指定ChnlDoc ID序列" type="string" required="true"/>
+		<parameter name="PublishType" desc="发布类型" type="int" required="false"/>		
+	</method>
+	<method name="basicPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="3"/>
+	</method>
+	<method name="detailPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="8"/>
+	</method>
+	<method name="directPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="10"/>
+	</method>
+	<method name="increasingPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="1"/>
+	</method>
+	<method name="fullyPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="2"/>
+	</method>	
+	<method name="refreshPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="5"/>
+	</method>	
+	<method name="soloPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="8"/>
+	</method>
+	<method name="recallPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="7"/>
+	</method>
+		
+	<method name="search">
+		<parameter name="ChannelIds" desc="检索的栏目ID序列" type="string" required="false"/>
+		<parameter name="SiteIds" desc="检索的站点ID序列" type="string" required="false"/>	
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<parameter name="ContainsChildren" desc="是否递归检索子栏目" type="boolean" required="false" default="0"/>		
+			
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false" default="WCMChnlDoc.CrTime Desc"/>		
+
+		<!-- 查询的表 -->		
+		<parameter name="FromTable" desc="查询的表" type="string" required="false" default="WCMDocument,WCMChnlDoc"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="DocTitle" desc="文档标题" type="string" required="false" search="true"
+			search-operator="like" search-field="WCMDocument.DocTitle"/>
+		<parameter name="CrUser" desc="创建者" type="string" required="false" search="true"
+			search-operator="=" search-field="WCMDocument.CrUser"/>
+		<parameter name="DocKeywords" desc="关键字" type="string" required="false" search="true"
+			search-operator="like" search-field="WCMDocument.DocKeywords"/>
+		<parameter name="DocStatus" desc="待查询的状态" type="string" required="false" search="true"
+			search-operator="in" search-type="pint" search-field="WCMChnlDoc.DocStatus"/>
+		<parameter name="DocSource" desc="文档来源" type="string" required="false" search="true"
+			search-operator="in" search-type="pint" search-field="WCMDocument.DocSource"/>
+		<parameter name="DocSourceName" desc="文档来源" type="string" required="false" search="true"
+			search-operator="like" search-field="WCMDocument.DocSourceName"/>
+		<parameter name="StartDate" desc="开始时间" type="datetime" required="false"
+			search="true" search-operator="&gt;=" search-field="WCMDocument.CrTime"/>
+		<parameter name="EndDate" desc="结束时间" type="datetime" required="false"
+			search="true" search-operator="&lt;=" search-field="WCMDocument.CrTime"/>
+		<parameter name="StartPubDate" desc="发布开始时间" type="datetime" required="false"
+			search="true" search-operator="&gt;=" search-field="WCMChnlDoc.DocPubTime"/>
+		<parameter name="EndPubDate" desc="发布结束时间" type="datetime" required="false"
+			search="true" search-operator="&lt;=" search-field="WCMChnlDoc.DocPubTime"/>
+		<!-- 检索相关配置 END -->
+		
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>			
+		<parameter name="SelectFields" desc="ChnlDoc提取的字段列表" type="string" required="false" default="DOCID,ChnlId,DocStatus,DocOrderPri,CrTime,CrUser,Modal,DocPubTime,RecId"/>		
+		<parameter name="DocumentSelectFields" desc="提取的文档字段列表" type="string" required="false" default="DOCID,DocTitle,DocType,DocChannel,CrUser,CrTime"/>		
+	</method>
+	
+	
+</service>

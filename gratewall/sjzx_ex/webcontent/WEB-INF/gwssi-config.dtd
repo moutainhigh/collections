@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT gwssi-config (jdbc?, 
+			txn-containers?, 
+			page?, 
+			user-config?,
+			controller?,
+			cvs?,
+			char-set?,
+			layout-name?,
+			message-resources*)
+>
+
+<!-- data source !-->
+<!ELEMENT jdbc (database+)>
+<!ATTLIST jdbc
+	jta-flag (true | false) "false"
+	jta-provider CDATA #IMPLIED
+	jta-username CDATA #IMPLIED
+	jta-password CDATA #IMPLIED
+>
+
+<!ELEMENT database (jndi-name?, db-url?, db-driver?, db-username?, db-password?, value-class?)>
+<!ATTLIST database
+	db-name CDATA #REQUIRED
+	db-type (datasource | jdbc) "datasource"
+	db-server (oracle | db2 | informix | sybase | sqlserver | mysql | access ) "oracle"
+	db-transaction (jdbc | jta) "jta"
+>
+
+<!ELEMENT jndi-name (#PCDATA)>
+<!ELEMENT db-url (#PCDATA)>
+<!ELEMENT db-driver (#PCDATA)>
+<!ELEMENT db-username (#PCDATA)>
+<!ELEMENT db-password (#PCDATA)>
+<!ELEMENT value-class (#PCDATA)>
+
+<!-- container !-->
+<!ELEMENT txn-containers (container+)>
+<!ELEMENT container (type?, clazz?, url?, username?, password?)>
+<!ATTLIST container
+	name CDATA #REQUIRED
+>
+
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT clazz (#PCDATA)>
+<!ELEMENT url (#PCDATA)>
+<!ELEMENT username (#PCDATA)>
+<!ELEMENT password (#PCDATA)>
+
+
+<!-- page !-->
+<!ELEMENT page (login-page?, logout-page?, error-page?, home-page?)>
+<!ELEMENT login-page (#PCDATA)>
+<!ELEMENT logout-page (#PCDATA)>
+<!ELEMENT error-page (#PCDATA)>
+<!ELEMENT home-page (#PCDATA)>
+
+<!ELEMENT user-config (property+)>
+<!ELEMENT property EMPTY>
+<!ATTLIST property
+	name CDATA #REQUIRED
+	value CDATA #REQUIRED
+>
+
+<!-- 资源文件名称 !-->
+<!ELEMENT message-resources EMPTY>
+<!ATTLIST message-resources
+	parameter CDATA #REQUIRED
+	key CDATA #IMPLIED
+>
+
+
+<!-- 控制信息 !-->
+<!ELEMENT controller (
+			start-mode?,
+			upload-path?, 
+			download-path?, 
+			resource-path? )
+>
+
+<!-- 保存上传文件的临时目录 !-->
+<!ELEMENT upload-path (#PCDATA)>
+
+<!-- 保存下传文件的临时目录 !-->
+<!ELEMENT download-path (#PCDATA)>
+
+<!-- 模板文件的目录 !-->
+<!ELEMENT resource-path (#PCDATA)>
+
+<!-- 启动模式：develop、deve、development、test = 开发模式 !-->
+<!ELEMENT start-mode (#PCDATA)>
+
+<!-- 代码管理和编译信息 !-->
+<!ELEMENT cvs (
+			server-url?,
+			project-path?,
+			src-path?,
+			cvs-path? )
+>
+
+<!-- cvs !-->
+<!-- 源代码目录路径 !-->
+<!ELEMENT src-path (#PCDATA)>
+
+<!-- 工程目录 !-->
+<!ELEMENT project-path (#PCDATA)>
+
+<!-- JAVAC路径，包含javac或javac.exe !-->
+<!ELEMENT server-url (#PCDATA)>
+
+<!-- CVS服务器路径 !-->
+<!ELEMENT cvs-path (#PCDATA)>
+
+<!-- WEB服务器的缺省字符集 !-->
+<!ELEMENT char-set (#PCDATA)>
+
+<!-- 布局名称 !-->
+<!ELEMENT layout-name (#PCDATA)>
+

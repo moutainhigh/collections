@@ -1,0 +1,20 @@
+<textarea id="template_replace" select="Replace" >
+	<div class="attribute_row">
+		<span class="attribute_name" style="width:40px;">标题:</span>
+        <span class="attribute_value">
+            <TRS_UI:editPanel value="{#ReplaceName}" class="inputClass_" inputClass="inputClass_" _fieldName="ReplaceName" rightindex="13" validation="type:'string',max_len:'50',required:'',desc:'标题'"></TRS_UI:editPanel>
+        </span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name" style="width:40px;">内容:</span>
+        <span class="attribute_value">
+            <TRS_UI:editPanel value="{#ReplaceContent}" class="inputClass_" inputClass="inputClass_" _fieldName="ReplaceContent" rightindex="13" validation="type:'string',required:'',max_len:'500',desc:'内容'"></TRS_UI:editPanel>
+        </span>
+	</div>
+ </textarea>
+
+ <textarea id="template_replaces">
+	<div class="attribute_row">
+		当前共选中<span class="objects_num">{#Num}</span>个替换内容.
+	</div>
+ </textarea>

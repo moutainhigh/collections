@@ -1,0 +1,26 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> disabled editor content </title>
+	<style type="text/css">
+		html,body{margin:0px;padding:0px;height:100%;width:100%;}
+		body{overflow:auto;}
+	</style>
+	<script language="javascript" src="../../core.js" type="text/javascript"></script>
+	<script language="javascript">
+	<!--
+		Event.observe(window, 'load', function(){
+			var fieldName = getParameter('fieldname');
+			var field = parent.$(fieldName);
+			if(!field) return;
+			document.body.innerHTML = field.value;
+		});
+	//-->
+	</script>
+</head>
+
+<body>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!--  --><?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<TITLE WCMAnt:param="advsearch.html.title">高级检索</TITLE>
+<link href="../js/source/wcmlib/suggestion/resource/suggestion.css" rel="stylesheet" type="text/css" />
+<link href="../js/resource/widget.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+<link rel="stylesheet" type="text/css" href="advsearch.css" WCMAnt:locale="advsearch_$locale$.css">
+<link href="../js/easyversion/resource/calendar.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="bodyContainer" class="layout_container">
+	<div class="layout_north">
+		<div class="nav_options"></div>
+	</div>
+	<div id="adv_search_ctn" class="layout_center_container">
+		<div class="nav_tree" style="background:#fff;">
+            <form id="frmData" method=post onsubmit="AdvSearch.render(); return false;">
+                <div class="search_row">
+                    <div class="row_tip_unfoldable" WCMAnt:param="advsearch.html.headline">完整或部分文档标题:</div>
+                    <div class="row_value"><input type="text" name="DocTitle" id="txtDocTitle" value="" style="width: 160px;" class="input_text" validation="type:'string',required:'false',max_len:'100',desc='文档标题'" validation_desc="文档标题" WCMAnt:paramattr="validation_desc:advsearch.html.documentTitle"></div>
+                </div>
+                <div class="search_row">
+                    <div class="row_tip_unfoldable" WCMAnt:param="advsearch.html.cruser">发稿人:</div>
+                    <div class="row_value"><input type="text" name="CrUser" id="txtCrUser" value="" style="width: 160px;" class="input_text"
+					validation="type:'string',required:'false',max_len:'100',desc='发稿人'" validation_desc="发稿人" WCMAnt:paramattr="validation_desc:advsearch.html.documentCruser"></div>
+                </div>
+                <div class="search_row">
+                    <div class="row_tip_unfoldable"><span WCMAnt:param="advsearch.html.searchPlace">检索位置:</span>&nbsp;<span class="search_fromhere" onclick="AdvSearch.selectRegion();">&nbsp;&nbsp;</span></div>
+                    <input type="hidden" id="hdSiteIds" name="SiteIds" value="1">
+                    <input type="hidden" id="hdChannelIds" name="ChanneldIds" value="">
+                    <div class="row_value">
+                        <select id="selSearchRegion" multiple size="5" style="width: 160px;"></select>
+                    </div>
+                </div>
+                <div class="search_row">
+                    <div class="row_tip" onclick="displayBlock('CrTime'); repositionPubMask()" WCMAnt:param="advsearch.html.searchTime">&gt;&gt;什么时候创建的？</div>
+                    <div class="row_value" id="divCrTime" style="display: none">
+                        <div><input type="radio" name="CrTimeInterval" value="0" checked>&nbsp;<label WCMAnt:param="advsearch.html.unknown">不记得</label></div>
+                        <div><input type="radio" name="CrTimeInterval" value="5">&nbsp;<label WCMAnt:param="advsearch.html.treeDays">三天内</label></div>
+                        <div><input type="radio" name="CrTimeInterval" value="6">&nbsp;<label WCMAnt:param="advsearch.html.aweek">一周内</label></div>
+                        <div><input type="radio" name="CrTimeInterval" value="7">&nbsp;<label WCMAnt:param="advsearch.html.amonth">一月内</label></div>
+                        <div><input type="radio" name="CrTimeInterval" value="-1">&nbsp;<label WCMAnt:param="advsearch.html.certainDate">指定日期</label></div>
+                        <div id="divCrTimeInterval" width="150px; height: 80px;display:none">
+                            <div class="div_inner">
+                                <span WCMAnt:param="advsearch.html.from" class="timerange">从</span>
+                                <span>
+									<input type="text" class="inp_cal" name="StartDate" id="StartDate" value=""/>
+                                </span>
+                            </div>
+                            <div class="div_inner">
+                                <span WCMAnt:param="advsearch.html.to" class="timerange">至</span>
+                                <span>
+									<input type="text" class="inp_cal" name="EndDate" id="EndDate" value=""/>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="search_row">
+                    <div class="row_tip" onclick="displayBlock('PubTime'); repositionPubMask()" WCMAnt:param="advsearch.html.pubTime">&gt;&gt;什么时候发布的？</div>
+                    <div class="row_value" id="divPubTime" style="display: none">
+                        <div style="display:none;"><input type="radio" name="PubTimeInterval" value="0">&nbsp;<label WCMAnt:param="advsearch.html.unknown">不记得</label></div>
+                        <div><input type="radio" name="PubTimeInterval" value="5" checked>&nbsp;<label WCMAnt:param="advsearch.html.treeDays">三天内</label></div>
+                        <div><input type="radio" name="PubTimeInterval" value="6">&nbsp;<label WCMAnt:param="advsearch.html.aweek">一周内</label></div>
+                        <div><input type="radio" name="PubTimeInterval" value="7">&nbsp;<label WCMAnt:param="advsearch.html.amonth">一月内</label></div>
+                        <div><input type="radio" name="PubTimeInterval" value="-1">&nbsp;<label WCMAnt:param="advsearch.html.certainDate">指定日期</label></div>
+                        <div id="divPubTimeInterval" width="150px; height: 80px;display:none">
+                            <div class="div_inner">
+                                <span WCMAnt:param="advsearch.html.from" class="timerange">从</span>
+                                <span>
+									<input type="text" class="inp_cal" name="StartPubDate" id="StartPubDate" value=""/>
+                                </span>
+                            </div>
+                            <div class="div_inner">
+                                <span WCMAnt:param="advsearch.html.to" class="timerange">至</span>
+                                <span>
+									<input type="text" class="inp_cal" name="EndPubDate" id="EndPubDate" value=""/>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="search_row">
+                    <div class="row_tip" onclick="displayAdvItems()" WCMAnt:param="advsearch.html.moreOptions">&gt;&gt;更多高级选项</div>
+                </div>
+                <div class="search_row" id="divAdvanced" style="display:none;">
+                    <div class="divAdvancedItem" style="overflow:visible">
+                        <span class="sp_row_tip" WCMAnt:param="advsearch.html.docSource">*文档来源:&nbsp;&nbsp;</span>
+						<br/>
+                        <div style="margin-left:10px;"><input name="txtDocSource" id="txtDocSource" value="" autocomplete="off" validation="type:'string',required:'false',max_len:'100'" style="width:110px;"></div>
+                    </div>
+					<div class="divAdvancedItem">
+                        <span class="sp_row_tip" style="width: 100%"><label WCMAnt:param="advsearch.html.queryChildren">*检索子栏目</label>&nbsp;<input type="checkbox" name="ContainsChildren" id="chkContainsChildren"></span>
+                    </div>
+                    <div class="divAdvancedItem" style="overflow:visible;height:auto;">
+                        <span class="sp_row_tip" WCMAnt:param="advsearch.html.docStatus">*文档状态:</span><br>
+                        <div id="doc_status" class="sp_row_tip"></div>
+                    </div>
+                    <div class="divAdvancedItem">
+                        <span class="sp_row_tip" WCMAnt:param="advsearch.html.keywords">*关键词:</span>
+                        <input type="text" id="txtDocKeywords" name="DocKeywords" value="" class="keyword" validation="type:'string',required:'false',max_len:'100',desc='关键词" validation_desc="关键词" WCMAnt:paramattr="validation_desc:advsearch.html.documentKeywords">
+                    </div>
+                </div>
+                <div class="search_row" align="center" style="height:30px;padding-top:5px;">
+                    <input type="submit" class="input_button" name="" value="开始检索" WCMAnt:paramattr="value:advsearch.html.searchStart"/>
+                </div>
+            </form>
+		</div>
+	</div>
+</div>
+<script src="../js/easyversion/lightbase.js"></script>
+<script src="../js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/easyversion/extrender.js"></script>
+<script src="../js/easyversion/ajax.js"></script>
+<script src="../js/easyversion/basicdatahelper.js"></script>
+<script src="../js/easyversion/web2frameadapter.js"></script>
+<script src="../js/easyversion/calendar.js"></script>
+<script language="javascript">
+	initExtCss();
+</script>
+<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../js/data/locale/system.js"></script>
+<script src="../js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../js/easyversion/elementmore.js"></script>
+<!--suggestion-->
+<script src="../js/source/wcmlib/suggestion/suggestion.js"></script>
+<!--dialog-->
+<script src="../js/source/wcmlib/Observable.js"></script>
+<script src="../js/source/wcmlib/Component.js"></script>
+<script src="../js/source/wcmlib/dialog/Dialog.js"></script>
+<script src="../js/source/wcmlib/dialog/DialogAdapter.js"></script>
+<script src="../js/source/wcmlib/com.trs.floatpanel/FloatPanel.js"></script>
+<!--validator-->
+<script src="../../app/js/source/wcmlib/com.trs.validator/lang/cn.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<link href="../../app/js/source/wcmlib/com.trs.validator/css/validator.css" rel="stylesheet" type="text/css" />
+<script language="javascript" src="advsearch.js" type="text/javascript"></script>
+<script src="../system/status_create.jsp"></script>
+<script language="javascript">
+	$('StartPubDate').value = $('StartDate').value = defaultTime(true);
+	$('EndPubDate').value = $('EndDate').value = defaultTime(false);
+	var statuses = com.trs.wcm.AllDocStatus || [], result = [];
+	for(var i = 0; i < statuses.length; i++){
+		if(i % 2 == 0){
+			result.push("<div>");
+		}
+		result.push('<span class="spColumn"  title="', statuses[i].title, '"><input type="checkbox" name="DocStatus" checked value="', statuses[i].value, '">');
+		result.push('&nbsp;' + statuses[i].label + '</span>');	
+		if(i % 2 != 0){
+			result.push('</div>');
+		}
+	}
+	$("doc_status").innerHTML = result.join('');
+</script>
+</body>
+</html>

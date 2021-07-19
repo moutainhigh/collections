@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.metadata.service.ClassInfoServiceProvider">	
+	<method name="findById">		
+		<parameter name="ObjectId" desc="分类ID" type="int" required="true"/>
+	</method>	
+	<method name="jFindById" truename="findById"  convertor="uri:/app/classinfo/classinfo_findbyid.jsp"/>
+	<method name="queryClassInfos" desc="获取指定的分类">		
+		<parameter name="ParentId" desc="父分类ID" type="int" required="false" default="0"/>					 
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="queryName" desc="分类法名称" type="string" required="false"
+			search="true" search-operator="like" search-field="CName"/>			
+		<parameter name="queryDesc" desc="分类法描述" type="string" required="false"
+			search="true" search-operator="like" search-field="CDesc"/>			
+		<parameter name="queryId" desc="分类法ID" type="int" required="false"
+			search="true" search-operator="=" search-field="ClassInfoId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>				
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="yyyy-MM-dd HH:mm"/>		
+		<!-- 检索相关配置 END -->
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="ClassOrder desc" required="false"/>
+	</method>
+	<method name="jQuery" truename="queryClassInfos"  convertor="uri:/app/classinfo/classinfo_query.jsp"/>
+	<method name="classinfoquery" truename="queryClassInfos"  convertor="uri:/app/metaresource/classinfo/classinfo_query.jsp"/>
+	<method name="TQuery" truename="queryClassInfos"  convertor="uri:/app/classinfo/classinfo_select_query.jsp"/>
+	<method name="saveClassInfo">		
+		<parameter name="ObjectId" desc="分类ID" type="int" required="true"/>
+		<parameter name="ParentId" desc="父分类ID" type="int" required="false"/>		
+		<!--0表示在最后 -1表示在最前面 >0表示指定的分类-->
+		<parameter name="PreviousId" desc="同级前一个分类ID" type="int" required="false"/>		
+		<parameter name="Name" desc="分类名称" type="string" required="false" max-length="50"/>		
+		<parameter name="Desc" desc="分类描述"	type="string" required="false" max-length="200"/>				 
+	</method>
+	<method name="createClassInfoTreeHTMLOfIds">		
+		<parameter name="objectIds" desc="父分类ID序列" type="string" required="true"/>					 
+	</method>
+
+	<method name="createClassInfoTreeHTML">		
+		<parameter name="ParentId" desc="父分类ID" type="int" required="false" default="0"/>					 
+	</method>
+
+	<method name="deleteClassInfo">		
+		<parameter name="ObjectId" desc="待删除的分类ID" type="int" required="false"/>
+		<parameter name="ObjectIds" desc="待删除的分类ID序列" type="string" required="false"/>
+	</method>	
+	
+	<method name="getPath">		
+		<parameter name="ObjectId" desc="分类ID" type="int" required="true"/>
+	</method>		
+	<method name="exists">		
+		<parameter name="parentId" desc="分类法parentId" type="int" required="false"
+			search="true" search-operator="=" search-field="parentId"/>			
+		<parameter name="propertyName" desc="待查询的属性名称" type="string" required="false" default="CName"/>
+		<parameter name="propertyValue" desc="待查询的属性值" type="string" required="true"/>
+	</method>	
+	<method name="changeOrder"></method>
+	<method name="moveAsChild">
+		<parameter name="SrcObjectId" desc="源ID" type="int"
+			required="true" />
+		<parameter name="DstObjectId" desc="目标ID" type="int"
+			required="true" />
+	</method>
+	<method name="exportClassInfos">
+		<parameter name="ClassInfoIds" desc="ID序列" type="string" required="true"/>
+	</method>
+	<method name="importClassInfos"></method>	
+
+	<method name="queryAnyClassInfos" desc="获取指定的分类">		
+		<parameter name="rootId" desc="根分类ID" type="int" required="false" default="0"/>	
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="queryName" desc="分类法名称" type="string" required="false"
+			search="true" search-operator="like" search-field="CName"/>			
+		<parameter name="queryDesc" desc="分类法描述" type="string" required="false"
+			search="true" search-operator="like" search-field="CDesc"/>			
+		<parameter name="queryId" desc="分类法ID" type="int" required="false"
+			search="true" search-operator="=" search-field="ClassInfoId"/>
+		<!-- 检索相关配置 END -->
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="ClassOrder desc" required="false"/>
+	</method>
+</service>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="sys_rd_data_source" class-name="cn.gwssi.dw.rd.metadata.dao.SysRdDataSource" check-flag="false" backup-flag="false">
+    <description>数据源管理</description>
+  </table-info>
+
+  <column name="sys_rd_data_source_id" data-type="varchar" length="32" not-null="true" empty-is-null="false" unique="true" value-from="generate" func-name="getUUID" description="数据源ID"/>
+  <column name="sync_flag" data-type="varchar" length="1" not-null="false" value-from="input" description="同步标志"/>
+  <column name="db_name" data-type="varchar" length="16" not-null="true" value-from="input" description="数据源名称"/>
+  <column name="db_type" data-type="varchar" length="20" not-null="false" value-from="input" description="数据源类型"/>
+  <column name="db_username" data-type="varchar" length="20" not-null="false" value-from="input" description="用户"/>
+  <column name="db_password" data-type="varchar" length="20" not-null="false" value-from="input" description="口令"/>
+  <column name="db_url" data-type="varchar" length="200" not-null="false" value-from="input" description="连接信息"/>
+  <column name="db_driver" data-type="varchar" length="64" not-null="false" value-from="input" description="驱动程序"/>
+  <column name="value_class" data-type="varchar" length="200" not-null="false" value-from="input" description="数据转换类"/>
+  <column name="merge_flag" data-type="varchar" length="10" not-null="false" value-from="input" description="合并公共配置信息"/>
+  <column name="db_isolation" data-type="varchar" length="20" not-null="false" value-from="input" description="事务隔离级"/>
+  <column name="sync_table" data-type="varchar" length="20" not-null="false" value-from="input" description="更新数据表"/>
+  <column name="db_transaction" data-type="varchar" length="20" not-null="false" value-from="input" description="事务类型"/>
+  <column name="db_schema" data-type="varchar" length="20" not-null="false" value-from="input" description="数据库模式"/>
+  <column name="sync_date" data-type="varchar" length="20" not-null="false" value-from="input" description="同步日期"/>
+  <column name="creator" data-type="varchar" length="20" not-null="false" value-from="input" description="创建人"/>
+  <column name="create_date" data-type="varchar" length="10" not-null="false" value-from="input" description="创建时间"/>
+  <column name="db_svrname" data-type="varchar" length="20" not-null="false" value-from="input" description="实例名"/>
+  <column name="db_address" data-type="varchar" length="64" not-null="false" value-from="input" description="主机IP"/>
+  <column name="db_port" data-type="varchar" length="10" not-null="false" value-from="input" description="端口"/>
+  <column name="timestamp" data-type="varchar" length="32" not-null="false" value-from="input" description="时间戳"/>
+  <column name="memo" data-type="varchar" length="1000" not-null="false" value-from="input" description="备注"/>
+  <column name="db_server" data-type="varchar" length="32" not-null="false" value-from="input" description="数据库类型"/>
+  <column name="jndi_name" data-type="varchar" length="32" not-null="false" value-from="input" description="JNDI"/>
+  <primary-key name="PK_JC_DATASOURCE" column-list="sys_rd_data_source_id"/>
+  <index name="PK_JC_DATASOURCE" index-type="unique" cluster="other" column-list="sys_rd_data_source_id"/>
+  <function func-name="select sys_rd_data_source list" func-type="rowset" column-list="sys_rd_data_source_id,sync_flag,db_name,db_type,db_username,db_password,db_url,db_driver,value_class,merge_flag,db_isolation,sync_table,db_transaction,db_schema,sync_date,creator,create_date,db_svrname,db_address,db_port,timestamp,memo,db_server,jndi_name" sort-columns="db_name" max-record="10">
+    <filter-column column-name="db_name" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="select one sys_rd_data_source" func-type="select" column-list="sys_rd_data_source_id,sync_flag,db_name,db_type,db_username,db_password,db_url,db_driver,value_class,merge_flag,db_isolation,sync_table,db_transaction,db_schema,sync_date,creator,create_date,db_svrname,db_address,db_port,timestamp,memo,db_server,jndi_name">
+    <filter-column column-name="sys_rd_data_source_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_rd_data_source" func-type="insert" column-list="sys_rd_data_source_id,sync_flag,db_name,db_type,db_username,db_password,db_url,db_driver,value_class,merge_flag,db_isolation,sync_table,db_transaction,db_schema,sync_date,creator,create_date,db_svrname,db_address,db_port,timestamp,memo,db_server,jndi_name">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_rd_data_source" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_rd_data_source" func-type="update" column-list="sync_flag,db_name,db_type,db_username,db_password,db_url,db_driver,value_class,merge_flag,db_isolation,sync_table,db_transaction,db_schema,sync_date,creator,create_date,db_svrname,db_address,db_port,timestamp,memo,db_server,jndi_name">
+    <filter-column column-name="sys_rd_data_source_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="dataSourceName" func-type="rowset" column-list="sys_rd_data_source_id as codevalue, db_name as codename" max-record="-1">
+    <description>多记录查询</description>
+  </function>
+</table>
+

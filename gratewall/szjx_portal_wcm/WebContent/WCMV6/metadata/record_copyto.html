@@ -1,0 +1,233 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc">记录复制到...</title>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script>
+	$import('com.trs.wcm.FloatPanel');
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.ProcessBar');
+</script>
+<script>
+	var myActualTop = (top.actualTop||top);
+	FloatPanel.addCloseCommand();
+	FloatPanel.addCommand('okBtn', '确定', 'getSeletedIds', null);
+//	Event.observe(window,'unload',function(){
+//		FloatPanel.removeCommand('okBtn');
+//		FloatPanel.removeCloseCommand();
+//	});
+	//gfc 来自于不同栏目
+	var sChannelIds = getParameter("channelids");
+    if(sChannelIds.indexOf(",") > 0){
+        //排除掉相同的
+        var oChannelIds = {};
+        var aChannelIds = sChannelIds.split(",");
+        for (var i = 0; i < aChannelIds.length; i++){
+            oChannelIds[aChannelIds[i]] = aChannelIds[i];
+        }
+        var sTempChnlIds = "";
+        for (var sChannelId in oChannelIds){
+            sTempChnlIds += sChannelId + ",";
+        }
+        sChannelIds = sTempChnlIds.substr(0, sTempChnlIds.length - 1);
+    }
+	var sObjectids = getParameter("objectids");
+
+	function getSeletedIds(){
+		var modes = document.getElementsByName("mode");
+		var sSelIds = null;
+		var sSelNames = null;
+		var sTreeIframeId = 'allTreeNav';
+		if(modes[0].checked){
+			sTreeIframeId = 'customizeTreeNav';
+		}
+		else if(modes[1].checked){
+			sTreeIframeId = 'allTreeNav';
+		}
+		else{
+			$alert('没选中任何模式');
+			return false;
+		}
+		try{
+			sSelIds = $(sTreeIframeId).contentWindow.getCheckValues();
+		}catch(err){
+			sSelIds = '';
+		}
+		try{
+			sSelNames = $(sTreeIframeId).contentWindow.getCheckNames();
+		}catch(err){
+			sSelNames = '';
+		}
+		if(!sSelIds||sSelIds.length==0) {
+			$alert('请选择当前记录要复制到的目标栏目!');
+			return false;
+		}
+        /*
+		else if(sSelIds.length==1){
+            if(("," + sChannelIds + ",").indexOf("," + sSelIds[0] + ",") >= 0){
+    			$alert('不能将当前记录从当前栏目移动到自身!');
+	    		return false;
+            }
+		}
+        */
+        
+        isSameView(sSelIds, sSelNames, function(){
+    //else
+    ProcessBar.init('执行进度，请稍候...');
+    ProcessBar.addState('正在提交数据');
+    ProcessBar.addState('成功执行完成');
+    ProcessBar.start();
+    var oPostData = {
+        "ObjectIds" : sObjectids,
+        "FromChannelId" : sChannelIds,
+        "ToChannelIds" : sSelIds.join(',')
+    }
+    var func = function(){
+        $MessageCenter.sendMessage('main', 'PageContext.RefreshList', 'PageContext', []);
+        FloatPanel.close(true);
+    };
+    var oHelper = new com.trs.web2frame.BasicDataHelper();
+//		if(sObjectids=='0'){
+        oHelper.Call('wcm6_metadatacenter', 'copy', oPostData,true,
+            function(_transport,_json){
+                ProcessBar.exit();
+                myActualTop.ReportsDialog.show(_json,'记录复制结果',func);
+//					myActualTop.setTimeout(func,0);
+                FloatPanel.close();
+            },
+            function(_transport,_json){
+                $render500Err(_transport,_json);
+                FloatPanel.close(true);
+            }
+        );
+//		}
+//		else{
+//			oHelper.Call('wcm6_viewdocument','move',oPostData,true,
+//				function(_transport,_json){
+//					ProcessBar.exit();
+//					myActualTop.ReportsDialog.show(_json,'记录移动结果',func);
+//					FloatPanel.close();
+//				},
+//				function(_transport,_json){
+//					$render500Err(_transport,_json);
+//					FloatPanel.close(true);
+//				}
+//			);
+//		}
+        });
+		return false;
+	}
+
+    function isSameView(aChannelIds, aChannelNames, fCallBack){
+        var fromChannelId = sChannelIds.split(",")[0];
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+        var aCombine = [];
+        aCombine.push(oHelper.Combine('wcm6_metadatadef','findViewByChannel',{channelId : fromChannelId}));
+        for(var index = 0; index < aChannelIds.length; index++){
+            aCombine.push(oHelper.Combine('wcm6_metadatadef','findViewByChannel',{channelId : aChannelIds[index]})); 
+        }
+        oHelper.MultiCall(aCombine, function(_transport,_json){
+                var metaView = $a(_json, "MULTIRESULT.MetaView");
+                var fromViewId = $v(metaView[0], "VIEWINFOID") || "";
+                var fromViewDesc = $v(metaView[0], "VIEWDESC") || "";
+
+                var aResultInfo = [];
+                for(var index = 0; index < aChannelIds.length; index++){
+                    var toViewId = $v(metaView[index+1], "VIEWINFOID") || "";
+                    var toViewDesc = $v(metaView[index+1], "VIEWDESC") || "";
+                    if(fromViewId != toViewId){
+                        aResultInfo.push([
+                            "<br>栏目名称:",
+                            aChannelNames[index],
+                            "[" + aChannelIds[index] + "]",
+                            ",视图名称：",
+                            toViewDesc,
+                            "[" + toViewId + "]"
+                         ].join(""));
+                    }
+                }
+                if(aResultInfo.length > 0){
+                    $alert("源栏目[" + fromViewDesc + ":" + fromViewId + "]和目标栏目"+aResultInfo+"使用的视图不一致,无法进行复制");
+                }else if(fCallBack){
+                    fCallBack();
+                }
+            },
+            function(_transport,_json){
+                $render500Err(_transport,_json);
+                FloatPanel.close(true);
+            }
+        );        
+    }
+
+	function changeViewer(_i){
+		switch(parseInt(_i)){
+			case 1:
+				Element.show($('customize_channels'));
+				Element.hide($('all_channels_tree'));
+				break;
+			case 2:
+				Element.hide($('customize_channels'));
+				Element.show($('all_channels_tree'));
+				break;
+		}
+	}
+</SCRIPT>
+<style type="text/css">
+	.iframe_container{
+		width:380px;
+		height:300px;
+		padding:10px;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<DIV style="line-height:36px; height:36px;text-align:center;font-size:14px;color:#010101;border-bottom:1px solid gray;">
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" value="1">个人定制的栏目
+	</SPAN>
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" checked value="2">所有可用的栏目
+	</SPAN>
+</DIV>
+<DIV id="all_channels_tree" class="iframe_container">
+	<DIV style="height:100%;">
+		<iframe id="allTreeNav" src="../include/blank.html" style="width:100%;height:100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<DIV id="customize_channels" class="iframe_container" style="display:none">
+	<DIV style="height:100%;">
+		<iframe id="customizeTreeNav" src="about:blank" style="width:100%;height:100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<script language="javascript">
+<!--
+	var sURL = "?IsRadio=0&MultiSites=1&ExcludeSelf=0&ExcludeTop=1&ExcludeVirtual=1&RightIndex=31&ShowOneType=1";
+	//gfc 来自于不同栏目
+	if(sChannelIds != null && sChannelIds != ''){
+		var arChnlIds = sChannelIds.split(',');
+		if(arChnlIds.length == 1) {
+			sURL += "&CurrChannelId=" + arChnlIds[0];
+		}else if(arChnlIds.length > 1) {
+			sURL  += "&NotSelect=1&SelectedChannelIds="+sChannelIds; //TODO
+		}
+	}
+
+	var sExpandSiteId = getParameter("siteids");
+	if(sExpandSiteId != null && sExpandSiteId.length>0 && sExpandSiteId != "0"){
+		sURL += "&ExpandSiteId="+sExpandSiteId;
+	}
+
+	$('allTreeNav').src = "../nav_tree/nav_tree_select.jsp"+sURL;
+	$('customizeTreeNav').src = "../nav_tree/nav_tree_select_individual.jsp"+sURL;
+
+//-->
+</script>
+</BODY>
+</HTML>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="sys_etl_dbsource" class-name="com.gwssi.dw.runmgr.etl.dao.SysEtlDbsource" check-flag="false" backup-flag="false">
+    <description>数据来源管理</description>
+  </table-info>
+
+  <column name="sys_etl_dbsource_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="ID"/>
+  <column name="dbsource_name" data-type="varchar" length="32" not-null="false" value-from="input" description="数据来源名称"/>
+  <column name="dbsource_lb" data-type="char" length="1" not-null="false" value-from="input" description="数据来源类别"/>
+  <column name="db_name" data-type="varchar" length="32" not-null="false" value-from="input" description="数据库名称"/>
+  <column name="db_ms" data-type="varchar" length="100" not-null="false" value-from="input" description="数据库描述"/>
+  <column name="db_user" data-type="varchar" length="32" not-null="false" value-from="input" description="数据库用户"/>
+  <column name="db_password" data-type="varchar" length="32" not-null="false" value-from="input" description="数据库密码"/>
+  <column name="db_constr" data-type="varchar" length="32" not-null="false" value-from="input" description="数据库连接串"/>
+  <column name="db_lb" data-type="varchar" length="32" not-null="false" empty-is-null="false" unique="false" value-from="input"/>
+  <primary-key name="dbsource_pk" column-list="sys_etl_dbsource_id"/>
+  <index name="dbsource_pk" index-type="unique" cluster="other" column-list="sys_etl_dbsource_id"/>
+  <function func-name="select sys_etl_dbsource list" func-type="rowset" column-list="db_lb,dbsource_name,dbsource_lb,db_name,db_ms,db_user,db_password,db_constr,sys_etl_dbsource_id" max-record="10">
+    <filter-column column-name="dbsource_lb" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="db_name" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="select one sys_etl_dbsource" func-type="select" column-list="sys_etl_dbsource_id,dbsource_name,dbsource_lb,db_name,db_ms,db_user,db_password,db_constr,db_lb">
+    <filter-column column-name="sys_etl_dbsource_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="delete one sys_etl_dbsource" func-type="delete">
+    <filter-column column-name="sys_etl_dbsource_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_etl_dbsource" func-type="update" column-list="dbsource_name,dbsource_lb,db_name,db_ms,db_user,db_password,db_constr,db_lb">
+    <filter-column column-name="sys_etl_dbsource_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="insert one sys_etl_dbsource" func-type="insert" column-list="sys_etl_dbsource_id,dbsource_name,dbsource_lb,db_name,db_ms,db_user,db_password,db_constr,db_lb">
+    <description>插入记录</description>
+  </function>
+</table>
+

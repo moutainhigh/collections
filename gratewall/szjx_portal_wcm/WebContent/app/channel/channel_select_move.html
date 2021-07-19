@@ -1,0 +1,171 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="channel_select_move.html.title">move some channels</title>
+<link href="../js/resource/widget.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	.selection_row{
+		line-height:25px;
+		height:25px;
+		text-align:center;
+		font-size:12px;
+		color:#010101;
+	}
+	/*修正ie9、10下多出的滚动条*/
+	html,body{
+		margin: 0;
+		padding: 0;
+		width:100%;
+		overflow:hidden;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<div style="font-size: 12px; width: 100%; hegith: 100%; height: 25px; line-height: 25px; font-weight: normal; font-size: 14px;">
+	<div style="width: 100%; height: 100%; background-image: url(../images/channel_thumbs_index/button-bg.png); padding-left: 5px; border-bottom: 1px solid silver;" WCMAnt:param="channel_select_move.html.select">
+		选择站点或栏目
+	</div>
+</div>
+<div id="divOptions" style="border-bottom:1px solid #efefef; padding-top: 3px; padding-bottom: 3px;">
+	<span class="selection_row"><input id="rdSiteChnl" type="radio" name="Position" value=""  onclick="enableTreeNav(false)">&nbsp;<span WCMAnt:param="channel_select_move.html.movetosite">移动到当前站点</span></span>
+	<span class="selection_row"><input id="rdChnlChild" type="radio" name="Position" value="" checked onclick="enableTreeNav()">&nbsp;<span WCMAnt:param="channel_select_move.html.movetochannel">移动到栏目</span></span>
+</div>
+<div id="divTreeNav" style="height: 300px; width: 290px;">
+	<iframe id="frmTreeNav" src="about:blank" width="290px" height="300px" frameborder="0" scrolling="no" allowtransparency="true">
+	</iframe>
+</div>
+<div id="divMask" style="position: absolute; z-index: 999; -moz-opacity:0.7; filter:alpha(opacity=70); background: whitesmoke; display: none">&nbsp;</div>
+<script src="../js/easyversion/lightbase.js"></script>
+<script src="../js/easyversion/extrender.js"></script>
+<script src="../js/easyversion/elementmore.js"></script>
+<script src="../js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/data/locale/channel.js"></script>
+<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<script src="../js/easyversion/ajax.js"></script>
+<script src="../js/easyversion/basicdatahelper.js"></script>
+<script src="../js/easyversion/web2frameadapter.js"></script>
+<SCRIPT src="../js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+
+<script language="javascript">
+window.m_fpCfg = {
+	m_arrCommands : [{
+		cmd : 'getSeletedIds',
+		name : wcm.LANG.CHANNEL_TRUE||'确定'
+	}],
+	size : [320, 370]
+};
+</script>
+<script>
+	var PageContext = {};
+	Object.extend(PageContext, {
+		folderId: getParameter('folderId'),
+		folderType: parseInt(getParameter('folderType')),
+		srcId: getParameter('srcId')
+	});
+
+	if(PageContext.folderType != 103) {
+		// 向服务器发送请求获取信息
+		var nObjectId = 0;
+		var sChannelids = PageContext.srcId;
+		if(sChannelids != null && sChannelids != ''){
+			var arChnlIds = sChannelids.split(',');
+			if(arChnlIds.length > 0) {
+				nObjectId = arChnlIds[0];
+			}
+		}
+
+		Event.observe(window, 'load', function(){
+			BasicDataHelper.Call('wcm6_channel', 'findbyid', {objectid: nObjectId}, false, function(_trans, _json){
+				var nPid = parseInt($v(_json, 'Channel.Parent.Id'));
+				if(nPid > 0) {
+					PageContext.folderType = 101;
+				}else{
+					PageContext.folderType = 103;
+					$('rdSiteChnl').disabled = true;
+				}
+				PageContext.siteId = parseInt($v(_json, 'Channel.Site.Id'));
+				setTreeStat();
+			});
+			
+		});
+	}else{
+		Event.observe(window, 'load', function(){
+			PageContext.siteId = PageContext.folderId;
+			$('rdSiteChnl').disabled = true;
+			setTreeStat();
+		});
+	}
+
+	function getSeletedIds(){
+		var sSelIds = $('frmTreeNav').contentWindow.getCheckValues();
+		var bChnlChild = $('rdChnlChild').checked;
+		if(bChnlChild && sSelIds == '') {
+			Ext.Msg.$alert(wcm.LANG.CHANNEL_ALERT_1||'请选择栏目移动的目标站点/栏目!');
+			return false;
+		}
+		//else
+		//需要返回type信息：栏目还是站点
+		var postData = {srcId: PageContext.srcId};
+		if(bChnlChild) {
+			Object.extend(postData, {
+				dstId: sSelIds,
+				dstType: 101
+			});
+		}else{
+			Object.extend(postData, {
+				dstId: PageContext.siteId, 
+				dstType: 103
+			});
+		}
+		notifyFPCallback(postData);
+	}
+
+	var m_bFirstShowMask = true;
+	function enableTreeNav(_bFlag){
+		if(_bFlag === false) {
+			if(m_bFirstShowMask) {
+				Position.clone($('divTreeNav'), $('divMask'));
+				m_bFirstShowMask = false;
+			}
+			Element.show('divMask');
+		}else{
+			Element.hide('divMask');
+		}
+	}
+	function setTreeStat(){
+		return;
+		try{
+			if(PageContext.siteId) {
+				$('frmTreeNav').contentWindow.expandTree(PageContext.siteId);
+			}
+			
+		}catch(err){
+		}
+	}
+</SCRIPT>
+<script language="javascript">
+<!--
+	var sChannelids = PageContext.srcId;
+	var sURL = WCMConstants.WCM6_PATH +"nav_tree/nav_tree_select.jsp?&IsRadio=1&MultiSites=0&ExcludeParent=1&ExcludeSelf=1&ExcludeTop=1&ExcludeChildren=1&ExcludeLink=1&RightIndex=11&ShowOneType=1"; // right: 移动栏目
+	if(sChannelids != null && sChannelids != ''){
+		var arChnlIds = sChannelids.split(',');
+		if(arChnlIds.length >= 1) {
+			sURL += "&CurrChannelId=" + arChnlIds[0];
+			if(arChnlIds.length != 1) {
+				sURL += "&ExcludeChannelIds=" + sChannelids;
+				sURL += "&ExcludeParentIds=" + sChannelids;
+			}
+		}
+	}
+	$('frmTreeNav').src = sURL;
+
+//-->
+</script>
+</BODY>
+</HTML>

@@ -1,0 +1,46 @@
+<!--
+/*!
+ * File:Flowemployee.html,栏目[工件流]标签:当前栏目使用的流程显示
+ *
+ *	History			Who			What
+ *	2007-03-29		wenyh		created.
+ *
+ */
+-->
+
+<textarea id="template_flowemployee" select="Flow">
+	<input type="hidden" name="" id="hdOwnerId" value="{#Owner.Id}">
+	<input type="hidden" name="" id="hdOwnerType" value="{#OwnerType}">
+	<div class="attribute_row" style="margin-top: 3px;">
+		<div class="attribute_row_title_readonly" title="{#FLOWNAME, }">
+			{#FLOWNAME}
+		</div>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row wcm_desc_info_row">
+		<span title="工作流编号:{#FLOWID}&#13;创建者:{#CrUser}&#13;创建时间:{#CrTime} " style="white-space:nowrap;overflow:hidden;">
+			<span style="">用户</span><span class="desc_info_value">{#CrUser}</span><span>创建于</span><span class="desc_info_value">{#CrTime,,getPrettyTime}</span>
+		</span>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<span class="attribute_name">所属位置:</span>
+	</div>
+	<div class="attribute_row wcm_desc_info_row" style="font-size: 12px; text-align: center; color: #010101" title="{#Owner.Name, }">
+			{#Owner.Name}
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row" style="margin-bottom: 5px;">
+		<span class="attribute_name">描述:</span>
+	</div>		
+	<div class="attribute_row wcm_desc_info_row" style="font-size: 12px; text-align: center; color: #010101" title="{#FLOWDESC, }">
+			{#FLOWDESC}
+	</div>
+</textarea>
+
+<textarea id="template_flowemployees">
+<div class="attribute_row">
+	当前栏目没有设置工作流.
+</div>
+</textarea>
+

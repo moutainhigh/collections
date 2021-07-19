@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>采集参数值表</menu-name>
+  <menu-path>/collect/webservice/param/</menu-path>
+  <description>采集参数值表</description>
+  <form-beans>
+    <form-bean name="CollectWsParamValueRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="record" name="ws_param_value_id" type="string" size="32" cannull="false" description="参数值ID"/>
+      <form-property prefix="record" name="webservice_patameter_id" type="string" size="32" cannull="true" description="参数ID"/>
+      <form-property prefix="record" name="param_value_type" type="string" size="20" cannull="true" description="参数类型"/>
+      <form-property prefix="record" name="patameter_name" type="string" size="20" cannull="true" description="参数名"/>
+      <form-property prefix="record" name="patameter_value" type="string" size="200" cannull="true" description="参数值"/>
+      <form-property prefix="record" name="style" type="string" size="20" cannull="true" description="格式"/>
+      <form-property prefix="record" name="connector" type="string" size="20" cannull="true" description="拼接符"/>
+      <form-property prefix="record" name="dateformat" type="string" size="2" cannull="true" description="日期格式"/>
+      <form-property prefix="record" name="showorder" type="string" size="2" cannull="true" description="参数顺序"/>
+    </form-bean>
+
+    <form-bean name="CollectWsParamValueUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="ws_param_value_id" type="string" size="32" cannull="false" description="参数值ID"/>
+      <form-property prefix="primary-key" name="webservice_patameter_id" type="string" size="32" cannull="true" description="参数ID"/>
+      <form-property prefix="primary-key" name="param_value_type" type="string" size="20" cannull="true" description="参数类型"/>
+      <form-property prefix="primary-key" name="patameter_name" type="string" size="20" cannull="true" description="参数名"/>
+      <form-property prefix="primary-key" name="patameter_value" type="string" size="200" cannull="true" description="参数值"/>
+      <form-property prefix="primary-key" name="style" type="string" size="20" cannull="true" description="格式"/>
+      <form-property prefix="primary-key" name="connector" type="string" size="20" cannull="true" description="拼接符"/>
+      <form-property prefix="record" name="ws_param_value_id" type="string" size="32" cannull="false" description="参数值ID"/>
+      <form-property prefix="record" name="webservice_patameter_id" type="string" size="32" cannull="true" description="参数ID"/>
+      <form-property prefix="record" name="param_value_type" type="string" size="20" cannull="true" description="参数类型"/>
+      <form-property prefix="record" name="patameter_name" type="string" size="20" cannull="true" description="参数名"/>
+      <form-property prefix="record" name="patameter_value" type="string" size="50" cannull="true" description="参数值"/>
+      <form-property prefix="record" name="style" type="string" size="20" cannull="true" description="格式"/>
+      <form-property prefix="record" name="connector" type="string" size="20" cannull="true" description="拼接符"/>
+      <form-property prefix="record" name="showorder" type="string" size="2" cannull="true" description="参数顺序"/>
+    </form-bean>
+
+    <form-bean name="CollectWsParamValueDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="ws_param_value_id" type="string" size="32" cannull="false" description="参数值ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-collect_ws_param_value.jsp" name="CollectWsParamValueRowsetForm" txn-code="30107001" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询采集参数值列表</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.param.txn.TxnCollectWsParamValue" func-name="txn30107001" input-node="select-key" output-node="record" description="查询采集参数值列表"/>
+      <forward error-code="success" path="query-collect_ws_param_value.jsp"/>
+      <forward error-code="failure" path="query-collect_ws_param_value.jsp"/>
+    </action>
+
+    <action input="update-collect_ws_param_value.jsp" name="CollectWsParamValueUpdateForm" txn-code="30107002" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改采集参数值信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.param.txn.TxnCollectWsParamValue" func-name="txn30107002" input-node="record" description="修改采集参数值信息"/>
+      <forward error-code="success" path="update-collect_ws_param_value.jsp"/>
+      <forward error-code="failure" path="update-collect_ws_param_value.jsp"/>
+    </action>
+
+    <action input="insert-collect_ws_param_value.jsp" name="CollectWsParamValueUpdateForm" txn-code="30107003" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加采集参数值信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.param.txn.TxnCollectWsParamValue" func-name="txn30107003" input-node="record" description="增加采集参数值信息"/>
+      <forward error-code="success" path="insert-collect_ws_param_value.jsp"/>
+      <forward error-code="failure" path="insert-collect_ws_param_value.jsp"/>
+    </action>
+
+    <action input="query-collect_ws_param_value.jsp" name="CollectWsParamValueUpdateForm" txn-code="30107004" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询采集参数值用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.param.txn.TxnCollectWsParamValue" func-name="txn30107004" input-node="primary-key" output-node="record" description="查询采集参数值用于修改"/>
+      <forward error-code="success" path="update-collect_ws_param_value.jsp"/>
+      <forward error-code="failure" path="update-collect_ws_param_value.jsp"/>
+    </action>
+
+    <action input="query-collect_ws_param_value.jsp" name="CollectWsParamValueDeleteForm" txn-code="30107005" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除采集参数值信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.param.txn.TxnCollectWsParamValue" func-name="txn30107005" input-node="primary-key" description="删除采集参数值信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-collect_ws_param_value.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/collect/webservice/param/query-collect_ws_param_value.jsp" description="查询采集参数值列表"/>
+    <resource-file type="jsp" file-name="/collect/webservice/param/insert-collect_ws_param_value.jsp" description="增加采集参数值信息"/>
+    <resource-file type="jsp" file-name="/collect/webservice/param/update-collect_ws_param_value.jsp" description="修改采集参数值信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.param.vo.CollectWsParamValueContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.param.vo.VoCollectWsParamValue" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.param.vo.VoCollectWsParamValueSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.param.vo.VoCollectWsParamValuePrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

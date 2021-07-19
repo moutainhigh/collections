@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.metadata.service.MetaDataDefServiceProvider">	
+	<method name="queryDBFieldInfos">		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="queryAnotherName" desc="元数据别名" type="string" required="false"
+			search="true" search-operator="like" search-field="AnotherName"/>
+		<parameter name="queryName" desc="元数据名称" type="string" required="false"
+			search="true" search-operator="like" search-field="FieldName"/>			
+		<parameter name="fieldInfoId" desc="id" type="string" required="false"
+			search="true" search-operator="like" search-field="dbfieldInfoId"/>			
+		<parameter name="ClassId" desc="查询创建者" type="int" required="false"
+			search="true" search-operator="=" search-field="ClassId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>				
+		<!-- 检索相关配置 END -->
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="CrTime Asc" required="false"/>	
+	</method>
+	<method name="jQueryDBFieldInfos" truename="queryDBFieldInfos"  convertor="uri:/WCMV6/metadata/fieldinfo_query.jsp"/>	
+
+	<method name="queryDBTableInfos">		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="queryTableAnotherName" desc="元数据别名" type="string" required="false"
+			search="true" search-operator="like" search-field="AnotherName"/>
+		<parameter name="queryTableName" desc="元数据名称" type="string" required="false"
+			search="true" search-operator="like" search-field="TableName"/>			
+		<parameter name="queryTableDesc" desc="元数据描述" type="string" required="false"
+			search="true" search-operator="like" search-field="TableDesc"/>			
+		<parameter name="queryTableId" desc="元数据ID" type="int" required="false"
+			search="true" search-operator="=" search-field="TableInfoId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>				
+		<!-- 检索相关配置 END -->
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="CrTime Desc" required="false"/>	
+	</method>	
+	<method name="jQueryDBTableInfos" truename="queryDBTableInfos"  convertor="uri:/WCMV6/metadata/tableinfo_query.jsp"/>
+
+	<method name="queryViews">		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="queryViewName" desc="元数据名称" type="string" required="false"
+			search="true" search-operator="like" search-field="ViewName"/>			
+		<parameter name="queryViewDesc" desc="元数据描述" type="string" required="false"
+			search="true" search-operator="like" search-field="ViewDesc"/>			
+		<parameter name="queryViewId" desc="元数据ID" type="int" required="false"
+			search="true" search-operator="=" search-field="ViewInfoId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>				
+		<!-- 检索相关配置 END -->
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="ViewInfoId Desc" required="false"/>	
+	</method>	
+	<method name="jQueryViews" truename="queryViews"  convertor="uri:/WCMV6/metadata/viewinfo_query.jsp"/>
+
+	<method name="queryViewFieldInfos">		
+		<parameter name="ViewId" desc="视图ID" type="int" required="false"/>
+		<parameter name="ChannelId" desc="栏目Id" type="int" required="false"/>
+
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="queryAnotherName" desc="视图字段别名" type="string" required="false"
+			search="true" search-operator="like" search-field="AnotherName"/>
+		<parameter name="queryFieldName" desc="视图字段名称" type="string" required="false"
+			search="true" search-operator="like" search-field="FieldName"/>			
+		<parameter name="viewFieldInfoId" desc="视图字段ID" type="int" required="false"
+			search="true" search-operator="=" search-field="ViewFieldInfoId"/>
+		<parameter name="ClassId" desc="查询创建者" type="int" required="false"
+			search="true" search-operator="=" search-field="ClassId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>				
+		<!-- 检索相关配置 END -->
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="FieldOrder desc" required="false"/>				
+	</method>
+	<method name="jQueryViewFieldInfos" truename="queryViewFieldInfos"  convertor="uri:/WCMV6/metadata/viewfieldinfo_query.jsp"/>
+
+	<method name="saveDBTableInfo">		
+		<parameter name="ObjectId" desc="元数据表ID" type="int" required="true"/>
+		
+		<parameter name="TableName" desc="物理表名"
+			 type="string" required="false" max-length="50"/>		
+
+		<parameter name="AnotherName" desc="别名"
+			 type="string" required="false" max-length="100"/>		
+			 
+		<parameter name="TableDesc" desc="描述"
+			 type="string" required="false" max-length="200"/>				
+			 
+	</method>
+
+	<method name="deleteDBTableInfo">		
+		<parameter name="ObjectIds" desc="待删除元数据表ID序列" type="string" required="true"/>
+	</method>
+
+	<method name="deleteDBFieldInfo">		
+		<parameter name="ObjectIds" desc="待删除元数据字段ID序列" type="string" required="true"/>
+	</method>	
+
+	<method name="deleteView">		
+		<parameter name="ObjectIds" desc="待删除视图ID序列" type="string" required="true"/>
+	</method>
+
+	<method name="deleteViewField">		
+		<parameter name="ObjectIds" desc="待删除视图字段ID序列" type="string" required="true"/>
+	</method>
+
+	
+	
+	<method name="saveDBFieldInfo">		
+		<parameter name="ObjectId" desc="元数据字段ID" type="int" required="true"/>		
+		<parameter name="TableInfoId" desc="元数据表ID" type="int" required="false"/>
+
+		<parameter name="FieldName" desc="物理字段名"
+			 type="string" required="false" max-length="50"/>		
+		
+		<parameter name="AnotherName" desc="别名"
+			 type="string" required="false" max-length="100"/>					 
+		
+		<parameter name="FieldType" desc="字段逻辑类型"
+			 type="int" required="fasle"/>				
+
+		<parameter name="DBType" desc="物理字段类型"
+			 type="int" required="fasle"/>				
+
+		<parameter name="DBLength" desc="物理字段长度"
+			 type="int" required="fasle"/>				
+
+		<parameter name="DBScale" desc="小数位"
+			 type="int" required="fasle"/>
+
+		<parameter name="NotNull" desc="是否允许空"
+			 type="boolean" required="fasle"/>				
+			 
+		<parameter name="DefaultValue" desc="默认值"
+			 type="string" required="false" max-length="200"/>	
+			 
+		<parameter name="EnumValue" desc="默认值"
+			 type="string" required="false" max-length="200"/>		
+
+		<parameter name="ClassId" desc="所属分类法"
+			 type="int" required="fasle"/>				
+			 
+	</method>
+
+	<method name="saveView">		
+		<parameter name="ObjectId" desc="视图ID" type="int" required="true"/>		
+
+		<parameter name="MainTableId" desc="主表ID" type="int" required="false"/>
+
+		<parameter name="OtherTableIds" desc="附表ID序列"
+			 type="string" required="false"/>		
+
+		<parameter name="ViewDesc" desc="视图中文名称"
+			 type="string" required="false"/>		
+		
+		<parameter name="TableName" desc="视图相关的物理表名"
+			 type="string" required="false"/>		
+			 
+	</method>
+
+	<method name="saveViewField">		
+		<parameter name="ObjectId" desc="视图字段ID" type="int" required="true"/>		
+
+		<parameter name="ViewId" desc="所属视图ID" type="int" required="false" min-value="1"/>
+
+		<parameter name="AnotherName" desc="中文名称"
+			 type="string" required="false" max-length="100"/>					 
+		<parameter name="FieldName" desc="英文名称"
+			 type="string" required="false" max-length="50"/>		
+
+		<!--逻辑属性 BEGIN-->
+		<parameter name="InOutline" desc="是否显示在概览上"
+			 type="boolean" required="false"/>		
+		<parameter name="InDetail" desc="是否显示在细览上"
+			 type="boolean" required="false"/>
+		<parameter name="InDetail" desc="检索字段"
+			 type="boolean" required="false"/>	 
+		<parameter name="TitleField" desc="标题字段"
+			 type="boolean" required="false"/>		
+		<!--逻辑属性 END-->
+		
+		<!--物理字段属性 BEGIN-->		
+		<parameter name="FieldType" desc="字段逻辑类型"
+			 type="int" required="fasle"/>				
+
+		<parameter name="DBType" desc="物理字段类型"
+			 type="int" required="fasle"/>				
+
+		<parameter name="DBLength" desc="物理字段长度"
+			 type="int" required="fasle"/>				
+
+		<parameter name="DBScale" desc="小数位"
+			 type="int" required="fasle"/>
+
+		<parameter name="NotNull" desc="是否允许空"
+			 type="boolean" required="fasle"/>				
+			 
+		<parameter name="DefaultValue" desc="默认值"
+			 type="string" required="false" max-length="200"/>	
+			 
+		<parameter name="EnumValue" desc="默认值"
+			 type="string" required="false" max-length="200"/>		
+
+		<parameter name="ClassId" desc="所属分类法"
+			 type="int" required="fasle"/>				
+		<!--物理字段属性 END-->
+			 
+	</method>
+	
+
+	<method name="findDBTableInfoById">		
+		<parameter name="ObjectId" desc="元数据结构ID" type="int" required="true"/>		
+	</method>
+
+	<method name="findDBTableInfosByIds">		
+		<parameter name="ObjectIds" desc="元数据结构ID序列" type="string" required="true"/>
+	</method>
+	
+	<method name="findViewById">		
+		<parameter name="ObjectId" desc="视图ID序列" type="string" required="true"/>
+	</method>
+
+	<method name="findViewFieldById">		
+		<parameter name="ObjectId" desc="视图字段ID序列" type="string" required="true"/>
+	</method>
+
+	<method name="findDBFieldInfoById">		
+		<parameter name="ObjectId" desc="元数据字段ID" type="int" required="true"/>		
+	</method>
+
+	<method name="importViewFromXML">		
+		<parameter name="ViewId" desc="视图ID" type="int" required="false"/>		
+
+		<parameter name="DataXML" desc="需要导入的数据" type="string" required="true"/>
+	</method>
+
+	<method name="changeViewFieldOrder">		
+		<parameter name="FromId" desc="待移动的视图字段ID" type="int" required="true"/>		
+		<parameter name="ToId" desc="目标视图字段ID" type="int" required="true"/>		
+		<parameter name="Position" desc="移动的位置" type="int" required="false"/>			
+	</method>
+
+	<method name="changeViewFieldGroupOrder">		
+		<parameter name="MetaViewFieldGroupId" desc="待移动的视图字段分组ID" type="int" required="true"/>		
+		<parameter name="GroupOrder" desc="目标序号" type="int" required="true"/>				
+	</method>
+	<method name="setViewFields" desc="维护视图选择的字段：目前仅仅适合单表模式">		
+		<parameter name="ViewId" desc="视图ID" type="int" required="true"/>		
+
+		<parameter name="DBFieldIds" desc="选中的物理字段ID序列" type="string" required="true"/>
+	</method>
+	
+	<method name="setViewFieldsInfo" desc="设置视图字段的属性">		
+		<parameter name="objectIds" desc="选中的物理字段ID序列" type="string" required="true"/>
+		<parameter name="propertyName" desc="属性名" type="string" required="true"/>		
+		<parameter name="propertyValue" desc="属性值" type="string" required="true"/>
+	</method>
+	
+	<method name="getViewFromChannel" desc="由栏目ID得到视图ID">		
+		<parameter name="channelId" desc="视图ID" type="int" required="true"/>		
+	</method>
+
+	<method name="setViewEmployerByChannel" desc="给指定栏目分配视图">		
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="true"/>		
+		<parameter name="ViewId" desc="视图ID" type="int" required="true"/>
+	</method>	
+
+	<method name="findViewByChannel" desc="获取指定栏目的视图">		
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="true"/>		
+	</method>	
+
+	<method name="createViewRelation" desc="产生视图的应用">		
+		<parameter name="ViewIds" desc="视图ID序列" type="string" required="false"/>
+	</method>	
+
+	<method name="queryViewsUsintTable" desc="获取正在使用指定表的视图列表">		
+		<parameter name="TableInfoId" desc="表ID" type="int" required="true"/>		
+		<parameter name="PageSize" desc="分页参数" type="int" required="false" default="-1"/>
+	</method>	
+
+	<method name="saveSynRule" desc="保存文档的同步规则">		
+		<parameter name="channelId" desc="栏目ID" type="string" required="false"/>
+		<parameter name="ViewId" desc="视图ID" type="int" required="false"/>
+		<parameter name="docTitle" desc="文档标题规则" type="string" required="false"/>
+		<parameter name="docContent" desc="文档内容规则" type="string" required="false"/>
+	</method>	
+	<method name="findSynRule" desc="查询文档的同步规则">		
+		<parameter name="ViewId" desc="视图ID" type="int" required="false"/>
+		<parameter name="channelId" desc="栏目ID" type="string" required="false"/>
+		<parameter name="synRuleSetFrom" desc="设置同步规则" type="string" required="false"/>
+	</method>	
+	
+
+	<method name="recreateAllOfDBTableInfo" desc="重新产生指定表的相关信息">		
+		<parameter name="ObjectIds" desc="待修改的元数据表ID序列" type="string" required="true"/>
+	</method>
+
+	<method name="queryViewsUsingClassInfo" desc="获取使用了分类法的视图">
+		<parameter name="ClassInfoId" desc="分类法id" type="int"
+			required="false" />
+	</method>
+
+	<method name="queryClassInfosUsingMetaView" desc="获取使用了视图的分类法">
+		<parameter name="ViewId" desc="视图ID" type="int"
+			required="false" />
+	</method>
+
+	<method name="buildAllFromTextFile" desc="按照分类法描述产生整个系统">
+		<parameter name="ViewId" desc="视图ID" type="int" required="true"/>
+		<parameter name="FileName" desc="待处理的文件名" type="string" required="true"/>
+		<parameter name="level" desc="展现到几级" type="int" required="true"/>
+
+		<!--几个设定了默认值的参数-->
+		<parameter name="ClassInfoName" desc="处理的分类法名称" type="string" required="false" default="机构分类"/>
+		<parameter name="AutoCreateGroup" desc="是否同步产生组织结构" type="boolean" required="false" default="true"/>
+		<parameter name="AutoCreateChannel" desc="是否同步产生展现结构" type="boolean" required="false" default="true"/>
+		<parameter name="ContainCode" desc="描述文件中是否包含分类代码" type="boolean" required="false" default="fakse"/>
+	</method>	
+	
+	<method name="exportViews" desc="导出指定的视图">
+		<parameter name="ViewIds" desc="视图ID序列" type="string" required="false"/>
+	</method>
+	
+	<method name="importViewsFromXML" desc="从指定的XML文件导入视图">
+		<parameter name="ImportFile" desc="需要导入的视图文件" type="string" required="true"/>
+	</method>
+	
+
+</service>

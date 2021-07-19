@@ -1,0 +1,52 @@
+<textarea id="template_document" select="Document">
+	<div class="attribute_row">
+		<TRS_UI:editPanel value="{#DocTitle}" class="attr_detail_value_doctitle" inputClass="attr_detail_value_doctitle" _fieldName="doctitle" rightindex="32">
+		</TRS_UI:editPanel>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row" style="padding-left:5px;font-size:12px;width:95%;">
+		<span title="文档ID:{#DocId},创建者:{#CRUSER},创建时间:{#CRTIME}" style="white-space:nowrap;overflow:hidden;"><span style="font-size:10px;">用户</span><span style="color:red;font-weight:bold">{#CRUSER}</span><span style="font-size:10px;">创建于</span><span style="color:red;font-weight:bold;font-size:10px;">{#CRTIME}</span>
+		</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">所属栏目:</span>
+		<span class="attribute_value">{#DocChannel.Name}</span>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<span class="attribute_name">状态:</span>
+		<span class="attribute_value"><TRS_UI:FilterSelect value="{#DocStatus.ID}" _fieldName="docstatus" options="PageContext.getAllDocStatus()" type="2" label="{#DocStatus.Name}" ajaxFunction="PageContext.getQueryDocStatusFunction('{#DocId}','{#DocChannel.ID}');">
+		</TRS_UI:FilterSelect></span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">首页标题:</span>
+		<span class="attribute_value"><TRS_UI:editPanel value="{#DOCPEOPLE}" class="docpeople" inputClass="docpeople" _fieldName="DOCPEOPLE" rightindex="32" _ignoreRowUpdate="1">
+		</TRS_UI:editPanel></span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">副标题:</span>
+		<span class="attribute_value"><TRS_UI:editPanel value="{#SubDocTitle}" class="attr_detail_value_docsectitle" inputClass="attr_detail_value_docsectitle" _fieldName="SubDocTitle" rightindex="32" _ignoreRowUpdate="1">
+		</TRS_UI:editPanel></span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">关键词:</span>
+		<span class="attribute_value"><TRS_UI:editPanel value="{#DOCKEYWORDS}" class="attr_detail_value_dockeys" inputClass="attr_detail_value_dockeys" _fieldName="DOCKEYWORDS" rightindex="32" _ignoreRowUpdate="1">
+		</TRS_UI:editPanel></span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">来源:</span>
+		<span class="attribute_value"><TRS_UI:select value="{#DOCSOURCE.ID}" class="ui_select_docstatus" optionsClass="ui_select_options_docsource" _fieldName="docsource" options="PageContext.getAllDocSource()" label="{#DOCSOURCE.Name}" type="2" rightindex="46" _ignoreRowUpdate="1">
+		</TRS_UI:select></span>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<a href="{#DocPubUrl}" target="_blank" class="docpuburl" title='{#DocPubUrl}'>{#DocPubUrl}</a>
+	</div>
+	<div class="attribute_row_sep"></div>
+ </textarea>
+
+ <textarea id="template_documents">
+	<div class="attribute_row">
+		当前共选中<span class="objects_num">{#Num}</span>篇文档.
+	</div>
+ </textarea>

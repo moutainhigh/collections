@@ -1,0 +1,15 @@
+<chart caption='共享服务分布情况统计' bgColor='#F2F2F2' palette='2' animation='1' formatNumberScale='0'  showPercentageInLabel='0' showValues='1' showLegend='1'  pieSliceDepth='30' baseFontSize='12'
+	startingAngle='125' unescapeLinks='0'>
+	<#list list as t><set label='${t.typename}' value='${t.sernum}' isSliced='0' link='JavaScript:toDetail(\"${t.typeid}\",\"${t.typename}\");'/>
+	</#list>
+	<styles>
+		<definition>
+			<style type='font' name='CaptionFont' size='15' color='666666' />
+			<style type='font' name='SubCaptionFont' bold='0' />
+		</definition>
+		<application>
+			<apply toObject='caption' styles='CaptionFont' />
+			<apply toObject='SubCaption' styles='SubCaptionFont' />
+		</application>
+	</styles>
+</chart>

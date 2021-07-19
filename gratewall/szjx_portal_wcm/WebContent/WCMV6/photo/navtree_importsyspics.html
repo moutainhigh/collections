@@ -1,0 +1,576 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>资源树</title>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/nav_tree.css" rel="stylesheet" type="text/css" />
+<style>
+	body{
+		height:100%;
+		width:100%;
+		padding:0;
+		background:transparent;
+		margin:0;
+	}
+	.wcm_fixed_layout{
+		table-layout:fixed;
+		width:100%;
+		height:100%;
+	}
+	.nav_top_tr{
+		height:43px;
+	}
+	.nav_body_tr{
+	}
+	.nav_top_td{
+		background-image: url(../images/nav_tree/top_bg_e.png);
+		background-repeat: no-repeat;
+		float: left;
+		height: 43px;
+		width: 196px;
+		padding:0px;
+		overflow: hidden;
+	}
+	.nav_tree {
+		float:left;
+		height:100%;
+		width:190px!important;/*FF,MOZ系列*/
+		width:192px;
+		overflow: hidden;
+		border:0;
+		padding:0px;
+		margin-top:-1px!important;/*FF,MOZ系列*/
+		margin-top:0px;
+		border:0px solid #686868;
+		background:#FFFFFF;
+	}
+	.nav_btns{
+		float:left;
+		width:90px!important;/*FF,MOZ系列*/
+		width:100px;
+		height:100%;
+		padding-left:10px;
+	}
+	.user_welcome{
+		float:right;
+		font-size: 12px;
+		font-weight: bold;
+		color: #40608f;
+		width:92px;
+		height: 15px;
+		overflow:hidden;
+		text-decoration: none;
+		text-align:center;
+	}
+	.user_btns{
+		float:right;
+		width:72px!important;/*FF,MOZ系列*/
+		width:92px;
+		height:28px;
+		padding-left:20px;
+	}
+	.nav_tree_toolbar_tr{
+		height:18px;
+	}
+	.nav_tree_toolbar{
+		float:left;
+		height:100%;
+		width:190px!important;/*FF,MOZ系列*/
+		width:192px;
+		overflow:hidden;
+		border:0;
+		padding:0px;
+		margin-top:0px;
+		border:1px solid #686868;
+		border-top:0;
+		border-bottom:0;
+		background:#FFFFFF;
+	}
+	.refresh_btn{
+		float: right;
+		background-image: url(../images/nav_tree/RefreshTree.gif);
+		background-repeat: no-repeat;
+		height: 15px;
+		width: 15px;
+		overflow:hidden;
+		margin:3px 0 0 5px;
+	}
+	.locate_btn{
+		float: right;
+		background-image: url(../images/nav_tree/Locate.gif);
+		background-repeat: no-repeat;
+		height: 15px;
+		width: 15px;
+		overflow:hidden;
+		margin:3px 0 0 5px;
+	}
+	.more_btn{
+		float: right;
+		background-image: url(../images/nav_tree/TreeMoreOper.png);
+		background-repeat: no-repeat;
+		height: 15px;
+		width: 15px;
+		overflow:hidden;
+		margin:3px 0 0 5px;
+	}
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	var m_bIsLocal = false;
+	var m_bDebug = false;
+	
+
+	if(!m_bIsLocal){
+		$import('com.trs.wcm.MessageCenter');
+	}
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">$import('com.trs.wcm.SheetChanger');</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">$import("com.trs.tree.TreeNav");</SCRIPT>
+<link href="../css/wcm_tree.css" rel="stylesheet" type="text/css" />
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+//覆写动态获取指定节点的子节点HTML方法
+com.trs.tree.TreeNav.makeGetChildrenHTMLAction = function(_elElementLi){
+	if(m_bIsLocal)
+		return getCurrentPath() + _elElementLi.id + ".html";
+	
+	var nPos = _elElementLi.id.indexOf("_");
+	if(nPos <= 0){
+		alert("不符合规则！");
+		return;
+	}
+
+	var sParentType	= _elElementLi.id.substring(0, nPos);
+	var sParentId		= _elElementLi.id.substring(nPos+1);
+	return "../nav_tree/tree_html_creator.jsp?ParentType=" + sParentType + "&ParentId=" + sParentId;
+}
+
+//覆写点击节点A元素触发的事件
+com.trs.tree.TreeNav.doActionOnClickA = function(_event, _elElementA){
+	var eCurrParent = _elElementA.parentNode;
+	var nPos = eCurrParent.id.indexOf("_");
+	if(nPos <= 0){
+		alert("Id["+eCurrParent.id+"]规则不一致");
+		return;
+	}
+
+	var rightValue = eCurrParent.RV || "0";
+	if(!isAccessable4WcmObject(rightValue,34)){
+		var iframe = parent.$('photo_list');
+		var elId = eCurrParent.id;
+		var nodePath = eCurrParent.title;//[];
+		/*while(elId.charAt(0) != 's'){
+			nodePath.push(eCurrParent.title);
+			elId = eCurrParent.parentNode.id;
+		}//*/		
+		
+		iframe.src = "photo_syspics_list_noright.html?NodePath="+nodePath;
+		return;
+	}
+
+	var sType = eCurrParent.id.substring(0, nPos);
+	var sObjectId = eCurrParent.id.substring(nPos+1);
+	var sSrc = './photo_syspics_list.html';	
+	switch(sType.toLowerCase()){
+		case 'r':		
+			break;
+		case 's':
+			var iframe = parent.$('photo_list');
+			if(!iframe.getAttribute("src",2).match(/photo_syspics_list\.html/)){
+				iframe.src = './photo_syspics_list.html?siteid='+sObjectId;				
+			}
+			else{
+				if(iframe.contentWindow&&iframe.contentWindow.PageContext
+					&&iframe.contentWindow.PageContext.refresh){								
+					iframe.contentWindow.PageContext.refresh('siteid='+sObjectId);
+					iframe.contentWindow.drawLiterator(sObjectId,0);
+				}				
+			}			
+			break;
+		case 'c':
+			var iframe = parent.$('photo_list');
+						if(!iframe.getAttribute("src",2).match(/photo_syspics_list\.html/)){
+				iframe.src = './photo_syspics_list.html?channelid='+sObjectId;			
+			}
+			else{
+				if(iframe.contentWindow&&iframe.contentWindow.PageContext
+					&&iframe.contentWindow.PageContext.refresh){								
+					iframe.contentWindow.PageContext.refresh('channelid='+sObjectId);
+					iframe.contentWindow.drawLiterator(0,sObjectId);
+				}					
+			}			
+			break;
+	}
+    //$SheetChanger.setTab(sType);
+	Event.stop(_event);
+	return false;
+}
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+/**
+  *获取
+ **/
+function findPath(_sNodeType, _nNodeId){
+	var sAction = "treenode_path_make.jsp?NodeType=" + _sNodeType + "&NodeId=" + _nNodeId;
+	if(m_bIsLocal){
+		sAction = getCurrentPath() + "path_" + _sNodeType + "_" + _nNodeId;
+	}
+	//prompt("findPath URL", sAction);
+	var localAjaxRequest = new Ajax.Request(
+                    sAction,
+                    {method: 'get', parameters: "", asynchronous: false}
+                    );
+	return localAjaxRequest.transport.responseText;
+}
+
+function makeURLofGetChildrenHTML(_sNodePath){
+	var sAction = "treenodes_children_html_make.jsp?NodeIds=" + _sNodePath;
+	if(m_bIsLocal){
+		sAction = getCurrentPath() + _sNodePath + ".html";
+	}
+	//prompt("makeURLofGetChildrenHTML URL", sAction);
+	return sAction;	
+}
+
+
+/** 
+ *	
+ * 刷新文字库的子站点列表
+ *
+ */
+function refreshSiteType(_nSiteType, _sPath){
+	refresh("r", _nSiteType, _sPath);
+}
+
+/** 
+ *	
+ * 刷新指定站点的一级子节点
+ *
+ */
+function refreshSite(_nSiteId, _sPath){
+	refresh("s", _nSiteId, _sPath);
+}
+
+
+/** 
+ *	
+ * 刷新指定栏目的一级子节点
+ *
+ */
+function refreshChannel(_nChannelId, _sPath){
+	refresh("c", _nChannelId, _sPath);
+}
+
+function getTypeByPathIndex(_nPathIndex){
+	switch(_nPathIndex){
+		case 0:
+			return "r";
+		case 1:
+			return "s";
+		default:
+			return "c";
+	}
+}
+
+/** 
+ *	
+ * 刷新指定节点的一级子节点
+ *
+ */
+function refresh(_sNodeType, _nNodeId, _sNodePath){
+	//判断指定的节点是否存在
+	var sNodeHTMLElementId = _sNodeType + "_" + _nNodeId;
+	var oNodeHTMLElement = $(sNodeHTMLElementId);
+
+	//=======================================
+	//====1.如果存在,直接刷新子节点===========
+	//=======================================
+	if( oNodeHTMLElement != null){
+		//执行刷新操作
+		com.trs.tree.TreeNav.reloadChildren(sNodeHTMLElementId);
+		return;
+	}
+
+	//=========================================================
+	//====2.如果不存在,需要获取数据，初始化再聚焦================
+	//=========================================================	
+	reloadChildrenAndFocus(_sNodeType, _nNodeId, true, _sNodePath);
+
+}
+
+function reloadChildrenAndFocus(_sNodeType, _nFocusNodeId, _bReloadFocusChildren, _sNodePath){
+	var sNodeHTMLElementId = _sNodeType + "_" + _nFocusNodeId;
+	
+
+	//没有传入NodePath,需要从服务器端读取NodePath
+	if(_sNodePath == null || _sNodePath.trim().length<=0){
+		_sNodePath = findPath(_sNodeType, _nFocusNodeId);	
+		if(_sNodePath == null || _sNodePath.trim().length<=0){
+			alert("指定的对象["+_sNodeType+"."+_nFocusNodeId+"]可能已经被删除!栏目树的同步刷新操作不能进行!");
+			return;
+		}
+	}
+	
+	//依次判断路径
+	var sNeedLoadPath = "";
+	var pNodePaths = _sNodePath.split(",");
+	var nPathLevel = pNodePaths.length;		
+	//判断最后一个节点是否就是自己
+	if(pNodePaths[pNodePaths.length-1].trim() == _nFocusNodeId 
+	&& getTypeByPathIndex(pNodePaths.length-1) == _sNodeType)
+		nPathLevel = nPathLevel - 1;
+	var sLastExistNodeId = null;
+	var sTempNodeId = null;
+	for(var i=0; i<nPathLevel; i++){
+		pNodePaths[i] = pNodePaths[i].trim();
+		sTempNodeId = getTypeByPathIndex(i) + "_" + pNodePaths[i];		
+		if( $( sTempNodeId )  != null){
+			sLastExistNodeId = sTempNodeId;			
+			sNeedLoadPath = sTempNodeId;
+			continue;
+		}		
+		
+		for(; i<nPathLevel; i++){
+			pNodePaths[i] = pNodePaths[i].trim();
+			sNeedLoadPath += "," + getTypeByPathIndex(i) + "_" + pNodePaths[i];
+		}
+	}
+	if(_bReloadFocusChildren)
+		sNeedLoadPath += "," + sNodeHTMLElementId;
+
+	//将产生的数据更新到指定元素上同时执行聚焦
+	if(sLastExistNodeId == null){
+		alert("Root节点元素[Id=r_"+pNodePaths[0]+"]竟然都不存在？？？\n"
+		+"(reloadChildrenAndFocus)相关信息：NodeType:"+_sNodeType+", _nFocusNodeId:"+_nFocusNodeId+"\n"
+		+"相关HTML代码："+$("divTreeRegion").innerHTML);
+		//alert("指定的路径["+_sNodePath+"]在树中都不存在???");
+		return;
+	}
+	var oOnUpdateComplete		= com.trs.tree.TreeNav.focus;
+	var oOnUpdateCompleteArgs	= sNodeHTMLElementId;
+	com.trs.tree.TreeNav.updateNodeChildrenHTML(sLastExistNodeId, 
+		makeURLofGetChildrenHTML(sNeedLoadPath), 
+		oOnUpdateComplete, oOnUpdateCompleteArgs);
+}
+
+
+
+/**
+ *  定位到指定站点
+ **/
+function focusSite(_nSiteId, _sNodePath){
+	focus("s", _nSiteId, _sNodePath);
+}
+
+/**
+ *  定位到指定频道
+ **/
+function focusChannel(_nChannelId, _sNodePath){
+	focus("c", _nChannelId, _sNodePath);	
+}
+
+/** 
+ *	
+ * 聚焦到指定节点
+ *
+ */
+function focus(_sNodeType, _nNodeId, _sNodePath){
+	//判断指定的节点是否存在
+	var sNodeHTMLElementId = _sNodeType + "_" + _nNodeId;
+	var oNodeHTMLElement = $(sNodeHTMLElementId);
+
+	//=======================================
+	//====1.如果存在,直接聚焦到节点===========
+	//=======================================
+	if( oNodeHTMLElement != null){
+		//执行刷新操作
+		com.trs.tree.TreeNav.focus(oNodeHTMLElement);
+		return;
+	}
+
+	//=========================================================
+	//====2.如果不存在,需要获取数据，初始化再聚焦================
+	//=========================================================	
+	reloadChildrenAndFocus(_sNodeType, _nNodeId, false, _sNodePath);	
+}
+
+
+/**
+ *  移动频道后做的操作
+ **/
+function doAfterMove(_nSrcChannelId){
+	//1.先remove掉现有的元素，然后再进行操作
+	com.trs.tree.TreeNav.removeNode("c_" + _nSrcChannelId);
+	
+
+	//2.接刷新目标站点或者频道的子，然后Focus到指定节点
+	reloadChildrenAndFocus("c", _nSrcChannelId, false);		
+}
+
+/**
+ *  删除频道做的操作
+ **/
+function doAfterDelChannel(_sChannelIds){
+	var pChannelId = _sChannelIds.split(",");
+	for(var i=0; i<pChannelId.length; i++)
+		com.trs.tree.TreeNav.removeNode("c_" + pChannelId[i]);
+}
+
+/**
+ *  删除站点做的操作
+ **/
+function doAfterDelSite(_sSiteIds){
+	var pSiteId = _sSiteIds.split(",");
+	for(var i=0; i<pSiteId.length; i++)
+		com.trs.tree.TreeNav.removeNode("s_" + pSiteId[i]);	
+}
+
+
+function doAfterAddChannel(_nChannelId){
+	//定位到指定的节点，同时刷新同级节点列表
+	reloadChildrenAndFocus("c", _nChannelId, false, null);	
+}
+
+function doAfterAddSite(_nSiteId){
+	//定位到指定的节点，同时刷新同级节点列表
+	reloadChildrenAndFocus("s", _nSiteId, false, null);	
+}
+
+/**
+ *  修改频道后做的操作
+ *	 TODO 最好区分一下修改的内容（名称/排序/其它） 
+ **/
+function doAfterModifyChannel(_nChannelId){
+	//定位到指定的节点，同时刷新同级节点列表
+	reloadChildrenAndFocus("c", _nChannelId, false, null);	
+}
+
+/**
+ *  修改站点后做的操作
+ *	 TODO 最好区分一下修改的内容（名称/排序/其它）
+ **/
+function doAfterModifySite(_nSiteId){
+	//定位到指定的节点，同时刷新同级节点列表
+	reloadChildrenAndFocus("s", _nSiteId, false, null);	
+}
+
+function getCurrElementInfo(){
+	var oFocusElement = com.trs.tree.TreeNav.oPreSrcElementA;
+	if( oFocusElement != null ){
+		oFocusElement = oFocusElement.parentNode;
+	}
+	var nChannelType = oFocusElement == null ? "0" : (oFocusElement.getAttribute("ChannelType") || "0");
+	return {
+		"RightValue" : oFocusElement == null ? "0" : oFocusElement.getAttribute("RV"),
+		"ChannelType" : nChannelType
+	};
+}
+
+function showAdvancedSearch(){
+	Element.hide($('show_channel_explorer'));
+	Element.show($('show_advance_search'));
+	//TODO
+}
+function showChannelExplorer(){
+	Element.hide($('show_advance_search'));
+	Element.show($('show_channel_explorer'));
+	//TODO
+}
+var m_nCount = 0;
+function refreshTree(){
+	//获取当前Focus对象的ID
+	var oFocusElement = com.trs.tree.TreeNav.oPreSrcElementA;
+	if( oFocusElement != null ){
+		oFocusElement = oFocusElement.parentNode;
+	}
+	var sFocusId =  null;
+	if(oFocusElement != null) sFocusId = oFocusElement.id;
+
+	//清空所有的树
+	for(var i=0; i<3; i++){
+		//$("r_" + i + "_children").innerHTML = "";
+	}
+
+
+	//重新装载上次Focus的节点
+	if(sFocusId != null){
+		var nPos = sFocusId.indexOf("_");
+		if(nPos <= 0){
+			alert("Id["+sFocusId+"]规则不一致");
+			return;
+		}
+
+		var sNodeType = sFocusId.substring(0, nPos);
+		var sNodeId = sFocusId.substring(nPos+1);
+		focus(sNodeType, sNodeId);
+	}
+}
+function quickLocate(){
+	//TODO
+	//open a window panel included navigator path helper
+}
+function showTreeMoreActions(){
+	//TODO
+}
+//-->
+</SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+function doTest(){
+	eval(document.frmAction.TestMethod.value);
+}
+//-->
+</SCRIPT>
+</head>
+
+<body>
+<DIV id="TestRegion" style="display:;">
+	<form name="frmAction">
+	<SELECT name="TestMethod" onchange="doTest();">
+		<OPTION value="alert('==选择需要测试的内容==');">==选择需要测试的内容==</OPTION>
+		<OPTION value="testRefreshSiteType();">重载指定站点类型子节点</OPTION>
+		<OPTION value="testRefreshChannel();">重载指定频道子节点</OPTION>
+		<OPTION value="testFocusSite();">定位到指定站点</OPTION>
+		<OPTION value="testFocusChannel();">定位到指定频道</OPTION>
+		<OPTION value="testDoAfterMove();">移动频道</OPTION>
+		<OPTION value="testDoAfterDelChannel();">删除频道</OPTION>
+		<OPTION value="testDoAfterDelSite();">删除站点</OPTION>
+		<OPTION value="testDoAfterModifyChannel();">修改频道</OPTION>
+		<OPTION value="testDoAfterModifySite();">修改站点</OPTION>
+	</SELECT>
+	<input type="button" name="再执行" value="再执行" onclick="doTest();">
+	
+	</form>
+	
+</DIV>
+<script>$("TestRegion").style.display = (m_bDebug ? "" : "none");</script>
+<table width="192" height="100%" border="0" cellspacing="0" cellpadding="0">  
+  <tr>
+    <td>
+		<div class="nav_tree">
+			<div style="width:100%;height:98%;overflow:auto;">
+				<div class="TreeView" id="divTreeRegion">
+					<div title="文字库" id="r_0" classPre="SiteType0">
+						<a href="#">文字库</a>
+					</div>
+					<ul id="r_0_children"></ul>
+				</div>
+			</div>
+		</div>
+	</td>
+  </tr>  
+</table>
+<script>
+Event.observe(window,"load",function(){	
+	setTimeout(function(){
+		refresh("r",0);
+	},100);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>日志查询</sort-name>
+  <table-info name="view_sys_count_log" class-name="cn.gwssi.dw.rd.log.dao.ViewSysCountLog" check-flag="false" backup-flag="false">
+    <description>分类视图统计</description>
+  </table-info>
+
+  <column name="sys_name" data-type="varchar" length="100" not-null="false" value-from="input" description="主题名称"/>
+  <column name="table_name" data-type="varchar" length="100" not-null="false" value-from="input" description="表名"/>
+  <column name="table_name_cn" data-type="varchar" length="100" not-null="false" value-from="input" description="表中文名"/>
+  <column name="class_sort" data-type="varchar" length="32" not-null="false" value-from="input" description="分类排序"/>
+  <column name="class_state" data-type="varchar" length="32" not-null="false" value-from="input" description="分类状态"/>
+  <column name="count_date" data-type="char" length="10" not-null="false" value-from="input" description="统计日期"/>
+  <column name="count_full" data-type="long" length="22" not-null="false" value-from="input" description="日全量"/>
+  <column name="count_incre" data-type="long" length="22" not-null="false" value-from="input" description="日增量"/>
+  <column name="table_class_id" data-type="varchar" length="40" not-null="false" value-from="input" description="分类主键id"/>
+  <column name="sys_order" data-type="long" length="5" not-null="false" value-from="input" description="主体排序字段"/>
+  <column name="table_order" data-type="long" length="5" not-null="false" value-from="input" description="表排序字段"/>
+  <column name="sort_order" data-type="long" length="22" not-null="false" value-from="input" description="分类排序"/>
+  <column name="state_order" data-type="long" length="22" not-null="false" value-from="input" description="状态排序"/>
+  <primary-key name="pk" column-list="table_class_id"/>
+  <function func-name="select view_sys_count_log list" func-type="rowset" column-list="sys_name,table_name,table_name_cn,class_sort,class_state,count_date,count_full,count_incre,table_class_id,sys_order,table_order,sort_order,state_order" sort-columns="sys_name,table_name_cn" max-record="10">
+    <filter-column column-name="sys_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="table_name_cn" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="count_date" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="class_state" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+</table>
+

@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> New Document </title>
+	<style type="text/css">
+		*{
+			margin:0px;
+			padding:0px;
+		}
+		.body_box{
+			height:50px;
+			width:280px;
+			border:1px solid #f0f0f0;
+			background-color:#f0f0f0;
+		}
+		.input_box{
+			margin-top:11px;
+			background:url("doubleclick/backgroundColor0.png") repeat-x;
+			height:27px;
+			float:left;
+			line-height:27px;
+			text-align:center;
+			cursor:hand;
+		}
+		.input_box_left{
+			margin-top:11px;
+			margin-left:8px;
+			background:url("doubleclick/left0.png") no-repeat;
+			height:27px;
+			width:6px;
+			float:left;
+		}
+		.input_box_right{
+			margin-top:11px;
+			background:url("doubleclick/right0.png") no-repeat;
+			height:27px;
+			width:6px;
+			float:left;
+		}
+		.scale_small_box{
+			margin-top:11px;
+			background:url("doubleclick/backgroundColor0.png") repeat-x;
+			border-right:1px solid #ebebeb;
+			height:27px;
+			width:20px;
+			float:left;
+			text-align:center;
+			line-height:18px;
+			cursor:hand;
+		}
+		.scale_middle_box{
+			margin-top:11px;
+			background:url("doubleclick/backgroundColor0.png") repeat-x;
+			border-right:1px solid #ebebeb;
+			height:27px;
+			width:27px;
+			float:left;
+			text-align:center;
+			line-height:23px;
+			cursor:hand;
+		}
+		.scale_big_box{
+			margin-top:11px;
+			background:url("doubleclick/backgroundColor0.png") repeat-x;
+			border-right:1px solid #ebebeb;
+			height:27px;
+			width:27px;
+			float:left;
+			text-align:center;
+			line-height:27px;
+			cursor:hand;
+		}
+
+		.original_box{
+			margin-top:11px;
+			background:url("doubleclick/backgroundColor0.png") repeat-x;
+			height:27px;
+			float:left;
+			text-align:center;
+			line-height:27px;
+			padding-left:4px;
+			cursor:hand;
+		}
+	</style>
+	<script language="javascript">
+		var CKEDITOR	= parent.CKEDITOR;
+		var	dlg			= CKEDITOR.dialog.getCurrent();
+		var	editor		= dlg.getParentEditor();
+		var	sel			= editor.getSelection();
+		var	element		= sel.getSelectedElement();
+		dlg.imageEditMode = false;
+		dlg.imageElement = false;
+		//获取编辑器双击事件的对象
+		if ( element && element.getName() == 'img' && !element.data( 'cke-realelement' )){
+			dlg.imageEditMode = element.getName();
+			dlg.imageElement = element;
+		}
+
+		if ( dlg.imageEditMode ){
+			// Use the original element as a buffer from  since we don't want
+			// temporary changes to be committed, e.g. if the dialog is canceled.
+			dlg.cleanImageElement = dlg.imageElement;
+			dlg.imageElement.setAttribute( 'originalWidth', dlg.cleanImageElement.$.width );
+			dlg.imageElement = dlg.cleanImageElement.clone( true, true );
+		}
+		else{
+			dlg.imageElement =  editor.document.createElement( 'img' );
+		}
+		//根据各个触发事件的按钮，触发插入对象
+		function onSizeChange(_dom){
+			var imgDoc = _dom;
+			var width = document.getElementById("input_widthValue").value;
+			dlg.imageElement.setAttribute( 'width', width );
+			editor.insertElement( dlg.imageElement );
+			dlg.hide();
+		}
+		function resetSize(_dom){
+			var scaleDoc = _dom;
+			switch(scaleDoc.getAttribute("id")){
+				case "scale_small_box":
+					dlg.imageElement.setAttribute( 'width', '100' );
+						//保证显示框中始终显示图片的当前大小
+						document.getElementById("input_widthValue").value = "100px";
+					break;
+				case "scale_middle_box":
+					dlg.imageElement.setAttribute( 'width', '300' );
+						//保证显示框中始终显示图片的当前大小
+						document.getElementById("input_widthValue").value = "300px";
+					break;
+				case "scale_big_box":
+					dlg.imageElement.setAttribute( 'width', '500' );
+						//保证显示框中始终显示图片的当前大小
+						document.getElementById("input_widthValue").value = "500px";
+					break;
+				case "original_box":
+					var OriginalWidth = dlg.imageElement.$.originalWidth;
+						//保证显示框中始终显示图片的当前大小
+						document.getElementById("input_widthValue").value = OriginalWidth + "px";
+
+					dlg.imageElement.setAttribute( 'width', OriginalWidth );
+					break;
+			}
+			editor.insertElement( dlg.imageElement );
+			dlg.hide();
+
+		}
+		function setBorder(){
+			dlg.imageElement.setAttribute( 'border', '1px' );
+			editor.insertElement( dlg.imageElement );
+			dlg.hide();
+		}
+		function setOriginalValue(){
+			document.getElementById("input_widthValue").value = dlg.imageElement.$.originalWidth + "px";
+		}
+
+	</script>
+</head>
+
+<body onload="setOriginalValue()">
+
+<div id="" class="body_box">
+	<div id="" class="input_box_left"></div>
+	<div id="" class="input_box">
+		<input id="input_widthValue" type="text" name="" size="1" onchange="onSizeChange(this)"><!-- 可输入的宽度"input_widthValue" -->
+	</div>
+	<div id="" class="input_box_right"></div>
+
+	<div id="" class="input_box_left"></div>
+		<div id="scale_small_box" class="scale_small_box" onclick="resetSize(this)"><!-- 设置为宽度100px的图片"scale_small_box" -->
+			<img src="doubleclick/small.png" border=0 alt="" />
+		</div>
+		<div id="scale_middle_box" class="scale_middle_box" onclick="resetSize(this)"><!-- 设置为宽度300px的图片"scale_middle_box" -->
+			<img src="doubleclick/middle.png" border=0 alt="" />
+		</div>
+		<div id="scale_big_box" class="scale_big_box" onclick="resetSize(this)"><!-- 设置为宽度500px的图片"scale_big_box" -->
+			<img src="doubleclick/big.png" border=0 alt="" />
+		</div>
+		<div id="original_box" class="original_box" onclick="resetSize(this)"><!-- 设置为原始宽度的图片"original_box" -->
+			Original
+		</div>
+	<div id="" class="input_box_right"></div>
+
+	<div id="" class="input_box_left"></div>
+	<div id="border_box" class="input_box" onclick="setBorder()"><!-- 设置图片的边框"border_box" -->
+		Border
+	</div>
+	<div id="" class="input_box_right"></div>
+</div>
+
+</body>
+</html>

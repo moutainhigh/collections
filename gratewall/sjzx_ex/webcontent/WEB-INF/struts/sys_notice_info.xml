@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>首页查看</menu-name>
+  <menu-path>/page/homepage/home/</menu-path>
+  <description>首页查看</description>
+  <form-beans>
+    <form-bean name="SysNoticeInfoRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="sys_notice_matter" type="string" size="300" description="内容"/>
+      <form-property prefix="select-key" name="sys_notice_date_s" type="string" size="19" description="发布时间"/>
+      <form-property prefix="select-key" name="sys_notice_date_e" type="string" size="19" description="发布时间"/>
+      <form-property prefix="select-key" name="sys_notice_org" type="string" size="60" description="发布单位"/>
+      <form-property prefix="select-key" name="sys_notice_promulgator" type="string" size="20" description="发布人"/>
+      <form-property prefix="select-key" name="sys_notice_state" type="string" size="1" description="发布状态"/>
+      <form-property prefix="select-key" name="service_targets_id" type="string" size="32" description="服务对象ID"/>
+      <form-property prefix="select-key" name="type" type="string" size="32" description="服务对象类型"/>
+      <form-property prefix="select-key" name="count_type" type="string" size="32" description="统计类型"/>
+      <form-property prefix="select-key" name="service_targets_name" type="string" size="100" description="服务对象名称"/>
+      <form-property prefix="select-key" name="start_time" type="string" size="32" description="开始时间"/>
+      <form-property prefix="select-key" name="end_time" type="string" size="32" description="结束时间"/>
+      <form-property prefix="select-key" name="collect_task_id" type="string" size="32" description="任务ID"/>
+      <form-property prefix="select-key" name="service_id" type="string" size="32" description="服务ID"/>
+      
+      <form-property prefix="select-key" name="location" type="string" size="6" description="节点位置"/>
+      
+      <form-property prefix="record" name="sys_notice_id" type="string" size="32" cannull="false" description="通知通告ID"/>
+      <form-property prefix="record" name="sys_notice_title" type="string" size="50" cannull="true" description="标题"/>
+      <form-property prefix="record" name="sys_notice_matter" type="string" size="300" cannull="true" description="内容"/>
+      <form-property prefix="record" name="sys_notice_promulgator" type="string" size="20" cannull="true" description="发布人"/>
+      <form-property prefix="record" name="sys_notice_org" type="string" size="60" cannull="true" description="发布单位"/>
+      <form-property prefix="record" name="sys_notice_date" type="string" size="19" cannull="true" description="发布时间"/>
+      <form-property prefix="record" name="sys_notice_state" type="string" size="1" cannull="true" description="发布状态"/>
+      <form-property prefix="record" name="sys_notice_filepath" type="string" size="2000" cannull="true" description="附件"/>
+      <form-property prefix="record" name="hasfj" type="string" size="1" cannull="true" description="是否包含附件"/>
+      <form-property prefix="record" name="isnew" type="string" size="1" cannull="true" description="是否新发布"/>
+      
+      <form-property prefix="record" name="time_str" type="string" size="1" cannull="true" description="统计用时间串"/>
+      <form-property prefix="record" name="stat_num_str" type="string" size="1" cannull="true" description="统计用数据量串"/>
+      <form-property prefix="record" name="stat_count_str" type="string" size="1" cannull="true" description="统计用数量串"/>
+      <form-property prefix="record" name="stat_info_str" type="string" size="1" cannull="true" description="统计用具体信息串"/>
+      
+      <form-property prefix="ws-record" name="work_status_id" type="string" size="32" cannull="false" description="工作状态ID"/>
+      <form-property prefix="ws-record" name="work_status_name" type="string" size="200" cannull="true" description="待办任务名称"/>
+      <form-property prefix="ws-record" name="work_status_content" type="string" size="200" cannull="true" description="待办任务内容"/>
+      <form-property prefix="ws-record" name="initiator_date" type="string" size="10" cannull="true" description="发起日期"/>
+      <form-property prefix="ws-record" name="initiator_time" type="string" size="8" cannull="true" description="发起时间"/>
+      <form-property prefix="ws-record" name="link_url" type="string" size="2000" cannull="true" description="链接地址"/>
+      
+      <form-property prefix="share-record" name="record_amount" type="string" size="32" cannull="true" description="总记录数"/>
+      <form-property prefix="share-record" name="consume_time" type="string" size="32" cannull="true" description="总响应时间"/>
+      <form-property prefix="share-record" name="datey" type="string" size="10" cannull="true" description="统计年月"/>
+      <form-property prefix="share-record" name="exec_count" type="string" size="32" cannull="true" description="总响应次数"/>
+      <form-property prefix="chart" name="chartShareXML" type="string" size="5000" cannull="true" description="总记录数"/>
+      
+      <from-property prefix="collect-record" name="total_times" type="string" size="8" cannull="true" descript="总次数" />
+      <form-property prefix="collect-record" name="record_amount" type="string" size="32" cannull="true" description="总记录数"/>
+      <form-property prefix="collect-record" name="consume_time" type="string" size="32" cannull="true" description="总响应时间"/>
+      <form-property prefix="collect-record" name="datey" type="string" size="10" cannull="true" description="统计年月"/>
+      <form-property prefix="chart_collect" name="chartCollectXML" type="string" size="5000" cannull="true" description="总记录数"/>
+      <form-property name="obj_str" type="string" size="5000" cannull="true" description="json数据"/>
+      
+      <form-property prefix="select-key" name="service_targets_id" type="string" size="32" cannull="true" description="服务对象ID"/>
+      <form-property prefix="select-key" name="service_targets_type" type="string" size="32" cannull="true" description="服务对象类型"/>
+      
+      
+      <form-property prefix="serviceExchange-data" name="priview_id" type="string" size="32" cannull="true" description="主键ID"/>
+      <form-property prefix="serviceExchange-data" name="share_serv_num" type="string" size="10" cannull="true" description="共享服务总数"/>
+      <form-property prefix="serviceExchange-data" name="share_month_add" type="string" size="10" cannull="true" description="本月新增服务数"/>
+      <form-property prefix="serviceExchange-data" name="collect_serv_num" type="string" size="10" cannull="true" description="采集任务总数"/>
+      <form-property prefix="serviceExchange-data" name="collect_month_add" type="string" size="32" cannull="true" description="本月新增采集任务数"/>
+      <form-property prefix="serviceExchange-data" name="avg_share_count" type="string" size="32" cannull="true" description="日平均共享数据量"/>
+      <form-property prefix="serviceExchange-data" name="avg_share_count_rate" type="string" size="32" cannull="true" description="日平均共享数据量环比"/>
+      <form-property prefix="serviceExchange-data" name="avg_share_num" type="string" size="32" cannull="true" description="日平均共享次数"/>
+      <form-property prefix="serviceExchange-data" name="avg_share_num_rate" type="string" size="32" cannull="true" description="日平均共享次数环比"/>
+      <form-property prefix="serviceExchange-data" name="avg_collect_count" type="string" size="32" cannull="true" description="日平均采集数据量"/>
+      <form-property prefix="serviceExchange-data" name="avg_collect_count_rate" type="string" size="32" cannull="true" description="日平均采集数据量环比"/>
+      <form-property prefix="serviceExchange-data" name="avg_collect_num" type="string" size="32" cannull="true" description="日平均采集次数"/>
+      <form-property prefix="serviceExchange-data" name="avg_collect_num_rate" type="string" size="32" cannull="true" description="日平均采集次数环比"/>
+      
+      <form-property prefix="service-record" name="typename" type="string" size="32" cannull="true" description="服务对象类型"/>
+      <form-property prefix="service-record" name="typeid" type="string" size="32" cannull="true" description="服务对象id"/>
+      <form-property prefix="service-record" name="sernum" type="string" size="10" cannull="true" description="响应次数"/>
+      <form-property prefix="service-chart" name="chartShareserviceXML" type="string" size="5000" cannull="true" description="总记录数"/>
+      
+      <form-property prefix="detail-record" name="typename" type="string" size="32" cannull="true" description="服务类型"/>
+      <form-property prefix="detail-record" name="serviceTypeId" type="string" size="32" cannull="true" description="服务类型id"/>
+      <form-property prefix="detail-record" name="serviceTypeName" type="string" size="100" cannull="true" description="服务类型名称"/>
+      <form-property prefix="detail-record" name="sernum" type="string" size="10" cannull="true" description="响应次数"/>
+      <form-property prefix="detail-chart" name="chartSharedetailXML" type="string" size="5000" cannull="true" description="总记录数"/>
+      
+      <form-property prefix="coltask-record" name="typename" type="string" size="32" cannull="true" description="服务对象类型"/>
+      <form-property prefix="coltask-record" name="typeid" type="string" size="32" cannull="true" description="服务对象id"/>
+      <form-property prefix="coltask-record" name="sernum" type="string" size="10" cannull="true" description="响应次数"/>
+      <form-property prefix="coltask-chart" name="chartColTaskXML" type="string" size="5000" cannull="true" description="总记录数"/>
+      <form-property prefix="coltask-record" name="firstTypeid" type="string" size="32" cannull="true" description="服务对象id"/>
+      
+      <form-property prefix="coldetail-record" name="cdserviceTypeId" type="string" size="32" cannull="true" description="服务类型id"/>
+      <form-property prefix="coldetail-record" name="cdserviceTypeName" type="string" size="100" cannull="true" description="服务类型名称"/>
+      <form-property prefix="coldetail-record" name="sernum" type="string" size="10" cannull="true" description="响应次数"/>
+      <form-property prefix="coldetail-chart" name="chartColdetailXML" type="string" size="5000" cannull="true" description="总记录数"/>
+      
+      <form-property prefix="select-key" name="created_time" type="string" size="19" description="查询条件时间" />
+	  <form-property prefix="select-key" name="startTime" type="string" size="19" description="起始时间" />
+	  <form-property prefix="select-key" name="endTime" type="string" size="19" description="结束时间" />
+	  <form-property prefix="chart" name="chartXML" type="string" size="5000" cannull="true" description="图标数据"/>
+	  
+	  <form-property prefix="share_service_total" name="in_share_total" type="string" size="100" cannull="true" description="内部系统共享服务个数"/>
+      <form-property prefix="share_service_total" name="out_share_total" type="string" size="100" cannull="true" description="外部系统共享服务个数"/>
+      <form-property prefix="share_service_total" name="sheng_share_total" type="string" size="100" cannull="true" description="区县分局共享服务个数"/>
+      <form-property prefix="collect_service_total" name="in_collect_total" type="string" size="100" cannull="true" description="内部系统采集服务个数"/>
+      <form-property prefix="collect_service_total" name="out_collect_total" type="string" size="100" cannull="true" description="外部系统采集服务个数"/>
+      <form-property prefix="collect_service_total" name="sheng_collect_total" type="string" size="100" cannull="true" description="区县分局采集服务个数"/>
+      <form-property prefix="share_service_type" name="in_share_type" type="string" size="100" cannull="true" description="内部系统共享服务方式"/>
+      <form-property prefix="share_service_type" name="out_share_type" type="string" size="100" cannull="true" description="外部系统共享服务方式"/>
+      <form-property prefix="share_service_type" name="sheng_share_type" type="string" size="100" cannull="true" description="区县分局共享服务方式"/>
+      <form-property prefix="collect_service_type" name="in_collect_type" type="string" size="100" cannull="true" description="内部系统采集服务方式"/>
+      <form-property prefix="collect_service_type" name="out_collect_type" type="string" size="100" cannull="true" description="外部系统采集服务方式"/>
+      <form-property prefix="collect_service_type" name="sheng_collect_type" type="string" size="100" cannull="true" description="区县分局采集服务方式"/>
+      <form-property prefix="menu" name="mid" type="string" size="100" cannull="true" description="menuId"/>
+      <form-property prefix="svrInfo" name="service_targets_id" type="string" size="32" cannull="false" description="服务对象ID"/>
+      <form-property prefix="svrInfo" name="service_targets_no" type="string" size="50" cannull="true" description="服务对象代码"/>
+      <form-property prefix="svrInfo" name="service_targets_name" type="string" size="100" cannull="true" description="服务对象名称"/>
+      <form-property prefix="svrInfo" name="service_targets_type" type="string" size="20" cannull="true" description="服务对象类型"/>
+      <form-property prefix="svrInfo" name="is_bind_ip" type="string" size="1" cannull="true" description="是否绑定IP"/>
+      <form-property prefix="svrInfo" name="ip" type="string" size="200" cannull="true" description="IP"/>
+      <form-property prefix="svrInfo" name="service_password" type="string" size="50" cannull="true" description="服务口令"/>
+      <form-property prefix="svrInfo" name="service_status" type="string" size="20" cannull="true" description="服务状态"/>
+      <form-property prefix="svrInfo" name="service_desc" type="string" size="2000" cannull="true" description="服务对象描述"/>
+      <form-property prefix="svrInfo" name="is_markup" type="string" size="1" cannull="true" description="有效标记"/>
+      <form-property prefix="svrInfo" name="creator_id" type="string" size="32" cannull="true" description="创建人ID"/>
+      <form-property prefix="svrInfo" name="created_time" type="string" size="11" cannull="true" description="创建时间"/>
+      <form-property prefix="svrInfo" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="svrInfo" name="last_modify_time" type="string" size="11" cannull="true" description="最后修改时间"/>
+    <form-property prefix="svrInfo" name="show_order" type="int" description="显示顺序" />
+    <form-property prefix="svrInfo" name="toporder" type="int" description="显示顺序" />
+    <form-property prefix="svrInfo" name="fj_fk" type="string" size="2000" cannull="true" description="附件id"/>
+      <form-property prefix="svrInfo" name="fjmc" type="string" size="2000" cannull="true" description="附件名称"/>
+      
+    </form-bean>
+
+    <form-bean name="SysNoticeInfoUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_notice_id" type="string" size="32" cannull="false" description="通知通告ID"/>
+      <form-property prefix="record" name="sys_notice_id" type="string" size="32" cannull="false" description="通知通告ID"/>
+      <form-property prefix="record" name="sys_notice_title" type="string" size="50" cannull="true" description="标题"/>
+      <form-property prefix="record" name="sys_notice_matter" type="string" size="300" cannull="true" description="内容"/>
+      <form-property prefix="record" name="sys_notice_promulgator" type="string" size="20" cannull="true" description="发布人"/>
+      <form-property prefix="record" name="sys_notice_org" type="string" size="60" cannull="true" description="发布单位"/>
+      <form-property prefix="record" name="sys_notice_date" type="string" size="19" cannull="true" description="发布时间"/>
+      <form-property prefix="record" name="sys_notice_state" type="string" size="1" cannull="true" description="发布状态"/>
+      <form-property prefix="record" name="sys_notice_filepath" type="string" size="2000" cannull="true" description="附件"/>
+      <form-property prefix="record" name="old_sys_notice_filepath" type="string" size="2000" cannull="true" description="附件"/>
+    </form-bean>
+
+    <form-bean name="SysNoticeInfoDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_notice_id" type="string" size="32" cannull="false" description="通知通告ID"/>
+      <form-property prefix="primary-key" name="sys_notice_date" type="string" size="19" cannull="true" description="发布时间"/>
+      <form-property prefix="primary-key" name="sys_notice_filepath" type="string" size="2000" cannull="true" description="附件"/>      
+    </form-bean>
+    
+    <form-bean name="SysNoticeInfoAjaxForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="record" name="object_type" type="string" size="32" cannull="false" description="监控对象类型ID"/>
+      <form-property prefix="record" name="state" type="string" size="32" cannull="false" description="监控对象状态"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="/page/homepage/home/front.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000009" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统首页</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000009" input-node="select-key" output-node="record" description="查询资料下载列表"/>
+      <forward error-code="success" path="front.jsp"/>
+      <forward error-code="failure" path="front.jsp"/>
+    </action>
+    
+    <action input="/page/homepage/home/front.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000010" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统概览</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000010" input-node="select-key" output-node="record" description="查询资料下载列表"/>
+      <forward error-code="success" path="../preview/xtgl.jsp"/>
+      <forward error-code="failure" path="../preview/xtgl.jsp"/>
+    </action>
+    
+    <action input="/page/homepage/home/front.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000011" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统概览-查看共享服务详细ajax</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000011" input-node="select-key" output-node="record" description="查询资料下载列表"/>
+      <forward error-code="success" path="../preview/xtgl1.jsp"/>
+      <forward error-code="failure" path="../preview/xtgl1.jsp"/>
+    </action>
+    
+    <action input="/page/homepage/home/front.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000012" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统概览-查看共享服务</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000012" input-node="select-key" output-node="record" description="查询资料下载列表"/>
+      <forward error-code="success" path="../preview/service_info_tree.jsp"/>
+      <forward error-code="failure" path="../preview/service_info_tree.jsp"/>
+    </action>
+    
+    <action input="/page/homepage/home/front.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000013" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统概览-查看采集任务</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000013" input-node="select-key" output-node="record" description="查询资料下载列表"/>
+      <forward error-code="success" path="../preview/collect_info_tree.jsp"/>
+      <forward error-code="failure" path="../preview/collect_info_tree.jsp"/>
+    </action>
+    
+    <action input="/page/homepage/home/front.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000014" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统概览-查看采集任务详细ajax</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000014" input-node="select-key" output-node="record" description="查询资料下载列表"/>
+      <forward error-code="success" path="../preview/collect_info_tree.jsp"/>
+      <forward error-code="failure" path="../preview/collect_info_tree.jsp"/>
+    </action>
+    
+    <action input="/page/homepage/home/front.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000015" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统概览-共享服务统计ajax</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000015" input-node="select-key" output-node="record" description="查询资料下载列表"/>
+      <forward error-code="success" path="../preview/xtgl.jsp"/>
+      <forward error-code="failure" path="../preview/xtgl.jsp"/>
+    </action>
+    
+    <action input="/page/homepage/home/front.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000110" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>服务概览</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000110" input-node="select-key" output-node="record" description="查询资料下载列表"/>
+      <forward error-code="success" path="../preview/service_gl.jsp"/>
+      <forward error-code="failure" path="../preview/service_gl.jsp"/>
+    </action>
+    
+    <action input="/page/homepage/home/front.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000111" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>服务概览-详细</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000111" input-node="select-key" output-node="record" description="查询资料下载列表"/>
+      <forward error-code="success" path="../preview/service_gl_detail.jsp"/>
+      <forward error-code="failure" path="../preview/service_gl_detail.jsp"/>
+    </action>
+    <action input="/page/zwt/statistcs/Gridtree.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000112" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>共享服务数据统计</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000112" input-node="select-key" output-node="record" description="共享服务数据统计"/>
+      <forward error-code="success" path="/page/zwt/echarts_share_bar.jsp"/>
+      <forward error-code="failure" path="/page/zwt/echarts_share_bar.jsp"/>
+    </action>
+    
+    <action input="/page/zwt/statistcs/Gridtree.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000115" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>采集任务数据统计</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000115" input-node="select-key" output-node="record" description="采集任务数据统计"/>
+      <forward error-code="success" path="/page/zwt/echarts_collect_bar.jsp"/>
+      <forward error-code="failure" path="/page/zwt/echarts_collect_bar.jsp"/>
+    </action>
+    
+    <action input="/page/homepage/home/front.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000113" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>首页手动执行定时任务</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000113" input-node="select-key" output-node="record" description="查询资料下载列表"/>
+      <forward error-code="success" path="../preview/task_hand.jsp"/>
+      <forward error-code="failure" path="../preview/task_hand.jsp"/>
+    </action>
+    
+    
+    <action input="/page/homepage/home/front.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000099" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统管理</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000099" input-node="select-key" output-node="record" description="查询资料下载列表"/>
+      <forward error-code="success" path="/main_old.jsp" />
+      <forward error-code="failure" path="/main_old.jsp" />
+    </action>
+    <action input="/page/homepage/home/front.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000098" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>日志管理</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000099" input-node="select-key" output-node="record" description="查询资料下载列表"/>
+      <forward error-code="success" path="/main.jsp" />
+      <forward error-code="failure" path="/main.jsp" />
+    </action>
+    <action input="/page/zwt/MLPie_L1.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000210" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>共享服务第二级饼图</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000210" input-node="select-key" output-node="record" description="共享服务第二级饼图"/>
+      <forward error-code="success" path="/page/zwt/MLPie_L2.jsp"/>
+      <forward error-code="failure" path="/page/zwt/MLPie_L2.jsp"/>
+    </action>
+    <action input="/page/zwt/MLPie_L2.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000211" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>共享服务第三级饼图</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000211" input-node="select-key" output-node="record" description="共享服务第三级饼图"/>
+      <forward error-code="success" path="/page/zwt/MLPie_L3.jsp"/>
+      <forward error-code="failure" path="/page/zwt/MLPie_L3.jsp"/>
+    </action>
+    <action input="/page/zwt/MLPie_L4.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000212" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>采集分布条形图</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000212" input-node="select-key" output-node="record" description="采集分布条形图"/>
+      <forward error-code="success" path="/page/zwt/TopTable.jsp"/>
+      <forward error-code="failure" path="/page/zwt/TopTable.jsp"/>
+    </action>
+    <action input="/page/zwt/MLPie_L4.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000213" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>采集分布饼图</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000213" input-node="select-key" output-node="record" description="采集分布饼图"/>
+      <forward error-code="success" path="/page/zwt/MLPie_L4.jsp"/>
+      <forward error-code="failure" path="/page/zwt/MLPie_L4.jsp"/>
+    </action>
+    <action input="/page/zwt/TopTable.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000214" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>采集分布条形图返回</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000214" input-node="select-key" output-node="record" description="采集分布饼图"/>
+      <forward error-code="success" path="/page/zwt/MLPie_L4.jsp"/>
+      <forward error-code="failure" path="/page/zwt/MLPie_L4.jsp"/>
+    </action>
+    <action input="/page/zwt/statistcs/Gridtree.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000216" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>服务对象数据统计表格树</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000216" input-node="select-key" output-node="record" description="服务对象数据统计表格树"/>
+      <forward error-code="success" path="/page/zwt/statistcs/Gridtree.jsp"/>
+      <forward error-code="failure" path="/page/zwt/statistcs/Gridtree.jsp"/>
+    </action>
+    
+    <action input="/page/zwt/statistcs/Gridtree.jsp" name="SysNoticeInfoRowsetForm" txn-code="53000217" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>服务对象数据统计表格树错误详细信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysNoticeInfo" func-name="txn53000217" input-node="select-key" output-node="record" description="服务对象数据统计表格树错误详细信息"/>
+      <forward error-code="success" path="/page/zwt/statistcs/ErroInfo.jsp"/>
+      <forward error-code="failure" path="/page/zwt/statistcs/ErroInfo.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_notice_info.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/resouce/res/runmgr/notice/query-sys_notice_info.jsp" description="查询资料下载列表"/>
+    <resource-file type="jsp" file-name="/page/resouce/res/runmgr/notice/insert-sys_notice_info.jsp" description="增加资料下载信息"/>
+    <resource-file type="jsp" file-name="/page/resouce/res/runmgr/notice/update-sys_notice_info.jsp" description="修改资料下载信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.SysNoticeInfoContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoSysNoticeInfo" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoSysNoticeInfoSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoSysNoticeInfoPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

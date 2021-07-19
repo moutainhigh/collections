@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="gz_tb_jzrz.xml" app-path="/gzk/sjjz/jzrzcx/" app-name="gz_tb_jzrz" description="加载日志查询" template="single-table.xml"/>
+  <table name="gz_tb_jzrz.xml" app-name="gz_tb_jzrz" app-desc="加载日志" delete-action="delete" description="加载日志查询" class-name="cn.gwssi.csdb.gzk.txn.TxnGzTbJzrz" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-gz_tb_jzrz.jsp" txn-code="40204001" description="查询加载日志列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加加载日志" path="insert-gz_tb_jzrz.jsp" description="增加加载日志" func-name="addRecord"/>
+	    <button type="button" name="修改加载日志" path="/txn40204004.do" description="修改加载日志" func-name="updateRecord"/>
+	    <button type="button" name="删除加载日志" path="/txn40204005.do" description="删除加载日志" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn40204001.do" description="查询加载日志信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-gz_tb_jzrz.jsp" txn-code="40204003" description="增加加载日志信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn40204003.do" description="保存加载日志信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn40204003.do" description="保存加载日志信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn40204001.do" description="保存加载日志信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn40204001.do" description="返回到加载日志明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-gz_tb_jzrz.jsp" txn-code="40204002" description="修改加载日志信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn40204001.do" description="修改加载日志信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn40204001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-gz_tb_jzrz.jsp" txn-code="40204001" description="查询加载日志列表">
+	    <forward error-code="success" path="query-gz_tb_jzrz.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-gz_tb_jzrz.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-gz_tb_jzrz.jsp" txn-code="40204002" description="修改加载日志信息">
+	    <forward error-code="success" path="update-gz_tb_jzrz.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-gz_tb_jzrz.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-gz_tb_jzrz.jsp" txn-code="40204003" description="增加加载日志信息">
+	    <forward error-code="success" path="insert-gz_tb_jzrz.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-gz_tb_jzrz.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-gz_tb_jzrz.jsp" txn-code="40204004" description="查询加载日志用于修改">
+	    <forward error-code="success" path="update-gz_tb_jzrz.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-gz_tb_jzrz.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-gz_tb_jzrz.jsp" txn-code="40204005" description="删除加载日志信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="cn.gwssi.csdb.gzk.vo.GzTbJzrzContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.gzk.vo.VoGzTbJzrz" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.gzk.vo.VoGzTbJzrzSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.gzk.vo.VoGzTbJzrzPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

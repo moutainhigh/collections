@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="sys_svr_service_param" class-name="com.gwssi.dw.runmgr.services.dao.SysSvrServiceParam" check-flag="false" backup-flag="false">
+    <description>共享服务表连接条件表</description>
+  </table-info>
+
+  <column name="sys_svr_service_param_id" data-type="varchar" length="32" not-null="true" value-from="input" description="共享服务表连接编号"/>
+  <column name="sys_svr_service_id" data-type="varchar" length="32" not-null="true" value-from="input" description="共享服务编号"/>
+  <column name="operator1" data-type="varchar" length="10" not-null="false" value-from="input" description="连接符1"/>
+  <column name="left_paren" data-type="varchar" length="5" not-null="false" value-from="input" description="左括号"/>
+  <column name="left_table_no" data-type="varchar" length="32" not-null="true" value-from="input" description="左表"/>
+  <column name="left_table_name" data-type="varchar" length="32" not-null="true" value-from="input" description="左表英文名"/>
+  <column name="left_table_name_cn" data-type="varchar" length="32" not-null="true" value-from="input" description="左表中文名"/>
+  <column name="left_column_no" data-type="varchar" length="32" not-null="true" value-from="input" description="左字段"/>
+  <column name="left_column_name" data-type="varchar" length="32" not-null="true" value-from="input" description="左字段英文名"/>
+  <column name="left_column_name_cn" data-type="varchar" length="32" not-null="true" value-from="input" description="左字段中文名"/>
+  <column name="operator2" data-type="varchar" length="5" not-null="true" value-from="input" description="连接符2"/>
+  <column name="right_table_no" data-type="varchar" length="32" not-null="true" value-from="input" description="右表"/>
+  <column name="right_table_name" data-type="varchar" length="32" not-null="true" value-from="input" description="右表英文名"/>
+  <column name="right_table_name_cn" data-type="varchar" length="32" not-null="true" value-from="input" description="右表中文名"/>
+  <column name="right_column_no" data-type="varchar" length="32" not-null="true" value-from="input" description="右字段"/>
+  <column name="right_column_name" data-type="varchar" length="32" not-null="true" value-from="input" description="右字段英文名"/>
+  <column name="right_column_name_cn" data-type="varchar" length="32" not-null="true" value-from="input" description="右字段中文名"/>
+  <column name="right_paren" data-type="varchar" length="5" not-null="false" value-from="input" description="右括号"/>
+  <column name="param_order" data-type="integer" length="10" not-null="false" empty-is-null="false" unique="false" value-from="input" description="参数顺序"/>
+  <column name="param_text" data-type="varchar" length="4000" not-null="true" value-from="input" description="参数中文"/>
+  <primary-key name="pk_sys_svr_service_param" column-list="sys_svr_service_param_id"/>
+  <index name="pk_sys_svr_service_param" index-type="unique" cluster="cluster" column-list="sys_svr_service_param_id"/>
+  <function func-name="select sys_svr_service_param list" func-type="rowset" column-list="sys_svr_service_param_id, sys_svr_service_id, operator1,left_paren,left_table_no,left_table_name,left_table_name_cn,left_column_no,left_column_name,left_column_name_cn,operator2,right_table_no,right_table_name,right_table_name_cn,right_column_no,right_column_name,right_column_name_cn,right_paren, param_order,param_text" sort-columns="param_order" max-record="10">
+    <filter-column column-name="sys_svr_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="select one sys_svr_service_param" func-type="select" column-list="param_order,sys_svr_service_param_id,sys_svr_service_id,operator1,left_paren,left_table_no,left_table_name,left_table_name_cn,left_column_no,left_column_name,left_column_name_cn,operator2,right_table_no,right_table_name,right_table_name_cn,right_column_no,right_column_name,right_column_name_cn,right_paren,param_text">
+    <filter-column column-name="sys_svr_service_param_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_svr_service_param" func-type="insert" column-list="sys_svr_service_param_id,sys_svr_service_id,operator1,left_paren,left_table_no,left_table_name,left_table_name_cn,left_column_no,left_column_name,left_column_name_cn,operator2,right_table_no,right_table_name,right_table_name_cn,right_column_no,right_column_name,right_column_name_cn,right_paren, param_order,param_text">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="update one sys_svr_service_param" func-type="update" column-list="operator1,left_paren,left_table_no,left_table_name,left_table_name_cn,left_column_no,left_column_name,left_column_name_cn,operator2,right_table_no,right_table_name,right_table_name_cn,right_column_no,right_column_name,right_column_name_cn,right_paren,param_text">
+    <filter-column column-name="sys_svr_service_param_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="delete sys_svr_service_param list" func-type="delete">
+    <filter-column column-name="sys_svr_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="delete one sys_svr_service_param" func-type="delete">
+    <filter-column column-name="sys_svr_service_param_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="select next_order sys_svr_service_param" func-type="select" column-list="MAX(param_order) AS param_order">
+    <description>单记录查询</description>
+  </function>
+</table>
+

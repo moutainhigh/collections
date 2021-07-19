@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>etl任务表</menu-name>
+  <menu-path>/page/collect/etl/</menu-path>
+  <description>etl任务表</description>
+  <form-beans>
+    <form-bean name="EtlSubjectRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="record" name="etl_id" type="string" size="32" cannull="true" description="主键ID"/>
+      <form-property prefix="record" name="res_target_id" type="string" size="32" cannull="true" description="服务对象ID"/>
+      <form-property prefix="record" name="subj_name" type="string" size="240" cannull="true" description="任务名称"/>
+      <form-property prefix="record" name="subj_desc" type="string" size="2000" cannull="true" description="任务描述"/>
+      <form-property prefix="record" name="is_markup" type="string" cannull="true" description="是否显示"/>
+      <form-property prefix="record" name="show_order" type="long" cannull="true" description="排序号"/>
+      <form-property prefix="record" name="start_time" type="string" size="240" cannull="true" description="开始执行时间"/>
+      <form-property prefix="record" name="inteval" type="string" size="240" cannull="true" description="运行周期"/>
+	  <form-property prefix="record" name="schedule_json" type="string" size="4000" cannull="true" description="运行周期原始数据"/>
+      <form-property prefix="record" name="add_type" type="string" size="2" cannull="true" description="数据处理类型"/>
+    </form-bean>
+
+    <form-bean name="EtlSubjectUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="etl_id" type="string" size="32" cannull="true" description="主键ID"/>
+      <form-property prefix="record" name="etl_id" type="string" size="32" cannull="true" description="主键ID"/>
+      <form-property prefix="record" name="res_target_id" type="string" size="32" cannull="true" description="服务对象ID"/>
+      <form-property prefix="record" name="service_targets_name" type="string" size="100" cannull="true" description="服务对象名称"/>
+      <form-property prefix="record" name="subj_name" type="string" size="240" cannull="true" description="任务名称"/>
+      <form-property prefix="record" name="subj_desc" type="string" size="2000" cannull="true" description="任务描述"/>
+      <form-property prefix="record" name="is_markup" type="string" cannull="true" description="是否显示"/>
+      <form-property prefix="record" name="show_order" type="long" cannull="true" description="排序号"/>
+      <form-property prefix="record" name="start_time" type="string" size="240" cannull="true" description="开始执行时间"/>
+      <form-property prefix="record" name="inteval" type="string" size="240" cannull="true" description="运行周期"/>
+	  <form-property prefix="record" name="schedule_json" type="string" size="4000" cannull="true" description="运行周期原始数据"/>
+	  
+      <form-property prefix="record" name="add_type" type="string" size="2" cannull="true" description="数据处理类型"/>
+      
+      <form-property prefix="subject" name="sys_name" type="string" size="40" cannull="true" description="主题名称"/>
+      <form-property prefix="subject" name="table_name_cn" type="string" size="40" cannull="true" description="表名称"/>
+      <form-property prefix="subject" name="table_name_en" type="string" size="40" cannull="true" description="表代码"/>
+      <form-property prefix="subject" name="task_name" type="string" size="40" cannull="true" description="表对应关系代码"/>
+      
+      <form-property prefix="subjectNum" name="sys_name" type="string" size="40" cannull="true" description="主题名称"/>
+      <form-property prefix="subjectNum" name="total" type="string" size="40" cannull="true" description="主题对应表的个数"/>
+    </form-bean>
+
+    <form-bean name="EtlSubjectDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="etl_id" type="string" size="32" cannull="true" description="主键ID"/>
+    </form-bean>
+    
+     <form-bean name="CollectTaskEtlForm">
+      <description>etl任务</description>
+      <form-property prefix="select-key" name="workflow_id" type="string" size="32" cannull="false" description="etl任务ID"/>
+      <form-property prefix="select-key" name="workflow_run_id" type="string" size="32" cannull="false" description="etl任务ID"/>
+      <form-property prefix="select-key" name="worklet_run_id" type="string" size="32" cannull="false" description="etl任务ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-etl_subject.jsp" name="EtlSubjectRowsetForm" txn-code="30300001" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询etl任务列表</description>
+      <step index="10" bean-name="com.gwssi.collect.etl.txn.TxnEtlSubject" func-name="txn30300001" input-node="select-key" output-node="record" description="查询etl任务列表"/>
+      <forward error-code="success" path="query-etl_subject.jsp"/>
+      <forward error-code="failure" path="query-etl_subject.jsp"/>
+    </action>
+
+    <action input="update-etl_subject.jsp" name="EtlSubjectUpdateForm" txn-code="30300002"  check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>修改etl任务信息</description>
+      <step index="10" bean-name="com.gwssi.collect.etl.txn.TxnEtlSubject" func-name="txn30300002" input-node="record" description="修改etl任务信息"/>
+      <forward error-code="success" path="update-etl_subject.jsp"/>
+      <forward error-code="failure" path="update-etl_subject.jsp"/>
+    </action>
+
+    <action input="insert-etl_subject.jsp" name="EtlSubjectUpdateForm" txn-code="30300003" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加etl任务信息</description>
+      <step index="10" bean-name="com.gwssi.collect.etl.txn.TxnEtlSubject" func-name="txn30300003" input-node="record" description="增加etl任务信息"/>
+      <forward error-code="success" path="/page/collect/config/fileupload/query-tmp.jsp"/>
+      <forward error-code="failure" path="insert-etl_subject.jsp"/>
+    </action>
+
+    <action input="query-etl_subject.jsp" name="EtlSubjectUpdateForm" txn-code="30300004" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询etl任务用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.etl.txn.TxnEtlSubject" func-name="txn30300004" input-node="primary-key" output-node="record" description="查询etl任务用于修改"/>
+      <forward error-code="success" path="update-etl_subject.jsp"/>
+      <forward error-code="failure" path="update-etl_subject.jsp"/>
+    </action>
+
+    <action input="query-etl_subject.jsp" name="EtlSubjectDeleteForm" txn-code="30300005" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除etl任务信息</description>
+      <step index="10" bean-name="com.gwssi.collect.etl.txn.TxnEtlSubject" func-name="txn30300005" input-node="primary-key" description="删除etl任务信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+    <action input="query-etl_subject.jsp" name="EtlSubjectUpdateForm" txn-code="30300008" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>查看采集任务信息</description>
+      <step index="10" bean-name="com.gwssi.collect.etl.txn.TxnEtlSubject" func-name="txn30300008" input-node="primary-key" output-node="record" description="查看采集任务信息"/>
+      <forward error-code="success" path="view-etl_subject.jsp"/>
+      <forward error-code="failure" path="view-etl_subject.jsp"/>
+    </action>
+    
+     <!-- ETL采集任务部分 -->
+    
+    <action input="update-collect_task.jsp" name="CollectTaskEtlForm" txn-code="30300006" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>获取ETL调度任务详细</description>
+      <step index="10" bean-name="com.gwssi.collect.etl.txn.TxnEtlSubject" func-name="txn30300006" input-node="select-key" output-node="record" description="修改jms采集任务信息"/>
+      <forward error-code="success" path="/page/collect/etl/query-etl_task_detail_tree.jsp"/>
+      <forward error-code="failure" path="/page/collect/etl/query-etl_task_detail_tree.jsp"/>
+    </action>
+    
+    <action input="update-collect_task.jsp" name="CollectTaskEtlForm" txn-code="30300007" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>获取ETL调度子任务列表</description>
+      <step index="10" bean-name="com.gwssi.collect.etl.txn.TxnEtlSubject" func-name="txn30300007" input-node="select-key" output-node="record" description="修改jms采集任务信息"/>
+      <forward error-code="success" path="/page/collect/etl/query-etl_task_detail.jsp"/>
+      <forward error-code="failure" path="/page/collect/etl/query-etl_task_detail.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-etl_subject.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/collect/etl/query-etl_subject.jsp" description="查询etl任务列表"/>
+    <resource-file type="jsp" file-name="/page/collect/etl/insert-etl_subject.jsp" description="增加etl任务信息"/>
+    <resource-file type="jsp" file-name="/page/collect/etl/update-etl_subject.jsp" description="修改etl任务信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.etl.vo.EtlSubjectContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.etl.vo.VoEtlSubject" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.etl.vo.VoEtlSubjectSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.etl.vo.VoEtlSubjectPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

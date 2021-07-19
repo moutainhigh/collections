@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+<head>
+	<title WCMAnt:param="watermark_specify.html.specifywatermarkposition">指定水印位置</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="../../app/js/runtime/myext-debug.js"></script>
+	<script src="../../app/js/source/wcmlib/WCMConstants.js"></script> 
+	<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script> 
+	<link rel="stylesheet" type="text/css" media="screen" href="css/uvumi-crop.css" />
+	<style>
+		*{
+			padding:0;
+			margin:0;
+		}
+	</style>
+	<script>
+		function getParameter(_sName, _sQuery, encode){
+			if(_sName ==null ||_sName=='undefined')
+				return '';
+			var query = _sQuery || location.search;
+			if(query == null || query.length==0) return '';
+			var fn = (typeof encode == 'function') ? encode : (encode === false ? (function(k){return k;}) : decodeURIComponent);
+			var arr = query.substring(1).split('&');
+			_sName = _sName.toUpperCase();
+			for (var i=0,n=arr.length; i<n; i++){
+				if(arr[i].toUpperCase().indexOf(_sName+'=')==0){
+					return fn(arr[i].substring(_sName.length + 1));
+				}
+			}
+			return '';
+		}
+		var imgInfoOfCrop=null;
+		function onOK(_parames){
+			window.returnValue = [_parames.top,_parames.left];
+			// 是否传入回调函数
+			var callback = getParameter('callback');
+			if(callback && window.dialogArguments){
+				window.dialogArguments[callback](_parames);
+			}
+			window.close();
+		}
+	</script>
+</head>
+<body style="overflow:hidden" scroll=no>
+	<script>
+		document.write("<iframe src='watermark_specify_inner.html"+location.search+"'  width='910px' height='600px'></iframe>");
+	</script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8">
+<title>北京工商网上登记申请平台全程电子化</title>
+<link href="../../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/common.css" rel="stylesheet" type="text/css" />
+<link rel="Shortcut Icon" href="../../../static/image/img/verify.png" type="image/x-icon">
+<link rel="stylesheet" href="../../../static/css/businessdetail.css">
+<style>
+.wrapper {
+	margin-top: -20px;
+}
+
+.content {
+	border: 0;
+	clear: both;
+	margin-top:0px;
+}
+
+.categoryPic {
+	float: left;
+	margin-left: 20px;
+	margin-top: 10px;
+	text-align: center;
+}
+.categoryPic span{
+	font-size:14px;
+	font-family: yahei;
+}
+.contentNew {
+	width: 883px;
+	/* height:100%; */
+	border: 1px solid #dae5eb;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-top: 15px;
+}
+
+.contentEnterprise {
+	width: 883px;
+	border: 1px solid #dae5eb;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.content-top {
+	width: 100%;
+	height: 35px;
+	background-color: #f0f8fb;
+}
+
+.content-top span {
+	line-height: 35px;
+	color: #666;
+	text-align: center;
+	font-weight: bold;
+    padding-left: 6px;
+}
+
+
+.previes-investors th {
+	text-align: center;
+	padding-left: 20px; 
+	font-family:"songit";
+	font-weight: blod;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 100px;
+}
+
+.previes-investors tr {
+	margin-top: 5px;
+	height:40px;
+}
+
+.previes-investors td {
+	padding-left: 20px;
+	vertical-align: middle;
+	font-size:14px;
+	font-family: yahei;
+	vertical-align: middle;
+	font-family:"Microsoft YaHei";
+	padding-top:10px;
+	padding-bottom: 10px;
+	 text-align: center;
+}
+
+.previes-members td {
+	padding-left: 40px;
+	font-family:'Microsoft YaHei';
+	padding-top:10px;
+	padding-bottom: 10px;
+}
+
+.previes-members th {
+	text-align: left;
+	padding-left: 40px; 
+	font-weight: bold; 
+	font-family:"songti";
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.previes-members tr {
+	margin-top: 5px;
+	height:40px;
+}
+.previes-record td {
+	/* padding-left: 40px;
+	font-size:14px;
+	font-family: yahei; */
+	
+	padding-left: 40px;
+	font-family:'Microsoft YaHei';
+	padding-top:10px;
+	padding-bottom: 10px;
+}
+
+.previes-record th {
+	/* text-align: left;
+	padding-left: 40px; */
+	/* font-weight: bold; */
+	/* font-family:"songti";
+	font-size:14px;
+	font-family: yahei;
+	font-weight:normal; */
+	
+	
+	text-align: left;
+	 padding-left: 40px; 
+	font-weight: bold; 
+	font-family:"songti";
+	/* font-weight: normal; */
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.previes-record tr {
+	margin-top: 5px;
+	height:40px;
+}
+#showPic{
+ 	height: 550px; 
+}
+#showPicDiv {
+	display: none;
+	z-index: 777;
+	position: fixed;
+	top: 10px;
+	left: 300px;
+	height: 550px;
+	border: solid 1px #000;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #fff;
+}
+.jazz-form-text-label{
+	font-family:'Microsoft YaHei';
+}
+
+
+/*修订的样式*/
+
+/*股东信息*/
+    
+</style>
+</head>
+<body>	
+<div class="contentNew" style="width:1000px;border:1px solid #72b0e1;">
+	<div class="content-top" style="background:#72b0e1;">
+		<img src="../../../static/image/img/icon/mbr-white.png">
+		 <span style="color:#fff;">业务详情</span>
+	</div>﻿
+	<article class="wrapper">
+		<div class="tabtitle person">
+			<p>自然人股东</p>		
+			<p style="float:right;margin-right:30px" id="name"><input type="checkbox" id="check"/>只显示身份认证未通过和未提交的</p>
+		</div>
+		<div class="dotted-line person" style="width:95%;margin:0 auto;"></div>
+		<div id="cp"></div>
+		<div name="invPersonGridPanel" id="invPersonGridPanel" hideheader="true" 
+			vtype="gridpanel" width="0"  isshowselecthelper="false" showborder="false" lineno=true
+			linenowidth="0" titledisplay=false selecttype="0" style="font-family: 微软雅黑;display:none">
+				<div name="myBusiGrid_column" vtype="gridcolumn" hideheader=true>
+					<div>
+					</div>
+				</div>
+			</div>
+		<div class="tabtitle nonperson">
+			<p>非自然人股东</p>
+		</div>
+		<div class="dotted-line nonperson" style="width:95%;margin:0 auto;"></div>
+		<div id="ncp"></div>
+			<div name="tabGridPanel" id="tabGridPanel" hideheader="true"
+			vtype="gridpanel" width="0"  isshowselecthelper="false" showborder="false" lineno=true
+			linenowidth="0" titledisplay=false selecttype="0" style="font-family: 微软雅黑;display:none">
+				<div name="myBusiGrid_column" vtype="gridcolumn" hideheader=true>
+					<div>
+					</div>
+				</div>
+			</div>
+		<div class="tabtitle representative">
+			<p>法定代表人</p>
+		</div>
+		<div class="dotted-line" style="width:95%;margin:0 auto;"></div>
+		<div id="representative"></div>
+		<div class="tabbox">
+		<div name="applySetupPreviewConfirm_Grid" id="representativeGridPanel" hideheader="true"
+			vtype="gridpanel" width="0"  isshowselecthelper="false" showborder="false" lineno=true
+			linenowidth="0" titledisplay=false selecttype="0" style="font-family: 微软雅黑;display:none">
+				<div name="myBusiGrid_column" vtype="gridcolumn" hideheader=true>
+					<div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</article>
+	
+</div>
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" data-main="apply/id_confirm.js"	src="../../../static/lib/require.js"></script>
+
+</body>
+</html>

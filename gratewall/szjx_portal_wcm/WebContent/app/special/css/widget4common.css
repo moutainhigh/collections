@@ -1,0 +1,118 @@
+/** 
+*	说明：该文件主要定义一些公共样式文件，该文件将会应用到设计页面和发布页面中
+**	1.定义资源块的公共样式，如标题，更多样式等
+*	2.定义布局的公共样式
+*	
+**/
+.p_w_head{height:25px;font-weight:normal;font-size:14px;}
+.p_w_head a:link{text-decoration:none;color:#000;}
+.p_w_title{float:left;padding-left:18px;line-height:25px;}
+/*更多样式，向右浮动*/
+.p_w_more{float:right;padding-right:10px;line-height:25px;}
+.p_w_body{zoom:1}
+
+
+/**居中效果**/
+.template_box{margin:0 auto;text-align:left;}
+body{text-align:center;}
+.ext-ie6 .template_box{text-align:left;}
+
+
+/*--------------布局公共样式----------------*/
+*{padding:0px;margin:0px;}
+/*空列*/
+.c-empty-column{padding:40px 0;text-align:center;background:#ccc;overflow:hidden;cursor:pointer;color:white;}
+.c_left{float:left;}
+.c_right{float:right;}
+/*分隔符*/
+.c_sep{}
+.r_sep{height:10px;background:white;}
+/*布局和列样式控制*/
+.trs_layout{overflow:hidden;zoom:1}
+.trs_column{overflow:hidden;}
+.ext-ie .trs_column{height:100%;}
+/*IE6下自适应列周围列的样式*/
+.ext-ie6 .margin_left{margin-left:-3px;}
+.ext-ie6 .margin_right{margin-right:-3px;}
+.ext-ie6 .margin_right_IE6BUG_DIVFLOAT100{margin-right:-1px;}
+.ext-ie6 .margin_right_IE6BUG_DIVFLOAT100 .c-box{margin-right:1px;}
+.ext-ie6 .margin_left_IE6BUG_DIVFLOAT100{margin-left:-1px;}
+.ext-ie6 .margin_left_IE6BUG_DIVFLOAT100 .c-box{margin-left:1px;}
+
+.ext-ie7 .margin_right_IE6BUG_DIVFLOAT100{margin-right:-1px;}
+.ext-ie7 .margin_right_IE6BUG_DIVFLOAT100 .c-box{margin-right:1px;}
+.ext-ie7 .margin_left_IE6BUG_DIVFLOAT100{margin-left:-1px;}
+.ext-ie7 .margin_left_IE6BUG_DIVFLOAT100 .c-box{margin-left:1px;}
+/*------------资源块公共样式---------------*/
+
+.trs-widget{
+	border:0px;
+	padding-bottom:4px;
+}
+.trs-widget .p_w_content{
+	overflow:hidden;
+}
+.c-box{padding-bottom:0px;}
+
+
+/*fix*/
+.trs-widget .p_w_content .p_doc_title_li{
+	position:static;
+}
+
+.trs-res{
+	zoom:1;
+}
+
+/*头部显示与不显示*/
+.trs-res .headdisplay-0{
+	display:none !important;
+}
+.trs-res .datetime-display-0 .datetime{
+	display:none !important;
+}
+.trs-res .more-display-0 .p_w_more a{
+	display:none !important;
+}
+/*编辑器样式控制*/
+.trs-editor .p_w_content ul, .trs-editor .p_w_content ol{
+	list-style-type:disc;
+	margin:auto;
+}
+.trs-editor .p_w_content ol{
+	list-style-type:decimal;
+	margin:auto;
+}
+.trs-editor .p_w_content ul, .trs-editor .p_w_content ol{
+	padding-left:40px;
+}
+
+.trs-editor .p_w_content{
+	word-break:break-all;
+	word-wrap:break-word;
+}
+
+/*解决在FF下图片下方出现3像素间隙的问题*/
+.trs-logo .p_w_content{
+	font-size:0px;
+}
+.trs-logo .p_w_foot{
+	height:0px;
+}
+.trs-logo,.trs-chnllist{
+	padding:0px !important;
+}
+.trs-widget[WNAME="LOGO"],.trs-widget[WNAME="栏目导航"]{
+	padding:0px !important;
+}
+
+/*修改ie6下，左侧图片摘要右侧列表出现抖动的问题*/
+.ext-ie6 .trs-abstract-doc-list .newsright{
+	float:left;zoom:1;padding-left:10px;
+}
+
+/*添加布局的背景以后，资源块内容背景色需要设置为透明的样式*/
+.trs_layout_background .p_w_body{
+	background-color:transparent !important;
+}
+

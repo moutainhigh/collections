@@ -1,0 +1,277 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title WCMAnt:param="photo_search.html.title">TRS WCM 图片库检索</title>
+<script src="../../app/js/easyversion/lightbase.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/data/locale/photo.js"></script>
+<script src="../../app/js/easyversion/extrender.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog end-->
+<!-- CarshBoard Inner Start -->
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></SCRIPT>
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Inner End -->
+<!--calendar-->
+<script language="javascript" src="../../app/js/easyversion/calendar_lang/cn.js" WCMAnt:locale="../../app/js/easyversion/calendar_lang/$locale$.js" type="text/javascript"></script>
+<script language="javascript" src="../../app/js/easyversion/calendar.js" type="text/javascript"></script>
+<link href="../../app/js/easyversion/resource/calendar.css" rel="stylesheet" type="text/css" />
+<script language="javascript">
+    window.m_cbCfg = {
+        btns : [
+            {
+                text : wcm.LANG.PHOTO_CONFIRM_1 || '确定',
+                cmd : function(){
+                    return onOK();
+                }
+            },
+            {
+                text : wcm.LANG.PHOTO_CONFIRM_2 || '取消',
+                cmd : function(){
+                }
+            }
+        ]
+    };
+</script>
+<script>
+var m_oHostId = {};
+function init(_oArgs) {
+	var sDocStatus="0", sDocTitle = "", sAuthor = "", sCrUser = "", sKeywords = "", sDocDesc = "", sPeople = "", sPlace = "";
+	var sStartTime = "", sEndTime = "";
+	if(_oArgs) {
+		sDocStatus = _oArgs.DocStatus || "0";
+		sDocTitle = _oArgs.DocTitle || "";
+		sAuthor = _oArgs.Author || "";
+		sCrUser = _oArgs.CrUser || "";
+		sKeywords = _oArgs.Keywords || "";
+		sDocDesc = _oArgs.DocDesc || "";
+		sPeople = _oArgs.People || "";
+		sPlace = _oArgs.Place || "";
+		sStartTime = _oArgs.StartTime || "";
+		sEndTime = _oArgs.EndTime || "";
+		if(_oArgs[0] != 0){
+			m_oHostId = {ChannelId:_oArgs[0]};
+		}else{
+			m_oHostId = {SiteId:_oArgs[1]};
+		}
+	}
+	document.getElementById("DocStatus").value = sDocStatus;
+	document.getElementById("DocTitle").value = sDocTitle;
+	document.getElementById("Author").value = sAuthor;
+	document.getElementById("CrUser").value = sCrUser;
+	document.getElementById("Keywords").value = sKeywords;
+	//document.getElementById("DocDesc").value = sDocDesc;
+	document.getElementById("People").value = sPeople;
+	document.getElementById("Place").value = sPlace;
+	document.getElementById("StartTime").value = sStartTime;
+	document.getElementById("EndTime").value = sEndTime;
+}
+function onOK() {
+	if(!window.parent) {
+		Ext.Msg.alert("Can not find window.parent!");
+		return false;
+	}
+
+	if(!validateTimeRange()) return false;
+	
+	var dtStart = document.getElementById("StartTime").value || "";
+
+	var dtEnd = document.getElementById("EndTime").value || "";
+	var oArgs = {
+		DocStatus : document.getElementById("DocStatus").value || "0",
+		DocTitle : document.getElementById("DocTitle").value || "",
+		DocAuthor : document.getElementById("Author").value || "",
+		CrUser : document.getElementById("CrUser").value || "",
+		DocKeywords : document.getElementById("Keywords").value || "",
+		//DocContent : document.getElementById("DocDesc").value || "",
+		DocPeople : document.getElementById("People").value || "",
+		DocPlace : document.getElementById("Place").value || "",
+		StartDate :dtStart,
+		EndDate : dtEnd
+	};
+	
+	Object.extend(oArgs,m_oHostId);
+	var cbr = wcm.CrashBoarder.get(window);
+		cbr.notify(oArgs);    
+}
+function validateTimeRange(){
+	var dtStart = document.getElementById("StartTime").value || "";	
+	var dtEnd = document.getElementById("EndTime").value || "";
+	
+	if(dtStart.length == 0 && dtEnd.length == 0){
+		return true;
+	}else if(dtEnd.length == 0){
+		Ext.Msg.alert(wcm.LANG.PHOTO_CONFIRM_35 || "没有指定结束时间！");
+		return false;
+	}else if(dtStart.length == 0){
+		Ext.Msg.alert(wcm.LANG.PHOTO_CONFIRM_36 || "没有指定开始时间！");
+		return false;
+	}
+	dtStart = Date.parseDate(dtStart,"%y-%m-%d %H-%M-%S");
+	dtEnd = Date.parseDate(dtEnd,"%y-%m-%d %H-%M-%S");
+	
+	if ((dtEnd.getTime() - dtStart.getTime()) < 0){
+		Ext.Msg.alert(wcm.LANG.PHOTO_CONFIRM_37 || "无效的时间段：结束时间早于开始时间！");
+		return false;
+	}
+
+	return true;
+}
+</script>
+<style>
+.inputtext{
+	border:1px solid black;
+	width:200px;
+}
+.btn{
+	height: 22px;
+	background: #eeeeee;
+	border: solid 1px silver;
+	font-size: 12px;
+	padding: 3px;
+	padding-right: 3px;
+	cursor:hand;
+}
+.td_time{
+	font-size:12px;
+}
+.ext-ie8 .wcm-btn{
+	display:inline;
+}
+.attr_name{
+	font-size:12px;
+	text-align:right;
+	padding:5px 10px;
+	font-weight:bold;
+	width:55px;
+}
+.input_text{
+	width:122px;
+	border : 1px solid black;
+	margin:0px;			
+}
+.calendarShow{
+	width:28px;
+	line-height:18px;
+	display:inline;
+}
+.ext-ie .calendarShow{
+	height:20px;
+}
+.ext-gecko .calendarShow{
+	width:30px;
+}
+.ext-safari .calendarShow{
+	width:30px;
+}
+.ext-safari .img{
+	margin-left:-5px;
+}
+</style>
+</head>
+<body>
+<center>
+<div style="margin:10px;padding:10px;background-color:#fff;">
+	<table border="0" cellspacing="0" cellpadding="0">
+	<tbody>
+		<tr>
+			<td class="attr_name" WCMAnt:param="photo_search.html.status">状态</td>
+			<td>
+				<select name="DocStatus" id="DocStatus">
+					<option value="0" selected WCMAnt:param="photo_search.html.all">全部</option>
+					<option value="1" WCMAnt:param="photo_search.html.published">已发布</option>
+					<option value="2" WCMAnt:param="photo_search.html.unpublished">未发布</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name" WCMAnt:param="photo_search.html.subhead">标题</td>
+			<td>
+				<input type="text" name="DocTitle" id="DocTitle" class="inputtext">
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name" WCMAnt:param="photo_search.html.author">作者</td>
+			<td>
+				<input type="text" name="Author" id="Author" class="inputtext">
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name" WCMAnt:param="photo_search.html.cruser">创建人</td>
+			<td>
+				<input type="text" name="CrUser" id="CrUser" class="inputtext">
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name" WCMAnt:param="photo_search.html.keywords">关键词</td>
+			<td>
+				<input type="text" name="Keywords" id="Keywords" class="inputtext">
+			</td>
+		</tr>
+		<!--tr>
+			<td class="attr_name" WCMAnt:param="photo_search.htm.desc">描述</td>
+			<td>
+				<input type="text" name="DocDesc" id="DocDesc" class="inputtext">
+			</td>
+		</tr-->
+		<tr>
+			<td class="attr_name" WCMAnt:param="photo_search.html.people">人物</td>
+			<td>
+				<input type="text" name="People" id="People" class="inputtext">
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name" WCMAnt:param="photo_search.html.place">地点</td>
+			<td>
+				<input type="text" name="Place" id="Place" class="inputtext">
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name" WCMAnt:param="photo_search.html.crtime">创建时间</td>
+			<td class="td_time">
+				<span WCMAnt:param="photo_search.html.from">从</span>
+				<input type="text" name="StartTime" id="StartTime"  class="input_text" value="" elname="创建开始时间" WCMAnt:paramattr="elname:photo_search.html.StartTime">&nbsp;<button id="embed1" class="calendarShow" type="button"><IMG alt="" src="../images/icon/TRSCalendar.gif" border=0 class="img"></button>
+				<span WCMAnt:param="photo_search.html.begin">(开始)</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name">&nbsp;</td>
+			<td class="td_time">
+				<span WCMAnt:param="photo_search.html.to">至</span>
+				<input type="text" name="EndTime" id="EndTime" class="input_text" value="" elname="创建结束时间" WCMAnt:paramattr="elname:photo_search.html.EndTime">&nbsp;<button id="embed2" class="calendarShow" type="button"><IMG alt="" src="../images/icon/TRSCalendar.gif" border=0 class="img"></button>
+				<span WCMAnt:param="photo_search.html.end">(结束)</span>
+			</td>
+		</tr>
+	</tbody>
+	</table>		
+</div>
+</center>
+</body>
+<script language="javascript">
+	wcm.TRSCalendar.get({
+		input : 'StartTime',
+		dtFmt : 'yyyy-mm-dd',
+		handler : 'embed1',
+		withtime : true,
+		top:'50px',
+		left:'30px'
+	});
+	wcm.TRSCalendar.get({
+		input : 'EndTime',
+		dtFmt : 'yyyy-mm-dd',
+		handler : 'embed2',
+		withtime : true,
+		top:'50px',
+		left:'30px'
+	});
+</script>
+</html>

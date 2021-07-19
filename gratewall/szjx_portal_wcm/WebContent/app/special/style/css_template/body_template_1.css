@@ -1,0 +1,31 @@
+/* ---------- 初始化环境  begin ---------- */
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,table,td,th,form,fieldset,img,dl,dt,dd,select,input{margin:0;padding:0;}
+select,input{vertical-align:middle;}
+fieldset,img{border:0;}
+ul,ol{list-style:none;}
+body{
+	background:${body_background_pos_x} ${body_background_pos_y} url(${body_background_image}) ${body_background_repeat};
+	background-color:${body_background_color};
+	font-family:${font_family};
+	color:${font_color};
+}
+.template_box{
+	width:${template_box_width};
+}
+textarea,input,select,body,td{
+	font-size:${font_size};
+	font-weight:${font_weight};
+}
+a:link,a:active{
+	color:${a_color};
+	text-decoration:${a_text_decoration};
+}
+a:visited{
+	color:${a_visited_color};
+	text-decoration:${a_visited_text_decoration};
+}
+a:hover{
+	color:${a_hover_color};
+	text-decoration:${a_hover_text_decoration};
+}
+/* ---------- 初始化环境  end ---------- */

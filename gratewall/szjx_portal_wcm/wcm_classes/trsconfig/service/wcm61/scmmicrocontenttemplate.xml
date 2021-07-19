@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.scm.service.SCMMicroContentTemplateServiceProvider">	
+	<method name="save">
+		<parameter name="ObjectId" desc="微博样式ID" type="int" required="true" default="0"/>
+		<parameter name="HostId" desc="栏目或站点Id" type="int" required="true"/>
+		<parameter name="HostType" desc="栏目或站点类型" type="int" required="true"/>
+		<parameter name="MicroContentStyle" desc="自定义的微博样式" type="string"/>
+	</method>
+	
+	<method name="findById">
+		<parameter name="SCMMicroContentTemplateId" desc="微博样式ID" type="int" required="true"/>
+	</method>	
+	
+	<method name="findByHost">		
+		<parameter name="HostId" desc="栏目或站点Id" type="int" required="true"/>
+		<parameter name="HostType" desc="栏目或站点的类型" type="int" required="true"/>		
+	</method>
+	
+	<method name="getSCMMicroContent">			
+		<parameter name="RecId" desc="文档对应ChnlDoc的RecId" type="int" required="true"/>	
+		<parameter name="SiteType" desc="文档对应的站点栏目的库类型" type="int" required="true"/>
+	</method>
+	 
+</service>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!--
+niuzhao@2005-12-21 DocumentLCListenerForAutoDocBak修改为5，修改前监听
+-->
+<plugin name="WCM内容组件" version="1.0" id="wcm.content">
+	<!-- Cached-Object Config For ICachePOMgr BEGIN -->
+	<extension element-class="com.trs.infra.persistent.cache.CachedObjectConfig" id="CachedObjs">
+		<cached-object Name="栏目" 
+		ClassName="com.trs.components.wcm.content.persistent.Channel"/>
+		<cached-object Name="站点" 
+			ClassName="com.trs.components.wcm.content.persistent.WebSite"/>
+		<cached-object Name="内容超链接" 
+			ClassName="com.trs.components.wcm.content.persistent.ContentLink"/>
+	</extension>
+	<!-- Cached-Object Config For ICachePOMgr END -->
+	
+	<!--Object Types BEGIN-->
+	<extension element-class="com.trs.infra.persistent.ObjectTypeConfig" id="ObjectTypes">
+		<object-type ObjectType="103" name="站点" ObjectClassName="com.trs.components.wcm.content.persistent.WebSite"/>		
+		<object-type ObjectType="101" name="栏目" ObjectClassName="com.trs.components.wcm.content.persistent.Channel"/>		
+		<object-type ObjectType="605" name="文档" ObjectClassName="com.trs.components.wcm.content.persistent.Document"/>		
+	</extension>
+	<!--Object Types END-->
+	
+	<!-- Right Objects BEGIN -->
+	<extension element-class="com.trs.cms.auth.config.RightObjectConfig" id="RightObjects">
+		<!--right-object name="文档权限判断对象" ClassName="com.trs.components.wcm.content.domain.auth.DocumentRightObjImpl"/-->		
+		<!--right-object name="栏目权限判断对象" ClassName="com.trs.components.wcm.content.domain.auth.ChannelRightObjImpl"/-->		
+	</extension>	
+	<!-- Right Objects END -->
+
+	<!-- Right Hosts BEGIN -->
+	<extension element-class="com.trs.cms.auth.config.RightHostConfig" id="RightHosts">
+		<right-host name="文档权限设置对象" ClassName="com.trs.components.wcm.content.domain.auth.DocumentRightHostImpl"/>		
+		<right-host name="栏目权限设置对象" ClassName="com.trs.components.wcm.content.domain.auth.ChannelRightHostImpl"/>		
+		<right-host name="站点权限设置对象" ClassName="com.trs.components.wcm.content.domain.auth.WebSiteRightHostImpl"/>				
+	</extension>
+	<!-- Right Objects END -->
+
+	
+	<!-- CacheMgrs Config For CacheServer BEGIN -->
+	<extension element-class="com.trs.infra.support.cache.CacheMgrConfig" id="CacheMgrs">
+		<cache-manager beanId="IChildrenMgr" name="子栏目缓冲管理器"/>
+		<cache-manager beanId="IChannelNameMgr" name="栏目名称缓冲管理器"/>
+		<cache-manager beanId="ReplaceCacheMgr" name="替换内容缓冲管理器"/>
+	</extension>
+	<!-- CacheMgrs Config For CacheServer END -->
+
+	<!-- Update-Commander Config For UpdateServer BEGIN -->
+	<extension element-class="com.trs.infra.update.UpdateCommanderConfig" id="WCMContentUpdateCommander">
+		<update-commander Name="WCM内容升级程序" 
+			ClassName="com.trs.components.wcm.content.ContentUpdateCommanderImpl"/>
+	</extension>
+	<!-- Update-Commander Config For UpdateServer END -->	
+	
+	<!--Config For ObjectLCMonitor BEGIN-->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		1：新增
+		2：修改后
+		3：删除前
+		4、删除后
+		5、修改前
+		多个以逗号隔开
+	-->
+	<extension 
+		element-class="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		id="components.wcm.content.ObjectLCMonitor">
+		<!--站点-->
+		<monitor-host name="站点" 
+			class-name="com.trs.components.wcm.content.persistent.WebSite">
+			<listener bean-id="WebSiteLCListenerForAutoDocBak" event-type="3"/>
+			<listener bean-id="WebSiteLCListenerForSiteUser" event-type="3"/>
+			<listener bean-id="WebSiteLCListenerForContentLink" event-type="3"/>
+			<listener bean-id="IChildrenMgr" event-type="3"/>
+			<listener bean-id="BaseChannelLCListener4ExtField" event-type="4"/>
+			<listener bean-id="BaseChannelLCListener4Region" event-type="4"/>
+			<listener bean-id="BaseChannelLCListener4Right" event-type="4"/>
+			<listener bean-id="BaseChannelLCListener4ObjectMember" event-type="4"/>
+		</monitor-host>
+		<!--栏目-->
+		<monitor-host name="栏目" 
+			class-name="com.trs.components.wcm.content.persistent.Channel">
+			<listener bean-id="IChannelNameMgr"/>
+			<listener bean-id="IChildrenMgr"/>
+			<listener bean-id="ChannelLCListenerForDocument" event-type="2,3"/>
+			<listener bean-id="ChannelLCListenerForChannelSyn" event-type="3"/>
+			<listener bean-id="RightHostLCListenerForInherit" event-type="1"/>
+			<listener bean-id="BaseChannelLCListener4ExtField" event-type="4"/>
+			<listener bean-id="BaseChannelLCListener4Region" event-type="4"/>
+			<listener bean-id="BaseChannelLCListener4Right" event-type="4"/>
+			<listener bean-id="BaseChannelLCListener4ObjectMember" event-type="4"/>
+			<listener bean-id="ChannelLCListener4ChnlDept" event-type="4"/>
+		</monitor-host>
+		<!--文档-->
+		<monitor-host name="文档" 
+			class-name="com.trs.components.wcm.content.persistent.Document">
+			<listener bean-id="ApdHostLCListener" event-type="2,3"/>
+			<listener bean-id="DocumentLCListenerForRelation" event-type="3"/>
+			<listener bean-id="DocumentLCListenerForDocReply" event-type="3"/>
+			<listener bean-id="DocumentLCListenerForDocBak" event-type="3"/>
+			<listener bean-id="DocumentLCListenerForAutoDocBak" event-type="5"/>
+			<listener bean-id="DocumentLCListenerForExternalFile" event-type="2,3"/>
+			<listener bean-id="DocumentLCListenerForRelDocs" event-type="1,2,3"/>			
+			<listener bean-id="DocumentLCListenerForDocForm" event-type="1,2"/>
+			<listener bean-id="DocumentLCListenerForRight" event-type="4"/>
+		</monitor-host>
+		<monitor-host name="文档备份" 
+			class-name="com.trs.components.wcm.content.persistent.DocBak">
+			<listener bean-id="DocBakLCListenerForApd" event-type="3"/>
+		</monitor-host>
+		<!--栏目文档-->
+		<monitor-host name="栏目文档" 
+			class-name="com.trs.components.wcm.content.persistent.ChnlDoc">
+			<listener bean-id="ChnlDocLCListenerForPri"/>
+			<!-- wenyh@2005-8-22 modified,不再监听文档状态的改变产生版本保存. -->
+			<!--listener bean-id="ChnlDocLCListenerForAutoDocBak" event-type="2"/-->
+		</monitor-host>
+		<!--扩展字段-->
+		<monitor-host name="扩展字段" 
+			class-name="com.trs.cms.content.ExtendedField">
+			<listener bean-id="ExtendedFieldLCListenerForDocBak"/>
+		</monitor-host>
+		<monitor-host name="扩展字段2" 
+			class-name="com.trs.components.wcm.content.persistent.ContentExtField">
+			<listener bean-id="ContentExtFieldLCListenerForDocFields" event-type="4"/>
+			<listener bean-id="ContentExtFieldCListenerForDocProps" event-type="4"/>
+		</monitor-host>
+		<!-- Replace : 替换内容-->
+		<monitor-host name="替换内容" 
+			class-name="com.trs.components.wcm.content.persistent.Replace">
+			<listener bean-id="ReplaceCacheMgr"></listener>
+		</monitor-host>
+		<!--用户-->
+		<monitor-host name="用户" class-name="com.trs.cms.auth.persistent.User">
+			<listener bean-id="SiteMemberLCListner" event-type="3"/>
+		</monitor-host>
+		<!--组织-->
+		<monitor-host name="组织" class-name="com.trs.cms.auth.persistent.Group">
+			<listener bean-id="SiteMemberLCListner" event-type="3"/>
+			<listener bean-id="GroupLCListener4ChnlDept" event-type="4"/>
+		</monitor-host>
+		<!--角色-->
+		<monitor-host name="角色" class-name="com.trs.cms.auth.persistent.Role">
+			<listener bean-id="SiteMemberLCListner" event-type="3"/>
+		</monitor-host>
+		<!--权限-->
+		<monitor-host name="权限" class-name="com.trs.cms.auth.persistent.Right">
+			<listener bean-id="RightLCListenerForSynSiteMember" event-type="1,2,3"/>
+		</monitor-host>
+		<!--表单栏目分配关系-->
+		<monitor-host name="表单栏目分配关系" class-name="com.trs.components.infoview.persistent.InfoViewEmploy">
+			<listener bean-id="InfoViewEmployLCListenerForChannel" event-type="1"/>
+		</monitor-host>
+	</extension>
+	<!--Config For System Collocation BEGIN-->
+
+</plugin>

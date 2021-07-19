@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="../../../external/jquery-ui/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+
+<script src="../../../external/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="../../../external/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+<script src="../../../lib/jazz-dependent.js" type="text/javascript"></script>
+<script src="../../../lib/jazz-all.js" type="text/javascript"></script>
+<style type="text/css">
+
+</style>
+<script>
+$(function(){
+     
+	$('#btn').newbutton({
+    	text: 'Save',
+    	iconurl: '../../../themes/default/toolbar/images/save.png',
+    	iconalign: 'left',
+    	arrowalign: 'bottom',
+    	disabled: false,
+        click: function() {  
+            alert("button click event...")  
+        },  
+        items: [  
+            {  
+                icon: '../../themes/default/toolbar/images/cut.png',  
+                text: 'Update',  
+                click: function() {  
+                	alert("menulist click event... update");
+                }  
+            },  
+            {  
+                icon: '../../themes/default/toolbar/images/save.png',  
+                text: 'Delete',  
+                click: function() {  
+                	alert("menulist click event... update");  
+                }  
+            },  
+            {
+                icon: '../../themes/default/toolbar/images/edit.png',  
+                text: '首页',  
+                url: '../../index.jsp'  
+            }  
+        ]  
+    }); 
+
+	});
+	function info(){
+		alert("click event is running.....");
+	}
+	function leftinfo(){
+		//$("#default").newbutton("option","disabled",false);
+		$("#default").newbutton("disable");
+	}
+	function rightinfo(){
+		//$("#default").newbutton("option","disabled",true);
+		//$("#default").newbutton("enable");
+		$("#left").newbutton("highlight");
+	}
+	function disinfo(){
+		//$("#default").newbutton("option","disabled",true);
+		//$("#default").newbutton("enable");
+		//$("#left").newbutton("unhighlight");
+	}
+</script>
+</head>
+
+<body>
+<br><br>**********************newbutton 新按钮组件**************************************
+<br>
+<div id="default"  vtype="newbutton" group="g1" checktype="check" name="default" text="default" arrowalign="top"  iconalign="right" iconurl="" ></div> <!-- click="info()" disabled=true -->
+  
+<div id="left" vtype="newbutton" group="g1" checktype="check" name="leftIcon" text="leftIcon"  iconalign="left" iconurl="../../../themes/default/toolbar/images/print.png" toggleiconurl="../../../themes/default/toolbar/images/save.png" ></div> <!-- click="leftinfo()" disabled=false -->
+  
+<div id="right" vtype="newbutton" group="g1" checktype="radio" name="rightIcon" text="rightIcon" iconalign="right" iconurl="../../../themes/default/toolbar/images/print.png" ></div> <!-- click="rightinfo()" disabled=false -->
+  
+<div id="icononly" vtype="newbutton" group="g1" checktype="check" name="icononly" text="icononly" iconalign="top" iconurl="../../../themes/default/toolbar/images/print.png" ></div> <!-- click="onlyiconinfo()" disabled=true -->
+  
+<div id="disabled" vtype="newbutton" name="disabled" text="disabled" iconalign="bottom" iconurl="../../../themes/default/toolbar/images/print.png" click="disinfo()" disabled=false></div>
+
+<div id="btn"></div>
+
+<br><br>**********************按钮下拉箭头上下左右不同位置css**************************************
+<br>
+<br>
+<br>
+<br>
+</body>
+</html>

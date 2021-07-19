@@ -1,0 +1,10 @@
+<div class="attr_row" style="height:185px;">
+	<span class="attr_name">
+		<span style="float:left">${DocAbstract-Desc}:</span>
+		<span id="DocAbstractHint" _action="openSimpleEditor2" title="打开简易编辑器" WCMAnt:paramattr="title:document_props.jsp.openSimpleEditor"></span>
+	</span>
+	<span onclick="extractAbstractAndKeywords();" id="ckmAuto" style="float:right;color:red;cursor:pointer;display:none;" WCMAnt:param="document_props.jsp.autoAbstract">自动摘要</span><div></div>
+	<span class="attr_textarea" style="width:220px;">
+		<textarea style="margin:0 5px;width:100%;height:150px;" id="DocAbstract" name="DocAbstract" cols="25" rows="10" pattern="string" max_len="1000" elname="${DocAbstract-Desc}">${DocAbstract}</textarea>
+	</span>
+</div>

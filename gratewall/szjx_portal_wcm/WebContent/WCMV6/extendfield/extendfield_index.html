@@ -1,0 +1,221 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>扩展字段列表</title>
+
+<link href="../css/attribute.css" rel="stylesheet" type="text/css" />
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/extendfield_index.css" rel="stylesheet" type="text/css" />
+<style>
+.navigation_channel{
+	font-family: Courier New;
+}
+A.navigation_channel_link_current:link{
+	color: #010101;
+	text-decoration:none;
+}
+A.navigation_channel_link_current:hover{
+	color: #010101;
+	text-decoration:underline;
+}
+A.navigation_channel_link_current:visited{
+	color: #010101;
+	text-decoration:none;
+}
+.grid_column{
+	float:left;
+	height:100%;
+	text-align:center;
+	border-right:1px solid gray;
+	padding:6px 0;	
+	overflow-x:hiden;
+	overflow-y:visible;
+}
+.unfold_mode{
+	float:right;
+	width:27px;
+	height:29px;
+	background:url(unfoldmode.gif) no-repeat center center;
+}
+.fold_mode{
+	float:right;
+	width:27px;
+	height:29px;
+	background:url(foldmode.gif) no-repeat center center;
+}
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script label="SystemImports">
+	$import('com.trs.wcm.MessageCenter');
+    $import('com.trs.wcm.SheetChanger');
+	$import('com.trs.wcm.Grid');
+	$import('com.trs.wcm.QuickKey');
+	$import('com.trs.wcm.SimpleDragger');
+	$import('com.trs.dialog.Dialog');
+	$import('com.trs.util.UITransformer');
+	$import('com.trs.wcm.domain.ExtendFieldMgr');
+	$import('com.trs.wcm.SimpleQuery');
+</script>
+<script src="extendfield_index.js" label="PageScope"></script>
+<script label="PageScope" src="../js/com.trs.wcm/util/LockedUtil.js"></script>
+</head>
+<body>
+<script>
+	function adjustListView(){
+		var sStyleId = 'dy_list_adjust';
+		var eStyleDiv = $(sStyleId);	
+		var dynamic_width = (Element.getDimensions(document.body)["width"]-10-390)/3;	
+		var cssStr = '.dynamic_width{width:'+dynamic_width+'px;';
+		cssStr += 'word-break:break-all;padding-left:4px}';
+		var eStyle = $style(cssStr);
+		$removeChilds(eStyleDiv);
+		eStyleDiv.appendChild(eStyle);
+	}
+</script>
+	<div id="dy_list_adjust"></div>
+	<table id="table_body" class="wcm_table_layout" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="wcm_list_view">
+			<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+				<tbody>
+					<tr class="list_pageinfo">
+						<td colSpan="3">
+							<div class="extendfield_list_pageinfo">
+								<div class="extendfield_list_pageinfo_left"></div>
+								<div class="extendfield_list_pageinfo_right"></div>
+								<div>				
+									<span style="float:left;padding:8px 2px;font-size:12px">
+										<span>当前位置：</span>
+										<span id="divPathHolder">
+											<span id="literator_path" url="/wcm/WCMV6/include/entity_path.jsp" params="siteid={$siteid}&channelid={$channelid}" ref="divPathHolder">
+												&nbsp;&nbsp;&nbsp;&nbsp;正在加载路径信息...
+											</span>
+										</span>			
+									</span>
+									<span style="padding-left:8px;cursor:hand" title="显示子对象的扩展字段" onclick="PageContext.queryWithChildren();" id="show_children">
+										<span class="fold_mode" id="modeswitcher"></span>
+									</span>
+									<span style="float:right;">					
+										<div style="float:right;" id="query_box"></div>			
+									</span>									
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr class="list_view">
+						<td class="list_view_border"></td>
+						<td valign="top">							
+							<div class="grid">
+								<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+									<tr style="height:29px">
+									<td>
+									<div class="grid_head">							
+										<SPAN class="grid_head_column wcm_pointer" onclick="Grid.toggleAllRows();" style="width:40px">
+											全选
+										</SPAN>
+										<SPAN class="grid_head_column" style="width:40px">
+											修改
+										</SPAN>
+										<SPAN class="grid_head_column dynamic_width">
+											显示名称
+										</SPAN>
+										<SPAN class="grid_head_column dynamic_width">
+											所属对象
+										</SPAN>
+										<SPAN class="grid_head_column wcm_pointer dynamic_width" grid_sortby="FieldName">
+											字段名称
+										</SPAN>
+										<SPAN class="grid_head_column" style="width:60px">
+											字段类型
+										</SPAN>
+										<SPAN class="grid_head_column"  style="width:60px">
+											字段长度
+										</SPAN>
+										<SPAN class="grid_head_column wcm_pointer" style="width:60px" grid_sortby="wcmcontentextfield.cruser">
+											创建者
+										</SPAN>
+										<SPAN class="grid_head_column wcm_pointer" style="width:80px;" grid_sortby="wcmcontentextfield.crtime">
+											创建时间
+										</SPAN>							
+										<SPAN class="grid_head_column"  style="width:40px;border-right:0">
+											删除
+										</SPAN>
+									</div>
+									</td></tr>
+									<tr><td>
+										<div id="grid_data" class="grid_data"></div>
+										<textarea id='template_extendfields' style='display:none;'>
+										<for select="ContentExtfields.ContentExtfield" blankRef="divNoObjectFound">										
+											<div class="grid_row wcm_pointer" grid_rowid="{#CONTENTEXTFIELDID}" grid_rowdesc="{#LOGICFIELDDESC}" justReplace="true">				
+												<SPAN class="grid_column" style="width:40px">
+													<input type="checkbox" class="wcm_pointer grid_checkbox" name="ContentextfieldId" value="{#ContentextfieldId}" grid_function="multi"/>{$$INDEX}
+												</SPAN>
+												<SPAN class="grid_column" style="width:40px">
+													<img src="../images/icon/Update.png" grid_function="edit" width="16" height="16" />
+												</SPAN>
+												<SPAN class="grid_column dynamic_width" style="text-align:left">
+													{#LOGICFIELDDESC}
+												</SPAN>
+												<SPAN class="grid_column dynamic_width" style="text-align:left">
+													{#HOST.Name}
+												</SPAN>
+												<SPAN class="grid_column dynamic_width" style="text-align:left">
+													{#DBFIELD.FieldName}
+												</SPAN>
+												<SPAN class="grid_column" style="width:60px">
+													{#DBFIELD.FieldTypeDesc}
+												</SPAN>
+												<SPAN class="grid_column" style="width:60px">
+													{#DBFIELD.MaxLength}
+												</SPAN>							
+												<SPAN class="grid_column" style="width:60px">
+													{#CRUSER}
+												</SPAN>
+												<SPAN class="grid_column" title=" {#CRTIME} " style="width:80px;overflow:hidden;white-space:nowrap">
+													{#CRTIME}
+												</SPAN>											
+												<SPAN class="grid_column" style="width:40px;border-right:0;">
+													<img src="../images/icon/Delete.png" grid_function="delete" width="16" height="16" />
+												</SPAN>
+											</div>
+											</for>
+										</textarea>
+									</td></tr></table>
+							</div>							
+						</td>
+						<td class="list_view_border"></td>
+					</tr>
+					<tr class="list_navigator">
+						<td class="list_view_border"></td>
+						<td>				
+							<div id="list_navigator" class="list_navigator_div"></div>		
+						</td>
+						<td class="list_view_border"></td>
+					</tr>
+				</tbody>
+			</table>
+		</td>	       
+	</tr>	
+</table>
+<div id="divNoObjectFound" style="display:none;">
+	<div class="no_object_found">不好意思, 没有找到符合条件的扩展字段...-____-|||</div>
+</div>
+<script language="javascript">
+<!--
+	adjustListView();
+	if(_MOZILLA||_GECKO){
+		Event.observe(window,'resize',adjustListView);
+	}
+	else{
+		Event.observe($('table_body'),'resize',adjustListView);
+	}
+//-->
+</script>
+</body>
+</html>

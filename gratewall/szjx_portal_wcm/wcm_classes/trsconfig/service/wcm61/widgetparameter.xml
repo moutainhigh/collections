@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.common.publish.widget.WidgetParameterServiceProvider" objclass="com.trs.components.common.publish.widget.WidgetParameter">
+	<method name="save" desc="保存资源变量">
+		<parameter name="ObjectId" desc="资源变量id" type="int" required="true"/>
+		<parameter name="WidgetId" desc="资源id" type="int" required="true"/>
+		<parameter name="WidgetParamName" desc="资源变量名称" type="string" required="true"/>
+		<parameter name="WidgetParamDesc" desc="资源变量描述" type="string" required="false"/>
+		<parameter name="WidgetParamType" desc="资源变量类型" type="int" required="true"/>
+		<parameter name="EnmValue" desc="枚举值" type="string" required="false"/>
+		<parameter name="ClassId" desc="分类法id" type="int" required="false"/>
+		<parameter name="DefaultValue" desc="默认值" type="string" required="false"/>
+		<parameter name="NotNull" desc="不为空" type="int" required="false"/>
+		<parameter name="NotEdit" desc="不能编辑" type="int" required="false"/>
+		<parameter name="RadOrChk" desc="是否为单选树" type="int" required="false"/>
+	</method>
+	<method name="delete" desc="删除资源变量">
+		<parameter name="ObjectIds" desc="资源变量id序列" type="string" required="true"/>
+	</method>
+	<method name="query">
+		<!-- 业务参数 -->
+		<parameter name="WidgetId" desc="资源id" type="int" required="true" default="0" search="true"/>			
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="资源变量排序字段及方式" type="string" required="false" default="WIDGETPARAMORDER desc" />
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="WidgetParamName" desc="资源变量名称" type="string" required="false"
+			search="true" search-operator="like" search-field="WName"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>											
+		<!-- 检索相关配置 END -->
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>
+	</method>
+	<method name="jQuery" truename="query"  convertor="uri:/app/special/widget/widgetparameter_query.jsp"/>
+	<method name="existsSimilarName">
+		<!-- 业务参数 -->
+		<parameter name="ObjectId" desc="对象id" type="int" required="false"/>
+		<parameter name="WidgetParamName" desc="资源变量名称" type="string" required="false"/>
+		<parameter name="WidgetId" desc="资源id" type="int" required="false"/>			
+		
+	</method>
+	
+	<method name="changeOrder" desc="调整资源变量顺序">
+		<parameter name="SrcObjectId" desc="原始资源变量ID" type="int" required="true" min-value="1"/>
+		<parameter name="DstObjectId" desc="目标资源变量ID" type="int" required="true" min-value="0"/>
+	</method>	
+	
+</service>

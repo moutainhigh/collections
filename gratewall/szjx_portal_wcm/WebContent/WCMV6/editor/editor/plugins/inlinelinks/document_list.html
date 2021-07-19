@@ -1,0 +1,132 @@
+<HTML xmlns:TRS_UI>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<TITLE>TRS WCM V6 内联文档管理</TITLE>
+	<script src="../../../../js/com.trs.util/Common.js"></script>
+	<script>
+		$import("com.trs.wcm.MessageCenter");
+		$import("com.trs.logger.Logger");
+		$import('com.trs.web2frame.DataHelper');
+		$import('com.trs.web2frame.TempEvaler');
+		$import('com.trs.wcm.Web2frameDefault');
+		$import('com.trs.dialog.Dialog');
+	</script>
+	<script language="javascript">
+	<!--
+		var oEditor = window.parent.InnerDialogLoaded() ;
+		var FCK = oEditor.FCK;
+		var myActualTop = (top.actualTop||top);
+		var CurrChannelId = myActualTop.DocChannelId;
+	//-->
+	</script>
+	<style type="text/css">
+		body {
+			padding-top:0px;
+			background-color: #CCCCCC;
+		}
+		.input_btn{
+			width:60px;
+			margin-right:10px;
+		}
+	</style>
+	<script language="javascript">
+	<!--
+		var hsSelectedDocIds = {};
+		function AddSelectedDoc(_nDocId,_sRelDocId){
+			hsSelectedDocIds[_nDocId] = _sRelDocId;
+		}
+		function RemoveSelectedDoc(_nDocId,_sRelDocId){
+			if(hsSelectedDocIds[_nDocId]==_sRelDocId)
+				delete hsSelectedDocIds[_nDocId];
+		}
+		function Ok(){
+			var arrDocIds = [];
+			for(var sDocId in hsSelectedDocIds){
+				arrDocIds.push(sDocId);
+			}
+			var oPostData = {
+				"DocumentIds" : arrDocIds.join(','),
+				"CaseSensitive" : true
+			}
+			var oHelper = new com.trs.web2frame.BasicDataHelper();
+			oHelper.JspRequest('document_publish_info.jsp',oPostData,false,
+				function(_transport,_json){
+					if(_json&&_json["DOCUMENTS"]){
+						CreateLinks(_json["DOCUMENTS"]);
+					}
+					setTimeout(function(){
+						window.parent.Cancel(true);
+					},10);
+				}
+			);
+			return false;
+		}
+		function CreateLinks(_arrDocInfos){
+			var n = (_arrDocInfos)?_arrDocInfos.length:0;
+			if(n<=0) return;
+			oEditor.FCKUndo.SaveUndoStep() ;
+			var oUL = oEditor.FCK.CreateElement( 'P' );
+			for(var i=0;i<n;i++){
+				try{
+					var oLi = oEditor.FCK.CreateElement( 'P' );
+					oUL.appendChild(oLi);
+					var oLink = oEditor.FCK.CreateElement( 'A' );
+					var oDocInfo = _arrDocInfos[i];
+					oLink.innerHTML = oDocInfo["TITLE"];
+					oLink.href = oDocInfo["PUBURL"];
+					oLink.setAttribute('_fcksavedurl',oDocInfo["PUBURL"]) ;
+					oLink.target = '_blank';
+					oLink.setAttribute('title'	, oDocInfo["TITLE"]) ;
+					oLink.setAttribute('id'	, 'inner_doc_' + oDocInfo["ID"]) ;
+					oLink.setAttribute('_innerdocid'	, oDocInfo["ID"]) ;
+					oLi.appendChild(oLink);
+				}catch(err){
+					//Just Skip it.
+					//alert(err.message);
+				}
+			}
+			oEditor.FCKSelection.SelectNode( oUL );
+		}
+	//-->
+	</script>
+</HEAD>
+<BODY style="margin:0;padding:0;">
+		<table height="100%" width="100%">
+			<tr>
+				<td align="left" valign="top" width="600">
+	<TABLE width="600" height="100%" border="0" cellpadding="0" cellspacing="0">
+		<TR>
+			<TD valign="top">
+				<DIV id="docs_explorer" style="padding:2px;height:350px;overflow:auto;">
+					<TABLE width="682" height="340px" border="0" cellpadding="0" cellspacing="1" style="font-size:12px">
+						<TR>
+							<TD width="200">
+								<iframe src="../../../../include/blank.html" id="treeNav" allowtransparency="true" scrolling="no" frameborder="0" style="width:200px;height:340px;"></iframe>
+							</TD>
+							<TD width="480">
+								<iframe name="channel_doc_list" id='channel_doc_list' src="../../../../include/blank.html" allowtransparency="true" scrolling="no" frameborder="0" style="width:100%;height:100%"></iframe>
+							</TD>
+						</TR>
+					</TABLE>
+				</DIV>
+			</TD>
+		</TR>
+	</TABLE>
+				</td>
+				<td width="10" align="center" valign="top">
+					<div style="width:2px;border-left:1px solid gray;background:white;overflow:hidden;height:360px;"></div></td>
+				<td width="90" valign="top">
+					<input id="btnOk" class="input_btn" onclick="window.parent.Ok();"
+						type="button" value="确定" fcklang="DlgBtnOK"/>
+					<div style="height:5px;overflow:hidden"></div>
+					<input name="button2" class="input_btn" type="button" value="取消" onclick="window.parent.Cancel();" fcklang="DlgBtnCancel">
+				</td>
+			</tr>
+		</table>
+		<div id="container_tmp" style="display:none">
+		</div>
+<script>
+	$('treeNav').src = '../../../../nav_tree/nav_tree_innerlinks.html?showType=0&ChannelId='+CurrChannelId;
+</script>
+</BODY>
+</HTML>

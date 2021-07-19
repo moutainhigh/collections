@@ -1,0 +1,117 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title WCMAnt:param="object_select.html.title" id="tlDoc">栏目选择...</title>
+<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+<link href="../css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	.wcm-table{
+		width:100%;
+		height:100%;
+	}
+</style>
+</head>
+
+<body>
+<table border="0" cellspacing="0" cellpadding="0" class='wcm-table'>
+<tbody>
+	<tr>
+		<td style="height:30px;" id="modeBox">
+			<input type="radio" name="mode" value="" id="modeAll">
+			<label for="modeAll" WCMAnt:param="object_select.html.modeall">所有子对象</label>
+			<input type="radio" name="mode" value="" id="modeSelected" checked="checked">
+			<label for="modeSelected" WCMAnt:param="object_select.html.modeSelected">选定的对象</label>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<iframe id="TreeNav" src="../include/blank.html" style="width:100%;height:100%" frameborder="0"  allowtransparency="true"></iframe>
+		</td>
+	</tr>
+</tbody>
+</table>
+<script src="../js/easyversion/lightbase.js"></script>
+<script src="../js/easyversion/extrender.js"></script>
+<script src="../js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../js/data/locale/system.js"></script>
+<script src="../js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<script src="../js/easyversion/ajax.js"></script>
+<SCRIPT src="../js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<script>
+	window.m_fpCfg = {
+		m_arrCommands : [{
+			cmd : 'onOk',
+			name : wcm.LANG['SURE'] || '确定'
+		}],
+		size : [320, 400]
+	};
+	var preParams = null;
+	function init(params){
+		preParams = params;
+		params = params || {};
+		var sUrl = '../nav_tree/nav_tree_select_node.jsp?';
+		sUrl += $toQueryStr2(params);
+		$('TreeNav').src = sUrl;
+	}
+
+	function onOk(){
+		var modeAll = $('modeAll');
+		if(modeAll.checked){
+			notifyFPCallback({allChildren : true, ids:[], names:[]});
+			return getParameter('close') == 1;
+		}
+		var sSelIds = null;
+		var sSelNames = null;
+		var sSelTypeNames = null;
+		var sIframeId = 'TreeNav';
+		var win = $(sIframeId).contentWindow;
+		try{
+			sSelIds =  win.getCheckValues();
+		}catch(err){
+			sSelIds = '';
+		}
+		try{
+			sSelNames = win.getCheckNames();
+		}catch(err){
+			sSelNames = '';
+		}
+		try{
+			sSelTypeNames = win.getCheckTypeNames();
+		}catch(err){
+			sSelTypeNames = '';
+		}
+		if(!FloatPanel.dialogArguments.canEmpty && sSelIds.length == 0) {
+			Ext.Msg.$fail(wcm.LANG['SYS_CHANNELSELECT_NONE'] || '请选择要设置的栏目！');
+			return false;
+		}
+		notifyFPCallback({ids:sSelIds, names:sSelNames, typenames:sSelTypeNames});
+		return getParameter('close') == 1;
+	}
+
+	Event.observe('modeBox', 'click', function(event){
+		event = window.event || event;
+		var srcElement = Event.element(event);
+		if(srcElement.name != 'mode') return;
+		if(!window[srcElement.id + "Exec"]) return;
+		window[srcElement.id + "Exec"](srcElement);
+	});
+
+	function modeAllExec(dom){
+		Element.hide('TreeNav');		
+	}
+	function modeSelectedExec(dom){
+		Element.show('TreeNav');
+	}
+</script>
+<script>
+	init(FloatPanel.dialogArguments);
+</script>
+</body>
+</html>

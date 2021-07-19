@@ -1,0 +1,53 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc">记录移动到...</title>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script>
+	$import('com.trs.wcm.FloatPanel');
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.ProcessBar');
+</script>
+<script>
+	FloatPanel.addCloseCommand();
+	FloatPanel.addCommand('okBtn', '确定', 'onOk', null);
+</SCRIPT>
+<style type="text/css">
+    .selectClassInfo{
+        width:16px;
+        height:20px;
+        background:url(../images/metadata/selectClassInfo.png) center center no-repeat;
+        cursor:pointer;
+        margin-left:10px;
+    }
+    #srcClassInfoTip, #destClassInfoTip{
+        margin-left:28px;
+        color:red;
+        font-weight:bold;
+    }
+</style>
+</HEAD>
+
+<BODY>
+<DIV style="font-size:12px;">
+    <input type="hidden" name="srcClassInfo" value="">
+    <input type="hidden" name="destClassInfo" value="">
+    将记录从
+    <div>
+        源分类 <span class="selectClassInfo"></span>：
+    </div>
+    <div id="srcClassInfoTip"></div>
+    移动到
+    <div>
+        目标分类<span class="selectClassInfo"></span>： 
+    </div>
+    <div id="destClassInfoTip"></div>
+</DIV>
+</BODY>
+</HTML>

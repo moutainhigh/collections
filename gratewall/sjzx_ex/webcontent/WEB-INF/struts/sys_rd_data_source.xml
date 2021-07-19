@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>数据源管理</menu-name>
+  <menu-path>/page/resource/res/rd/metadata/datasource/</menu-path>
+  <description>数据源管理</description>
+  <form-beans>
+    <form-bean name="SysRdDataSourceRowsetForm">
+      <description>数据源多记录查询</description>
+      <form-property prefix="select-key" name="db_type" type="string" size="20" description="数据库类型"/>
+      <form-property prefix="select-key" name="sync_data_start" type="string" size="20" description="同步日期"/>
+      <form-property prefix="select-key" name="sync_date_end" type="string" size="20" description="同步日期"/>
+      <form-property prefix="select-key" name="db_name" type="string" size="30" description="数据源"/>
+      <form-property prefix="select-key" name="sys_rd_data_source_id" type="string" size="32" description="数据源ID"/>
+      <form-property prefix="record" name="db_name" type="string" size="30" description="数据源"/>
+      <form-property prefix="record" name="sync_menu" type="string" size="30" description="同步按钮" />
+      <form-property prefix="record" name="task_time" type="string" size="30" description="同步时间" />
+      <form-property prefix="record" name="db_schema" type="string" size="20" description="数据库模式" />
+      <form-property prefix="record" name="db_username" type="string" size="20" description="用户" />
+      <form-property prefix="record" name="sys_rd_data_source_id" type="string" size="32" description="数据源ID" />
+      <form-property prefix="record" name="sys_rd_data_source" type="table" description="数据源"/>
+    </form-bean>
+
+    <form-bean name="SysRdDataSourceUpdateForm">
+      <description>数据源单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_rd_data_source_id" type="string" size="32" cannull="false" description="ID"/>
+      <form-property prefix="out-temp" name="count" type="string" size="32" cannull="false" description="count"/>
+      <!-- form-property prefix="record" name="sys_rd_data_source" type="table" description="数据源"/-->
+      <form-property prefix="record" name="oper_type" type="string" description="操作类型"/>
+      
+      <form-property prefix="record" name="sys_rd_data_source_id" type="string" size="32" description="数据源ID"/>
+      <form-property prefix="record" name="sync_flag" type="string" size="1" description="同步标志"/>
+      <form-property prefix="record" name="db_name" type="string" size="16" description="数据源名称"/>
+      <form-property prefix="record" name="db_type" type="string" size="20" description="数据源类型"/>
+      <form-property prefix="record" name="db_username" type="string" size="20" description="用户"/>
+      <form-property prefix="record" name="db_password" type="string" size="20" description="口令"/>
+      <form-property prefix="record" name="db_url" type="string" size="200" description="连接信息"/>
+      <form-property prefix="record" name="db_driver" type="string" size="64" description="驱动程序"/>
+      <form-property prefix="record" name="value_class" type="string" size="200" description="数据转换类"/>
+      <form-property prefix="record" name="merge_flag" type="string" size="10" description="合并公共配置信息"/>
+      <form-property prefix="record" name="db_isolation" type="string" size="20" description="事务隔离级"/>
+      <form-property prefix="record" name="sync_table" type="string" size="20" description="更新数据表"/>
+      <form-property prefix="record" name="db_transaction" type="string" size="20" description="事务类型"/>
+      <form-property prefix="record" name="db_schema" type="string" size="20" description="数据库模式"/>
+      <form-property prefix="record" name="sync_date" type="string" size="20" description="同步日期"/>
+      <form-property prefix="record" name="creator" type="string" size="20" description="创建人"/>
+      <form-property prefix="record" name="create_date" type="string" size="10" description="创建时间"/>
+      <form-property prefix="record" name="db_svrname" type="string" size="20" description="实例名"/>
+      <form-property prefix="record" name="db_address" type="string" size="64" description="主机IP"/>
+      <form-property prefix="record" name="db_port" type="string" size="10" description="端口"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" description="时间戳"/>
+      <form-property prefix="record" name="memo" type="string" size="1000" description="备注"/>
+      <form-property prefix="record" name="db_server" type="string" size="32" description="数据库类型"/>
+      <form-property prefix="record" name="jndi_name" type="string" size="32" description="JNDI"/>
+      <form-property prefix="record" name="task_time" type="string" size="30" description="同步时间" />
+    </form-bean>
+
+    <form-bean name="SysRdDataSourceDeleteForm">
+      <description>数据源多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_rd_data_source_id" type="string" size="32" cannull="false" description="ID"/>
+    </form-bean>
+
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-jc_data_source.jsp" name="SysRdDataSourceRowsetForm" txn-code="8000101" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据源列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdDataSource" func-name="txn8000101" input-node="select-key" output-node="record" description="查询数据源列表"/>
+      <forward error-code="success" path="query-jc_data_source.jsp"/>
+      <forward error-code="failure" path="query-jc_data_source.jsp"/>
+    </action>
+
+    <action input="update-jc_data_source.jsp" name="SysRdDataSourceUpdateForm" txn-code="8000102" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改数据源信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdDataSource" func-name="txn8000102" input-node="record" description="修改数据源信息"/>
+      <forward error-code="success" path="update-jc_data_source.jsp"/>
+      <forward error-code="failure" path="update-jc_data_source.jsp"/>
+    </action>
+
+    <action input="insert-jc_data_source.jsp" name="SysRdDataSourceUpdateForm" txn-code="8000103" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加数据源信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdDataSource" func-name="txn8000103" input-node="record" description="增加数据源信息"/>
+      <forward error-code="success" path="insert-jc_data_source.jsp"/>
+      <forward error-code="failure" path="insert-jc_data_source.jsp"/>
+    </action> 
+
+    <action input="query-jc_data_source.jsp" name="SysRdDataSourceUpdateForm" txn-code="8000104" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据源用于修改</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdDataSource" func-name="txn8000104" input-node="primary-key" output-node="record" description="查询数据源用于修改"/>
+      <forward error-code="success" path="update-jc_data_source.jsp"/>
+      <forward error-code="failure" path="update-jc_data_source.jsp"/>
+    </action>
+
+    <action input="query-jc_data_source.jsp" name="SysRdDataSourceDeleteForm" txn-code="8000105" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除数据源信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdDataSource" func-name="txn8000105" input-node="primary-key" description="删除数据源信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+    <action input="query-jc_data_source.jsp" name="SysRdDataSourceUpdateForm" txn-code="8000106" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>测试数据源连接</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdDataSource" func-name="txn8000106" input-node="record"  output-node="record" description="测试数据源连接"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+    <action input="query-jc_data_source.jsp" name="SysRdDataSourceRowsetForm" txn-code="8000107" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>同步数据源</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdDataSource" func-name="txn8000107" input-node="record"  output-node="record" description="同步数据源"/>
+      <forward error-code="success" path="/txn8000101.do"/>
+      <forward error-code="failure" path="query-jc_data_source.jsp"/>
+    </action>  
+    
+    <action input="insert-jc_data_source.jsp" name="SysRdDataSourceUpdateForm" txn-code="8000108" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>检查数据源是否存在</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdDataSource" func-name="txn8000108" input-node="record"  output-node="out-temp" description="检查db_name存在"/>
+      <forward error-code="success" path="insert-jc_data_source.jsp"/>
+      <forward error-code="failure" path="insert-jc_data_source.jsp"/>
+    </action>
+    
+    <action input="sync-jc_data_source.jsp" name="SysRdDataSourceRowsetForm" txn-code="8000109" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>定时同步数据源</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdDataSource" func-name="txn8000109" input-node="record"  output-node="record" description="同步数据源"/>
+      <forward error-code="success" path="sync-jc_data_source.jsp"/>
+      <forward error-code="failure" path="sync-jc_data_source.jsp"/>
+    </action>
+    
+    <action input="query-jc_data_source.jsp" name="SysRdDataSourceRowsetForm" txn-code="8000110" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>获取数据结构变更记录</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdDataSource" func-name="txn8000110" input-node="select-key"  output-node="record" description="同步数据源"/>
+      <forward error-code="success" path="query-jc_data_source.jsp"/>
+      <forward error-code="failure" path="query-jc_data_source.jsp"/>
+    </action>
+    
+  </action-mappings>
+</struts-config>
+

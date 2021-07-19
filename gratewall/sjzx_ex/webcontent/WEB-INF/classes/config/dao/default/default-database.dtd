@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT table (database?, table-info?, column*, function*)>
+
+<!-- 数据库名称 !-->
+<!ELEMENT database (#PCDATA)>
+
+<!-- 表信息定义 !-->
+<!ELEMENT table-info (set-property*)>
+
+<!-- 有效记录的查询条件 !-->
+<!ATTLIST table-info default-filter CDATA #IMPLIED>
+
+<!-- 数据表的缺省属性 !-->
+<!ATTLIST set-property
+	property CDATA #REQUIRED
+	value CDATA #REQUIRED
+	replace (true | false) "true"
+>
+
+
+<!-- 列信息 !-->
+<!ELEMENT column EMPTY>
+
+<!-- 字段名称 !-->
+<!ATTLIST column name CDATA #REQUIRED>
+
+<!-- 字段对应的数据项名称 !-->
+<!ATTLIST column java-name CDATA #IMPLIED>
+
+<!-- 数据类型 !-->
+<!ATTLIST column data-type (
+		integer | long | decimal | char | varchar | 
+		date | time | timestamp | binary
+	) "char" >
+
+<!-- 字段长度 !-->
+<!ATTLIST column length CDATA #IMPLIED>
+
+<!-- 小数位长度 !-->
+<!ATTLIST column fraction-length CDATA #IMPLIED>
+
+<!-- 字段是否能够空 !-->
+<!ATTLIST column not-null (true | false) "false">
+
+<!-- 空内容是否转换成NULL !-->
+<!ATTLIST column empty-is-null (true | false) "false">
+
+<!-- 缺省值 !-->
+<!ATTLIST column default CDATA #IMPLIED>
+
+<!-- 值是否唯一 !-->
+<!ATTLIST column unique (true|false) "false">
+
+<!-- 数据内容的来源 !-->
+<!ATTLIST column value-from (input | generate | sequence | autoincrement) "input">
+
+<!-- 转换函数 !-->
+<!ATTLIST column func-name CDATA #IMPLIED>
+
+<!-- 取值范围 !-->
+<!ATTLIST column value-set CDATA #IMPLIED>
+
+<!-- 校验函数 !-->
+<!ATTLIST column validator CDATA #IMPLIED>
+
+<!-- 字段描述 !-->
+<!ATTLIST column description CDATA #IMPLIED>
+
+<!-- 是否强制替换 !-->
+<!ATTLIST column replace (true | false) "false">
+
+<!-- 函数定义 !-->
+<!ELEMENT function (description?)>
+
+<!-- 函数类型 !-->
+<!ATTLIST function func-type (
+		select | rowset | insert | delete | 
+		update | procedure | statistic
+	) "select">
+
+<!-- 需要包含的列 !-->
+<!ATTLIST function need-column CDATA #IMPLIED>
+
+<!-- 不能包含的列 !-->
+<!ATTLIST function disable-column CDATA #IMPLIED>
+
+<!-- 查询返回的记录数量 !-->
+<!ATTLIST function max-record CDATA #IMPLIED>
+
+<!-- 必须包含的查询条件 !-->
+<!ATTLIST function default-filter CDATA #IMPLIED>
+
+<!ELEMENT description (#PCDATA)>
+
+
+

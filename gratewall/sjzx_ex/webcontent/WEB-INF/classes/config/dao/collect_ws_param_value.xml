@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <default-config>no</default-config>
+  <sort-name>采集服务</sort-name>
+  <table-info name="collect_ws_param_value" class-name="com.gwssi.collect.webservice.param.dao.CollectWsParamValue" check-flag="false" backup-flag="false">
+    <description>采集参数值表</description>
+  </table-info>
+
+  <column name="ws_param_value_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="参数值ID"/>
+  <column name="webservice_patameter_id" data-type="varchar" length="32" not-null="false" value-from="input" description="参数ID"/>
+  <column name="param_value_type" data-type="varchar" length="20" not-null="false" value-from="input" description="参数类型"/>
+  <column name="patameter_name" data-type="varchar" length="20" not-null="false" value-from="input" description="参数名"/>
+  <column name="patameter_value" data-type="varchar" length="200" not-null="false" value-from="input" description="参数值"/>
+  <column name="style" data-type="varchar" length="20" not-null="false" value-from="input" description="格式"/>
+  <column name="connector" data-type="varchar" length="20" not-null="false" value-from="input" description="拼接符"/>
+  <column name="showorder" data-type="varchar" length="2" not-null="false" value-from="input" description="参数顺序"/>
+  <primary-key name="pk_collect_ws_param_value" column-list="ws_param_value_id,webservice_patameter_id,param_value_type,patameter_name,patameter_value,style,connector,showorder"/>
+  <index name="pk_collect_ws_param_value" index-type="unique" cluster="cluster" column-list="ws_param_value_id"/>
+  <function func-name="select collect_ws_param_value list" func-type="rowset" column-list="ws_param_value_id,webservice_patameter_id,param_value_type,patameter_name,patameter_value,style,connector,showorder" max-record="10">
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one collect_ws_param_value" func-type="insert" column-list="ws_param_value_id,webservice_patameter_id,param_value_type,patameter_name,patameter_value,style,connector,showorder">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one collect_ws_param_value" func-type="delete">
+    <filter-column column-name="ws_param_value_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="select one collect_ws_param_value" func-type="select" column-list="ws_param_value_id,webservice_patameter_id,param_value_type,patameter_name,patameter_value,style,connector,showorder">
+    <filter-column column-name="ws_param_value_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="webservice_patameter_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="param_value_type" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="patameter_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="patameter_value" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="style" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="connector" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="update one collect_ws_param_value" func-type="update">
+    <filter-column column-name="ws_param_value_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="share_srv_scheduling" class-name="com.gwssi.share.ftp.dao.ShareSrvScheduling" check-flag="false" backup-flag="false">
+    <description>共享任务调度</description>
+  </table-info>
+
+  <column name="srv_scheduling_id" data-type="varchar" length="32" not-null="true" value-from="input"  description="任务调度ID"/>
+  <column name="service_id" data-type="varchar" length="32" not-null="false" value-from="input" description="服务ID"/>
+  <column name="service_no" data-type="varchar" length="20" not-null="false" value-from="input" description="服务编号"/>
+  <column name="service_name" data-type="varchar" length="100" not-null="false" value-from="input" description="任务名称"/>
+  <column name="job_class_name" data-type="varchar" length="100" not-null="false" value-from="input" description="触发调用的类名"/>
+  <column name="scheduling_type" data-type="varchar" length="2" not-null="false" value-from="input" description="计划任务类型"/>
+  <column name="scheduling_day" data-type="varchar" length="2" not-null="false" value-from="input" description="计划任务日期"/>
+  <column name="start_time" data-type="varchar" length="10" not-null="false" value-from="input" description="计划任务开始时间"/>
+  <column name="end_time" data-type="varchar" length="10" not-null="false" value-from="input" description="计划任务结束时间"/>
+  <column name="scheduling_count" data-type="varchar" length="4" not-null="false" value-from="input" description="计划任务执行次数"/>
+  <column name="interval_time" data-type="varchar" length="4" not-null="false" value-from="input" description="每次间隔时间"/>
+  <column name="scheduling_week" data-type="varchar" length="100" not-null="false" value-from="input" description="计划任务周天"/>
+  <column name="scheduling_day1" data-type="varchar" length="500" not-null="false" value-from="input" description="计划任务周期中文"/>
+  <column name="task_expression" data-type="varchar" length="200" not-null="false" value-from="input" description="表达式"/>
+  <column name="is_markup" data-type="varchar" length="1" not-null="false" value-from="input" description="代码表 有效 无效"/>
+  <column name="creator_id" data-type="varchar" length="32" not-null="false" value-from="input" description="创建人ID"/>
+  <column name="created_time" data-type="varchar" length="19" not-null="false" value-from="input" description="创建时间"/>
+  <column name="last_modify_id" data-type="varchar" length="32" not-null="false" value-from="input" description="最后修改人ID"/>
+  <column name="last_modify_time" data-type="varchar" length="19" not-null="false" value-from="input" description="最后修改时间"/>
+  <primary-key name="pk_share_srv_scheduling" column-list="srv_scheduling_id"/>
+  <function func-name="insert one share_srv_scheduling" func-type="insert" column-list="srv_scheduling_id,service_id,service_no,service_name,job_class_name,scheduling_type,scheduling_day,start_time,end_time,scheduling_count,interval_time,scheduling_week,scheduling_day1,task_expression,is_markup,creator_id,created_time,last_modify_id,last_modify_time">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one share_srv_scheduling" func-type="delete">
+    <filter-column column-name="srv_scheduling_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one share_srv_scheduling" func-type="update" column-list="service_id,service_no,service_name,job_class_name,scheduling_type,scheduling_day,start_time,end_time,scheduling_count,interval_time,scheduling_week,scheduling_day1,task_expression,is_markup,last_modify_id,last_modify_time">
+    <filter-column column-name="srv_scheduling_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="select share_srv_scheduling list" func-type="rowset" column-list="srv_scheduling_id,service_id,service_no,service_name,job_class_name,scheduling_type,scheduling_day,start_time,end_time,scheduling_count,interval_time,scheduling_week,scheduling_day1,task_expression,is_markup,creator_id,created_time,last_modify_id,last_modify_time" max-record="10">
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="select one share_srv_scheduling" func-type="select" column-list="srv_scheduling_id,service_id,service_no,service_name,job_class_name,scheduling_type,scheduling_day,start_time,end_time,scheduling_count,interval_time,scheduling_week,scheduling_day1,task_expression,is_markup,creator_id,created_time,last_modify_id,last_modify_time">
+    <filter-column column-name="srv_scheduling_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+</table>
+

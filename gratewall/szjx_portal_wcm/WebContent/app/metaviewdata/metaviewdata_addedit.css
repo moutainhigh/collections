@@ -1,0 +1,244 @@
+*{
+	font-size:12px;
+}
+html,body{
+	height:100%;
+}
+.ext-ie8 hmtl,body{
+	height:auto;
+}
+.row{
+	margin:10px;
+    overflow:hidden;
+	line-height:22px;
+}
+.label{
+    float:left;
+	width:80px;
+    margin-top:2px;
+	text-align:right;
+    vertical-align:top;
+}
+.value{
+	display:inline;
+	margin-left:10px;
+}    
+.row div{
+	display:inline;
+}
+.txtcls{
+	width:200px;
+	height:18px;
+	border:1px solid silver;
+}
+textarea{
+	border:1px solid silver;
+}
+select{
+	width:200px;
+	height:20px;
+	border:1px solid silver;
+}
+.validTip{
+	margin:0px;
+	margin-left:95px;
+	height:20px;
+}
+.input_checkbox_container label{
+	margin-right:5px;
+}
+.input_radio_container label{
+	margin-right:5px;
+}
+.selectclassinfo{
+	display:inline;
+	width:16px;
+	height:20px;
+	cursor:pointer;
+	background:url(../images/metadata/selectClassInfo.png) center center no-repeat;
+}
+.appendixBrowser{
+	display:block !important;
+	position:relative;
+	height:16px;
+	width:16px;
+	cursor:pointer;
+	background:url(../images/icon/Accessories.png) center center no-repeat;
+	overflow:hidden;
+}
+.appendixBrowser input{
+	position:absolute;
+	top:0px;
+	right:0px;
+	width:auto;
+	height:auto;
+	opacity:0;
+	filter:alpha(opacity=0);
+}
+
+.appendix_delete{
+	width:16px;
+	height:16px;
+	cursor:pointer;
+	background:url(../images/metadata/delete_1.gif) center center no-repeat;
+}
+.appendix_type_none{
+	width:16px;
+	height:16px;
+	cursor:pointer;
+	background:url(../images/metadata/file_type/type_none.gif) 2px center no-repeat;
+}
+.appendix_type{
+	width:16px;
+	height:16px;
+	padding-left:22px;
+	cursor:pointer;
+	background-repeat:no-repeat;
+	background-position:2px center;
+}
+.openeditor{
+	width:26px;
+	height:16px;
+	cursor:pointer;
+	background:url(../images/metadata/simpleeditor.gif) center center no-repeat;
+	margin-left:-35px;
+	margin-top:20px;
+	vertical-align:top;
+}
+.editorContainer{
+	width:350px;
+	height:180px;
+	border:1px solid silver;
+	cursor:default;
+}
+.otherField_value{
+	padding-left:10px;
+}
+.selectFields_browser{
+	width:16px;
+	height:16px;
+	cursor:pointer;
+	background:url(../images/metadata/selectFields.gif) center bottom no-repeat;
+}
+.releatedAppendix{
+	width:16px;
+	height:16px;
+	cursor:pointer;
+	background:url(../images/document/attachment.gif) center center no-repeat;
+}
+.relationDocument{
+	width:16px;
+	height:16px;
+	cursor:pointer;
+	background:url(../images/document/relation.gif) center center no-repeat;
+	margin-right:2px;
+	display:block;
+}
+.ext-ie8 .selectFields_browser{
+	display:inline-block;
+	width:20px!important;
+	height:16px!important;
+	cursor:pointer;
+	background:url(../images/metadata/selectFields.gif) center bottom no-repeat;
+}
+.ext-strict .selectclassinfo,
+.ext-strict .appendix_browser,
+.ext-strict .appendix_delete,
+.ext-strict .appendix_type_none,
+.ext-strict .openeditor,
+.ext-strict .selectFields_browser,
+.ext-strict .releatedAppendix,
+.ext-strict .relationDocument{
+	display:inline-block;
+	padding:0px;
+	line-height:20px;
+}
+.ext-gecko2 .selectclassinfo,
+.ext-gecko2 .appendix_browser,
+.ext-gecko2 .appendix_delete,
+.ext-gecko2 .appendix_type_none,
+.ext-gecko2 .openeditor,
+.ext-gecko2 .selectFields_browser,
+.ext-gecko2 .releatedAppendix,
+.ext-gecko2 .relationDocument{
+	display:inline;
+	padding:8px;
+	line-height:20px;
+}
+
+.relationDocumentTip{
+	display:block;
+	margin-left:80px;
+	color:black;
+}
+.relationDocumentTip a{
+	color:black;
+}
+.inputSelect_suggestion{
+	position : absolute;
+	z-Index : 999;
+	overflow : auto;
+	background : white;
+	border:1px solid black;
+	height:100px;
+}
+.inputSelect_iframe{
+	position : absolute;
+	z-Index : 998;
+	overflow : auto;
+	background : red;
+	height:100px;
+	border:0
+}
+.inputSelect_suggestion div{
+	display:block;
+	cursor:default;
+}
+.inputSelect_suggestion .activeRow{
+	background:highlight;
+	color:white;
+}
+#objectContainer{
+	color: #000000;
+	background-color: #FFFFFF;	
+}
+#objectContainer input,textarea{
+	background-color: #FFFFFF;
+}
+.ext-strict .inputSelect{
+	position:relative;
+}
+.ext-strict .inputSelect_suggestion_div{
+}
+.ext-strict .inputSelect input{
+	position:absolute;
+	left:0px;
+	z-index:2;
+	width: 200px; 
+	height:18px;
+	border:1px solid silver;
+}
+.ext-strict .inputSelect span{
+}
+.ext-strict .inputSelect select{
+	position:absolute;
+	left:0px;
+	z-index:1;
+	width:221px;
+	height:22px;
+}
+.inputSelect_tip{
+	margin-left:225px;
+}
+
+.select_container{
+	height:22px;
+}
+
+.topset_up,.topset_down{cursor:pointer;width:16px;height:16px;line-height:16px;margin-left:3px;float:left;padding:0;zoom:1;background-image: url(../images/icon/icons2.gif);background-repeat: no-repeat; }
+.topset_up{background-position: 0 -400px;}
+.topset_down{background-position: 0 -384px;}
+.topset_row{padding-left:10px;}
+#pri_set_deadline{position:absolute;margin-left:4px;}
+.ext-ie7 .imgDate{margin:0;padding:0;zoom:1.0;cursor:pointer;}
+#topset_order{overflow:visible;height:auto;}

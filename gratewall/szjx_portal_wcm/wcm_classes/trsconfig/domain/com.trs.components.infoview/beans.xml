@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0"  id="components.infoview">
+	<beans>
+		<bean id="InfoViewMgr" 
+			class="com.trs.components.infoview.InfoViewMgr" 
+			singleton="true"/>
+		<bean id="InfoViewEmployMgr" 
+			class="com.trs.components.infoview.InfoViewEmployMgr" 
+			singleton="true"/>
+		<bean id="IInfoViewDBMgr" 
+			class="com.trs.components.infoview.db.InfoViewDBMgr" 
+			singleton="true"/>
+<!--
+		<bean id="CABFileExtractor" 
+			class="com.trs.components.infoview.extract.WinCABFileExtractor" 
+			singleton="true"/>
+-->
+		<bean id="CABFileExtractor" 
+			class="com.trs.components.infoview.extract.JavaCABFileExtractor" 
+			singleton="true"/>
+		<bean id="InfoViewInitor" 
+			class="com.trs.service.impl.InfoViewInitorImpl" 
+			singleton="true" />
+		<bean id="InfoViewEnumCreator" 
+			class="com.trs.service.impl.InfoViewEnumCreatorImpl" 
+			singleton="true" />
+	</beans>
+</plugin>

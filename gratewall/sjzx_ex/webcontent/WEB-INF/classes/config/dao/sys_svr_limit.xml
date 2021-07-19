@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="sys_svr_limit" class-name="com.gwssi.dw.runmgr.services.dao.SysSvrLimit" check-flag="false" backup-flag="false">
+    <description>用户服务限制</description>
+  </table-info>
+
+  <column name="sys_svr_limit_id" data-type="varchar" length="32" not-null="true" value-from="input" description="用户服务限制主键"/>
+  <column name="sys_svr_user_id" data-type="varchar" length="32" not-null="true" value-from="input" description="用户ID"/>
+  <column name="sys_svr_service_id" data-type="varchar" length="32" not-null="true" value-from="input" description="服务ID"/>
+  <column name="is_limit_week" data-type="varchar" length="2" not-null="false" value-from="input" description="是否限制本日期"/>
+  <column name="is_limit_time" data-type="varchar" length="2" not-null="false" value-from="input" description="是否限制时间"/>
+  <column name="is_limit_number" data-type="varchar" length="2" not-null="false" value-from="input" description="是否限制次数"/>
+  <column name="is_limit_total" data-type="varchar" length="2" not-null="false" value-from="input" description="是否限制总条数"/>
+  <column name="limit_week" data-type="varchar" length="2" not-null="false" value-from="input" description="限制星期"/>
+  <column name="limit_time" data-type="varchar" length="32" not-null="false" value-from="input" description="限制时间"/>
+  <column name="limit_start_time" data-type="varchar" length="32" not-null="false" value-from="input" description="起止限制时间"/>
+  <column name="limit_end_time" data-type="varchar" length="32" not-null="false" value-from="input" description="结束限制时间"/>
+  <column name="limit_number" data-type="varchar" length="32" not-null="false" value-from="input" description="限制次数"/>
+  <column name="limit_total" data-type="varchar" length="32" not-null="false" value-from="input" description="限制总条数"/>
+  <column name="limit_desp" data-type="varchar" length="200" not-null="false" value-from="input" description="限制描述"/>
+  <primary-key name="pk_sys_svr_limit_id" column-list="sys_svr_limit_id"/>
+  <index name="pk_sys_svr_limit_id" index-type="unique" cluster="cluster" column-list="sys_svr_limit_id"/>
+  <function func-name="select one sys_svr_limit" func-type="select" column-list="sys_svr_limit_id,sys_svr_user_id,sys_svr_service_id,is_limit_week,is_limit_time,is_limit_number,is_limit_total,limit_week,limit_time,limit_start_time,limit_end_time,limit_number,limit_total,limit_desp">
+    <filter-column column-name="sys_svr_limit_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_svr_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_svr_limit list" func-type="rowset" column-list="sys_svr_limit_id,sys_svr_user_id,sys_svr_service_id,is_limit_week,is_limit_time,is_limit_number,is_limit_total,limit_week,limit_time,limit_start_time,limit_end_time,limit_number,limit_total,limit_desp" sort-columns="limit_week" max-record="10">
+    <filter-column column-name="sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_svr_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_svr_limit" func-type="insert" column-list="sys_svr_limit_id,sys_svr_user_id,sys_svr_service_id,is_limit_week,is_limit_time,is_limit_number,is_limit_total,limit_week,limit_time,limit_start_time,limit_end_time,limit_number,limit_total,limit_desp">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_svr_limit" func-type="delete">
+    <filter-column column-name="sys_svr_limit_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_svr_limit" func-type="update" column-list="is_limit_week,is_limit_time,is_limit_number,is_limit_total,limit_week,limit_time,limit_start_time,limit_end_time,limit_number,limit_total,limit_desp">
+    <filter-column column-name="sys_svr_limit_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

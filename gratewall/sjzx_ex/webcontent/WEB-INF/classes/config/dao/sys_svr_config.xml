@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="sys_svr_config" class-name="com.gwssi.dw.runmgr.services.dao.SysSvrConfig" check-flag="false" backup-flag="false">
+    <description>共享服务配置</description>
+  </table-info>
+
+  <column name="sys_svr_config_id" data-type="varchar" length="32" not-null="true" value-from="input" description="共享服务配置编码"/>
+  <column name="sys_svr_service_id" data-type="varchar" length="32" not-null="true" value-from="input" description="共享服务编码"/>
+  <column name="sys_svr_user_id" data-type="varchar" length="32" not-null="true" value-from="input" description="服务对象编码"/>
+  <column name="permit_column" data-type="varchar" length="2000" not-null="true" value-from="input" description="允许访问的字段"/>
+  <column name="create_date" data-type="varchar" length="10" not-null="true" value-from="input" description="创建日期"/>
+  <column name="create_by" data-type="char" length="32" not-null="true" value-from="input" description="创建人"/>
+  <column name="query_sql" data-type="varchar" length="4000" not-null="true" value-from="input" description="查询SQL"/>
+  <column name="config_order" data-type="integer" length="38" not-null="true" empty-is-null="false" unique="false" value-from="input" description="排序字段"/>
+  <column name="permit_column_en_array" data-type="varchar" length="4000" not-null="true" value-from="input" description="所有共享字段的英文名"/>
+  <column name="permit_column_cn_array" data-type="varchar" length="4000" not-null="true" value-from="input" description="所有共享字段的中文名"/>
+  <column name="column_alias" data-type="varchar" length="4000" not-null="true" value-from="input" description="所有共享字段的别名"/>
+  <column name="is_pause" data-type="varchar" length="2" not-null="true" value-from="input" default="0" description="是否暂停标志位"/>
+  
+  <primary-key name="pk_sys_svr_config" column-list="sys_svr_config_id"/>
+  <index name="pk_sys_svr_config" index-type="unique" cluster="cluster" column-list="sys_svr_config_id"/>
+  <index name="relationship_1_fk" index-type="other" cluster="cluster" column-list="sys_svr_user_id"/>
+  <index name="relationship_2_fk" index-type="other" cluster="cluster" column-list="sys_svr_service_id"/>
+  <foreign-key foreign-table="sys_svr_service" foreign-type="one-to-many" on-delete="none" on-update="none" column-names="sys_svr_service_id" foreign-names="sys_svr_service_id"/>
+  <foreign-key foreign-table="sys_svr_user" foreign-type="one-to-many" on-delete="none" on-update="none" column-names="sys_svr_user_id" foreign-names="sys_svr_user_id"/>
+  
+  <function func-name="select one sys_svr_config" func-type="select" column-list="sys_svr_config_id,is_pause,permit_column,column_alias,permit_column_en_array,permit_column_cn_array">
+    <filter-column column-name="sys_svr_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_svr_config list" func-type="rowset" column-list="sys_svr_config_id,is_pause, sys_svr_service_id,  sys_svr_user_id, sys_svr_service.svr_code, sys_svr_service.svr_name, sys_svr_user.user_name, sys_svr_user.login_name, sys_svr_user.state, sys_svr_service.create_by, sys_svr_service.create_date" sort-columns="config_order desc" max-record="-1">
+    <filter-column column-name="sys_svr_user.sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_svr_user.login_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_svr_service.svr_code" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_svr_service.sys_svr_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_svr_service.create_date" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_svr_user.state" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_svr_config" func-type="insert" column-list="sys_svr_config_id,sys_svr_service_id,sys_svr_user_id,permit_column,create_date,create_by,config_order,query_sql,permit_column_cn_array,permit_column_en_array, column_alias">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="update one sys_svr_config" func-type="update" column-list="permit_column,permit_column_en_array,permit_column_cn_array,query_sql,column_alias">
+    <filter-column column-name="sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_svr_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="update one sys_svr_config sql" func-type="update" column-list="query_sql">
+    <filter-column column-name="sys_svr_config_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="delete one sys_svr_config" func-type="delete">
+    <filter-column column-name="sys_svr_config_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="delete user sys_svr_config" func-type="delete">
+    <filter-column column-name="sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="select sys_svr_service list by user" func-type="rowset" column-list="sys_svr_config_id,sys_svr_service_id,sys_svr_service.svr_name" max-record="10">
+    <filter-column column-name="sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+</table>
+

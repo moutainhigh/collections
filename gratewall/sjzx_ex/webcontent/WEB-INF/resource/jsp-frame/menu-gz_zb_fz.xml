@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="主从表[主表通过导航按钮，维护子表信息]" page="master-detail-table-2.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="multi-table-2.gif"/>
+  <struts name="gz_zb_fz.xml" app-path="/ysjgl/zbtxgl/tjfzgl/" app-name="gz_zb_fz" description="统计分组管理" template="master-detail-table-2.xml"/>
+  <table name="gz_zb_fz.xml" app-name="gz_zb_fz" app-desc="分组" delete-action="delete" description="统计分组管理" class-name="cn.gwssi.csdb.ysjgl.txn.TxnGzZbFz" template="master-detail-table-2.master.java" dao-class-template="single-table.java" type="master">
+	  <jsp page-name="query-gz_zb_fz.jsp" txn-code="30203001" description="查询分组列表" template="master-detail-2/master-table-query.jsp">
+	    <button type="button" name="增加分组" path="insert-gz_zb_fz.jsp" description="增加分组" func-name="addRecord"/>
+	    <button type="button" name="修改分组" path="/txn30203004.do" description="修改分组" func-name="updateRecord"/>
+	    <button type="button" name="删除分组" path="/txn30203005.do" description="删除分组" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn30203001.do" description="查询分组信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-gz_zb_fz.jsp" txn-code="30203003" description="增加分组信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn30203003.do" description="保存分组信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn30203003.do" description="保存分组信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn30203001.do" description="保存分组信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn30203001.do" description="返回到分组明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-gz_zb_fz.jsp" txn-code="30203002" description="修改分组信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn30203001.do" description="修改分组信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn30203001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-gz_zb_fz.jsp" txn-code="30203001" description="查询分组列表">
+	    <forward error-code="success" path="query-gz_zb_fz.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-gz_zb_fz.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-gz_zb_fz.jsp" txn-code="30203002" description="修改分组信息">
+	    <forward error-code="success" path="update-gz_zb_fz.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-gz_zb_fz.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-gz_zb_fz.jsp" txn-code="30203003" description="增加分组信息">
+	    <forward error-code="success" path="insert-gz_zb_fz.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-gz_zb_fz.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-gz_zb_fz.jsp" txn-code="30203004" description="查询分组用于修改">
+	    <forward error-code="success" path="update-gz_zb_fz.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-gz_zb_fz.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-gz_zb_fz.jsp" txn-code="30203005" description="删除分组信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.GzZbFzContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.VoGzZbFz" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.VoGzZbFzSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.VoGzZbFzPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="gz_zb_fzfx.xml" app-name="gz_zb_fzfx" app-desc="分组分项" delete-action="delete" description="分组分项表" class-name="cn.gwssi.csdb.ysjgl.txn.TxnGzZbFzfx" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="30203021">
+	  <jsp page-name="gz_zb_fzfx/query-gz_zb_fzfx.jsp" txn-code="30203021" description="查询分组分项列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加分组分项" path="gz_zb_fzfx/insert-gz_zb_fzfx.jsp" description="增加分组分项" func-name="addRecord"/>
+	    <button type="button" name="修改分组分项" path="/txn30203024.do" description="修改分组分项" func-name="updateRecord"/>
+	    <button type="button" name="删除分组分项" path="/txn30203025.do" description="删除分组分项" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn30203001.do" description="返回到分组明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn30203021.do" description="查询分组分项信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="gz_zb_fzfx/insert-gz_zb_fzfx.jsp" txn-code="30203023" description="增加分组分项信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn30203023.do" description="保存分组分项信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn30203023.do" description="保存分组分项信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn30203021.do" description="保存分组分项信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn30203021.do" description="返回到分组分项明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="gz_zb_fzfx/update-gz_zb_fzfx.jsp" txn-code="30203022" description="修改分组分项信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn30203021.do" description="修改分组分项信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn30203021.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="gz_zb_fzfx/query-gz_zb_fzfx.jsp" txn-code="30203021" description="查询分组分项列表">
+	    <forward error-code="success" path="gz_zb_fzfx/query-gz_zb_fzfx.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="gz_zb_fzfx/query-gz_zb_fzfx.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="gz_zb_fzfx/update-gz_zb_fzfx.jsp" txn-code="30203022" description="修改分组分项信息">
+	    <forward error-code="success" path="gz_zb_fzfx/update-gz_zb_fzfx.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="gz_zb_fzfx/update-gz_zb_fzfx.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="gz_zb_fzfx/insert-gz_zb_fzfx.jsp" txn-code="30203023" description="增加分组分项信息">
+	    <forward error-code="success" path="gz_zb_fzfx/insert-gz_zb_fzfx.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="gz_zb_fzfx/insert-gz_zb_fzfx.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="gz_zb_fzfx/query-gz_zb_fzfx.jsp" txn-code="30203024" description="查询分组分项用于修改">
+	    <forward error-code="success" path="gz_zb_fzfx/update-gz_zb_fzfx.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="gz_zb_fzfx/update-gz_zb_fzfx.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="gz_zb_fzfx/query-gz_zb_fzfx.jsp" txn-code="30203025" description="删除分组分项信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.GzZbFzfxContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.VoGzZbFzfx" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.VoGzZbFzfxSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.VoGzZbFzfxPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+</resource>

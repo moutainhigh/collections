@@ -1,0 +1,147 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title WCMAnt:param="epresschannel_pubhistory.html.historydata">发布TRSWCM电子报历史数据::::::::::..</title>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<link href="../../app/js/source/wcmlib/com.trs.validator/css/validator.css" rel="stylesheet" type="text/css" />
+<script src="../../app/js/source/wcmlib/Observable.js"></script>
+<script src="../../app/js/source/wcmlib/Component.js"></script>
+<script src="../../app/js/source/wcmlib/dialog/Dialog.js"></script>
+<script src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></script>
+<script src="CTRSCalendar.js"></script>
+<script src="../../app/js/source/wcmlib/calendar/calendar_lang/en.js"></script>
+<script>		
+	/*
+	*FloatPanel relations.
+	*/
+	window.m_fpCfg = {
+		m_arrCommands : [{
+			cmd : 'pubHistory',
+			name : wcm.LANG.CHANNEL_TRUE||'确定'
+		}],
+		size : [350, 250]
+	};
+	function showCalendar(_el){
+		var elId = _el.id || "publishdate";
+		var el = document.getElementById(elId);	
+		if (window._dynarch_popupCalendar != null) {
+			_dynarch_popupCalendar.hide(); // so we hide it first.			
+		} else {
+			// first-time call, create the calendar.
+			var cal = new Calendar(0, null, 
+				function(_cal,_date){
+					if(_cal.daySelected != true){
+						return false;
+					}
+					
+					el.value = _date;
+					//_cal.hide();
+					ValidatorHelper.forceValid("publishdate");
+				}, 
+				function(_cal){
+					//_cal.hide();
+					//_dynarch_popupCalendar=null;
+				},false);
+
+			
+			cal.weekNumbers = false;				
+			cal.showsOtherMonths = true;
+			cal.showsTime = false;
+			cal.time24 = true;
+			
+			_dynarch_popupCalendar = cal;// remember it in the global var
+			cal.setRange(1990, 2070);
+			cal.create();
+			cal.isPopup = false;
+		}
+
+		_dynarch_popupCalendar.setDateFormat("%Y-%m-%d");// set the specified date format
+		
+		_dynarch_popupCalendar.sel = el;
+		_dynarch_popupCalendar.showAtElement($("idcalendar")); // show the calendar
+
+		return false;
+	}
+	Event.observe(window,'load',function(){	
+		var publishdateEl = $("publishdate");
+		publishdateEl.value = new Date().print("%Y-%m-%d");		
+		showCalendar(publishdateEl);
+		publishdateEl.select();
+		ValidationHelper.addValidListener(function(){
+			FloatPanel.disableCommand('pubHistory', false);
+		}, "publishdate_validation");
+
+		ValidationHelper.addInvalidListener(function(){
+			FloatPanel.disableCommand('pubHistory', true);
+		}, "publishdate_validation");
+		ValidationHelper.initValidation();
+	});
+
+	function pubHistory(){
+		var nChnlId = getParameter("ChannelId")||0;
+		var sPubDate = $F("publishdate") || "";				BasicDataHelper.Call("wcm61_epress","publishHistoryIndex",{ChannelId:nChnlId,PublishDate:sPubDate},false,function(_trans,_json){
+			if(com.trs.util.JSON.value(_json, "result") == 'true'){
+				var dtPubDateInfo = [];
+				if(sPubDate.length > 0){
+					var parts = sPubDate.split("-");
+					dtPubDateInfo.push(parts[0]);
+					dtPubDateInfo.push(wcm.LANG.epresschannel_pubhistory_101 || "年");
+					dtPubDateInfo.push(parts[1]);
+					dtPubDateInfo.push(wcm.LANG.epresschannel_pubhistory_102 || "月");
+					dtPubDateInfo.push(parts[2]);
+					dtPubDateInfo.push(wcm.LANG.epresschannel_pubhistory_103 || "日");
+				}else{
+					var dtToday = new Date();
+					dtPubDateInfo.push(dtToday.getFullYear());
+					dtPubDateInfo.push(wcm.LANG.epresschannel_pubhistory_101 || "年");
+					dtPubDateInfo.push(dtToday.getMonth());
+					dtPubDateInfo.push(wcm.LANG.epresschannel_pubhistory_102 || "月");
+					dtPubDateInfo.push(dtToday.getDay());
+					dtPubDateInfo.push(wcm.LANG.epresschannel_pubhistory_103 || "日");
+				}
+				Ext.Msg.alert(String.format("发布[{0}]的历史索引成功",dtPubDateInfo.join("")));
+				FloatPanel.close(true);
+				return false;
+			}
+		});		
+		return false;
+	}
+</script>
+<link href="calendar-blue.css" rel="stylesheet" type="text/css" />
+<style>
+.input_text{
+	height:20px;
+	border:1px solid lightgray;
+	margin:0px;	
+	width:100px;	
+}
+body{
+	text-align:center;
+}
+.main{
+	margin:4px;
+	padding:4px;	
+}
+</style>
+</head>
+<body>
+<div>
+	<span WCMAnt:param="epresschannel_pubhistory.html.pubdate">出版日期</span>
+	<span>
+		<input type="text" name="publishdate" id="publishdate" class="input_text" validation="type:'date',date_format:'yyyy-mm-dd',required:'true',showid:'tipdiv',desc:'出版日期'" validation_desc="出版日期" WCMAnt:paramattr="validation_desc:epresschannel_pubhistory.html.pubdate" validationId="publishdate_validation">
+	</span>
+	<div id="tipdiv">
+</div><br>
+<div id="idcalendar" style="maring-top:10px"></div>
+</body>
+</html>

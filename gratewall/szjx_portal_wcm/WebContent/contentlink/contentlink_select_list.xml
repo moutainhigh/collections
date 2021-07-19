@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="GB2312"?>
+<parameters>	
+<!--页面需要的参数 BEGIN-->
+	<parameter name="ChannelId"  desc="频道ID"  min-value="1" type="int" required="true" default="0"/>
+<!--页面需要的参数 END-->
+
+<!--检索相关配置 BEGIN-->
+	<parameter name="SearchTable"  desc="检索的表名"  type="string" required="false" default="WCMCONTENTLINK"/>
+	<parameter name="SearchKey"  desc="检索的字段"  type="string" required="false" default="LINKNAME,LINKURL,LINKTITLE"/>
+	<parameter name="SearchValue"  desc="检索的数据"  type="string" default="" required="false"/>
+<!--检索相关配置 END-->
+
+<!--排序相关配置 BEGIN-->
+	<parameter name="OrderField"  desc="排序字段"  type="string" required="false"/>
+	<parameter name="OrderType"  desc="排序方式"  type="string" required="false"/>	
+<!--排序相关配置 END-->
+
+</parameters>

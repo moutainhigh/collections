@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>服务条件表</menu-name>
+  <menu-path>/page/share/service/</menu-path>
+  <description>服务条件表</description>
+  <form-beans>
+    <form-bean name="ShareServiceConditionRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="service_id" type="string" size="32" description="服务ID"/>
+      <form-property prefix="select-key" name="need_input" type="string" size="1" description="是否需要参数"/>
+      <form-property prefix="record" name="condition_id" type="string" size="32" cannull="false" description="服务查询条件ID"/>
+      <form-property prefix="record" name="service_id" type="string" size="32" cannull="true" description="服务ID"/>
+      <form-property prefix="record" name="frist_connector" type="string" size="20" cannull="true" description="连接符1"/>
+      <form-property prefix="record" name="left_paren" type="string" size="20" cannull="true" description="左括号"/>
+      <form-property prefix="record" name="table_name_en" type="string" size="100" cannull="true" description="表名称"/>
+      <form-property prefix="record" name="table_name_cn" type="string" size="100" cannull="true" description="表中文名称"/>
+      <form-property prefix="record" name="column_name_en" type="string" size="100" cannull="true" description="字段名称"/>
+      <form-property prefix="record" name="column_name_cn" type="string" size="100" cannull="true" description="字段中文名称"/>
+      <form-property prefix="record" name="second_connector" type="string" size="20" cannull="true" description="连接符2"/>
+      <form-property prefix="record" name="param_value" type="string" size="32" cannull="true" description="参数值"/>
+      <form-property prefix="record" name="param_type" type="string" size="20" cannull="true" description="参数值类型"/>
+      <form-property prefix="record" name="right_paren" type="string" size="20" cannull="true" description="右括号"/>
+      <form-property prefix="record" name="show_order" type="long" cannull="true" description="显示顺序"/>
+      <form-property prefix="record" name="need_input" type="string" size="1" cannull="true" description="是否需要参数"/>
+    </form-bean>
+
+    <form-bean name="ShareServiceConditionUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="condition_id" type="string" size="32" cannull="false" description="服务查询条件ID"/>
+      <form-property prefix="record" name="condition_id" type="string" size="32" cannull="false" description="服务查询条件ID"/>
+      <form-property prefix="record" name="service_id" type="string" size="32" cannull="true" description="服务ID"/>
+      <form-property prefix="record" name="frist_connector" type="string" size="20" cannull="true" description="连接符1"/>
+      <form-property prefix="record" name="left_paren" type="string" size="20" cannull="true" description="左括号"/>
+      <form-property prefix="record" name="table_name_en" type="string" size="100" cannull="true" description="表名称"/>
+      <form-property prefix="record" name="table_name_cn" type="string" size="100" cannull="true" description="表中文名称"/>
+      <form-property prefix="record" name="column_name_en" type="string" size="100" cannull="true" description="字段名称"/>
+      <form-property prefix="record" name="column_name_cn" type="string" size="100" cannull="true" description="字段中文名称"/>
+      <form-property prefix="record" name="second_connector" type="string" size="20" cannull="true" description="连接符2"/>
+      <form-property prefix="record" name="param_value" type="string" size="32" cannull="true" description="参数值"/>
+      <form-property prefix="record" name="param_type" type="string" size="20" cannull="true" description="参数值类型"/>
+      <form-property prefix="record" name="right_paren" type="string" size="20" cannull="true" description="右括号"/>
+      <form-property prefix="record" name="show_order" type="long" cannull="true" description="显示顺序"/>
+      <form-property prefix="record" name="need_input" type="string" size="1" cannull="true" description="是否需要参数"/>
+    </form-bean>
+
+    <form-bean name="ShareServiceConditionDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="condition_id" type="string" size="32" cannull="false" description="服务查询条件ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-share_service_condition.jsp" name="ShareServiceConditionRowsetForm" txn-code="40210001" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务查询条件列表</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareServiceCondition" func-name="txn40210001" input-node="select-key" output-node="record" description="查询服务查询条件列表"/>
+      <forward error-code="success" path="query-share_service_condition.jsp"/>
+      <forward error-code="failure" path="query-share_service_condition.jsp"/>
+    </action>
+
+    <action input="update-share_service_condition.jsp" name="ShareServiceConditionUpdateForm" txn-code="40210002" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改服务查询条件信息</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareServiceCondition" func-name="txn40210002" input-node="record" description="修改服务查询条件信息"/>
+      <forward error-code="success" path="update-share_service_condition.jsp"/>
+      <forward error-code="failure" path="update-share_service_condition.jsp"/>
+    </action>
+
+    <action input="insert-share_service_condition.jsp" name="ShareServiceConditionUpdateForm" txn-code="40210003" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加服务查询条件信息</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareServiceCondition" func-name="txn40210003" input-node="record" description="增加服务查询条件信息"/>
+      <forward error-code="success" path="insert-share_service_condition.jsp"/>
+      <forward error-code="failure" path="insert-share_service_condition.jsp"/>
+    </action>
+
+    <action input="query-share_service_condition.jsp" name="ShareServiceConditionUpdateForm" txn-code="40210004" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务查询条件用于修改</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareServiceCondition" func-name="txn40210004" input-node="primary-key" output-node="record" description="查询服务查询条件用于修改"/>
+      <forward error-code="success" path="update-share_service_condition.jsp"/>
+      <forward error-code="failure" path="update-share_service_condition.jsp"/>
+    </action>
+
+    <action input="query-share_service_condition.jsp" name="ShareServiceConditionDeleteForm" txn-code="40210005" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除服务查询条件信息</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareServiceCondition" func-name="txn40210005" input-node="primary-key" description="删除服务查询条件信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+	
+	<action input="query-share_service_condition.jsp" name="ShareServiceConditionRowsetForm" txn-code="40210006" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>根据服务ID删除条件</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareServiceCondition" func-name="txn40210006" input-node="select-key" description="根据服务ID删除条件"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+	
+    <action input="query-share_service_condition.jsp" name="ShareServiceConditionRowsetForm" txn-code="40210101" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务参数列表</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareServiceCondition" func-name="txn40210101" input-node="select-key" output-node="config-param" description="查询服务参数"/>
+      <forward error-code="success" path="query-share_service_condition.jsp"/>
+      <forward error-code="failure" path="query-share_service_condition.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-share_service_condition.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/share/service/query-share_service_condition.jsp" description="查询服务查询条件列表"/>
+    <resource-file type="jsp" file-name="/page/share/service/insert-share_service_condition.jsp" description="增加服务查询条件信息"/>
+    <resource-file type="jsp" file-name="/page/share/service/update-share_service_condition.jsp" description="修改服务查询条件信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.service.vo.ShareServiceConditionContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.service.vo.VoShareServiceCondition" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.service.vo.VoShareServiceConditionSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.service.vo.VoShareServiceConditionPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

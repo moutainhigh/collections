@@ -1,0 +1,67 @@
+<html>
+<head>
+<title WCMAnt:param="classinfo_add_edit.jsp.title">分类法的维护</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/classinfo.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+<script src="../../app/js/source/wcmlib/com.trs.validator/lang/cn.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<link href="../../app/js/source/wcmlib/com.trs.validator/css/validator.css" rel="stylesheet" type="text/css" />
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script language=javascript src="classinfo_add_edit.js"></script>
+<script language="javascript">
+window.m_fpCfg = {
+	m_arrCommands : [{
+		cmd : 'saveData',
+		name : wcm.LANG.CLASSINFO_1 || '下一步'
+	}],
+	size : [400, 150]	
+};
+</script>
+<style type="text/css">
+    *{
+        font-size:12px;
+        margin:0px;
+        padding:0px;
+    }
+    .row{
+        margin:10px;
+        height:18px;
+    }
+    .label{
+        line-height:18px;
+    }
+    .value{
+    }
+    input{
+        width:200px;
+        height:18px;
+        border:1px solid silver;
+    }
+</style>
+</head>
+
+<body>
+<form name="ObjectForm" id="ObjectForm" style="width:100%;height:100%;overflow:auto;">
+    <div class="row">
+        <span class="label" WCMAnt:param="classinfo_add_edit.jsp.classinfoName">分类法名称：</span>
+        <span class="value"><input type="text" name="CName" id="CName" value="" validation="type:'string',required:'true',max_len:'50',showid:'validTip',desc:'分类法名称'" validation_desc="分类法名称" WCMAnt:paramattr="validation_desc:classinfo_add_edit.html.classinfoName"></span>
+    </div>    
+    <div class="row">
+        <span class="label" WCMAnt:param="classinfo_add_edit.jsp.classinfoDesc">分类法描述：</span>
+        <span class="value"><input type="text" name="CDesc" id="CDesc" value="" validation="type:'string',max_len:'100',showid:'validTip',desc:'分类法描述'" validation_desc="分类法描述：" WCMAnt:paramattr="validation_desc:classinfo_add_edit.html.classinfoDesc"></span>
+    </div>    
+    <div id="validTip" style="margin-left:10px;"></div>
+</form>
+</body>
+</html>

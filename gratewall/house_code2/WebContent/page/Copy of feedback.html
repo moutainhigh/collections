@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>房屋编码查询</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no" />
+<link rel="shortcut icon" href="../static/images/01_home_page_house_onebit_16px_151_easyicon.net.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css" href="../static/bt/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../static/css/reset.css">
+<link rel="stylesheet" type="text/css" href="../static/css/TzAdmin.css">
+<link rel="stylesheet" type="text/css" href="../static/css/TzMobile.css">
+<link rel="stylesheet" type="text/css" href="../static/css/skyAnimcate.css">
+<script src="../static/bt/js/jquery.min.js"></script>
+<script src="../static/bt/js/bootstrap.min.js"></script>
+<script src="../static/bt/js/bootstrap-paginator.js"></script>
+<script src="../static/js/queryList.js"></script>
+<script src="../static/js/queryHouseList.js"></script>
+<script src="../static/js/StringUtil.js"></script>
+<script src="../static/js/tip.js"></script>
+  <!--[if lt IE 9]>
+    　 <script src="../static/bt/ie/html5shiv-printshiv.js"></script>
+       <script src="../static/bt/ie/respond.js"></script>
+    <![endif]-->
+<style>
+
+/*细节样式修正*/
+.logs {
+	display: table;
+	margin: 40px auto;
+}
+#puts{
+	    margin-right: -110px;
+}
+
+
+.form-horizontal .form-group{position: relative;}
+</style>
+</head>
+<body>
+	<div class="hide" id="hiddenInfo"></div>
+	<div class="topdiv">
+		<a class="topLink" href="http://www.szscjg.gov.cn/"> <img src="../static/images/logo.png">
+		</a>
+		<h2 style="float: left;color: #fff;">深圳市市场和质量监督管理委员会</h2>
+		<div style="clear:both;"></div>
+	</div>
+
+	<div id="feedback">
+		<div class='panel panel-default'>
+			<div class='panel-body'>
+				房屋编码反馈
+				<div style='text-align:right;display:none' class='close'>X</div>
+			</div>
+			<div class='panel-footer'>
+				<form class='form-horizontal' role='form'>
+					<div class='form-group'>
+						<label for='fangWuBianMa' class='col-sm-3 control-label'>房屋编码</label>
+						<div class='col-sm-8'>
+							<input type='text' placeholder='房屋编码' class='form-control' id='fangWuBianMa' disabled=''>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label for='qiDengYeWuBianHao' class='col-sm-3 control-label'>企登业务编号</label>
+						<div class='col-sm-8'>
+							<input type='text' placeholder='请输入企登业务编号' autofocus='autofocus' class='form-control' id='qiDengYeWuBianHao'>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label for='qiYeMingCheng' class='col-sm-3 control-label'>企业名称</label>
+						<div class='col-sm-8'>
+							<input type='text' placeholder='请输入企业名称' class='form-control' id='qiYeMingCheng'>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label for='qu1' class='col-sm-3 control-label'>区</label>
+						<div class='col-sm-3'>
+							<select tabindex='1' id='qu1' name='usertype' class='selectpicker show-tick form-control' data-live-search='false'>
+								<option value='0' selected='selected'>请选择</option>
+							</select>
+						</div>
+						<label for='jieDao1' class='col-sm-1 control-label'>街道</label>
+						<div class='col-sm-4'>
+							<select id='jieDao1' tabindex='2' name='usertype' class='selectpicker show-tick form-control' data-live-search='false' disabled='disabled'>
+							</select>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label for='sheQu1' class='col-sm-3 control-label'>社区</label>
+						<div class='col-sm-8'>
+							<input type='text' placeholder='请输入社区名称' class='form-control' id='sheQu1'>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label for='fangWuDiZhi' class='col-sm-3 control-label'>房屋地址</label>
+						<div class='col-sm-8'>
+							<input type='text' placeholder='请输入房屋地址' class='form-control' id='fangWuDiZhi'>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label for='jingBanRen' class='col-sm-3 control-label'>经办人</label>
+						<div class='col-sm-8'>
+							<input type='text' placeholder='请输入经办人' class='form-control' id='jingBanRen'>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label for='fangWuDiZhiMiaoShu' class='col-sm-3 control-label'>房屋地址位置描述</label>
+						<div class='col-sm-8'>
+							<textarea class='form-control' placeholder='请输入房屋地址位置描述' rows='3' id='fangWuDiZhiMiaoShu'></textarea>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label for='fanKuiYuanYin' class='col-sm-3 control-label'>反馈原因</label>
+						<div class='col-sm-8'>
+							<textarea class='form-control' rows='3' placeholder='请输入反馈原因' id='fanKuiYuanYin'></textarea>
+						</div>
+					</div>
+					<div class='form-group'>
+						<label for='jingBanRenShouJi' class='col-sm-3 control-label'>经办人手机号</label>
+						<div class='col-sm-6'>
+							<div class='fl'>
+								<input type='text' class='form-control' onblur='getPhoneNum(this)' placeholder='请输入经办人手机号' id='jingBanRenShouJi'>
+							</div>
+							<div class='pos fl'>
+								<input type='text' class='form-control' onblur='getPhoneValidateCode(this)' placeholder='验证码' id='yanZhengMa' maxlength='4'> <a id='getCode' class='btn btn-primary' onclick='senderSMSCode(this)'>获取验证码</a>
+							</div>
+							<div style='clear:both'></div>
+						</div>
+					</div>
+			</div>
+			</form>
+			<div style='display:table;margin:0 auto;'>
+				<a id='subInfo' class='btn btn-primary' onclick='subInfo(this)'>提交反馈</a><a class='btn btn-primary hide' style='margin-left: 14px;' onclick='goBackSubInfo(this)'>返回上级</a> <a class='btn btn-primary' style='margin-left: 14px;' onclick='queryFeedback(this)'>查询反馈结果</a>
+			</div>
+		</div>
+
+
+
+
+	</div>
+
+
+	<script>
+
+		function showFeedBack() {
+
+			$(".close").on("click", function() {
+				//$("#showDetail").empty();
+				$("#showDetail").removeClass("hide");
+				$("#feedback").addClass("hide");
+
+				var isToFee = $("#queryPanel").hasClass("toFee");
+				if (isToFee) {
+					$("#queryPanel").removeClass("toFee hide");
+				}
+			})
+			loadingQu2();
+			$("#qiDengYeWuBianHao").focus();
+			$("#subInfo").removeClass("hide");
+			$("#getCode").removeClass("hide");
+			$("#yanZhengMa").removeClass("hide");
+
+		}
+
+		//提交反馈信息
+		function subInfo(obj) {
+			var _this = $(obj);
+
+			var qiYeMingCheng = $("#qiYeMingCheng").val();
+
+			qiYeMingCheng = encodeURI(qiYeMingCheng);
+			//var fangWuBianMa = $("#fangWuBianMa").val();
+			var fangWuDiZhi = $("#fangWuDiZhi").val();
+			fangWuDiZhi = encodeURI(fangWuDiZhi);
+			var jingBanRenShouJi = $("#jingBanRenShouJi").val();
+			jingBanRenShouJi = encodeURI(jingBanRenShouJi);
+			var jingBanRen = $("#jingBanRen").val();
+			jingBanRen = encodeURI(jingBanRen);
+			var fanKuiYuanYin = $("#fanKuiYuanYin").val();
+			fanKuiYuanYin = encodeURI(fanKuiYuanYin);
+			var fangWuDiZhiMiaoShu = $("#fangWuDiZhiMiaoShu").val();
+			fangWuDiZhiMiaoShu = encodeURI(fangWuDiZhiMiaoShu);
+			var qiDengYeWuBianHao = $("#qiDengYeWuBianHao").val();
+			var isHasChinese = isChinese(qiDengYeWuBianHao);
+			var qu1 = $("#qu1").val();
+			qu1 = encodeURI(qu1);
+			var jieDao1 = $("#jieDao1").val();
+			jieDao1 = encodeURI(jieDao1);
+			var sheQu1 = $("#sheQu1").val();
+			sheQu1 = encodeURI(sheQu1);
+			if (isHasChinese) {
+				alert("企登业务编号格式不正确");
+				$("#qiDengYeWuBianHao").focus();
+				return;
+			}
+			qiDengYeWuBianHao = encodeURI(qiDengYeWuBianHao);
+			var yanZhengMa = $("#yanZhengMa").val();
+			yanZhengMa = encodeURI(yanZhengMa);
+			var flag = false;
+			if (isEmpty(qiDengYeWuBianHao)) {
+				alert("企登业务编号不能为空");
+				$("#qiDengYeWuBianHao").focus();
+				return;
+			}
+
+			if (isEmpty(qiYeMingCheng)) {
+				alert("企业名称不能为空");
+				$("#qiYeMingCheng").focus();
+				return;
+			}
+			if (isEmpty(qu1) || qu1 == 0) {
+				alert("区不能为空");
+				$("#qu1").focus();
+				return;
+			}
+			if (isEmpty(jieDao1)) {
+				alert("街道不能为空");
+				$("#jieDao1").focus();
+				return;
+			}
+			if (isEmpty(sheQu1)) {
+				alert("社区名称不能为空");
+				$("#sheQu1").focus();
+				return;
+			}
+			if (isEmpty(fangWuDiZhi)) {
+				alert("房屋地址不能为空");
+				$("#fangWuDiZhi").focus();
+				return;
+			}
+			if (isEmpty(jingBanRen)) {
+				alert("经办人不能为空");
+				$("#jingBanRen").focus();
+				return;
+			}
+			if (isEmpty(fangWuDiZhiMiaoShu)) {
+				alert("房屋地址位置描述不能为空");
+				$("#fangWuDiZhiMiaoShu").focus();
+				return;
+			}
+			if (isEmpty(fanKuiYuanYin)) {
+				alert("反馈原因不能为空");
+				$("#fanKuiYuanYin").focus();
+				return;
+			}
+			if (isEmpty(jingBanRenShouJi)) {
+				alert("经办人手机号能为空");
+				$("#jingBanRenShouJi").focus();
+				return;
+			}
+			if (isEmpty(yanZhengMa)) {
+				alert("验证码不能为空");
+				$("#yanZhengMa").focus();
+				return;
+			}
+
+			var reg = /^1[0-9]{10}$/;
+			flag = reg.test(jingBanRenShouJi)
+			if (!flag) {
+				alert("输入的手机号不合法，请重新输入");
+				$("#jingBanRenShouJi").focus();
+				$("#jingBanRenShouJi").select();
+				return;
+			}
+			_this.removeAttr("onclick");
+			_this.html("提交中...");
+			$.ajax({
+				url : "../feedbackController/feedbackInfo.do",
+				type : "post",
+				data : {
+					qiYeMingCheng : qiYeMingCheng,
+					fangWuDiZhi : fangWuDiZhi,
+					jingBanRenShouJi : jingBanRenShouJi,
+					jingBanRen : jingBanRen,
+					fanKuiYuanYin : fanKuiYuanYin,
+					fangWuDiZhiMiaoShu : fangWuDiZhiMiaoShu,
+					qiDengYeWuBianHao : qiDengYeWuBianHao,
+					yanZhengMa : yanZhengMa,
+					qu1 : qu1,
+					jieDao1 : jieDao1,
+					sheQu1 : sheQu1
+				},
+				beforeSend : function() {
+
+				},
+				success : function(data) {
+					_this.attr("onclick", "subInfo(this)");
+					_this.html("提交反馈");
+					data = eval("(" + data + ")");
+					data = data.data[0].data;
+					if (data == '003') {
+						alert("企业名称有误或者不存在，请重新核实");
+						return;
+					} else if (data == '002') {
+						alert("反馈问题成功");
+						$("#qiDengYeWuBianHao").val("");//清空用户输入的
+						$("#qiYeMingCheng").val("");//清空用户输入的
+						$("#fangWuDiZhi").val("");//清空用户输入的
+						$("#jingBanRen").val("");//清空用户输入的
+						$("#fangWuDiZhiMiaoShu").val("");//清空用户输入的
+						$("#fanKuiYuanYin").val("");//清空用户输入的
+						$("#jingBanRenShouJi").val("");//清空用户输入的
+						$("#yanZhengMa").val("");
+						$("#sheQu1").val("");
+						$("#qu1").empty();
+						$("#jieDao1").empty();
+						$("#jieDao1").attr("disabled", "disabled");
+						return;
+					} else if (data == '001') {
+						alert("该问题已经反馈过");
+						return;
+					} else if (data == '004') {
+						alert("验证码已经过期或者错误");
+					}
+				},
+				error : function(data) {
+					_this.attr("onclick", "subInfo(this)");
+					_this.html("提交反馈");
+				}
+
+			});
+
+		}
+
+		//重置
+		$(function() {
+			$("#qu").focus();
+
+			$("#reset").on("click", function() {
+				$(this).parents("#queryPanel").find("input").val("");
+			});
+
+		})
+
+		//失去焦点时取得手机号
+		function getPhoneNum(obj) {
+			var _this = $(obj);//失去焦点时取得手机号
+			var txt = $(_this).val();
+			var reg = /^1[0-9]{10}$/;
+
+			if (txt.length == 0) {
+				$("#jingBanRenShouJi").tips({
+					side : 1,
+					msg : '手机号码不能为空，请重新输入',
+					bg : '#AE81FF',
+					time : 3
+				});
+				//_this.focus();
+				return;
+			}
+			flag = reg.test(txt);
+			if (!flag) {
+				$("#jingBanRenShouJi").tips({
+					side : 1,
+					msg : '手机号码无效，请重新输入',
+					bg : '#AE81FF',
+					time : 3
+				});
+
+				_this.focus();
+				_this.select();
+				return;
+			}
+
+		}
+
+		//根据手机号发送验证码
+		function senderSMSCode(obj) {
+			var flags = false;
+			var qiDengYeWuBianHao = $("#qiDengYeWuBianHao").val();
+			if (isEmpty(qiDengYeWuBianHao)) {
+				$("#qiDengYeWuBianHao").tips({
+					side : 1,
+					msg : '请输入企登业务编号',
+					bg : '#AE81FF',
+					time : 3
+				});
+				$("#qiDengYeWuBianHao").focus();
+				return;
+			}
+			var qiYeMingCheng = $("#qiYeMingCheng").val();
+
+			if (isEmpty(qiYeMingCheng)) {
+				$("#qiYeMingCheng").tips({
+					side : 1,
+					msg : '请输入企业名称',
+					bg : '#AE81FF',
+					time : 3
+				});
+				$("#qiYeMingCheng").focus();
+				return;
+			}
+
+			var fangWuDiZhi = $("#fangWuDiZhi").val();
+			if (isEmpty(fangWuDiZhi)) {
+				$("#fangWuDiZhi").tips({
+					side : 1,
+					msg : '请输入房屋地址',
+					bg : '#AE81FF',
+					time : 3
+				});
+				$("#fangWuDiZhi").focus();
+				return;
+			}
+			var jingBanRen = $("#jingBanRen").val();
+			if (isEmpty(jingBanRen)) {
+				$("#jingBanRen").tips({
+					side : 1,
+					msg : '请输入经办人',
+					bg : '#AE81FF',
+					time : 3
+				});
+				$("#jingBanRen").focus();
+				return;
+			}
+			var fangWuDiZhiMiaoShu = $("#fangWuDiZhiMiaoShu").val();
+			if (isEmpty(fangWuDiZhiMiaoShu)) {
+				$("#fangWuDiZhiMiaoShu").tips({
+					side : 1,
+					msg : '请输入房屋地址位置描述',
+					bg : '#AE81FF',
+					time : 3
+				});
+				$("#fangWuDiZhiMiaoShu").focus();
+				return;
+			}
+			var fanKuiYuanYin = $("#fanKuiYuanYin").val();
+			if (isEmpty(fanKuiYuanYin)) {
+				$("#fanKuiYuanYin").tips({
+					side : 1,
+					msg : '请输入反馈原因',
+					bg : '#AE81FF',
+					time : 3
+				});
+				$("#fanKuiYuanYin").focus();
+				return;
+			}
+			var phone = $("#jingBanRenShouJi").val();
+			if (isEmpty(phone)) {
+				$("#jingBanRenShouJi").tips({
+					side : 1,
+					msg : '请输入经办人手机号',
+					bg : '#AE81FF',
+					time : 3
+				});
+				$("#jingBanRenShouJi").focus();
+				return;
+			}
+
+			var reg = /^1[0-9]{10}$/;
+			flag = reg.test(phone);
+			if (!flag) {
+				alert("输入的手机号不合法，请重新输入");
+				$("#jingBanRenShouJi").focus();
+				$("#jingBanRenShouJi").select();
+				return;
+			}
+			// $(obj).removeAttr("onclick");
+			$.ajax({
+				url : "../phone/getCode.do",
+				data : {
+					phone : phone
+				},
+				type : 'post',
+				dataType : 'json',
+				success : function(data) {
+					var data = data.data[0];
+					alert(data.data);
+				},
+				error : function() {
+
+				}
+			});
+
+			var countdown = 60;
+			settime(obj);
+			function settime(obj) {
+				if (countdown == 0) {
+					$(obj).attr("onclick", "senderSMSCode(this)");
+					$(obj).removeClass("nonAllow");
+					$(obj).text("获取验证码");
+					countdown = 60;
+					return;
+				} else {
+					$(obj).removeAttr("onclick");
+					$(obj).addClass("nonAllow");
+					$(obj).text("(" + countdown + ") s 重新发送");
+					countdown--;
+				}
+				setTimeout(function() {
+					settime(obj)
+				}, 1000)
+			}
+
+		}
+
+		//失去焦点时用户的校验验证码
+		function getPhoneValidateCode(obj) {
+			var _this = $(obj);
+			var txt = $(_this).val();
+			if (txt.length == 0) {
+				$("#yanZhengMa").tips({
+					side : 1,
+					msg : '验证码不不能为空，请重新输入',
+					bg : '#AE81FF',
+					time : 3
+				});
+				//_this.focus();
+			}
+			if (txt.length == 4) {
+				var reg = /^\d{4}$/;
+				flag = reg.test(txt)
+				if (!flag) {
+					$("#yanZhengMa").tips({
+						side : 1,
+						msg : '验证码不合法，请重新输入',
+						bg : '#AE81FF',
+						time : 3
+					});
+					_this.focus();
+					_this.select();
+					return;
+				} else {
+					var phone = $("#jingBanRenShouJi").val();
+					var code = txt;
+					$.ajax({
+						url : "../phone/validateCode.do",
+						data : {
+							phone : phone,
+							code : txt
+						},
+						dataType : 'json',
+						success : function(data) {
+							var data = data.data[0].data;
+							$("#yanZhengMa").tips({
+								side : 1,
+								msg : data,
+								bg : '#AE81FF',
+								time : 3
+							});
+						},
+						error : function() {
+
+						}
+					})
+				}
+			} else {
+				$("#yanZhengMa").tips({
+					side : 1,
+					msg : '验证码应为四位数字，请重新输入',
+					bg : '#AE81FF',
+					time : 3
+				});
+			}
+
+		}
+
+		function queryFeedback(obj) {
+			_this = $(obj);
+
+			//var qiDengYeWuBianHao = $("#qiDengYeWuBianHao").val();
+			//qiDengYeWuBianHao = encodeURI(qiDengYeWuBianHao);
+			var qiYeMingCheng = $("#qiYeMingCheng").val();
+			qiYeMingCheng = encodeURI(qiYeMingCheng);
+			//var fangWuBianMa = $("#fangWuBianMa").val();
+			var fangWuDiZhi = $("#fangWuDiZhi").val();
+			fangWuDiZhi = encodeURI(fangWuDiZhi);
+			var jingBanRenShouJi = $("#jingBanRenShouJi").val();
+			jingBanRenShouJi = encodeURI(jingBanRenShouJi);
+			var jingBanRen = $("#jingBanRen").val();
+			jingBanRen = encodeURI(jingBanRen);
+			var fanKuiYuanYin = $("#fanKuiYuanYin").val();
+			fanKuiYuanYin = encodeURI(fanKuiYuanYin);
+			var fangWuDiZhiMiaoShu = $("#fangWuDiZhiMiaoShu").val();
+			fangWuDiZhiMiaoShu = encodeURI(fangWuDiZhiMiaoShu);
+			var qiDengYeWuBianHao = $("#qiDengYeWuBianHao").val();
+			qiDengYeWuBianHao = encodeURI(qiDengYeWuBianHao);
+			var qu1 = $("#qu1").val();
+			qu1 = encodeURI(qu1);
+			if (qu1 == 0 || isEmpty(qu1)) {
+				qu1 = "";
+			}
+			var jieDao1 = $("#jieDao1").val();
+			jieDao1 = encodeURI(jieDao1);
+			if (isEmpty(jieDao1)) {
+				jieDao1 = "";
+			}
+			var sheQu1 = $("#sheQu1").val();
+			sheQu1 = encodeURI(sheQu1);
+			$("#fangWuBianMa").addClass("red");
+
+			var hiddenInfo = $("#hiddenInfo");// 点击反馈之前，先把用户填写的信息放到隐藏域之中。
+
+			hiddenInfo.attr("qiDengYeWuBianHao", decodeURI(qiDengYeWuBianHao));
+			hiddenInfo.attr("qiYeMingCheng", decodeURI(qiYeMingCheng));
+			hiddenInfo.attr("fangWuDiZhi", decodeURI(fangWuDiZhi));
+			hiddenInfo.attr("jingBanRen", decodeURI(jingBanRen));
+			hiddenInfo.attr("fangWuDiZhiMiaoShu", decodeURI(fangWuDiZhiMiaoShu));
+			hiddenInfo.attr("fanKuiYuanYin", decodeURI(fanKuiYuanYin));
+			hiddenInfo.attr("jingBanRenShouJi", decodeURI(jingBanRenShouJi));
+			hiddenInfo.attr("qu1", decodeURI(qu1));
+			hiddenInfo.attr("jieDao1", decodeURI(jieDao1));
+			hiddenInfo.attr("sheQu1", decodeURI(sheQu1));
+
+			//var yanZhengMa=$("#yanZhengMa").val();
+			//yanZhengMa = encodeURI(yanZhengMa);
+			if (isEmpty(qiDengYeWuBianHao)) {
+				alert("企登业务编号不能为空");
+				return;
+			}
+			$("#getCode").addClass("hide");
+			$("#yanZhengMa").addClass("hide");
+			_this.prev().prev().addClass("hide");
+			_this.prev().removeClass("hide");
+			_this.html("查询中...");
+			_this.removeAttr("onclick");
+			$.ajax({
+				url : "../feedbackController/queryFeedback.do",
+				type : "post",
+				data : {
+					qiYeMingCheng : qiYeMingCheng,
+					fangWuDiZhi : fangWuDiZhi,
+					jingBanRenShouJi : jingBanRenShouJi,
+					jingBanRen : jingBanRen,
+					fanKuiYuanYin : fanKuiYuanYin,
+					fangWuDiZhiMiaoShu : fangWuDiZhiMiaoShu,
+					qiDengYeWuBianHao : qiDengYeWuBianHao,
+					qu1 : qu1,
+					jieDao1 : jieDao1,
+					sheQu1 : sheQu1
+				},
+				beforeSend : function() {
+
+				},
+				success : function(data) {
+					_this.html("查询反馈结果");
+					_this.attr("onclick", "queryFeedback(this)");
+					//console.log(data.data);
+					data = eval("(" + data + ")");
+					$("#fangWuBianMa").val(data.data[0].data.code);
+					$("#qiDengYeWuBianHao").val(data.data[0].data.id);
+					$("#qiYeMingCheng").val(data.data[0].data.entname);
+					$("#fangWuDiZhi").val(data.data[0].data.houseAddr);
+					$("#jingBanRen").val(data.data[0].data.handler);
+					$("#fangWuDiZhiMiaoShu").val(data.data[0].data.addrContent);
+					$("#fanKuiYuanYin").val(data.data[0].data.causeOfFeedback);
+					$("#jingBanRenShouJi").val(data.data[0].data.phone);
+					$("#qu1").val(data.data[0].data.district);
+					//	$("#jieDao1").val(data.data[0].data.street);
+					$("#sheQu1").val(data.data[0].data.community);
+
+					var dataStreet = "";
+					if (isNotEmpty(data.data[0].data.street)) {
+						dataStreet = data.data[0].data.street;
+					}
+					$("#jieDao1").append("<option value='"+dataStreet+"'>" + dataStreet + "</option>");
+
+					_this.parents("#feedback").find("input, textarea,select").attr("disabled", "disabled");
+
+					//data = data.data[0]
+					//console.log.data;
+					/* 	if (data == '003') {
+							alert("企业名称有误或者不存在，请重新核实");
+							return;
+						} else if (data == '002') {
+							alert("反馈问题成功");
+							$('#myModal1').modal('hide');
+							return;
+						} else if (data == '001') {
+							alert("该问题已经反馈过");
+							return;
+						} */
+				},
+				error : function(data) {
+					_this.html("查询反馈结果");
+					_this.attr("onclick", "queryFeedback(this)");
+				}
+
+			});
+
+		}
+
+		function goBackSubInfo() {
+
+			$('#feedback').empty();
+			var feedback = $("#feedback").hasClass("flags");
+			$("#feedback").addClass("zoomIn animated");
+			if (feedback) {
+				$("#showDetail").addClass("hide");
+				$("#feedback").removeClass("hide").addClass("flags");
+			} else {
+				$("#showDetail").addClass("hide");
+				$("#feedback").addClass("flags");
+			}
+			$('#feedback')
+					.append(
+							"<div class='panel panel-default'>"
+									+ "		<div class='panel-body'>房屋编码反馈<div style='text-align:right' class='close'>X</div></div>"
+									+ "		<div class='panel-footer'>"
+									+ "			<form class='form-horizontal' role='form'>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='fangWuBianMa' class='col-sm-3 control-label'>房屋编码</label>"
+									+ "					<div class='col-sm-8'>"
+									+ "						<input type='text' placeholder='房屋编码' class='form-control' id='fangWuBianMa' disabled=''>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='qiDengYeWuBianHao' class='col-sm-3 control-label'>企登业务编号</label>"
+									+ "					<div class='col-sm-8'>"
+									+ "						<input type='text' placeholder='请输入企登业务编号'  autofocus='autofocus' class='form-control' id='qiDengYeWuBianHao'>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='qiYeMingCheng' class='col-sm-3 control-label'>企业名称</label>"
+									+ "					<div class='col-sm-8'>"
+									+ "						<input type='text' placeholder='请输入企业名称' class='form-control' id='qiYeMingCheng'>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "<div class='form-group'>"
+									+ "				<label for='qu1' class='col-sm-3 control-label'>区</label>"
+									+ "				<div class='col-sm-3'>"
+									+ "					<select tabindex='1' id='qu1' name='usertype'"+
+						"						class='selectpicker show-tick form-control'"+
+						"						data-live-search='false'>"
+									+ "						<option value='0' selected='selected'>请选择</option>"
+									+ "					</select>"
+									+ "				</div>"
+									+ "				<label for='jieDao1' class='col-sm-2 control-label'>街道</label>"
+									+ "				<div class='col-sm-3'>"
+									+ "					<select id='jieDao1' tabindex='2' name='usertype'"+
+						"						class='selectpicker show-tick form-control'"+
+						"						data-live-search='false' disabled='disabled'>"
+									+ "					</select>"
+									+ "				</div>"
+									+ "			</div>"
+									+ "			<div class='form-group' >"
+									+ "				<label for='sheQu1' class='col-sm-3 control-label'>社区</label>"
+									+ "				<div class='col-sm-8'>"
+									+ "					<input type='text' placeholder='请输入社区名称' class='form-control'"+
+						"						id='sheQu1'>"
+									+ "				</div>"
+									+ "			</div>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='fangWuDiZhi' class='col-sm-3 control-label'>房屋地址</label>"
+									+ "					<div class='col-sm-8'>"
+									+ "						<input type='text' placeholder='请输入房屋地址' class='form-control' id='fangWuDiZhi'>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='jingBanRen' class='col-sm-3 control-label'>经办人</label>"
+									+ "					<div class='col-sm-8'>"
+									+ "						<input type='text' placeholder='请输入经办人'  class='form-control' id='jingBanRen'>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='fangWuDiZhiMiaoShu' class='col-sm-3 control-label'>房屋地址位置描述</label>"
+									+ "					<div class='col-sm-8'>"
+									+ "						<textarea class='form-control' placeholder='请输入房屋地址位置描述' rows='3' id='fangWuDiZhiMiaoShu'></textarea>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='fanKuiYuanYin' class='col-sm-3 control-label'>反馈原因</label>"
+									+ "					<div class='col-sm-8'>"
+									+ "						<textarea class='form-control' rows='3'  placeholder='请输入反馈原因'  id='fanKuiYuanYin'></textarea>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "				<div class='form-group'>"
+									+ "					<label for='jingBanRenShouJi' class='col-sm-3 control-label'>经办人手机号</label>"
+									+ "					<div class='col-sm-6'>"
+									+ "						<div class='fl'>"
+									+ "							<input type='text' class='form-control' onblur='getPhoneNum(this)' placeholder='请输入经办人手机号' id='jingBanRenShouJi'>"
+									+ "						</div>"
+									+ "						<div class='pos fl'>"
+									+ "							<input type='text' class='form-control' onblur='getPhoneValidateCode(this)' placeholder='验证码' id='yanZhengMa' maxlength='4'> <a id='getCode' class='btn btn-primary' onclick='senderSMSCode(this)'>获取验证码</a>"
+									+ "						</div>"
+									+ "						<div style='clear:both'></div>"
+									+ "					</div>"
+									+ "				</div>"
+									+ "		</div>"
+									+ "		</form>"
+									+ "		<div style='display:table;margin:0 auto;'>"
+									+ "			<a id='subInfo' class='btn btn-primary' onclick='subInfo(this)'>提交反馈</a><a class='btn btn-primary hide' style='margin-left: 14px;' onclick='goBackSubInfo(this)'>返回上级</a><a class='btn btn-primary' style='margin-left: 14px;' onclick='queryFeedback(this)'>查询反馈结果</a>"
+									+ "		</div>" + "	</div>");
+
+			var hiddenInfo = $("#hiddenInfo");// 点击反馈之前，先把用户填写的信息放到隐藏域之中。
+			var qiDengYeWuBianHao = hiddenInfo.attr("qiDengYeWuBianHao");
+			var qiYeMingCheng = hiddenInfo.attr("qiYeMingCheng")
+			var fangWuDiZhi = hiddenInfo.attr("fangWuDiZhi");
+			var jingBanRen = hiddenInfo.attr("jingBanRen");
+			var fangWuDiZhiMiaoShu = hiddenInfo.attr("fangWuDiZhiMiaoShu");
+			var fanKuiYuanYin = hiddenInfo.attr("fanKuiYuanYin");
+			var jingBanRenShouJi = hiddenInfo.attr("jingBanRenShouJi");
+			var qu1 = hiddenInfo.attr("qu1");
+			var jieDao1 = hiddenInfo.attr("jieDao1");
+			var sheQu1 = hiddenInfo.attr("sheQu1");
+
+			$("#qiDengYeWuBianHao").val(qiDengYeWuBianHao);
+			$("#qiYeMingCheng").val(qiYeMingCheng);
+			$("#fangWuDiZhi").val(fangWuDiZhi);
+			$("#jingBanRen").val(jingBanRen);
+			$("#fangWuDiZhiMiaoShu").val(fangWuDiZhiMiaoShu);
+			$("#fanKuiYuanYin").val(fanKuiYuanYin);
+			$("#jingBanRenShouJi").val(jingBanRenShouJi);
+
+			$(".close").on("click", function() {
+				//$("#showDetail").empty();
+				$("#showDetail").removeClass("hide");
+				$("#feedback").addClass("hide");
+
+				var isToFee = $("#queryPanel").hasClass("toFee");
+				if (isToFee) {
+					$("#queryPanel").removeClass("toFee hide");
+				}
+
+			})
+			loadingQu2();
+			$("#qiDengYeWuBianHao").focus();
+			$("#subInfo").removeClass("hide");
+			$("#getCode").removeClass("hide");
+			$("#yanZhengMa").removeClass("hide");
+		}
+
+		function loadingQu2() {
+			$.ajax({
+				url : "",
+				datType : "json",
+				success : function(data) {
+					$("#qu1").append(
+							"<option value='南山区'>南山区</option>\n" + "<option value='盐田区'>盐田区</option>\n" + "<option value='龙华区'>龙华区</option>\n"
+									+ "<option value='福田区'>福田区</option>\n" + "<option value='光明新区'>光明新区</option>\n" + "<option value='龙岗区'>龙岗区</option>\n"
+									+ "<option value='宝安区'>宝安区</option>\n" + "<option value='市直属'>市直属</option>\n" + "<option value='大鹏新区'>大鹏新区</option>\n"
+									+ "<option value='罗湖区'>罗湖区</option>\n" + "<option value='坪山区'>坪山区</option>");
+					$('#qu1').change(function() {
+						var qu = $("#qu1").val();
+						qu = encodeURI(qu);
+						if (qu == 0) {
+							$("#jieDao1").empty();
+							$("#jieDao1").attr("disabled", "disabled");
+						} else {
+							$("#jieDao1").removeAttr("disabled");
+							$("#jieDao1").empty();
+							$.ajax({
+								url : "../houseCode/getStrCode.do",
+								datType : "json",
+								data : {
+									regioncode : qu
+								},
+								success : function(data) {
+									var dataStr = eval("(" + data + ")");
+									var data = dataStr.data[0].data;
+									for (var i = 0; i < data.length; i++) {
+										$("#jieDao1").append("<option value="+data[i].value+">" + data[i].text + "</option>");
+									}
+								},
+								error : function() {
+
+								}
+							});
+						}
+
+					})
+				},
+				error : function() {
+
+				}
+			});
+		}
+
+		//判断中文
+		function isChinese(txt) {
+			var re = /[^\u4e00-\u9fa5]/;
+			if (re.test(txt))
+				return false;
+			return true;
+		}
+	</script>
+</body>
+</html>

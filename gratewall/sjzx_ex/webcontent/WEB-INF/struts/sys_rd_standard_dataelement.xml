@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>基础数据元管理</menu-name>
+  <menu-path>/page/resource/res/rd/standard/jcsjygl/</menu-path>
+  <description>基础数据元管理</description>
+  <form-beans>
+    <form-bean name="SysRdStandardDataelementRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="identifier" type="string" size="32" description="标识符"/>
+      <form-property prefix="select-key" name="cn_name" type="string" size="32" description="中文名称"/>
+      <form-property prefix="select-key" name="en_name" type="string" size="32" description="英文名称"/>
+      <form-property prefix="select-key" name="column_nane" type="string" size="32" description="字段名称"/>
+      <form-property prefix="record" name="sys_rd_standard_dataelement_id" type="string" size="32" cannull="false" description="基础数据元ID"/>
+      <form-property prefix="record" name="standard_category" type="string" size="3" cannull="true" description="规范类型"/>
+      <form-property prefix="record" name="identifier" type="string" size="8" cannull="true" description="标识符"/>
+      <form-property prefix="record" name="cn_name" type="string" size="256" cannull="true" description="中文名称"/>
+      <form-property prefix="record" name="en_name" type="string" size="256" cannull="true" description="英文名称"/>
+      <form-property prefix="record" name="column_nane" type="string" size="64" cannull="true" description="字段名称"/>
+      <form-property prefix="record" name="data_type" type="string" size="2" cannull="true" description="数据类型"/>
+      <form-property prefix="record" name="data_length" type="string" size="32" cannull="true" description="数据长度"/>
+      <form-property prefix="record" name="data_format" type="string" size="32" cannull="true" description="数据格式"/>
+      <form-property prefix="record" name="value_domain" type="string" size="100" cannull="true" description="值域"/>
+      <form-property prefix="record" name="jc_standar_codeindex" type="string" size="10" cannull="true" description="基础代码集标识符"/>
+      <form-property prefix="record" name="representation" type="string" size="4000" cannull="true" description="表示"/>
+      <form-property prefix="record" name="unit" type="string" size="32" cannull="true" description="计量单位"/>
+      <form-property prefix="record" name="synonyms" type="string" size="100" cannull="true" description="同义词"/>
+      <form-property prefix="record" name="version" type="string" size="8" cannull="true" description="版本"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="备注"/>
+    </form-bean>
+
+    <form-bean name="SysRdStandardDataelementUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_rd_standard_dataelement_id" type="string" size="32" cannull="false" description="基础数据元ID"/>
+      <form-property prefix="record" name="sys_rd_standard_dataelement_id" type="string" size="32" cannull="false" description="基础数据元ID"/>
+      <form-property prefix="record" name="standard_category" type="string" size="3" cannull="true" description="规范类型"/>
+      <form-property prefix="record" name="identifier" type="string" size="8" cannull="true" description="标识符"/>
+      <form-property prefix="record" name="cn_name" type="string" size="256" cannull="true" description="中文名称"/>
+      <form-property prefix="record" name="en_name" type="string" size="256" cannull="true" description="英文名称"/>
+      <form-property prefix="record" name="column_nane" type="string" size="64" cannull="true" description="字段名称"/>
+      <form-property prefix="record" name="data_type" type="string" size="2" cannull="true" description="数据类型"/>
+      <form-property prefix="record" name="data_length" type="string" size="32" cannull="true" description="数据长度"/>
+      <form-property prefix="record" name="data_format" type="string" size="32" cannull="true" description="数据格式"/>
+      <form-property prefix="record" name="value_domain" type="string" size="100" cannull="true" description="值域"/>
+      <form-property prefix="record" name="jc_standar_codeindex" type="string" size="10" cannull="true" description="基础代码集标识符"/>
+      <form-property prefix="record" name="representation" type="string" size="4000" cannull="true" description="表示"/>
+      <form-property prefix="record" name="unit" type="string" size="32" cannull="true" description="计量单位"/>
+      <form-property prefix="record" name="synonyms" type="string" size="100" cannull="true" description="同义词"/>
+      <form-property prefix="record" name="version" type="string" size="8" cannull="true" description="版本"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="备注"/>
+    </form-bean>
+    
+    <form-bean name="SysRdStandardDataelementViewForm">
+      <description>单记录处理：查询</description>
+      <form-property prefix="primary-key" name="sys_rd_standard_dataelement_id" type="string" size="32" cannull="false" description="基础数据元ID"/>
+      <form-property prefix="record" name="sys_rd_standard_dataelement_id" type="string" size="32" cannull="false" description="基础数据元ID"/>
+      <form-property prefix="record" name="standard_category" type="string" size="3" cannull="true" description="规范类型"/>
+      <form-property prefix="record" name="identifier" type="string" size="8" cannull="true" description="标识符"/>
+      <form-property prefix="record" name="cn_name" type="string" size="256" cannull="true" description="中文名称"/>
+      <form-property prefix="record" name="en_name" type="string" size="256" cannull="true" description="英文名称"/>
+      <form-property prefix="record" name="column_nane" type="string" size="64" cannull="true" description="字段名称"/>
+      <form-property prefix="record" name="data_type" type="string" size="2" cannull="true" description="数据类型"/>
+      <form-property prefix="record" name="data_length" type="string" size="32" cannull="true" description="数据长度"/>
+      <form-property prefix="record" name="data_format" type="string" size="32" cannull="true" description="数据格式"/>
+      <form-property prefix="record" name="value_domain" type="string" size="100" cannull="true" description="值域"/>
+      <form-property prefix="record" name="jc_standar_codeindex" type="string" size="10" cannull="true" description="基础代码集标识符"/>
+      <form-property prefix="record" name="representation" type="string" size="4000" cannull="true" description="表示"/>
+      <form-property prefix="record" name="unit" type="string" size="32" cannull="true" description="计量单位"/>
+      <form-property prefix="record" name="synonyms" type="string" size="100" cannull="true" description="同义词"/>
+      <form-property prefix="record" name="version" type="string" size="8" cannull="true" description="版本"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="备注"/>
+    </form-bean>
+    
+    <!-- ajax-查询基础数据元 -->
+    <form-bean name="SysRdStandardDataelementSelectForm">
+      <description>单记录查询</description>
+      <form-property prefix="select-key" name="identifier" type="string" size="32" description="标识符"/>
+      <form-property prefix="record" name="sys_rd_standard_dataelement_id" type="string" size="32" cannull="false" description="基础数据元ID"/>
+      <form-property prefix="record" name="standard_category" type="string" size="3" cannull="true" description="规范类型"/>
+      <form-property prefix="record" name="identifier" type="string" size="8" cannull="true" description="标识符"/>
+      <form-property prefix="record" name="cn_name" type="string" size="256" cannull="true" description="中文名称"/>
+      <form-property prefix="record" name="en_name" type="string" size="256" cannull="true" description="英文名称"/>
+      <form-property prefix="record" name="column_nane" type="string" size="64" cannull="true" description="字段名称"/>
+      <form-property prefix="record" name="data_type" type="string" size="2" cannull="true" description="数据类型"/>
+      <form-property prefix="record" name="data_length" type="string" size="32" cannull="true" description="数据长度"/>
+      <form-property prefix="record" name="data_format" type="string" size="32" cannull="true" description="数据格式"/>
+      <form-property prefix="record" name="value_domain" type="string" size="100" cannull="true" description="值域"/>
+      <form-property prefix="record" name="jc_standar_codeindex" type="string" size="10" cannull="true" description="基础代码集标识符"/>
+      <form-property prefix="record" name="representation" type="string" size="4000" cannull="true" description="表示"/>
+      <form-property prefix="record" name="unit" type="string" size="32" cannull="true" description="计量单位"/>
+      <form-property prefix="record" name="synonyms" type="string" size="100" cannull="true" description="同义词"/>
+      <form-property prefix="record" name="version" type="string" size="8" cannull="true" description="版本"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="备注"/>
+    </form-bean>
+
+    <form-bean name="SysRdStandardDataelementDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_rd_standard_dataelement_id" type="string" size="32" cannull="false" description="基础数据元ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_rd_standard_dataelement.jsp" name="SysRdStandardDataelementRowsetForm" txn-code="7000301" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询基础数据元列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardDataelement" func-name="txn7000301" input-node="select-key" output-node="record" description="查询基础数据元列表"/>
+      <forward error-code="success" path="query-sys_rd_standard_dataelement.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_standard_dataelement.jsp"/>
+    </action>
+    
+    <action input="query-sys_rd_standard_dataelement_pre.jsp" name="SysRdStandardDataelementRowsetForm" txn-code="7004401" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询基础数据元概览列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardDataelement" func-name="txn7004401" input-node="select-key" output-node="record" description="查询基础数据元概览列表"/>
+      <forward error-code="success" path="query-sys_rd_standard_dataelement_pre.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_standard_dataelement_pre.jsp"/>
+    </action>
+
+    <action input="update-sys_rd_standard_dataelement.jsp" name="SysRdStandardDataelementUpdateForm" txn-code="7000302" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改基础数据元信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardDataelement" func-name="txn7000302" input-node="record" description="修改基础数据元信息"/>
+      <forward error-code="success" path="update-sys_rd_standard_dataelement.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_standard_dataelement.jsp"/>
+    </action>
+
+    <action input="insert-sys_rd_standard_dataelement.jsp" name="SysRdStandardDataelementUpdateForm" txn-code="7000303" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加基础数据元信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardDataelement" func-name="txn7000303" input-node="record" description="增加基础数据元信息"/>
+      <forward error-code="success" path="insert-sys_rd_standard_dataelement.jsp"/>
+      <forward error-code="failure" path="insert-sys_rd_standard_dataelement.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_standard_dataelement.jsp" name="SysRdStandardDataelementUpdateForm" txn-code="7000304" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询基础数据元用于修改</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardDataelement" func-name="txn7000304" input-node="primary-key" output-node="record" description="查询基础数据元用于修改"/>
+      <forward error-code="success" path="update-sys_rd_standard_dataelement.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_standard_dataelement.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_standard_dataelement.jsp" name="SysRdStandardDataelementDeleteForm" txn-code="7000305" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除基础数据元信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardDataelement" func-name="txn7000305" input-node="primary-key" description="删除基础数据元信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+    <action input="query-sys_rd_standard_dataelement.jsp" name="SysRdStandardDataelementViewForm" txn-code="7000306" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询基础数据元用于视图</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardDataelement" func-name="txn7000306" input-node="primary-key" output-node="record" description="查询基础数据元用于修改"/>
+      <forward error-code="success" path="view-sys_rd_standard_dataelement.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_standard_dataelement.jsp"/>
+    </action>
+    <!-- ajax-查询基础数据元 -->
+    <action input="/dw/rd/metadata/datastructure/claim/update-sys_rd_column.jsp" name="SysRdStandardDataelementSelectForm" txn-code="7000307" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询基础数据元用于修改字段</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardDataelement" func-name="txn7000307" input-node="select-key" output-node="record" description="查询基础数据元用于修改字段"/>
+      <forward error-code="success" path="view-sys_rd_standard_dataelement.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_standard_dataelement.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_rd_standard_dataelement.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/dw/rd/standard/jcsjygl/query-sys_rd_standard_dataelement.jsp" description="查询基础数据元列表"/>
+    <resource-file type="jsp" file-name="/dw/rd/standard/jcsjygl/insert-sys_rd_standard_dataelement.jsp" description="增加基础数据元信息"/>
+    <resource-file type="jsp" file-name="/dw/rd/standard/jcsjygl/update-sys_rd_standard_dataelement.jsp" description="修改基础数据元信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.SysRdStandardDataelementContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardDataelement" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardDataelementSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardDataelementPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

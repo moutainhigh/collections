@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+	
+	<meta http-equiv="Pragma" content="No-cache" />
+	<meta http-equiv="Cache-Control" content="no-cache" />
+	<meta http-equiv="Expires" content="0" />
+	
+	<title>提交核准</title>
+	<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+	<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+	<SCRIPT language=JavaScript src="jquery-1.8.3.js"></SCRIPT>	
+	<style>
+		article{
+			width:500px;
+			margin:0 auto;
+		}
+		
+		#img{
+			width:16px;
+			height:16px;
+			vertical-align:middle;
+		}
+		#success{
+			font-size:32px;
+			font-weigth:bold;
+			display:inline-block;
+			margin-bottom:15px;
+		}
+		#bigCheck{
+			vertical-align:bottom;
+			width:48px;
+		}
+		.tip{
+			margin-left:-15px;
+			margin-bottom:15px;
+		}
+	</style>
+</head>
+<body id="body" style='background-color:#FFF; overflow-x:hidden'>
+<article>
+<div id="approve-hide-cover"></div>
+<div id="approve-steps">
+	<div class="approve-step" id="approve-step0">
+	<div class="tip">
+		<span id="userMsg">核准期间不得拔下UKey，否则会导致核准失败。</span>
+	</div>
+		<form name="SignForm" onsubmit='return false;'>
+			核准人：<select id="UserList" name="UserList"></select>
+			
+			<input type="hidden" name="hashcode" id="hashcode" value=""/>
+			<span id="userRetryBtn" class="commonBt">重试</span>
+		</form>
+	</div>
+	
+	<div class="approve-step" id="approve-step1">
+		<span class="step-content">1、数据准备</span>
+		<span class="step-result">
+			<img src="../../../static/image/img/icon/_loading.gif" id="img">
+		</span>
+		<span class="step-errorinfo"></span>
+	</div>
+	
+	<div class="approve-step" id="approve-step2">
+		<span class="step-num">2、执行规则</span>
+		<span class="step-result">
+			<img src="../../../static/image/img/icon/_loading.gif" id="img">
+		</span>
+		<span class="step-errorinfo"></span>
+	</div>
+	<div class="approve-rules" style="display:none;" id="approve-rules">
+		<table class="approve-table" id="approve-table">
+			<tr> 
+				<td align="center">选择</td>
+				<td align="center">序号</td>
+				<td align="center">规则类型</td>
+				<td align="center">规则名称</td>
+				<td align="center">规则信息</td>
+			</tr>
+		</table>
+		
+		<div id="ruleToolbar" class="ruleToolbar">
+			<span id="prompt-rule-pass" class="commonBt">通过</span>
+			<span id="special-rule-pass" class="commonBt">特殊通道</span>
+			<span id="special-rule-apply" class="commonBt">通道申请</span>
+			<span id="cancelBtn" class="commonBt">取消</span>
+		</div>
+	</div>
+	
+	<div class="approve-step" id="approve-step3">
+		<span class="step-content">3、生成电子档案</span>
+		<span class="step-result">
+			<img src="../../../static/image/img/icon/_loading.gif" id="img">
+		</span>
+		<span class="step-errorinfo"></span>
+	</div>
+	
+	<div class="approve-step" id="approve-step4">
+		<span class="step-num">4、保存档案信息</span>
+		<span class="step-result">
+			<img src="../../../static/image/img/icon/_loading.gif" id="img">
+		</span>
+		<span class="step-errorinfo"></span>
+	</div>
+	
+	<div class="approve-step" id="approve-step5">
+		<span class="step-content">5、执行核准</span>
+		<span class="step-result">
+			<img src="../../../static/image/img/icon/_loading.gif" id="img">
+		</span>
+		<span class="step-errorinfo"></span>
+	</div> 
+	<div class="approve-step" id="successMsg">
+		<span id="success"></span>
+		<img src="../../../static/image/img/icon/smileFace.png" id="bigCheck">
+	</div>
+	<div id="backToLisBtn" class="commonBt" style="margin-left:200px;display:none;">关闭</div>
+	
+</div>
+
+</article>
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../../static/js/config.js"></script>
+<script type="text/javascript" src="../../../static/lib/require.js" data-main="approve/ApproveDoApprove.js" ></script> 
+<SCRIPT language=JavaScript src="date.js"></SCRIPT>
+<SCRIPT type="text/javascript" src="XTXSuite.js"></SCRIPT>
+<SCRIPT ID=clientEventHandlersJS LANGUAGE=javascript>
+$(function(){
+	SetUserCertList("SignForm.UserList");
+	AddOnLoadEvent($onLoadFunc);
+	SetLogoutFunction(pullOutUKey);	
+});
+function pullOutUKey(){
+	$("#userMsg").html("请插入UKey后重试。");
+	 $("#userRetryBtn").show();
+}
+</script>
+</body>
+</html>

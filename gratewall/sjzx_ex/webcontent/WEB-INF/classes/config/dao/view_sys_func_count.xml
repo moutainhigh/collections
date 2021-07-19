@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="view_sys_func_count" class-name="com.gwssi.sysmgr.dao.ViewSysFuncCount" check-flag="false" backup-flag="false">
+    <description>功能使用统计表</description>
+  </table-info>
+
+  <column name="querytimes" data-type="long" length="22" not-null="false" value-from="input" description="次数"/>
+  <column name="query_date" data-type="varchar" length="10" not-null="false" value-from="input" description="执行日期"/>
+  <column name="func_name" data-type="varchar" length="100" not-null="false" value-from="input" description="功能模块"/>
+  <column name="sjjgid_fk" data-type="varchar" length="32" not-null="false" value-from="input" description="机构ID"/>
+  <column name="func_index" data-type="long" length="22" not-null="false" value-from="input" description="序号"/>
+
+  
+  
+  <primary-key name="PK_view_sys_func_count" column-list="func_name,sjjgid_fk"/>
+  <function func-name="select one view_sys_func_count" func-type="select" column-list="querytimes,query_date,func_name,sjjgid_fk,func_index">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select view_sys_func_count list" func-type="rowset" column-list="querytimes,query_date,func_name,sjjgid_fk,func_index" max-record="10">
+    <filter-column column-name="query_date" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one view_sys_func_count" func-type="insert" column-list="querytimes,query_date,func_name,sjjgid_fk,func_index">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one view_sys_func_count" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one view_sys_func_count" func-type="update" column-list="querytimes,query_date,func_name,sjjgid_fk,func_index">
+    <description>修改记录</description>
+  </function>
+
+</table>
+

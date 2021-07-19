@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chart showvalues="1" caption="各服务共享数据量占比" numberprefix="" isSmartLineSlanted="1" showlegend="1" enablesmartlabels="1" showlabels="0" 
+showPercentValues="1" showLabels="1" showZeroPies="0"> 
+	<#list list as x>
+		<set value="${x.num}" label="${x.name}"/>  
+	</#list>
+</chart>

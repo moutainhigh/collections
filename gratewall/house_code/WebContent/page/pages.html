@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no" />
+<title>pages.html</title>
+<link rel="stylesheet" type="text/css" href="../static/bt/css/bootstrap.min.css">
+</head>
+<body style="height: 800px">
+	<div class="panel panel-default">
+		<div class="panel-body">这是一个基本的面板</div>
+		<div class="panel-footer">
+			<form class="form-horizontal" role="form">
+				<div class="form-group">
+					<label for="fangWuBianMa" class="col-sm-3 control-label">房屋编码</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="fangWuBianMa" disabled="">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="qiYeMingCheng" class="col-sm-3 control-label">企登业务编号</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="qiDengYeWuBianHao">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="qiYeMingCheng" class="col-sm-3 control-label">企业名称</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="qiYeMingCheng">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="zhuSuo" class="col-sm-3 control-label">房屋地址</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="fangWuDiZhi">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="jingBanRen" class="col-sm-3 control-label">经办人</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="jingBanRen">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="jingBanRen" class="col-sm-3 control-label">房屋地址位置描述</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" rows="3" id="fangWuDiZhiMiaoShu"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="jingBanRen" class="col-sm-3 control-label">反馈原因</label>
+					<div class="col-sm-8">
+						<textarea class="form-control" rows="3" id="fanKuiYuanYin"></textarea>
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="jingBanRenShouJi" class="col-sm-3 control-label">经办人手机号</label>
+					<div class="col-sm-4">
+						<div class="fl">
+							<input type="text" class="form-control" id="jingBanRenShouJi">
+						</div>
+						<div class="pos fl">
+							<input type="text" class="form-control" id="yanZhenMa"> <a id="getCode" class="btn btn-primary" onclick="getPhoneCode(this)">获取验证码</a>
+						</div>
+						<div style="clear:both"></div>
+					</div>
+				</div>
+		</div>
+		</form>
+		<div style="display:table;margin:0 auto;">
+			<a class="btn btn-primary" onclick="subInfo(this)">提交反馈</a> <a class="btn btn-primary" style="margin-left: 14px;" onclick="subInfo(this)">查询反馈结果</a>
+		</div>
+	</div>
+</body>
+</html>

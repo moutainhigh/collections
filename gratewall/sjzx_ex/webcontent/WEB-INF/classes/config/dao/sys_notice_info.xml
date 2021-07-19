@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="sys_notice_info" class-name="com.gwssi.dw.runmgr.etl.dao.SysNoticeInfo" check-flag="false" backup-flag="false">
+    <description>通知通告表</description>
+  </table-info>
+
+  <column name="sys_notice_id" data-type="varchar" length="32" not-null="true" empty-is-null="false" value-from="input" description="通知通告ID"/>
+  <column name="sys_notice_title" data-type="varchar" length="50" not-null="false" value-from="input" description="标题"/>
+  <column name="sys_notice_matter" data-type="varchar" length="300" not-null="false" value-from="input" description="内容"/>
+  <column name="sys_notice_promulgator" data-type="varchar" length="20" not-null="false" value-from="input" description="发布人"/>
+  <column name="sys_notice_org" data-type="varchar" length="60" not-null="false" value-from="input" description="发布单位"/>
+  <column name="sys_notice_date" data-type="varchar" length="19" not-null="false" value-from="input" description="发布时间"/>
+  <column name="sys_notice_state" data-type="char" length="1" not-null="false" value-from="input" description="发布状态"/>
+  <column name="sys_notice_filepath" data-type="varchar" length="2000" not-null="false" value-from="input" description="附件"/>
+  <primary-key name="pk_sys_notice_info" column-list="sys_notice_id"/>
+  <index name="pk_sys_notice_info" index-type="unique" cluster="cluster" column-list="sys_notice_id"/>
+  <function func-name="select one sys_notice_info" func-type="select" column-list="sys_notice_id,sys_notice_title,sys_notice_matter,sys_notice_promulgator,sys_notice_org,sys_notice_date,sys_notice_state,sys_notice_filepath">
+    <filter-column column-name="sys_notice_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_notice_info list" func-type="rowset" column-list="sys_notice_id,sys_notice_title,sys_notice_matter,sys_notice_promulgator,sys_notice_org,sys_notice_date,sys_notice_state,sys_notice_filepath" sort-columns="sys_notice_date desc" max-record="10">
+    <filter-column column-name="sys_notice_matter" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_notice_date" operator="start" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_notice_org" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_notice_promulgator" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_notice_state" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_notice_info" func-type="insert" column-list="sys_notice_id,sys_notice_title,sys_notice_matter,sys_notice_promulgator,sys_notice_org,sys_notice_date,sys_notice_state,sys_notice_filepath">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_notice_info" func-type="delete">
+    <filter-column column-name="sys_notice_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_notice_info" func-type="update" column-list="sys_notice_title,sys_notice_matter,sys_notice_promulgator,sys_notice_org,sys_notice_date,sys_notice_state,sys_notice_filepath">
+    <filter-column column-name="sys_notice_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

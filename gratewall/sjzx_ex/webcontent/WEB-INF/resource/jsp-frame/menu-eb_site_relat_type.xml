@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="eb_site_relat_type.xml" app-path="/dw/aic/bj/ecomm/" app-name="eb_site_relat_type" description="补充基本信息" template="single-table.xml"/>
+  <table name="eb_site_relat_type.xml" app-name="eb_site_relat_type" app-desc="补充基本信息" delete-action="delete" description="补充基本信息" class-name="cn.gwssi.dw.aic.bj.ecomm.txn.TxnEbSiteRelatType" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-eb_site_relat_type.jsp" txn-code="6026201" description="查询补充基本信息列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加补充基本信息" path="insert-eb_site_relat_type.jsp" description="增加补充基本信息" func-name="addRecord"/>
+	    <button type="button" name="修改补充基本信息" path="/txn6026204.do" description="修改补充基本信息" func-name="updateRecord"/>
+	    <button type="button" name="删除补充基本信息" path="/txn6026205.do" description="删除补充基本信息" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn6026201.do" description="查询补充基本信息信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-eb_site_relat_type.jsp" txn-code="6026203" description="增加补充基本信息信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn6026203.do" description="保存补充基本信息信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn6026203.do" description="保存补充基本信息信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn6026201.do" description="保存补充基本信息信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn6026201.do" description="返回到补充基本信息明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-eb_site_relat_type.jsp" txn-code="6026202" description="修改补充基本信息信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn6026201.do" description="修改补充基本信息信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn6026201.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-eb_site_relat_type.jsp" txn-code="6026201" description="查询补充基本信息列表">
+	    <forward error-code="success" path="query-eb_site_relat_type.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-eb_site_relat_type.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-eb_site_relat_type.jsp" txn-code="6026202" description="修改补充基本信息信息">
+	    <forward error-code="success" path="update-eb_site_relat_type.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-eb_site_relat_type.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-eb_site_relat_type.jsp" txn-code="6026203" description="增加补充基本信息信息">
+	    <forward error-code="success" path="insert-eb_site_relat_type.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-eb_site_relat_type.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-eb_site_relat_type.jsp" txn-code="6026204" description="查询补充基本信息用于修改">
+	    <forward error-code="success" path="update-eb_site_relat_type.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-eb_site_relat_type.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-eb_site_relat_type.jsp" txn-code="6026205" description="删除补充基本信息信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="cn.gwssi.dw.aic.bj.ecomm.vo.EbSiteRelatTypeContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="cn.gwssi.dw.aic.bj.ecomm.vo.VoEbSiteRelatType" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="cn.gwssi.dw.aic.bj.ecomm.vo.VoEbSiteRelatTypeSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="cn.gwssi.dw.aic.bj.ecomm.vo.VoEbSiteRelatTypePrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

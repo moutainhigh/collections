@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> New Document </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Author" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<META NAME="Description" CONTENT="">
+</HEAD>
+
+<script>
+function  filterForJavaDoc( _str ){
+	var sRet;
+	sRet = _str.replace(/</g, "&lt;");
+	sRet = sRet.replace(/>/g, "&gt;");
+	sRet = sRet.replace(/\n/g, "<br>");
+	sRet = sRet.replace(/\"/g, "&quot;");
+	//sRet = sRet.replace(/ /g, "&nbsp;");
+	sRet = sRet.replace(/	/g, "&nbsp;&nbsp;&nbsp;&nbsp;");
+	//sRet = sRet.replace(/&/g, "&amp;");
+	if(sRet.charCodeAt(sRet.length-1) == 13)
+		return sRet.substring(0, sRet.length-1) + "<BR>";
+	else
+		return sRet;	
+}
+
+function convert(){
+	var oSrc = document.all("Src");
+	var oDst = document.all("Dst");
+	
+	var arData	= oSrc.value.split("\n");
+	var sDst = ""
+			+"     * <code>\n" 
+			+"     * <BR><B>用例</B>：<BR>\n";
+
+	for(var i=0; i<arData.length; i++){
+		var sEnd = arData[i].substring(arData[i].length-1);
+		sDst += "     * "+filterForJavaDoc(arData[i])+"\n"
+	}
+
+	sDst += "     * </code>";
+	oDst.value = sDst;
+	//CTRSAction_alert("oSrc:"+oSrc.value);
+}
+</script>
+<BODY>
+<table border=0>
+	<tr>
+	 <td align=center>HTML源码</td>
+	 <td align=center>JavaDoc 代码</td>
+	</tr>
+	<tr>
+	 <td align=center><textarea name="Src" cols=50 rows=20></textarea></td>
+	 <td align=center><textarea name="Dst" cols=50 rows=20></textarea></td>
+	</tr>
+</table>
+
+<P>
+<input type="button" value="转换" onclick="convert();">
+
+</BODY>
+</HTML>

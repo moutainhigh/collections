@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="photo_list_editor.html.title">WCM通用列表页面-图片</title>
+	<link href="../css/common_thumb.css" rel="stylesheet" type="text/css">
+    <link href="../js/resource/all_widgets.css" rel="stylesheet" type="text/css">
+<link href="../photo/photo_list_editor.css" rel="stylesheet" type="text/css">
+<link href="../js/easyversion/resource/calendar.css" rel="stylesheet" type="text/css">
+<link href="../photo/photo_thumb.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script src="../../app/js/easyversion/cssrender.js"></script>
+<div class="layout_container">
+	<div class="layout_center_container">
+		<div class="layout_center">
+			<div class="layout_container layout_innercontainer" style="padding-top:0px;">
+				<div class="layout_center_container">
+					<div class="layout_center layout_innercenter">
+<div class="layout_container thumb_grid">
+	<div class="layout_north thumb_grid_head" style="background-position-y:0px;width:600px;">
+		<div style="float:left;height:28px;">
+			<table height="20" border="0" cellpadding="0" cellspacing="0" background="../images/include/px2.gif" onclick="addNewPhoto();" id="tb_newphoto" style="display:none;float:left;margin-left:5px;margin-top:5px;">
+			  <tr style="cursor:pointer;"> 
+				<td width="29">
+					<a onclick="return false;" style="width:29px; height:24px;"><img src="../images/photo/new.gif"  border=0 alt=""></a>
+				</td>
+				<td width="35" valign="top" style="padding-top:3px;" WCMAnt:param="photo_list_editor.html.new">新建</td>
+				<td width="10" height="20" align="right" style="background:url(../images/include/px3.gif)"></td>
+			  </tr>
+			</table>
+		</div>
+		<div style="float:left;height:28px;">
+			<table height="20" border="0" cellpadding="0" cellspacing="0" background="../images/include/px2.gif" onclick="showPhotoSearch()" id="tb_search" style="float:left;margin-left:20px;margin-top:5px">
+			  <tr style="cursor:pointer;"> 
+				<td width="29">
+					<a onclick="return false;" style="width:29px; height:24px;"><img src="../images/photo/search.gif"  border=0 alt=""></a>
+				</td>
+				<td width="35" valign="top" style="padding-top:4px" WCMAnt:param="photo_list_editor.html.query">检索</td>
+				<td width="10" height="20" align="right" style="background:url(../images/include/px3.gif)"></td>
+			  </tr>
+			</table>
+		</div>
+		<div id="list-order-box" style="float:right;margin-top:5px;margin-right:10px;"></div> 
+	</div>
+	<div id='wcm_table_grid' class="layout_center_container thumb_grid_data" style="height:570px;width:600px">
+	</div>
+	<div id="grid_navigator" class="layout_south table_grid_navigator" style="width:590px;">
+		<div id="list_navigator" class="list_navigator_div">
+		</div>
+	</div>
+</div>
+					</div>
+				</div>
+				<div id="south_tabs" class="layout_south"></div>
+			</div>
+		</div>
+		<div id="east_opers" class="layout_east"></div>
+	</div>
+</div>
+<script src="../js/runtime/lightlib.js"></script>
+<script src="../js/runtime/core_main.js"></script>
+<script src="../js/runtime/abs_thumb.js"></script>
+<script src="../js/runtime/data/list.js"></script>
+<script src="../js/runtime/data/oper_channelwebsite.js"></script>
+<script src="../js/runtime/data/oper_cmsobj_photo.js"></script>
+<script src="photo_list_editor.html.compress.js"></script>
+<script src="photo_list_editor.js"></script>
+</body>
+</html>

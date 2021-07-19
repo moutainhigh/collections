@@ -1,0 +1,15 @@
+<%@include file="../../special/fieldtype/appendix.jsp"%>
+<%@include file="../../special/fieldtype/checkbox.jsp"%>
+<%@include file="../../special/fieldtype/classinfo.jsp"%>
+<%@include file="../../special/fieldtype/editor.jsp"%>
+<%@include file="../../special/fieldtype/inputselect.jsp"%>
+<%@include file="../../special/fieldtype/int.jsp"%>
+<%@include file="../../special/fieldtype/normaltext.jsp"%>
+<%@include file="../../special/fieldtype/radio.jsp"%>
+<%@include file="../../special/fieldtype/selchannel.jsp"%>
+<%@include file="../../special/fieldtype/select.jsp"%>
+<%@include file="../../special/fieldtype/suggestion.jsp"%>
+<%@include file="../../special/fieldtype/trueorfalse.jsp"%>
+<%@include file="../../special/fieldtype/selectMetaView.jsp"%>
+<%@include file="../../special/fieldtype/seldocument.jsp"%>
+<%@include file="../../special/fieldtype/selMetaViewField.jsp"%>

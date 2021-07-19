@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+
+<title>页面editCondition配置</title>
+<link rel="stylesheet" href="../../static/css/common.css">
+    <link href="../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+	<link href="../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" rel="stylesheet" type="text/css" />	
+
+</head>
+
+<body style="overflow:hidden">
+	<div  name="queryConditionPanel" vtype="formpanel" id="queryConditionPanel" displayrows="1"
+			titleDisplay="false" width="100%"  showborder=false  layout='table' style="text-align: center;"
+			layoutconfig="{cols:2, columnwidth: ['50%','50%']}" height="100%"
+			labelStyleClass="labelstyle" title="sys_query_condition_config">
+			
+			<div name='configId' id='configId' vtype="hiddenfield" label="配置ID" labelAlign="right"
+				width="350" labelwidth='160'></div>
+			<div name='conditionId' id='conditionId' vtype="hiddenfield" label="列ID" labelAlign="right"
+				width="350" labelwidth='160'  ></div>
+			<div name='conditionIndex' id='conditionIndex' vtype="textfield" label="查询列序号" rule="must" tooltip="必须依次填写：1,2,3。。。" labelAlign="right"
+				width="350" labelwidth='160'  ></div>
+			<div name='conditionTitle' id='conditionTitle' vtype="textfield" label="查询列标题" rule="must" tooltip="最好是中文。。。" labelAlign="right"
+				width="350" labelwidth='160'  ></div>
+			<div name='conditionName' id='conditionName' vtype="textfield" label="查询列名称" labelAlign="right" tooltip="驼峰命名，比如：testDemo。。。"
+				width="350" labelwidth='160'  ></div>
+			<div name='conditionField' id='conditionField' vtype="textfield" label="对应数据库字段名" labelAlign="right" rule="must" tooltip="必须是数据库中的字段。。。"
+				width="350" labelwidth='160'></div>
+			<div name='conditionFieldType' id='conditionFieldType' vtype="comboxfield" label="查询组件类型" labelAlign="right"
+				rule="must" valuetip="请选择..." 
+				dataurl="[{'value':'text','text':'text'},
+				{'value':'combox','text':'combox'},
+				{'value':'date','text':'date'},
+				{'value':'number','text':'number'},
+				{'value':'textarea','text':'textarea'},
+				{'value':'hide','text':'hide'},
+				{'value':'password','text':'password'},
+				{'value':'radio','text':'radio'}]"
+				width="350" labelwidth='160'  ></div>
+			<div name='conditionDict' id='conditionDict' vtype="textfield" label="查询列代码集" labelAlign="right"  tooltip="请输入。。。"
+				width="350" labelwidth='160'  ></div>
+			<div name='conditionWidth' id='conditionWidth' vtype="textfield" label="查询列组件宽度" labelAlign="right"  tooltip="请输入。。。"
+				width="350" labelwidth='160'  ></div>
+			<div name='conditionOp' id='conditionOp' vtype="comboxfield" label="操作" labelAlign="right"  
+			rule="must" valuetip="请选择..." 
+				dataurl="[{'value':'=','text':'='},
+				{'value':'<','text':'<'},
+				{'value':'>','text':'>'},
+				{'value':'>=','text':'>='},
+				{'value':'<=','text':'<='},
+				{'value':'like','text':'like'},
+				{'value':'%like','text':'%like'}]"
+				width="350" labelwidth='160'  ></div>
+			<div name='conditionTips' id='conditionTips' vtype="textfield" label="查询条件提示信息" labelAlign="right"  tooltip="请输入。。。"
+				width="350" labelwidth='160'  ></div>
+			<div name='conditionRule' id='conditionRule' vtype="textfield" label="查询条件规则" labelAlign="right" tooltip="请输入must或者其他、不填"
+				width="350" labelwidth='160'  ></div>
+			<div name='conditionValueFrom' id='conditionValueFrom' vtype="textfield" label="获取值得来源" labelAlign="right" tooltip="必须是：(Session.userObject.Name;Form.formName.key;Req.key;Cookie.key)"
+				width="350" labelwidth='160'  ></div>
+			
+			<div id="toolbar" name="toolbar" vtype="toolbar" location="bottom"
+				align="center" width="100%">
+				<div name="save_button" id="save_button" vtype="button" text="保存"
+					icon="../query/queryssuo.png" onclick="saveQueryCondition()" ></div>
+				<div name="reset_button" id="reset_button" vtype="button" text="重置"></div>
+				<!-- <div name="back_button" id="back_button" vtype="button" text="返回"
+					icon="../query/queryssuo.png" click="goBack()"></div> -->
+			</div>
+		</div>
+		
+	<script type="text/javascript" src="../../static/js/config.js"></script> 
+	<script type="text/javascript" src="../../static/lib/require.js"  data-main="other/queryConditionConfig.js"></script>
+</body>
+</html>

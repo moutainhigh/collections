@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.common.publish.widget.StyleItemServiceProvider">
+	<method name="queryStyleItems" desc="获取指定风格对应的风格项集合">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>
+		<parameter name="ObjectType" desc="风格WCMObjType" type="int" required="true"/>
+	</method>
+	<method name="queryStyleItemMap" desc="获取指定风格对应的风格项集合,返回HashMap">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>
+		<parameter name="ObjectType" desc="风格WCMObjType" type="int" required="true"/>
+	</method>
+</service>

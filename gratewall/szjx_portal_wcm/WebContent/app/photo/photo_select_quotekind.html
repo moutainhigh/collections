@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="photo_select_quotekind.html.title">图片引用到...</title>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/photo.js"></script>
+<script language="javascript">
+<!--
+	top.actualTop = window;
+//-->
+</script>
+<script>
+	var sSelectedChannelIds = getParameter("SelectedChannelIds");
+	var iFromChannelId = getParameter("FromChannelId");
+	var myActualTop = window.dialogArguments;
+	function getSeletedIds(){
+		var aChannelIds = null;
+		var aChannelNames = [];
+		//TODO
+		try{
+			aChannelIds = $('allTreeNav').contentWindow.getCheckValues();
+			aChannelNames = $('allTreeNav').contentWindow.getCheckNames();
+		}catch(err){
+			aChannelIds = null;
+		}
+		if(!aChannelIds||aChannelIds.length==0) {
+//			myActualTop.$alert('请选择要当前文档要移动到的目标栏目!');
+//			return false;
+		}
+		myActualTop.SetQuoteKinds(aChannelIds,aChannelNames);
+		window.close();
+		return true;
+	}
+</SCRIPT>
+<style type="text/css">
+	body{
+		background:#ccc;
+		font-size:12px;
+	}
+	.button{
+		margin:0 5px;
+		width:80px;
+		border:1px solid gray;
+		height:20px;
+		text-align:center;
+		line-height:20px;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<table border=0 cellspacing=0 cellpadding=0>
+<tbody>
+	<tr height="370" width="300">
+		<td align="center" valign="middle">
+			<iframe id="allTreeNav" src="../include/blank.html" style="width:290px;height:360px" frameborder="0" scrolling="no" allowtransparency="true" style="border:1px solid black;"></iframe>
+		</td>
+	</tr>
+	<tr height="30">
+		<td align="center" valign="middle">
+			<button type="button" onclick="getSeletedIds();" class="button" WCMAnt:param="photo_select_quotekind.html.ok">确定</button><button type="button" onclick="window.close();" class="button" WCMAnt:param="photo_select_quotekind.html.cancel">取消</button>
+		</td>
+	</tr>
+</tbody>
+</table>
+<script language="javascript">
+<!--
+	var sURL = "../nav_tree/nav_tree_select.jsp?IsRadio=0&MultiSites=1&ExcludeSelf=1&ExcludeOnlySearch=1&SelectedChannelIds="+sSelectedChannelIds+"&RightIndex=31&ShowOneType=1";
+
+	if(iFromChannelId != null && iFromChannelId.length>0 && iFromChannelId != "0"){
+		sURL += "&CurrChannelId="+iFromChannelId;
+	}
+	$('allTreeNav').src = sURL;
+//-->
+</script>
+
+</BODY>
+</HTML>

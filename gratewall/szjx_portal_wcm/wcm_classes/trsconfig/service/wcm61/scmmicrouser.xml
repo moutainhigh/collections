@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.scm.service.SCMMicroUserServiceProvider">
+	<method name="findRelateMicroUser" desc="获取账号关联的微博用户">			
+		<parameter name="AccountId" desc="账号ID" type="int" required="true"/>
+	</method>
+	
+	<method name="findRelateMicroUsers" desc="获取账号集合关联的微博用户列表">			
+		<parameter name="AccountIds" desc="账号ID序列" type="string" required="true"/>
+	</method>
+</service>

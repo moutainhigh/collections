@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jazz-ui.js" type="text/javascript"></script> 
+</head>
+<script>
+	var win = null;
+	function closepanel() {
+		$('#panel_1').panel('close');
+	}
+	function openpanel(){
+		$('#panel_1').panel('open');
+	}
+	
+</script> 
+<body id="view"> 
+	<div id="demo">
+		<div id="panel_1" vtype="panel" name="panel_1" title="panel的标题" titledisplay="true" closable="true" 
+		width="400" height="300" frameurl="http://www.baidu.com/">  
+		
+
+
+	</div>
+
+	<button type="button" onclick="openpanel()">open</button>
+	<button type="button" onclick="closepanel()">close</button>
+ 
+</body>
+</html>

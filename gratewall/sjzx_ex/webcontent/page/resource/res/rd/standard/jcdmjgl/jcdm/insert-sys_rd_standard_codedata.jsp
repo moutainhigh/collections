@@ -1,0 +1,61 @@
+<%@ page contentType="text/html; charset=GBK" %>
+<%@ taglib uri="/WEB-INF/freeze.tld" prefix="freeze" %>
+<%-- template single/single-table-insert.jsp --%>
+<freeze:html width="650" height="350">
+<head>
+<title>增加基础代码信息</title>
+</head>
+
+<script language="javascript">
+
+// 保 存
+function func_record_saveRecord()
+{
+	saveRecord( '', '保存基础代码' );
+}
+
+// 保存并继续
+function func_record_saveAndContinue()
+{
+	saveAndContinue( '', '保存基础代码' );
+}
+
+// 保存并关闭
+function func_record_saveAndExit()
+{
+	saveAndExit( '', '保存基础代码' );	// /txn7000411.do
+}
+
+// 返 回
+function func_record_goBack()
+{
+	goBack();	// /txn7000411.do
+}
+
+// 请在这里添加，页面加载完成后的用户初始化操作
+function __userInitPage()
+{
+	
+}
+
+_browse.execute( '__userInitPage()' );
+</script>
+<freeze:body>
+<freeze:title caption="增加基础代码信息"/>
+<freeze:errors/>
+
+<freeze:form action="/txn7000413">
+  <freeze:block property="record" caption="增加基础代码信息" width="95%">
+      <freeze:button name="record_saveRecord" caption="保 存" hotkey="SAVE" onclick="func_record_saveRecord();"/>
+      <freeze:button name="record_saveAndContinue" caption="保存并继续" hotkey="SAVE_CONTINUE" onclick="func_record_saveAndContinue();"/>
+      <freeze:button name="record_saveAndExit" caption="保存并关闭" hotkey="SAVE_CLOSE" onclick="func_record_saveAndExit();"/>
+      <freeze:button name="record_goBack" caption="返 回" hotkey="CLOSE" onclick="func_record_goBack();"/>
+      <freeze:text property="sys_rd_standar_codeindex" caption="标识符" datatype="string" maxlength="10" readonly="true" style="width:95%"/>
+      <freeze:text property="sys_rd_standard_codevalue" caption="代码值" datatype="string" maxlength="20" style="width:95%" notnull="true"/>
+      <freeze:textarea property="sys_rd_standard_codename" caption="代码内容" colspan="2" rows="4" maxlength="1000" style="width:98%"/>
+      <freeze:textarea property="description" caption="说明" colspan="2" rows="4" maxlength="2000" style="width:98%"/>
+  </freeze:block>
+
+</freeze:form>
+</freeze:body>
+</freeze:html>

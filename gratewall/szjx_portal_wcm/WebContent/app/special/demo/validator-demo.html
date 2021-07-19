@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> TabPanel demo </title>
+<script src="../../js/easyversion/lightbase.js"></script>
+<script src="../../js/easyversion/extrender.js"></script>
+<script src="../../js/easyversion/elementmore.js"></script>
+<script src="../js/adapter4Top.js"></script>
+<!--validator start-->
+<script src="../../js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<link href="../../js/source/wcmlib/com.trs.validator/css/validator.css" rel="stylesheet" type="text/css" />
+<!--validator end-->
+<style type="text/css">
+	input{
+		border:1px solid silver;
+	}
+	body{
+		font-size:12px;
+	}
+	#form1{
+		border-top:1px solid dashed;
+		margin-top:20px;
+		padding:5px;
+	}
+	.introduction{
+		border-top:1px solid dashed;
+		padding-top:10px;
+		font-size:14px;
+		color:red;
+	}
+</style>
+    <script language="javascript">
+    <!--
+        Event.observe(window, 'load', function(){
+            //注册校验成功时执行的回调函数
+            ValidationHelper.addValidListener(function(){
+                Element.update('tip', "form1 Valid CallBack");
+                $("eee1").disabled = false;
+            }, "form1");
+
+            //注册校验失败时执行的回调函数
+            ValidationHelper.addInvalidListener(function(){
+                Element.update('tip', "form1 InValid CallBack");
+                $("eee1").disabled = true;
+            }, "form1");
+
+            //初始化页面中需要校验的元素
+            ValidationHelper.initValidation();
+        });
+    //-->
+    </script>
+</head>
+
+<body>
+<ul class="introduction">
+	<li WCMAnt:param="validator-demo.html.elementbindattrvalidation">元素上绑定属性validation;
+	<li><span WCMAnt:param="validator-demo.html.valivaluesupportjsonandcommoncharformat">validation的值支持严格的json格式及普通字符格式（名值对之内用冒号分隔，之间用逗号或分号分隔）;<br>如：</span>
+		<ul>
+			<li WCMAnt:param="validator-demo.html.jsonformat">json格式：
+				<br>validation="type:'string',min_len:'5',max_len:'20'"
+			<li WCMAnt:param="validator-demo.html.commoncharformat">普通字符格式：
+				<br>validation="type:string,min_len:5,max_len:20"
+				<br>validation="type:string;min_len:'5';max_len:20"
+				<br>validation="type:common_char;length_range:'5,20'"
+		</ul>
+	<li WCMAnt:param="validator-demo.html.pageuploadoverandusevaltoInitvali">页面加载完成后，调用ValidationHelper.initValidation();初始化校验
+</ul>
+
+<form method="post" action="submit.htm" id="form1">
+<div WCMAnt:param="validator-demo.html.typeanyrequeredforexam">
+type任意:必填项(required),如： <b>validation="required:true,desc:名称"</b>
+</div>
+<div>
+<input type="text" name="text1" id="text1" value="" validation="required:true,desc:名称" validation_desc="名称" WCMAnt:paramattr="validation_desc:validator-demo.html.name">  
+</div>
+<br>
+
+<div WCMAnt:param="validator-demo.html.intmaxminrange">
+整型:type:int;指定最大值(max)，最小值(min)，值范围(value_range),如：<b>validation="type:int;desc:年龄;min:6"</b>
+</div>
+<div>
+<input type="text" name="userName1" id="userName1" value="" validation="type:int;desc:年龄;min:6" validation_desc="年龄" WCMAnt:paramattr="validation_desc:validator-demo.html.age">  
+</div>
+<br>
+
+<div WCMAnt:param="validator-demo.html.floatmaxminrange">
+    浮点型:type:float;指定最大值(max)，最小值(min)，值范围(value_range),如：<b> validation="type:'float',desc:'金额', required:'',value_range:'3.5,7.8'"</b>
+</div>
+<div>
+<input type="text" name="money1" id="money1" value="" validation="type:'float',desc:'金额', required:'',value_range:'3.5,7.8'" validation_desc="金额" WCMAnt:paramattr="validation_desc:validator-demo.html.moneynumber">
+</div>
+<br>
+
+<div WCMAnt:param="validator-demo.html.stringmaxminrange">
+    字符串:type:string;指定最大长度(max)，最小长度(min)，长度范围(length_range),如：<b> validation="type:'string',min_len:5,max_len:20"</b>
+</div>
+<div>
+    <input type="text" name="text5" value="" validation="type:'string',min_len:5,max_len:20">
+</div>
+<br>
+
+<div WCMAnt:param="validator-demo.html.commoncharnum_stringspecific">
+    普通字符:type:common_char;由字母,数字,下划线组成,同时具有type为string的特性,如：<b> validation="type:common_char,max_len:20"</b>
+</div>
+<div>
+    <input type="text" name="dd1" value="" validation="type:common_char,max_len:20">
+</div>
+<br>
+
+<div WCMAnt:param="validator-demo.html.urlandstringspecific">
+    URL:type:url;符合url规则;同时具有type为string的特性,如：<b> validation="type:url,max_len:50"</b>
+</div>
+<div>
+    <input type="text" name="url1" value="" validation="type:url,max_len:50">
+</div>
+<br>
+
+<div WCMAnt:param="validator-demo.html.ipaddresstypeipvalidation">
+    IP地址:type:ip,如：<b> validation="type:'ip',desc:'IP地址'"</b>
+</div>
+<div>
+    <input type="text" name="ip1" id="ip1" value="" validation="type:'ip',desc:'IP地址'" validation_desc="IP地址" WCMAnt:paramattr="validation_desc:validator-demo.html.ipaddress">
+</div>
+<br>
+
+<div WCMAnt:param="validator-demo.html.typeandrpcexcuteserveraddress">
+    type任意:rpc:执行与服务器端的校验,如：<b> validation="type:'string',desc:'地址',rpc:remoteCheck"</b>
+</div>
+<div>
+    <input type="text" name="text10" id="text10" value="" validation="type:'string',desc:'地址',rpc:remoteCheck" validation_desc="地址" WCMAnt:paramattr="validation_desc:validator-demo.html.address">
+</div>
+<script language="javascript">
+<!--
+	function remoteCheck(){
+		//ajax请求服务器的校验
+		setTimeout(function(){
+			if((new Date().getTime()) % 2 == 0){
+				ValidationHelper.successRPCCallBack();
+			}else{
+				ValidationHelper.failureRPCCallBack("地址已经存在");
+			}
+		}, 10);
+	}
+//-->
+</script>
+<br>
+
+<div WCMAnt:param="validator-demo.html.date">
+    日期:type:date,如：<b> validation="type:'date',desc:'日期',date_format:'yyyy-mm-dd'"</b>
+</div>
+<div>
+    <input type="text" name="date" id="date" value="" validation_desc="日期" WCMAnt:paramattr="validation_desc:validator-demo.html.dateattr" validation="type:'date',desc:'日期',date_format:'yyyy-mm-dd'">
+</div>
+<br>
+
+<input type="submit" name="eee1" id="eee1" value="递交" WCMAnt:paramattr="value:validator-demo.html.submint">
+<div id="tip"></div>
+</form>
+</body>
+</html>

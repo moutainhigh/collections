@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全流程电子化）</title>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+<!-- 构建页面==开始 -->
+<!-- 查询条件 -->
+<div name="queryGrid_Form" wid="queryMytaskList" vtype="formpanel" width="100%" layout="auto"  labelstyleclass="labelstyle" title="我的任务" titledisplay="true" showborder="true">
+	<div name="regNo" vtype="textfield" label="企业注册号最后几位" labelwidth="200" labelalign="right" width="36%" tooltip="至少6位" rule="length;6,16"></div>
+			<div name="Name" vtype="textfield" label="企业名称" labelwidth="200" labelalign="right" width="36%"  rule="" tooltip="请输入企业名称"></div>
+			<div name="queryType" id="queryType" vtype="radiofield" dataurl="[{value:'1',text:'以...开头',checked:true},{value:'0',text:'模糊'}]"></div>
+			<div name="operationType" vtype="comboxfield" label="业务类型" labelwidth="200" labelalign="right" width="36%" tooltip="" rule="" blanktext="请选择业务类型" valuetip="请选择业务类型" dataurl="[{value:'10',text:'普通设立'},{value:'20',text:'普通变更'},{value:'30',text:'注销'}]"></div>
+			<div name="uniScid" vtype="textfield" label="统一社会信用代码最后几位" labelwidth="200" labelalign="right" width="36%" tooltip="至少9位" rule="length;9,18"></div>
+				<!-- <div name="appBeginDate" vtype="datefield" label="申请日期起始"  labelwidth="200" labelalign="right" width="36%" tooltip="" rule="" editable=false></div>
+				<div name="appEndDate" vtype="datefield" label="申请日期截止"  labelwidth="200" labelalign="right" width="36%" tooltip="" rule="" editable=false></div> -->
+			<div name="censorUserId" vtype="hiddenfield" label="当前用户ID" labelwidth="200" labelalign="right" width="36%" tooltip="" rule=""></div>
+			<div name="approveUserId" vtype="hiddenfield" label="当前用户ID" labelwidth="200" labelalign="right" width="36%" tooltip="" rule=""></div>
+
+			<div  align="center">
+				<div name="queryMyTask_query_button" id="queryMyTask_query_button" class="commonBt" >查询</div>
+				<div name="queryMyTask_reset_button" id="queryMyTask_reset_button" class="commonBt">重置</div>
+			</div>
+</div>
+<div>
+			<div type="button" name="mytask_button" class="littleBt">审核</div>
+			<div type="button" name="mytask_back_button" class="littleBt">退回</div>
+</div>
+
+<!-- 数据展现 -->
+<div vtype="gridpanel" name="queryGrid_Grid" wid="queryMytaskList" datarender=""
+	titledisplay="false" title="我的任务" width="100%" showborder="true" 
+	dataurl="../../../../torch/service.do?fid=mytask_list&wid=queryMytaskList" selecttype='1'>
+	<div vtype="gridcolumn" name="grid_column" width="100%">
+		<div>
+			<div name="entName" text="企业名称" textalign="center" width="35%" dataurl=""></div>
+					<!-- <div name="uniScidorregNo" text="企业注册号/统一社会信用代码" textalign="center" width="20%" dataurl=""></div> -->
+					<div name="appDate" text="申请日期" textalign="center" width="15%" dataurl=""></div>
+					<div name="operationType" text="业务类型" textalign="center" width="15%" dataurl="../../../../dictionary/queryData.do?dicId=DFCD05"></div>
+					<div name="reqstate" text="状态" textalign="center" width="10%" dataurl=""></div>
+					<div name="recenstPerson" text="最近审查人" textalign="center" width="10%" dataurl=""></div>
+					<div name="curStep" text="当前环节" textalign="center" width="15%" dataurl="../../../../dictionary/queryData.do?dicId=DFCS05EBAIC"></div>
+		</div>
+	</div>
+	<div vtype="gridtable" name="grid_table" width="100%"></div>
+	<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10" width="100%"></div>
+</div>
+<!-- <div name="queryMyTaskToolbar" vtype="toolbar" location="bottom" align="center" style="margin-top:10px;margin-bottom:10px">
+	<div name="queryMyTask_query_button" vtype="button" text="确定">
+	</div>
+	<div name="queryMyTask_reset_button" vtype="button" text="重置">
+	</div>
+</div>
+ -->
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../../static/js/config.js"></script>
+<script type="text/javascript" data-main="approve/mytask_listTorch.js" src="../../../static/lib/require.js"></script>
+
+
+
+</body> 
+</html>

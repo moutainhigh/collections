@@ -1,0 +1,432 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+
+<web-app>
+	<display-name>beacon</display-name>
+	<filter>
+		<filter-name>Set Character Encoding</filter-name>
+		<filter-class>
+			com.gwssi.common.servlets.SetCharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>GBK</param-value>
+		</init-param>
+		<init-param>
+			<param-name>excludes</param-name>
+			<param-value>
+				dqQuery.action,chart.action,define.action,model.action,getTempList.action,fzxList.action,getJsonList.action,details.action,/testsql,/getCount,/download,/downloadCompare,/downloadExecute,/downloadFile,/searchHome,/wls8,/search,/search/trs/index.jsp
+			</param-value>
+		</init-param>
+
+	</filter>
+
+	<filter-mapping>
+		<filter-name>Set Character Encoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<listener>
+		<listener-class>
+			org.apache.axis.transport.http.AxisHTTPSessionListener
+		</listener-class>
+	</listener>
+	
+	<listener>
+		<listener-class>
+			com.gwssi.dw.aic.bj.SessionListener
+		</listener-class>
+	</listener>
+	<!-- 
+	<listener>
+		<description>serverSocketListener</description>
+		<listener-class>
+			com.gwssi.socket.share.server.ServerSocketListener
+		</listener-class>
+	</listener>
+	<context-param>
+		<param-name>socketPort</param-name>
+		<param-value>5800</param-value>
+	</context-param>
+	
+		<servlet>
+		<servlet-name>reportServlet</servlet-name>
+		<servlet-class>
+		com.runqian.report4.view.ReportServlet
+		</servlet-class>
+		<init-param>
+		<param-name>configFile</param-name>
+		<param-value>/WEB-INF/reportConfig.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+		</servlet>
+	-->
+	<servlet>
+		<servlet-name>AjaxServlet</servlet-name>
+		<servlet-class>
+			cn.gwssi.common.web.channel.AjaxServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>FreezeMain</servlet-name>
+		<servlet-class>
+			cn.gwssi.common.web.channel.FreezeMain
+		</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>TagService</servlet-name>
+		<servlet-class>
+			cn.gwssi.common.web.tag.TagService
+		</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	<!-- LoaderListener -->
+	<servlet>
+		<servlet-name>LoaderListener</servlet-name>
+		<servlet-class>
+			com.gwssi.common.servlets.LoaderListener
+		</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>action</servlet-name>
+		<servlet-class>
+			cn.gwssi.common.web.channel.FreezeServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>EmptyLogonSessionServlet</servlet-name>
+		<servlet-class>
+			com.gwssi.dw.aic.bj.EmptyLogonSessionServlet
+		</servlet-class>
+		<load-on-startup>5</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>action-base</servlet-name>
+		<servlet-class>
+			org.apache.struts.action.ActionServlet
+		</servlet-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>
+				/WEB-INF/struts-config.xml,/WEB-INF/struts-config-dq.xml
+			</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>AxisServlet</servlet-name>
+		<display-name>Apache-Axis Servlet</display-name>
+		<servlet-class>
+			org.apache.axis.transport.http.AxisServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>Initializer</servlet-name>
+		<servlet-class>
+			com.gwssi.common.task.StartupTriggerServlet
+		</servlet-class>
+		<init-param>
+			<param-name>ignore</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>7</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ServiceTrigger</servlet-name>
+		<servlet-class>
+			com.gwssi.common.servicejob.ServiceTriggerServlet
+		</servlet-class>
+		<init-param>
+			<param-name>ignore</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<load-on-startup>7</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>AdminServlet</servlet-name>
+		<display-name>Axis Admin Servlet</display-name>
+		<servlet-class>
+			org.apache.axis.transport.http.AdminServlet
+		</servlet-class>
+		<load-on-startup>100</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>SOAPMonitorService</servlet-name>
+		<display-name>SOAPMonitorService</display-name>
+		<servlet-class>
+			org.apache.axis.monitor.SOAPMonitorService
+		</servlet-class>
+		<init-param>
+			<param-name>SOAPMonitorPort</param-name>
+			<param-value>5001</param-value>
+		</init-param>
+		<load-on-startup>100</load-on-startup>
+	</servlet>
+
+
+
+	<servlet>
+		<servlet-name>QuartzInitializer</servlet-name>
+		<display-name>Quartz Initializer Servlet</display-name>
+		<servlet-class>
+			org.quartz.ee.servlet.QuartzInitializerServlet
+		</servlet-class>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>DataExConfigServlet</servlet-name>
+		<display-name>DataEx Config Initializer Servlet</display-name>
+		<servlet-class>
+			com.gwssi.common.servlets.DataExConfigServlet
+		</servlet-class>
+		<load-on-startup>4</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>DOWNLOAD_SERVLET</servlet-name>
+		<servlet-class>
+			com.gwssi.dw.aic.download.common.DownloadServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>DOWNLOAD_FILE</servlet-name>
+		<servlet-class>
+			com.gwssi.dw.aic.download.common.DownloadFileServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>DOWNLOAD_COMPARE</servlet-name>
+		<servlet-class>
+			com.gwssi.dw.aic.download.common.DownloadCompare
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>DOWNLOAD_EXECUTE</servlet-name>
+		<servlet-class>
+			com.gwssi.dw.aic.download.common.DownloadExecute
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>TestSql_SERVLET</servlet-name>
+		<servlet-class>
+			com.gwssi.dw.aic.download.common.TestSqlServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>GetCount_SERVLET</servlet-name>
+		<servlet-class>
+			com.gwssi.dw.aic.download.common.GetSqlCountServlet
+		</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>SEARCH_SERVLET</servlet-name>
+		<servlet-class>com.gwssi.dw.aic.bj.SearchServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>DisplayChart</servlet-name>
+		<servlet-class>
+			org.jfree.chart.servlet.DisplayChart
+		</servlet-class>
+	</servlet>
+	<!-- WLS8RpcServlet -->
+	<servlet>
+		<servlet-name>WLS8RpcServlet</servlet-name>
+		<servlet-class>
+			cn.gwssi.monitor.collect.servlet.WLS8RpcServlet
+		</servlet-class>
+	</servlet>
+	<!-- WLS8RpcServlet -->
+	<!--  TrsSearchServlet-->
+	<servlet>
+		<servlet-name>TrsSearchServlet</servlet-name>
+		<servlet-class>
+			cn.gwssi.search.trs.TrsSearchServlet
+		</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/servlet/AxisServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>*.jws</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AxisServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>SOAPMonitorService</servlet-name>
+		<url-pattern>/SOAPMonitor</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>action-base</servlet-name>
+		<url-pattern>*.action</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>TagService</servlet-name>
+		<url-pattern>/tag.service</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>FreezeMain</servlet-name>
+		<url-pattern>/freeze.main</url-pattern>
+	</servlet-mapping>
+	<!-- 
+		<servlet-mapping>
+		<servlet-name>reportServlet</servlet-name>
+		<url-pattern>/reportServlet</url-pattern>
+		</servlet-mapping>
+	-->
+	<servlet-mapping>
+		<servlet-name>AjaxServlet</servlet-name>
+		<url-pattern>*.ajax</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>DOWNLOAD_SERVLET</servlet-name>
+		<url-pattern>/download</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>DOWNLOAD_FILE</servlet-name>
+		<url-pattern>/downloadFile</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>DOWNLOAD_COMPARE</servlet-name>
+		<url-pattern>/downloadCompare</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>DOWNLOAD_EXECUTE</servlet-name>
+		<url-pattern>/downloadExecute</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>TestSql_SERVLET</servlet-name>
+		<url-pattern>/testsql</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetCount_SERVLET</servlet-name>
+		<url-pattern>/getCount</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>SEARCH_SERVLET</servlet-name>
+		<url-pattern>/searchHome</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>DisplayChart</servlet-name>
+		<url-pattern>/servlet/DisplayChart</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>WLS8RpcServlet</servlet-name>
+		<url-pattern>/wls8</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>TrsSearchServlet</servlet-name>
+		<url-pattern>/search</url-pattern>
+	</servlet-mapping>
+
+	<session-config>
+		<session-timeout>360</session-timeout>
+	</session-config>
+
+	<mime-mapping>
+		<extension>wsdl</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+
+	<mime-mapping>
+		<extension>xsd</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+
+
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/welcome.jsp</location>
+	</error-page>
+	<!-- 
+		<taglib>
+		<taglib-uri>/WEB-INF/runqianReport4.tld</taglib-uri>
+		<taglib-location>/WEB-INF/runqianReport4.tld</taglib-location>
+		</taglib>
+	-->
+	<taglib>
+		<taglib-uri>/WEB-INF/freeze.tld</taglib-uri>
+		<taglib-location>/WEB-INF/freeze.tld</taglib-location>
+	</taglib>
+
+	<taglib>
+		<taglib-uri>/tags/struts-bean</taglib-uri>
+		<taglib-location>/WEB-INF/struts-bean.tld</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>/tags/struts-html</taglib-uri>
+		<taglib-location>/WEB-INF/struts-html.tld</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>/tags/struts-logic</taglib-uri>
+		<taglib-location>/WEB-INF/struts-logic.tld</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>/tags/struts-nested</taglib-uri>
+		<taglib-location>/WEB-INF/struts-nested.tld</taglib-location>
+	</taglib>
+	<taglib>
+		<taglib-uri>/tags/struts-tiles</taglib-uri>
+		<taglib-location>/WEB-INF/struts-tiles.tld</taglib-location>
+	</taglib>
+	
+	
+</web-app>
+

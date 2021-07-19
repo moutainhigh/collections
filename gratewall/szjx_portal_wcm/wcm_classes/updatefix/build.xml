@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="GB2312"?>
+<project name="TRSWCMUPDATEDB" default="builddb" basedir=".">
+	<path id="depend.libs">
+		<pathelement path="${driverclasspath}"/>
+	</path>
+	<target name="builddb">
+		<sql driver="${dbdriver}" url="${dburl}" userid="${dbuser}" password="${dbpwd}" src="${dbsrc}" encoding="${dbencoding}" delimiter="${dbdelimiter}" autocommit="${dbautocommit}" keepformat="${dbkeepformat}" onerror="${dbonerror}" classpathref="depend.libs">
+		</sql>
+	</target>	
+</project>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script language="javascript" src="../../../runtime/myext-debug.js" type="text/javascript"></script>
+<script language="javascript" src="suggestion.js" type="text/javascript"></script>
+<script src="../../../source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script language="javascript">
+<!--
+    Event.observe(window, 'load', function(){
+        new wcm.Suggestion({
+            inputEl : 'aaa',
+            autoRender : true,
+            url : "/wcm/app/nav_tree/source_create.jsp",
+            buildParams : function(inputEl){
+                return {SourceName : inputEl.value}
+            },
+            renderItem : function(json){
+                return '<div class="item" _value="'+json['title']+'">' + json['title'] + '</div>';
+            }
+        });
+    });
+//-->
+</script>
+<style type="text/css">
+    .suggestion{
+        position:absolute;
+        height:100px;
+        border:1px solid red;
+    }
+    .suggestion .item{
+        width:100%;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        cursor:default;
+        background:white;
+        color:black;
+    }
+    .suggestion .active{
+        background:highlight;
+        color:white;
+    }
+</style>
+</head>
+<body>
+<input type="text" name="aaa" value="">
+</body>
+</html>

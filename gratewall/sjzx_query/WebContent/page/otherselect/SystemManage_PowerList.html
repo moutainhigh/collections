@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<title>系统管理-功能管理</title>
+<link rel="stylesheet" href="../../static/css/common.css">
+<link href="../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.jazz-field-comp-input{
+	line-height: 22px;
+	_line-height: 22px;
+}
+
+#openWin{
+	position:absolute; 
+	top:70px; 
+	left:200px;
+	}
+	
+#winContent{
+	border-style:solid;
+    border-width:3px;
+}
+#add_button{
+	position:absolute; 
+	top:550px; 
+	left:600px;
+}
+</style>
+
+
+</head>
+<body>
+<script>
+
+</script>
+<body style="overflow-x:hidden">
+<!-- 构建页面==开始 -->
+<div>
+<!-- 查询条件 -->
+<div name="PowerListPanel" id="PowerListPanel"
+	vtype="formpanel" width="100%" layout="table"  style="text-align: center;"
+	layoutconfig="{cols:2, columnwidth: ['50%','50%']}" 
+	labelstyleclass="labelstyle" title="功能管理" 
+	titledisplay="true" showborder="false" >
+	<div name="functionName" vtype="textfield" label="功能名称" labelwidth="150" labelalign="right" width="400" valuetip=""
+	 tooltip="" rule="" ></div>
+	<div name="functionCode" vtype="textfield" label="功能代码" labelwidth="150" labelalign="right" width="400" valuetip=""
+	 tooltip="" rule="" ></div>
+    <div id="toolbar" name="toolbar" vtype="toolbar" location="bottom"
+				align="center" width="100%">
+				<!-- <div name="add_button" id="add_button" vtype="button" text="添加"
+					icon="../query/queryssuo.png"></div> -->
+				<div name="save_button" id="save_button" vtype="button" text="查询"
+					icon="../query/queryssuo.png"></div>
+				<div name="reset_button" id="reset_button" vtype="button" text="重置"></div>
+    </div>
+</div> 
+<!-- 数据展现 -->
+		<div name="PowerListGrid" id="PowerListGrid" vtype="gridpanel" titleDisplay="false" title="详情信息"   isshowselecthelper="false"
+		  showborder=true width="100%" >
+	<div name="functionConfigGrid_column" vtype="gridcolumn">
+				<div>
+					<div name='functionCode' text="功能代码" textalign="left" width="20%"></div>
+					<div name="functionName" text="功能名称" textalign="left" width="20%"></div>
+					<div name='functionUrl' text="功能url" textalign="left" width='45%'></div>
+					<div name='effectiveMarker' text="是否启用" textalign="center" width='10%'></div>
+					<div name='opt' text="操作" textalign="center" width='5%'></div>
+				</div>
+			</div>
+			<div vtype="gridtable" name="grid_table"></div>
+		    <div vtype="paginator" name="grid_paginator" theme="2" pagerows="10"></div> 
+			<div class="nodata" style="display: none;"></div>
+		</div>
+</div>
+<!-- <inpust type="button" value='添加用户' class="btns" id="add_button" icon="../query/queryssuo.png" /> -->
+
+<!-- <div id="openWin">
+	<iframe id="winContent" src=""  frameborder="no" border="0" width="600" height="310" style="display: none;"></iframe>
+</div> -->
+
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../static/js/config.js"></script>
+<script type="text/javascript" data-main="other/SystemManage_PowerList.js" src="../../static/lib/require.js"></script>
+</body>
+</html>

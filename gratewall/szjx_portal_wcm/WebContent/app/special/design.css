@@ -1,0 +1,377 @@
+*{
+	margin:0px;
+	padding:0px;
+}
+html,body{width:100%;height:100%;overflow:hidden;}
+.container{
+	position:relative;
+	width:100%;
+	height:100%;
+}
+.ext-ie6 .container{
+	padding-top:33px;
+}
+.container .header{
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:33px;
+	background:url(images/design/header-bg.gif) center center repeat-x;
+}
+.ext-strict .container .main{
+	position:absolute;
+	left:0px;
+	top:33px;
+	bottom:0px;
+	right:0px;
+	width:auto;
+	height:auto;
+}
+.ext-ie6 .container .main{
+	position:relative;
+	width:100%;
+	height:100%;
+	padding-left:238px;
+}
+.container .left{
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:208px;
+	height:100%;
+}
+.container .sidebar{
+	position:absolute;
+	left:208px;
+	top:0px;
+	width:2px;
+	height:100%;
+	background:url(images/design/sidebar.gif) right center repeat-y;
+}
+.seperator{
+	position:absolute;
+	left:210px;
+	top:0px;
+	width:11px;
+	height:100%;
+	background:url(images/design/sep.gif) right center repeat-y;
+}
+.toggleNav{
+	position:absolute;
+	left:0px;
+	top:50%;
+	width:11px;
+	height:22px;
+	margin-top:-11px;
+	cursor:pointer;
+	background:url(images/design/collapseTree.gif) center center no-repeat;
+}
+.ext-strict .container .content{
+	position:absolute;
+	left:221px;
+	top:0px;
+	bottom:0px;
+	right:0px;
+	width:auto;
+	height:auto;
+}
+.ext-ie6 .container .content{
+	width:100%;
+	height:100%;
+}
+.ext-ie7 .container .content iframe{
+	position:absolute;
+}
+
+.hideNavTree .left, .hideNavTree .sidebar{
+	display:none;
+}
+.ext-strict .container .hideNavTree .seperator{
+	left:0px;
+}
+.ext-strict .container .hideNavTree .content{
+	left:11px;
+}
+.ext-ie6 .container .hideNavTree .seperator{
+	left:0px;
+}
+.ext-ie6 .container .hideNavTree{
+	padding-left:11px;
+}
+.container .hideNavTree .toggleNav{
+	background:url(images/design/expandTree.gif) center center no-repeat;
+}
+.styleList{
+	position:absolute;
+	width:400px;
+	height:240px;
+	overflow:hidden;
+	background:white;
+	border:1px solid #BAD2EE;
+	opacity: .90;
+	filter: alpha(opacity=90);
+	filter: progidXImageTransform.Microsoft.Alpha(opacity=90);
+	-moz-opacity: .90;
+	font-size:12px;
+	cursor:default;
+	z-index:99;
+}
+.styleList-shield{
+	position:absolute;
+	z-index:98;
+	background:white;
+}
+.styleList .thumb{
+	float:left;
+	margin:3px 4px;
+	width:120px;
+	background:white;
+}
+.styleList .thumb img{
+	width:120px;
+	height:80px;
+}
+.styleList .thumb .info{
+	width:120px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	height:18px;
+	line-height:18px;
+}
+.styleList .thumb .info label{
+	cursor:pointer;
+}
+.styleList .morePageStyle{
+	position:absolute;
+	bottom:5px;
+	right:20px;
+	clear:both;
+	color:blue;
+	cursor:pointer;
+}
+.advert-menu{
+	position:absolute;
+	left:100px;
+	top:100px;
+	background:white;
+	border:1px solid #BAD2EE;
+	opacity: .90;
+	filter: alpha(opacity=90);
+	filter: progidXImageTransform.Microsoft.Alpha(opacity=90);
+	-moz-opacity: .90;
+	font-size:12px;
+	cursor:default;
+}
+.advert-menu a{
+	padding:2px 15px 2px 5px;
+	display:block;
+	height:24px;
+	line-height:24px;
+	text-decoration:none;
+	cursor:default;
+}
+.advert-menu a:link, .advert-menu a:visited{
+	background:white;
+	color:black;
+}
+.advert-menu a:hover, .advert-menu a:active{
+	background:highlight;
+	color:white;
+}
+
+/*导航树右键菜单图标*/
+.tree-menu .icon{
+	background:url(images/design/insert.gif) 3px center no-repeat;
+	padding-left:18px;
+}
+
+.tree-menu .add{
+	background-image:url(images/design/insert.gif);
+}
+.tree-menu .insertBefore{
+	background-image:url(images/design/insertbefore.gif);
+}
+.tree-menu .insertAfter{
+	background-image:url(images/design/insertafter.gif);
+}
+.tree-menu .mark{
+	background-image:url(images/design/mark.gif);
+}
+.tree-menu .edit{
+	background-image:url(images/design/edit.gif);
+}
+.tree-menu .delete{
+	background-image:url(images/design/delete.gif);
+}
+.tree-menu .refresh{
+	background-image:url(images/design/refresh.gif);
+}
+.tree-menu .cut{
+	background-image:url(images/design/cut.gif);
+}
+.tree-menu .pasteBefore{
+	background-image:url(images/design/paste.gif);
+}
+.tree-menu .pasteAfter{
+	background-image:url(images/design/paste.gif);
+}
+.tree-menu .pasteInFirst{
+	background-image:url(images/design/paste.gif);
+}
+.tree-menu .pasteInLast{
+	background-image:url(images/design/paste.gif);
+}
+.tree-menu .copy{
+	background-image:url(images/design/copy.gif);
+}
+/**资源维护相关右键菜单**/
+.widget-instance-oper-menu{
+	text-align:left;
+}
+.widget-instance-oper-menu .icon{
+	background:url(images/design/insert.gif) 3px center no-repeat;
+	padding-left:18px;
+}
+.widget-instance-oper-menu .add{
+	background-image:url(images/design/insert.gif);
+}
+.widget-instance-oper-menu .remove{
+	background-image:url(images/design/delete.gif);
+}
+.widget-instance-oper-menu .edit{
+	background-image:url(images/design/edit.gif);
+}
+.widget-instance-oper-menu .refresh{
+	background-image:url(images/design/refresh.gif);
+}
+.widget-instance-oper-menu .lockWidget{
+	background-image:url(images/design/lock.gif);
+}
+.widget-instance-oper-menu .unlockWidget{
+	background-image:url(images/design/unlock.gif);
+}
+.widget-instance-oper-menu .NavigateToTree{
+	background-image:url(images/design/navigate.gif);
+}
+.widget-instance-oper-menu .copy{
+	background-image:url(images/design/copy.gif);
+}
+.widget-instance-oper-menu .pasteBefore{
+	background-image:url(images/design/paste.gif);
+}
+.widget-instance-oper-menu .pasteAfter{
+	background-image:url(images/design/paste.gif);
+}
+.widget-instance-oper-menu .setWidgetBackgroundImage{
+	background-image:url(images/design/setbackground.gif);
+}
+
+
+/*布局张掖相关右键菜单*/
+.layout-oper-menu .icon{
+	background:url(images/design/insert.gif) 3px center no-repeat;
+	padding-left:18px;
+}
+.layout-oper-menu .add{
+	background-image:url(images/design/insert.gif);
+}
+.layout-oper-menu .insertBefore{
+	background-image:url(images/design/insertbefore.gif);
+}
+.layout-oper-menu .insertAfter{
+	background-image:url(images/design/insertafter.gif);
+}
+.layout-oper-menu .mark{
+	background-image:url(images/design/mark.gif);
+}
+.layout-oper-menu .edit{
+	background-image:url(images/design/edit.gif);
+}
+.layout-oper-menu .delete{
+	background-image:url(images/design/delete.gif);
+}
+.layout-oper-menu  .NavigateToTree{
+	background-image:url(images/design/navigate.gif);
+}
+.layout-oper-menu  .setLayoutBackgroundImage{
+	background-image:url(images/design/setbackground.gif);
+}
+
+
+/*数据维护相关右键菜单*/
+.trs-data-oper-menu{
+	text-align:left;
+}
+.trs-data-oper-menu .icon{
+	float:left;
+	width:16px;
+	height:22px;
+	line-height:22px;
+	margin:0px 6px;
+	background:url(../images/icon/icons.gif) no-repeat;
+	overflow:hidden;
+	background-position: -136px -38px;
+}
+.trs-data-oper-menu .edit{
+	background-position:  -3px 0px !important;
+}
+.trs-data-oper-menu .delete{
+	background-position: -117px 0px !important;
+}
+.trs-data-oper-menu .view{
+	background-position: -22px 0px !important;
+}
+.trs-data-oper-menu .export{
+	background-position: -60px -19px !important;
+}
+.trs-data-oper-menu .create{
+	background-position:  -98px -19px !important;
+}
+.trs-data-oper-menu .import{
+	background-position:  -136px -19px !important;
+}
+
+.big-image-box{
+	position:absolute;
+	left:0px;
+	top:0px;
+	z-index:99999;
+	border:1px solid #C3C3C3;
+	zoom:1;
+	padding:10px;
+	background-color:white;
+}
+
+.big-image-box .arrow{
+	position:absolute;
+	margin-top:-57px;
+	left:-22px;
+	top:50%;
+	z-index:-1;
+	background:url(images/arrow-left.jpg) center center no-repeat;
+	width:38px;
+	height:114px;
+}
+
+.arrow-right .arrow{
+	left:auto;
+	right:-23px;
+	top:50%;
+	background:url(images/arrow-right.jpg) center center no-repeat;
+}
+.ext-safari .big-image-box .arrow{
+	left:-23px;
+}
+.ext-safari .arrow-right .arrow{
+	left:auto;
+	right:-22px;
+}
+.ext-ie6 .big-image-box .arrow{
+	left:-23px;
+}
+.ext-ie6 .arrow-right .arrow{
+	left:auto;
+	right:-22px;
+}

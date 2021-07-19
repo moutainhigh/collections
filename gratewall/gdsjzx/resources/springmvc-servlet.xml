@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+	<mvc:default-servlet-handler />
+	<mvc:annotation-driven >
+		<mvc:message-converters>  
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+            	<constructor-arg>
+            		<bean class="sun.nio.cs.UTF_8"></bean>
+            	</constructor-arg>
+            </bean>
+        </mvc:message-converters>  
+		<mvc:argument-resolvers>
+			<bean class="com.gwssi.optimus.core.web.method.OptimusHandlerMethodArgumentResolver" />
+		</mvc:argument-resolvers>
+	</mvc:annotation-driven>
+	
+	<context:component-scan base-package="com.gwssi" >
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/> 
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+	</context:component-scan>
+	
+		<!-- <context:component-scan base-package="cn" /> -->
+		
+		<!-- 	<context:component-scan base-package="com.gwssi" >
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/> 
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+	</context:component-scan>  -->
+	
+		<context:component-scan base-package="cn.gwssi" use-default-filters="false">
+		    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 
+		</context:component-scan> 
+		
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" /> 
+			<bean class="com.gwssi.optimus.core.web.interceptor.OptimusHandlerInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+	<!-- 公共映射配置 -->
+	<!--  <mvc:view-controller path="/" view-name="index.jsp" /> -->
+
+	<!-- 静态文件（css、js、images）配置不经过DispatchServelet处理 -->
+	<!--  <mvc:resources location="/script/" mapping="/script/**" /> -->
+
+	<!-- 视图解析器 -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView"></property>
+		<property name="prefix" value="/page"></property>
+		 
+		<property name="suffix" value=".jsp"></property>
+		
+	</bean>
+
+	<!-- 异常解析器 -->
+	<!-- <bean id="simpleMappingExceptionResolver"
+		class="com.gwssi.optimus.core.web.interceptor.OptimusExceptionResolver">
+	</bean> -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+<!-- 配置文件（每次上传的所有文件总大小)大小，单位为b, 1024000表示1000kb  -->
+		<property name="maxUploadSize" value="333024000" />		
+	</bean>
+	
+	
+	<!--PropertiesFactoryBean对properties文件可用 ，可以用来注入properties配置文件的信息 -->
+<!-- 	<bean id="uploadProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean"> -->
+<!-- 		<property name="location" value="classpath:upload.properties"></property> -->
+<!-- 	</bean> -->
+	
+</beans>

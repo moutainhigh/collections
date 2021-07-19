@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<title>详情</title>
+<link rel="stylesheet" href="../../static/css/common.css">
+<link href="../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../static/script/JAZZ-UI/lib/themes/gongshang/jazz-all.css" rel="stylesheet" type="text/css" />	
+<link href="../../static/css/admin/global.css" rel="stylesheet" type="text/css" />	
+<style>
+ /*文字超出不换行*/
+ table td{word-break: keep-all;white-space:nowrap;}
+.jazz-form-text-label{
+	color: #000;
+	font-weight: normal;
+}
+
+/* .jazz-field-comp-in2{
+	border: none;
+	background-color: transparent;
+	background:url(0) no-repeat;
+} */
+ 
+</style>
+</head>
+
+<body style="overflow-x:hidden">
+<div  name="portalAppCRUDPanel" vtype="formpanel" id="portalAppCRUDPanel" displayrows="1"
+			titleDisplay="false" width="100%"  showborder=false  layout='table' style="text-align: left;"
+			layoutconfig="{cols:2, columnwidth: ['50%','50%']}"  height="100%"
+			labelStyleClass="labelstyle" title="sys_query_column_config ">
+			
+	<div name="systemName" id="systemName" vtype="textfield" label="系统名称"   labelwidth="100" labelalign="right" width="95%" 
+	 tooltip="" rule="must" ></div>
+	 
+	 <div name="pid" id='pid' vtype="comboxfield" label="所属模块"    labelwidth="100" labelalign="right"  width="95%"  
+ 			dataurl='pid.json'  tooltip="" rule="must" ></div>
+ 			
+	 <div name="integratedUrl" id='integratedUrl' vtype="textfield" label="系统集成路径"    labelwidth="100" labelalign="right" width="97.5%"  rowspan="1" colspan="2"  
+			  tooltip="" rule="must" ></div>
+	
+	 <div name="createrName" id='createrName' vtype="textfield" label="创建人"    labelwidth="100" labelalign="right"  width="95%" 
+			  tooltip="" rule="" ></div>
+	 
+	 <div name="createrTime" id='createrTime' vtype="textfield" label="创建时间"    labelwidth="100" labelalign="right"  width="95%" 
+			  tooltip="" rule="" ></div>
+	 <div name="modifierName" id='modifierName' vtype="textfield" label="最后修改人"    labelwidth="100" labelalign="right"  width="95%"  
+			  tooltip="" rule="" ></div>
+	 <div name="modifierTime" id='modifierTime' vtype="textfield" label="最后修改时间"    labelwidth="100" labelalign="right"  width="95%" 
+			 tooltip="" rule="" ></div>
+ 	<div name='textarea_name' colspan="2" rowspan="1" vtype="textareafield" label="备注"    width="97.5%" labelwidth="100" height="110" maxlength="1000" ></div>
+		 	<div id="toolbar" name="toolbar" vtype="toolbar" location="bottom"
+				align="center" width="100%">
+			 	<div name="save_button" id="save_button" vtype="button" text="保存"
+					icon="../query/queryssuo.png"  ></div>
+				<!-- <div name="reset_button" id="reset_button" vtype="button" text="重置"></div> -->
+				 <div name="back_button" id="back_button" vtype="button" text="返回"
+					icon="../query/queryssuo.png" ></div> 
+			</div> 
+		</div>
+	<script type="text/javascript" src="../../static/js/config.js"></script> 
+		<script type="text/javascript" src="../../static/lib/require.js"  data-main="com/portalApp_CRUD.js"></script>
+
+</body>
+</html>

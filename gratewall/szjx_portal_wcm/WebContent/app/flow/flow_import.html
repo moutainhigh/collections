@@ -1,0 +1,131 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc">import some workflows</title>
+<!--FloatPanel Inner Start-->
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/flow.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<link rel="stylesheet" type="text/css" href="../../app/css/wcm-common.css">
+<!-- dialog  Start -->
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT> 
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<!-- dialog  End -->
+<script language="javascript">
+window.m_fpCfg = {
+	m_arrCommands : [{
+		cmd : 'uploadFile',
+		name : wcm.LANG['FLOW_CONFIRM'] || '确定'
+	}],
+	size : [380, 100]
+};
+</script>
+<!--FloatPanel Inner End-->
+<!--my import-->
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<!--Page scope-->
+<script>
+
+	var PageContext = {
+		params: {}
+	};
+	Object.extend(PageContext.params, {
+		ownerId : getParameter('OwnerId'),
+		ownerType : getParameter('OwnerType')
+	});
+//	ProcessBar.init(wcm.LANG['FLOW_26'] || '执行进度，请稍候...');
+//	ProcessBar.addState(wcm.LANG['FLOW_27'] || '正在导入工作流..');
+//	ProcessBar.addState(wcm.LANG['FLOW_28'] || '成功导入工作流!');
+
+	function uploadFile(){
+		var winUpload = $("frmUploadFile").contentWindow;
+		var frm = winUpload.document.getElementsByTagName("form")[0];
+		var sFileName = winUpload.document.getElementById("fileUpload").value;
+		if(!winUpload.valid(sFileName)){
+			return false;
+		}
+		sFileName = sFileName.substring(sFileName.lastIndexOf("\\")+1);
+		document.getElementById("RealFileName").value = sFileName;
+
+		frm.submit();
+		return false;
+	}
+
+	function addFile(_sFilePath){
+		if(_sFilePath==null){
+			doAlert(wcm.LANG['FLOW_29'] || "文件路径为空，上传失败！");
+			return false;
+		}
+		//ProcessBar.start();
+		var oPostData = {
+			ImportFile: _sFilePath
+		};
+		Object.extend(oPostData, PageContext.params);
+
+		BasicDataHelper.call('wcm6_process','importFlows', oPostData, true, function(_trans, _json){
+			//ProcessBar.exit();
+			//TODO 刷新操作需要统一
+		 
+		//	ReportsDialog.show(_json, , sFun);
+
+		Ext.Msg.report(_json, wcm.LANG['FLOW_30'] || '工作流导入结果',function(){
+				notifyFPCallback();
+				FloatPanel.close();
+			});	
+		FloatPanel.hide();
+		});
+		return false;
+	}
+	function notifyOnUploadFileError(_sErrorMsg) {
+		doAlert(_sErrorMsg);
+//		FloatPanel.close();
+	}
+	function doAlert(_sAlertion){
+		Ext.Msg.alert(_sAlertion, function(){
+			//$('divClue').innerHTML = _sAlertion;
+			//$('divClue').style.color = 'red';
+		});
+	}
+</SCRIPT>
+<style type="text/css">
+	#divBox{
+		margin:5px;
+		background: lightblue;
+		padding:1px;
+		height:30px;
+		width: 320px;
+	}
+	#divContainer{
+		background: #ffffff;
+		padding:5px;
+	}
+	#divClue{
+		color:blue;
+		font-size:14px;
+	}
+	body{
+		background:whitesmoke;
+	}
+	#frmUploadFile{
+		height : 40px;
+		width : 320px;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<div id="divBox">
+<div id="divContainer">
+	<div id="divFileUpload">
+		<IFRAME name="frmUploadFile" id="frmUploadFile" height="40" width="350" frameborder="0" vspace="0" src="../file/file_upload.jsp?SelfControl=0&AllowExt=XML" scrolling="NO" noresize></IFRAME>
+		<INPUT TYPE="hidden" NAME="RealFileName" id="RealFileName">
+	</div>
+	<div id="divClue"  WCMAnt:param="flow.import.html.file">只支持XML格式文件</div>
+</div>
+</div>
+</BODY>
+</HTML>

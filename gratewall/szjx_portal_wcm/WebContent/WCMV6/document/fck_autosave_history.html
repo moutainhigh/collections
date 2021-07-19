@@ -1,0 +1,166 @@
+<HTML xmlns:TRS_UI>
+<HEAD>
+  <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <TITLE>TRS WCM V6恢复历史保存记录</TITLE>
+  <link href="../css/common.css" rel="stylesheet" type="text/css" />
+	<script src="../js/com.trs.util/Common.js"></script>
+	<script language="javascript">
+	<!--
+	var oEditor = window.parent.InnerDialogLoaded() ;
+	var FCK = oEditor.FCK ;
+	var oData = null;
+	var oEditFrame = FCK.EditorWindow.frameElement;
+	var m_sBaseUrl = location.href.replace(/\/[^\/]*$/g, '\/') + "../editor/editor/";
+	function Ok(){
+		var nVersion = $('version').value;
+		if(nVersion!=0){
+			oData = {"Title":"","Content":"","Date":""};
+			FCK.loadUserData(oEditFrame,oData,nVersion);
+			if(oData&&oData["Content"]){
+				var sHTML = oData["Content"];
+				if(oEditor.FCKDocumentProps.PreRender){
+					sHTML = oEditor.FCKDocumentProps.PreRender(sHTML);
+				}
+				FCK.SetHTML(sHTML);
+				oEditor.parent.GetTitleElement().value = oData["Title"];
+			}
+		}
+		return true;
+	}
+	var oIframe = null;
+	var isSSL = location.href.indexOf("https://")!=-1;
+	function showDetail(i){
+		if(oIframe==null){
+			oIframe = document.createElement('IFRAME');
+			if(isSSL){
+				oIframe.src = 'javascript:void(0)';
+			}
+			oIframe.style.width = '100%';
+			oIframe.style.height = '240px';
+			oIframe.frameBorder = 0;
+			$('showDetail').appendChild(oIframe);
+			oIframe.unselectable = 'on' ;
+		}
+		var oDoc = oIframe.contentWindow.document;
+		oDoc.open();
+		var sContent = '';
+		if(i!=0){
+			oData = {"Title":"","Content":"","Date":""}
+			FCK.loadUserData(oEditFrame,oData,i);
+			sContent = oData["Content"]||'';//.substring(0,1000);
+		}
+		else{
+			sContent = '<body></body>';
+		}
+		oDoc.write('<html><head><base href="'+m_sBaseUrl+'"></head>');
+		oDoc.write(sContent);
+		oDoc.write('</html>');
+		oDoc.close();
+		oDoc.body.style.height = '240px';
+	}
+	//-->
+	</script>
+<style type="text/css">
+	body {
+		padding-top:0px;
+		background-color: #CCCCCC;
+	}
+	.input_btn{
+		width:60px;
+		margin-right:10px;
+	}
+	.input_text{
+		border:1px solid gray;
+		width:60px;
+	}
+	.message{
+		font-weight:bold;
+		color:green;
+		line-height:20px;
+	}
+	div{
+		height:22px;
+		line-height:22px;
+	}
+	.title{
+		padding-left:2px;
+		font-size:9pt;
+	}
+	.date{
+		padding-left:2px;
+		font-size:8pt;
+		font-style:italic;
+		color:gray;
+	}
+</style>
+</HEAD>
+
+<BODY style="margin:0;padding:0;">
+		<table height="100%" width="100%">
+			<tr>
+				<td align="left" valign="top">
+	<TABLE width="400" height="100%" border="0" cellpadding="0" cellspacing="0">
+		<TR>
+			<TD valign="top">
+<!--
+				<div>
+				<input type="radio" name="version" value="0" onclick="showDetail(this.value)"  checked><span class="title">不恢复任何历史记录</span></div>
+-->
+				<script language="javascript">
+				<!--
+					document.write('<select id="version" name="version" onchange="showDetail(this.value);" style="width:398px;">')
+					document.write('<option value="0">不恢复任何历史记录</option>');
+					var arrayDatas = [];
+					for(var i=1;i<=10;i++){
+						oData = {"Title":"","Content":"","Date":""}
+						FCK.loadUserData(oEditFrame,oData,i);
+						if(oData["Content"]!=''&&oData["Content"]!=null){
+							arrayDatas.push({
+								'Index':i,
+								'Title':(oData["Title"]||'无标题'),
+								'Date':(oData["Date"]||'')
+							});
+/*
+							document.write('<div id="radio_'+i+'"><input type="radio" name="version" value="'+i+'" onclick="showDetail(this.value)">');
+							document.write('<span class="title">'+(oData["Title"]||'无标题')+'</span><span class="date">'+(oData["Date"]||'')+"</span>");
+							document.write('</div>');
+*/
+						}
+					}
+					arrayDatas.sort(function(a,b){
+						return b['Date'].toDate().getTime()-a['Date'].toDate().getTime();
+					});
+					for (var i = 0; i < arrayDatas.length; i++){
+						var oData = arrayDatas[i];
+						document.write('<option value="'+oData['Index']+'">'+
+							oData['Date']+'　　'+oData['Title']+'</option>');
+					}
+					document.write('</select>')
+				//-->
+				</script>
+				<div id="showDetail" style='width:398px;height:240px;border:1px solid gray;background:white;'>
+				</div>
+			</TD>
+		</TR>
+	</TABLE>
+				</td>
+				<td width="10" align="center" valign="top">
+					<div style="width:2px;border-left:1px solid gray;background:white;overflow:hidden;height:260px;"></div></td>
+				<td width="90" valign="top">
+					<input id="btnOk" class="input_btn" onclick="window.parent.Ok();"
+						type="button" value="确定" fcklang="DlgBtnOK"/>
+					<div style="height:5px;overflow:hidden"></div>
+					<input name="button2" class="input_btn" type="button" value="取消" onclick="window.parent.Cancel();" fcklang="DlgBtnCancel">
+				</td>
+			</tr>
+		</table>
+	<script language="javascript">
+	<!--
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+	window.parent.SetBtnsRow(false);
+	window.parent.SetAutoSize( true ) ;	
+	$('version').focus();
+	//-->
+	</script>
+</BODY>
+</HTML>

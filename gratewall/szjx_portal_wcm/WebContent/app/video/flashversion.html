@@ -1,0 +1,47 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title WCMAnt:param="flashversion.html.version">您的浏览器所安装的Flash player的版本信息</title>
+<!-- SWFObject embed by Geoff Stearns geoff@deconcept.com http://blog.deconcept.com/swfobject/ -->
+<script type="text/javascript" src="./js/opensource/swfobject.js"></script>
+<style type="text/css">
+	
+	body {
+		background-color: #eeeeee;
+	}
+
+	#info {
+		width: 600px;
+		overflow: auto;
+	}
+
+</style>
+</head>
+<body>
+
+	<div id="flashversion"></div>
+	<noscript WCMAnt:param="flashversion.html.notsupport">您的浏览器不支持javascript(或没有启用javascript, 请启用后再访问)</noscript>
+	
+	<script type="text/javascript">
+	// <![CDATA[
+		
+		var version = swfobject.getFlashPlayerVersion();
+		if (document.getElementById && version["major"] > 0) {
+			document.getElementById('flashversion').innerHTML = "您的浏览器安装的Flash player的版本为： "
+					+ version['major'] +"."+ version['minor'] +"."+ version['release'];
+		} else {
+			document.getElementById('flashversion').innerHTML = "您的浏览器还没有安装Flash Player! "
+					+ "请点击<a target='_blank' href='http://www.adobe.com/go/getflashplayer'>这里</a>下载然后安装.";
+		}
+
+	// ]]>
+	</script>
+
+	<div><span>&nbsp;</span></div>
+	<div id="info">
+		<p WCMAnt:param="flashversion.html.display">
+		本页使用Javascript来显示您的浏览器所安装的Flash player的版本信息.
+		</p>
+	</div>	
+</body>
+</html>

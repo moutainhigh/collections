@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script>
+</head>
+<script>
+	$(function($) {
+		
+		$('#icon_id').icon({
+			width: 680,               //icon组件高
+			height: 340,              //icon组件宽度
+			isshowpaginator: true,    //是否显示分页条
+			cols: 4,                  //显示列数
+			//iconrender自定义icon的显示   container是包裹你的icon对象，也就是dom元素<li>对象， json是每一个要显示icon的数据
+			iconrender: function(container, json){ 
+				var str = '<div><img src="'+json.imageurl+'"><div style="position: absolute; top: 120px;">'+json.label+'</div></div>';
+				return str;
+			},
+			click: function(e, ui) {
+				jazz.log(ui.id + '***'+ ui.label + '***'+ui.imageurl);
+			},			
+			data: { "data": [
+                     {
+                    	 "id": "001",
+                         "label": "名称1",
+                         "imageurl": "icon/big_1.png",
+                         "count": 1
+                     },
+                     {
+                    	 "id": "002",
+                         "label": "名称2",
+                         "imageurl": "icon/big_2.png",
+                         "count": 2
+                     },
+                     {
+                    	 "id": "003",
+                         "label": "名称3",
+                         "imageurl": "icon/big_3.png",
+                         "count": 3
+                     },
+                     {
+                    	 "id": "004",
+                         "label": "名称4",
+                         "imageurl": "icon/big_4.png",
+                         "count": 4
+                     },
+                     {
+                    	 "id": "005",
+                         "label": "名称5",
+                         "imageurl": "icon/big_1.png",
+                         "count": 5
+                     },
+                     {
+                    	 "id": "0051",
+                         "label": "名称6",
+                         "imageurl": "icon/big_2.png",
+                         "count": 6
+                     },
+                     {
+                    	 "id": "006",
+                         "label": "名称6",
+                         "imageurl": "icon/big_3.png",
+                         "count": 2
+                     },
+                     {
+                    	 "id": "0078",
+                         "label": "名称7",
+                         "imageurl": "icon/big_4.png",
+                         "count": 4
+                     },
+                     {
+                    	 "id": "008",
+                         "label": "名称8",
+                         "imageurl": "icon/big_1.png"
+                     },
+                     {
+                    	 "id": "009",
+                         "label": "名称9",
+                         "imageurl": "icon/big_2.png",
+                         "count": 1
+                     },
+                     {
+                    	 "id": "010",
+                         "label": "名称10",
+                         "imageurl": "icon/big_3.png"
+                     },
+                     {
+                    	 "id": "011",
+                         "label": "名称11",
+                         "imageurl": "icon/big_4.png",
+                         "count": 3
+                     },
+                     {
+                    	 "id": "012",
+                         "label": "名称12",
+                         "imageurl": "icon/big_1.png",
+                         "count": 8
+                     },
+                     {
+                    	 "id": "013",
+                         "label": "名称13",
+                         "imageurl": "icon/big_2.png"
+                     },
+                     {
+                    	 "id": "014",
+                         "label": "名称14",
+                         "imageurl": "icon/big_3.png",
+                         "count": 11
+                     }
+                 ]
+             }
+		});
+		
+	});
+	
+</script>
+</head>
+<body>
+	<div id="icon_id" ></div>
+<script type="text/javascript">
+$(function(){
+    //调整父页面iframe高度
+    try{
+        parent.setWinHeight(360);           
+    }catch(e){
+        jazz.log(e);
+    }
+});
+</script>
+</body>
+</html>

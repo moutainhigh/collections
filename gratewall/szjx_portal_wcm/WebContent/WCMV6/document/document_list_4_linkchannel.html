@@ -1,0 +1,156 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>文档列表</title>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/wcm_list_abstract.css" rel="stylesheet" type="text/css" />
+<style label="PageScope">
+	.object_preview{
+		background-image:url(../images/icon/Preview.png);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	.objectcannot_preview{
+		background-image:url(../images/icon/CannotPreview.png);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="Imports">
+	$import('com.trs.wcm.MessageCenter');
+</script>
+<script language="javascript">
+<!--
+		// ge gfc add @ 2007-4-3 17:09 如果有RotatingBar显示，先隐藏之
+		if((top.actualTop || top).RotatingBar) {
+			(top.actualTop || top).RotatingBar.stop();
+		}
+//-->
+</script>
+</head>
+
+<body>
+<script>
+</script>
+<div id="dy_list_adjust"></div>
+<table id="table_body" class="wcm_table_layout" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="wcm_list_view">
+			<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+			<tbody>
+				<tr class="list_pageinfo">
+					<td colSpan="3">
+						<div class="pageinfo">
+							<div class="pageinfo_left"></div>
+							<div class="pageinfo_right"></div>
+							<div class="document_switcher">
+							</div>
+						</div> 
+					</td>
+				</tr>
+				<tr class="list_view">
+					<td class="list_view_border"></td>
+					<td valign="top">
+						<DIV id='objects_grid' class="grid">
+							<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+								<tr style="height:29px">
+									<td>
+										<DIV class="grid_head" id="grid_head">
+											<!--列表头模板-->
+											<SPAN class="grid_head_column" style="float:left;width:30px">
+												全选
+											</SPAN>
+											<SPAN class="grid_head_column" style="float:left;width:30px;cursor:normal">
+												预览
+											</SPAN>
+											<SPAN class="grid_head_column" style="float:right;width:30px;border-right:0;" grid_sortby="doctype">
+												类型
+											</SPAN>
+											<SPAN class="grid_head_column" style="float:right;width:30px" grid_sortby="docstatus">
+												状态
+											</SPAN>
+											<SPAN class="grid_head_column" style="float:right;width:60px" grid_sortby="docchannel">
+												所属栏目
+											</SPAN>
+											<SPAN class="grid_head_column" style="float:right;width:40px" grid_sortby="cruser">
+												发稿人
+											</SPAN>
+											<SPAN class="grid_head_column" style="float:right;width:60px" grid_sortby="crtime">
+												创建时间
+											</SPAN>
+											<DIV class="grid_head_column" style="float:none">
+												文档标题
+											</DIV>
+										</DIV>
+									</td>
+								</tr>
+								<tr>
+									<td valign="top">
+										<div id="grid_data" class="grid_data no_object_found">
+											链接型栏目不允许文档管理 
+											链接地址: <a href="" id="linkUrl" target="_blank"></a>
+											<script>
+												var sUrl = decodeURIComponent(getParameter("linkUrl"));
+												$('linkUrl').href = sUrl;
+												$('linkUrl').title = sUrl;
+												$('linkUrl').innerHTML = getPrettyUrl(sUrl, 50);
+
+												function getPrettyUrl(_sUrl, _nMaxLen, _sSkimWords){
+													var nDemPos = 0;
+													if(_sUrl == null || _nMaxLen <= 0 || _sUrl.length <= _nMaxLen 
+														|| (nDemPos = _sUrl.lastIndexOf('/')) == -1) {
+														return _sUrl;
+													}
+													//else
+													var nFirstPartDemPos = _sUrl.lastIndexOf('://') + 3;
+													var sFirstPart	= _sUrl.substr(0, nFirstPartDemPos);
+													var sMidPart	= _sUrl.substring(nFirstPartDemPos, nDemPos);
+													if(sMidPart.length < 3) {
+														return _sUrl;
+													}
+													var nMidLen = (_nMaxLen + sMidPart.length - _sUrl.length);
+													//alert(nMidLen + ', ' + sMidPart)
+													if(nMidLen <= 3) {
+														nMidLen = 3;
+													}
+													sMidPart = sMidPart.substr(0, nMidLen);
+													sMidPart += (_sSkimWords ? _sSkimWords : '......');
+													
+													var sLastPart = _sUrl.substr(nDemPos);
+													return sFirstPart + sMidPart + sLastPart;
+												}
+											</script>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</DIV>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+				<tr class="list_navigator">
+					<td class="list_view_border"></td>
+					<td>
+						<DIV id="list_navigator" class="list_navigator_div">
+						</DIV>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+</table>
+<script language="javascript">
+<!--
+	var oPostData = {
+		"channelid":getParameter("ChannelId"),
+		"objecttype":"chnldoc",
+		"objectids":[]
+	};
+	$MessageCenter.sendMessage('oper_attr_panel','PageContext.response',"PageContext",oPostData,true,true);
+//-->
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<textarea id="template_ViewTemplate">
+	<div class="attribute_row wcm_desc_info_row">
+		<span title="记录编号:{#METADATAID}&#13;创建者:{#CrUser}&#13;创建时间:{#CrTime}&#13;" style="white-space:nowrap;overflow:hidden;">
+			<span style="">用户</span><span class="desc_info_value">{#CrUser}</span><span>创建于</span><span class="desc_info_value">{#CrTime,,getPrettyTime}</span>
+		</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">所属栏目:</span>
+		<span class="attribute_value" title="{#CHANNELID}">{#DocChannel.Name}</span>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<span class="attribute_name">状态:</span>
+		<span class="attribute_value" title="{#DocStatus.ID}">{#DocStatus.Name}</span>
+	</div>
+ </textarea>
+<!--
+ <textarea id="template_ViewTemplate">
+	<div class="attribute_row">
+		当前共选中<span class="objects_num">1</span>条记录.
+	</div>
+ </textarea>
+//-->
+ <textarea id="template_ViewTemplates">
+	<div class="attribute_row">
+		当前共选中<span class="objects_num">{#Num}</span>条记录.
+	</div>
+ </textarea>

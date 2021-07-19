@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gbk" />
+<title>menu</title>
+<link rel="stylesheet" href="../newcss/jquery/jauery.ui/themes/cupertino/jquery.ui.all.css" />  
+<!--gwssi jquery ui theme-->  
+<link rel="stylesheet" href="../newcss/gwssi.base.css" />  
+<link rel="stylesheet" href="../newcss/gwssi.jquery.panel.css" />
+<link rel="stylesheet" href="../css/style.css" />
+<style>
+/* 收缩展开效果 */
+.text{line-height:22px;padding:0 6px;color:#666;}
+.box h1{padding-left:10px;height:22px;line-height:22px;background:#f1f1f1;font-weight:bold;}
+.box{position:relative;border:1px solid #e7e7e7;}
+</style>
+<script type="text/javascript" src="../lib/jquery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../lib/jquery/jquery.ui/jquery.ui.core.js"></script>
+<script type="text/javascript" src="../lib/jquery/jquery.ui/jquery.effects.core.js"></script>
+<script type="text/javascript" src="../lib/jquery/jquery.ui/jquery.effects.slide.js"></script>
+<script type="text/javascript" src="../lib/jquery/jquery.ui/jquery.effects.blind.js"></script>
+<script type="text/javascript" src="../lib/jquery/plugin/jquery.layout.min.js"></script>
+<script type="text/javascript">  
+var newwidth = 205;
+
+function setContent(s){
+	window.parent.setContent(s);
+}
+
+function initFrame(){
+	top.listset.cols = "200,9,100%";
+}
+
+function resizeFrame(){
+	if (document.body.scrollWidth-document.body.clientWidth>0){
+		top.listset.cols = newwidth + ",9,100%";
+	}
+}
+
+function goFirst(firstNode){
+	var lis = document.getElementById(firstNode);
+	if(lis){
+		var lis_parent = lis.parentNode.parentNode;
+		if(lis_parent!='null' && lis_parent.className=='level2'){
+			lis_parent.parentNode.firstChild.click();
+			var url = lis_parent.parentNode.firstChild.href;
+			url = url.substr(url.length-1,url.length);
+			if(url == '#'){
+				lis.click();
+			}
+		}else{
+			lis.click();
+		}
+	}
+	
+}
+</script>
+
+<script language="javascript">
+	top.menu.menuWindow = window;
+	top.menu.getMenuName = function()
+	{
+		return "top.menu"; 
+	}
+</script>
+<script language="javascript">
+	top.include( window, '/script/public-func.js' );
+</script>
+
+</head>
+
+<body style="background:#f8f9fb;width:200px;overflow-x:hidden;">
+<div id="ui-widget" class="ui-widget">
+            <div class="fg-toolbar" style="overflow-x:hidden;display:none;">
+				<div class="fg-title"><b>导航菜单</b></div>
+			</div>
+			<table style="width:200px;border-collapse: collapse;" border=0 cellpadding=0 cellspacing=0>
+				<tr>
+					<td id='left_1' class='ipage1_now' onclick='showMe("i")' style="" width="50%">
+						<span class="fun_nowpage">本页功能</span>
+					</td>
+					<td width="2px">
+						<div style="width:100%;float: left; height:60px; background: url(../images_new/sidebar_line.png) left bottom no-repeat;"></div>
+					</td>
+					<td id='left_3' class="ipage2" onclick='showMe("iPage")' style="">
+						<span class="fun_freq">快捷功能</span>
+					</td>
+				</tr>
+			</table>
+            <div id="ui-widget-content" class="ui-widget-content" style="overflow:hidden;background:#e4ebf4;">                
+                <table style="display:none;" id='menu' name='menu' class='menu-front'></table> 
+				<div id="menu_new"></div>
+				<div id="ipage1" class="ipage_menu" ></div>
+            </div>
+</div>
+<script type="text/javascript">
+function getElementsByClassName(searchClass, node,tag){  
+	if(document.getElementsByClassName){return  document.getElementsByClassName(searchClass)}
+	else{        
+		node = node || document;        
+		tag = tag || "*";        
+		var classes = searchClass.split(" "),        
+		elements = (tag === "*" && node.all)? node.all : node.getElementsByTagName(tag),        
+		patterns = [],         
+		returnElements = [],        
+		current,         
+		match;        
+		var i = classes.length;       
+		while(--i >= 0){patterns.push(new RegExp("(^|\\s)" + classes[i] + "(\\s|$)"));}        
+		var j = elements.length;       
+		while(--j >= 0){            
+			current = elements[j];           
+			match = false;            
+			for(var k=0, kl=patterns.length; k<kl; k++){                
+				match = patterns[k].test(current.className);                
+				if (!match)  break;           
+			} 
+			if (match)  returnElements.push(current);        
+		}  
+		return returnElements;   
+	} 
+}
+
+function goT(url){
+	top.window.frames[3].location=url;
+}
+
+function bindMenu(){
+	$("#newmenu .level1>a").click(function(){
+		$(this).parent().parent().find(".hove1").removeClass("hove1");
+		$(this).parent().parent().find(".cur").removeClass("cur");
+		$(this).parent().addClass("hove1");
+		$(this).addClass("cur");
+	    var u2=$(this).next(".level2")[0];
+		if(u2){
+			var uid = u2.id;
+			$(".level2").each( function(){
+		  		if($(this)[0].id!=uid){
+					$(this).hide();
+				}
+		    });
+		    $(this).next(".level2").slideToggle("slow");
+		}
+	})
+	$("#newmenu .level2 a").click(function(){
+		$(".level2").find("a.now_Item").removeClass("hove2").removeClass("now_Item");
+		$(this).addClass("hove2").addClass("now_Item");
+	});
+}
+function hoverMenu(){
+	$("#newmenu .level1>a").hover(
+		function(){
+			if(!$(this).hasClass("cur")){
+				$(this).parent().addClass('hove1');
+				$(this).parent().css("background-color","#e4ebf4");
+			}
+		},
+		function(){
+			if(!$(this).hasClass("cur")){
+				$(this).parent().removeClass('hove1');
+			}
+		}
+		);
+		$("#newmenu .level2 a").hover(
+		function(){
+				$(this).addClass("hove2");
+		},
+		function(){
+			if(!$(this).hasClass("now_Item")){
+				$(this).removeClass("hove2");
+			}
+		}
+		);
+}
+
+/*判断是否有className的函数，调用例子为：o.className=o.addClass(o,"normal");*/
+function hasClass(element, className) {  
+	var reg = new RegExp('(\\s|^)'+className+'(\\s|$)');     
+	return element.className.match(reg); 
+} 
+/*动态添加className的函数，调用例子为：addClass(document.getElementById("test"), "test");*/
+function addClass(element, className) {  
+	if (!this.hasClass(element, className)){   
+		element.className += " "+className;/*如果有多个样式叠加，则用这种方式，如class="style1 style2"*/
+		/*element.className = className; */ 
+	} 
+}  
+/*动态删除className的函数，调用例子为：removeClass(document.getElementById("test"), "test") */
+function removeClass(element, className) {     
+	if (hasClass(element, className)){ 
+		var reg = new RegExp('(\\s|^)'+className+'(\\s|$)');         
+		element.className = element.className.replace(reg,' ');     
+	} 
+} 
+
+function clickandfire(index){
+	if(index){
+		// $('#quickmenu li').removeClass('active_item');
+		var selId = $('#quickmenu').data('selId');
+		if(selId && selId != index){
+			var cName = $('#quickmenu li:eq('+selId+')').attr('class');
+			$('#quickmenu li:eq('+selId+')').removeClass(cName);
+			$('#quickmenu li:eq('+selId+')').addClass('level1 item_'+(parseInt(selId) + 1));
+		}
+		if($('#quickmenu li:eq('+index+') a').length == 1){
+			$('#quickmenu li:eq('+index+') a')[0].click();
+			// $('#quickmenu li:eq('+index+')').addClass('active_item');
+			var cName = $('#quickmenu li:eq('+index+')').attr('class');
+			$('#quickmenu li:eq('+index+')').removeClass(cName);
+			$('#quickmenu li:eq('+index+')').addClass('level1 item_'+(parseInt(index) + 1)+'_1');
+			$('#quickmenu').data('selId', index);
+		}
+	}
+}
+
+function showMe(who){
+	if(who=='i'){
+		$('#menu_new').show();
+		$('#left_1').removeClass('ipage1');
+		$('#left_1').addClass('ipage1_now');
+		$('#left_1 span').removeClass('span_color');
+		$('#left_1 span').addClass('span_color_now');
+		$('#left_3 span').addClass('span_color');
+		$('#left_3 span').removeClass('span_color_now');
+		$('#left_3').removeClass('ipage2_now');
+		$('#left_3').addClass('ipage2');
+		$('#ipage1').hide();
+	}else if(who=='iPage'){
+		$('#ipage1').show();
+		$('#left_1').removeClass('ipage1_now');
+		$('#left_1').addClass('ipage1');
+		$('#left_3 span').removeClass('span_color');
+		$('#left_3 span').addClass('span_color_now');
+		$('#left_1 span').addClass('span_color');
+		$('#left_1 span').removeClass('span_color_now');
+		$('#left_3').removeClass('ipage2');
+		$('#left_3').addClass('ipage2_now');
+		$('#menu_new').hide();
+	}
+}
+
+function bindMouseOver() {
+	$('#quickmenu li').mouseover(function(event) {
+		var selId = $('#quickmenu').data('selId');
+		if(!selId || $(this).index() != selId){
+			var cName = $(this).attr('class');
+			$(this).removeClass(cName);
+			$(this).addClass('level1 item_'+($(this).index() + 1)+'_1');
+		}
+	});
+}
+
+function bindMouseOut() {
+	$('#quickmenu li').mouseout(function(event) {
+		var selId = $('#quickmenu').data('selId');
+		if(!selId || $(this).index() != selId){
+			var cName = $(this).attr('class');
+			$(this).removeClass(cName);
+			$(this).addClass('level1 item_'+($(this).index() + 1));
+		}
+	});
+}
+
+</script>
+</body>
+</html>

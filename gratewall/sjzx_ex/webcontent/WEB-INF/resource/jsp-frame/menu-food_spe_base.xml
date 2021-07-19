@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="主从表[主表通过导航按钮，维护子表信息]" page="master-detail-table-2.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="multi-table-2.gif"/>
+  <struts name="food_spe_base.xml" app-path="/dw/aic/bj/foo/spe/" app-name="food_spe_base" description="专项整治" template="master-detail-table-2.xml"/>
+  <table name="food_spe_base.xml" app-name="food_spe_base" app-desc="专项整治" delete-action="delete" description="专项整治" class-name="com.gwssi.dw.aic.bj.foo.txn.TxnFoodSpeBase" template="master-detail-table-2.master.java" dao-class-template="single-table.java" type="master">
+	  <jsp page-name="query-food_spe_base.jsp" txn-code="60145001" description="查询专项整治列表" template="master-detail-2/master-table-query.jsp">
+	    <button type="button" name="增加专项整治" path="insert-food_spe_base.jsp" description="增加专项整治" func-name="addRecord"/>
+	    <button type="button" name="修改专项整治" path="/txn60145004.do" description="修改专项整治" func-name="updateRecord"/>
+	    <button type="button" name="删除专项整治" path="/txn60145005.do" description="删除专项整治" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60145001.do" description="查询专项整治信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-food_spe_base.jsp" txn-code="60145003" description="增加专项整治信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60145003.do" description="保存专项整治信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60145003.do" description="保存专项整治信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60145001.do" description="保存专项整治信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60145001.do" description="返回到专项整治明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-food_spe_base.jsp" txn-code="60145002" description="修改专项整治信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60145001.do" description="修改专项整治信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60145001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-food_spe_base.jsp" txn-code="60145001" description="查询专项整治列表">
+	    <forward error-code="success" path="query-food_spe_base.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-food_spe_base.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-food_spe_base.jsp" txn-code="60145002" description="修改专项整治信息">
+	    <forward error-code="success" path="update-food_spe_base.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-food_spe_base.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-food_spe_base.jsp" txn-code="60145003" description="增加专项整治信息">
+	    <forward error-code="success" path="insert-food_spe_base.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-food_spe_base.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-food_spe_base.jsp" txn-code="60145004" description="查询专项整治用于修改">
+	    <forward error-code="success" path="update-food_spe_base.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-food_spe_base.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-food_spe_base.jsp" txn-code="60145005" description="删除专项整治信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.FoodSpeBaseContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.VoFoodSpeBase" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.VoFoodSpeBaseSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.VoFoodSpeBasePrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="food_spe_feedb.xml" app-name="food_spe_feedb" app-desc="补充信息" delete-action="delete" description="专项结果反馈表" class-name="com.gwssi.dw.aic.bj.foo.txn.TxnFoodSpeFeedb" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60145011">
+	  <jsp page-name="food_spe_feedb/query-food_spe_feedb.jsp" txn-code="60145011" description="查询补充信息列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加补充信息" path="food_spe_feedb/insert-food_spe_feedb.jsp" description="增加补充信息" func-name="addRecord"/>
+	    <button type="button" name="修改补充信息" path="/txn60145014.do" description="修改补充信息" func-name="updateRecord"/>
+	    <button type="button" name="删除补充信息" path="/txn60145015.do" description="删除补充信息" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60145001.do" description="返回到专项整治明细窗口" func-name="record_goBack"/>
+	    <button type="button" name="查 询" path="/txn60145011.do" description="查询补充信息信息" func-name="record_goBack"/>
+	  </jsp>
+	  <jsp page-name="food_spe_feedb/insert-food_spe_feedb.jsp" txn-code="60145013" description="增加补充信息信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60145013.do" description="保存补充信息信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60145013.do" description="保存补充信息信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60145011.do" description="保存补充信息信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60145011.do" description="返回到补充信息明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="food_spe_feedb/update-food_spe_feedb.jsp" txn-code="60145012" description="修改补充信息信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60145011.do" description="修改补充信息信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60145011.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="food_spe_feedb/query-food_spe_feedb.jsp" txn-code="60145011" description="查询补充信息列表">
+	    <forward error-code="success" path="food_spe_feedb/query-food_spe_feedb.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="food_spe_feedb/query-food_spe_feedb.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="food_spe_feedb/update-food_spe_feedb.jsp" txn-code="60145012" description="修改补充信息信息">
+	    <forward error-code="success" path="food_spe_feedb/update-food_spe_feedb.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="food_spe_feedb/update-food_spe_feedb.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_spe_feedb/insert-food_spe_feedb.jsp" txn-code="60145013" description="增加补充信息信息">
+	    <forward error-code="success" path="food_spe_feedb/insert-food_spe_feedb.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="food_spe_feedb/insert-food_spe_feedb.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_spe_feedb/query-food_spe_feedb.jsp" txn-code="60145014" description="查询补充信息用于修改">
+	    <forward error-code="success" path="food_spe_feedb/update-food_spe_feedb.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="food_spe_feedb/update-food_spe_feedb.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_spe_feedb/query-food_spe_feedb.jsp" txn-code="60145015" description="删除补充信息信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.FoodSpeFeedbContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.VoFoodSpeFeedb" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.VoFoodSpeFeedbSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.vo.VoFoodSpeFeedbPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+</resource>

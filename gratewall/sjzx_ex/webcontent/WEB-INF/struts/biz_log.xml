@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>业务日志查询</menu-name>
+  <menu-path>/page/sysmgr/bizlog/</menu-path>
+  <description>业务日志查询</description>
+  <form-beans>
+    <form-bean name="BizlogRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="username" type="string" size="24" cannull="true" description="操作员代码"/>
+      <form-property prefix="select-key" name="orgid" type="string" size="24" cannull="true" description="机构代码"/>
+      <form-property prefix="select-key" name="orgname" type="string" size="64" cannull="true" description="机构名称"/>
+      <form-property prefix="select-key" name="regdate_from" type="string" size="8" cannull="true" description="操作日期-开始"/>
+      <form-property prefix="select-key" name="regdate_to" type="string" size="8" cannull="true" description="操作日期-结束"/>
+      <form-property prefix="select-key" name="trdcode" type="string" size="12" cannull="true" description="交易码"/>
+      <form-property prefix="select-key" name="trdtype" type="string" size="64" cannull="true" description="分类名称"/>
+      <form-property prefix="select-key" name="errcode" type="string" size="10" cannull="true" description="错误代码"/>
+      <form-property prefix="select-key" name="reqflowno" type="string" size="24" cannull="true" description="请求流水号"/>
+      <form-property prefix="select-key" name="opername" type="string" size="24" cannull="true" description="操作员姓名"/>
+      <form-property prefix="select-key" name="jgid_fk" type="string" size="32" cannull="true" description="所属机构ID"/>
+      
+      <form-property prefix="record" name="flowno" type="long" cannull="false" description="流水号"/>
+      <form-property prefix="record" name="reqflowno" type="string" size="24" cannull="true" description="请求流水号"/>
+      <form-property prefix="record" name="username" type="string" size="24" cannull="true" description="操作员代码"/>
+      <form-property prefix="record" name="opername" type="string" size="24" cannull="true" description="操作员姓名"/>
+      <form-property prefix="record" name="orgid" type="string" size="24" cannull="true" description="机构代码"/>
+      <form-property prefix="record" name="orgname" type="string" size="64" cannull="true" description="机构名称"/>
+      <form-property prefix="record" name="regdate" type="string" size="10" cannull="true" description="操作日期"/>
+      <form-property prefix="record" name="regtime" type="string" size="6" cannull="true" description="操作时间"/>
+      <form-property prefix="record" name="trdcode" type="string" size="12" cannull="true" description="交易码"/>
+      <form-property prefix="record" name="trdname" type="string" size="64" cannull="true" description="交易名称"/>
+      <form-property prefix="record" name="trdtype" type="string" size="64" cannull="true" description="分类名称"/>
+      <form-property prefix="record" name="errcode" type="string" size="10" cannull="true" description="错误代码"/>
+      <form-property prefix="record" name="errdesc" type="string" size="128" cannull="true" description="错误描述"/>
+      <form-property prefix="record" name="resultdata" type="string" size="0" cannull="true" description="处理结果"/>
+      <form-property prefix="record" name="operfrom" type="string" size="2" cannull="false" description="用户来源"/>
+    </form-bean>
+
+    <form-bean name="BizlogUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="flowno" type="long" cannull="false" description="流水号"/>
+      <form-property prefix="record" name="flowno" type="long" cannull="false" description="流水号"/>
+      <form-property prefix="record" name="reqflowno" type="string" size="24" cannull="true" description="请求流水号"/>
+      <form-property prefix="record" name="username" type="string" size="24" cannull="true" description="操作员代码"/>
+      <form-property prefix="record" name="opername" type="string" size="24" cannull="true" description="操作员姓名"/>
+      <form-property prefix="record" name="orgid" type="string" size="24" cannull="true" description="机构代码"/>
+      <form-property prefix="record" name="orgname" type="string" size="64" cannull="true" description="机构名称"/>
+      <form-property prefix="record" name="regdate" type="string" size="10" cannull="true" description="操作日期"/>
+      <form-property prefix="record" name="regtime" type="string" size="6" cannull="true" description="操作时间"/>
+      <form-property prefix="record" name="trdcode" type="string" size="12" cannull="true" description="交易码"/>
+      <form-property prefix="record" name="trdname" type="string" size="64" cannull="true" description="交易名称"/>
+      <form-property prefix="record" name="trdtype" type="string" size="64" cannull="true" description="分类名称"/>
+      <form-property prefix="record" name="errcode" type="string" size="10" cannull="true" description="错误代码"/>
+      <form-property prefix="record" name="errdesc" type="string" size="128" cannull="true" description="错误描述"/>
+      <form-property prefix="record" name="resultdata" type="string" size="2000" cannull="true" description="处理结果"/>
+    </form-bean>
+
+    <form-bean name="BizlogDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="flowno" type="long" cannull="false" description="流水号"/>
+    </form-bean>
+
+    <form-bean name="UserBizlogRowsetForm">
+      <description>操作员的日志列表</description>
+      <form-property prefix="select-key" name="startdate" type="string" size="8" cannull="true" description="开始日期"/>
+      <form-property prefix="select-key" name="stopdate" type="string" size="8" cannull="true" description="结束日期"/>
+      <form-property prefix="select-key" name="trdcode" type="string" size="12" cannull="true" description="交易码"/>
+      <form-property prefix="select-key" name="trdtype" type="string" size="64" cannull="true" description="分类名称"/>
+      <form-property prefix="record" name="flowno" type="long" cannull="false" description="流水号"/>
+      <form-property prefix="record" name="reqflowno" type="string" size="24" cannull="true" description="请求流水号"/>
+      <form-property prefix="record" name="username" type="string" size="24" cannull="true" description="操作员代码"/>
+      <form-property prefix="record" name="opername" type="string" size="24" cannull="true" description="操作员姓名"/>
+      <form-property prefix="record" name="orgid" type="string" size="24" cannull="true" description="机构代码"/>
+      <form-property prefix="record" name="orgname" type="string" size="64" cannull="true" description="机构名称"/>
+      <form-property prefix="record" name="regdate" type="string" size="10" cannull="true" description="操作日期"/>
+      <form-property prefix="record" name="regtime" type="string" size="6" cannull="true" description="操作时间"/>
+      <form-property prefix="record" name="trdcode" type="string" size="12" cannull="true" description="交易码"/>
+      <form-property prefix="record" name="trdname" type="string" size="64" cannull="true" description="交易名称"/>
+      <form-property prefix="record" name="trdtype" type="string" size="64" cannull="true" description="分类名称"/>
+      <form-property prefix="record" name="errcode" type="string" size="10" cannull="true" description="错误代码"/>
+      <form-property prefix="record" name="errdesc" type="string" size="128" cannull="true" description="错误描述"/>
+      <form-property prefix="record" name="resultdata" type="string" size="2000" cannull="true" description="处理结果"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-bizlog.jsp" name="BizlogRowsetForm" txn-code="981211" check-type="check" txn-type="transaction" re-entry="true" log-flag="false">
+      <description>查询业务日志列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.bizlog.txn.TxnBizlog" func-name="txn981211" input-node="select-key" output-node="record" description="查询业务日志列表"/>
+      <forward error-code="success" path="query-bizlog.jsp" redirect="false"/>
+      <forward error-code="failure" path="query-bizlog.jsp" redirect="false"/>
+    </action>
+
+    <action input="view-bizlog.jsp" name="BizlogUpdateForm" txn-code="981214" check-type="check" txn-type="transaction" re-entry="true" log-flag="false">
+      <description>查询业务日志</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.bizlog.txn.TxnBizlog" func-name="txn981214" input-node="primary-key" output-node="record" description="查询业务日志"/>
+      <forward error-code="success" path="view-bizlog.jsp" redirect="false"/>
+      <forward error-code="failure" path="view-bizlog.jsp" redirect="false"/>
+    </action>
+
+    <action input="listUserLogger.jsp" name="UserBizlogRowsetForm" txn-code="981216" check-type="check" txn-type="transaction" re-entry="true" log-flag="false">
+      <description>用户日志查询</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.bizlog.txn.TxnBizlog" func-name="txn981216" input-node="select-key" output-node="record" description="用户日志查询"/>
+      <forward error-code="success" path="listUserLogger.jsp" redirect="false"/>
+      <forward error-code="failure" path="listUserLogger.jsp" redirect="false"/>
+    </action>
+    
+    <action input="listUserLogger.jsp" name="UserBizlogRowsetForm" txn-code="981217" check-type="check" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>下载管理</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.bizlog.txn.TxnBizlog" func-name="txn981217" input-node="record" output-node="record" description="下载管理"/>
+      <forward error-code="success" path="listUserLogger.jsp" redirect="false"/>
+      <forward error-code="failure" path="listUserLogger.jsp" redirect="false"/>
+    </action>
+  </action-mappings>
+
+  <jsp-pages>
+    <jsp-page name="query-bizlog.jsp" txn-code="981211" description="查询业务日志列表">
+      <frame frame-name="select-key" frame-type="query" caption="查询业务日志" width="95%">
+        <field field-name="username" field-type="text" caption="操作员代码" property="style=width:90%,maxlength=24,datatype=string"/>
+        <field field-name="orgid" field-type="text" caption="机构代码" property="style=width:90%,maxlength=24,datatype=string"/>
+        <field field-name="orgname" field-type="text" caption="机构名称" property="style=width:90%,maxlength=64,datatype=string"/>
+        <field field-name="regdate" field-type="text" caption="操作日期" property="style=width:90%,maxlength=8,datatype=string"/>
+        <field field-name="trdcode" field-type="text" caption="交易码" property="style=width:90%,maxlength=12,datatype=string"/>
+        <field field-name="trdtype" field-type="text" caption="分类名称" property="style=width:90%,maxlength=64,datatype=string"/>
+      </frame>
+
+      <frame frame-name="record" frame-type="grid" caption="业务日志列表" keylist="record:flowno" width="95%" property="navbar=bottom,fixrow=true">
+        <button button-name="record_addRecord" function-name="addRecord" caption="查看日志" next-page="/txn981214.do" hint="查询业务日志" page-variable="primary-key:flowno" value-list="record:flowno" txn-code="981214" property="align=right,enablerule=0,hotkey=ADD"/>
+        <field field-name="flowno" field-type="cell" caption="流水号" property="width=10%,datatype=int,visible=false"/>
+        <field field-name="reqflowno" field-type="cell" caption="请求流水号" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="username" field-type="cell" caption="操作员代码" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="opername" field-type="cell" caption="操作员姓名" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="orgid" field-type="cell" caption="机构代码" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="orgname" field-type="cell" caption="机构名称" property="width=10%,maxlength=64,datatype=string"/>
+        <field field-name="regdate" field-type="cell" caption="操作日期" property="width=10%,maxlength=8,datatype=string"/>
+        <field field-name="regtime" field-type="cell" caption="操作时间" property="width=10%,maxlength=6,datatype=string"/>
+        <field field-name="trdcode" field-type="cell" caption="交易码" property="width=10%,maxlength=12,datatype=string"/>
+        <field field-name="trdname" field-type="cell" caption="交易名称" property="width=10%,maxlength=64,datatype=string"/>
+        <field field-name="trdtype" field-type="cell" caption="分类名称" property="width=10%,maxlength=64,datatype=string"/>
+        <field field-name="errcode" field-type="cell" caption="错误代码" property="width=10%,maxlength=10,datatype=string"/>
+        <field field-name="errdesc" field-type="cell" caption="错误描述" property="width=10%,maxlength=128,datatype=string"/>
+      </frame>
+
+    </jsp-page>
+
+    <jsp-page name="view-bizlog.jsp" txn-code="981214" width="500" height="350" description="查询业务日志">
+      <frame frame-name="primary-key" frame-type="frame" width="95%">
+        <field field-name="flowno" field-type="hidden" caption="流水号" property="width=90%,datatype=int"/>
+      </frame>
+
+      <frame frame-name="record" frame-type="view" caption="日志信息" width="95%">
+        <button button-name="record_goBack" function-name="goBack" caption="返 回" next-page="/txn981211.do" hint="查询业务日志列表" property="hotkey=CLOSE"/>
+        <field field-name="flowno" field-type="hidden" caption="流水号" property="style=width:90%,datatype=int"/>
+        <field field-name="reqflowno" field-type="hidden" caption="请求流水号" property="style=width:90%,maxlength=24,datatype=string"/>
+        <field field-name="username" field-type="cell" caption="操作员代码" property="style=width:90%,maxlength=24,datatype=string"/>
+        <field field-name="opername" field-type="cell" caption="操作员姓名" property="style=width:90%,maxlength=24,datatype=string"/>
+        <field field-name="orgid" field-type="cell" caption="机构代码" property="style=width:90%,maxlength=24,datatype=string"/>
+        <field field-name="orgname" field-type="cell" caption="机构名称" property="style=width:90%,maxlength=64,datatype=string"/>
+        <field field-name="regdate" field-type="cell" caption="操作日期" property="style=width:90%,maxlength=8,datatype=string"/>
+        <field field-name="regtime" field-type="cell" caption="操作时间" property="style=width:90%,maxlength=6,datatype=string"/>
+        <field field-name="trdcode" field-type="cell" caption="交易码" property="style=width:90%,maxlength=12,datatype=string"/>
+        <field field-name="trdname" field-type="cell" caption="交易名称" property="style=width:90%,maxlength=64,datatype=string"/>
+        <field field-name="trdtype" field-type="cell" caption="分类名称" property="style=width:90%,maxlength=64,datatype=string"/>
+        <field field-name="errcode" field-type="cell" caption="错误代码" property="style=width:90%,maxlength=10,datatype=string"/>
+        <field field-name="errdesc" field-type="cell" caption="错误描述" property="style=width:90%,maxlength=128,datatype=string"/>
+        <field field-name="resultdata" field-type="textarea" caption="处理结果" property="style=width:90%,maxlength=0,datatype=string"/>
+      </frame>
+
+    </jsp-page>
+
+    <jsp-page name="listUserLogger.jsp" txn-code="981216" description="用户日志查询">
+      <frame frame-name="select-key" frame-type="query" caption="日志查询" width="95%">
+        <field field-name="startdate" field-type="datebox" caption="开始日期" property="style=width:90%,maxlength=8,datatype=string"/>
+        <field field-name="stopdate" field-type="datebox" caption="结束日期" property="style=width:90%,maxlength=8,datatype=string"/>
+        <field field-name="trdtype" field-type="text" caption="分类名称" property="style=width:90%,maxlength=64,datatype=string"/>
+      </frame>
+
+      <frame frame-name="record" frame-type="grid" caption="操作日志列表" keylist="record:flowno" width="95%" property="navbar=bottom,fixrow=true">
+        <button button-name="record_viewRecord" function-name="addRecord" caption="查看日志" next-page="view-bizlog.jsp" hint="查看业务日志信息" page-variable="primary-key:flowno" value-list="record:flowno" txn-code="981214" property="align=right,enablerule=2,hotkey=VIEW"/>
+        <field field-name="flowno" field-type="cell" caption="流水号" property="width=10%,datatype=int"/>
+        <field field-name="reqflowno" field-type="cell" caption="请求流水号" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="username" field-type="cell" caption="操作员代码" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="opername" field-type="cell" caption="操作员姓名" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="orgid" field-type="cell" caption="机构代码" property="width=10%,maxlength=24,datatype=string"/>
+        <field field-name="orgname" field-type="cell" caption="机构名称" property="width=10%,maxlength=64,datatype=string"/>
+        <field field-name="regdate" field-type="cell" caption="操作日期" property="width=10%,maxlength=8,datatype=string"/>
+        <field field-name="regtime" field-type="cell" caption="操作时间" property="width=10%,maxlength=6,datatype=string"/>
+        <field field-name="trdcode" field-type="cell" caption="交易码" property="width=10%,maxlength=12,datatype=string"/>
+        <field field-name="trdname" field-type="cell" caption="交易名称" property="width=10%,maxlength=64,datatype=string"/>
+        <field field-name="trdtype" field-type="cell" caption="分类名称" property="width=10%,maxlength=64,datatype=string"/>
+        <field field-name="errcode" field-type="cell" caption="错误代码" property="width=10%,maxlength=10,datatype=string"/>
+        <field field-name="errdesc" field-type="cell" caption="错误描述" property="width=10%,maxlength=128,datatype=string"/>
+      </frame>
+
+    </jsp-page>
+  </jsp-pages>
+</struts-config>
+

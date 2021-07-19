@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="upload_background_image.html.setelementbgpic"> 设置元素背景图片 </title>
+	<link href="css/common.css" rel="stylesheet" type="text/css" />
+	<link href="css/list.css" rel="stylesheet" type="text/css" />
+	<link href="list.css" rel="stylesheet" type="text/css" />
+	<script src="../js/easyversion/lightbase.js"></script>
+	<script src="../js/easyversion/extrender.js"></script>
+	<script src="../js/easyversion/elementmore.js"></script>
+	<script src="js/adapter4Top.js"></script>
+	<script src="upload_background_image.js"></script>
+	<style type="text/css">
+		body{
+			padding:4px;
+		}
+		.preview-box{
+			border:1px dashed gray;
+			width:600px;
+			height:280px;
+			margin:10 auto;
+		}
+		.tip{
+			font-size:35px;
+			color:gray;
+			margin:80px 5px 40px 20px;
+		}
+		.row{
+			cursor:default;
+			font-size:12px;
+			line-height:18px;
+			margin-top:5px;
+		}
+		.row input{
+			margin-left:15px;
+		}
+		.label{
+			font-size:14px;
+			display:block;
+			font-weight:bold;
+		}
+	</style>
+
+</head>
+
+<body>
+<form>
+	<input type="hidden" name="imageUrl" id="imageUrl" value="">
+</form>
+
+<div style="float:left;margin-right:15px;">
+	<div id="preview-box" style="" class="preview-box">
+		<div class="tip" id="tip" WCMAnt:param="upload_background_image.html.canseeresultafteruploadpic">上传图片之后就可以看到预览效果了</div>
+	</div>
+</div>
+
+<div>
+	<div class="row">
+		<IFRAME src="file/file_upload_pic.jsp" id="PortalViewThumbUpload" name="PortalViewThumbUpload" frameborder="no" border="2px solid red" framespacing="0" width="45px" height="23px" scrolling="no" ></IFRAME>
+		<span style="padding-left:10px;padding-top:5px;cursor:pointer;">
+		<img src="images/zt-xj_an1.gif" border=0 alt="" onclick="resetImage()"/></span>
+	</div>
+
+
+	<!--图片位置-->
+	<div class="row">
+		<span class="label" WCMAnt:param="upload_background_image.html.horizontaldirectionposition">水平方向位置:</span> 
+		<input type="radio" name="backgroundPositionX" id="backgroundPositionX-left" value="left" />
+		<label for="backgroundPositionX-left" WCMAnt:param="upload_background_image.html.left">左边</label><br />
+		<input type="radio" name="backgroundPositionX" id="backgroundPositionX-center" value="center" checked="checked" />
+		<label for="backgroundPositionX-center" WCMAnt:param="upload_background_image.html.center">中间</label><br />
+		<input type="radio" name="backgroundPositionX" id="backgroundPositionX-right" value="right" />
+		<label for="backgroundPositionX-right" WCMAnt:param="upload_background_image.html.right">右边</label><br />
+	</div>
+
+	<div class="row">
+		<span class="label" WCMAnt:param="upload_background_image.html.verticaldirectionposition">垂直方向位置:</span> 
+		<input type="radio" name="backgroundPositionY" id="backgroundPositionY-top" value="top" />
+		<label for="backgroundPositionY-top" WCMAnt:param="upload_background_image.html.top">顶部</label><br />
+		<input type="radio" name="backgroundPositionY" id="backgroundPositionY-center" value="center" checked="checked" />
+		<label for="backgroundPositionY-center" WCMAnt:param="upload_background_image.html.verticalcenter">中间</label><br />
+		<input type="radio" name="backgroundPositionY" id="backgroundPositionY-bottom" value="bottom" />
+		<label for="backgroundPositionY-bottom" WCMAnt:param="upload_background_image.html.bottom">底部</label><br />
+	</div>
+
+	<!--图片是否重复-->
+	<div class="row">
+		<span class="label" WCMAnt:param="upload_background_image.html.picway">图片平铺方式:</span> 
+		<input type="radio" name="backgroundRepeat" id="repeat-x" value="repeat-x"/> 
+		<label for="repeat-x" WCMAnt:param="upload_background_image.html.horizon">横向</label><br />
+		<input type="radio" name="backgroundRepeat" id="repeat-y" value="repeat-y" />
+		<label for="repeat-y"  WCMAnt:param="upload_background_image.html.vertical">纵向</label><br />
+		<input type="radio" name="backgroundRepeat" id="repeat" value="repeat" checked="checked" />
+		<label for="repeat"  WCMAnt:param="upload_background_image.html.picrepeat">平铺</label><br />
+		<input type="radio" name="backgroundRepeat" id="no-repeat" value="no-repeat" />
+		<label for="no-repeat"  WCMAnt:param="upload_background_image.html.nopicrepeat">不平铺</label><br />
+	</div>
+
+</div>
+
+</body>
+</html>

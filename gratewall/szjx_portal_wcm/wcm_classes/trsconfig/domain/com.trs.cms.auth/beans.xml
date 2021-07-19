@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0" id="cms.auth">
+	<beans>
+		<!-- Server BEGIN -->
+		<bean id="RightConfigServer" class="com.trs.cms.auth.config.RightConfigServer" 
+			singleton="true"/>
+		<!-- Server END -->
+					
+		<!-- Mgr BEGIN -->
+		<bean id="UserMgr" class="com.trs.cms.auth.domain.UserMgr" 
+			singleton="true"/>
+		<bean id="GroupMgr" class="com.trs.cms.auth.domain.GroupMgr" 
+			singleton="true"/>
+		<bean id="RoleMgr" class="com.trs.cms.auth.domain.RoleMgr" 
+			singleton="true"/>
+		<bean id="GroupRoleMgr" class="com.trs.cms.auth.domain.GroupRoleMgr" 
+			singleton="true"/>
+		<bean id="RightCacheMgr" class="com.trs.cms.auth.domain.RightCacheMgr" 
+			singleton="true"/>
+		<bean id="IDepartmentMgr" class="com.trs.cms.auth.domain.DepartmentMgrImpl" 
+			singleton="true"/>			
+		<!-- Mgr END -->
+		<!-- WCMOBJ Life Cycle Listeners BEGIN -->
+		<bean id="IUserCacheMgr" 
+			class="com.trs.cms.auth.persistent.UserCacheMgr" singleton="true"/>
+		<bean id="IRightMgr" class="com.trs.cms.auth.domain.RightMgr" 
+			singleton="true"/>
+		<bean id="IAdministratorCacheMgr" 
+			class="com.trs.cms.auth.persistent.AdministratorCacheMgr" 
+			singleton="true"/>
+		<bean id="GroupAdminsCacheMgr" 
+			class="com.trs.cms.auth.persistent.GroupAdminsCacheMgr" 
+			singleton="true"/>
+		<bean id="GroupUserCacheMgr" 
+			class="com.trs.cms.auth.persistent.GroupUserCacheMgr" 
+			singleton="true"></bean>
+		<bean id="RoleUserCacheMgr" 
+			class="com.trs.cms.auth.persistent.RoleUserCacheMgr" 
+			singleton="true"></bean>
+		<bean id="RightHostLCListenerForInherit" 
+			class="com.trs.cms.auth.domain.RightHostLCListenerForInherit" 
+			singleton="true"></bean>
+		<bean id="MemberLCListenerForRight"
+			class="com.trs.cms.auth.domain.MemberLCListenerForRight"
+			singleton="true"></bean>
+		
+		<!-- WCMOBJ Life Cycle Listeners END -->
+	</beans>
+</plugin>

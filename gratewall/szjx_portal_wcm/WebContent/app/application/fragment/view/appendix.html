@@ -1,0 +1,21 @@
+<!--附件-->
+<%
+	String my${FieldName} = obj.getRealProperty("${FieldName}");
+    String ext${FieldName} = my${FieldName}.substring(my${FieldName}.lastIndexOf(".")+1);
+	String typeArr${FieldName} = "bmp,chm,doc,exe,file,gif,htm,html,jpg,log,mp3,none,pdf,png,ppt,rar,txt,wmv,xls,xml,zip";
+	if(typeArr${FieldName}.indexOf(ext${FieldName}) == -1){
+		ext${FieldName} = "none";
+	}
+	String my${FieldName}Ext = ext${FieldName} + ".gif";
+
+%>
+<span class="appendix" title="<%=CMyString.filterForHTMLValue(my${FieldName})%>" style='background-image:url(../../images/metadata/file_type/type_<%=my${FieldName}Ext%>);' onclick="downloadAppendix(this);">&nbsp;</span>
+<%
+if(ext${FieldName}.matches("(bmp|jpg|jpeg|png|gif)$")){
+	String src = "../../../file/read_image.jsp?FileName="+my${FieldName};
+%>
+<br />
+<a href="<%=src%>" target="_blank"><img src="<%=src%>" border=0 alt="" onload="resizeIfNeed(this);" /></a>
+<%
+}
+%>

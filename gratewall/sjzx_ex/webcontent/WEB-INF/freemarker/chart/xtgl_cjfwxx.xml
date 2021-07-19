@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<chart caption='[${cdserviceTypeName}]近七天采集数据量统计' baseFontSize='12' 
+	
+	showValues='0' showShadow='0' formatNumberScale='0' showLimits='0' 
+	canvasBorderAlpha='0' showBorder='0'
+	divLineAlpha='30'
+		
+	anchorRadius='4' anchorBgColor='0377D0' anchorBorderColor='FFFFFF' anchorBorderThickness='1' anchorAlpha='90' 
+	showPlotBorder='1' plotBorderThickness='4' plotBorderColor='0377D0' plotFillColor='0377D0'  plotGradientColor='' plotFillAlpha='20' bgColor='FFFFFF' 
+	showAlternateHGridColor='0' numVDivLines='2' 
+	 toolTipBgColor ='DEF1FF' toolTipBorderColor ='2C516D'>
+ 
+<#list list as t><set label='${t.coldate}' value='${t.sernum}' color='0080C0'/>
+</#list>
+ </chart>

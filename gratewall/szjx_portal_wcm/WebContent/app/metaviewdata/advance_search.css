@@ -1,0 +1,237 @@
+*{
+	font-size:12px;
+	margin:0px;
+	padding:0px;
+}
+.row{
+	margin:10px;
+}
+.ext-ie6 .row{
+	height:18px;
+	display:block;
+}
+.label{
+    float:left;
+	width:80px;
+    margin-top:2px;
+	text-align:right;
+    vertical-align:top;
+}
+.queryType{
+	border:0px;
+	width:auto;
+}
+#copyToClipBoard{
+	margin:10px 10px 10px 30px;
+	cursor:pointer;
+	color:red;
+	text-decoration:underline;
+}
+.multiValueContainer{
+	position:absolute;
+	z-index:999;
+	width:200px;
+	overflow:visible;
+	border:1px solid black;
+	padding:2px;
+}
+.multiValueContainer span{
+	width:45%;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	padding:2px 4px;
+}
+.multiValueContainer input{
+	width:auto;
+	border:0px;
+}
+.multiValueContainerInner{
+	width:95%;
+	overflow:visible;
+	position:relative;
+}
+.commandBtn{
+	margin-top:4px;
+	height:20px;
+	/*设置width使在ie7下按钮所在的div居中*/
+	width:100%;
+	text-align:center;
+}
+.multiValueShield{
+	position:absolute;
+	z-index:998;
+	width:200px;
+	/*为使ff下遮布不透明而设置默认颜色*/
+	background:white;
+}
+.selectMultiValueA{
+	cursor:default;
+	width:16px;
+	height:20px;
+	background:url("../images/metadata/selectClassInfo.png") center center no-repeat;
+}
+.ext-gecko .selectMultiValueA{
+	padding-left:25px;
+	padding-bottom:10px;
+	padding-top:5xp;
+}
+#viewFields{
+	border:1px solid black;
+	width:350px;
+	height:200px;
+	overflow:auto;
+	margin-left:3px;
+}
+#viewFields .row{
+	display:block;
+}
+#viewFields .row span{
+	display:block;
+	float:left;
+	width:60px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+#viewFields .row div{
+	display:block;
+	margin-left:60px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+input{
+	width:200px;
+	height:20px;
+	border:1px solid silver;
+}
+textarea{
+	border:1px solid silver;
+}
+.input_checkbox{
+	width:auto;
+	height:auto;
+	border:0;
+}
+select{
+	width:200px;
+	height:18px;
+	border:1px solid silver;
+}
+.validTip{
+	margin:0px;
+	margin-left:95px;
+	height:20px;
+}
+
+.input_checkbox_container{
+	margin-left:5px;
+}
+.input_checkbox_container input{
+	width:auto;
+	height:auto;
+	border:0;
+}
+.input_radio_container{
+	margin-left:5px;
+}
+.input_radio_container input{
+	width:auto;
+	height:auto;
+	border:0;
+}
+
+.value div{
+	display:inline;
+}
+.selectclassinfo{
+	width:16px;
+	height:20px;
+	background:url(../images/metadata/selectClassInfo.png) center center no-repeat;
+	cursor:pointer;
+	margin-left:10px;
+	float:left;
+}
+.selectFields_browser{
+	width:16px;
+	height:16px;
+	cursor:pointer;
+	background:url(../images/metadata/selectFields.gif) center bottom no-repeat;
+}
+
+.inputSelect_input{
+	width:150px;
+	height:21px;
+	font-size:10pt;
+	z-index:1;
+	vertical-align:top;
+}
+.ext-gecko .inputSelect_input{
+	width:132px;
+	position:relative;
+}
+.inputSelect_span{
+    position:absolute;
+	width:18px;
+	height:19px;
+	margin-top:1px;
+	margin-left:-24px;
+	overflow:hidden;
+}
+.ext-gecko .inputSelect_span{
+	position:relative;
+}
+.inputSelect_select{
+    position:absolute;
+	
+	margin-left:-132px;
+	margin-top:0px;
+	width:150px;
+	height:21px;
+	z-index:0;
+}
+.ext-gecko .inputSelect_select{
+	margin-left:-120px;
+	position:relative;
+}
+
+/**/
+.inputSelect_tip{
+}
+.inputSelect_suggestion{
+	position : absolute;
+	z-Index : 999;
+	overflow : auto;
+	background : white;
+	border:1px solid black;
+	height:100px;
+}
+.inputSelect_iframe{
+	position : absolute;
+	z-Index : 998;
+	overflow : auto;
+	background : white;
+	height:100px;
+}
+.inputSelect_suggestion div{
+	display:block;
+	cursor:default;
+}
+.inputSelect_suggestion .activeRow{
+	background:highlight;
+	color:white;
+}
+#objectContainer{
+	color: #000000;
+	background-color: #FFFFFF;	
+}
+#objectContainer input,textarea{
+	background-color: #FFFFFF;
+}
+
+label{
+	display:inline-block;
+	line-height:20px;
+	overflow:hidden;
+}

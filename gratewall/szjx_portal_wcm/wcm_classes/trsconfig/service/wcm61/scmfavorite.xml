@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.scm.service.SCMFavoriteServiceProvider">
+	<method name="createFavorite" desc="收藏一条微博">			
+		<parameter name="AccountId" desc="账号id" type="int" required="true"/>
+		<parameter name="MicroContentId" desc="要收藏的微博Id" type="string" required="true"/>
+	</method>
+	
+	<method name="destroyFavorite" desc="取消收藏一条微博">
+		<parameter name="AccountId" desc="账号id" type="int" required="true"/>
+		<parameter name="MicroContentId" desc="要取消收藏的微博Id" type="string" required="true"/>
+	</method>
+	
+	<method name="getFavorites" desc="获取收藏的微博">			
+		<parameter name="AccountId" desc="账号id" type="int" required="true"/>
+		<parameter name="PageSize" desc="页面大小" type="int" required="false"/>
+		<parameter name="PageIndex" desc="当前页码" type="int" required="false"/>
+	</method>
+</service>

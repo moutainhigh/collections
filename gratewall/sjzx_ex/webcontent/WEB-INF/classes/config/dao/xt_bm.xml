@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="xt_bm" class-name="cn.gwssi.csdb.wjg.dao.XtBm" check-flag="false" backup-flag="false">
+    <description>部门</description>
+  </table-info>
+
+  <column name="dm_bm" data-type="varchar" length="2" not-null="true" value-from="input" description="司（中心）代码"/>
+  <column name="bm_mc" data-type="varchar" length="20" not-null="false" value-from="input" description="司（中心）"/>
+  <primary-key name="部门代码" column-list="dm_bm"/>
+  <index name="p_xtkey6" index-type="unique" cluster="other" column-list="dm_bm"/>
+  <foreign-key foreign-table="wjg_wx" foreign-type="one-to-many" on-delete="none" on-update="none" column-names="dm_bm" foreign-names="dm_bm"/>
+  <function func-name="select one xt_bm" func-type="select" column-list="dm_bm,bm_mc">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select xt_bm list" func-type="rowset" column-list="dm_bm as codevalue, bm_mc as codename" max-record="-1">
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one xt_bm" func-type="insert" column-list="dm_bm,bm_mc">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one xt_bm" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="机构" func-type="rowset" column-list="dm_bm as codevalue, bm_mc as codename" max-record="-1">
+    <description>多记录查询</description>
+  </function>
+</table>
+

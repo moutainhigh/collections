@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="GB2312"?>
+<parameters>	
+
+	<parameter name="StatViewId"  desc="统计模板ID" min-value="1" type="int" required="true" default="0"/>
+	<parameter name="TimePeriod" desc="时间段类型" type="int" required="false" default="0"/>
+	<parameter name="StartDate" desc="指定的开始时间" type="string" required="false" default=""/>
+	<parameter name="EndDate" desc="指定的结束时间" type="string" required="false" default=""/>
+		
+	<!--分页相关配置 BEGIN-->
+	<parameter name="PageIndex" desc="当前页码" min-value="1" default="1" type="int" required="false"/>
+	<parameter name="PageItemCount" desc="页面记录数" min-value="1" default="15" type="int" required="false"/>
+<!--分页相关配置 END-->
+
+<!--检索相关配置 BEGIN-->
+	<!--parameter name="SearchTable"  desc="检索的表名"  type="string" required="false" default="WCMDOCUMENT"/-->
+	<parameter name="SearchKey"  desc="检索的字段"  type="string" required="false" default=""/>
+	<parameter name="SearchValue"  desc="检索的数据"  type="string" default="" required="false"/>
+<!--检索相关配置 END-->
+
+<!--排序相关配置 BEGIN-->
+	<parameter name="OrderField"  desc="排序字段"  type="string" required="false"/>
+	<parameter name="OrderType"  desc="排序方式"  type="string" required="false"/>	
+<!--排序相关配置 END-->
+
+</parameters>

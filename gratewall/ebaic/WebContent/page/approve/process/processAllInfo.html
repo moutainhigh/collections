@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+<style>
+body {
+	height: 2200px;
+	overflow-x:hidden;
+	/* margin-top:-11px; */
+}
+.full-line{
+	display:inline-block;
+}
+
+/*细节修正样式*/
+a {
+	text-decoration: underline;
+}
+
+.jazz-form-text-label {
+	font-weight: normal;
+	white-space: nowrap;/* 不分两行显示，都让其中同一行显示 */
+}
+
+
+
+.jazz-panel {
+	border-bottom: 1px solid #DDE7ED;
+	margin:0px;
+	margin-top:-10px;
+}
+
+.jazz-panel-content {
+	background: #fff;
+}
+
+/**显示企业简述的部分开始**/
+.name-title {
+	background-color: #F0F8FB;
+	/* width: 1910px; */
+	height: 50px;
+/* 	padding-top: 22px; */
+	border-top: 1px solid #c1d3de;
+}
+.jazz-field-comp{
+	margin:0px;
+}
+.ent-name label {
+	color: #3d91d8;
+	font-weight: bold;
+	font-size: 22px;
+	margin-left:100px;
+	margin-top:10px;
+}
+
+.linkman label {
+	font-size: 14px;
+	font-weight: normal;
+	margin-top:10px;
+	font-family:"Microsoft YaHei";
+}
+.jazz-grid-headerCell-inner,.jazz-panel-title-font{
+	font-size:14px;
+}
+.linkman {
+	font-weight: normal;
+	 margin-left:500px; 
+}
+
+/* #findLinkManDetail {
+	color: blue;
+	display: inline-block;
+	margin-top: 11px;
+} */
+.content-top {
+	width: 100%;
+	height: 35px;
+	background-color: #f0f8fb;
+}
+img{
+	margin-top:10px;
+}
+.jazz-gridpanel .jazz-grid-column-table{
+	background-color:#d8e6ef;
+}
+.jazz-gridtable-even{
+	background-color:#f3f6f8;
+}
+.content-top span {
+	line-height: 35px;
+	color: #666;
+	text-align: center;
+	font-weight: bold;
+	padding-left: 16px;
+}
+.content{
+	border:1px solid #dae5eb;
+	margin:10px 5px;
+}
+/*查询企业明细*/
+/* #findEntDetail {
+	color: blue;
+	display: inline-block;
+	position: absolute;
+	margin-top: 20px;
+	right: 184px;
+	top: 52px;
+	background: #74C070;
+}
+
+#findEntDetail a {
+	text-decoration: none;
+	display: block;
+	padding: 2px 8px;
+	color: #fff;
+} */
+
+/**显示企业简述的部分结束**/
+.main-div {
+	position: relative;
+}
+
+
+/*企业相关人咒信息显示的间距*/
+.mt20{
+	border:1px solid #dae5eb;
+	margin-left:5px;
+	margin-right:5px;
+	margin-bottom:20px;
+	margin-top:-10px;
+}
+#uploadFiles{
+	margin-top:-15px;
+}
+
+/*审查浮动 块开始部分*/
+ /*审查意见*/
+ #censor-notice{
+ 	width:0;
+ 	/* position: absolute;
+    top: 100px; */
+    z-index: 9999;
+   /*  right: 0; */
+ }
+ 
+
+ .censor{
+ 	width: 34px;
+    background: #2488C6;
+    color: #fff;
+    position:absolute;
+    padding: 10px 0;
+    cursor:pointer;
+    top:0;
+    left:-34px;
+    text-align:center;
+ }
+/*审查浮动 块开始结束部分*/
+
+/*每个面板的控制按钮*/
+.wrap {
+	position: relative;
+	margin-top:-20px;
+}
+.wrap-top{
+	margin-top:-40px;
+}
+/*每个列显示的按钮样式*/
+.btnEdit {
+	position: absolute;
+	right: 178px;
+	top: 108px;
+	background: #EEA70F;
+	padding: 2px 10px;
+	outline: none;
+	border: 0;
+	border: none;
+	color: #fff;
+}
+.wrapContainer{
+	margin-top:-20px;
+}
+.btnSave {
+	right: 178px;
+}
+
+.btnCancel {
+	right: 108px;
+}
+
+/* jazz面板 */
+.jazz-panel-titlebar {
+	background-color: #F0F8FB;
+	background-image: url();
+}
+
+.jazz-panel-title-font {
+	color: #000;
+}
+
+/* .jazz-panel {
+	margin-top: 10px;
+} */
+
+/*自定义修改jazz表格的样式*/
+.jazz-form-text-label{
+	font-size: 14px; 
+}
+
+
+.jazz-grid-headerCell{
+	border: none;
+}
+.jazz-grid-cell{
+	border: none;
+}
+
+.jazz-grid-cell-box{
+	padding-bottom:5px;
+	text-align:right;
+}
+
+.categoryPic {
+	display: inline-block;
+	margin-left: 10px;
+	text-align:center;
+}
+
+
+/*查询人员列表人数不显示分页按钮*/
+.jazz-paginator{
+	display: none;
+}
+</style>
+</head>
+<body id="body" style='background-color: #FFF;'>
+	<div class="container">
+		<!-- 构建页面==开始 -->
+		<!-- 数据展现 -->
+		<div vtype="formpanel" name="entLinkInfo_Form" dataview="true" titledisplay="false" title="企业申请人" width="1381px" showborder="false" dataurl="" layout="auto">
+			<div class="name-title">
+				<div name="entName" class="ent-name" vtype="textfield" label="" labelwidth="200" labelalign="right" width="500" height="50"></div>
+				<div name="linkman" class="linkman" vtype="textfield" label="申请人" labelwidth="100" labelalign="right" width="180"></div>
+				<!-- <div id="findLinkManDetail" style="color: blue; display: inline-block; margin-top: 20px;">
+				<a href="javascript:void(0);" >详情</a>
+				</div>  -->
+			</div>
+		</div>
+
+		<!-- 企业简述开始 -->
+		<div class="entWrap">
+			<!-- 数据展现 -->
+			<div vtype="formpanel" name="processAIEntInfo_Form" dataview="true" titledisplay="false" title="企业基本信息" width="1381px" showborder="false" dataurl="" layout="table" layoutconfig="{cols:2, columnwidth: ['50%','50%']}" labelstyleclass="labelstyle">
+				<div name="entName" vtype="textfield" label="企业名称" labelwidth="200" labelalign="right" width="500"></div>
+				<div name="nameAppId" vtype="textfield" label="核准(预查)文号" labelwidth="142" labelalign="right" width="600"></div>
+				<div name="inCo" vtype="textfield" label="行业门类" labelwidth="200" labelalign="right" width="500"></div>
+				<div name="industryCo" vtype="textfield" label="行业代码" labelwidth="142" labelalign="right" width="500"></div>
+			</div>
+			
+			<!-- 数据展现 -->
+		</div>
+		<div class="full-line"></div>
+		<!-- 企业简述结束-->
+
+
+		<!-- wrapContainer start -->
+		<div class="wrapContainer">
+
+			<!-- 复制wrap 开始 -->
+			<div class="wrap">
+				<div vtype="formpanel" name="processAIEntBasicInfo_Form" dataview="true" titleDisplay="false" title="企业信息" width="1381px" showborder="false" dataurl="" layout="table" layoutconfig="{cols:2, columnwidth: ['50%','50%']}" labelstyleclass="labelstyle">
+					<div name="regCap" vtype="textfield" label="注册资本（万元）" labelwidth="200" labelalign="right" width="500"></div>
+					<div name="domOwner" vtype="textfield" label="住所产权人" labelwidth="142" labelalign="right" width="500"></div>
+					<div name="entTypeDesc" vtype="textfield" label="企业类型" labelwidth="200" labelalign="right" width="500"></div>
+					<div name="domAcreage" vtype="textfield" label="营业面积（平方米）" labelwidth="150" labelalign="right" width="500"></div>
+					<div name="opLoc" vtype="textfield" label="住所（经营场所）" labelwidth="200" labelalign="right" width="500"></div>
+					<div name="tradeTerm" vtype="textfield" label="经营期限（年）" labelwidth="150" labelalign="right" width="500"></div>
+				</div>
+				
+			</div>
+			<div class="full-line"></div>
+			<!-- 复制wrap 结束-->
+
+			<!-- 复制wrap 开始 -->
+			<div class="wrap">
+				<!-- 数据展现 -->
+				<div vtype="formpanel" name="financeInfo_Form" dataview="true" titledisplay="false" title="财务负责人" width="1381px" showborder="false" dataurl="" layout="table" layoutconfig="{cols:2, columnwidth: ['50%','50%']}" labelstyleclass="labelstyle">
+
+					<div name="name" vtype="textfield" label="财务负责人" labelwidth="200" labelalign="right" width="500"></div>
+					<div name="cerNo" vtype="textfield" label="证件号码" labelwidth="142" labelalign="right" width="500"></div>
+					<div name="cerType" vtype="textfield" label="证件类型" labelwidth="200" labelalign="right" width="500"></div>
+					<!-- <div name="cerValFrom" vtype="datefield" label="证件起始日期" labelwidth="142" labelalign="right" width="500"></div>
+					<div name="cerValTo" vtype="datefield" label="证件截止日期" labelwidth="142" labelalign="right" width="500"></div> -->
+					<div name="mobile" vtype="textfield" label="联系电话" labelwidth="142" labelalign="right" width="500"></div>
+
+				</div>﻿
+			</div>
+			<div class="full-line"></div>
+			<!-- 复制wrap 结束 -->
+
+
+			<!-- 复制wrap 开始 -->
+			<div class="wrap wrap-top">
+				<!-- 数据展现 -->
+				<div vtype="formpanel" name="entcontactInfo_Form" dataview="true" titledisplay="false" title="企业联系人" width="1381px" showborder="false" dataurl="" layout="table" layoutconfig="{cols:2, columnwidth: ['50%','50%']}" labelstyleclass="labelstyle">
+
+					<div name="name" vtype="textfield" label="企业联系人" labelwidth="200" labelalign="right" width="500"></div>
+					<div name="cerNo" vtype="textfield" label="证件号码" labelwidth="142" labelalign="right" width="500"></div>
+					<div name="cerType" vtype="textfield" label="证件类型" labelwidth="200" labelalign="right" width="500"></div>
+					<!-- <div name="cerValFrom" vtype="datefield" label="证件起始日期" labelwidth="142" labelalign="right" width="500"></div>
+					<div name="cerValTo" vtype="datefield" label="证件截止日期" labelwidth="142" labelalign="right" width="500"></div> -->
+					<div name="mobile" vtype="textfield" label="联系电话" labelwidth="142" labelalign="right" width="500"></div>
+					<div name="email" vtype="textfield" label="电子邮件" labelwidth="200" labelalign="right" width="500"></div>
+					<div name="tel" vtype="textfield" label="固定电话" labelwidth="142" labelalign="right" width="500"></div>
+				</div>
+				<!-- <button name="btnEdit_entcontactInfo_Form" class="btnEdit">修改</button>
+					<button name="btnSave_entcontactInfo_Form" class="btnEdit btnSave">保存</button>
+					<button name="btnCancel_entcontactInfo_Form" class="btnEdit btnCancel">取消</button> -->
+				
+			</div>
+			<div class="full-line"></div>
+			<!-- 复制wrap 结束 -->
+
+			<!-- 查询条件 -->
+			<!-- 数据展现 -->
+			<!-- 自然人股东人数过少去掉下方的分页问题，这样子更加美观 -->
+			<div vtype="gridpanel" name="shareholder_Grid" wid="shareholder" class="mt20" datarender=""
+			 titledisplay="true" selecttype="1" title="自然人股东" width="1381px" showborder="false" dataurl="">
+				<div vtype="gridcolumn" name="grid_column" width="1381px">
+					<div>
+						<div name="inv" text="股东名称" textalign="center" width="25%" dataurl=""></div>
+<!-- 						<div name="dom" text="地址" textalign="center" width="25%" dataurl=""></div> -->
+						<div name="cerType" text="证件类型" textalign="center" width="25%" dataurl="../../../dictionary/queryData.do?dicId=CB16"></div>
+						<div name="cerNo" text="证件号码" textalign="center" width="25%" dataurl=""></div>
+						<div name="subConAm" text="出资额(万元)" textalign="center" width="25%" dataurl=""></div>
+					</div>
+				</div>
+				<div vtype="gridtable" name="grid_table" width="1381px"></div>
+				<div vtype="paginator" name="grid_paginator" id="shareholder_Grid_paginator" theme="2" pagerows="20" width="1381px"></div>
+	
+			</div>
+
+
+			<!-- 查询条件 -->
+			<!-- <div name="noShareholder_Form" wid="noShareholder" -->
+			<!-- 	vtype="formpanel" width="100%" layout="table" -->
+			<!-- 	layoutconfig="{cols:2, columnwidth: ['50%','50%']}"  -->
+			<!-- 	labelstyleclass="labelstyle" title="非自然人股东"  -->
+			<!-- 	titledisplay="true" showborder="false"> -->
+			<!-- </div> -->
+			<!-- 数据展现 -->
+			<div vtype="gridpanel" name="noShareholder_Grid" wid="noShareholder" class="mt20" selecttype="1" datarender="" titledisplay="true" title="非自然人股东" width="1381px" showborder="false" dataurl="">
+				<div vtype="gridcolumn" name="grid_column" width="1381px">
+					<div>
+						<div name="inv" text="股东名称" textalign="center" width="25%" dataurl=""></div>
+<!-- 						<div name="dom" text="地址" textalign="center" width="25%" dataurl=""></div> -->
+						<div name="bLicType" text="证照类型" textalign="center" width="25%" dataurl="../../../dictionary/queryData.do?dicId=CA50"></div>
+						<div name="bLicNo" text="证照号码" textalign="center" width="25%" dataurl=""></div>
+						<div name="subConAm" text="出资额(万元)" textalign="center" width="25%" dataurl=""></div>
+					</div>
+				</div>
+				 <div vtype="gridtable" name="grid_table" width="1381px"></div>
+				<div vtype="paginator" name="grid_paginator" id="noShareholder_Grid_paginator" theme="2" pagerows="20" width="1381px"></div> 
+			</div>
+
+			<div vtype="gridpanel" name="mainPerson_Grid" wid="mainPerson" class="mt20"
+			 datarender="" titledisplay="true" title="主要人员"  width="1381px" showborder="false" dataurl="" selecttype="1">
+				<div vtype="gridcolumn" name="grid_column" width="1381px">
+					<div>
+						<div name="name" text="姓名" textalign="center"  dataurl=""></div>
+						<!-- <div name="sex" text="性别" textalign="center" width="6%" dataurl="../../../dictionary/queryData.do?dicId=CB17"></div> -->
+						<div name="position" text="职务" textalign="center"  dataurl="../../../dictionary/queryData.do?dicId=CB18"></div>
+						<!-- width="18%" -->
+						<!-- <div name="houseAddCity" text="居住地" textalign="center"  dataurl="../../../dictionary/queryData.do?dicId=CA01"></div> -->
+						<div name="cerType" text="证件类型"  textalign="center" width="18%" dataurl="../../../dictionary/queryData.do?dicId=CB16"></div>
+						<div name="cerNo" text="证件号码"  textalign="center"  dataurl=""></div>
+						<!-- <div name="offYears" text="职务期限"  textalign="left" width="5%" dataurl=""></div> -->
+						<!-- <div name="natDate" text="出生年月" textalign="left" width="8%" dataurl=""></div> -->
+						<!-- <div name="mobTel" text="联系电话" textalign="center" width="10%" dataurl=""></div> -->
+						<div name="leRepSign" text="法定代表人标识"    textalign="center" dataurl=""></div>
+						<!-- <div name="houseAddProv" hidden="true"  textalign="left" width="10%" dataurl="../../../dictionary/queryData.do?dicId=CA01"></div> -->
+					</div>
+				</div>
+				<div vtype="gridtable" name="grid_table" width="1381px"></div>
+				<div vtype="paginator" name="grid_paginator" id="mainPerson_Grid_paginator" theme="2" pagerows="20" width="1381px"></div> 
+			</div>
+			<!-- <div name="processAllInfoToolbar" vtype="toolbar" location="bottom" align="center"> -->
+				<!-- 	<div name="processAllInfo_query_button" vtype="button" text="确定"></div> -->
+				<!-- 	<div name="processAllInfo_reset_button" vtype="button" text="重置"></div> -->
+			<!-- </div> -->
+
+
+
+			<div id="uploadFiles"  class="mt20"></div>
+
+			<!-- 审查意见 start-->
+			 <div id="censor-notice" style="position: fixed; top:50px; right:0px;">
+				<div class="censor" id="censor">
+					审</br>查</br>意</br>见
+				</div>
+				<iframe id="frameExampleApprovecontent" src="" width="700px" height="460px" scrolling="no" frameborder="0"></iframe>
+			</div>
+			<!-- 审查意见 end-->
+
+		</div>
+		<!-- wrapContainer ended -->
+		<!-- 构建页面==结束 -->
+	</div>
+
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" data-main="torch/processAllInfoTorch.js" src="../../../static/lib/require.js"></script>
+</body>
+</html>

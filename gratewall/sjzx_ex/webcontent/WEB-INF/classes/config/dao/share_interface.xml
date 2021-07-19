@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="share_interface" class-name="com.gwssi.share.interfaces.dao.ShareInterface" check-flag="false" backup-flag="false">
+    <description>共享服务-基础接口表</description>
+  </table-info>
+
+  <column name="interface_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID"  description="接口ID"/>
+  <column name="interface_name" data-type="varchar" length="100" not-null="false" value-from="input" description="接口名称"/>
+  <column name="table_id" data-type="varchar" length="2000" not-null="false" value-from="input" description="表代码串"/>
+  <column name="table_name_cn" data-type="varchar" length="2000" not-null="false" value-from="input" description="表中文名串"/>
+  <column name="sql" data-type="varchar" length="4000" not-null="false" value-from="input" description="sql语句"/>
+  <column name="interface_description" data-type="varchar" length="2000" not-null="false" value-from="input" description="接口描述"/>
+  <column name="interface_state" data-type="varchar" length="20" not-null="false" value-from="input" description="接口状态"/>
+  <column name="is_markup" data-type="varchar" length="1" not-null="false" value-from="input" description="代码表"/>
+  <column name="creator_id" data-type="varchar" length="32" not-null="false" value-from="input" description="创建人ID"/>
+  <column name="created_time" data-type="timestamp" length="11" fraction-length="6" not-null="false" value-from="input" description="创建时间"/>
+  <column name="last_modify_id" data-type="varchar" length="32" not-null="false" value-from="input" description="最后修改人ID"/>
+  <column name="last_modify_time" data-type="timestamp" length="11" fraction-length="6" not-null="false" value-from="input" description="最后修改时间"/>
+  <primary-key name="pk_share_interface" column-list="interface_id"/>
+  <index name="pk_share_interface" index-type="unique" cluster="cluster" column-list="interface_id"/>
+  <function func-name="insert one share_interface" func-type="insert" column-list="interface_id,interface_name,table_id,table_name_cn,sql,interface_description,interface_state,is_markup,creator_id,created_time,last_modify_id,last_modify_time">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="update one share_interface" func-type="update" column-list="interface_name,table_id,table_name_cn,sql,interface_description,interface_state,is_markup,creator_id,created_time,last_modify_id,last_modify_time">
+    <filter-column column-name="interface_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="delete one share_interface" func-type="delete">
+    <filter-column column-name="interface_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="select one share_interface" func-type="select" column-list="interface_id,interface_name,table_id,table_name_cn,sql,interface_description,interface_state,is_markup,creator_id,created_time,last_modify_id,last_modify_time" sort-columns="created_time">
+    <filter-column column-name="interface_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select share_interface list" func-type="rowset" column-list="interface_id,interface_name,table_id,table_name_cn,sql,interface_description,interface_state,is_markup,creator_id,created_time,last_modify_id,last_modify_time" sort-columns="created_time" max-record="10">
+    <filter-column column-name="interface_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="interface_state" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+</table>
+

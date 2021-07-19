@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.metadata.service.MetaDataDefServiceProvider">
+	<method name="saveView">		
+		<parameter name="ObjectId" desc="视图ID" type="int" required="true"/>		
+
+		<parameter name="MainTableId" desc="主表ID" type="int" required="false"/>
+
+		<parameter name="OtherTableIds" desc="附表ID序列"
+			 type="string" required="false"/>		
+
+		<parameter name="ViewDesc" desc="视图中文名称"
+			 type="string" required="false"/>		
+		
+		<parameter name="TableName" desc="视图相关的物理表名"
+			 type="string" required="false"/>		
+			 
+	</method>
+
+	<method name="findViewById">		
+		<parameter name="ObjectId" desc="视图ID序列" type="string" required="true"/>
+	</method>
+	<method name="jFindById" truename="findViewById"  convertor="uri:/app/metaview/metaview_findbyid.jsp"/>
+
+	<method name="queryViews">
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="queryViewName" desc="元数据名称" type="string" required="false"
+			search="true" search-operator="like" search-field="ViewName"/>			
+		<parameter name="queryViewDesc" desc="元数据描述" type="string" required="false"
+			search="true" search-operator="like" search-field="ViewDesc"/>			
+		<parameter name="queryViewId" desc="元数据ID" type="int" required="false"
+			search="true" search-operator="=" search-field="ViewInfoId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>				
+		<!-- 检索相关配置 END -->
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="ViewInfoId asc" required="false"/>	
+	</method>
+	<method name="jThumbQuery" truename="queryViews"  convertor="uri:/app/metaview/metaview_thumb_query.jsp"/>
+	<method name="jQuery" truename="queryViews"  convertor="uri:/app/metaview/viewinfo_select_query.jsp"/>
+	<method name="deleteView">
+		<parameter name="ObjectIds" desc="待删除视图ID序列" type="string" required="true"/>
+	</method>
+
+	<method name="setViewFields" desc="维护视图选择的字段：目前仅仅适合单表模式">		
+		<parameter name="ViewId" desc="视图ID" type="int" required="true"/>		
+
+		<parameter name="DBFieldIds" desc="选中的物理字段ID序列" type="string" required="true"/>
+	</method>
+
+	<method name="createViewRelation" desc="产生视图的应用">		
+		<parameter name="ViewIds" desc="视图ID序列" type="string" required="false"/>
+	</method>
+
+    <method name="setViewEmployerByChannel" desc="给指定栏目分配视图">		
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="true"/>		
+		<parameter name="ViewId" desc="视图ID" type="int" required="true"/>
+	</method>
+	<method name="exportViews" desc="导出视图">		
+		<parameter name="ViewIds" desc="ID序列" type="string" required="true"/>
+	</method>
+	<method name="importViewsFromXML" desc="导入视图">		
+		<parameter name="ImportFile" desc="要导入的文件" type="string" required="true"/>
+	</method>
+	<method name="queryViewsRelatingToCurrView" desc="获取指定视图被关联的其他视图的集合">		
+		<parameter name="MetaViewId" desc="被关联的视图ID" type="int" required="true"/>
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="queryViewName" desc="元数据名称" type="string" required="false"
+			search="true" search-operator="like" search-field="ViewName"/>			
+		<parameter name="queryViewDesc" desc="元数据描述" type="string" required="false"
+			search="true" search-operator="like" search-field="ViewDesc"/>			
+		<parameter name="queryViewId" desc="元数据ID" type="int" required="false"
+			search="true" search-operator="=" search-field="ViewInfoId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>				
+		<!-- 检索相关配置 END -->
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="ViewInfoId Desc" required="false"/>
+	</method>
+	<method name="queryRelatingViews" truename="queryViewsRelatingToCurrView"  convertor="uri:/app/metaview/viewinfo_select_query.jsp"/>
+	<method name="getChannelsUseingMetaView">		
+		<parameter name="ObjectId" desc="视图ID" type="int" required="true"/>
+	</method>
+	<!--在资源库的视图列表可以选择一个视图,然后分配给多个栏目,而不需要为每个栏目设置一次.-->
+	<method name="setChannelEmployersOfMetaView" desc="给指定栏目（多个）分配相同视图">
+		<parameter name="ObjectIds" desc="栏目ID序列" type="string" required="true"/>
+		<parameter name="ViewId" desc="视图ID" type="int" required="true"/>
+	</method>
+</service>

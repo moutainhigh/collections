@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+</head>
+<script>
+var win = null;
+function _btn1(){
+	win = top.jazz.widget({
+		vtype: 'window',
+		name: 'topWindow',
+    	title: '窗口_top',
+    	titlealign: 'center',
+    	titledisplay: true,
+        width: 300,
+        height: 260,
+        modal: true,        
+        visible: true,       
+        
+       /*  frameurl: "http://localhost:8080/JAZZ/demos/index/window/a2.html" */
+		buttons:[{
+        	text: '关闭按钮',
+        	align: 'center',
+        	click: function(e){
+        		//通过接口关闭窗口
+        		jazz.window.close(e);
+        	}
+        }]
+	});
+
+}
+
+$(function(){
+    //调整父页面iframe高度
+    try{
+        parent.setWinHeight(325);           
+    }catch(e){
+        jazz.log(e);
+    }
+});
+
+</script>
+<body>
+	<input id="btn1" type="button" value="打开实例" onclick="_btn1()" />
+</body>
+</html>

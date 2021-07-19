@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>csdb</sort-name>
+  <table-info name="dataobject" class-name="com.gwssi.sysmgr.priv.datapriv.dao.DataObject" check-flag="false" backup-flag="false">
+    <description>数据权限类型定义表</description>
+  </table-info>
+
+  <column name="objectid" data-type="long" length="19" not-null="true" value-from="sequence" value-set="flowid" description="数据权限类型代码"/>
+  <column name="objectsource" data-type="varchar" length="500" not-null="true" value-from="input" description="数据权限来源"/>
+  <primary-key name="p_扩展功能代码" column-list="objectid"/>
+  <index name="p_扩展功能代码" index-type="unique" cluster="other" column-list="objectid"/>
+  <function func-name="select one dataobject" func-type="select" column-list="objectid,objectsource">
+    <filter-column column-name="objectid" operator="eq" value-from="input" empty-flag="empty"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="list all dataobject" func-type="rowset" column-list="objectid,objectsource" max-record="-1">
+    <description>取所有记录</description>
+  </function>
+
+  <function func-name="select dataobject list" func-type="rowset" column-list="objectid,objectsource" max-record="10">
+    <filter-column column-name="objectsource" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one dataobject" func-type="insert" column-list="objectid,objectsource">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="update one dataobject" func-type="update" column-list="objectsource">
+    <filter-column column-name="objectid" operator="eq" value-from="input" empty-flag="empty"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="delete one dataobject" func-type="delete">
+    <filter-column column-name="objectid" operator="eq" value-from="input" empty-flag="empty"/>
+    <description>删除记录</description>
+  </function>
+</table>
+

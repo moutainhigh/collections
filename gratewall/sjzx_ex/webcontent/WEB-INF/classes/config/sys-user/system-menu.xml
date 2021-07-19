@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE gwssi-menu SYSTEM "gwssi-menu.dtd">
+<gwssi-menu>
+  <title>长城软件商业应用软件</title>
+  <menu-text>系统管理</menu-text>
+  <root-icon>menu_new_root.gif</root-icon>
+  <expend id="902700" class-name="cn.gwssi.console.errorcode.menu.ErrorCodeMenu" method-name="prepareErrorMenu"/>
+  <expend id="902100" class-name="cn.gwssi.console.menu.DaoMenu" method-name="prepareDaoMenu"/>
+  <expend id="902200" class-name="cn.gwssi.console.menu.TxnMenu" method-name="prepareTxnMenu"/>
+  
+  <menu id="9001FF" name="首页" path="/module" visible="true">
+    <menu id="900011" name="修改记录" path="/document" href="/what-is-new.html?stamp=20070430" visible="true"/>
+    <menu id="900012" name="版本下载" path="/console/cvs" href="/archive-download.jsp" visible="true"/>
+    <menu id="900013" name="密码修改" path="/console/sys-user/user" href="/chg-sys-user-password.jsp" visible="true"/>
+    <menu id="900014" name="本次操作日志" path="../script/logger" href="/logger-body.html" visible="true"/>
+    <menu id="981216" name="业务日志查询" path="/misc/bizlog" href="/listUserLogger.jsp" visible="true"/>
+    <menu id="981218" name="部署环境说明" path="/document" href="/setup.html" visible="true"/>
+    <menu id="SYSDOC" name="开发文档" path="/document" visible="true">
+    	<menu id="showFlow" name="烽火台流程说明" path="/runtime-flow-control" href="/index.html" visible="true"/>
+    	<menu id="tagReference" name="标签手册" href="/tag-reference.jsp" visible="true"/>
+    	<menu id="jscriptDoc" name="JavaScript函数" href="/javascript-function.htm" visible="true"/>
+    	<menu id="jscriptDom" name="JavaScript DOM" href="/javascript-object-reference.htm" visible="true"/>
+    	<menu id="layoutDoc" name="烽火台布局管理" href="/beacon-layout.htm" visible="true"/>
+    	<menu id="ajaxDoc" name="AJAX接口函数" href="/ajax-client.htm" visible="true"/>
+    	<menu id="jfDoc" name="JAVA编码规范" href="/java-code-format.htm" visible="true"/>
+    	<menu id="bizLogger" name="业务日志功能" href="/biz-logger.htm" visible="true"/>
+    	<menu id="authDoc" name="烽火台权限管理" href="/beacon-auth.htm" visible="true"/>
+    	<menu id="codeFactory" name="代码集使用手册" href="/code-factory.htm" visible="true"/>
+    	<menu id="bizParameter" name="业务参数使用" href="/biz-parameter.htm" visible="true"/>
+    	<menu id="bizSequence" name="业务编号使用" href="/biz-sequence.htm" visible="true"/>
+    	<menu id="systemTask" name="自动任务表" href="/system-task.htm" visible="true"/>
+    	<menu id="checkFlow" name="复核流程使用" href="/check-flow.htm" visible="true"/>
+    	<menu id="noticeDoc" name="通知使用手册" href="/notice.htm" visible="true"/>
+    	<menu id="javaMail" name="JavaMail使用手册" href="/javamail.htm" visible="true"/>
+    	<menu id="velocityDoc" name="Velocity使用手册" href="/velocity-guide.htm" visible="true"/>
+    	<menu id="902394" name="系统交易列表" href="/txn902394.do" visible="true"/>
+    </menu>
+    <menu id="jchart" name="图形报表演示" path="/jchart" visible="true">
+      <menu id="910101" name="曲线图表" path="/jchart-xy" href="/txn910101.do" txncode="910101" visible="true"/>
+      <menu id="910111" name="Pie饼图" path="/pie" href="/txn910111.do" txncode="910111" visible="true"/>
+      <menu id="910121" name="AREA图表" path="/area" href="/txn910121.do" txncode="910121" visible="true"/>
+      <menu id="910131" name="时间顺序图表" path="/times" href="/txn910131.do" txncode="910131" visible="true"/>
+      <menu id="910141" name="overlayXY图表" path="/overlay" href="/txn910141.do" txncode="910141" visible="true"/>
+    </menu>
+  </menu>
+  
+  <menu id="901000" name="系统配置" path="/module" visible="true">
+    <menu id="901001" name="应用程序列表" path="/console/application" txncode="901001" href="/txn901001.do" visible="false"/>
+    <menu id="902600" name="系统配置参数" path="/console/system-config" txncode="902602" href="/system-config.jsp" visible="true"/>
+    <menu id="901031" name="组件和插件管理" path="/console/module" txncode="901031" href="/txn901031.do" visible="true"/>
+    <menu id="901034" name="初始化系统表" path="/console/module" txncode="901034" href="/txn901034.do" visible="true"/>
+    <menu id="901032" name="初始化系统参数" path="/console/module" txncode="901032" href="/txn901032.do" visible="true"/>
+    <menu id="901033" name="页面配置参数" path="/console/client-config" href="/client-config.html" visible="true"/>
+    <menu id="902671" name="单点登入证书" path="/security/server-certificaty" txncode="902671" href="/txn902671.do" visible="true"/>
+    <menu id="902700" name="错误代码维护" path="/console/error-code" txncode="902701" href="/txn902701.do" visible="true"/>
+  
+    <menu id="903100" name="系统用户管理" path="/console/sys-user" visible="true">
+      <menu id="903101" name="系统功能维护" path="/func" href="/list-sys-function.jsp" txncode="903101" visible="true"/>
+      <menu id="903121" name="系统用户维护" path="/user" href="/list-sys-user.jsp" txncode="903121" visible="true"/>
+    </menu>
+  </menu>
+
+  <menu id="98FFFF" name="公共组件" path="/module" visible="true">
+    <menu id="980000" name="辅助管理" path="" visible="true">
+      <menu id="980001" name="代码对照表" path="/parameter/codelist" href="/txn980001.do" txncode="980001" visible="true"/>
+      <menu id="980100" name="业务参数维护" path="/parameter/bizpara" href="/txn980101.do" txncode="980101" visible="true"/>
+      <menu id="980120" name="业务编号维护" path="/parameter/bizsequence" href="/txn980121.do" txncode="980121" visible="true"/>
+      <menu id="980161" name="任务表维护" path="/misc/systemtask" href="/txn980161.do" txncode="980161" visible="true"/>
+      <menu id="981101" name="通知信息维护" path="/misc/notice" href="/query-notice.jsp" txncode="981101" visible="true"/>
+      <menu id="981111" name="未阅读通知" path="/misc/notice" href="/txn981111.do" txncode="981111" visible="true"/>
+      <menu id="981112" name="已阅读通知" path="/misc/notice" href="/txn981112.do" txncode="981112" visible="true"/>
+      <menu id="981210" name="业务日志查询" path="/misc/bizlog" href="/query-bizlog.jsp" txncode="981211" visible="true"/>
+    </menu>
+  
+    <menu id="981130" name="电子邮件管理" path="/misc" visible="true">
+      <menu id="981171" name="邮件分类信息" path="/email/sort" href="/txn981171.do" txncode="981171" visible="true"/>
+      <menu id="981131" name="发送的邮件" path="/email" href="/txn981131.do?select-key:sortname=发件箱" txncode="981131" visible="true"/>
+      <menu id="981132" name="已发送邮件" path="/email" href="/txn981131.do?freeze-next-page=sended&amp;select-key:sortname=已发送邮箱" txncode="981131" visible="true"/>
+      <menu id="981151" name="接收的邮件" path="/email" href="/txn981151.do?select-key:sortname=收件箱" txncode="981151" visible="true"/>
+      <menu id="981141" name="已经删除邮件" path="/email" href="/txn981141.do" txncode="981141" visible="true"/>
+    </menu>
+  
+    <menu id="980500" name="用户权限管理" path="/user" visible="true">
+      <menu id="980300" name="功能权限维护" path="../priv/funcinfo" href="/query-funcinfo.jsp" txncode="980301" visible="true"/>
+      <menu id="980320" name="业务角色维护" path="../priv/operrole" href="/query-operrole.jsp" txncode="980321" visible="true"/>
+      <menu id="980591" name="数据分区管理" path="/region" href="/catalog-data_region.jsp" txncode="980591" visible="true"/>
+      <menu id="980502" name="机构目录管理" path="/orgtable" href="/catalog-orgtable.jsp" txncode="980501" visible="true"/>
+      <menu id="980501" name="机构信息管理" path="/orgtable" href="/query-orgtable.jsp" txncode="980501" visible="true"/>
+      <menu id="980521" name="用户信息管理" path="/orgtable/usertable" href="/query-usertable.jsp" txncode="980521" visible="true"/>
+    </menu>
+    <menu id="980520" name="个人信息设置" path="/user/orgtable" visible="true">
+      <menu id="98052r" name="密码修改" path="/usertable" href="/passwd.jsp" visible="true"/>
+      <menu id="98052s" name="论坛密码修改" path="/usertable" href="/98052s.do" visible="true"/>
+      <menu id="98052t" name="邮箱密码修改" path="/usertable" href="/98052t.do" visible="true"/>
+      <menu id="98052u" name="页面布局设置" path="/usertable" href="/98052u.do" visible="true"/>
+      <menu id="98052v" name="用户转授权" path="/usertable" href="/98052v.do" visible="true"/>
+    </menu>
+
+    <menu id="980400" name="流程管理" path="/wf" visible="true">
+      <menu id="980401" name="复核流程配置" path="/check-flow" href="/list-check-flow.jsp" txncode="980401" visible="true"/>
+      <menu id="970201" name="所有任务列表" path="/todolist" href="/list-all-task.jsp" txncode="970201" visible="true"/>
+      <menu id="970202" name="已处理任务列表" path="/todolist" href="/list-done-task.jsp" txncode="970202" visible="true"/>
+      <menu id="970203" name="待处理任务列表" path="/todolist" href="/txn970203.do" txncode="970203" visible="true"/>
+    </menu>
+  </menu>
+  
+  <menu id="9028FF" name="系统设计和原型" path="/module/designer" visible="false">
+    <menu id="902820" name="数据项字典" path="/database" txncode="902811" href="/txn902811.do" visible="false"/>
+    <menu id="902830" name="数据库设计" path="/database" txncode="902821" href="/txn902821.do" visible="false"/>
+  </menu>
+
+  <menu id="902400" name="页面框架" path="/module/console/menu" txncode="902404" href="/txn902404.do" visible="true"/>
+  
+  <menu id="902100" name="DAO配置" path="/module/console/dao" txncode="902101" href="/txn902101.do" visible="true"/>
+  <menu id="902200" name="STRUTS配置" path="/module/console/struts" txncode="902201" href="/txn902201.do" visible="true"/>
+
+  <menu id="9910FF" name="协同管理" path="/module" visible="true">
+    <menu id="991FFF" name="文档管理" path="/console" visible="true">
+      <menu id="902800" name="设计文档维护" path="/document" href="/document.jsp" visible="true"/>
+      <menu id="991000" name="知识库维护" path="/km" txncode="991005" href="/txn991001.jsp" visible="true"/>
+      <menu id="992000" name="开发手册" path="/km" txncode="992001" href="/txn991002.jsp" visible="true"/>
+    </menu>
+  	
+    <menu id="9931FF" name="错误跟踪" path="/console" visible="true">
+      <menu id="993100" name="未处理的错误" path="/error-report" txncode="993101" href="$(DOMAIN)/txn993101.do" visible="true"/>
+      <menu id="993110" name="已处理的错误" path="/error-report" txncode="993111" href="$(DOMAIN)/txn993111.do" visible="true"/>
+    </menu>
+	
+    <menu id="TEST" name="测试程序" path="/test" visible="true">
+      <menu id="TEST01" name="httpClient的测试程序" path="/httpclient" txncode="TEST01" href="/test-httpclient.jsp" visible="true"/>
+      <menu id="TEST02" name="JasperReport报表" path="/jasperreport" txncode="jasperreport" href="/test-jasper-report.jsp" visible="true"/>
+      <menu id="TEST02" name="JasperReport报表" path="/jasperreport" txncode="jspreport" href="/test-jsp-report.jsp" visible="true"/>
+    </menu>
+  </menu>
+  
+  <menu id="901FFF" name="系统管理" path="/module" visible="true">
+    <menu id="PUBLIC1" name="服务器参数" path="/console/system" href="/app-server-variable.jsp" visible="true"/>
+    <menu id="LOGTRACE" name="交易监控" path="/console/monitor" txncode="901001" href="/log-main.html" target="log-monitor" visible="true"/>
+    <menu id="THREADS" name="线程监控" path="/console/trace" txncode="901001" href="/monitor.service?txn-code=list-thread" visible="true"/>
+    <menu id="CONNECTIONS" name="数据库连接" path="/console/trace" txncode="901001" href="/monitor.service?txn-code=list-connection" visible="true"/>
+    <menu id="INEFTASK" name="处理性能预警" path="/console/trace" txncode="901001" href="/monitor.service?txn-code=inefficient-task" visible="true"/>
+    <menu id="901011" name="生成证书" path="/security/certificaty" txncode="901011" href="/gen-cert.jsp" visible="true"/>
+    <menu id="901021" name="协议信息维护" path="/security/license" txncode="901021" href="/list-license.jsp" visible="true"/>
+    <menu id="901027" name="更新协议文件" path="/security/license" href="/upload-license.jsp" visible="true"/>
+  </menu>
+  
+  <menu id="902950" name="数据库管理" path="/module/console/database" txncode="902951" href="/txn902617.do" visible="true"/>
+  <menu id="901050" name="CVS管理" path="/module/console/cvs" txncode="901051" href="/txn901051.do" visible="true"/>
+</gwssi-menu>
+

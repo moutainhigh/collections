@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>yunpan</display-name>
+
+	<!-- 统计处理乱码问题的拦截器 -->
+	<filter>
+		<filter-name>characterEcodingFilter</filter-name>
+		<filter-class>com.yunpan.core.CharacterEncodingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>characterEcodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	
+ 	<filter> 
+ 		<filter-name>loginFilter</filter-name> 
+ 		<filter-class>com.yunpan.core.LoginFilter</filter-class> 
+ 	</filter> 
+	<filter-mapping> 
+ 		<filter-name>loginFilter</filter-name> 
+		<url-pattern>*.jsp</url-pattern> 
+	</filter-mapping> 
+	
+	
+	
+	<filter>
+		<filter-name>permissionFilter</filter-name>
+		<filter-class>com.yunpan.core.PermissionFilter</filter-class>
+		<init-param>
+			<param-name>filterUrls</param-name>
+			<param-value>logout.jsp</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>permissionFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+
+	<!-- 会话结束的时间，单位(分) -->
+	<session-config>
+		<session-timeout>40</session-timeout>
+	</session-config>
+
+	<!-- 控制jsp:include的编码 c:import include -->
+	<jsp-config>
+		<jsp-property-group>
+			<description>  统一处理页面包含乱码的问题</description>
+			<display-name>JSPConfiguration</display-name>
+			<url-pattern>*.html</url-pattern>
+			<el-ignored>true</el-ignored>
+			<page-encoding>UTF-8</page-encoding>
+			<scripting-invalid>false</scripting-invalid>
+			<include-prelude></include-prelude>
+			<include-coda></include-coda>
+		</jsp-property-group>
+	</jsp-config>
+	<!-- 欢迎页面 -->
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>

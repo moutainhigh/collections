@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>csdb</sort-name>
+  <table-info name="dataaccgroup" class-name="com.gwssi.sysmgr.priv.datapriv.dao.Dataaccgroup" check-flag="false" backup-flag="false">
+    <description>数据权限分组</description>
+  </table-info>
+
+  <column name="dataaccgrpid" data-type="long" length="19" not-null="true" value-from="sequence" value-set="flowid" description="数据权限分组ID"/>
+  <column name="dataaccgrpname" data-type="varchar" length="40" not-null="true" value-from="input" description="数据权限分组名称"/>
+  <column name="dataaccrule" data-type="char" length="1" not-null="true" value-from="input" description="角色权限认证规则"/>
+  <column name="dataacctype" data-type="char" length="1" not-null="true" value-from="input" description="数据权限分组类型"/>
+  <column name="dataaccgrpdesc" data-type="varchar" length="200" not-null="false" value-from="input" description="数据权限分组描述"/>
+  <primary-key name="sql070828124118260" column-list="dataaccgrpid"/>
+  <index name="sql070828124118000" index-type="unique" cluster="other" column-list="dataaccgrpid"/>
+  <function func-name="insert one dataaccgroup" func-type="insert" column-list="dataaccgrpname,dataaccrule,dataacctype,dataaccgrpdesc,dataaccgrpid">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="update one dataaccgroup" func-type="update" column-list="dataaccgrpname,dataaccrule,dataacctype,dataaccgrpdesc">
+    <filter-column column-name="dataaccgrpid" operator="eq" value-from="input" empty-flag="null"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="delete one dataaccgroup" func-type="delete">
+    <filter-column column-name="dataaccgrpid" operator="in" value-from="input" empty-flag="null"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="select dataaccgroup list" func-type="rowset" column-list="dataaccgrpid,dataaccgrpname,dataaccrule,dataacctype,dataaccgrpdesc" max-record="10">
+    <filter-column column-name="dataaccgrpname" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="dataaccgrpdesc" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="dataacctype" operator="eq" value-from="default" empty-flag="skip" default="1"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="select one dataaccgroup" func-type="select" column-list="dataaccgrpid,dataaccgrpname,dataaccrule,dataacctype,dataaccgrpdesc">
+    <filter-column column-name="dataaccgrpid" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+</table>
+

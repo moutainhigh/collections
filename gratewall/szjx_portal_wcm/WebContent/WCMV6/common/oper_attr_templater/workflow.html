@@ -1,0 +1,26 @@
+<textarea id="template_workflow" select="Flow">
+	<div class="attribute_row" style="margin-top: 3px;">
+		<TRS_UI:editPanel value="{#FLOWNAME}" class="attr_detail_value_doctitle" inputClass="attr_detail_value_doctitle" _fieldName="flowName" rightindex="42" validation="max_len:'50',type:'string',required:'',desc:'工作流名称'">
+		</TRS_UI:editPanel>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row wcm_desc_info_row">
+		<span title="工作流编号:{#FLOWID}&#13;创建者:{#CrUser}&#13;创建时间:{#CrTime} " style="white-space:nowrap;overflow:hidden;">
+			<span style="">用户</span><span class="desc_info_value">{#CrUser}</span><span>创建于</span><span class="desc_info_value">{#CrTime,,getPrettyTime}</span>
+		</span>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row" style="margin-bottom: 5px;">
+		<span class="attribute_name">描述:</span>
+		<span style="padding-left: 10px;" class="attribute_value"><TRS_UI:editPanel value="{#FLOWDESC}" class="attr_detail_value_long" inputClass="attr_detail_value_long" _fieldName="flowDesc" rightindex="42" validation="max_len:'200',type:'string',desc:'工作流描述'">
+		</TRS_UI:editPanel>
+		</span>
+	</div>	
+</textarea>
+
+<textarea id="template_workflows">
+<div class="attribute_row">
+	当前共选中<span class="objects_num">{#Num}</span>个工作流.
+</div>
+</textarea>
+

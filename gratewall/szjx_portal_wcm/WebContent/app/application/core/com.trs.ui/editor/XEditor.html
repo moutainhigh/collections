@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> editor demo </title>
+	<!-- 组件依赖的代码 BEGIN -->
+	<script language="javascript" src="../../core.js" type="text/javascript"></script>
+	<script language="javascript" src="../../com.trs.util/Observable.js" type="text/javascript"></script>
+	<script language="javascript" src="../BaseComponent.js" type="text/javascript"></script>
+	<!-- 组件依赖的代码 END -->
+
+	<script language="javascript" src="XEditor.js" type="text/javascript"></script>
+	<link href="resource/XEditor.css" rel="stylesheet" type="text/css" />	
+</head>
+
+<body>
+<script language="javascript">
+<!--
+	new com.trs.ui.XEditor({name : 'myEditor', value : wcm.LANG.XEditor_1001 || '编辑器的内容'}).render();
+//-->
+</script>
+<br />
+<button onclick="getValue();" WCMAnt:param="XEditor.html.getcontent">获取编辑器内容</button>
+<script language="javascript">
+<!--
+	function getValue(){	
+		var oEditor = com.trs.ui.ComponentMgr.get('myEditor');
+		alert(oEditor.getValue());		
+	}
+//-->
+</script>
+
+<hr />
+<textarea name="temp" id="temp" rows="6" cols="60" WCMAnt:param="XEditor.html.inputsetcontent">请在此输入编辑器需要设置的内容</textarea>
+<br />
+<button onclick="setContent();" WCMAnt:param="XEditor.html.setcontent" >设置编辑器内容</button>
+<script language="javascript">
+<!--
+	function setContent(){	
+		var oEditor = com.trs.ui.ComponentMgr.get('myEditor');
+		oEditor.setContent($('temp').value);
+	}
+//-->
+</script>
+
+<hr />
+<script language="javascript">
+<!--
+	new com.trs.ui.XEditor({disabled : true, name : 'myDisabledEditor', value : wcm.LANG.XEditor_1002 || 'disabled编辑器的内容'}).render();
+//-->
+</script>
+<button onclick="setDisabledContent();" WCMAnt:param="XEditor.html.setdisabled">设置Disabled编辑器内容</button>
+<script language="javascript">
+<!--
+	function setDisabledContent(){	
+		var oEditor = com.trs.ui.ComponentMgr.get('myDisabledEditor');
+		oEditor.setContent($('temp').value);
+	}
+//-->
+</script>
+
+</body>
+</html>

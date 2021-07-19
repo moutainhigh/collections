@@ -1,0 +1,25 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>
+	var idx=location.href.indexOf('?');
+	var href='';
+	var _sId;
+	if(idx!=-1)
+	{
+		href=location.href.substring(idx+1);
+	}
+	else
+	{
+		href=location.href;
+	}
+	var pairs=href.split('&');
+	for(var i=0;i<pairs.length;i++)
+	{
+		idx=pairs[i].indexOf('=');
+		var param=pairs[i].substring(0,idx);
+		if(param==parent.com.trs.editor.ImgUploader.params["fileKey"])
+		{
+			_sId=pairs[i].substring(idx+1);
+		}
+	}
+	parent.com.trs.editor.ImgUploader.report_upload_ok(_sId, '');
+</script>

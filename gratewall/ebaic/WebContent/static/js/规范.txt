@@ -1,0 +1,31 @@
+
+
+规范 X
+---------------------------------------
+0、apply、approve、torch 3个目录下放置js文件，需全部采用 define(['jquery', 'jazz'], function($, jazz){}); 模块化写法。
+
+ 发布时，将使用  r.js 等工具进行合并，每个目录合并为一个js文件。
+
+1、apply、approve、torch 下直接放置js文件，不许再创建自目录。
+
+2、apply、approve、torch 下js文件命名规则：
+
+1）采用驼峰命名。
+
+2）名称中包含模块名和对应的html文件名。
+
+3）命名以在当前目录下不重名为基本原则，可以去除名称中明显重复的部分。
+
+例1： html文件名为 apply/setup/basic_info.html，则js文件名为setupBasicInfo.js。
+
+例2： html文件名为 approve/censor/censor_assign_list.html，则js文件名为censorAssignList.js。 
+
+3、 torch生成的 js 放到  static/js/torch 目录下，生成后，原则上开发人员不许修改，再次生成时，会覆盖。
+
+4、范例：
+
+1） Jazz+Optimus+requirejs+torch 范例可参见：
+http://localhost:8080/ebaic/page/demo/ent_demo/demo.html
+
+2） Jazz+Optimus+requirejs 范例可参见：
+http://localhost:8080/ebaic/page/demo/ent_demo/ent_demo_list.html

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>股东信息维护</title>
+<meta charset="utf-8" />
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<script type="text/javascript" src="../../statics/js/public.js"></script>
+<style>
+#lists {
+	min-height: 10rem;
+}
+</style>
+</head>
+
+<body>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">股东信息维护</h3>
+		</div>
+		<div class="panel-body">
+			<ul class="list-group" id="lists"></ul>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<a class="btn btn-default" id="doSubmints" data-toggle="tooltip" data-placement="right">保存</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<script>
+	
+	
+		$(function() {
+			loadData();
+	
+			$(document).keydown(function(e) {
+				if (e.keyCode == 13) {
+					//$("#doSubmints").trigger("click");
+					doSave();
+				}
+			});
+	
+		});
+	
+		function loadData() {
+			$.ajax({
+				url : "../../services/gudongList.do?rand=" + Math.random(),
+				data : {},
+				dataType : "json",
+				beforeSend : function() {
+					$("#lists").empty();
+	
+				},
+				success : function(data) {
+					setURL(nowurl);
+					if (data.code == "0000") {
+						window.location.href = "login.html";
+					}
+					var datas = data.list;
+					if (datas != undefined) {
+						var _html = "";
+						for (var i = 0; i < datas.length; i++) {
+							_html += '<li class="list-group-item" >';
+							_html += '<div class="container-fluid">';
+							_html += '<div class="row clearfix">';
+							_html += '<div class="col-md-4 column">股东账号：【' + datas[i].account + '】</div>';
+							_html += '<div class="col-md-4 column">名称：【' + datas[i].name + '】</div>';
+							_html += '<div class="col-md-4 column">账户可用金额：【' + datas[i].keYongZiJing + '】</div>';
+							_html += '<div class="col-md-4 column">';
+							_html += '<form class="form-horizontal" role="form">';
+							_html += '<div class="form-group">';
+							_html += '<label for="code" class="col-sm-2 control-label">登录凭证</label>';
+							_html += '<div class="col-sm-10">';
+							_html += '<input type="text" class="form-control updatesGuDong" data-code="' + datas[i].account + '"  autofocus="autofocus" />';
+							_html += '</div>';
+							_html += '</div>';
+							_html += '</form>';
+							_html += '</div>';
+							_html += '</div>';
+							_html += '</div>';
+							_html += '</li>';
+						}
+						$("#lists").append(_html);
+					}
+				}
+			});
+	
+		}
+	
+	
+	
+		function doSave() {
+			var gudongList = [];
+			var token = [];
+			$(".updatesGuDong").each(function() {
+				var _this = $(this);
+				var account = _this.data("code");
+				var pwd = _this.val().trim();
+				$.ajax({
+					url : "../../services/updateGudongInfo.do?rand=" + Math.random(),
+					data : {
+						"account" : account,
+						"pwd" : pwd
+					},
+					dateType : "json",
+					type : "post",
+					success : function(data) {
+						console.log(data)
+					},
+					error : function(data) {}
+				});
+			});
+	
+	
+	
+		}
+	
+	
+		var timer = null;
+		$("#doSubmints").click(function() {
+			$(this).html("保存中...");
+			clearTimeout(timer);
+			timer = setTimeout(function() {
+				doSave();
+	
+			}, 300)
+		})
+	</script>
+</body>
+</html>

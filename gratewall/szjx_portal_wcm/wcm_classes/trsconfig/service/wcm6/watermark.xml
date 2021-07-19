@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.WatermarkServiceProvider">
+	<method name="query">
+		<parameter name="LibId" desc="图库Id" type="int" required="true"/>
+		<parameter name="OrderBy" desc="排序" type="string" required="false"/>
+	</method>
+	<method name="findById">
+		<parameter name="ObjectId" desc="水印对象Id" type="int" required="true"/>
+	</method>
+	<method name="save">
+		<parameter name="ObjectId" desc="水印对象Id" type="int" required="true"/>
+		<parameter name="LibId" desc="图库Id" type="int" required="false"/>
+		<parameter name="WMName" desc="水印名称" type="string" required="false"/>
+		<parameter name="WMPicture" desc="水印图片" type="string" required="false"/>
+		<parameter name="NotQuickEdit" desc="水印图片" type="string" required="false"/>
+	</method>
+	<method name="delete">
+		<parameter name="ObjectIds" desc="水印对象Id序列" type="string" required="true"/>
+		<parameter name="LibId" desc="图库Id" type="int" required="true"/>
+	</method>
+</service>

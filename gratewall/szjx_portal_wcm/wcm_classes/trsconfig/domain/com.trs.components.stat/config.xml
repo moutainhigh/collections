@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.1">
+	<!-- CacheMgrs Config For CacheServer BEGIN -->
+	<extension element-class="com.trs.infra.support.cache.CacheMgrConfig" 
+		id="CacheMgrs">
+		<cache-manager beanId="IChnlDeptMgr" name="栏目组织缓冲管理器"/>
+	</extension>
+	<!-- CacheMgrs Config For CacheServer END -->
+	
+	
+	<!--Config For ObjectLCMonitor BEGIN-->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		1：新增
+		2：修改
+		3：删除前
+		4、删除后
+		多个以逗号隔开
+	-->
+	<extension element-class="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		id="ObjectLCMonitor">		
+		<!--栏目组织-->
+		<monitor-host name="栏目组织" class-name="com.trs.components.stat.ChnlDept">
+			<listener bean-id="IChnlDeptMgr" event-type="1,2,3"/>
+		</monitor-host>
+	</extension>
+	<!--Config For ObjectLCMonitor END-->
+			
+</plugin>

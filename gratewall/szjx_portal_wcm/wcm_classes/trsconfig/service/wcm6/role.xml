@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.RoleServiceProvider">
+	<method name="saveRoles" desc="保存用户角色信息">
+		<parameter name="UserId" desc="获取用户的ID" type="string" required="true"/>
+		<parameter name="CurrRoleIds" desc="获取用户现有角色信息" type="string" required="false"/>
+		<parameter name="OrigRoleIds" desc="获取用户原有角色信息" type="string" required="false"/>
+	</method>		
+</service>

@@ -1,0 +1,136 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="widget.widget_import.html.importresource">导入资源</title>
+<script src="../../js/easyversion/lightbase.js"></script>
+<script src="../../js/easyversion/extrender.js"></script>
+<script src="../../js/easyversion/elementmore.js"></script>
+<script src="../js/adapter4Top.js"></script>
+
+
+
+<script>
+window.m_cbCfg = {
+	btns : [
+		{
+			text : '确定',
+			cmd : function(){
+				this.hide();
+				uploadFile();
+				return false;
+			}
+		},
+		{
+			extraCls : 'wcm-btn-close',
+			text : '取消'
+		}
+	]
+};	
+	function uploadFile(){
+		var winUpload = $("frmUploadFile").contentWindow;
+		var frm = winUpload.document.getElementById("frmPost");
+		var sFileName = winUpload.document.getElementById("fileUpload").value;
+		if(!winUpload.valid(sFileName)){
+			return false;
+		}
+		sFileName = sFileName.substring(sFileName.lastIndexOf("\\")+1);
+		document.getElementById("RealFileName").value = sFileName;
+
+		frm.submit();
+		return false;
+	}
+
+	function getRadioValue(_sRadioName){
+		var doms = document.getElementsByName(_sRadioName);
+		for (var i = 0; i < doms.length; i++){
+			if(doms[i].checked) {
+				return doms[i].value;
+			}
+		}
+		return null;
+	}
+	function addFile(_sFilePath){
+		if(_sFilePath==null){
+			doAlert("文件路径为空，上传失败！");
+			return false;
+		}
+		var oPostData = {
+			ImportMode: getRadioValue('widgetImportMode'),
+			ImportFile: _sFilePath
+		};
+		if(top.ProcessBar)
+			top.ProcessBar.start("导入资源！");
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+		var c_bWin = wcm.CrashBoarder.get(window);
+		c_bWin.hide();
+		oHelper.Call('wcm61_widget','importWidgets', oPostData, true, function(_oTrans, _json){
+			if(top.ProcessBar)
+				top.ProcessBar.close();
+			Ext.Msg.report(_json, '资源导入结果', function(){
+				c_bWin.notify(true);
+			});
+		});
+	}
+	function notifyOnUploadFileError(_sErrorMsg) {
+		doAlert(_sErrorMsg);
+	}
+	function doAlert(_sAlertion){
+		Ext.Msg.alert(_sAlertion);
+	}
+</script>
+<style type="text/css">
+	#divBox{
+		background: lightblue;
+		padding:1px;
+
+	}
+	#divContainer{
+		background: #ffffff;
+		padding:5px;
+	}
+	#divClue{
+		color:blue;
+		font-size:14px;
+	}
+	body{
+		background:white;
+	}
+	.operations_title{
+		font-size:12px;
+		height: 28px;
+		line-height: 28px;
+	}
+	.operations{
+		font-size:12px;
+		height: 25px;
+		line-height: 25px;
+		padding-left: 30px;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<div id="divBox">
+<div id="divContainer">
+	<div id="divFileUpload">
+		<IFRAME name="frmUploadFile" id="frmUploadFile" style="height:40; width:330" frameborder="0" vspace="0" src="../../file/file_upload.jsp?SelfControl=0&AllowExt=ZIP" scrolling="NO" noresize></IFRAME>
+		<INPUT TYPE="hidden" NAME="RealFileName" id="RealFileName">
+	</div>
+	<div id="divClue" WCMAnt:param="widget.widget_import.html.supportzipformatfile">
+		支持zip格式文件
+	</div>
+	<div class="operations_title" WCMAnt:param="widget.widget_import.html.ifresourcesamename">
+		如果资源重名
+	</div>
+	<div class="operations base_line">
+		<span><input type="radio" name="widgetImportMode" value="1" checked></span>
+		<span WCMAnt:param="widget.widget_import.html.autooverwrite">自动覆盖</span>
+		<span><input type="radio" name="widgetImportMode" value="3"></span>
+		<span WCMAnt:param="widget.widget_import.html.autorename">自动更名</span>
+		<span><input type="radio" name="widgetImportMode" value="2"></span>
+		<span WCMAnt:param="widget.widget_import.html.skip">跳过</span>
+	</div>
+</div>
+</div>
+</BODY>
+</HTML>

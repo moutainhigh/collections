@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+</head>
+<script>
+//调整父页面iframe高度
+try{
+    parent.setWinHeight(300);           
+}catch(e){
+    jazz.log(e);
+}
+</script> 
+<body> 
+描述信息: 数字
+<br><div name='n1' vtype="textfield" width="300" rule="number" msg="验证信息内容"></div>
+<br>
+描述信息: 精确位数    扩展number(m,n),意义同oracle数据库字段含义相同，m为总位数，n为精度。
+<br><div name='n2' vtype="textfield" width="300" rule="number(8,1)" msg="验证信息内容"></div>
+<br>
+描述信息: 整数  例如: -3,1,2
+<br><div name='n3' vtype="textfield" width="300" rule="numberInt" msg="验证信息内容"></div>
+<br>
+描述信息: 大于等于0的整数  例如: 0,1,2
+<br><div name='n4' vtype="textfield" width="300" rule="numberPlusInt" msg="验证信息内容"></div>
+<br>
+描述信息: 浮点型   例如: 11.10  02.13
+<br><div name='n5' vtype="textfield" width="300" rule="numberFloat" msg="验证信息内容"></div>
+</body>
+</html>

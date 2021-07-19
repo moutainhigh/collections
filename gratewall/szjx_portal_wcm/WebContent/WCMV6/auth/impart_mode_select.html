@@ -1,0 +1,113 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>选择文档来源</title>
+<script src="../js/com.trs.util/Common.js"></script>
+<script>
+	$import('com.trs.dialog.wcmbutton.WCMButton');
+</script>
+<script>
+function init(args){
+	// 将选择清零
+	if(!$("Mode0").checked){
+		$("Mode0").checked = true;
+		$("Mode0").disabled = false;
+	}
+	for(var i=1; i<5; i++){	
+		if($("Mode"+i).checked)
+			$("Mode"+i).checked = false;
+		$("Mode"+i).disabled = false;
+	}
+}
+
+function selectAllMode(_bChecked){
+	if(_bChecked){
+		for(var i=0; i<4; i++){	
+			$("Mode"+i).checked = false;
+			$("Mode"+i).disabled = true;
+		}
+	}else{
+		for(var i=0; i<4; i++){	
+			$("Mode"+i).disabled = false;
+		}
+	}
+}
+
+function selectNormalMode(_bChecked){
+	if(!_bChecked)
+		return;
+
+	$("Mode0").checked = false;
+}
+
+function selectNoneMode(_bChecked){
+	if(!_bChecked)
+		return;
+
+	for(var i=1; i<5; i++){	
+		$("Mode"+i).checked = false;		
+	}
+}
+
+function submitData(){
+	if (window.parent){		
+		var _args = {
+			ImpartMode : $$F("ImpartMode")
+		};
+
+		window.parent.notifyParent2CloseMe(document.FRAME_NAME);
+		window.parent.notifyParentOnFinished(document.FRAME_NAME, _args);
+	}
+}
+
+function closeframe(){
+	if (window.parent){
+		window.parent.notifyParent2CloseMe(document.FRAME_NAME);
+	}
+}
+//button init....
+Event.observe(window, 'load', function(){
+	new $WCMButton({
+		ButtonType	: $ButtonType.OK,
+		Action		: 'submitData()',
+		Container	: 'ButtonContainer'
+	}).loadButton();
+
+	new $WCMButton({
+		ButtonType	: $ButtonType.CANCEL,
+		Action		: 'closeframe()',
+		Container	: 'ButtonContainer'
+	}).loadButton();
+
+	
+});
+</script>
+<style>
+.sp_title{
+		font-size: 12px;
+		height: 25px;
+		line-height: 25px;
+		text-decoration: none;
+		width: 180px;
+		padding-left: 5px;
+	}
+</style>
+</head>
+<body style="padding:0px;margin:0px;">
+<div style="background:#ffffff; padding-top: 2px; font-size:9pt">
+<!--span class=""><li></li>请选择传递给子对象权限的方式:</span><br-->
+
+<OL>
+	<li><input type="checkbox" value="0" name="ImpartMode" id="Mode0" checked onclick="selectNoneMode(this.checked);"><label for="Mode0">不传递任何权限记录</label></li>
+	<li><input type="checkbox" value="1" name="ImpartMode" id="Mode1" onclick="selectNormalMode(this.checked);"><label for="Mode1">传递新增的权限记录</label></li>
+	<li><input type="checkbox" value="2" name="ImpartMode"  id="Mode2" onclick="selectNormalMode(this.checked);"><label for="Mode2">传递修改的权限记录</label></li>
+	<li><input type="checkbox" value="3" name="ImpartMode"  id="Mode3" onclick="selectNormalMode(this.checked);"><label for="Mode3">传递删除的权限记录</label></li>
+	<li><input type="checkbox" value="4" name="ImpartMode"  id="Mode4" onclick="selectAllMode(this.checked);"><label for="Mode4">将权限设置成完全一致</label></li>
+</OL>
+	<div style="font-size:12px; width: 100%; padding-top:5px; height: 50; margin-top: 0px; background:#DEDCDD; text-align: center">
+		<span id="ButtonContainer">
+		</span>
+	</div>
+</div>
+</body>
+</html>

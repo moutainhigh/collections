@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8">
+<title>北京工商网上登记申请平台全程电子化</title>
+<link href="../../../static/css/jquery-ui-1.9.2.custom.css"
+	rel="stylesheet" type="text/css" />
+<link href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css"
+	rel="stylesheet" type="text/css" />
+<link href="../../../static/css/common.css" rel="stylesheet"
+	type="text/css" />
+<style>
+.wrapper {
+	margin-top: -10px;
+}
+
+.content {
+	border: 0;
+	clear: both;
+	margin-top:0px;
+}
+
+.categoryPic {
+	float: left;
+	margin-left: 20px;
+	margin-top: 10px;
+	text-align: center;
+}
+.categoryPic span{
+	font-size:14px;
+	font-family: yahei;
+}
+.contentNew {
+	width: 883px;
+	/* height:100%; */
+	border: 1px solid #dae5eb;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-top: 15px;
+}
+
+.contentEnterprise {
+	width: 883px;
+	/* height:100%; */
+	border: 1px solid #dae5eb;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.content-top {
+	width: 100%;
+	height: 35px;
+	background-color: #f0f8fb;
+}
+
+.content-top span {
+	line-height: 35px;
+	color: #666;
+	text-align: center;
+	font-weight: bold;
+    padding-left: 6px;
+}
+
+
+/* .previes-investors tr:hover{
+	background: #DAE5EB;
+} */
+.previes-investors td {
+	padding-left: 20px;
+	vertical-align: middle;
+	font-size:14px;
+	font-family: yahei;
+	vertical-align: middle;
+	/* font-family:"songit"; */
+	padding-top:10px;
+	padding-bottom: 10px;
+}
+
+.previes-investors th {
+	/* text-align: left;
+	padding-left: 20px;
+	font-family:"songti";
+	font-size:14px;
+	font-weight:normal;
+	font-family: yahei; */
+	
+	text-align: left;
+	 padding-left: 20px; 
+	/* font-weight: bold; */
+	font-family:"songit";
+	font-weight: normal;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.previes-investors tr {
+	margin-top: 5px;
+	height:40px;
+}
+
+.previes-members td {
+	/* padding-left: 40px;
+	font-size:14px;
+	font-family: yahei; */
+	
+	padding-left: 40px;
+	font-family:'songti';
+	padding-top:10px;
+	padding-bottom: 10px;
+}
+
+.previes-members th {
+	/* text-align: left;
+	padding-left: 40px; */
+	/* font-weight: bold; */
+	/* font-family:"songti";
+	font-size:14px;
+	font-family: yahei;
+	font-weight:normal; */
+	
+	
+	text-align: left;
+	 padding-left: 40px; 
+	font-weight: bold; 
+	font-family:"songti";
+	/* font-weight: normal; */
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.previes-members tr {
+	margin-top: 5px;
+	height:40px;
+}
+#showPic{
+	/* width: 650px; */
+ 	height: 550px; 
+	/* margin-top:10px; */
+}
+#showPicDiv {
+	display: none;
+	z-index: 777;
+	position: fixed;
+	top: 10px;
+	left: 300px;
+	/* width: 670px; */
+	height: 550px;
+	border: solid 1px #000;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #fff;
+}
+
+
+</style>
+</head>
+<body>	﻿
+	<article class="wrapper">
+		<div class="main">
+			<div class="contentNew">
+				<div class="content-top">
+					<img src="../../../static/image/img/icon/MCXX.png"> <span>名称信息</span>
+				</div>
+				<div vtype="formpanel" name="applySetupPreviewName_Form"
+					dataview="false" titleDisplay="false" title="名称信息" width="100%"
+					showborder="false" titleDisplay="false" dataurl="" layout="table"
+					layoutconfig="{cols:2, columnwidth: ['50%','50%']}"
+					labelstyleclass="labelstyle">
+
+					<div name="entName" vtype="textfield" label="企业名称" labelwidth="100"
+						labelalign="right" width="400" readOnly="true"></div>
+					<div name="notNo" vtype="textfield" label="名称文号" labelwidth="100"
+						labelalign="right" width="400" readonly="true"></div>
+					<div name="transactAuth" vtype="textfield" label="审批机关"
+						labelwidth="100" labelalign="right" width="400" readonly="true"></div>
+					<div name="entType" vtype="textfield" label="企业类型" labelwidth="100"
+						labelalign="right" width="400" readonly="true"></div>
+					<div name="industryPhy" vtype="textfield" label="行业门类"
+						labelwidth="100" labelalign="right" width="400" readonly="true"></div>
+					<div name="industryCo" vtype="textfield" label="行业代码"
+						labelwidth="100" labelalign="right" width="400" readonly="true"></div>
+				</div>
+			</div>
+			﻿
+			<div class="contentEnterprise">
+				<div class="content-top">
+					<img src="../../../static/image/img/icon/JBXX.png"> <span>基本信息</span>
+				</div>
+				<div vtype="formpanel" name="applySetupPreviewEnt_Form"
+					dataview="true" titleDisplay="false" title="企业基本信息" width="100%"
+					showborder="false" dataurl="" layout="table"
+					layoutconfig="{cols:2, columnwidth: ['50%','50%']}"
+					labelstyleclass="labelstyle">
+					<div name="regCap" vtype="textfield" label="注册资本" 
+						labelwidth="140" labelalign="right" width="400"></div>
+					<div name="businessScope" vtype="textfield" label="经营范围"
+						labelwidth="140" labelalign="right" width="400"></div>
+					<div name="opLoc" vtype="textfield" label="住所（经营场所）"
+						labelwidth="140" labelalign="right" width="400"></div>
+					<div name="domOwner" vtype="textfield" label="住所（产权人）"
+						labelwidth="140" labelalign="right" width="400"></div>
+					<div name="tradeTerm" vtype="textfield" label="营业期限"
+						labelwidth="140" labelalign="right" width="400"></div>
+					<div name="domAcreage" vtype="textfield" label="营业面积"
+						labelwidth="140" labelalign="right" width="400"></div>
+				</div>
+			</div>
+
+			<div class="contentNew">
+				<div class="content-top">
+					<img src="../../../static/image/img/icon/GDXX.png"> <span>股东信息</span>
+				</div>
+				<div>
+					<table class="previes-investors">
+						<tr>
+							<th>股东类型</th>
+							<th colspan='2' width='30%'>股东名称</th>
+							<th>证照类型</th>
+							<th>证照号码</th>
+							<th nowrap>出资总额</th>
+							<th nowrap>出资次数</th>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="contentNew">
+				<div class="content-top">
+					<img src="../../../static/image/img/icon/ZYRRXX.png"> <span>主要人员信息</span>
+				</div>
+				<div>
+					<table class="previes-members">
+						<tr>
+							<th></th>
+							<th>姓名</th>
+							<th>职务</th>
+							<th>性别</th>
+							<th nowrap>证件类型</th>
+							<th nowrap>证件号码</th>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="contentNew">
+				<div class="content-top">
+					<img src="../../../static/image/img/icon/ZYRRXX.png"> <span>企业联系人</span>
+				</div>
+				<div vtype="formpanel" name="applySetupPreviewContact_Form"
+					dataview="true" titleDisplay="false" title="企业联系人" width="100%"
+					showborder="false" dataurl="" layout="table"
+					layoutconfig="{cols:2, columnwidth: ['50%','50%']}"
+					labelstyleclass="labelstyle">
+					<div name="name" vtype="textfield" label="姓名" labelwidth="200"
+						labelalign="right" width="500"></div>
+					<div name="mobile" vtype="textfield" label="移动电话" labelwidth="200"
+						labelalign="right" width="500"></div>
+					<div name="cerType" vtype="textfield" label="证件类型" labelwidth="200"
+						labelalign="right" width="500"></div>
+					<div name="cerNo" vtype="textfield" label="证件号码" labelwidth="200"
+						labelalign="right" width="500"></div>
+
+				</div>
+			</div>
+
+			<div class="contentNew">
+				<div class="content-top">
+					<img src="../../../static/image/img/icon/ZYRRXX.png"> <span>财务负责人</span>
+				</div>
+				<div vtype="formpanel" name="applySetupPreviewFinance_Form"
+					dataview="true" titleDisplay="false" title="财务联系人" width="100%"
+					showborder="false" dataurl="" layout="table"
+					layoutconfig="{cols:2, columnwidth: ['50%','50%']}"
+					labelstyleclass="labelstyle">
+					<div name="name" vtype="textfield" label="姓名" labelwidth="200"
+						labelalign="right" width="500"></div>
+					<div name="mobile" vtype="textfield" label="移动电话" labelwidth="200"
+						labelalign="right" width="500"></div>
+					<div name="cerType" vtype="textfield" label="证件类型" labelwidth="200"
+						labelalign="right" width="500"></div>
+					<div name="cerNo" vtype="textfield" label="证件号码" labelwidth="200"
+						labelalign="right" width="500"></div>
+
+				</div>
+			</div>
+
+			<div id="uploadFiles" class='contentNew'></div>
+			<div id="showPicDiv" style="">
+				<img src="" id="showPic" title="点击图片关闭" />
+			</div>
+
+
+			<div class="btn-box">
+				<div id="cancelButton" class="commonBt">返回</div>
+				<div id="backButton" class="commonBt">退回申请人</div>
+				<div id="submitButton" class="commonBt">确认提交</div>
+				
+			</div>
+
+		</div>
+	</article>
+
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" data-main="apply/leRefConfirm.js"
+		src="../../../static/lib/require.js"></script>
+
+</body>
+</html>
+
+
+<!-- 
+<ul>
+	<li><a href='basic_info.html'>企业基本信息</a></li>
+	<li><a href='inv.html'>股东</a></li>
+	<li><a href='mbr.html'>主要人员</a></li>
+	<li><a href='contact.html'>企业联系人</a></li>
+	<li><a href='upload.html'>关键页上传</a></li>
+	<li><a href='preview.html'>预览</a></li>
+</ul>
+
+<ul>
+	<li><a href='../person_account/home.html'>个人用户首页</a></li>
+	<li><a href='../ent_account/home.html'>企业用户首页</a></li>
+</ul>
+ -->

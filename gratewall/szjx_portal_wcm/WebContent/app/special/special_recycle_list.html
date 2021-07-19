@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> 专题列表页面 </title>
+	<link href="css/common.css" rel="stylesheet" type="text/css" />
+	<link href="css/list.css" rel="stylesheet" type="text/css" />
+	<link href="list.css" rel="stylesheet" type="text/css" />
+	<script src="../js/easyversion/lightbase.js"></script>
+	<script src="../js/easyversion/extrender.js"></script>
+	<script src="../js/easyversion/elementmore.js"></script>
+	<script src="js/adapter4Top.js"></script>
+	<script src="js/PageContext.js"></script>
+	<script src="special_recycle_list.js"></script>
+	<style type="text/css">
+		.page-nav{
+			margin-right:10px;
+		}
+		.header{
+			background-image:none!important;
+		}
+		.footer{
+			background-image:none!important;
+		}
+		.thumb{
+			height:135px;
+			width:140px;
+			overflow:hidden;
+		}
+		.ext-gecko .thumb{
+			width:120px;
+		}
+		.ext-ie8 .thumb{
+			width:120px;
+		}
+		.thumb label{
+			height:18px;
+			line-height:18px;
+		}
+		.container .header .toolbar{
+			margin:20px 0 0 30px;
+		}
+		.container .header .toolbar li{
+			float:left;
+			width:68px;
+			height:23px;
+			list-style-type:none;
+			background: center center no-repeat;
+			cursor:pointer;
+		}
+		.container .header .toolbar .restore{
+			background-image: url('./images/list/restore.gif');
+		}
+		.container .header .toolbar .delete{
+			background-image: url('./images/widget/zy_bl_an2.gif');
+		}
+	</style>
+</head>
+
+<body>
+<div class="container">
+	<div class="header">
+		<div class="toolbar" id="toolbar">
+			<li id="restoreel" class="restore"  cmd="restore" title="还原选中的专题"></li>
+			<li id="deleteel" class="delete" cmd="delete" title="删除选中的专题"></li>
+		</div>
+		<div class="search" id="search"></div>
+	</div>
+	<div class="content" id="list-data"></div>
+	<div class="footer">
+		<div class="page-nav" id="list_navigator"></div>
+	</div>
+	<div id="objectNotFound" style="display:none;"><div class="no_object_found" style="float:left;">不好意思, 没有找到符合条件的对象!</div></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>未认领表字段表</menu-name>
+  <menu-path>/page/resource/res/rd/metadata/datastructure/unclaim/</menu-path>
+  <description>未认领表字段表</description>
+  <form-beans>
+    <form-bean name="SysRdUnclaimColumnRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="sys_rd_unclaim_table_id" type="string" size="32" description="物理表ID"/>
+      <form-property prefix="select-key" name="unclaim_tab_code" type="string" size="100"  description="未认领表名"/>
+      <form-property prefix="select-key" name="unclaim_column_code" type="string" size="100" description="字段代码"/>
+      <form-property prefix="select-key" name="unclaim_column_type" type="string" size="2" description="字段类型"/>
+      <form-property prefix="record" name="sys_rd_unclaim_column_id" type="string" size="32" cannull="false" description="表主键"/>
+      <form-property prefix="record" name="sys_rd_unclaim_table_id" type="string" size="32" cannull="true" description="物理表ID"/>
+      <form-property prefix="record" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="数据源ID"/>
+      <form-property prefix="record" name="unclaim_tab_code" type="string" size="100" cannull="true" description="未认领表名"/>
+      <form-property prefix="record" name="unclaim_column_code" type="string" size="100" cannull="true" description="字段代码"/>
+      <form-property prefix="record" name="unclaim_column_name" type="string" size="100" cannull="true" description="字段名称"/>
+      <form-property prefix="record" name="unclaim_column_type" type="string" size="2" cannull="true" description="字段类型"/>
+      <form-property prefix="record" name="unclaim_column_length" type="long" cannull="true" description="字段长度"/>
+      <form-property prefix="record" name="is_primary_key" type="string" size="1" cannull="true" description="是否主键"/>
+      <form-property prefix="record" name="is_index" type="string" size="1" cannull="true" description="是否索引"/>
+      <form-property prefix="record" name="is_null" type="string" size="1" cannull="true" description="是否允许为空"/>
+      <form-property prefix="record" name="default_value" type="string" size="1000" cannull="true" description="默认值"/>
+      <form-property prefix="record" name="remarks" type="string" size="2000" cannull="true" description="备注"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+    </form-bean>
+
+    <form-bean name="SysRdUnclaimColumnUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_rd_unclaim_column_id" type="string" size="32" cannull="false" description="表主键"/>
+      <form-property prefix="record" name="sys_rd_unclaim_column_id" type="string" size="32" cannull="false" description="表主键"/>
+      <form-property prefix="record" name="sys_rd_unclaim_table_id" type="string" size="32" cannull="true" description="物理表ID"/>
+      <form-property prefix="record" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="数据源ID"/>
+      <form-property prefix="record" name="unclaim_tab_code" type="string" size="100" cannull="true" description="未认领表名"/>
+      <form-property prefix="record" name="unclaim_column_code" type="string" size="100" cannull="true" description="字段代码"/>
+      <form-property prefix="record" name="unclaim_column_name" type="string" size="100" cannull="true" description="字段名称"/>
+      <form-property prefix="record" name="unclaim_column_type" type="string" size="2" cannull="true" description="字段类型"/>
+      <form-property prefix="record" name="unclaim_column_length" type="long" cannull="true" description="字段长度"/>
+      <form-property prefix="record" name="is_primary_key" type="string" size="1" cannull="true" description="是否主键"/>
+      <form-property prefix="record" name="is_index" type="string" size="1" cannull="true" description="是否索引"/>
+      <form-property prefix="record" name="is_null" type="string" size="1" cannull="true" description="是否允许为空"/>
+      <form-property prefix="record" name="default_value" type="string" size="1000" cannull="true" description="默认值"/>
+      <form-property prefix="record" name="remarks" type="string" size="2000" cannull="true" description="备注"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+    </form-bean>
+
+    <form-bean name="SysRdUnclaimColumnDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_rd_unclaim_column_id" type="string" size="32" cannull="false" description="表主键"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_rd_unclaim_column.jsp" name="SysRdUnclaimColumnRowsetForm" txn-code="80002401" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询未认领表字段列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimColumn" func-name="txn80002401" input-node="select-key" output-node="record" description="查询未认领表字段列表"/>
+      <forward error-code="success" path="query-sys_rd_unclaim_column.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_unclaim_column.jsp"/>
+    </action>
+
+    <action input="update-sys_rd_unclaim_column.jsp" name="SysRdUnclaimColumnUpdateForm" txn-code="80002402" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改未认领表字段信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimColumn" func-name="txn80002402" input-node="record" description="修改未认领表字段信息"/>
+      <forward error-code="success" path="update-sys_rd_unclaim_column.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_unclaim_column.jsp"/>
+    </action>
+
+    <action input="insert-sys_rd_unclaim_column.jsp" name="SysRdUnclaimColumnUpdateForm" txn-code="80002403" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加未认领表字段信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimColumn" func-name="txn80002403" input-node="record" description="增加未认领表字段信息"/>
+      <forward error-code="success" path="insert-sys_rd_unclaim_column.jsp"/>
+      <forward error-code="failure" path="insert-sys_rd_unclaim_column.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_unclaim_column.jsp" name="SysRdUnclaimColumnUpdateForm" txn-code="80002404" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询未认领表字段用于修改</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimColumn" func-name="txn80002404" input-node="primary-key" output-node="record" description="查询未认领表字段用于修改"/>
+      <forward error-code="success" path="update-sys_rd_unclaim_column.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_unclaim_column.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_unclaim_column.jsp" name="SysRdUnclaimColumnDeleteForm" txn-code="80002405" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除未认领表字段信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimColumn" func-name="txn80002405" input-node="primary-key" description="删除未认领表字段信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_rd_unclaim_column.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/metadata/datastructure/unclaim/query-sys_rd_unclaim_column.jsp" description="查询未认领表字段列表"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/metadata/datastructure/unclaim/insert-sys_rd_unclaim_column.jsp" description="增加未认领表字段信息"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/metadata/datastructure/unclaim/update-sys_rd_unclaim_column.jsp" description="修改未认领表字段信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.SysRdUnclaimColumnContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.VoSysRdUnclaimColumn" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.VoSysRdUnclaimColumnSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.VoSysRdUnclaimColumnPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

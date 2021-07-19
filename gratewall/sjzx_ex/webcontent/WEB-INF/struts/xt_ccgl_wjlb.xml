@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>文件类别</menu-name>
+  <menu-path>/page/file/manage/</menu-path>
+  <description>文件类别</description>
+  <form-beans>
+    <form-bean name="XtCcglWjlbRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="cclbmc" type="string" size="60" description="存储类别名称"/>
+      <form-property prefix="select-key" name="lbmcbb" type="string" size="10" description="类别名称版本"/>
+      <form-property prefix="select-key" name="zt" type="string" size="1" description="状态"/>
+      <form-property prefix="record" name="cclbbh_pk" type="string" size="32" cannull="false" description="文件类别编号"/>
+      <form-property prefix="record" name="cclbmc" type="string" size="60" cannull="false" description="处处类别名称"/>
+      <form-property prefix="record" name="lbmcbb" type="string" size="10" cannull="true" description="类别名称版本"/>
+      <form-property prefix="record" name="ccgml" type="string" size="255" cannull="true" description="存储根目录"/>
+      <form-property prefix="record" name="ejmlgz" type="string" size="1" cannull="false" description="二级目录规则"/>
+      <form-property prefix="record" name="gzfzzd" type="string" size="255" cannull="true" description="规则辅助字段"/>
+      <form-property prefix="record" name="zt" type="string" size="1" cannull="true" description="状态"/>
+      <form-property prefix="record" name="bz" type="string" size="255" cannull="true" description="备注"/>
+    </form-bean>
+
+    <form-bean name="XtCcglWjlbUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="cclbbh_pk" type="string" size="32" cannull="false" description="文件类别编号"/>
+      <form-property prefix="record" name="cclbbh_pk" type="string" size="32" cannull="false" description="文件类别编号"/>
+      <form-property prefix="record" name="cclbmc" type="string" size="60" cannull="false" description="处处类别名称"/>
+      <form-property prefix="record" name="lbmcbb" type="string" size="10" cannull="true" description="类别名称版本"/>
+      <form-property prefix="record" name="ccgml" type="string" size="255" cannull="true" description="存储根目录"/>
+      <form-property prefix="record" name="ejmlgz" type="string" size="1" cannull="false" description="二级目录规则"/>
+      <form-property prefix="record" name="gzfzzd" type="string" size="255" cannull="true" description="规则辅助字段"/>
+      <form-property prefix="record" name="zt" type="string" size="1" cannull="true" description="状态"/>
+      <form-property prefix="record" name="bz" type="string" size="255" cannull="true" description="备注"/>
+    </form-bean>
+
+    <form-bean name="XtCcglWjlbDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="cclbbh_pk" type="string" size="32" cannull="false" description="文件类别编号"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-xt_ccgl_wjlb.jsp" name="XtCcglWjlbRowsetForm" txn-code="604050101" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询文件类别列表</description>
+      <step index="10" bean-name="com.gwssi.file.manage.txn.TxnXtCcglWjlb" func-name="txn604050101" input-node="select-key" output-node="record" description="查询文件类别列表"/>
+      <forward error-code="success" path="query-xt_ccgl_wjlb.jsp"/>
+      <forward error-code="failure" path="query-xt_ccgl_wjlb.jsp"/>
+    </action>
+
+    <action input="update-xt_ccgl_wjlb.jsp" name="XtCcglWjlbUpdateForm" txn-code="604050102" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改文件类别信息</description>
+      <step index="10" bean-name="com.gwssi.file.manage.txn.TxnXtCcglWjlb" func-name="txn604050102" input-node="record" description="修改文件类别信息"/>
+      <forward error-code="success" path="update-xt_ccgl_wjlb.jsp"/>
+      <forward error-code="failure" path="update-xt_ccgl_wjlb.jsp"/>
+    </action>
+
+    <action input="insert-xt_ccgl_wjlb.jsp" name="XtCcglWjlbUpdateForm" txn-code="604050103" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加文件类别信息</description>
+      <step index="10" bean-name="com.gwssi.file.manage.txn.TxnXtCcglWjlb" func-name="txn604050103" input-node="record" description="增加文件类别信息"/>
+      <forward error-code="success" path="insert-xt_ccgl_wjlb.jsp"/>
+      <forward error-code="failure" path="insert-xt_ccgl_wjlb.jsp"/>
+    </action>
+
+    <action input="query-xt_ccgl_wjlb.jsp" name="XtCcglWjlbUpdateForm" txn-code="604050104" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询文件类别用于修改</description>
+      <step index="10" bean-name="com.gwssi.file.manage.txn.TxnXtCcglWjlb" func-name="txn604050104" input-node="primary-key" output-node="record" description="查询文件类别用于修改"/>
+      <forward error-code="success" path="update-xt_ccgl_wjlb.jsp"/>
+      <forward error-code="failure" path="update-xt_ccgl_wjlb.jsp"/>
+    </action>
+
+    <action input="query-xt_ccgl_wjlb.jsp" name="XtCcglWjlbDeleteForm" txn-code="604050105" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除文件类别信息</description>
+      <step index="10" bean-name="com.gwssi.file.manage.txn.TxnXtCcglWjlb" func-name="txn604050105" input-node="primary-key" description="删除文件类别信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-xt_ccgl_wjlb.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/file/manage/query-xt_ccgl_wjlb.jsp" description="查询文件类别列表"/>
+    <resource-file type="jsp" file-name="/page/file/manage/insert-xt_ccgl_wjlb.jsp" description="增加文件类别信息"/>
+    <resource-file type="jsp" file-name="/page/file/manage/update-xt_ccgl_wjlb.jsp" description="修改文件类别信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.file.manage.vo.XtCcglWjlbContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.file.manage.vo.VoXtCcglWjlb" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.file.manage.vo.VoXtCcglWjlbSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.file.manage.vo.VoXtCcglWjlbPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

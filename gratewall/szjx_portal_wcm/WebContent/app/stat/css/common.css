@@ -1,0 +1,186 @@
+
+#tab-nav{height:26px;padding-left:10px;}
+#tab-nav .tab{height:24px;}
+#tab-nav .tab-table .desc{background:url("../images/tab-table.gif") no-repeat left 3px;}
+#tab-nav .tab-barchart .desc{background:url("../images/tab-barchart.gif") no-repeat left 3px;}
+#tab-nav .tab-piechart .desc{background:url("../images/tab-piechart.gif") no-repeat left 3px;}
+#tab-nav .tab-trendchart .desc{background:url("../images/tab-trendchart.gif") no-repeat left 3px;}
+
+body{
+	padding:0;
+	margin:0;
+	font-size:12px;
+	background:#f5f6f5;
+	height:100%;
+	width:100%;
+}
+.container{
+	position:absolute;
+	height:100%;
+	width:100%;
+	background:#F5F5F5;
+}
+.search_bar{
+	background:white;
+}
+.content{
+	position:absolute;
+	height:auto;
+	overflow:auto;
+	padding-bottom:20px;
+	top:38px;
+	left:0px;
+	right:0px;
+	bottom:25px;
+	border:1px solid #868789;
+	border-top:none;
+	background:white;
+}
+.ext-ie6{
+	overflow:hidden;
+}
+.ext-ie6 .content{
+	position:relative;
+	border:none;
+	height:100%;
+	padding:0;
+}
+.ext-strict{
+	overflow:hidden;
+}
+.ext-ie6 .container{
+	overflow:hidden;
+	position:absolute;
+	height:100%;
+	top:0px;
+}
+.ext-ie6 .search_bar{
+	position:absolute;
+	top:1px;
+	left:1px;
+}
+.foot{
+	position:absolute;
+	height:26px;
+	bottom:0px;
+	width:100%;
+}
+
+.data-title{
+	position:absolute;
+	left:30px;
+	height:29px;
+	line-height:29px;
+	background:url("../images/datapage/data-title-l.gif") no-repeat;
+	padding-left:5px;
+}
+.data-title .r{
+	height:100%;
+	background:url("../images/datapage/data-title-r.gif") no-repeat right top;
+	padding-right:8px;
+}
+.data-title .c{
+	height:100%;
+	padding-right:5px;
+	padding-left:5px;
+	line-height:29px;
+	background:url("../images/datapage/data-title-c.gif") repeat-x;
+}
+.ext-ie6 .container .data-title div{display:inline;}
+.ext-ie6 .container .data-title .c{padding:8px;}
+.data{
+	margin:12px;
+	padding-top:20px;
+	border:1px solid #ced7e0;
+	overflow:auto;
+}
+
+.data table{
+	border:none;
+	width:100%;
+	border-collapse:collapse;
+}
+.table-title{
+	background-color:#ced7e0;
+	border-color:white;
+}
+.data table td{
+	height:23px;
+	color:#413c3a;
+	text-align:center;
+	border-left:1px solid #d1d1d1;
+	border-top:1px solid #d1d1d1;
+	border-right:none;
+}
+.data table th{
+	height:23px;
+	color:#033494;
+	background-color:#ced7e0;
+	border:1px solid white;
+	border-right:none;
+}
+.data table .first{
+	border-left:none;
+}
+.data table .even{
+	background-color:#f3efd4;
+}
+.data table .td a:hover{
+	color:#9b0006;
+}
+.data table .td a:visited{
+	color:#9b0006;
+}
+
+
+/*
+*  分页样式
+*/
+.list-navigator{
+	position:absolute;
+	bottom:20px;
+	right:10px;
+}
+.list-navigator td{
+	padding:0 20px;
+}
+
+.display-none{
+	display:none;
+}
+
+.no_object_found{
+	text-align:center!important;
+	font-size:14px;
+	color:gray;
+	height:100px !important;
+	line-height:100px;
+	font-style:italic;
+	margin-top:30px;
+}
+
+.display-none{
+	display:none;
+}
+
+/*
+* 返回按钮样式
+*/
+.return_btn {
+	cursor:pointer;
+	font-size:12px;
+	color:#032f91;
+	padding-left:25px;
+	padding-right:15px;
+	position:absolute;
+	right:35px;
+	top:4px;
+	height:26px;
+	line-height:26px;
+	background:url("../images/return.gif") no-repeat;
+}
+
+/*数据填充区高度*/
+.layout_center_container{
+	height:98%;
+}

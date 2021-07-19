@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>db.html</title>
+<meta charset="UTF-8">
+<meta name="keywords" content="keyword1,keyword2,keyword3">
+<meta name="description" content="this is my page">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no" />
+<link rel="stylesheet" type="text/css" href="../static/bt/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="panel panel-default">
+		<div class="panel-body">房屋信息<div style="text-align:right">X</div></div>
+		<div class="panel-footer">
+			<div class="col-md-6 column">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-3 control-label">房屋编码</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="inputEmail13">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-6 column">
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-3 control-label">房屋地址</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="inputEmail14">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div style="display: table;margin: 0 auto;">
+				<button type="button" class="btn btn-default btn-primary active" onclick="queryhouse(this)">查询</button>
+				<button type="button" style="margin-left: 5px;" class="btn btn-default" id="reset2">清空</button>
+			</div>
+			<div id="list21" class="wraper">
+				<!-- 表格开始 -->
+				<table class="table" id="list2">
+					<thead>
+						<tr>
+							<th>序号</th>
+							<th>房屋编码</th>
+							<th>房屋地址</th>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table>
+				<!-- 表格结束-->
+				<div>
+					<div style="float:left;margin-left:5rem">
+						<a href="javascript:showFeedBack();" class="btn btn-default btn-primary active">反馈救济</a>
+					</div>
+					<div style="float:right">
+						<ul id="example2">
+						</ul>
+					</div>
+					<div style="clear:both"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

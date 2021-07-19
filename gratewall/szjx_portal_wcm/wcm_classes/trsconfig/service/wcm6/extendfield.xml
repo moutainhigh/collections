@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.ExtendFieldServiceProvider">
+
+	<method name="save">		
+		<parameter name="HostType" desc="对象类型" type="int" required="true"/>
+		<parameter name="HostId" desc="对象ID" type="int" required="true"/>
+		<parameter name="ContainsChildren" desc="是否将当前操作传递给子对象" type="boolean" required="false"/>
+	</method>
+
+	<method name="delete">	
+		<parameter name="HostType" desc="对象类型" type="int" required="true"/>
+		<parameter name="HostId" desc="对象ID" type="int" required="true"/>
+		<parameter name="ContainsChildren" desc="是否将当前操作传递给子对象" type="boolean" required="false"/>
+		<parameter name="ObjectIds" desc="待删除的对象ID序列" type="string" required="false"/>		
+	</method>
+	
+	<method name="query">
+		<parameter name="HostType" desc="对象类型" type="int" required="true"/>
+		<parameter name="HostId" desc="对象ID" type="int" required="true"/>		
+		<parameter name="ContainsChildren" desc="是否包含子对象的扩展字段" type="boolean" required="false"/>
+		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="LOGICFIELDDESC" desc="扩展字段显示名称" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="DBFieldName" desc="扩展字段物理名称名称" type="string" required="false" search="true"
+			search-operator="like"  search-field="WCMExtField.FieldName"/>
+		<!-- 检索相关配置 END -->
+		
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="CONTENTEXTFIELDID Desc" required="false"/>		
+		
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false"/>
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>		
+	</method>
+	
+	
+	<method name="findByIds" >
+		<!--默认的参数，可以不写-->
+		<parameter name="ObjectIds" desc="ID序列" type="string" required="true"/>
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false"/>
+	</method>
+	
+	<method name="findById">
+		<!--默认的参数，可以不写-->
+		<parameter name="ObjectId" desc="扩展字段ID" type="int" required="true"/>
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false"/>
+	</method>	
+	
+	<!-- 获取系统可支持的数据类型 -->
+	<method name="getSupportedDataTypes" params-required="false"/>	
+	
+	
+	<method name="getOperators" desc="获取扩展字段的操作">		
+		<parameter name="HostType" desc="对象类型" type="int" required="true"/>
+		<parameter name="HostId" desc="对象ID" type="int" required="true"/>
+		<parameter name="OperatorType" desc="操作类型" type="string" required="true"/>
+	</method>
+	
+	<method name="impartExtendFields" desc="同步选定的扩展字段到子对象上">		
+		<parameter name="HostType" desc="对象类型" type="int" required="true"/>
+		<parameter name="HostId" desc="对象ID" type="int" required="true"/>
+		<parameter name="ObjectIds" desc="ID序列" type="string" required="true"/>
+	</method>
+	
+	<method name="inheritExtendFields" desc="继承父对象的扩展字段到自身">		
+		<parameter name="HostType" desc="对象类型" type="int" required="true"/>
+		<parameter name="HostId" desc="对象ID" type="int" required="true"/>
+	</method>
+		
+	<method name="queryExtendFields">
+		<parameter name="HostType" desc="对象类型" type="int" required="true"/>
+		<parameter name="HostId" desc="对象ID" type="int" required="true"/>		
+
+
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="TableName" desc="数据表名" type="string" required="false" default="WCMDOCUMENT" search="true"
+			search-operator="="/>		
+		<!-- 检索相关配置 END -->
+		
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="FieldName Desc" required="false"/>		
+		
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false"/>
+	</method>
+	
+	
+	<method name="existsSimilarName">
+		<parameter name="HostType" desc="对象类型" type="int" required="true"/>
+		<parameter name="HostId" desc="对象ID" type="int" required="true"/>		
+		<parameter name="ObjectId" desc="扩展字段ID" type="int" required="true"/>				
+		<parameter name="DBFieldName" desc="扩展字段物理名称名称" type="string" required="true"/>
+	</method>
+	
+</service>

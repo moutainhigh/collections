@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>查询条件定义</menu-name>
+  <menu-path>/page/resource/res/aic/gjcx/cxtjdy/</menu-path>
+  <description>查询条件定义</description>
+  <form-beans>
+    <form-bean name="SysAdvancedQueryForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_advanced_query_id" 	type="string" size="32"   cannull="false" description="高级查询编号"/>
+      <form-property prefix="select-key" name="sys_advanced_query_id" 	type="string" size="32"   cannull="false" description="高级查询编号"/>
+      <form-property prefix="select-key"  name="name" 				  	type="string" size="20" description="高级查询主题名称"/>
+      <form-property prefix="select-key"  name="create_by" 			  	type="string" size="32" description="创建人"/>
+      <form-property prefix="select-key"  name="sys_svr_user_id" 		type="string" size="32" description="创建人id"/>
+      <form-property prefix="select-key"  name="create_date_from" 		type="string" size="20" description="创建日期自"/>
+      <form-property prefix="select-key"  name="create_date_to"    type="string" size="20" description="创建日期至"/>
+      <form-property prefix="select-key"  name="jc_dm_id" 		   type="string" size="36" description="基础代码ID"/>
+      <form-property prefix="select-key"  name="downloadflag"      type="string" size="1"  description="是否可下载"/>
+      <form-property prefix="select-key"  name="downloadflag"      type="string" size="1"  description="是否可下载"/>
+      
+      <form-property prefix="select-key"  name="db_name"           type="string" size="50"  description="数据源名"/>
+     
+      
+      
+      
+      <form-property prefix="record"      name="sys_advanced_query_id" 	type="string" size="32"   cannull="false" description="高级查询编号"/>
+      <form-property prefix="record"      name="name" 					type="string" size="200"   cannull="false" description="高级查询主题名称"/>
+      <form-property prefix="record"      name="display_columns" 		type="binary" size="2147483647" cannull="true"  description="高级查询关联表编号"/>
+      <form-property prefix="record"      name="table_no" 				type="string" size="2000" cannull="true"  description="数据表连接条件"/>
+      <form-property prefix="record"      name="query_sql" 				type="binary" size="2147483647" cannull="true"  description="高级查询SQL"/>
+      <form-property prefix="record"      name="create_by" 				type="string" size="32"   cannull="false" description="创建人"/>
+      <form-property prefix="record"      name="sys_svr_user_id" 		type="string" size="32"   cannull="false" description="创建人id"/>
+      <form-property prefix="record"      name="create_date" 			type="string" size="20"   cannull="false" description="创建日期"/>
+      <form-property prefix="record"      name="last_exec_date" 		type="string" size="20"   cannull="true"  description="最后执行日期"/>
+      <form-property prefix="record"      name="exec_total" 			type="long" 			   cannull="false" description="执行次数"/>
+      <form-property prefix="record"      name="step1_param" 			type="string" size="2000" cannull="true"  description="步骤1参数"/>
+      <form-property prefix="record"      name="step2_param" 			type="string" size="2000" cannull="true"  description="步骤2参数"/>
+      <form-property prefix="record"      name="display_columns_cn_array" type="binary" size="2147483647" cannull="false"  description="所有显示字段的英文名"/>
+      <form-property prefix="record"      name="display_columns_en_array" type="binary" size="2147483647" cannull="false"  description="所有显示字段的中文名"/>
+      <!-- 下载条件限制 -->
+      <form-property prefix="record"      name="downloadflag"           type="string" size="1"    cannull="true"  description="是否可下载"/>
+      <form-property prefix="record"      name="queryflag"           type="string" size="1"    cannull="true"  description="是否可下载"/>
+      <form-property prefix="record"      name="transflag"           type="string" size="1"    cannull="true"  description="是否可下载"/>
+      <!-- 数据表信息 -->
+      <form-property prefix="record"     name="table_name"    type="string" size="60"  cannull="false" description="业务表名"/>
+      <form-property prefix="record"     name="table_name_cn" type="string" size="100" cannull="false" description="业务表中文名"/>
+      <form-property prefix="record"     name="table_order" type="string" size="100" cannull="false" description="表排序"/>
+      <!-- 数据表字段信息 -->
+      <form-property prefix="record"     name="column_no" 	   type="string" size="2000" cannull="true"  description="字段编码"/>
+      <form-property prefix="record"     name="column_name"    type="string" size="60"   cannull="false" description="业务字段名"/>
+      <form-property prefix="record"     name="column_name_cn" type="string" size="100"  cannull="false" description="业务字段中文名"/>
+      <form-property prefix="record"     name="column_byname" type="string" size="100"  cannull="false" description="业务字段别名"/>
+      <form-property prefix="record"     name="edit_type" 	   type="string" size="2"  cannull="true" description="字段类型"/>
+      <form-property prefix="record"     name="demo" 		   type="string" size="100"  cannull="true" description="字段代码"/>
+      
+      <!-- 修改高级查询用到的数据表信息 -->
+      <form-property prefix="table-info"     name="table_no" 	  type="string" size="2000" cannull="true"  description="数据表编号"/>
+      <form-property prefix="table-info"     name="table_name"    type="string" size="60"   cannull="false" description="业务表名"/>
+      <form-property prefix="table-info"     name="table_name_cn" type="string" size="100"  cannull="false" description="业务表中文名"/>
+      <form-property prefix="table-info"     name="sys_id" 	  	  type="string" size="2000" cannull="true"  description="主题编号"/>
+      <form-property prefix="table-info" 	 name="sys_no" 		  type="string" size="10" cannull="false" description="系统编码"/>
+      <form-property prefix="table-info" 	 name="sys_name"      type="string" size="100" cannull="false" description="系统名称"/>
+      
+      <!-- 修改高级查询用到的字段信息 -->
+      <form-property prefix="column-info"     name="column_no" 	    type="string" size="2000" cannull="true"  description="字段编码"/>
+      <form-property prefix="column-info"     name="column_name"    type="string" size="60"   cannull="false" description="业务字段名"/>
+      <form-property prefix="column-info"     name="column_name_cn" type="string" size="100"  cannull="false" description="业务字段中文名"/>
+      <form-property prefix="column-info"     name="column_byname"  type="string" size="100"  cannull="false" description="业务字段别名"/>
+      <form-property prefix="column-info"     name="table_no" 	    type="string" size="2000" cannull="true"  description="数据表编号"/>
+      <form-property prefix="column-info"     name="table_name" 	type="string" size="2000" cannull="true"  description="数据表名称"/>
+      <form-property prefix="column-info"     name="table_name_cn" type="string" size="100"  cannull="false" description="业务表中文名"/>
+      <form-property prefix="column-info"     name="edit_type" 	   type="string" size="2"  cannull="true" description="字段类型"/>
+      <form-property prefix="column-info"     name="demo" 		   type="string" size="100"  cannull="true" description="字段代码"/>
+  
+      
+      <!-- 系统主题信息 -->
+      <form-property prefix="record" name="sys_id" type="string" size="32" cannull="false" description="系统ID"/>
+      <form-property prefix="record" name="sys_no" type="string" size="10" cannull="false" description="系统编码"/>
+      <form-property prefix="record" name="sys_name" type="string" size="100" cannull="false" description="系统名称"/>
+      <form-property prefix="record" name="sys_order" type="string" size="100" cannull="false" description="主题排序"/>
+      <form-property prefix="record" name="expand" type="string" size="100" cannull="false" description="系统名称"/>
+      
+      <form-property prefix="step1-param"      name="step1_param" 			type="string" size="2000" cannull="true"  description="步骤1参数"/>
+      <form-property prefix="step2-param"      name="step2_param" 			type="string" size="2000" cannull="true"  description="步骤2参数"/>
+      
+      <form-property prefix="record" name="jcsjfx_dm" type="string" size="36" cannull="true" description="基础代码"/>
+      <form-property prefix="record" name="jcsjfx_mc" type="string" size="500" cannull="true" description="基础代码名称"/>
+      
+    </form-bean>
+
+    <form-bean name="SysAdvqueryStep1ParamForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_advquery_step1_param_id" type="string" size="32" cannull="false" description="高级查询步骤一参数编号"/>
+      <form-property prefix="select-key" name="sys_advanced_query_id" type="string" size="32" description="高级查询编号"/>
+      
+      <form-property prefix="record" name="sys_advquery_step1_param_id" type="string" size="32" cannull="false" description="高级查询步骤一参数编号"/>
+      <form-property prefix="record" name="sys_advanced_query_id" type="string" size="32" cannull="false" description="高级查询编号"/>
+      <form-property prefix="record" name="operator1" type="string" size="10" cannull="true" description="连接符1"/>
+      <form-property prefix="record" name="left_paren" type="string" size="5" cannull="true" description="左括号"/>
+      <form-property prefix="record" name="left_table_no" type="string" size="32" cannull="false" description="左表"/>
+      <form-property prefix="record" name="left_table_name" type="string" size="32" cannull="false" description="左表英文名"/>
+  	  <form-property prefix="record" name="left_table_name_cn" type="string" size="32" cannull="false" description="左表中文名"/>
+      <form-property prefix="record" name="left_column_no" type="string" size="32" cannull="false" description="左字段"/>
+      <form-property prefix="record" name="left_column_name" type="string" size="32" cannull="false" description="左字段英文名"/>
+  	  <form-property prefix="record" name="left_column_name_cn" type="string" size="32" cannull="false" description="左字段中文名"/>
+      <form-property prefix="record" name="operator2" type="string" size="5" cannull="false" description="连接符2"/>
+      <form-property prefix="record" name="right_table_no" type="string" size="32" cannull="false" description="右表"/>
+      <form-property prefix="record" name="right_table_name" type="string" size="32" cannull="false" description="右表英文名"/>
+  	  <form-property prefix="record" name="right_table_name_cn" type="string" size="32" cannull="false" description="右表中文名"/>
+      <form-property prefix="record" name="right_column_no" type="string" size="32" cannull="false" description="右字段"/>
+      <form-property prefix="record" name="right_column_name" type="string" size="32" cannull="false" description="右字段英文名"/>
+  	  <form-property prefix="record" name="right_column_name_cn" type="string" size="32" cannull="false" description="右字段中文名"/>
+      <form-property prefix="record" name="right_paren" type="string" size="5" cannull="true" description="右括号"/>
+      <form-property prefix="record" name="order_col" type="long" cannull="true" description="排序字段"/>
+      
+    </form-bean>
+	
+	<form-bean name="SysAdvqueryStep2ParamForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_advquery_step2_param_id" type="string" size="32" cannull="false" description="高级查询步骤二参数编号"/>
+      <form-property prefix="select-key" name="sys_advanced_query_id" type="string" size="32" description="高级查询编号"/>
+      
+      <form-property prefix="record" name="sys_advquery_step2_param_id" type="string" size="32" cannull="false" description="高级查询步骤二参数编号"/>
+      <form-property prefix="record" name="sys_advanced_query_id" type="string" size="32" cannull="false" description="高级查询编号"/>
+      <form-property prefix="record" name="operator1" type="string" size="10" cannull="true" description="连接符1"/>
+      <form-property prefix="record" name="left_paren" type="string" size="5" cannull="true" description="左括号"/>
+      <form-property prefix="record" name="left_table_no" type="string" size="32" cannull="false" description="左表"/>
+      <form-property prefix="record" name="left_table_name" type="string" size="32" cannull="false" description="左表英文名"/>
+  	  <form-property prefix="record" name="left_table_name_cn" type="string" size="32" cannull="false" description="左表中文名"/>
+      <form-property prefix="record" name="left_column_no" type="string" size="32" cannull="false" description="左字段"/>
+      <form-property prefix="record" name="left_column_name" type="string" size="32" cannull="false" description="左字段英文名"/>
+  	  <form-property prefix="record" name="left_column_name_cn" type="string" size="32" cannull="false" description="左字段中文名"/>
+      <form-property prefix="record" name="operator2" type="string" size="5" cannull="false" description="连接符2"/>
+      <form-property prefix="record" name="param_value" type="string" size="32" cannull="false" description="参数值"/>
+      <form-property prefix="record" name="right_paren" type="string" size="5" cannull="true" description="右括号"/>
+      <form-property prefix="record" name="param_order" type="long" cannull="false" description="排序字段"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+
+    <action input="insert-cxtjdy_steps.jsp" name="SysAdvancedQueryForm" txn-code="60210015" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>备份高级查询</description>
+      <step index="10" bean-name="com.gwssi.share.query.txn.TxnSysAdvancedQuery" func-name="txn60210015" input-node="select-key" output-node="record" description="备份高级查询"/>
+      <forward error-code="success" path="/txn60210001.do"/>
+      <forward error-code="failure" path="/txn60210001.do"/>
+    </action>
+
+	<!-- >>>>>>>>>>>>>>>>>>>>>>>>>>>步骤二参数配置<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< -->
+
+    <action input="query-sys_advquery_step2_param.jsp" name="SysAdvqueryStep2ParamForm" txn-code="6022305" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除自定义查询步骤二信息</description>
+      <step index="10" bean-name="com.gwssi.share.query.txn.TxnSysAdvqueryStep2Param" func-name="txn6022305" input-node="primary-key" description="删除自定义查询步骤二信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+
+    <action input="query-sys_advquery_step2_param.jsp" name="SysAdvqueryStep2ParamDeleteForm" txn-code="6022306" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除某自定义查询下所有的步骤二参数</description>
+      <step index="10" bean-name="com.gwssi.share.query.txn.TxnSysAdvqueryStep2Param" func-name="txn6022306" input-node="primary-key" description="删除某自定义查询下所有的步骤二参数"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_advanced_query.xml" description="模板文件"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.component.commonquery.vo.SysAdvancedQueryContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.component.commonquery.vo.VoSysAdvancedQuery" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.component.commonquery.vo.VoSysAdvancedQuerySelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.component.commonquery.vo.VoSysAdvancedQueryPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

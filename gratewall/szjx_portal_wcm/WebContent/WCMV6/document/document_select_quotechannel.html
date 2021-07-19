@@ -1,0 +1,101 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc">文档复制到...</title>
+<script src="../js/com.trs.util/Common.js"></script>
+<script>
+	$import('com.trs.wcm.FloatPanel');
+	$import('com.trs.wcm.MessageCenter');
+</script>
+<script>
+	var myActualTop = (top.actualTop||top);
+	FloatPanel.addCloseCommand();
+	FloatPanel.addCommand('okBtn', '确定', 'getSeletedIds', null);
+	var sSelectedChannelIds = getParameter("SelectedChannelIds");
+	var iFromChannelId = getParameter("FromChannelId");
+
+	function getSeletedIds(){
+		var modes = document.getElementsByName("mode");
+		var aChannelIds = null;
+		var aChannelNames = [];
+		var sTreeIframeId = 'allTreeNav';
+		if(modes[0].checked){
+			sTreeIframeId = 'customizeTreeNav';
+		}
+		else if(modes[1].checked){
+			sTreeIframeId = 'allTreeNav';
+		}
+		else{
+			$alert('没选中任何模式');
+			return false;
+		}
+		try{
+			aChannelIds = $(sTreeIframeId).contentWindow.getCheckValues();
+			aChannelNames = $(sTreeIframeId).contentWindow.getCheckNames();
+		}catch(err){
+			aChannelIds = null;
+		}
+		if(!aChannelIds||aChannelIds.length==0) {
+//			myActualTop.$alert('请选择要当前文档要移动到的目标栏目!');
+//			return false;
+		}
+		myActualTop.SetQuoteChannels(aChannelIds,aChannelNames);
+		return true;
+	}
+	function changeViewer(_i){
+		switch(parseInt(_i)){
+			case 1:
+				Element.show($('customize_channels'));
+				Element.hide($('all_channels_tree'));
+				break;
+			case 2:
+				Element.hide($('customize_channels'));
+				Element.show($('all_channels_tree'));
+				break;
+		}
+	}
+</SCRIPT>
+<style type="text/css">
+	.iframe_container{
+		width:280px;
+		height:300px;
+		padding:10px;
+	}
+	.font_red{
+		color:red;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<DIV style="line-height:36px; height:36px;text-align:center;font-size:14px;color:#010101;border-bottom:1px solid gray;">
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" value="1">个人定制的栏目
+	</SPAN>
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" checked value="2">所有可用的栏目
+	</SPAN>
+</DIV>
+<DIV id="all_channels_tree" class="iframe_container">
+	<DIV style="height:100%;">
+		<iframe id="allTreeNav" src="../include/blank.html" style="width:100%;height:100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<DIV id="customize_channels" class="iframe_container" style="display:none">
+	<DIV style="height:100%;">
+		<iframe id="customizeTreeNav" src="about:blank" style="width:100%;height:100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<script language="javascript">
+<!--
+	var sURL = "?IsRadio=0&MultiSites=1&ExcludeSelf=1&ExcludeOnlySearch=1&ShowOneType=1&SelectedChannelIds="+sSelectedChannelIds+"&RightIndex=31";
+
+	if(iFromChannelId != null && iFromChannelId.length>0 && iFromChannelId != "0"){
+		sURL += "&CurrChannelId="+iFromChannelId;
+	}
+	$('allTreeNav').src = "../nav_tree/nav_tree_select.jsp"+sURL;
+	$('customizeTreeNav').src = "../nav_tree/nav_tree_select_individual.jsp"+sURL;
+//-->
+</script>
+</BODY>
+</HTML>

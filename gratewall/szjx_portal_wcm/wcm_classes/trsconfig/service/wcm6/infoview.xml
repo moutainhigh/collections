@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.InfoviewService" desc="infoview数据处理相关方法">
+	<method name="checkSysInfos">		
+		<parameter name="channelid" desc="栏目ID" type="int" required="true"/>
+		<parameter name="infoviewid" desc="表单ID" type="int" required="true"/>
+	</method>
+	<method name="importInfoViewData">		
+		<parameter name="channelid" desc="栏目ID" type="int" required="true"/>
+		<parameter name="infoviewid" desc="表单ID" type="int" required="true"/>
+		<parameter name="postUser" desc="提交人的外网用户名" type="string" required="false"/>
+		<parameter name="attribute" desc="跟外网数据提交相关的一些信息" type="string" required="false"/>
+	</method>
+	<method name="importInfoViewDataForCustom">	
+		<parameter name="channelid" desc="栏目ID" type="int" required="true"/>
+		<parameter name="infoviewid" desc="表单ID" type="int" required="true"/>
+		<parameter name="postUser" desc="提交人的用户名" type="string" required="false"/>
+		<parameter name="ObjectXml" desc="表单文档正文的内容" type="string" required="true"/>
+	</method>
+	
+	<method name="modifyCachedInfoview" uri="/infogate/modify.jsp">		
+		<parameter name="channelid" desc="栏目ID" type="int" required="true"/>
+		<parameter name="infoviewid" desc="表单ID" type="int" required="true"/>
+		<parameter name="cachedinfoviewid" desc="网关的暂存表单ID" type="int" required="true"/>
+	</method>
+	<method name="queryFlowInfoviews">		
+		<parameter name="infoviewid" desc="表单ID" type="int" required="false"/>
+		<parameter name="SelectFields" desc="默认选取的字段列表" type="string" required="false" default="INFOVIEWID,INFOVIEWNAME,INFOVIEWDESC,CRUSER"/>		
+	</method>
+	<method name="querySearchFields">		
+		<parameter name="infoviewid" desc="表单ID" type="int" required="true"/>
+	</method>	
+	<method name="queryData2">
+		<parameter name="DocStatusMode" desc="检索所有/已发布/未发布的表单" type="int" required="false" search="true"
+			search-operator="=" search-field="DocStatus"/>
+		<parameter name="DocStatus2" desc="检索所有/已发布/未发布的表单" type="int" required="false"  search="true"
+			search-operator="&lt;&gt;" search-field="DocStatus"/>
+		<parameter name="CrUser" desc="创建者" type="string" required="false" search="true"
+			search-operator="=" search-field="CrUser"/>
+		<parameter name="PostUser" desc="发稿人" type="string" required="false" search="true"
+			search-operator="=" search-field="PostUser"/>
+		<parameter name="RANDOMSERIAL" desc="查询码" type="string" required="false" search="true"
+			search-operator="=" search-field="RANDOMSERIAL"/>			
+		<parameter name="DocumentSelectFields" desc="默认选取的字段列表" type="string" required="false"
+		 default="FLOWOPERATIONMARK,DOCID,DOCTITLE,CRTIME,CRUSER,DOCNO,RANDOMSERIAL,POSTUSER,DOCPUBTIME,DOCPUBURL,DOCCHANNEL"/>
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>	
+	</method>
+	<method name="queryData3">
+		<parameter name="DocStatusMode" desc="检索所有/已发布/未发布的表单" type="int" required="false" search="true"
+			search-operator="=" search-field="DocStatus"/>
+		<parameter name="DocStatus2" desc="检索所有/已发布/未发布的表单" type="int" required="false"  search="true"
+			search-operator="&lt;&gt;" search-field="DocStatus"/>
+		<parameter name="CrUser" desc="创建者" type="string" required="false" search="true"
+			search-operator="=" search-field="CrUser"/>
+		<parameter name="PostUser" desc="发稿人" type="string" required="false" search="true"
+			search-operator="=" search-field="PostUser"/>
+		<parameter name="RANDOMSERIAL" desc="查询码" type="string" required="false" search="true"
+			search-operator="=" search-field="RANDOMSERIAL"/>				
+		<parameter name="DocumentSelectFields" desc="默认选取的字段列表" type="string" required="false"
+		 default="FLOWOPERATIONMARK,DOCID,DOCTITLE,CRTIME,CRUSER,DOCNO,RANDOMSERIAL,POSTUSER,DOCPUBTIME,DOCPUBURL,DOCCHANNEL,DocStatus"/>
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>
+	</method>
+	<method name="queryData" truename="queryData3">
+		<parameter name="DocStatusMode" desc="检索所有/已发布/未发布的表单" type="int" required="false" search="true"
+			search-operator="=" search-field="DocStatus"/>
+		<parameter name="DocStatus2" desc="检索所有/已发布/未发布的表单" type="int" required="false"  search="true"
+			search-operator="&lt;&gt;" search-field="DocStatus"/>
+		<parameter name="CrUser" desc="创建者" type="string" required="false" search="true"
+			search-operator="=" search-field="CrUser"/>
+		<parameter name="PostUser" desc="发稿人" type="string" required="false" search="true"
+			search-operator="=" search-field="PostUser"/>
+		<parameter name="RANDOMSERIAL" desc="查询码" type="string" required="false" search="true"
+			search-operator="=" search-field="RANDOMSERIAL"/>				
+		<parameter name="DocumentSelectFields" desc="默认选取的字段列表" type="string" required="false"
+		 default="FLOWOPERATIONMARK,DOCID,DOCTITLE,CRTIME,CRUSER,DOCNO,RANDOMSERIAL,POSTUSER,DOCPUBTIME,DOCPUBURL,DOCCHANNEL,DocStatus"/>
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>
+	</method>
+	<method name="generaterContent">
+		<parameter name="DocumentId" desc="文档ID" type="int" required="true"/>
+		<parameter name="infoviewid" desc="表单ID" type="int" required="false"/>
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="TempNamePrefix" desc="模板名称前缀" type="string" required="false" default="detail"/>
+		<!--下面的参数只在传入ChannelId有效-->
+		<parameter name="UseDetailTemp" desc="是否使用细览模板" type="boolean" required="false"/>
+	</method>
+	<method name="queryChannelUsableInfoviews">
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="OrderBy" desc="默认排序字段" type="string"
+			default="InfoViewId desc" required="false"/>
+	</method>
+	<method name="setEmployedInfoView">
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="true"/>
+		<parameter name="infoviewid" desc="表单ID" type="int" required="true"/>
+	</method>
+	<method name="retriveChannelInfo">		
+		<parameter name="SiteId" desc="站点" type="int" required="true"/>
+		<parameter name="ChannelName" desc="栏目名称" type="string" required="true"/>
+		<parameter name="InfoviewId" desc="表单ID" type="int" required="true"/>
+	</method>
+	<method name="makeTemplatesToZip" desc="将表单的数据模板处理到zip中">
+	</method>
+	<method name="wcmmakeTemplatesToZip" truename="makeTemplatesToZip"  convertor="uri:/app/infoview/infoview_data_templates_zip_dowith.jsp"/>
+	<method name="getDocContent" desc="获取文档内容">
+		<parameter name="DocumentId" desc="文档ID" type="int" required="true"/>
+	</method>
+	<method name="getDocFile" desc="获取文档附件" convertor="uri:/app/infoview/infoview_data_file_dowith.jsp">
+		<parameter name="FileName" desc="文件名字" type="string" required="true"/>
+	</method>
+	<method name="deleteData" desc="删除表单文档">
+		<parameter name="DocumentIds" desc="文档id序列" type="string" required="true"/>
+	</method>
+	<method name="setVerifyParamValue" desc="设置外网提交是否需要输入表单验证码">
+		<parameter name="infoviewId" desc="表单id序列" type="int" required="true"/>
+		<parameter name="verifyParamValue" desc="是否需要验证码，1表示需要，0表示不需要" type="int" default="1" required="true"/>
+	</method>
+</service>

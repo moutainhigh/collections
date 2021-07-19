@@ -1,0 +1,21 @@
+server:
+  port: 7000
+
+spring:
+  application:
+    name: user-wb
+  cloud:
+    zookeeper:
+      connect-string: 139.196.127.34
+      discovery:
+        register: false
+  servlet:
+    multipart:
+      max-file-size: 40MB
+      max-request-size: 100MB
+feign:
+  hystrix:
+    enabled: false
+ribbon:
+  ReadTimeout: 1200000  #处理超时时间 默认5秒
+  ConnectTimeout: 1200000 #连接超时时间 默认2秒

@@ -1,0 +1,72 @@
+<%--
+/** 
+ *  Description:	查看指定Java Class的源位置和相关信息.
+ *	Author:			Liu Shen(Islands)
+ */
+--%>
+
+<%@ page contentType="text/html; charset=GBK"%>
+<%@ page import="java.security.CodeSource"%>
+<%@ page import="com.trs.infra.util.CMyString" %>
+<%
+	String className = request.getParameter("c");
+	String location = "";
+	Class clazz = null;
+	if (className != null && (className.trim().length() > 0)) {
+		try {
+			clazz = Class.forName(className);
+		} catch (ClassNotFoundException e) {
+			location = "找不到要载入的类: " + className;
+		} catch (Throwable t) {
+			t.printStackTrace();
+			location = "载入类: " + className + "时发生了错误: " + t;
+		}
+		if (clazz != null) {
+			try {
+				CodeSource cs = clazz.getProtectionDomain().getCodeSource();
+				location = (cs == null) ? "无法获取" : cs.getLocation().toString();
+			} catch (Throwable t) {
+				location = "获取源位置时发生了错误: " + t;
+			}
+		}
+	}
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD><TITLE>Java Class的源位置和相关信息</TITLE>
+</HEAD>
+
+<BODY>
+<FORM METHOD=POST ACTION="">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td height="30" style="border-bottom: 1px solid #1F4880;border-top: 1px solid #92B2E1;">
+	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		  <tr>
+			<td width=150 align="center"><b>类全名</b></td>
+			<td>&nbsp;<INPUT NAME="c" size=60></td>
+		  </tr>
+		  <tr>
+			<td width=150 align="center"><b>所查类</b></td>
+			<td>&nbsp;<%= CMyString.transDisplay(className) %></td>
+		  </tr>
+		  <tr>
+			<td width=150 align="center"><b>类的位置</b></td>
+			<td>&nbsp;<%= CMyString.transDisplay(location) %></td>
+		  </tr>
+    </table>
+  </tr>
+  <tr>
+	<td><table border="0" align="right" cellpadding="2" cellspacing="0">
+		<tr>
+		  <td><input type="submit" name="bSubmit"></td>
+		  <td><input type="button" name="bClose" value="关闭" onclick="window.close();"></td>
+		</tr>
+	</table></td>
+  </tr>
+</table>
+</FORM>
+
+</body>
+</html>

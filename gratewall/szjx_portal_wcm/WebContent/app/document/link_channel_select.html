@@ -1,0 +1,75 @@
+<HTML xmlns:TRS_UI>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<TITLE WCMAnt:param="link_channel_select.html.selectLinkDoc">选择链接栏目</TITLE>
+	<!--css-->
+    <link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+
+	<script src="../js/runtime/myext-debug.js"></script>
+	<script src="../js/source/wcmlib/WCMConstants.js"></script>
+	<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+	<script src="../js/source/wcmlib/core/CMSObj.js"></script>
+	<script src="../js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+	<script src="../js/data/locale/document.js"></script>
+	<style type="text/css">
+		body {
+			padding-top:0px;
+			background-color: #CCCCCC;
+		}
+		.input_btn{
+			width:80px;
+			margin-right:10px;
+		}
+	</style>
+	<script language="javascript">
+		function Ok(isAbsoluteUrl){
+			var win = $("treeNav").contentWindow;
+			var arrChnlIds =  win.getCheckValues();
+			if(!arrChnlIds||arrChnlIds.length==0) {
+				Ext.Msg.$alert(wcm.LANG.DOCUMENT_PROCESS_225 || '请选择链接栏目.');
+				return false;
+			}
+			var oPostData = {
+				"isAbsoluteUrl" : isAbsoluteUrl === true ? 1 : 0,
+				"ChannelIds" : arrChnlIds.join(','),
+				"CaseSensitive" : true
+			}
+			var oHelper = new com.trs.web2frame.BasicDataHelper();
+			oHelper.JspRequest('channel_publish_info.jsp',oPostData,false,
+				function(_transport,_json){
+					if(_json&&_json["CHANNELS"]){
+						var oMyObject = window.dialogArguments;
+						window.returnValue = _json["CHANNELS"];
+						//CreateLinks(_json["CHANNELS"]);
+					}
+					window.close();
+				}
+			);
+			return false;
+		}
+	</script>
+</HEAD>
+<BODY>
+		<table height="100%" style="table-layout:fixed;">
+			<tr>
+				<td width="280" valign="top">
+					<iframe src="../include/blank.html" id="treeNav" allowtransparency="true" scrolling="no" frameborder="0"></iframe>
+				</td>
+				<td width="10" align="center" valign="top">
+					<div style="width:2px;border-left:1px solid gray;background:white;height:100%;"></div></td>
+				<td width="90" valign="top">
+					<input id="btnRelative" class="input_btn" onclick="window.parent.Ok(false);" type="button" value="相对地址" WCMAnt:paramattr="value:link_channel_select.html.relativeurl"/>
+					<div style="height:5px;"></div>
+					<input id="btnAbsolute" class="input_btn" onclick="window.parent.Ok(true);" type="button" value="绝对地址" WCMAnt:paramattr="value:link_channel_select.html.absoluteurl"/>
+					<div style="height:5px;"></div>
+					<input name="button2" class="input_btn" type="button" value="取消" onclick="window.close();" WCMAnt:paramattr="value:link_channel_select.html.cancel"/>
+				</td>
+			</tr>
+		</table>
+<script>
+	Event.observe(window, 'load', function(){
+		$('treeNav').src = '../nav_tree/nav_tree_select.jsp?SiteTypes=0,4&ExcludeInfoView=0&ChannelId='+getParameter("DocChannelId") + "&IsRadio=" + getParameter("IsRadio");
+	});
+</script>
+</BODY>
+</HTML>

@@ -1,0 +1,108 @@
+<link href="WCMDialog.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    *{
+        font-size:12px;
+    }
+</style>
+<table border=0 cellspacing=0 cellpadding=0 style="width:328px;">
+<tbody>
+    <tr>
+        <td class="dialogHead" id=dialogHead>
+            <div class="head_left"></div>
+            <div class="head_separate"></div>		
+            <div class="head_right"></div>
+            <div class="head_close" id="dialogClose"></div>
+            <div class="head_title" id="dialogTitle" unselectable="on">系统提示信息</div>
+        </td>
+    </tr>
+    <tr>
+        <td class="dialogBody">
+
+			<div class="body_left"></div>
+            <div class="body_right"></div>
+            <div class="body_middle">
+                <div class="body_icon" id="dialogIcon"></div>
+                <div class="dialogMsg">
+                    <table border=0 cellspacing=0 cellpadding=0 class="dialogMsgTable">
+                        <tr><td id="dialogMsg">要求为大于零的数字！</td></tr>
+                    </table>                
+                </div>
+                <div class="dialogButtons" id="dialogButtons">
+                    <div class="btn_left"></div>
+                    <div class="ok_btn_middle"></div>
+                    <div class="btn_right"></div>
+                    <div class="btn_left"></div>
+                    <div class="ok_btn_middle"></div>
+                    <div class="btn_right"></div>
+                </div>
+            </div>       
+			<div class="bottom_left"></div>
+			<div class="bottom_right"></div>
+			<div class="bottom_middle"></div>	
+            
+        </td>
+    </tr>
+</tbody>
+</table>
+<br>
+<br>
+<hr>
+
+<!--
+<DIV class=dialogOuter id=dialog__trs_dialog_ style="LEFT: 421px; WIDTH: 450px; POSITION: absolute; TOP: 136px; HEIGHT: 289px" tabIndex=-1 _originalLeft="0" _originalTop="0" _originalWidth="450px" _originalHeight><TABLE class=dialog tabIndex=-1 cellSpacing=0 cellPadding=0 width="100%" border=0>
+<TBODY tabIndex=-1>
+<TR tabIndex=-1>
+<TD class=dialogHead id=dialogHead tabIndex=-1 unselectable="on">
+<DIV class=head_left tabIndex=-1></DIV>
+<DIV class=head_separate tabIndex=-1></DIV>
+<DIV class=head_right tabIndex=-1></DIV>
+<DIV class=head_close id=dialogClose tabIndex=-1></DIV>
+<DIV class=head_title id=dialogTitle tabIndex=-1 unselectable="on">预览出错</DIV></TD></TR>
+<TR tabIndex=-1>
+<TD class=dialogBody id=dialogBody tabIndex=-1 height=169>
+<TABLE id=outerTable style="WIDTH: 450px; HEIGHT: 250px" tabIndex=-1 cellSpacing=0 cellPadding=0 border=0>
+<TBODY tabIndex=-1>
+<TR class=bodytr tabIndex=-1>
+<TD class=body_left2 tabIndex=-1>
+<DIV style="OVERFLOW: hidden; WIDTH: 8px" tabIndex=-1></DIV></TD>
+<TD style="WIDTH: 120px" tabIndex=-1>
+<TABLE style="WIDTH: 100%; HEIGHT: 100%" tabIndex=-1 cellSpacing=0 cellPadding=0 border=0>
+<TBODY tabIndex=-1>
+<TR tabIndex=-1>
+<TD style="HEIGHT: 150px" tabIndex=-1 vAlign=center align=middle>
+<DIV id=dialogIcon style="BACKGROUND: url(js/com.trs.dialog/img/8.gif) no-repeat center center; WIDTH: 120px; HEIGHT: 100%" tabIndex=-1></DIV></TD></TR>
+<TR tabIndex=-1>
+<TD tabIndex=-1 vAlign=center align=middle>
+<DIV class=toggleDetail id=lnkSwitchDetail onclick=FaultDialog.switchDetail(); tabIndex=-1>显示详细信息</DIV>
+<DIV class=copyDetail onclick=FaultDialog.copyToClipboard(); tabIndex=-1>复制此信息</DIV>
+<DIV class=closeWin onclick=FaultDialog.hide(); tabIndex=-1>关闭提示窗</DIV></TD></TR></TBODY></TABLE></TD>
+<TD style="BORDER-LEFT: gray 1px solid" tabIndex=-1 vAlign=center align=middle>
+<TABLE style="WIDTH: 100%; HEIGHT: 100%" tabIndex=-1 cellSpacing=2 cellPadding=2 border=0>
+<TBODY tabIndex=-1>
+<TR tabIndex=-1>
+<TD tabIndex=-1 align=middle height="90%"><SPAN id=spMsg style="FONT-WEIGHT: bold; FONT-SIZE: 14px; FONT-FAMILY: Arial; WHITE-SPACE: normal" tabIndex=-1>[ERR-237] 生成'权限[站点-86](Template[496]:GeneralofTry)'的文件失败</SPAN> </TD></TR>
+<TR id=trSuggestion style="DISPLAY: none" tabIndex=-1>
+<TD style="BORDER-TOP: #efefef 1px solid; PADDING-TOP: 3px" tabIndex=-1 align=left height="90%"><SPAN style="FONT-WEIGHT: bold; FONT-SIZE: 12px; OVERFLOW: auto; FONT-FAMILY: Arial" tabIndex=-1>建议：</SPAN> <SPAN id=spSuggestion style="FONT-WEIGHT: normal; FONT-SIZE: 12px; COLOR: green; FONT-FAMILY: Arial" tabIndex=-1>无建议信息</SPAN> </TD></TR>
+<TR tabIndex=-1>
+<TD style="PADDING-TOP: 3px" tabIndex=-1 vAlign=top align=middle width="100%"><TEXTAREA id=txtDetail style="BORDER-RIGHT: 0px; BORDER-TOP: 0px; DISPLAY: none; BACKGROUND: #f6f6f6; BORDER-LEFT: 0px; WIDTH: 100%; BORDER-BOTTOM: 0px; FONT-FAMILY: Courier New; HEIGHT: 175px" tabIndex=-1>[ERR-237] 生成'权限[站点-86](Template[496]:GeneralofTry)'的文件失败&lt;-- [ERR-233] Failed to analyze the semantic rules for GeneralofTry[模板-496]&lt;-- [ERR-232] Template [模板－站点导航] not found in 权限[站点-86]!	at </TEXTAREA> </TD></TR></TBODY></TABLE></TD>
+<TD class=body_right2 tabIndex=-1>
+<DIV style="OVERFLOW: hidden; WIDTH: 8px" tabIndex=-1></DIV></TD></TR>
+<TR tabIndex=-1 height=14>
+<TD class=bottom_left2 tabIndex=-1>
+<DIV style="OVERFLOW: hidden; WIDTH: 14px; HEIGHT: 14px" tabIndex=-1></DIV></TD>
+<TD class=bottom_middle2 tabIndex=-1 colSpan=2>
+<DIV style="OVERFLOW: hidden; HEIGHT: 14px" tabIndex=-1></DIV></TD>
+<TD class=bottom_right2 tabIndex=-1>
+<DIV style="OVERFLOW: hidden; WIDTH: 14px; HEIGHT: 14px" tabIndex=-1></DIV></TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV>
+//-->
+
+
+<table border=1 cellspacing=0 cellpadding=0 style="width:100%;height:600px;" class="dialog">
+<tbody>
+    <tr class="bodytr">
+        <td>d</td>
+        <td>e</td>
+        <td>c</td>
+    </tr>
+</tbody>
+</table>

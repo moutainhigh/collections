@@ -1,0 +1,340 @@
+<HTML>
+<HEAD>
+<TITLE> New Template </TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	.category{
+		padding: 3px;
+		height: 238px;
+		width: 100%
+		text-align: left;
+		overflow: auto;
+	}
+	.category span{
+		margin-right: 8px;
+	}
+	.category_title{
+		font-size: 12px;
+		font-weight: bold;
+		margin-top: 0px;
+	}
+	.category_content{
+		padding: 3px;
+		text-align: left;
+	}
+	.category_item{
+		height: 20px;
+		line-height: 20px;
+		cursor: pointer;
+		white-space: nowrap;
+	}
+	ul{
+		margin-top: 2px;
+		margin-left: 15px;
+		list-style-type: none;
+		font-family: arials;
+		font-size: 12px;
+		
+	}
+	body, *{
+		margin: 0;
+		padding: 0;
+		font-size: 12px;
+	}
+	fieldset{
+		height: 105px;
+		margin-top:0px;
+		width:30%;
+		overflow:visible;
+		float:left;
+	}
+	.fieldset-box{
+		width: 100%; 
+		margin-top: 10px; 
+		border-top: dashed 1px silver;
+		padding-top: 5px;
+		overflow:hidden;
+	}
+	.ext-safari fieldset, .ext-safari .fieldset-box{
+		
+	}
+	.ext-safari fieldset{
+		margin-left:5px;
+	}
+</style>
+
+<style type="text/css">
+	.adjustwidth{
+		width:45%!important;
+	}
+</style>
+</HEAD>
+<BODY>
+
+<div id="dy_adjust">
+</div>
+<script>
+	function $style(_sCssText){
+		var eStyle=document.createElement('STYLE');
+		eStyle.setAttribute("type", "text/css");
+		if(eStyle.styleSheet){// IE
+			eStyle.styleSheet.cssText = _sCssText;
+		} else {// w3c
+			var cssText = document.createTextNode(_sCssText);
+			eStyle.appendChild(cssText);
+		}
+		return eStyle;
+	}
+	/*function $removeChilds(_node){
+		if(_node){
+			var childs = _node.childNodes;
+			for(var i=childs.length-1;i>=0;i--){
+				$removeNode(childs[i]);
+			}
+			childs = [];
+			delete _node;
+		}
+	}*/
+	function adjustScale(){
+		var sStyleId = 'dy_adjust';
+		var eStyleDiv = $(sStyleId);
+		var scale = window.screen.width / 1024;
+		if(scale == 1) {
+			return;
+		}
+		var cssStr = 'fieldset{\
+			/*width: ' + (200*scale) + 'px;*/\
+		}';
+		var eStyle = $style(cssStr);
+		Ext.removeNode(eStyleDiv);
+		eStyleDiv.appendChild(eStyle);
+	}
+	adjustScale();
+</script>
+<form id="fmTypes" method="post" action="../template/template_wizard_step2.jsp">
+<div class="category" onclick="toggleClick(event)">
+	<div class="fieldset-box">
+		
+			<fieldset>
+				<legend class="category_title" WCMAnt:param="template_wizard_step1.html.category_channel">栏目类置标</legend>
+				<div class="category_content">
+					<div class="category_item"><input type="radio" name="TagType" value="30"><span WCMAnt:param="template_wizard_step1.html.channel_list">栏目列表 </span>(TRS_CHANNELS)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="40"><span WCMAnt:param="template_wizard_step1.html.channel_msg">栏目信息</span> (TRS_CHANNEL)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="70"><span WCMAnt:param="template_wizard_step1.html.channel_local">当前位置</span> (TRS_CURPAGE)</div>
+				</div>
+			</fieldset>
+		
+			<fieldset>
+				<legend class="category_title" WCMAnt:param="template_wizard_step1.html.category_doc">文档类置标</legend>
+				<div class="category_content">
+					<div class="category_item"><input type="radio" name="TagType" value="10"><span WCMAnt:param="template_wizard_step1.html.doc_list">文档列表</span> (TRS_DOCUMENTS)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="50"><span WCMAnt:param="template_wizard_step1.html.doc_msg">文档信息</span> (TRS_DOCUMENT)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="20"><span WCMAnt:param="template_wizard_step1.html.doc_relnews">相关文档</span> (TRS_RELNEWS)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="80"><span WCMAnt:param="template_wizard_step1.html.doc_pubtime">发布日期</span> (TRS_DATETIME)</div>
+				</div>
+			</fieldset>
+		
+			<fieldset>
+				<legend class="category_title" WCMAnt:param="template_wizard_step1.html.category_video">视频库置标</legend>
+				<div class="category_content">
+					<div class="category_item"><input type="radio" name="TagType" value="300"><span WCMAnt:param="template_wizard_step1.html.video_msg">视频信息</span> (TRS_VIDEO)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="310"><span WCMAnt:param="template_wizard_step1.html.video_play">播放视频点播</span> (TRS_VIDEO_PLAY)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="320"><span WCMAnt:param="template_wizard_step1.html.video_live">播放视频直播</span> (TRS_VIDEO_LIVE)</div>
+				</div>
+			</fieldset>
+		
+	</div>
+	<div class="fieldset-box">
+			<fieldset>
+				<legend class="category_title" WCMAnt:param="template_wizard_step1.html.variable">变量</legend>
+				<div class="category_content">
+					<div class="category_item"><input type="radio" name="TagType" value="150"><span WCMAnt:param="template_wizard_step1.html.variable_declare">变量声明</span> (TRS_VARIABLE)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="160"><span WCMAnt:param="template_wizard_step1.html.variable_enum">声明变量枚举值</span> (TRS_ENUM)</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend class="category_title" WCMAnt:param="template_wizard_step1.html.special">特色置标</legend>
+				<div class="category_content">
+					<div class="category_item"><input type="radio" name="TagType" value="200"><span WCMAnt:param="template_wizard_step1.html.condition">条件执行置标</span> (TRS_CONDITION)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="210"><span WCMAnt:param="template_wizard_step1.html.echo">输出制定内容	</span> (TRS_ECHO)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="220"><span WCMAnt:param="template_wizard_step1.html.newicon">显示最新文档标志</span> (TRS_NEWICON)</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend class="category_title" WCMAnt:param="template_wizard_step1.html.other">其它置标</legend>
+				<div class="category_content">
+					<div class="category_item"><input type="radio" name="TagType" value="60"><span WCMAnt:param="template_wizard_step1.html.appendix">文档附件</span> (TRS_APPENDIX)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="90"><span WCMAnt:param="template_wizard_step1.html.replace">替换内容</span> (TRS_REPLACE)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="120"><span WCMAnt:param="template_wizard_step1.html.template">嵌套模板	</span> (TRS_TEMPLATE)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="110"><span WCMAnt:param="template_wizard_step1.html.record">分组显示</span> (TRS_RECORD)</div>
+				</div>
+			</fieldset>
+	</div>
+	<div class="fieldset-box">
+			<fieldset>
+				<legend class="category_title" WCMAnt:param="template_wizard_step1.html.view_category">视图、分类法记录</legend>
+				<div class="category_content">
+					<div class="category_item"><input type="radio" name="TagType" value="600"><span WCMAnt:param="template_wizard_step1.html.viewdatas">视图记录列表</span> (TRS_VIEWDATAS)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="610"><span WCMAnt:param="template_wizard_step1.html.viewdata">视图记录详细信息</span> (TRS_VIEWDATA)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="680"><span WCMAnt:param="template_wizard_step1.html.myviewdatas">视图数据列表</span> (TRS_MYVIEWDATAS)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="690"><span WCMAnt:param="template_wizard_step1.html.classdocuments">文档或视图数据列表</span>(TRS_CLASSDOCUMENTS)</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend class="category_title" WCMAnt:param="template_wizard_step1.html.view">视图、字段</legend>
+				<div class="category_content">
+					<div class="category_item"><input type="radio" name="TagType" value="630"><span WCMAnt:param="template_wizard_step1.html.viewdetail">视图详细信息</span> (TRS_VIEW)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="640"><span WCMAnt:param="template_wizard_step1.html.viewfields">视图下字段列表</span> (TRS_VIEWFIELDS)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="650"><span WCMAnt:param="template_wizard_step1.html.viewfield">视图字段详细信息</span> (TRS_VIEWFIELD)</div>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend class="category_title" WCMAnt:param="template_wizard_step1.html.class">分类法</legend>
+				<div class="category_content">
+					<div class="category_item"><input type="radio" name="TagType" value="660"><span WCMAnt:param="template_wizard_step1.html.classinfos">分类法列表</span> (TRS_CLASSINFOS)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="670"><span WCMAnt:param="template_wizard_step1.html.classinfo">分类详细信息</span> (TRS_CLASSINFO)</div>
+				</div>
+			</fieldset>
+	</div>
+	<div class="fieldset-box" id="dvInfoviewTags">
+			<fieldset style="height: 125px">
+				<legend class="category_title" WCMAnt:param="template_wizard_step1.html.table">表单置标-通用</legend>
+				<div class="category_content">
+					<div class="category_item"><input type="radio" name="TagType" value="500"><span WCMAnt:param="template_wizard_step1.html.infoview">表单采集页</span> (TRS_INFOVIEW)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="510"><span WCMAnt:param="template_wizard_step1.html.infoviewdata">表单细览</span> (TRS_INFOVIEWDATA)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="560"><span WCMAnt:param="template_wizard_step1.html.infoviewhelper">表单附加项</span> (TRS_INFOVIEWHELPER)</div>
+				</div>
+			</fieldset>
+			<fieldset style="height: 125px">
+				<legend class="category_title" WCMAnt:param="template_wizard_step1.html.fujia">附加置标</legend>
+				<div class="category_content">
+					<div class="category_item"><input type="radio" name="TagType" value="710"><span WCMAnt:param="template_wizard_step1.html.image">图片置标</span> (TRS_IMAGE)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="720"><span WCMAnt:param="template_wizard_step1.html.chnldoc">栏目Logo</span> (TRS_CHANNELLOGO)</div>
+					<div class="category_item"><input type="radio" name="TagType" value="700"><span WCMAnt:param="template_wizard_step1.html.doclogo">文档Logo</span> (TRS_DOCUMENTLOGO)</div>
+				</div>
+			</fieldset>
+	</div>
+</div>
+</form>
+
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/data/locale/template.js"></script>
+<script src="../../app/js/data/locale/system.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+
+<!--wcm-dialog end-->
+
+<script language="javascript" src="../infoview/infoview_config_js.jsp"></script>
+<script language="javascript">
+<!--
+	var getParameter=function urlParameter(_sName,_sQuery){
+		if(_sName ==null ||_sName=='undefined') 
+			return '';
+		var query = _sQuery ||location.search;
+		var aParams=query.replace(/^.*?\?/,'').parseQuery();
+		
+		for(var sParam in aParams){
+			if(_sName.toUpperCase()==sParam.toUpperCase()){
+				return aParams[sParam];
+			}
+		}
+		return '';
+	}
+	//function $fail(msg, func,title){
+	//	return $errorMsg(msg, func, 4,title);
+	//}
+	function doSubmit(){
+		var form = $('fmTypes');
+		var types = document.getElementsByName("TagType");
+		var isNoTypeChecked = true;
+		for (var i = 0; i < types.length; i++){
+			if(types[i].checked) {
+				isNoTypeChecked = false;
+				break;
+			}
+		}//*/
+		if(isNoTypeChecked) {
+			Ext.Msg.$fail(wcm.LANG.TEMPLATE_ALERT5||'请选择置标类型！');
+			return false;
+		}
+		
+		form.submit();
+		//return true;
+	}
+	Event.observe(window, 'load', function(){
+		if(screen.width <= 1024){
+			var doms = document.getElementsByTagName("fieldset");
+			for(var i=0 ;i<doms.length;i++){
+				Element.addClassName(doms[i],'adjustwidth');
+			}
+		}
+	})
+	Event.observe(window, 'load', function(){
+		//ge gfc add@ 2008-4-10 判断是否配置了表单
+		//try{
+		//	if(infoview_config.enable == true) {
+		//		Element.show('dvInfoviewTags');
+		//	}
+		//}catch(err){
+			//just skip it
+		//}
+
+		var nType = parseInt(getParameter('Type') + '');
+		if(isNaN(nType)){
+			return;
+		}
+		//else
+		var form = $('fmTypes');
+		var types = document.getElementsByName("TagType");
+		var isNoTypeChecked = true;
+		for (var i = 0; i < types.length; i++){
+			if(nType == types[i].value) {
+				types[i].checked = true;
+				break;
+			}
+		}
+
+		//ge gfc add@ 2008-4-10 如果是表单置标，则聚焦到表单置标集中的div上
+		try{
+			if(nType >= 500) {
+				$('dvInfoviewTags').scrollIntoView();
+			}
+		}catch(err){
+			//just skip it
+		}
+	}, false);
+
+	function toggleClick(event){
+		event = event || window.event;
+		var srcEle = Event.findElement(event, 'div');
+		if(srcEle.className != 'category_item') {
+			return true;
+		}
+		var eRadio = null;
+		if((eRadio = srcEle.childNodes[0]) != null) {
+			eRadio.click();
+			return true;
+		}
+	}
+//-->
+</script>
+<script language="javascript">
+<!--
+	if(window.top && window.top.$winzard) {
+		window.top.$winzard.doAfterSteped();
+	}//*/	
+//-->
+</script>
+</BODY>
+</HTML>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="../../static/js/jquery-1.8.3.js"></script>
+<script src="../../static/script/jquery.cookie.js"></script>
+<title>深圳市商事主体综合统计分析</title>
+<style>
+body{font-family: "微软雅黑"}
+
+img{border: none;vertical-align:middle;display: block;float: left;}
+a{float: left;display: block;cursor: pointer;}
+
+
+.container{min-width:960px;width:1100px;margin: 0 auto;}
+
+
+
+/*表头的颜色*/
+
+tr:hover{
+	background: #ccc;
+}
+
+ tr:hover td {background:none;}
+
+th{
+	background: #E0ECFA;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 4px;
+	text-align: center;
+	color: #465886;
+}
+
+td{
+  color: #465886;
+  padding:0 4px;
+  font-size: 14px;
+}
+
+/*各分局的通用样式*/
+.regionAll{
+	background: #fff;
+	color: #465886;
+	font-size: 14px;
+}
+
+.regionDetail{
+	background: #fff;
+	padding: 4px 6px;
+	text-align: center;
+}
+
+
+.regionChildRows{
+	background: #E1F6CD;
+}
+
+.regionChildColum{
+	font-size: 12px;
+	padding:4px 6px;
+	
+}
+
+.regSel{
+	background: #EEEEEE;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<h2 style="text-align: center;">深圳市商事主体综合统计分析</h2>
+		<!-- <table width="980" border="1" cellspacing="0" cellpadding="0" bcolor="#f1f1f1"> -->
+		<table  width = "1130" cellspacing="1" cellpadding="0" border="0" bgcolor="#DEDEDE">
+			<thead>
+				<tr>
+					<th  rowspan="2"><div align="center">序号</div></th>
+					<th rowspan="2"><div align="center">管辖区域</div></th>
+					<th colspan="4"><div align="center">商事主体</div></th>
+					<th colspan="2"><div align="center">年报</div></th>
+					<th colspan="1"><div align="center">案件</div></th>
+					<th colspan="1"><div align="center">消保</div></th>
+					<th colspan="2"><div align="center">食品</div></th>
+				</tr>
+				<tr>
+					<th><div align="center">合计</div></th>
+					<th><div align="center">续存</div></th>
+					<th><div align="center">注销</div></th>
+					<th><div align="center">吊销</div></th>
+					<th><div align="center">已年报户数</div></th>
+					<th><div align="center">未年报户数</div></th>
+					<th><div align="center">涉案主体数量</div></th>
+					<th><div align="center">涉及主体数量</div></th>
+					<th><div align="center">食品企业数量</div></th>
+					<th><div align="center">有证食品企业数量</div></th>
+				</tr>
+			</thead>
+
+			<tbody id="contents">
+				<!-- <tr>
+					<td>1</td>
+					<td><a onclick="openLuoHu(this)">福田局</a></td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr> -->
+			</tbody>
+
+		</table>
+	</div>
+
+
+
+	<script type="text/javascript">
+	
+	function getParameter(name){
+		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); 
+		var r = window.location.search.substr(1).match(reg); 
+		if (r!=null) { 
+		   return unescape(r[2]); 
+		} 
+		return null; 
+	}
+	
+	var code = getParameter("code");
+	var totalArrayStr = $.cookie(code);
+	var totalArray = totalArrayStr.split(",");
+	
+	var dataSet = "";
+		$.ajax({
+			url : "../../otherselect/getZhfxInfo.do?code="+code,
+			type : "post",
+			dataType : "json",
+			success : function(data) {
+				//var data = data.data[0].data.rows;
+				var html='';
+				var num  = 0;
+				for (var i = 0; i < data.length; i++) {
+					html+="<tr >"+
+						"<td class='regionAll'>"+(++num)+"</td>"+
+						"<td class='regionAll'>"+data[i].codename+"</td>"+
+						"<td class='regionDetail'>"+data[i].comCnt+"</td>"+
+						"<td class='regionDetail'>"+data[i].existenceCnt+"</td>"+
+						"<td class='regionDetail'>"+data[i].logoffCnt+"</td>"+
+						"<td class='regionDetail'>"+data[i].revokeCnt+"</td>"+
+						"<td class='regionDetail'>"+data[i].reportCnt+"</td>"+
+						"<td class='regionDetail'>"+data[i].noReportCnt+"</td>"+
+						"<td class='regionDetail'>"+data[i].inCaseCnt+"</td>"+
+						"<td class='regionDetail'>"+data[i].inProtectCnt+"</td>"+
+						"<td class='regionDetail'>"+data[i].foodEnterpriseCnt+"</td>"+
+						"<td class='regionDetail'>"+data[i].cardFoodEnterpriseCnt+"</td>"+
+					"</tr>";
+				}
+				$("#contents").append(html);
+				
+				var obj = [];
+				for(var i = 0;i<10;i++){
+					var total = 0;
+					$("#contents tr").each(function(){
+						var _this = $(this);
+						var rownum = 0;
+						rownum = _this.find(".regionDetail").eq(i).html();
+						total += parseInt(rownum);
+						
+					});
+					obj.push(total);
+				}
+				
+				$("#contents").append("<tr>"+
+						"<td class='regionAll'>"+(++num)+"</td>"+
+						"<td class='regionAll'>未认领</td>"+
+						"<td class='regionDetail'>"+(totalArray[0]-obj[0])+"</td>"+
+						"<td class='regionDetail'>"+(totalArray[1]-obj[1])+"</td>"+
+						"<td class='regionDetail'>"+(totalArray[2]-obj[2])+"</td>"+
+						"<td class='regionDetail'>"+(totalArray[3]-obj[3])+"</td>"+
+						"<td class='regionDetail'>"+(totalArray[4]-obj[4])+"</td>"+
+						"<td class='regionDetail'>"+(totalArray[5]-obj[5])+"</td>"+
+						"<td class='regionDetail'>"+(totalArray[6]-obj[6])+"</td>"+
+						"<td class='regionDetail'>"+(totalArray[7]-obj[7])+"</td>"+
+						"<td class='regionDetail'>"+(totalArray[8]-obj[8])+"</td>"+
+						"<td class='regionDetail'>"+(totalArray[9]-obj[9])+"</td>"+
+					"</tr>");
+				
+				$("#contents").append("<tr bgcolor='#f1f1f1'>"+
+						"<td class='regionAll'>"+(++num)+"</td>"+
+						"<td align='left'>合计</td>"+
+						"<td align='center' bgcolor=''>"+totalArray[0]+"</td>"+
+						"<td align='center'>"+totalArray[1]+"</td>"+
+						"<td align='center'>"+totalArray[2]+"</td>"+
+						"<td align='center'>"+totalArray[3]+"</td>"+
+						"<td align='center'>"+totalArray[4]+"</td>"+
+						"<td align='center'>"+totalArray[5]+"</td>"+
+						"<td align='center'>"+totalArray[6]+"</td>"+
+						"<td align='center'>"+totalArray[7]+"</td>"+
+						"<td align='center'>"+totalArray[8]+"</td>"+
+						"<td align='center'>"+totalArray[9]+"</td>"+
+					"</tr>");
+				
+			}
+		});
+		
+</script>
+</body>
+</html>

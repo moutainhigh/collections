@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+	<menu-name>日志管理-共享日志</menu-name>
+	<menu-path>/page/log/</menu-path>
+	<description>日志管理-共享日志</description>
+	<form-beans>
+		<form-bean name="ShareLogRowsetForm">
+			<description>多记录查询</description>
+			<form-property prefix="select-key" name="service_targets_id" type="string" size="100" description="服务对象ID" />
+			<form-property prefix="select-key" name="service_targets_name" type="string" size="100" description="服务对象名称" />
+			<form-property prefix="select-key" name="service_type" type="string" size="20" description="service_type" />
+			<form-property prefix="select-key" name="service_no" type="string" size="200" description="service_no" />
+			<form-property prefix="select-key" name="created_time_start" type="string" size="19" description="service_start_time" />
+			<form-property prefix="select-key" name="created_time_end"	type="string" size="19" description="service_end_time" />
+			<form-property prefix="select-key" name="service_state"	type="string" size="19" description="service_state" />
+			<form-property prefix="select-key" name="log_id" type="string" size="32" cannull="false" description="主键" />
+			<form-property prefix="select-key" name="targets_type" type="string" size="32" cannull="false" description="主键" />
+			<form-property prefix="select-key" name="service_name" type="string" size="19" description="service_name" />
+			<form-property prefix="select-key" name="query_date" type="string" size="19" description="查询时间" />
+			<form-property prefix="select-key" name="date_remark" type="string" size="19" description="查询时间描述" />
+			<form-property prefix="select-key" name="query_type" type="string" size="19" description="查询时间类型" />
+			<form-property prefix="select-key" name="service_targets_type" type="string" size="10" cannull="false" description="服务对象类型" />
+			
+			<form-property prefix="select-key" name="qx" type="string" size="10" cannull="false" description="区县分局" />
+			<form-property prefix="select-key" name="nb" type="string" size="10" cannull="false" description="内部系统" />
+			<form-property prefix="select-key" name="wb" type="string" size="10" cannull="false" description="外部系统" />
+			<form-property prefix="select-key" name="iname" type="string" size="100" cannull="false" description="接口名称" />
+			
+			<form-property prefix="select-key" name="query_index" type="string" size="19" description="指标" />
+			<form-property prefix="select-key" name="statistical_cycle" type="string" size="19" description="统计周期" />
+			<form-property prefix="select-key" name="statistical_granularity" type="string" size="19" description="统计粒度" />
+			<form-property prefix="select-key" name="show_type" type="string" size="19" description="展现方式" />
+			<form-property prefix="select-key" name="order" type="string" size="19" description="排序" />
+			<form-property prefix="select-key" name="show_num" type="string" size="19" description="显示数量" />
+			<form-property prefix="select-key" name="startTime" type="string" size="19" description="起始时间" />
+			<form-property prefix="select-key" name="endTime" type="string" size="19" description="结束时间" />
+			<form-property prefix="select-key" name="objectId" type="string" size="19" description="监控对象ID" />
+			<form-property prefix="select-key" name="propId" type="string" size="19" description="监控指标ID" />
+			
+			<form-property prefix="record" name="log_id" type="string"	size="32" cannull="false" description="主键" />
+			<form-property prefix="record" name="service_id" type="string" size="32" description="服务ID" />
+			<form-property prefix="record" name="service_no" type="string" size="20" description="服务编号" />
+			<form-property prefix="record" name="service_name" type="string" size="100" cannull="true" description="服务名称" />
+			<form-property prefix="record" name="service_targets_id" type="string" size="32" cannull="true" description="服务对象id" />
+			<form-property prefix="record" name="service_targets_name" type="string" size="100" cannull="true" description="服务对象名称" />
+			<form-property prefix="record" name="targets_type" type="string" size="20" cannull="true" description="服务对象类型" />
+			<form-property prefix="record" name="service_type"	type="string" size="20" cannull="true" description="service_type" />
+			<form-property prefix="record" name="access_ip" type="string" size="20" description="访问IP" />
+			<form-property prefix="record" name="service_start_time" type="string" size="25" cannull="true" description="访问开始时间" />
+			<form-property prefix="record" name="service_end_time" type="string" size="25" cannull="true" description="服务结束时间" />
+			<form-property prefix="record" name="consume_time" type="string" size="19" description="消耗时间" />
+			<form-property prefix="record" name="record_start" type="string" size="19" description="开始记录数" />
+			<form-property prefix="record" name="record_end" type="string" size="19" description="结束记录数" />
+			<form-property prefix="record" name="record_amount" type="string" size="19" description="本次访问数据量" />
+			<form-property prefix="record" name="patameter" type="string" size="19" description="入口参数值" />
+			<form-property prefix="record" name="service_state" type="string" size="19" description="service_state" />
+			<form-property prefix="record" name="return_codes" type="string" size="19" description="服务返回码" />
+			<form-property prefix="record" name="log_type" type="string" size="19" description="日志类型" />
+
+			<form-property prefix="record" name="mon" type="string" size="19" description="" />
+			<form-property prefix="record" name="s" type="string" size="19" description="" />
+			<form-property prefix="record" name="n" type="string" size="19" description="" />
+			<form-property prefix="record" name="data_str" type="string" description="" />
+			<form-property prefix="record" name="time_str" type="string" description="" />
+			<form-property prefix="record" name="strNodes" type="string" description="" />
+			<form-property prefix="record" name="strLinks" type="string" description="" />
+			
+			<form-property prefix="running-info" name="she" type="string" size="100" cannull="true" description="服务名称" />
+			<form-property prefix="running-info" name="service_targets_id" type="string" size="32" cannull="true" description="服务对象id" />
+			<form-property prefix="running-info" name="service_targets_name" type="string" size="100" cannull="true" description="服务对象名称" />
+			<form-property prefix="running-info" name="colt" type="string" size="20" cannull="true" description="服务对象类型" />
+			<form-property prefix="running-info" name="etls"	type="string" size="20" cannull="true" description="service_type" />
+			
+			<form-property prefix="waming-info" name="object_target_id" type="string" size="32" cannull="true" description="服务对象id" />
+			<form-property prefix="waming-info" name="service_targets_name" type="string" size="100" cannull="true" description="服务对象名称" />
+			<form-property prefix="waming-info" name="record_time" type="string" size="20" cannull="true" description="服务对象类型" />
+			<form-property prefix="waming-info" name="tp"	type="string" size="20" cannull="true" description="service_type" />
+			
+		</form-bean>
+
+		<form-bean name="ShareLogUpdateForm">
+			<description>单记录处理：查询、修改、增加</description>
+			<form-property prefix="primary-key" name="log_id" type="string" size="32" cannull="false" description="主键" />
+			<form-property prefix="primary-key" name="service_state" type="string" size="32" cannull="false" description="service_state" />
+			<form-property prefix="primary-key" name="service_type" type="string" size="32" cannull="false" description="service_state" />
+
+			<form-property prefix="record" name="service_targets_id" type="string" size="100" cannull="true" description="服务对象名称" />
+			<form-property prefix="record" name="log_id" type="string" size="32" cannull="false" description="主键" />
+			<form-property prefix="record" name="service_type" type="string" size="20" cannull="true" description="service_type" />
+			<form-property prefix="record" name="created_time_start" type="string" size="19" cannull="true" description="service_start_time" />
+			<form-property prefix="record" name="created_time_end" type="string" size="19" cannull="true" description="service_end_time" />
+			<form-property prefix="record" name="service_state" type="string" size="19" cannull="true" description="service_state" />
+			<form-property prefix="record" name="service_name" type="string" size="19" cannull="true" description="service_name" />
+			<form-property prefix="record" name="count" type="string" size="20" cannull="true" description="归档条数" />
+		</form-bean>
+
+		<form-bean name="ShareLogDeleteForm">
+			<description>多记录和单记录删除</description>
+			<form-property prefix="primary-key" name="log_id" type="string" size="32" cannull="false" description="主键" />
+		</form-bean>
+	</form-beans>
+
+	<action-mappings>
+		<action input="list-query-share_log.jsp" name="ShareLogRowsetForm" txn-code="6010010" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>查询共享日志</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLog" func-name="txn6010010" input-node="select-key" output-node="record" description="查询共享日志列表" />
+			<forward error-code="success" path="list-query-share_log.jsp" />
+			<forward error-code="failure" path="list-query-share_log.jsp" />
+		</action>
+       <action input="list-query-share_log.jsp" name="ShareLogRowsetForm" txn-code="6010011" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>查询共享日志列表</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLog" func-name="txn6010001" input-node="select-key" output-node="record" description="查询共享日志列表" />
+			<forward error-code="success" path="query-share_log.jsp" />
+			<forward error-code="failure" path="query-share_log.jsp" />
+		</action>
+		<action input="update-share_log.jsp" name="ShareLogUpdateForm" txn-code="6010002" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+			<description>修改共享日志信息</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLog" func-name="txn6010002" input-node="record" description="修改共享日志信息" />
+			<forward error-code="success" path="update-share_log.jsp" />
+			<forward error-code="failure" path="update-share_log.jsp" />
+		</action>
+
+		<action input="insert-share_log.jsp" name="ShareLogUpdateForm" txn-code="6010003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+			<description>增加共享日志信息</description>
+			<step index="10"
+				bean-name="com.gwssi.log.sharelog.txn.TxnShareLog"
+				func-name="txn6010003" input-node="record" description="增加共享日志信息" />
+			<forward error-code="success" path="insert-share_log.jsp" />
+			<forward error-code="failure" path="insert-share_log.jsp" />
+		</action>
+
+		<action input="query-share_log.jsp" name="ShareLogUpdateForm" txn-code="6010004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>共享日志归档</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLog" func-name="txn6010004" input-node="primary-key" output-node="record" description="采集日志归档" />
+			<forward error-code="success" path="/script/insertsuccess.jsp?nextPage=txn6010011.do" redirect="true"/>
+			<forward error-code="failure" path="update-share_archive.jsp" />
+		</action>
+		
+		<action input="update-share_archive.jsp" name="ShareLogUpdateForm" txn-code="6030014" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>查询共享日志用于修改</description>
+			<step index="10"
+				bean-name="com.gwssi.log.sharelog.txn.TxnShareLog"
+				func-name="txn6030014" input-node="record" output-node="record"
+				description="查询共享日志用于修改" />
+			<forward error-code="success" path="/script/insertsuccess.jsp?nextPage=txn6011020.do" redirect="true"/>
+			<forward error-code="failure" path="update-share_archive.jsp" />
+		</action>
+
+		<action input="query-share_log.jsp" name="ShareLogDeleteForm" txn-code="6010005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+			<description>删除共享日志信息</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLog" func-name="txn6010005" input-node="primary-key" description="删除共享日志信息" />
+			<forward error-code="success" path="/script/deletesuccess.jsp" />
+			<forward error-code="failure" path="/script/deletefailure.jsp" />
+		</action>
+		<action input="query-res_share_dataitem.jsp" name="ShareLogRowsetForm" txn-code="6010006" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>查看共享日志信息</description>
+			<step index="10"
+				bean-name="com.gwssi.log.sharelog.txn.TxnShareLog"
+				func-name="txn6010006" input-node="select-key" output-node="record"
+				description="共享日志" />
+			<forward error-code="success" path="share_log_dataitem.jsp" />
+			<forward error-code="failure" path="share_log_dataitem.jsp" />
+		</action>
+		<action input="query-res_share_dataitem.jsp" name="ShareLogRowsetForm" txn-code="6010007" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>查看运行监控日志</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLog" func-name="txn6010007" input-node="select-key" output-node="record" description="共享日志" />
+			<forward error-code="success" path="query_monitor_log.jsp" />
+			<forward error-code="failure" path="query_monitor_log.jsp" />
+		</action>
+		
+    <action input="list-query_monitor_log.jsp" name="ShareLogRowsetForm" txn-code="6010191" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>查看运行监控列</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLog" func-name="txn6010191" input-node="select-key" output-node="record" description="共享日志" />
+			<forward error-code="success" path="list-query_monitor_log.jsp" />
+			<forward error-code="failure" path="list-query_monitor_log.jsp" />
+		</action>
+		<action input="list-query_monitor_log.jsp" name="ShareLogRowsetForm" txn-code="6010192" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>查看运行监控日志</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLog" func-name="txn6010192" input-node="select-key" output-node="record" description="共享日志" />
+			<forward error-code="success" path="query_monitor_log.jsp" />
+			<forward error-code="failure" path="query_monitor_log.jsp" />
+		</action>
+        <!-- 日志分析统计 -->
+		<action input="statistics-share_log.jsp" name="ShareLogRowsetForm" txn-code="6020001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>共享服务指标统计</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLog" func-name="txn6020001" input-node="select-key" output-node="record" description="查询共享日志列表" />
+			<forward error-code="success" path="/page/log/statistics/statistics-share_log.jsp" />
+			<forward error-code="failure" path="/page/log/statistics/statistics-share_log.jsp" />
+		</action>
+		<action input="statistics-share_log.jsp" name="ShareLogRowsetForm" txn-code="6020002" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>单个对象日志统计图</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLog" func-name="txn6020002" input-node="select-key" output-node="record" description="查询共享日志列表" />
+			<forward error-code="success" path="/page/log/statistics/statistics-show_share_log.jsp" />
+			<forward error-code="failure" path="/page/log/statistics/statistics-show_share_log.jsp" />
+		</action>
+		
+		<action input="statistics-share_log.jsp" name="ShareLogRowsetForm" txn-code="6020003" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>多个对象日志统计查询</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLog" func-name="txn6020003" input-node="select-key" output-node="record" description="查询共享日志列表" />
+			<forward error-code="success" path="/page/log/statistics/statistics-share_log2.jsp" />
+			<forward error-code="failure" path="/page/log/statistics/statistics-share_log2.jsp" />
+		</action>
+		<action input="statistics-share_log.jsp" name="ShareLogRowsetForm" txn-code="6020004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>多个对象日志统计图</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLog" func-name="txn6020004" input-node="select-key" output-node="record" description="查询共享日志列表" />
+			<forward error-code="success" path="/page/log/statistics/statistics-show_share_log2.jsp" />
+			<forward error-code="failure" path="/page/log/statistics/statistics-show_share_log2.jsp" />
+		</action>
+		<action input="statistics-share_log.jsp" name="ShareLogRowsetForm" txn-code="6020005" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>进入未用服务情况统计</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLogStatistics" func-name="txn6020005" input-node="select-key" output-node="record" description="查询共享日志列表" />
+			<forward error-code="success" path="/page/log/statistics/error/statistics-share_unuse.jsp" />
+			<forward error-code="failure" path="/page/log/statistics/error/statistics-share_unuse.jsp" />
+		</action>
+		<action input="statistics-share_log.jsp" name="ShareLogRowsetForm" txn-code="6020006" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>未用服务情况统计</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLogStatistics" func-name="txn6020006" input-node="select-key" output-node="record" description="查询共享日志列表" />
+			<forward error-code="success" path="/page/log/statistics/error/share_unuse_result.jsp" />
+			<forward error-code="failure" path="/page/log/statistics/error/share_unuse_result.jsp" />
+		</action>
+		<action input="statistics-share_exception.jsp" name="ShareLogRowsetForm" txn-code="6020023" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>进入服务异常情况统计</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLogStatistics" func-name="txn6020023" input-node="select-key" output-node="record" description="进入服务异常情况统计" />
+			<forward error-code="success" path="/page/log/statistics/error/statistics-share_exception.jsp" />
+			<forward error-code="failure" path="/page/log/statistics/error/statistics-share_exception.jsp" />
+		</action>
+		<action input="statistics-share_log.jsp" name="ShareLogRowsetForm" txn-code="6020007" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>服务异常情况统计</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLogStatistics" func-name="txn6020007" input-node="select-key" output-node="record" description="查询共享日志列表" />
+			<forward error-code="success" path="/page/log/statistics/error/share_exception_result.jsp" />
+			<forward error-code="failure" path="/page/log/statistics/error/share_exception_result.jsp" />
+		</action>
+		<action input="statistics-share_log.jsp" name="ShareLogRowsetForm" txn-code="6020008" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>服务分布情况统计</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLogStatistics" func-name="txn6020008" input-node="select-key" output-node="record" description="查询共享日志列表" />
+			<forward error-code="success" path="/page/log/statistics/spread/share_spread_result.jsp" />
+			<forward error-code="failure" path="/page/log/statistics/spread/share_spread_result.jsp" />
+		</action>
+		<action input="statistics-share_log.jsp" name="ShareLogRowsetForm" txn-code="6020009" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>共享服务情况统计</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLogStatistics" func-name="txn6020009" input-node="select-key" output-node="record" description="查询共享日志列表" />
+			<forward error-code="success" path="/page/log/statistics/info/share_info_result.jsp" />
+			<forward error-code="failure" path="/page/log/statistics/info/share_info_result.jsp" />
+		</action>
+		
+		<action input="/page/homepage/home/front.jsp" name="ShareLogRowsetForm" txn-code="6020010" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>查询任务运行情况用于首页</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLog" func-name="txn6020019" input-node="select-key" output-node="record" description="查询共享日志列表" />
+			<forward error-code="success" path="/page/homepage/home/front.jsp" />
+			<forward error-code="failure" path="/page/homepage/home/front.jsp" />
+		</action>
+		
+		<action input="/page/homepage/home/front.jsp" name="ShareLogRowsetForm" txn-code="6020012" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>首页查询任务警情详细信息</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLog" func-name="txn6020018" input-node="select-key" output-node="record" description="查询共享日志列表" />
+			<forward error-code="success" path="/page/homepage/home/front.jsp" />
+			<forward error-code="failure" path="/page/homepage/home/front.jsp" />
+		</action>
+		<action input="/page/homepage/home/front.jsp" name="ShareLogRowsetForm" txn-code="6030011" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>首页采集共享统计分析图</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLogStatistics" func-name="txn6030011" input-node="select-key" output-node="record" description="查询共享日志列表" />
+			<forward error-code="success" path="/page/zwt/Starpaths.jsp" />
+			<forward error-code="failure" path="/page/zwt/Starpaths.jsp" />
+		</action>
+		
+		
+		
+		
+		
+		<action input="/page/homepage/home/front.jsp" name="ShareLogRowsetForm" txn-code="6030012" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>首页采集共享统计分析图</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLogStatistics" func-name="txn6030012" input-node="select-key" output-node="record" description="查询共享日志列表" />
+			<forward error-code="success" path="/page/zwt/Starpaths_pre.jsp" />
+			<forward error-code="failure" path="/page/zwt/Starpaths_pre.jsp" />
+		</action>
+		<action input="/page/zwt/zwt.jsp" name="ShareLogRowsetForm" txn-code="6030013" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+			<description>首页力状图数据</description>
+			<step index="10" bean-name="com.gwssi.log.sharelog.txn.TxnShareLogStatistics" func-name="txn6030013" input-node="select-key" output-node="record" description="生成力状图的数据文件" />
+			<forward error-code="success" path="/page/zwt/zwt.jsp" />
+			<forward error-code="failure" path="/page/zwt/zwt.jsp" />
+		</action>
+	</action-mappings>
+
+	<resource>
+		<resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-share_log.xml" description="模板文件" />
+		<resource-file type="jsp" file-name="/page/log/query-share_log.jsp" description="查询共享日志列表" />
+		<resource-file type="jsp" file-name="/page/log/insert-share_log.jsp" description="增加共享日志信息" />
+		<resource-file type="jsp" file-name="/page/log/update-share_log.jsp" description="修改共享日志信息" />
+		<resource-file type="vo-bean" file-name="com.gwssi.log.sharelog.vo.ShareLogContext" description="应用对应的数据上下文对象" />
+		<resource-file type="vo-bean" file-name="com.gwssi.log.sharelog.vo.VoShareLog" description="数据表字段对应的VO对象" />
+		<resource-file type="vo-bean" file-name="com.gwssi.log.sharelog.vo.VoShareLogSelectKey" description="查询条件对应的VO对象" />
+		<resource-file type="vo-bean" file-name="com.gwssi.log.sharelog.vo.VoShareLogPrimaryKey" description="数据库主键对应的VO对象" />
+	</resource>
+</struts-config>
+

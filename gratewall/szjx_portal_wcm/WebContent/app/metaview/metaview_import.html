@@ -1,0 +1,142 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc">import some metaviews</title>
+<!--FloatPanel Inner Start-->
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/metaview.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<link rel="stylesheet" type="text/css" href="../../app/css/wcm-common.css">
+<!-- dialog  Start -->
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT> 
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<!-- dialog  End -->
+<script src="../../app/js/source/wcmlib/components/ProcessBar.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../js/source/wcmlib/util/YUIConnection.js"></script>
+<script src="../js/source/wcmlib/com.trs.dialog/FaultDialog.js"></script>
+<script language="javascript">
+window.m_fpCfg = {
+	m_arrCommands : [{
+		cmd : 'uploadFile',
+		name : wcm.LANG['METAVIEW_FILEUP_CONFIRM'] || '确定'
+	}],
+	size : [450, 150]
+};
+</script>
+<!--FloatPanel Inner End-->
+<!--Page scope-->
+<script>
+	var PageContext = {
+		params: {}
+	};
+	Object.extend(PageContext.params, {
+		ownerId : getParameter('OwnerId'),
+		ownerType : getParameter('OwnerType')
+	}); 
+
+	function uploadFile(){
+		var sDocFileName = $("DocFile").value;
+		try{
+			FileUploadHelper.validFileExt(sDocFileName, ".xml");
+		}catch(err){
+			Ext.Msg.alert(err.message, function(){
+			});
+			return false;
+		}
+
+		var isSSL = location.href.indexOf("https://")!=-1;
+		ProcessBar.start(wcm.LANG.METAVIEW_BUTTON_10 || '导入视图');
+		var callBack1 = {
+				"upload":function(_transport){
+					try{
+						DocFileName = eval(_transport.responseText);
+					}catch(error){
+						DocFileName = [];
+					}
+					var bAlert = FileUploadHelper.fileUploadedAlert(DocFileName[0]||"",function(){
+						//ProcessBar.next();
+					});
+					if(bAlert)return;
+					var callBack2 = {
+						"upload":function(_transport){
+							var importType = '';
+							var tmp = document.getElementsByName("importType");
+							for(var i=0;i<tmp.length;i++){
+								if(tmp[i].checked){
+									importType=tmp[i].value;
+									break;
+								}
+							}
+
+							var oPostData = {
+								"ImportFile" : DocFileName[0]||"",
+								"importType" : importType
+							};
+
+							Object.extend(oPostData, PageContext.params); 
+							BasicDataHelper.call('wcm61_metaview','importViewsFromXML', oPostData, true, 
+								function(_trans, _json){
+									ProcessBar.exit();
+									var aTop = $MsgCenter.getActualTop();							
+									Ext.Msg.report(_json, wcm.LANG.metaview_import_1000 || '视图导入结果', function(){
+										notifyFPCallback();
+										FloatPanel.close();
+									});
+									FloatPanel.hide();
+								},
+								function(_transport,_json){
+									ProcessBar.exit();
+									$render500Err(_transport,_json);
+									FloatPanel.close(true);
+								}
+							);
+						}
+					}
+					callBack2.upload();
+				}
+		}
+		YUIConnect.setForm('frmUploadDocFile',true,isSSL);
+		YUIConnect.asyncRequest('POST','../system/file_upload_dowith.jsp?FileParamName=DocFile&ResponseType=2',callBack1);
+		return false;
+	}
+</SCRIPT>
+<style>
+	body{
+		font-size:12px;		
+	}
+	.row{
+		width:100%;
+        margin:10px 0px;
+		display:block;
+		line-height:24px;		
+	}
+</style>
+</HEAD>
+<BODY>
+<DIV class="row">
+	<SPAN WCMAnt:param="classinfo_import.jsp.selcetwilluploadfilexmlformat">1、选择您要装载的文件(支持xml格式文件)：</SPAN>
+	<SPAN style="margin-left:20px;display:block;">
+		<FORM name="frmUploadDocFile" style="margin:0;padding:0;display:" enctype='multipart/form-data'>
+			<input type="file" id="DocFile" name="DocFile" style="width:400px;">
+		</FORM>
+	</SPAN>
+</DIV>
+
+<DIV class="row">
+	<span WCMAnt:param="metaview_import.html.doIfSame">2、出现重复视图英文名称时</span>
+	<SPAN>
+		<input type="radio" name="importType" value="0" checked> <span WCMAnt:param="metaview_import.html.skip">跳过</span>
+		<input type="radio" name="importType" value="1"> <span WCMAnt:param="metaview_import.html.rewrite">更新</span>
+		<input type="radio" name="importType" value="2"> <span WCMAnt:param="metaview_import.html.new">新建</span>
+	</SPAN>
+</DIV>
+<DIV>
+<span style="color:red;" WCMAnt:param="metaview_import.html.viewdesc">说明：</span><span WCMAnt:param="metaview_import.html.viewimportdesc">当视图的英文名称重名时，选择“更新”将添加原视图和元数据中没有的字段，而已有字段不会变化。</span>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict/dtd">
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title WCMAnt:param="index.html.validatecomponent"> 验证组件DEMO </title>
+  <meta name="Author" content="CH">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <link href="jquery.validator.css" rel="stylesheet" type="text/css" />
+  <script language="javascript" src="../../js/jquery.js" type="text/javascript"></script>
+  <script language="javascript" src="jquery.validator.js" type="text/javascript"></script>
+ </head>
+
+ <body>
+	<span WCMAnt:param="index.html.validatestring">验证字符串: </span><input type="text" name="" validate="type:'string',minLen:6,tipId:'tipel',maxLen:16,required:1,desc:'密码'" value="" validate_desc="密码" WCMAnt:paramattr="validate_desc:index.html.password">
+	
+	<hr/>
+	<span WCMAnt:param="index.html.validateint">验证整数:</span><input type="text" id="" name="" validate="type:'int',min:0,max:120,required:0,desc:'年龄'" value="" validate_desc="年龄" WCMAnt:paramattr="validate_desc:index.html.age">
+	<hr/>
+	<span WCMAnt:param="index.html.validatenum">验证数字:</span><input type="text" id="" name="" validate="type:'num',min:0,max:120,required:1,desc:'收入'" value="" validate_desc="收入" WCMAnt:paramattr="validate_desc:index.html.num">
+	<hr/>
+	<div class="" id="submit">
+		<span WCMAnt:param="index.html.validateemail">验证email:</span><input type="text" name="" validate="type:'email',required:1,desc:'电子邮箱'" value="" validate_desc="电子邮箱" WCMAnt:paramattr="validate_desc:index.html.email">
+		<hr/>
+		<span WCMAnt:param="index.html.validateip">验证ip:</span><input type="text" name="" validate="type:'ip',required:1,desc:'IP地址'" value="" validate_desc="IP地址" WCMAnt:paramattr="validate_desc:index.html.ipaddress">
+		<hr/>
+		<textarea name="" rows="" cols="" validate="type:'regexp',format:/中国/,required:1,desc:'你的国家必需包含“中国”两个字'" validate_desc='你的国家必需包含“中国”两个字' WCMAnt:paramattr="validate_desc:index.html.containchina"></textarea><br/>
+	</div>
+   <button onclick="$.validator.doValid()" WCMAnt:param="index.html.validateall">验证页面中所有</button><button onclick="$.validator.doValid('submit')" WCMAnt:param="index.html.validateidisform">验证ID为submit元素内的表单</button>
+   <span WCMAnt:param="index.html.displayvalidationinfo">这里显示验证信息</span><div class="" id="tipel" style="border:1px solid red;height:20px;" WCMAnt:param="index.html.displayvalidationinfo">
+		这里显示验证信息
+	</div>
+ </body>
+</html>

@@ -1,0 +1,270 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="channel_select.html.title">栏目选择...</title>
+
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../js/data/locale/template.js"></script>
+<script src="../js/data/locale/system.js"></script>
+<link rel="stylesheet" type="text/css" href="../../app/css/wcm-common.css">
+<!-- wcm widget start -->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/js/resource/widget.css" rel="stylesheet" type="text/css" />
+<!-- wcm widget end -->
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	window.m_fpCfg = {
+		m_arrCommands : [{
+			cmd : 'onOk',
+			name : (wcm.LANG.TRUE||'确定')
+		}],
+		size : [300, 390]
+};
+//-->
+</SCRIPT>
+<script>		
+	var m_nTemplateId	= 0;
+	var m_nTemplateType	= 0;
+	var m_nHostType		= 0;
+	var m_nHostId		= 0;
+	var m_arrRawChnlIdsDefault	  = [];
+	var m_arrRawChnlIdsNotDefault = [];
+	var m_bModifySite	= false;
+	function init(_nEmployMode){
+		
+		//var args = window.location.search.toQueryParams();
+		m_nTemplateId = getParameter("TemplateId");
+		m_nHostType = parseInt(getParameter("HostType"), 10);
+		m_nHostId = getParameter("HostId");
+		//注意：同时附加了权限
+		var _sUrl = WCMConstants.WCM6_PATH + 'nav_tree/nav_tree_select.jsp?ShowOneType=1&ExcludeTop=1&ExcludeLink=1&RightIndex=9&MultiSites=0&OnlyMyChildren=1&ExcludeInfoview=0&unNotSelectDisabledNoRight=1';//权限值：设置栏目模板
+		
+		if(m_nHostType == 103){ // 站点
+			_sUrl += '&CurrSiteId=' + m_nHostId;
+			//对于站点，需要进一步判读是否有修改站点的权限，如果有则显示是否“同时选择站点”选项
+			var nSiteModify = getParameter("SiteModify");
+			if(nSiteModify == 1) {
+				$('all_channels_tree').style.height = '285px';
+				Element.show('dvSelectSite');
+				m_bModifySite = true;
+			}
+
+		}else{ // 栏目
+			_sUrl += '&CurrChannelId=' + m_nHostId;	
+		}
+
+		//ge gfc add @ 2008-4-2 16:44 增加对概览的判断
+		m_nTemplateType = getParameter("TemplateType");
+		if(m_nTemplateType == 1) {//概览
+			Element.hide('dvOptionsTip');
+			Element.show('dvOptionsModals');
+		}else{
+			Element.hide('dvOptionsModals');
+			Element.show('dvOptionsTip');
+		}
+
+		BasicDataHelper.call('wcm6_template','queryEmployers',{ObjectId:m_nTemplateId, isdefault: 0},false,function(_transport,_json){		
+			var sIdsAll = '';
+			var sIdsDefault = '';
+			var sIdsNotDefault = '';	
+			var arEmployers = null;
+			//获取所有已经使用该模板的栏目的IDS
+			if(_json && (arEmployers = $a(_json, 'TemplateEmploys.TemplateEmploy'))) {
+				if(arEmployers.length > 0) {
+					var arIdsDefault = [];
+					var arIdsNotDefault = [];
+					var bSiteFoundDefault = false;
+					var bSiteFoundNotDefault = false;
+					for (var i = 0; i < arEmployers.length; i++){
+						var nEmployerId = $v(arEmployers[i], 'Employer.Id');
+						var nEmployerType = parseInt($v(arEmployers[i], 'EmployerType'), 10);
+						if(!nEmployerId) {
+							continue;
+						}
+						//站点不需要放进去
+						var bIsDefault = ($v(arEmployers[i], 'IsDefault') == 1);
+						if(nEmployerType != 103) {
+							if(bIsDefault) {
+								arIdsDefault.push(nEmployerId);
+							}else{
+								arIdsNotDefault.push(nEmployerId);
+							}
+						}
+						if(bSiteFoundDefault && bSiteFoundNotDefault) {
+							continue;
+						}
+						if(!bSiteFoundDefault) {
+							bSiteFoundDefault = (nEmployerId == m_nHostId && nEmployerType == m_nHostType) && bIsDefault
+							//alert([bSiteFoundDefault, bIsDefault])
+						}
+						if(!bSiteFoundNotDefault) {
+							bSiteFoundNotDefault = (nEmployerId == m_nHostId && nEmployerType == m_nHostType) && !bIsDefault
+						}
+					}
+					sIdsDefault = arIdsDefault.join(',');
+					sIdsNotDefault = arIdsNotDefault.join(',');
+
+					m_arrRawChnlIdsDefault = arIdsDefault;
+					m_arrRawChnlIdsNotDefault = arIdsNotDefault;
+				}
+			}	
+			//附加栏目IDS
+			//alert([sIdsAll, sIdsDefault])
+			var sIds = sIdsDefault;
+			if(_nEmployMode == null || isNaN(_nEmployMode = parseInt(_nEmployMode))) {
+				_nEmployMode = 1;
+			}
+			switch(_nEmployMode){
+				case 1:
+					sIds = sIdsDefault;
+					$('chkSelectSite').checked = bSiteFoundDefault;
+					break;
+				case 2:
+					sIds = sIdsNotDefault;
+					$('chkSelectSite').checked = bSiteFoundNotDefault;
+					break;
+				default: // 默认为 1, 首页模板
+					break;
+			}
+			//alert('_nEmployMode: ' + _nEmployMode + ', sIds: ' + sIds);
+			if(sIds.trim().length > 0){
+				_sUrl += '&SelectedChannelIds=' + sIds;
+			}
+			//alert(_sUrl)
+
+			//$('allTreeNav').src = _sUrl;	
+			setIFrameByPost('allTreeNav', _sUrl, ["SelectedChannelIds"]);
+		});		
+	}
+
+	function onOk(){
+		var arrSelIds = $('allTreeNav').contentWindow.getCheckValues4Disabled();
+		/*if(sSelIds.length == 0) {
+			$fail('请选择要设置的栏目！');
+			return false;
+		}//*/
+		var params = {
+			'ChannelIds': arrSelIds.join(','), 
+			'TemplateId': m_nTemplateId
+		};
+
+		if($('rdEmployModeNotDefault').checked) {
+			//alert('selected-ids: ' + arrSelIds + ', raw-ids: ' + m_arrRawChnlIdsNotDefault);
+			var result = clearUpArray(m_arrRawChnlIdsNotDefault, arrSelIds);
+			//alert('add-ids: ' + result['add'] + ', minus-ids: ' + result['minus']);
+			params['SetDefaultTemplate'] = false;
+			params['IncludeNewIds'] = result['add'];
+			params['ExcludeOldIds'] = result['minus'];
+		}
+		//alert($toQueryStr(params));
+		//return false;
+		//如果模板所属位置是站点，并且有权限修改站点的话，附加站点信息
+		if(m_nHostType == 103 && m_bModifySite == true) {
+			params['EmployOnSite'] = $('chkSelectSite').checked;
+		}
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+		
+		oHelper.call('wcm6_template', 'setChannelEmployersOfTemplate', params, true
+		, function(_transport,_json){
+			//$MessageCenter.sendMessage('oper_attr_panel','PageContext.reload',"PageContext", null, true, true);
+			//$timeAlert('设置成功！', 3, null, null, 2);
+			Ext.Msg.$timeAlert(wcm.LANG.TEMPLATE_ALERT7||'设置成功！', 3, function(){
+				notifyFPCallback();
+				FloatPanel.close();
+			});
+			FloatPanel.hide();
+		});		
+		return false;
+	}
+
+	function changeEmployMode(event){
+		var elm = Event.element(event || window.event);
+		if(elm == null || elm.tagName.toLowerCase() != 'input') {
+			return;
+		}
+		//else
+		//alert(elm.value);
+		init(elm.value);
+	}
+
+	function clearUpArray(_arrRaw, _arrNew){
+		var arrRaw = _arrRaw;
+		var arrNew = _arrNew;
+		
+		//做一些必要的检查
+		if(!(arrRaw.length > 0)) {
+			return {'add': arrNew, 'minus': []};
+		}
+		if(!(arrNew.length > 0)) {
+			return {'add': [], 'minus': arrRaw};
+		}
+
+		var nSeed = 0;
+		var nPos = -1;
+		var arrMinus = [];
+		for (var i = 0; i < arrRaw.length; i++){
+			nSeed = arrRaw[i];
+			nPos = arrNew.indexOf(nSeed);
+			if(nPos != -1) {
+				arrNew[nPos] = null;
+			}else{
+				arrMinus.push(nSeed);
+			}
+		}
+		arrNew = arrNew.compact();
+
+		return {'add': arrNew, 'minus': arrMinus}
+	}
+</script>
+<style type="text/css">
+	.iframe_container{
+		width:300px;
+		height:350px;
+	}
+	body{
+		margin: 0;
+		padding: 0;
+	}
+</style>
+</head>
+
+<body>
+<div style="width: 100%; hegith: 100%; height: 25px; line-height: 25px; font-weight: normal; font-size: 14px;">
+	<div style="width: 100%; height: 100%; background-image: url(../images/channel_thumbs_index/button-bg.png); padding-left: 5px; border-bottom: 1px solid silver;" WCMAnt:param="channel_select.html.selectchannel">
+		选择栏目
+	</div>
+</div>
+<div id="dvOptionsModals" style="display: none; font-size: 12px; width: 100%; hegith: 100%; height: 25px; line-height: 25px; font-weight: normal;">
+	<div style="width: 100%; height: 100%; background: #f6f6f6; padding-left: 5px; border-bottom: 1px solid silver;" onclick="changeEmployMode(event)">
+		<span><input type="radio" name="EmployMode" value="1" id="rdEmployModeDefault" checked><span WCMAnt:param="channel_select.html.used_first">当作首页模板</span></span><br>
+		<span><input type="radio" name="EmployMode" value="2" id="rdEmployModeNotDefault"><span WCMAnt:param="channel_select.html.used_other">当作其他概览模板</span></span>
+	</div>
+</div>
+<div id="dvOptionsTip" style="font-size: 12px; width: 100%; hegith: 100%; height: 25px; line-height: 25px; font-weight: normal;">
+	<div style="width: 100%; height: 100%; background: #f6f6f6; padding-left: 5px; border-bottom: 1px solid silver;" WCMAnt:param="channel_select.html.usedchannel">
+		请选择要使用该模板的栏目
+	</div>
+</div>
+<div id="all_channels_tree" class="iframe_container" style="height: 310px; width: 100%; overflow: auto; text-align: center">
+	<div style="height:100%;">	
+		<iframe name="allTreeNav" id="allTreeNav" src="../include/blank.html" style="width:100%;height:100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+	</div>
+</div>
+<div style="display: none; padding-left: 8px; border-top: 1px solid silver" id="dvSelectSite">
+	<input type="checkbox" id="chkSelectSite" value="">&nbsp;<span WCMAnt:param="channel_select.html.selectsite">同时选择站点</span>
+</div>
+<script>
+	init();
+</script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<HTML xmlns:TRS_UI>
+<HEAD>
+  <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <TITLE fcklang="CANCELREPLACE">TRS WCM 取消热词替换</TITLE>
+  <link href="../css/common.css" rel="stylesheet" type="text/css" />
+	<style>
+		body {
+			padding-top:0px;
+			background-color: #CCCCCC;
+		}
+		.input_btn{
+			width:60px;
+			margin-right:10px;
+		}
+		.input_text{
+			border:1px solid gray;
+			width:60px;
+		}
+		.simpletab{
+			padding-bottom:23px;
+			border-bottom:1px solid gray;
+			font-size:12px;
+		}
+		div.simpletab_item{
+			float:left;
+			width:50px;
+			height:20px;
+			background:gray;
+			margin-left:4px;
+			border:1px solid gray;
+			padding:4px;
+			text-align:center;
+		}
+		.simpletab_item a,.simpletab_item a:link,.simpletab_item a:visited,.simpletab_item a:hover{
+			text-decoration: none;
+			color:white;
+		}
+		div.simpletab_item_active{
+			float:left;
+			width:50px;
+			height:21px;
+			background:#ffffff;
+			margin-left:4px;
+			border:1px solid gray;
+			border-bottom:0;
+			padding:4px;
+			padding-bottom:5px;
+			text-align:center;
+		}
+		.simpletab_item_active a,.simpletab_item_active a:link,.simpletab_item_active a:visited,.simpletab_item_active a:hover{
+			text-decoration: none;
+			color:black;
+		}
+		.simpletab_item_before{
+			float:left;
+			padding-left:20px;
+		}
+		.message {
+			font-family: "宋体", "Arial", "Courier New";
+			font-size: 12px;
+			float:left;
+			height:18px;
+			line-height:18px;
+		}
+		.input_file{
+			float:left;
+			width:220px;
+			height:20px;
+			border:1px solid black;
+		}
+		.input_text{
+			float:left;
+			width:180px;
+			height:20px;
+			border:1px solid black;
+		}
+		.input_button{
+			float:left;
+			width:60px;
+			height:20px;
+			border:1px solid black;
+		}
+		.ui_editpanel_text_blank{
+			border:0;
+		}
+		.ui_editpanel_text_hover{
+			border:1px solid gray;
+		}
+		.simple_editpanel{
+			margin:1px 1px 0;
+			width:98%;height:23px;line-height:23px;font-size:14px;
+			overflow:hidden;
+			text-overflow:clip;
+		}
+		.row_delete{
+			float:left;
+			width:100%;
+			height:100%;
+			background:url(../images/icon/Delete.png) no-repeat center center;
+			cursor:pointer;
+		}
+		.hotwords_grid{
+			font-size:12px;background:black
+		}
+		.grid_head,
+		.grid_head a,
+		.grid_head a:hover{
+			height:24px;
+			background:gray;
+			color:white;
+			line-height:24px;
+			text-decoration: none;
+		}
+		.grid_row{
+			height:25px;background:#FFFFFF;
+		}
+		.tbody_dragging{
+			background-color:#FFFFDD;
+		}
+		.tbody_drag_icon{
+			width:20px;
+			height:20px;
+			background:url(../images/document_addedit/icon/Accessories.png) no-repeat center center;
+		}
+		.num{
+			padding:0 2px;
+			font-weight:bold;
+			color:red;
+		}
+	</style>
+	<script src="../../app/js/runtime/myext-debug.js"></script>
+	<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+	<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+	<script src="../../app/js/data/locale/system.js"></script>
+	<!--wcm-dialog start-->
+	<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+	<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+	<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+	<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+	<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+	<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+	<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+	<!--wcm-dialog end-->
+	<!--AJAX-->
+	<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+	<script src="../../app/js/source/wcmlib/com.trs.web2frame/TempEvaler.js"></script>
+	<script>
+	var myActualTop = (top.actualTop||top);
+	var HotWords = null;
+	var MappingHotWords = null;
+	var CurrDocId = myActualTop.CurrDocId || getParameter("CurrDocId");
+	var ChannelId = myActualTop.DocChannelId || getParameter("ChannelId");
+	var oEditor	= window.parent.InnerDialogLoaded() ;
+	var FCK		= oEditor.FCK ;
+
+	// Gets the document DOM
+	var oDOM = oEditor.FCK.EditorDocument ;
+	var EditorBody = oDOM.body;
+	var arrContentLinks = [];
+	var oReplacedHotWords = {};
+	var arrUnLinkWords = null;
+	(function(){
+		var arrLinks = oDOM.getElementsByTagName('A');
+		for (var i = 0; i < arrLinks.length; i++){
+			if(arrLinks[i].name=="AnchorAddByWCM"){
+				arrContentLinks.push(arrLinks[i]);
+				oReplacedHotWords[arrLinks[i].innerHTML.toUpperCase()] = '';
+			}
+		}
+	})();
+	function GetUnLinkWords(){
+		arrUnLinkWords = [];
+		var checkboxs = document.getElementsByName("unlinkwords");
+		for(var i=0;i<checkboxs.length;i++){
+			if(checkboxs[i].checked)arrUnLinkWords.push(checkboxs[i].value);
+		}
+		return arrUnLinkWords;
+	}
+	function UnLinkContent(){
+		for ( var i = 0 ; i < arrContentLinks.length ; i++ ){
+			var oNode = arrContentLinks[i] ;
+			if(arrUnLinkWords.includeI(oNode.innerHTML)){
+				var oNewNode = oDOM.createTextNode(oNode.innerHTML);
+//				oNode.replaceNode(oNewNode);
+				oNode.parentNode.replaceChild(oNewNode,oNode);
+			}
+		}
+	}
+	function Ok(){
+		GetUnLinkWords();
+		if(arrUnLinkWords.length==0){
+			if(confirm(wcm.LANG.ALERTCANCEL || "未选中任何热词进行取消替换,您确认不进行取消替换?")){
+				return true;
+			}
+			return false;
+		}
+		oEditor.FCKUndo.SaveUndoStep();
+		UnLinkContent();
+		oEditor.FCKAnchorsProcessor.ProcessDocument(oDOM);
+		return true;
+	}
+	function ToggleSelectAll(_currElement){
+		if(_currElement.getAttribute('all_selected',2)=='true'){
+			_currElement.innerHTML =  wcm.LANG.SELECTALL || '全选';
+			UnSelectAll();
+			_currElement.setAttribute('all_selected','false');
+		}
+		else{
+			_currElement.innerHTML = wcm.LANG.UNSELECTALL || '取消全选';
+			SelectAll();
+			_currElement.setAttribute('all_selected','true');
+		}
+	}
+	function SelectAll(){
+		//TODO
+		var checkboxs = document.getElementsByName("unlinkwords");
+		for(var i=0;i<checkboxs.length;i++){
+			checkboxs[i].checked = true;
+		}
+	}
+	function UnSelectAll(){
+		var checkboxs = document.getElementsByName("unlinkwords");
+		for(var i=0;i<checkboxs.length;i++){
+			checkboxs[i].checked = false;
+		}
+	}
+	function autoLoadHitHotWords(){
+		if(!HotWords){
+			var oPostData = {
+				"ChannelId" : ChannelId,
+				"FromEditor" : 1,
+				"PageSize"	:	100
+//				"OrderBy" : "LinkName desc"
+			}
+			HotWords = [];
+			MappingHotWords = {};
+			var oHelper = new com.trs.web2frame.BasicDataHelper();
+			oHelper.Call('wcm6_contentLink','query',oPostData,true,
+				function(_transport,_json){
+					var ContentLinks = com.trs.util.JSON.array(_json,"ChannelContentLinks.ChannelContentLink")||[];
+					if(ContentLinks.length==0){
+						var sValue = TempEvaler.evaluateTemplater('template_hotwords', [],{});
+						Element.update($('curr_hotwords'),sValue);
+						$('SelectAll').style.display = 'none';
+						return;
+					}
+					ContentLinks.each(function(_oValue){
+						var sWord = com.trs.util.JSON.value(_oValue,"LINKNAME");
+						var sUrl = com.trs.util.JSON.value(_oValue,"LINKURL");
+						var sTitle = com.trs.util.JSON.value(_oValue,"LINKTITLE");
+						HotWords.push(sWord.toUpperCase());
+						MappingHotWords[sWord.toUpperCase()] = {"Title":sTitle,"Url":sUrl,"Orig":sWord};
+					});
+					hitHotWords();
+				}
+			);
+//*/
+		}
+		else{
+			hitHotWords();
+		}
+	}
+	function hitHotWords(){
+		var usedWordsHash = {};
+		var origWords = {};
+		for(var sWord in oReplacedHotWords){
+			sWord = sWord.toUpperCase();
+			if(HotWords.includeI(sWord)){
+				usedWordsHash[sWord] = '';
+			}
+		}
+		var usedWords = [];
+		for(var word in usedWordsHash){
+			usedWords.push({"VALUE":(MappingHotWords[word]||{}).Orig,"TITLE":(MappingHotWords[word]||{}).Title});
+		}
+		setTimeout(function(){
+			var sValue = TempEvaler.evaluateTemplater('template_hotwords', usedWords,{});
+			Element.update($('curr_hotwords'),sValue);
+			if(usedWords.length==0){
+				$('SelectAll').style.display = 'none';
+			}
+			else{
+//				ToggleSelectAll($('SelectAll'));
+			}
+		},10);
+	}
+  </SCRIPT>
+<style type="text/css">
+	body {
+		padding-top:0px;
+		background-color: #CCCCCC;
+	}
+	.input_btn{
+		width:60px;
+		margin-right:10px;
+	}
+	.input_text{
+		border:1px solid gray;
+		width:60px;
+	}
+</style>
+</HEAD>
+
+<BODY style="margin:0;padding:0;">
+		<table height="100%" width="100%">
+			<tr>
+				<td align="left" valign="top">
+	<TABLE width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+		<TR>
+			<TD valign="top">
+				<DIV style="padding:0 4px;height:24px;overflow:hidden;">
+					<TABLE width="100%" border="0" cellpadding="0" cellspacing="1" class="hotwords_grid">
+						<THEAD align="center" valign="middle" class="grid_head">
+							<TD colspan="3" align="left" style="padding-left:10px" fcklang="SELECTKEYWORDS">
+							列表中为已完成替换的热词,请选择需要取消替换的热词.
+							</TD>
+							<TD width="68" id="SelectAll" style="cursor:pointer" onclick="ToggleSelectAll(this);" fcklang="SELECTALL">
+								全选
+							</TD>
+						</THEAD>
+					</TABLE>
+				</DIV>
+				<DIV id="curr_hotwords" style="padding:0 4px;height:120px;overflow:auto;">
+				</DIV>
+			</TD>
+		</TR>
+	</TABLE>
+				</td>
+				<td width="4%" align="center" valign="top">
+					<div style="width:2px;border-left:1px solid gray;background:white;overflow:hidden;height:160px;"></div></td>
+				<td width="10%" valign="top">
+					<input id="btnOk" class="input_btn" onclick="window.parent.Ok();"
+						type="button" value="Ok" fcklang="DlgBtnOK"/>
+					<div style="height:5px;overflow:hidden"></div>
+					<input name="button2" class="input_btn" type="button" value="Close" onclick="window.parent.Cancel();" fcklang="DlgBtnCancel">
+				</td>
+			</tr>
+		</table>
+	<textarea id="template_hotwords" style="display:none">
+		<TABLE width="100%" border="0" cellpadding="0" cellspacing="1" class="hotwords_grid">
+			<TBODY id="hotwords_tbody">
+		    <for select="." blankRef="noObjectFound">
+			<TR align="center" valign="middle" class="grid_row">
+				<record num="4" blankRef="noObjectFound2">
+				<TD width="25%">
+					<TABLE width="100%" height="100%" BORDER=0 CELLSPACING=0 CELLPADDING=0 style="font-size:12px">
+						<TR>
+							<TD align="right" width="24">
+								<input type="checkbox" name="unlinkwords" value="{#Value}">
+							</TD>
+							<TD align="left" title="{#Title}">{#Value}</TD>
+						</TR>
+					</TABLE>
+				</TD>
+				</record>
+			</TR>
+			</for>
+			</TBODY>
+		</TABLE>
+	</textarea>
+	<TABLE style="display:none">
+	<TBODY id="noObjectFound">
+		<TR class="grid_row" style="padding-left:10px">
+			<TD colspan="4" fcklang="NOKEYWORDS">没有已经完成替换的热词.</TD>
+		</TR>
+	</TBODY>
+	<TBODY id="noObjectFound">
+		<TR id="noObjectFound2">
+			<TD width="25%">&nbsp;</TD>
+		</TR>
+	</TBODY>
+	</TABLE>
+<script>
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+	window.parent.SetBtnsRow(false);
+	window.parent.SetAutoSize( true ) ;	
+	autoLoadHitHotWords();
+</script>
+</BODY>
+</HTML>

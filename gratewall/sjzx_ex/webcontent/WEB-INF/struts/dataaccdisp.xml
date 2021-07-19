@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>数据权限分配</menu-name>
+  <menu-path>/page/sysmgr/priv/datapriv/dataacc/</menu-path>
+  <description>数据权限分配</description>
+  <form-beans>
+    <form-bean name="DataaccdispRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="record" name="objectid" type="long" cannull="false" description="对象内码"/>
+      <form-property prefix="record" name="dataaccgrpid" type="long" cannull="false" description="数据权限分组内码"/>
+      <form-property prefix="record" name="dataaccdispobj" type="string" size="1" cannull="false" description="分配对象"/>
+    </form-bean>
+    <form-bean name="DataaccdispQueryForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="roleaccids" type="string" size="1000" cannull="false" description="角色交易代码"/>
+      <form-property prefix="select-key" name="roleids" type="string" size="1000" cannull="false" description="角色交易代码"/>
+      <form-property prefix="record" name="objectid" type="long" cannull="false" description="对象内码"/>
+      <form-property prefix="record" name="dataaccgrpid" type="long" cannull="false" description="数据权限分组内码"/>
+      <form-property prefix="record" name="dataaccdispobj" type="string" size="1" cannull="false" description="分配对象"/>
+      <form-property prefix="record" name="dataaccgrpname" type="string" size="200" cannull="false" description="分配对象"/>
+      <form-property prefix="record" name="dataaccrule" type="string" size="1" cannull="false" description="分配对象"/>
+      <form-property prefix="record" name="dataacctype" type="string" size="1" cannull="false" description="分配对象"/>
+    </form-bean>
+
+    <form-bean name="DataaccdispUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="objectid" type="long" cannull="false" description="对象内码"/>
+      <form-property prefix="primary-key" name="dataaccgrpid" type="long" cannull="false" description="数据权限分组内码"/>
+      <form-property prefix="record" name="objectid" type="long" cannull="false" description="对象内码"/>
+      <form-property prefix="record" name="dataaccgrpid" type="long" cannull="false" description="数据权限分组内码"/>
+      <form-property prefix="record" name="dataaccdispobj" type="string" size="1" cannull="false" description="分配对象"/>
+    </form-bean>
+
+    <form-bean name="DataaccdispDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="objectid" type="long" cannull="false" description="对象内码"/>
+      <form-property prefix="primary-key" name="dataaccgrpid" type="long" cannull="false" description="数据权限分组内码"/>
+      <form-property prefix="primary-key" name="dataaccdispobj" type="string" size="1" cannull="false" description="数据权限分组内码"/>
+      <form-property prefix="primary-key" name="objectids" type="string" size="1000" cannull="false" description="对象内码串"/>
+      <form-property prefix="primary-key" name="dataaccgrpids" type="string" size="1000" cannull="false" description="数据权限分组内码"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-dataaccdisp.jsp" name="DataaccdispRowsetForm" txn-code="103041" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据权限分配列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccdisp" func-name="txn103041" input-node="select-key" output-node="record" description="查询数据权限分配列表"/>
+      <forward error-code="success" path="query-dataaccdisp.jsp"/>
+      <forward error-code="failure" path="query-dataaccdisp.jsp"/>
+    </action>
+
+    <action input="update-dataaccdisp.jsp" name="DataaccdispUpdateForm" txn-code="103042" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改数据权限分配信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccdisp" func-name="txn103042" input-node="record" description="修改数据权限分配信息"/>
+      <forward error-code="success" path="update-dataaccdisp.jsp"/>
+      <forward error-code="failure" path="update-dataaccdisp.jsp"/>
+    </action>
+
+    <action input="insert-dataaccdisp.jsp" name="DataaccdispUpdateForm" txn-code="103043" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加数据权限分配信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccdisp" func-name="txn103043" input-node="record" description="增加数据权限分配信息"/>
+      <forward error-code="success" path="insert-dataaccdisp.jsp"/>
+      <forward error-code="failure" path="insert-dataaccdisp.jsp"/>
+    </action>
+
+    <action input="query-dataaccdisp.jsp" name="DataaccdispUpdateForm" txn-code="103044" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据权限分配用于修改</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccdisp" func-name="txn103044" input-node="primary-key" output-node="record" description="查询数据权限分配用于修改"/>
+      <forward error-code="success" path="update-dataaccdisp.jsp"/>
+      <forward error-code="failure" path="update-dataaccdisp.jsp"/>
+    </action>
+
+    <action input="query-dataaccdisp.jsp" name="DataaccdispDeleteForm" txn-code="103045" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除数据权限分配信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccdisp" func-name="txn103045" input-node="primary-key" description="删除数据权限分配信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    <action input="query-dataaccdisp.jsp" name="DataaccdispQueryForm" txn-code="103046" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>根据角色访问的交易列表获取数据权限列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccdisp" func-name="txn103046" input-node="select-key" output-node="record" description="根据角色访问的交易列表获取数据权限列表"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    <action input="query-dataaccdisp.jsp" name="DataaccdispDeleteForm" txn-code="103048" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>批量删除数据权限分配信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccdisp" func-name="txn103048" input-node="primary-key" description="批量删除数据权限分配信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    <action input="query-dataaccdisp.jsp" name="DataaccdispQueryForm" txn-code="1030411" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>根据角色列表获取数据权限列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccdisp" func-name="txn1030411" input-node="select-key" output-node="record" />
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-dataaccdisp.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/csdb/xtgl/query-dataaccdisp.jsp" description="查询数据权限分配列表"/>
+    <resource-file type="jsp" file-name="/csdb/xtgl/insert-dataaccdisp.jsp" description="增加数据权限分配信息"/>
+    <resource-file type="jsp" file-name="/csdb/xtgl/update-dataaccdisp.jsp" description="修改数据权限分配信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.DataaccdispContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.VoDataaccdisp" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.VoDataaccdispSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.VoDataaccdispPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

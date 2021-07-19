@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script>
+<style type="text/css">
+	.menu-icon{
+		background: url('images/p1.png') no-repeat center center;
+	}
+	.menu-icon-k{
+		background: url('images/k.png') no-repeat center center;
+	}
+	.menu-icon-n{
+		background: url('images/n.png') no-repeat center center;
+	}
+	.menu-icon-o{
+		background: url('images/o.png') no-repeat center center;
+	}
+	.menu-icon-p{
+		background: url('images/p.png') no-repeat center center;
+	}		
+</style>
+</head>
+<body>
+  
+<script>  
+var opt = [{
+	text: '大家好',
+	iconclass: 'menu-icon',
+    items:[{
+			text:"CUT",
+			click:function(e){
+				alert("aid click....");
+			}
+		},
+		'-',
+		{
+			text:"Delphi",
+			iconclass: "menu-icon-k",
+			click:function(e){
+				
+			},
+			items:[{
+					text:"Delphi",
+					iconclass: "menu-icon-o",
+					click:function(e){
+			
+					},
+					items:[{
+						text:"Borland",
+						iconclass: "menu-icon-n",
+						click:function(e){
+							
+						}							
+					}]
+				},{
+					text:"Saarland",
+					iconclass: "menu-icon-o",
+					click:function(e){
+			
+					}
+				},{
+					text:"AMMS",
+					iconclass: "menu-icon-n",
+					click:function(e){
+			
+					}
+				}
+			]
+		},{
+			text:"Amesville",
+			iconclass: "menu-icon-k",
+			click:function(e){
+			
+			}
+		}
+	]
+},{
+	text: '系统管理',
+	iconclass: 'menu-icon',
+	click: function(){
+
+	},
+    items:[{
+			text:"用户管理",
+			iconclass: "menu-icon-n",
+			click:function(e){
+				alert("aid click....");
+			}
+		},
+		'-',
+		{
+			text:"新功能",
+			iconclass: "menu-icon-k",
+			click:function(e){
+				
+			},
+			items:[{
+					text:"Delphi",
+					iconclass: "menu-icon-n",
+					click:function(e){
+			
+					},
+					items:[{
+						text:"Borland",
+						iconclass: "menu-icon-o",
+						click:function(e){
+							
+						}							
+					}]
+				},{
+					text:"Saarland",
+					iconclass: "menu-icon-k",
+					click:function(e){
+			
+					}
+				},{
+					text:"AMMS",
+					click:function(e){
+						
+					}
+				}
+			]
+		},{
+			text:"Amesville",
+			click:function(e){
+			
+			}
+		}
+	]
+}];
+
+</script>
+<div id="textmenu" style="text-align:center; border:1px solid black;width:300px;height:200px; background:url(Hydrangeas.jpg);"><font color="red">右键点击</font></div>
+<div vtype="contextmenu" target="#textmenu" items="opt"></div>
+
+<script type="text/javascript">
+$(function(){
+    //调整父页面iframe高度
+    try{
+        parent.setWinHeight(300);           
+    }catch(e){
+        jazz.log(e);
+    }
+});
+</script>   
+</body>
+</html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="metaview_thumb.html.title">WCM通用列表页面-视图</title>
+    <link href="../js/resource/all_widgets.css" rel="stylesheet" type="text/css">
+    <link href="../css/common_thumb.css" rel="stylesheet" type="text/css">
+<link href="../metaview/metaview_thumb.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script src="../../app/js/easyversion/cssrender.js"></script>
+<div class="layout-container">
+    <div class="layout-left">
+        <div class="layout-top">
+            <div class="pageinfo">
+                <div class="pageinfo_left"></div>
+                <div class="pageinfo_right"></div>
+                <div class="search" id="search" style="float:right;"></div>
+                <span id="pageinfo"></span>
+            </div>
+        </div>
+        <div class="layout-center thumb_grid">
+            <div class="layout_north thumb_grid_head">
+                <span class="literator_path">
+                    <span id="literator_path" WCMAnt:param="entity_path.loading">
+                        &nbsp;&nbsp;&nbsp;&nbsp;正在加载路径信息...
+                    </span>
+                </span>
+                <div id="list-order-box" style="float:right;"></div>        
+            </div>
+            <div id='wcm_table_grid' class="layout_center_container thumb_grid_data"><!--query页面ajax填充区域--></div>
+        </div>
+        <div class="layout-bottom" id="south_tabs"></div>
+    </div>
+    <div class="layout-right" id="east_opers"></div>
+</div>
+<div id="thumb_edit_template" style="display:none">
+	<input type="text" name="ViewDesc" methodName="saveView"/>
+</div>
+<div id="thumb_NoObjectFound" style="display:none;">
+	<div class="no_object_found"  WCMAnt:param="metaview_thumb.html.noRecord">不好意思, 没有找到符合条件的对象!</div>
+</div>
+<script src="../js/runtime/lightlib.js"></script>
+<script src="../js/runtime/core_main.js"></script>
+<script src="../js/runtime/abs_thumb.js"></script>
+<script src="../js/runtime/data/list.js"></script>
+<script src="../js/runtime/data/oper_channelwebsite.js"></script>
+<script src="../js/runtime/data/oper_cmsobj_metaview.js"></script>
+<script src="metaview_thumb.html.compress.js"></script>
+<script src="metaview_thumb.js"></script>
+</body>
+</html>

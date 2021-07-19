@@ -1,0 +1,86 @@
+@charset "utf-8";
+
+/* Remove margin padding */
+body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend,button,input,textarea,th,td { margin:0; padding:0; }
+
+/* Default Font */
+body,button,input,select,textarea { font:12px/1.5 \5b8b\4f53,arial,sans-serif; }
+h1,h2,h3,h4,h5,h6 { font-size:100%; }
+address,cite,dfn,em,var { font-style:normal; }
+code,kbd,pre,samp { font-family:courier new,courier,monospace; }
+small { font-size:12px; }
+ul,ol { list-style:none; }
+a { text-decoration:none; }
+a:hover { text-decoration:underline; }
+sup { vertical-align:text-top; }
+sub { vertical-align:text-bottom; }
+legend { color:#000; }
+fieldset,img { border:0; }
+button,input,select,textarea{ font-size:100%; }
+table { border-collapse:collapse; border-spacing:0; }
+
+.col-main{ float:left; width:100%; min-height:1px; }
+.col-sub,.col-extra { float:left; }
+.layout:after,.main-wrap:after,.col-sub:after,.col-extra:after { content:'\20'; display:block; height:0; clear:both; }
+.layout,.main-wrap,.col-sub,.col-extra { zoom:1; }
+
+/* Common Features */
+.hidden { display:none; }
+.invisible { visibility:hidden; }
+
+/* Remove Float */
+.clear { display:block; height:0; overflow:hidden; clear:both; }
+.clearfix:after { content:'\20'; display:block; height:0; clear:both; }
+.clearfix { *zoom:1; }
+
+/* For non ie browsers also display the vertical scroll bar by default, to prevent the flicker caused by the scroll bar */
+html { overflow-y:scroll; }
+
+/* Default link styles */
+a:link,a:visited { text-decoration:underline; }
+a:hover,a:active { text-decoration:underline; }
+
+
+
+.top { padding-top:80px; }
+
+.wrap { width:400px; margin:0px auto; }
+.all-sort-list { margin-top: 5px; position:relative; width:125px; border:1px solid #69b;padding:3px 3px 3px 0px; background:#FAFAFA; }
+.all-sort-list .item { height:30px; border-top:1px solid #FFFFFF; }
+.all-sort-list .item.bo { border-top:none; } 
+.all-sort-list .item h3 { height:28px; line-height:28px; border:1px 0px; font-size:14px; font-weight:normal; width:126px; overflow:hidden; }
+.all-sort-list .hover h3 {cursor:pointer; position:relative; z-index:13; background:#f4fbf4; border-color:#DDD; border-width:1px 0px; border-style:solid; }
+.all-sort-list .item span { padding:0px 5px; color:#006699; font-family:"\5B8B\4F53"; } 
+.all-sort-list .item a { color:#006699; text-decoration:underline; }
+.all-sort-list .item a:hover { font-weight:bold; color:#006699; }
+
+
+.all-sort-list .item-list { 
+	display:none;
+	position:absolute;
+	width:260px;
+	min-height:150px;
+	_height:200px;
+	background:#f4fbf4;
+	left:125px;
+	box-shadow:0px 0px 10px #DDDDDD;
+	border:1px solid #DDD;
+	top:3px;
+	z-index:10;
+}
+
+
+.item-list .subitem { float:left; width:260px; padding:0px; }
+.item-list .subitem dl { border-top:1px solid #EEE; padding-top:2px; overflow:hidden; zoom:1; }
+.item-list .subitem .fore1 { border-top:none; }
+.item-list .subitem dt { float:left; width:240px; line-height:22px; text-align:left; padding:3px 6px 0px 0px; font-weight:700; color:#006699; }
+.item-list .subitem dt a { color:#006699; text-decoration:underline; }
+.item-list .subitem dd { float:left; width:230px; padding:3px 0px 0px; overflow:hidden; }
+.item-list .subitem dd em { float:left; height:14px; line-height:14px; padding:0px 8px; margin-top:5px; border-left:1px solid #CCC; }
+.item-list .subitem dd em a, .item-list .cat-right dd a { color:#666; text-decoration:underline; }
+.item-list .subitem dd em a:hover, .item-list .cat-right dd a:hover { font-weight:normal; text-decoration:underline; }
+.item-list .cat-right { float:right; width:210px; }
+.item-list .cat-right dl { width:159px; padding:6px 8px; }
+.item-list .cat-right dd { padding-top:6px; line-height:22px; overflow:hidden; padding:3px 0px 0px; }
+.item-list .cat-right dt { padding:3px 6px 0px 0px; font-weight:700; color:#006699;  }
+.item-list .cat-right dd a:hover { color:#666; }

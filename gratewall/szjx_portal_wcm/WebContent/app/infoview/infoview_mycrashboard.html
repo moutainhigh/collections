@@ -1,0 +1,50 @@
+<html>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+<script>
+var oMainPage = null;
+var m_sXPath = null;
+var m_cb = null;
+function $(el) {
+	if (typeof el == 'string')
+		el = document.getElementById(el);
+	return el;
+}
+function init(_args, cb) {
+	try{
+		var sJspName = _args.Jsp || 'infoview_fieldattrs.jsp';
+		var aQuery = [];
+		for(var sName in _args){
+			if(sName=='Jsp')continue;
+			aQuery.push(sName+"="+encodeURIComponent(_args[sName]));
+		}
+		$('_inner_iframe_').src = sJspName + "?" + aQuery.join('&') + "&r="+new Date().getTime();
+		oMainPage = _args._Window;
+		m_sXPath = _args.XPath;
+		m_cb = cb;
+	}catch(err){
+		alert(err.message);
+	}
+}
+Object.extend = function(d, s) {
+	for (p in s)d[p] = s[p];
+	return d;
+}
+function Ok(_oProps) {
+	if(!m_cb)return;
+	if(m_cb.callback)m_cb.callback(Object.extend(_oProps, {
+		XPath : m_sXPath
+	}));
+	m_cb.close();
+}
+function Cancel() {
+	if(!m_cb)return;
+	m_cb.close();
+}
+</script>
+</head>
+<body style="padding:0;margin:0;overflow:hidden;">
+<iframe id="_inner_iframe_" src="about:blank" style="width:100%;height:100%" frameborder="0" scrolling="no">
+</iframe>
+</body>
+</html>

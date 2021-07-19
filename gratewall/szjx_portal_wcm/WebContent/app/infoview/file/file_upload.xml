@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="GB2312"?>
+<parameters>
+	<!--
+		该页面有可能被嵌入到其他页面作为一个子页面，此时SelfControl=0
+		如果这个页面单独出现，不作为其他页面的子页面，此时SelfControl=1
+	-->
+	<parameter name="SelfControl"  desc="是否是自我控制的单独页面"  min-value="0" type="boolean" default="1"/>
+	<parameter name="BgColor"  desc="背景色" type="string"/>
+	<parameter name="ShowText"  desc="是否显示选择文件的文字"  min-value="0" type="boolean" default="1"/>
+	<parameter name="InputName"  desc="上传文件对应的输入框的名称" type="string"/>
+	<parameter name="AllowExt"  desc="允许上传的文件扩展名" type="string"/>
+
+</parameters>

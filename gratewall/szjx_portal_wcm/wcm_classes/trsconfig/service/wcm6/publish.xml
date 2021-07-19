@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.PublishServiceProvider">
+
+	<!--获取对象发布设置-->
+	<method name="getPublishConfig">
+		<parameter name="ObjectId" desc="对象ID" type="int" required="true"/>
+		<parameter name="ObjectType" desc="对象类型" type="int" required="true"/>
+		<parameter name="SelectFields" desc="提取那些发布信息" type="string" required="false" default="OutlineTemplate,DetailTemplate,DataPath,URL,STATUSES,DOMAIN"/>		
+	</method>	
+	
+	<!--保存对象发布设置-->
+	<method name="savePublishConfig"  desc="保存发布设置" logger="com.trs.ajaxservice.logger.PublishConfigSaveLogger">
+		<parameter name="ObjectId" desc="对象ID" type="int" required="true"/>
+		<parameter name="ObjectType" desc="对象类型" type="int" required="true"/>
+	</method>	
+	
+	<!--获取文档发布设置-->
+	<method name="getDocumentPublishConfig" truename="getPublishConfig">
+		<parameter name="ObjectType" desc="对象类型" type="int" required="false" default="605"/>
+	</method>	
+	
+	<!--保存文档发布设置-->
+	<method name="saveDocumentPublishConfig" truename="savePublishConfig" desc="保存文档发布设置">
+		<parameter name="ObjectType" desc="对象类型" type="int" required="false" default="605"/>
+	</method>	
+	
+	<!--获取栏目发布设置-->
+	<method name="getChannelPublishConfig" truename="getPublishConfig">
+		<parameter name="ObjectType" desc="对象类型" type="int" required="false" default="101"/>
+	</method>	
+	
+	<!--保存栏目发布设置-->
+	<method name="saveChannelPublishConfig" truename="savePublishConfig"  desc="保存栏目发布设置">
+		<parameter name="ObjectType" desc="对象类型" type="int" required="false" default="101"/>
+	</method>	
+
+	<!--获取站点发布设置-->
+	<method name="getSitePublishConfig" truename="getPublishConfig">
+		<parameter name="ObjectType" desc="对象类型" type="int" required="false" default="103"/>
+	</method>	
+	
+	<!--保存站点发布设置-->
+	<method name="saveSitePublishConfig" truename="savePublishConfig"  desc="保存站点发布设置">
+		<parameter name="ObjectType" desc="对象类型" type="int" required="false" default="103"/>
+	</method>	
+	
+	<!-- 发布指定的对象（站点/栏目/文档） 
+	2006-11-14 15:52:12 gongfuchang 加入按照PublishType的特殊发布方法 
+	发布类型PublishType:
+	1, 增量发布
+	2, 完全发布
+	3, publish type: publish a content 
+	5, 更新发布
+	8, 独立发布(仅发布首页)
+	7, 撤销发布
+	10,文档的直接发布，绕开关于发布状态的限制，直接单篇（将来也许多篇）发布文档
+	默认为1=增量发布
+	-->
+	<method name="publish" logger="com.trs.ajaxservice.logger.PublishTaskLogger">
+		<parameter name="ObjectIds" desc="对象ID序列" type="string" required="true" min-length="1"/>
+		<parameter name="ObjectType" desc="对象类型" type="int" required="true" min-value="0"/>
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="1"/>
+	</method>	
+
+	<method name="basicPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="3"/>
+	</method>
+	<method name="detailPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="8"/>
+	</method>
+	<method name="directPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="10"/>
+	</method>
+	<method name="increasingPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="1"/>
+	</method>
+	<method name="fullyPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="2"/>
+	</method>	
+	<method name="refreshPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="5"/>
+	</method>	
+	<method name="soloPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="8"/>
+	</method>
+	<method name="recallPublish" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="7"/>
+	</method>
+	<method name="publishpublisheddoc" truename="publish">
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" min-value="0" default="13"/>
+		<parameter name="StartDocCrtime" desc="文档创建开始时间" type="string" required="true"/>
+		<parameter name="EndDocCrtime" desc="文档创建结束时间" type="string" required="true"/>
+	</method>	
+					
+	<!-- 在指定的栏目下发布指定的内容（文档）  -->
+	<method name="publishContents">
+		<parameter name="ObjectIds" desc="对象ID序列" type="string" required="true" min-length="1"/>
+		<parameter name="ObjectType" desc="对象类型" type="int" required="true" min-value="0"/>
+		<parameter name="PublishType" desc="发布类型" type="int" required="true" min-value="0"/>
+		<parameter name="FolderId" desc="栏目ID" type="int" required="true"/>
+		<parameter name="FolderType" desc="栏目对象类型" type="int" required="true"/>		
+	</method>	
+	
+	<!-- 在指定的栏目下发布指定的文档  -->
+	<method name="publishDocuments" truename="publishContents">
+		<parameter name="ObjectType" desc="对象类型" type="int" required="false" min-value="0" default="605"/>
+		<parameter name="FolderType" desc="栏目对象类型" type="int" required="false" default="101"/>		
+	</method>	
+	
+	<!-- 在指定的栏目下撤消指定的文档  -->	
+	<method name="recallDocuments" truename="publishContents">
+		<parameter name="ObjectType" desc="对象类型" type="int" required="false" min-value="0" default="605"/>
+		<parameter name="FolderType" desc="栏目对象类型" type="int" required="false" default="101"/>	
+		<parameter name="PublishType" desc="发布类型" type="int" required="false" default="7"/>	
+	</method>	
+	
+	<!-- 预览指定的对象（站点/栏目/文档）  -->
+	<method name="preview">
+		<parameter name="ObjectIds" desc="对象ID序列" type="string" required="true" min-length="1"/>
+		<parameter name="ObjectType" desc="对象类型" type="int" required="true" min-value="0"/>
+		
+		<parameter name="TemplateId" desc="模板ID" type="int" required="false"/>
+		
+		<parameter name="FolderId" desc="预览文档时候所在的栏目ID" type="int" required="false"/>
+		<parameter name="FolderType" desc="预览文档时候所在的栏目对象类型" type="int" required="false"/>		
+		
+	</method>	
+	<method name="getUnpubSchedule">
+		<parameter name="SenderType" desc="对象类型" type="int" required="true" min-value="0"/>
+		<parameter name="SenderId" desc="对象ID" type="int" required="true" min-value="0"/>
+	</method>
+	<method name="setUnpubSchedule">
+		<parameter name="SchId" desc="计划任务ID" type="int" required="true" min-value="0"/>
+		<parameter name="SenderType" desc="对象类型" type="int" required="true" min-value="0"/>
+		<parameter name="SenderId" desc="对象ID" type="int" required="true" min-value="0"/>		
+		<parameter name="Unset" desc="撤销计划" type="boolean" required="false" />		
+	</method>
+</service>

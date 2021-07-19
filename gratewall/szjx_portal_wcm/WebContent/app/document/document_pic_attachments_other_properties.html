@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title WCMAnt:param="document_pic_attachments_other_properties.html.title">设置图片属性</title>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<link href="../../app/js/source/wcmlib/com.trs.validator/css/validator.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+	.m-table{
+		margin:15px auto;
+		text-align:left;
+	}
+
+	.m-table tr{
+		height:30px;
+	}
+
+	.m-table td{
+		vertical-align:middle;
+	}
+	#applinkalt, #appdesc2{
+		border:1px solid silver;
+	}
+</style>
+<script language="javascript">
+<!--
+function init(params){
+	for(var key in params){
+		var dom = $(key);
+		if(!dom) continue;
+		dom.value = params[key];
+	}
+}
+
+function onOk(cb){
+	if(!ValidationHelper.doValid("data-box")){
+		return false;
+	}
+
+	var doms = $('data-box').elements;
+	var data = {};
+	for (var index = 0; index < doms.length; index++){
+		if(doms[index].getAttribute("ignore")) continue;
+		var maxLen = doms[index].getAttribute('data-max-len');
+		if(maxLen){
+			if(doms[index].value.length > parseInt(maxLen, 10)){
+				
+			}
+		}
+		data[doms[index].name] = doms[index].value;
+	}
+	cb.callback(data);
+	return false;
+}
+//-->
+</script>
+</head>
+
+<body style="margin:0;padding:0;text-align:center;">
+	<form id="data-box">
+	<table border="0" cellspacing="0" cellpadding="0" class="m-table">
+	<tbody>
+		<tr>
+			<td WCMAnt:param="document_pic_attachments_other_properties.html.applinkalt">图片提示：</td>
+			<td>
+				<input type="text" name="applinkalt" id="applinkalt" value="" style="width:300px;"  validation="type:'string',min_len:0,max_len:100" WCMAnt:paramattr="validation_desc:document_pic_attachments_other_properties.html.applinkaltvalid" validation_desc="图片提示" />
+			</td>
+		</tr>
+		<tr>
+			<td WCMAnt:param="document_pic_attachments_other_properties.html.appdesc2">图片描述：</td>
+			<td>
+				<textarea name="appdesc2" id="appdesc2" rows="6" style="width:300px;"  validation="type:'string',min_len:0,max_len:150" WCMAnt:paramattr="validation_desc:document_pic_attachments_other_properties.html.appdesc2valid" validation_desc="图片描述"></textarea>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	</form>
+</body>
+</html>

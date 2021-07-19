@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.ObjectMemberServiceProvider">
+	<method name="save" desc="保存指定对象中指定成员的信息">
+		<parameter name="ObjectId" desc="对象ID" type="int" required="false" default="0"/>
+	</method>
+	<method name="findById"/>
+	<method name="delete" desc="删除成员对象">	
+		<parameter name="ObjectIds" desc="待删除的成员对象ID序列" type="string" required="true"/>				
+	</method>
+	
+	<method name="saveObjectsOfMember" desc="保存指定成员可见可操作的对象（栏目/站点）">
+		<parameter name="MemberType" desc="指定成员类型" type="int" required="true"/>
+		<parameter name="MemberId" desc="指定成员ID" type="int" required="true"/>	
+		<parameter name="ObjectMembersXML" desc="需要保存的对象可见可操作信息" type="string" required="true"/>
+	</method>
+
+	<method name="saveMembersOfObject" desc="保存指定对象（栏目/站点）对其可见可操作的所有成员">
+		<parameter name="ObjType" desc="指定成员类型" type="int" required="true"/>
+		<parameter name="ObjId" desc="指定成员ID" type="int" required="true"/>
+		<parameter name="ImpartModes" desc="访问控制的传递模式" type="string" required="false" default="0"/>
+		<parameter name="ObjectMembersXML" desc="需要保存成员可见可操作信息" type="string" required="true"/>
+	</method>
+	
+	<method name="queryObjectsOfMember" desc="获取指定成员可见可操作的对象（栏目/站点）">
+		<parameter name="MemberType" desc="指定成员类型" type="int" required="true"/>
+		<parameter name="MemberId" desc="指定成员ID" type="int" required="true"/>	
+	</method>
+
+	<method name="queryMembersOfObject" desc="获取指定对象（栏目/站点）对其可见可操作的所有成员">
+		<parameter name="ObjType" desc="指定成员类型" type="int" required="true"/>
+		<parameter name="ObjId" desc="指定成员ID" type="int" required="true"/>	
+	</method>
+	
+	
+</service>

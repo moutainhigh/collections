@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>采集服务</sort-name>
+  <table-info name="sys_clt_log_detail" class-name="com.gwssi.dw.runmgr.services.dao.SysCltLogDetail" check-flag="false" backup-flag="false">
+    <description>采集日志详细</description>
+  </table-info>
+
+  <column name="sys_clt_log_detail_id" data-type="varchar" length="32" not-null="true" value-from="input" description="主键"/>
+  <column name="sys_clt_log_id" data-type="varchar" length="32" not-null="true" value-from="input" description="采集日志外键"/>
+  <column name="inf_name" data-type="varchar" length="50" not-null="true" value-from="input" description="接口名称"/>
+  <column name="inf_desc" data-type="varchar" length="100" not-null="true" value-from="input" description="接口描述"/>
+  <column name="clt_num" data-type="long" length="38" not-null="false" value-from="input" description="采集数据量"/>
+  <primary-key name="sys_c008572" column-list="sys_clt_log_detail_id"/>
+  <index name="sys_c008572" index-type="unique" cluster="cluster" column-list="sys_clt_log_detail_id"/>
+  <function func-name="select sys_clt_log_detail list" func-type="rowset" column-list="sys_clt_log_detail_id,sys_clt_log_id,inf_name,inf_desc,clt_num" max-record="-1">
+    <filter-column column-name="sys_clt_log_id" operator="eq" value-from="input" empty-flag="empty"/>
+    <description>多记录查询</description>
+  </function>
+</table>
+

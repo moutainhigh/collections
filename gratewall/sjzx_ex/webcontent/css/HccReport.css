@@ -1,0 +1,203 @@
+.HccReport_pub{
+	position:relative;
+	float:left;
+	z-Index:3;
+}
+
+.HccReport_pub_cell{
+	float:left;
+	height:20px;
+	width:50px;
+	background-Color:#EBE9ED;
+	font-size:1pt;
+	border:1pt solid #7E7D68;
+}
+
+.HccReport_topHead{
+	position:relative;
+	z-Index:2;
+	float:left;
+}
+
+.HccReport_topHead_cell{
+	text-align: center;
+	font-size:9pt;
+	width:80px;
+	height:20px;
+	float:left;
+	border:1pt solid #7E7D68;
+	background-Color:#EBE9ED;
+	z-Index:2;
+}
+
+
+.HccReport_topHead_cellContext{
+	position:relative;
+	left:45%;
+	text-align: center;
+	font-size:9pt;
+	height:16px;
+	float:left;
+}
+.HccReport_topHead_splitLine{
+	position:relative;
+	width:5px;
+	height:16px;
+	
+	float:right;
+	right:0px;
+	cursor: e-resize;
+	z-Index:100;
+}
+
+.HccReport_moveSplitLine{
+	position:absolute;
+	top:0px;
+	height:500px;
+	border-left:1pt solid #000000;
+	display:none;
+	z-index:10;
+}
+
+.HccReport_leftHead{
+	position:relative;
+	left:0px;
+	top:-1px;
+	z-Index:2;
+	float:left;
+	width:50px;
+}
+
+.HccReport_leftHead_cell{
+	text-align: center;
+	font-size:9pt;
+	width:50px;
+	height:20px;
+	float:left;
+	border-left:1pt solid #7E7D68;
+	border-right:1pt solid #7E7D68;
+	border-top:1pt solid #7E7D68;
+	/**border-top:1pt solid #EBE9ED;*/
+	background-Color:#EBE9ED;
+	
+}
+
+.HccReport_body{
+	position:relative;
+	left:0px;
+	top:-2px;
+	float:left;
+}
+
+.HccReport_body_table{
+	position:relative;
+	table-layout:fixed;
+	border-collapse:collapse;
+}
+
+.HccReport_body_cell_pubContral{
+	width:0;
+	height:0;
+}
+
+.HccReport_body_cell_rowContral{
+	width:0;
+	border:0;
+	height:20px;
+}
+
+.HccReport_body_cell_colContral{
+	width:80px;
+	border:0;
+	height:0px;
+}
+
+.HccReport_body_cell{
+	/**
+	border-bottom:1pt solid #C0C0C0;
+	border-right:1pt solid #C0C0C0;
+	*/
+	font-size:9pt;
+	float:left;
+	white-space:nowrap;
+	/**background-Color:#FFFFFF;*/
+	/**filter:Alpha(opacity=50);*/
+
+}
+
+.HccReport_cell_editInput{
+	position:relative;
+	left:0px;
+	top:-1px;
+	border:0;
+	padding:0px;
+	margin:0px;
+	background-color:#FFFFFF;
+	z-index:1;
+	/** word-spacing: **/
+}
+
+.HccReport_body_TD{
+	width:100px;
+	height:20px;
+	border-bottom:1pt solid #C0C0C0;
+	border-right:1pt solid #C0C0C0;
+	font-size:9pt;
+	float:left;
+}
+
+.HccReport_span{
+	font-size:9pt;
+}
+
+.HccReport_cover{
+	font-size:1pt;
+	position:absolute;
+	/*display:none;*/
+	background-Color:#3366CC;
+	width:0px;
+	height:0px;
+	z-index:-1;
+	border:1pt dashed #000000;
+	filter:Alpha(opacity=20);
+	opacity:0.20;
+}
+
+.HccReport_droppable{
+	background-Color:#EFEEDF;
+}
+
+.dropzBactive{
+	background-Color:#86992D;
+}
+
+.inputsTooltip
+{
+ border: 1px solid #000;
+ background-color: #444;
+ padding: 4px;
+ color: #ccc;
+ font-family: Arial, Helvetica, sans-serif;
+ font-size: 11px;
+ width: 150px;
+}
+
+.dragHelper_element{
+	position:absolute;
+}
+
+.HccReport_hover{
+	position:absolute;
+	border:1pt outset #000000;
+	background-color:#8F5645;
+
+	z-Index:10000;
+}
+
+.HccReport_areaAttribute{
+	border-bottom:1pt outset #000000;
+	height:40px;
+	width:100%;
+	z-Index:999999;
+	background-color:#FFFEFF;
+}

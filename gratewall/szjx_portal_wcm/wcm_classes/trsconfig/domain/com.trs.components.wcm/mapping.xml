@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="GB2312"?>
+<mapping>
+	<description>for WCM App Config Mapping</description>
+	<class name="com.trs.components.wcm.WCMAppConfig">
+		<map-to xml="wcmapp-config"/>
+		<field name="documentSynChnlDoc"  type="boolean">
+			<bind-xml name="document-syn-chnldoc" node="element"/>
+		</field>
+		<field name="documentsGetOptimize"  type="boolean">
+			<bind-xml name="documents-get-optimize" node="element"/>
+		</field>
+		<field name="documentSynChnlDocFields"  type="string">
+			<bind-xml name="document-syn-chnldoc-fields" node="element"/>
+		</field>		
+	 </class>
+</mapping>
+

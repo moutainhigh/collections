@@ -1,0 +1,40 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>TRS视频选件诊断工具集</title>
+	<style>
+	body {
+		font-size: 14px;
+	}
+	</style>
+	<script type="text/javascript">
+	<!--
+	function loadToMainFrame(url) {
+		document.getElementById("mainFrame").src = url;
+	}
+	// -->
+	</script>
+</head>
+
+<body>
+<div>
+	<div id="left" style="width:14%; height:760px; border-right: 1px solid gray; float:left">
+		<ul>
+			<li><div><a href="./env.jsp" target="mainFrame">系统环境信息</a></div></li>
+			<li><div><a href="./service_listeners_list.jsp" target="mainFrame">WCM服务监听器</a></div></li>
+			<li><div><a href="./log4j.jsp" target="mainFrame">LOG4J配置</a></div></li>
+			<li><div><a href="./playerSnipHtml.jsp" target="mainFrame">播放器测试</a></div></li>
+			<li><div><a href="./publisher.swf" target="mainFrame">流媒体服务器测试</a></div></li>
+			<li><div><a href="./httplog_list.jsp" target="mainFrame">Http请求列表</a></div></li>
+			<li><div><a href="./fckvideo_list.jsp" target="mainFrame">文档插视频的关联列表</a></div></li>
+		</ul>
+	</div>
+	
+	<div id="main" style="width:82%; height:760px; float:left">
+		<iframe id="mainFrame" name="mainFrame" frameborder="0" src="./env.jsp" width="100%" height="100%">
+			您的浏览器不支持iframe，请您使用最新的版本。
+		</iframe>
+	</div>
+</div>
+</body>
+</html>

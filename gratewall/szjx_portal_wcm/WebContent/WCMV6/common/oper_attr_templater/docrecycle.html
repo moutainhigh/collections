@@ -1,0 +1,52 @@
+<textarea id="template_docrecycle" select="ViewDocument" >
+	<div class="attribute_row">
+		<div class="attribute_row_title_readonly" title="{#DocTitle, }">
+			{#DocTitle}
+		</div>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row wcm_desc_info_row">
+		<span title="文档编号:{#DocId}&#13;创建者:{#CrUser}&#13;创建时间:{#CrTime} " style="white-space:nowrap;overflow:hidden;">
+			<span style="">用户</span><span class="desc_info_value">{#CrUser}</span><span>创建于</span><span class="desc_info_value">{#CrTime,,getPrettyTime}</span>
+		</span>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<span class="attribute_name">类型:</span>
+		<span class="attribute_value wcm_readonly"><a href="#" onclick="return false;" class="doctype">{#DocType.Name}</a></span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">所属栏目:</span>
+		<span class="attribute_value wcm_readonly"><a href="#" onclick="return false;" class="docchannel">{#DocChannel.Name}</a></span>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<span class="attribute_name">状态:</span>
+		<span class="attribute_value wcm_readonly">{#DocStatus.Name}</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">首页标题:</span>
+		<span class="attribute_value wcm_readonly">{#DOCPEOPLE}</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">副标题:</span>
+		<span class="attribute_value wcm_readonly">{#SubDocTitle}</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">关键词:</span>
+		<span class="attribute_value wcm_readonly">{#DOCKEYWORDS}</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">来源:</span>
+		<span class="attribute_value wcm_readonly">{#DOCSOURCE.Name}</span>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row wcm_readonly">{#DocPubUrl}</div>
+	<div class="attribute_row_sep"></div>
+</textarea>
+
+<textarea id="template_docrecycles">
+	<div class="attribute_row">
+		当前共选中<span class="objects_num">{#Num}</span>篇文档.
+	</div>
+</textarea>

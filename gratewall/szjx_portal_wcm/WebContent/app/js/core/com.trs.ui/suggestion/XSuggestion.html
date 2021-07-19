@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> suggestion demo </title>
+	<!-- 组件依赖的代码 BEGIN -->
+	<script src="../../core.js" type="text/javascript"></script>
+	<script src="../../com.trs.util/Observable.js" type="text/javascript"></script>
+	<script src="../BaseComponent.js" type="text/javascript"></script>
+	<!-- 组件依赖的代码 END -->
+	
+	<script language="javascript" src="XSuggestion.js" type="text/javascript"></script>
+	<link href="resource/XSuggestion.css" rel="stylesheet" type="text/css" />	
+</head>
+
+<body>
+<div id="box"></div>
+<script language="javascript">
+<!--
+	new com.trs.ui.XSuggestion({
+		name : 'state',
+		items : wcm.LANG.XSuggestion_101 || '中国`1~美国`2~日本`3~德国`4',
+		value : 3,
+		//label : '德国',
+		renderTo : 'box'
+	}).render();
+//-->
+</script>
+<button onclick="getValue();" WCMAnt:param="XSuggestion.html.getfieldvalue">获取字段的值</button>
+<script language="javascript">
+<!--
+	function getValue(){	
+		var oMySuggestion = com.trs.ui.ComponentMgr.get('state');
+		alert(oMySuggestion.getValue());		
+	}
+//-->
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin name="WCM电子报组件" version="1.0" id="wcm.epress">
+	<beans>
+		<!--Mgr BEGIN-->
+		<bean id="DocumentLCListenerHistoryIndex" 
+			class="com.trs.components.wcm.epress.DocumentLCListener4EPress" 
+			singleton="true"/>
+		<bean id="ChannelLCListener4EPress"
+			class="com.trs.components.wcm.epress.ChannelLCListener4EPress" 
+			singleton="true"/>
+   </beans>
+</plugin>

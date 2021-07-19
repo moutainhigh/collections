@@ -1,0 +1,150 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>智能创建文档</TITLE>
+<style>
+	body{
+		font-size:12px;
+	}
+	div{
+		width:100%;
+		display:block;
+		line-height:24px;
+		height:24px;
+	}
+	SPAN{
+		float:left;
+	}
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script>
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.util.FileUploadHelper');
+	$import('com.trs.util.YUIConnection');
+</script>
+<script type="text/javascript" src="../js/opensource/swfobject.js" ></script>
+
+<script language="javascript">
+<!--
+FloatPanel.addCloseCommand("关闭");
+//FloatPanel.addCommand('importBtn', '创建', 'importDocument',null);
+//Event.observe(window,'unload',function(){
+//	FloatPanel.removeCloseCommand();
+//	FloatPanel.removeCommand('importBtn');
+//});
+var sDocHtml = null;
+var oParams = {
+	'ChannelId' : getParameter('ChannelId'),
+	'FromEditor' : 1
+}
+function importDocument(){
+	ProcessBar.init('执行进度，请稍候...');
+	var sDocFileName = $("DocFile").value;
+	if(!FileUploadHelper.validFileExt(sDocFileName, "doc,docx,rtf")){
+		return false;
+	}
+	ProcessBar.addState('正在上传文件:'+sDocFileName);
+	ProcessBar.addState('正在提交数据');
+	ProcessBar.addState('成功执行完成');
+	ProcessBar.start();
+	var isSSL = location.href.indexOf("https://")!=-1;
+	var callBack1 = {
+		"upload":function(_transport){
+			var sResponseText = _transport.responseText;
+			var bAlert = FileUploadHelper.fileUploadedAlert(sResponseText,function(){
+				oParams['OfficeSid'] = sResponseText;
+				ProcessBar.exit();
+				var oWin = $openMaxWin("document_addedit.jsp?" + $toQueryStr(oParams));
+				FloatPanel.close();
+				setTimeout(function(){
+					oWin.focus();
+//					FloatPanel.close(true);
+				},100);
+			});
+			if(bAlert)return;
+		}
+	}
+	YUIConnect.setForm('frmUploadDocFile',true,isSSL);
+	YUIConnect.asyncRequest('POST','../system/upload_office_doc.jsp?FileParamName=DocFile',callBack1);
+	return false;
+}
+function onComplete(){
+//	$MessageCenter.sendMessage('main', 'PageContext.RefreshList', 'PageContext', []);
+//	FloatPanel.close(true);
+}
+Event.observe(window,'unload',function(){
+	FloatPanel.removeCloseCommand();
+	$MessageCenter.sendMessage('main', 'PageContext.RefreshList', 'PageContext', []);
+	FloatPanel.close(true);
+});
+var bError2 = false;
+function onSuccess(index,statusCode,jsonStr,fileName,size,nSuccCount){
+	var arrResult = (jsonStr||jsonStr).split('<!--##########-->');
+	arrResult[0] = (arrResult[0] || '').trim();
+	if(arrResult[0]=="<!--ERROR2-->"){
+		if(!bError2){
+			bError2 = true;
+			FaultDialog.show({
+				code		: arrResult[1],
+				message		: arrResult[2],
+				detail		: arrResult[3],
+				suggestion  : arrResult[4] 
+			}, '与服务器交互时出现错误');
+//			alert(jsonStr);
+		}
+		return 0;
+	}
+	if(arrResult[0]=="<!--ERROR1-->"){
+		FaultDialog.show({
+			code		: arrResult[1],
+			message		: arrResult[2],
+			detail		: arrResult[3],
+			suggestion  : arrResult[4] 
+		}, '与服务器交互时出现错误');
+		return 0;
+	}
+	return 1;
+}
+</SCRIPT>
+</HEAD>
+
+<BODY>
+<div>
+	<div id="flashcontent">浏览器或Flash环境异常, 导致该内容无法显示!</div>
+	<noscript>您使用的浏览器不支持或没有启用javascript，请启用javascript后再访问, 谢谢!</noscript>
+	<script type="text/javascript">
+		// <![CDATA[
+	
+		// swf, id, w, h, ver, c, useExpressInstall, quality, xiRedirectUrl, redirectUrl, detectKey
+		var so = new SWFObject("batchupload/fMultiUpload.swf", "flexApp", "480", "250", "9.0.28", "#FF6600");
+		so.useExpressInstall('batchupload/expressinstall.swf');
+		so.addVariable("uploadUrl", "../system/import_office_doc.jsp?ChannelId=" + getParameter('ChannelId'));
+		so.addVariable("ext", "*.doc;*.docx;*.rtf;*.txt"); 
+		so.addVariable("maxSize", "10485760");
+		so.addVariable("onSuccess", "onSuccess");
+		so.addVariable("onFailure", "onFailure");
+		so.addVariable("onComplete", "onComplete");
+		so.addParam("quality", "high");
+		so.addParam("wmode", "transparent");
+		so.addParam("scale", "exactfit");
+		so.addParam("allowScriptAccess", "sameDomain");
+		so.write("flashcontent");
+		
+		// ]]>
+	</script>
+</div>
+	<DIV style="display:none">
+		<SPAN>选择您要上传的文件(目前只支持Word格式文件)：</SPAN>
+		<SPAN>
+			<FORM name="frmUploadDocFile" style="margin:0;padding:0;display:" enctype='multipart/form-data'>
+				<input type="file" id="DocFile" name="DocFile">
+			</FORM>
+		</SPAN>
+	</DIV>
+</BODY>
+</HTML>

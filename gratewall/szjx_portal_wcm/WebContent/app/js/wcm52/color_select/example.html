@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> New Document </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2311">
+<META NAME="Author" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<META NAME="Description" CONTENT="">
+</HEAD>
+
+<BODY>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+function selectColor(_sColor){
+	var args =  null;
+	if(_sColor != null && _sColor.length>0){
+		args = new Object();
+		args.value = _sColor;
+	}
+	
+	var oReturnValue = 
+	showModalDialog('colordialog.html', args,'status:no;dialogWidth:370px;dialogHeight:240px') ;
+	return oReturnValue;
+}
+
+alert(selectColor("white"));
+//-->
+</SCRIPT>
+</BODY>
+</HTML>

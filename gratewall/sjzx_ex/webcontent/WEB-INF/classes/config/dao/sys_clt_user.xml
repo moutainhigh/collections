@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>采集服务</sort-name>
+  <table-info name="sys_clt_user" class-name="com.gwssi.dw.runmgr.services.dao.SysCltUser" check-flag="false" backup-flag="false">
+    <description>采集策略</description>
+  </table-info>
+
+  <column name="sys_clt_user_id" data-type="varchar" length="32" not-null="true" value-from="input" description="采集策略表主键"/>
+  <column name="jobname" data-type="varchar" length="10" not-null="true" value-from="input" description="采集调度名称"/>
+  <column name="groupname" data-type="varchar" length="20" not-null="true" value-from="input" description="采集调度组名称"/>
+  <column name="classname" data-type="varchar" length="100" not-null="true" value-from="input" description="采集调度类路径"/>
+  <column name="name" data-type="varchar" length="50" not-null="true" value-from="input" description="采集对象名称"/>
+  <column name="state" data-type="char" length="1" not-null="true" value-from="input" description="采集状态(启用或停用)"/>
+  <column name="strategy" data-type="varchar" length="2" not-null="true" value-from="input" description="采集策略(每天或每周)"/>
+  <column name="hours" data-type="varchar" length="2" not-null="true" value-from="input" description="执行时间小时"/>
+  <column name="minutes" data-type="varchar" length="2" not-null="true" value-from="input" description="执行时间分钟"/>
+  <column name="seconds" data-type="varchar" length="2" not-null="true" value-from="input" description="执行时间秒"/>
+  <column name="strategydesc" data-type="varchar" length="100" not-null="false" value-from="input" description="采集策略详细"/>
+  <column name="startdate" data-type="varchar" length="10" not-null="false" value-from="input" description="开始日期"/>
+  <column name="enddate" data-type="varchar" length="10" not-null="false" value-from="input" description="结束日期"/>
+  <column name="user_type" data-type="varchar" length="10" not-null="false" value-from="input" description="用户类型"/>
+  <primary-key name="sys_c008561" column-list="sys_clt_user_id"/>
+  <index name="sys_c008561" index-type="unique" cluster="cluster" column-list="sys_clt_user_id"/>
+  <function func-name="select sys_clt_user list" func-type="rowset" column-list="sys_clt_user_id, jobname, groupname, classname, name, state, strategy, hours, minutes, seconds, strategydesc, startdate, enddate, user_type" sort-columns="user_type" max-record="10">
+    <description>查询所有采集对象列表</description>
+  </function>
+
+  <function func-name="select one sys_clt_user" func-type="select" column-list="sys_clt_user_id,jobname,groupname,classname,name,state,strategy,hours,minutes,seconds,strategydesc,startdate,enddate, user_type">
+    <filter-column column-name="sys_clt_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>查看采集策略配置</description>
+  </function>
+
+  <function func-name="update one sys_clt_user" func-type="update" column-list="state,strategy,hours,minutes,seconds,strategydesc,startdate,enddate">
+    <filter-column column-name="sys_clt_user_id" operator="eq" value-from="input" empty-flag="empty"/>
+    <description>修改采集策略配置</description>
+  </function>
+</table>
+

@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Chart Demo (using Canvas painter)</title>
+	<script type="text/javascript" src="includes/excanvas.js"></script>
+	<script type="text/javascript" src="includes/chart.js"></script>
+	<script type="text/javascript" src="includes/canvaschartpainter.js"></script>
+	<link rel="stylesheet" type="text/css" href="includes/canvaschart.css" />
+		<style type="text/css">
+			html, body { border: none; padding: 0px; margin: 0px; }
+			.value_panel{
+				padding-left: 5px;
+				padding-right: 5px;
+				position: absolute;
+				border: 1px solid silver;
+				font-size: 9pt;
+				filter: alpha(opacity=100);
+
+			}
+			.value_alt{
+				height: 8px;
+				width: 12px;
+				border: 0px solid gray;
+				cursor: pointer;
+			}
+		</style>
+  </head>
+  <body>
+  <br>
+<div id="demo1">
+	<div style="margin-left: 50px; width: 400px; height: 300px; border: 1px solid silver; padding: 15px;">
+		<div id="chart1" class="chart" style="width: 400px; height: 300px;"></div>		
+		<br>
+		<div>
+			<input type="checkbox" name="chShowPointer" checked onclick="drawSimpleLine(this.checked)">显示值 &nbsp;
+			<input type="checkbox" onclick="displayBackground(this.checked)">显示背景图片
+		</div>
+	</div>
+	<script type="text/javascript">
+		function drawSimpleLine(_bShowPointer) {
+			var c = new Chart(document.getElementById('chart1'));
+			c.setDefaultType(CHART_LINE);
+			c.setVerticalGridDensity(5);
+			c.setVerticalRange(0, 250000);
+			c.setPointerVisible((_bShowPointer == true));
+			c.setInterval(1);
+			c.setTitle('棉花网枪国论坛一周内访问量');
+			c.setHorizontalLabels(['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']);
+			c.add('社会焦点', [ 16000,17000,18010,21000,92000,185000,211000], '#A02604');
+			c.add('灌水乐园', [ 8000,  25000, 35000, 43000, 51000, 26000, 10000], '#88B6F5');
+			c.add('三角地', [ 10228,  38007, 128000, 112000, 13000, 10226, 18000], '#FDC46E');
+			c.draw();
+		}
+		function displayBackground(_bDisp){
+			document.getElementById('chart1').style.backgroundImage = _bDisp == true ? 'url(car.jpg)' : 'none';
+		}
+		drawSimpleLine(true);
+	</script>
+</div>
+<p>&nbsp;</p>
+<div id="demo2">
+	<div style="margin-left: 50px; width: 400px; height: 300px; border: 1px solid silver; padding: 15px;">
+		<div id="chart" class="chart" style="width: 400px; height: 300px;">
+			请点击进行不同项目统计的按钮...
+		</div>		
+		<br>
+		<div style="text-align: center;">
+			<button onclick="drawTrendsLine('NUM', this.innerHTML)">销售量(单位: 箱)</button>&nbsp;&nbsp;&nbsp;<button onclick="drawTrendsLine('MONEY', this.innerHTML)">纯收入(单位: 万元)</button>	
+		</div>
+	</div>
+	<script type="text/javascript">
+		function drawTrendsLine(_key, _str) {
+			var c = new Chart(document.getElementById('chart'), ChartStyle.DEFAULT);
+			c.setDefaultType(CHART_LINE);
+			c.setVerticalGridDensity(5);
+			c.setVerticalRange(0, -1);
+			c.setInterval(1);
+			c.setPointerVisible(true);
+			c.setDateTimePartial(CMyDateTime.MONTH);
+			c.setDateTimeRange('2007-01-01', '2007-12-31', 5);
+			c.setSeriesKey(_key);
+			c.setTitle('[周星星食品]2007年销售情况 - ' + _str, '<BR>(2007-01-01 至 2007-12-31)');
+			c.add('撒尿牛丸', [{NUM: 15, MONEY: 300}, {NUM: 58, MONEY: 1165}, {NUM: 66, MONEY: 1300}, {NUM: 80, MONEY: 1720}, {NUM: 23, MONEY: 450}, {NUM: 12, MONEY: 250}, {NUM: 10, MONEY: 200}, {NUM: 5, MONEY: 120}, {NUM: 1, MONEY: 25}, {NUM: 4, MONEY: 82}, {NUM: 7, MONEY: 140}]);
+			c.add('黯然销魂饭', [{NUM: 5, MONEY: 50}, {NUM: 12, MONEY: 120}, {NUM: 10, MONEY: 110}, {NUM: 3, MONEY: 300}, {NUM: 7, MONEY: 70}, {NUM: 15, MONEY: 150}, {NUM: 48, MONEY: 480}, {NUM: 35, MONEY: 360}, {NUM: 47, MONEY: 480}, {NUM: 12, MONEY: 120}, {NUM: 11, MONEY: 100}]);
+			c.draw();
+		}
+		
+		window.onload = function() {
+			//drawTrendsLine('NUM');
+		};
+	</script>
+</div>
+<p>&nbsp;</p>
+<div id="demo3">
+	<div style="margin-left: 50px; width: 500px; height: 300px; border: 1px solid silver; padding: 15px; ">
+		<div id="chart3" class="chart" style="width: 500px; height: 250px;">
+			请选择【柱状图】或【区域图】进行绘制...
+		</div>		
+		<br>
+		<div>
+			<input type="radio" name="rdChartType" onclick="drawTrendsLine2(CHART_BAR)">柱状图 &nbsp;
+			<input type="radio" name="rdChartType" onclick="drawTrendsLine2(CHART_AREA)">区域图 &nbsp;
+		</div>
+	</div>
+	<script type="text/javascript">
+		function drawTrendsLine2(_chartType) {
+			var c = new Chart(document.getElementById('chart3'), (_chartType == CHART_AREA ?  ChartStyle.EARTH : ChartStyle.SMOKE));
+			c.setDefaultType(_chartType);
+			c.setVerticalGridDensity(5);
+			c.setVerticalRange(0, 120);
+			c.setInterval(1);
+			c.setPointerVisible(true);
+			c.setDateTimePartial(CMyDateTime.DAY);
+			c.setTitle('销售额度(万元)');
+			c.setHorizontalLabels(['小朱', '小吕', '小牛', '小任', '小杨']);
+			c.add('第一季度', [35, 65, 77, 88, 50]);
+			c.add('第二季度', [26, 45, 68, 70, 45]);
+			c.add('第三季度', [15, 32, 37, 42, 25]);
+			c.add('第四季度', [5, 7, 8, 12, 3] );
+			c.draw();
+		}
+		//drawTrendsLine2(CHART_BAR);
+	</script>
+</div><br>
+<br>
+  </body>
+</html>

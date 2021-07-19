@@ -1,0 +1,2 @@
+﻿Ext.apply(wcm.LANG, {
+});

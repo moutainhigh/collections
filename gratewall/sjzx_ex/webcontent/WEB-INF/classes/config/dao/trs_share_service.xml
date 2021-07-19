@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="trs_share_service" class-name="com.gwssi.share.trs.dao.TrsShareService" check-flag="false" backup-flag="false">
+    <description>trs服务接口</description>
+  </table-info>
+
+  <column name="trs_service_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="服务ID"/>
+  <column name="service_targets_id" data-type="varchar" length="32" not-null="false" value-from="input" description="所属服务对象ID"/>
+  <column name="trs_service_name" data-type="varchar" length="32" not-null="false" value-from="input" description="服务名称"/>
+  <column name="trs_service_no" data-type="varchar" length="20" not-null="false" value-from="input" description="服务编号"/>
+  <column name="trs_data_base" data-type="varchar" length="1000" not-null="false" value-from="input" description="服务库"/>
+  <column name="trs_column" data-type="varchar" length="4000" not-null="false" value-from="input" description="展示字段"/>
+  <column name="service_state" data-type="varchar" length="20" not-null="false" value-from="input" description="是否启用"/>
+  <column name="is_markup" data-type="varchar" length="1" not-null="false" value-from="input" description="是否有效"/>
+  <column name="creator_id" data-type="varchar" length="32" not-null="false" value-from="input" description="创建人ID"/>
+  <column name="created_time" data-type="varchar" length="19" not-null="false" value-from="input" description="创建时间"/>
+  <column name="last_modify_id" data-type="varchar" length="32" not-null="false" value-from="input" description="最后修改人ID"/>
+  <column name="last_modify_time" data-type="varchar" length="19" not-null="false" value-from="input" description="最后修改时间"/>
+  <column name="service_description" data-type="varchar" length="2000" not-null="false" value-from="input" description="服务说明"/>
+  <column name="trs_search_column" data-type="varchar" length="4000" not-null="false" value-from="input" description="检索字段"/>
+  <column name="use_template" data-type="varchar" length="1" not-null="false" value-from="input" description="是否使用模板"/>
+  <column name="trs_template" data-type="varchar" length="4000" not-null="false" value-from="input" description="模板"/>
+  <column name="trs_template_ex" data-type="varchar" length="4000" not-null="false" value-from="input" description="超长模板扩展"/>
+  
+  <primary-key name="pk_trs_service_id" column-list="trs_service_id"/>
+  <index name="pk_trs_service_id" index-type="unique" cluster="cluster" column-list="trs_service_id"/>
+  <function func-name="select one trs_share_service" func-type="select" column-list="trs_service_id,service_targets_id,trs_service_name,trs_service_no,trs_data_base,trs_column,service_state,is_markup,creator_id,created_time,last_modify_id,last_modify_time,service_description,trs_search_column,use_template,trs_template,trs_template_ex">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select trs_share_service list" func-type="rowset" column-list="trs_service_id,service_targets_id,trs_service_name,trs_service_no,trs_data_base,trs_column,service_state,is_markup,creator_id,created_time,last_modify_id,last_modify_time,service_description,trs_search_column,use_template,trs_template,trs_template_ex" sort-columns="last_modify_time desc" max-record="10">
+    <filter-column column-name="trs_service_name" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one trs_share_service" func-type="insert" column-list="trs_service_id,service_targets_id,trs_service_name,trs_service_no,trs_data_base,trs_column,service_state,is_markup,creator_id,created_time,last_modify_id,last_modify_time,service_description,trs_search_column,use_template,trs_template,trs_template_ex">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one trs_share_service" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one trs_share_service" func-type="update" column-list="service_targets_id,trs_service_name,trs_service_no,trs_data_base,trs_column,service_state,is_markup,creator_id,created_time,last_modify_id,last_modify_time,service_description,trs_search_column,use_template,trs_template,trs_template_ex">
+    <description>修改记录</description>
+  </function>
+</table>
+

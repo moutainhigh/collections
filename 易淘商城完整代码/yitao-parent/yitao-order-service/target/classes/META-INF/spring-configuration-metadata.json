@@ -1,0 +1,67 @@
+{
+  "groups": [
+    {
+      "name": "yt.worker",
+      "type": "com.gerry.yitao.yitaoorderservice.config.IdWorkerProperties",
+      "sourceType": "com.gerry.yitao.yitaoorderservice.config.IdWorkerProperties"
+    },
+    {
+      "name": "yt.wxpay",
+      "type": "com.gerry.yitao.yitaoorderservice.config.WxPayConfig",
+      "sourceType": "com.gerry.yitao.yitaoorderservice.config.PayConfiguration",
+      "sourceMethod": "payConfig()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "yt.worker.data-center-id",
+      "type": "java.lang.Long",
+      "sourceType": "com.gerry.yitao.yitaoorderservice.config.IdWorkerProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "yt.worker.worker-id",
+      "type": "java.lang.Long",
+      "sourceType": "com.gerry.yitao.yitaoorderservice.config.IdWorkerProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "yt.wxpay.app-i-d",
+      "type": "java.lang.String",
+      "sourceType": "com.gerry.yitao.yitaoorderservice.config.WxPayConfig"
+    },
+    {
+      "name": "yt.wxpay.cert-path",
+      "type": "java.lang.String",
+      "sourceType": "com.gerry.yitao.yitaoorderservice.config.WxPayConfig"
+    },
+    {
+      "name": "yt.wxpay.http-connect-timeout-ms",
+      "type": "java.lang.Integer",
+      "sourceType": "com.gerry.yitao.yitaoorderservice.config.WxPayConfig",
+      "defaultValue": 8000
+    },
+    {
+      "name": "yt.wxpay.http-read-timeout-ms",
+      "type": "java.lang.Integer",
+      "sourceType": "com.gerry.yitao.yitaoorderservice.config.WxPayConfig",
+      "defaultValue": 10000
+    },
+    {
+      "name": "yt.wxpay.key",
+      "type": "java.lang.String",
+      "sourceType": "com.gerry.yitao.yitaoorderservice.config.WxPayConfig"
+    },
+    {
+      "name": "yt.wxpay.mch-i-d",
+      "type": "java.lang.String",
+      "sourceType": "com.gerry.yitao.yitaoorderservice.config.WxPayConfig"
+    },
+    {
+      "name": "yt.wxpay.notify-url",
+      "type": "java.lang.String",
+      "sourceType": "com.gerry.yitao.yitaoorderservice.config.WxPayConfig"
+    }
+  ],
+  "hints": []
+}

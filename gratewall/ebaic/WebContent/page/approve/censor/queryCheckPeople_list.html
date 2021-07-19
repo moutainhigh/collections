@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>config.title</title>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- 构建页面==开始 -->
+<!-- 查询条件 -->
+<div name="queryGrid_Form" wid="queryCheckPeople" vtype="formpanel" width="100%" layout="table"
+	layoutconfig="{cols:2, columnwidth: ['50%','50%']}" labelstyleclass="labelstyle" title="选择审核人员" 
+	titledisplay="false" showborder="true" toggleable="true">
+	<div name="orgCodeFk" vtype="hiddenfield" label="当前机关ID" labelwidth="200" labelalign="right" width="500" tooltip="" rule=""></div>
+	<div name="userName" vtype="textfield" label="姓名" labelwidth="200" labelalign="right" width="400" tooltip="" rule="" style="margin-left:-98px"></div>
+	<div style="margin-top:6px;margin-left:28px">
+		<div name="queryCheckPeople_query"  class="commonBt" >查询</div>
+		<div name="queryCheckPeople_reset"  class="commonBt" >重置</div>
+	</div>
+</div>
+<!-- 数据展现 -->
+<div vtype="gridpanel" name="queryGrid_Grid" wid="queryCheckPeople"
+	titleDisplay="false" title="选择审核人员" width="100%" showborder="true" selecttype='1'
+	dataurl="../../../torch/service.do?fid=query_check_people&wid=queryCheckPeople">
+	<div vtype="gridcolumn" name="grid_column" width="100%">
+		<div>
+			<div name="userName" text="姓名"  textalign="center" width="" dataurl=""></div>
+			<!-- <div name="memo" text="备注"  textalign="right" width="55%" dataurl=""></div> -->
+			<!-- <div name="adminFlag" text="是否管理员"  textalign="right" width="30%" dataurl=""></div> -->
+		</div>
+	</div>
+	<div vtype="gridtable" name="grid_table" width="100%"></div>
+	<div vtype="paginator" name="grid_paginator" theme="2" pagerows="5" width="100%"></div>
+</div>
+<div name="queryCheckPeopleToolbar" vtype="toolbar" location="bottom" align="center">
+	<div style="margin-top:5px" name="queryCheckPeople_query_button"  class="commonBt" >确定
+	</div>
+	<div name="queryCheckPeople_reset_button"  class="commonBt" >返回
+	</div>
+</div>
+
+<!-- 构建页面==结束 -->
+
+
+<script>
+var tf = {};
+tf.queryCheckPeople = {};
+tf.queryCheckPeople.query_fromNames = [ 'queryGrid_Form'];
+
+
+
+
+tf.queryCheckPeople.queryCheckPeopleSure = function(){
+		};
+
+
+</script>
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../../static/js/config.js"></script>
+<script type="text/javascript" data-main="approve/ApproveCheckPeopleList.js" src="../../../static/lib/require.js"></script>
+</body>
+</html>

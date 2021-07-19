@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="GB2312"?>
+<parameters>	
+	<parameter name="TransferName"  desc="是否记录和传递用户名"   type="int" required="false" default="0"/>
+	<parameter name="GroupId"  desc="用户组ID"   type="int" required="false" default="0"/>
+	<parameter name="AllUser"  desc="是否包含所有用户，已停用、为开通用户" type="boolean" required="false" default="0"/>
+
+<!--分页相关配置 BEGIN-->
+	<parameter name="PageIndex" desc="当前页码" min-value="1" default="1" type="int" required="false"/>
+	<parameter name="PageItemCount" desc="页面记录数" min-value="1" default="15" type="int" required="false"/>
+<!--分页相关配置 END-->
+
+<!--检索相关配置 BEGIN-->
+	<parameter name="SearchTable"  desc="检索的表名"  type="string" required="false" default="WCMUser"/>
+	<parameter name="SearchKey"  desc="检索的字段"  type="string" required="false" default="UserName,TrueName"/>
+	<parameter name="SearchValue"  desc="检索的数据"  type="string" default="" required="false"/>
+<!--检索相关配置 END-->
+
+<!--排序相关配置 BEGIN-->
+	<parameter name="OrderField"  desc="排序字段"  type="string" required="false"/>
+	<parameter name="OrderType"  desc="排序方式"  type="string" required="false"/>	
+<!--排序相关配置 END-->
+
+</parameters>

@@ -1,0 +1,506 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../js/com.trs.util/Common.js"></script>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.windowtitle14 {
+	font-family: "宋体";
+	font-size: 14px;
+	color: #333333;
+	font-weight: bold;
+	text-decoration: none;
+}
+.button12 {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #333333;
+	text-decoration: none;
+	letter-spacing: 0.1em;
+	}
+.button12:link {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #333333;
+	text-decoration: none;
+	letter-spacing: 0.1em;
+	}
+.button12:hover {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #CC3300;
+	text-decoration: none;
+	letter-spacing: 0.1em;
+	}
+.windowltxt12 {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #70704F;
+	text-decoration: none;
+	text-indent: 7pt;
+}
+.windowltxt12:link {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #70704F;
+	text-decoration: none;
+	text-indent: 7pt;
+}
+.windowltxt12:hover {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	text-decoration: none;
+	text-indent: 7pt;
+}
+.coverall{
+	position:absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100%;
+	-moz-opacity:0.5;
+	opacity:0.5;
+	filter:alpha(opacity=50);
+	background:#FFFFFF;
+}
+.window_outer{
+	position:absolute;
+	width:600px;
+	height:400px;
+	left:50%;
+	top:50%;
+}
+.tb_window{
+	position:absolute;
+	cursor:move;
+	z-index:10;
+	left:-50%;
+	top:-50%;
+	width:100%;
+	background:#FFFFFF;
+}
+.iframe{
+	width:100%;
+	height:100%;
+	border:0px;
+}
+.window_close{
+	overflow:hidden;
+	height:27px;
+	width:37px;
+	background:url(../images/window/closea.gif) no-repeat;
+	cursor:pointer;
+}
+.loading{
+	position:absolute;
+	width:100%;
+	height:100%;
+	background:url(../images/icon/waiting2.gif) no-repeat center center;
+}
+.command_btn{
+	display:inline;
+	margin:5px;
+	cursor:pointer;
+	width:60px;
+	height:17px;
+}
+.command_btn_disable{
+	display:inline;
+	margin:5px;
+	cursor:pointer;
+	width:60px;
+	height:17px;
+	-moz-opacity:0.8;
+	opacity:0.8;
+	filter:alpha(opacity=80);
+	color:sliver;
+}
+</style>
+<script language="javascript">
+	$import('com.trs.wcm.SimpleDragger');
+</script>
+<script language="javascript">
+<!--
+	var onBeforeCloseListeners = [];
+	var sendingMsg = null;
+	var commands = {};
+	var lStart, lEnd;
+	var lTimeoutAssign = null;
+	var toDisabledCmdIds = {};
+	var dragger = null;
+	
+	function openMe(_src,_sTitle,_iWidth,_iHeight){
+		removeAllCommands();
+		Element.update($('buttons_container'),'');
+		_src = '../'+_src;
+		_src = _src.replace(/\/{2,}/g,'\/');
+		setIframeSrc(_src);
+		setTitle(_sTitle, "");
+		setSize(_iWidth,_iHeight);
+		onBeforeCloseListeners = [];
+		sendingMsg = null;
+		window.currentExecuteTime = 0;
+	}
+    function CenterMe(){
+		var tbWindow = $('tb_window');
+		tbWindow.style.left = tbWindow.style.top = '';
+		tbWindow.style.left = tbWindow.offsetLeft;
+		tbWindow.style.top = tbWindow.offsetTop;
+		tbWindow.style.width = tbWindow.style.height = '';
+    }
+	function setSize(_nWidth,_nHeight){
+		try{
+			var outer = $('window_outer');
+			var iframe = $('window_iframe');
+			outer.style.width = parseInt(_nWidth)+24;
+			iframe.style.height = _nHeight;
+			outer.style.height = $('tb_window').offsetHeight;
+	        CenterMe();
+        }catch(error){
+            //just skip it.
+        }
+	}
+	function sizeBy(_nDiffWidth,_nDiffHeight){
+		_nDiffWidth = parseInt(_nDiffWidth);
+		_nDiffHeight = parseInt(_nDiffHeight);
+		var outer = $('window_outer');
+		var iframe = $('window_iframe');
+		var outerCurrWidth = parseInt(outer.style.width);
+		if(isNaN(outerCurrWidth)){
+			outer.style.width = outer.offsetWidth+_nDiffWidth;
+		}
+		else{
+			outer.style.width = outerCurrWidth+_nDiffWidth;
+		}
+		var iframeCurrHeight = parseInt(iframe.style.height);
+		if(isNaN(iframeCurrHeight)){
+			iframe.style.height = iframe.offsetHeight+_nDiffHeight;
+		}
+		else{
+			iframe.style.height = iframeCurrHeight+_nDiffHeight;
+		}
+		outer.style.height = $('tb_window').offsetHeight;
+	}
+	function setTitle(_sTitle, _sDesc){
+		$('window_title').innerHTML = _sTitle; 
+		if(_sDesc != undefined){
+			$('window_title').title = _sDesc;
+		}
+	}
+	function addCommand(_sCmdId,_sCmdHtml,_fnCmd,_oScope,_arrArgs){
+		var sBtnId = 'cmd_'+_sCmdId;
+		var eCommandsContainer = $('buttons_container');
+		var sTemplate = $('button_template').value;
+		var btnCmd = document.createElement("DIV");
+		btnCmd.innerHTML = sTemplate.replace(/#ID#/ig,sBtnId).replace(/#LABEL#/ig,_sCmdHtml);
+		btnCmd.className = 'command_btn';
+		btnCmd.id = sBtnId;
+		if(toDisabledCmdIds[sBtnId]){
+			setCommandDisable(sBtnId,true);
+			delete toDisabledCmdIds[sBtnId];
+		}
+		eCommandsContainer.insertBefore(btnCmd,eCommandsContainer.firstChild);
+		Event.observe(btnCmd,'click',function(){
+			if(this.disabled)return false;
+			var FloatPanel = (top.actualTop||top).FloatPanel;
+			try{
+				var retVal = null;
+				if(typeof _fnCmd == 'function'){
+					if(_sCmdId=='_close_'){
+						FloatPanel.close(true);
+						return false;
+					}
+                    else if(window.iframeLoaded){
+    					retVal = _fnCmd.apply(_oScope,_arrArgs||[]);
+                    }
+				}
+				else{
+                    if(window.iframeLoaded){
+    					retVal = $('window_iframe').contentWindow[_fnCmd].apply(_oScope,_arrArgs||[]);
+                    }
+				}
+				if(retVal!=false){
+					FloatPanel.close(true);
+				}
+			}catch(err){
+				//TODO logger it
+//				alert(err.message);
+			}
+			return false;
+		});
+		commands[_sCmdId] = true;
+	}
+	function removeCommand(_sCmdId){
+		var sBtnId = 'cmd_'+_sCmdId;
+		var btnCmd = $(sBtnId);
+		delete commands[sBtnId];
+		if(btnCmd){
+			Event.stopAllObserving(btnCmd);
+			btnCmd.parentNode.removeChild(btnCmd);
+//			$removeNode(btnCmd);
+		}
+	}
+	function addCloseCommand(_sCmdHtml){
+		var FloatPanel = (top.actualTop||top).FloatPanel;
+		addCommand("_close_",_sCmdHtml||"取消",FloatPanel.close);
+	}
+	function removeCloseCommand(){
+		removeCommand("_close_");
+	}
+	function removeAllCommands(){
+		for(var sCmdId in commands){
+			removeCommand(sCmdId);
+		}
+		commands = {};
+	}
+	function onBeforeClose(_bActual){
+		var MessageCenter = (top.actualTop||top).$MessageCenter;
+		try{
+			if(onBeforeCloseListeners){
+				for (var i=0, n=onBeforeCloseListeners.length; i<n; i++){
+					if(onBeforeCloseListeners[i]==null)continue;
+					(onBeforeCloseListeners[i])();
+					onBeforeCloseListeners[i] = null;
+				}
+				onBeforeCloseListeners = null;				
+			}
+			if(sendingMsg&&MessageCenter){
+				MessageCenter.sendMessage.apply(MessageCenter,sendingMsg);
+				sendingMsg = null;
+			}
+			if(MessageCenter){
+				MessageCenter.unregister('window_iframe');
+			}
+		}catch(err){
+			//TODO logger
+		}
+//		removeAllCommands();
+//		Element.update($('buttons_container'),'');
+		if(_bActual){
+//			alert("floatpanel onBeforeClose:real close.");
+			lTimeoutAssign = setTimeout(function(){
+				$('window_iframe').src = 'blank.html';
+				lTimeoutAssign = 0;
+			},10);
+		}
+	}
+	function closeMe(_bActual){
+		//fire listeners or Send Message
+		onBeforeClose(_bActual);
+		var iframe = window.frameElement;
+		if(!iframe){
+			window.opener = null;
+			window.close();
+		}
+		else{
+			iframe.style.display = 'none';
+		}
+	}
+	function setIframeSrc(_src){
+		var MessageCenter = (top.actualTop||top).$MessageCenter;
+		if(lTimeoutAssign)clearTimeout(lTimeoutAssign);
+		onBeforeWindowIframeLoad();
+		var iframe = $('window_iframe');
+		iframe.style.visibility = 'hidden';
+		if(MessageCenter){
+			MessageCenter.register('window_iframe',iframe);
+		}
+		iframe.src = _src;
+	}
+	function onBeforeWindowIframeLoad(){
+        window.iframeLoaded = false;//iframe正在加载
+		var eLoading = $('iframe_loading');
+//		Position.clone($('window_iframe'),eLoading);
+		eLoading.style.display = '';
+	}
+	function reset(){
+		var eLoading = $('iframe_loading');
+		eLoading.style.display = 'none';
+		var iframe = $('window_iframe');
+		iframe.style.visibility = 'visible';
+	}
+	function InnerWindowLoaded(){
+		var oInnerWindow = document.getElementById('window_iframe').contentWindow;
+		onWindowIframeLoad(oInnerWindow);
+	}
+	function onWindowIframeLoad(_currWindow){
+		if(window.iframeLoaded)return;
+        window.iframeLoaded = true;//iframe加载完成
+		try{
+			reset();
+//			_currWindow.document.body.style.background = 'transparent';
+			if(getParameter("isdebug", top.location.search) != 1){
+				_currWindow.document.oncontextmenu = new _currWindow.Function("return false;");
+			}
+		}catch(err){
+			//Just Skip it
+		}
+	}
+	function setSendingMsg(_MsgArgs){
+		sendingMsg = _MsgArgs;
+	}
+	function addOnBeforeCloseListener(_listener){
+		if(onBeforeCloseListeners == null){
+			onBeforeCloseListeners = [];
+		}
+		onBeforeCloseListeners.push(_listener);
+	}
+    window.maxExecuteTime = 10;
+    window.currentExecuteTime = 0;
+	function setCommandDisable(_sCmdId, _bDisabled, _bHide){
+        window.currentExecuteTime++;
+		var sBtnId = 'cmd_'+_sCmdId;
+		var btnCmd = $(sBtnId);
+        if(btnCmd == null){
+			/*
+            if(window.currentExecuteTime < window.maxExecuteTime){
+                setTimeout(setCommandDisable.bind(window, _sCmdId, _bDisabled), 1000);
+            }
+			*/
+			toDisabledCmdIds[sBtnId] = true;
+            return;
+        }
+		if(_bDisabled){
+			btnCmd.className = 'command_btn_disable';
+			btnCmd.disabled = _bDisabled;
+		}
+		else{
+			btnCmd.className = 'command_btn';
+			btnCmd.disabled = _bDisabled;
+		}
+        if(_bHide){
+			btnCmd.style.display = 'none';
+        }
+	}
+	function EventStop(event,_currElement){
+		if(_currElement.parentNode.disabled){
+			Event.stop(event);
+		}
+	}
+	Event.observe(window,'load',function(){
+		dragger = new com.trs.wcm.SimpleDragger($('tb_window'));
+		dragger.onDragStart = function(){
+			$('window_iframe').style.visibility = 'hidden';
+		}
+		dragger.onDragEnd = function(){
+			$('window_iframe').style.visibility = 'visible';
+		}
+		Event.observe($('window_close'),'click',function(){
+			var FloatPanel = (top.actualTop||top).FloatPanel;
+			if(FloatPanel)
+				FloatPanel.close(true);
+			else
+				closeMe(true);
+		});
+	});
+	Event.observe(window,'unload',function(){
+		if(dragger)dragger.destroy();
+		$('tb_window').onmousedown = null;
+		$('window_iframe').onload = null;
+		Event.stopAllObserving($('tb_window'));
+		Event.stopAllObserving($('window_close'));
+		removeAllCommands();
+		var eCommandsContainer = $('buttons_container');
+		for(var i=0;i<eCommandsContainer.childNodes.length;i++){
+			Event.stopAllObserving(eCommandsContainer.childNodes[i]);
+		}
+		closeMe(true);
+		$destroy(onBeforeCloseListeners);
+		$destroy(commands);
+		$destroy(toDisabledCmdIds);
+		onBeforeCloseListeners = false;
+		commands = false;
+		toDisabledCmdIds = false;
+		dragger = null;
+	});
+//-->
+</script>
+</head>
+<body style="margin:0;padding:0;overflow:hidden;" oncontextmenu="return false;">
+<div class="coverall"></div>
+<div class="window_outer" id="window_outer">
+<table id="tb_window" class="tb_window" border="0" cellpadding="0" cellspacing="0" align="center">
+	<tr>
+		<td valign="top">
+			<table border="0" cellpadding="0" cellspacing="0" background="../images/window/toplbg.gif" height="27" width="100%">
+				<tr height="27"> 
+					<td width="75%" valign="top">
+						<table width="100%" height="27" border="0" cellpadding="0" cellspacing="0" class="windowtitle14">
+							<tr> 
+								<td width="12" height="24" valign="bottom">&nbsp;</td>
+								<td style="padding-top:8px;" id="window_title">窗口标题</td>
+							</tr>
+						</table>
+					</td>
+					<td width="25%" align="right" valign="top">
+						<div class="window_close" id="window_close"></div>
+					</td>
+				</tr>
+			</table>
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" background="../images/window/cbg.gif">
+				<tr> 
+					<td width="3" background="../images/window/lline.gif"> </td>
+					<td valign="top">
+						<table width="100%" border="0" cellspacing="0" cellpadding="12">
+							<tr>
+								<td>
+									<table width="100%" border=0 cellspacing=0 cellpadding=0 >
+										<tr>
+											<td background="../images/window/hbg.gif">
+<iframe src="blank.html" id='window_iframe' frameborder="0" class="iframe" allowtransparency="true" onload="onWindowIframeLoad(this.contentWindow);" scrolling="no"></iframe>
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+						<!--buttons-->
+						<table width="100%" height="40" border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td align="center" valign="bottom" id="buttons_container">
+								<!--
+								-->
+								</td>
+							</tr>
+						</table>
+					</td>
+					<td width="3" background="../images/window/rline.gif"> </td>
+				</tr>
+			</table>
+			<table width="100%" height="5" border="0" cellpadding="0" cellspacing="0" background="../images/window/lbg.gif">
+				<tr> 
+					<td height="5"> </td>
+					<td align="right" height="5"><img src="../images/window/rbk.gif" width="32" height="5"></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+</div>
+<div class="loading" id="iframe_loading"></div>
+<textarea id="button_template" style="display:none">
+	<table width="60" height="17" border="0" cellpadding="0" cellspacing="0" background="../images/window/button2.gif" class="button12" id="btn_table">
+		<tr> 
+			<td width="10"><img src="../images/window/button1.gif" width="9" height="30"></td>
+			<td width="83" align="center" valign="top" style="padding-top:5px"><a href="#" class="button12" onclick="return false;" onfocus="this.blur();">#LABEL#</a></td>
+			<td width="11" align="right"><img src="../images/window/button3.gif" width="9" height="30"></td>
+		</tr>
+	</table>
+</textarea>
+<script language="javascript">
+	<!--
+		var IsDebug = false;
+		if(IsDebug){
+			setSize(720,300);
+			setIframeSrc('http://www.google.com');
+			setTimeout(function(){
+				addCommand('ok','确定',window.alert,window,1)
+				addCommand('cancel','取消',window.alert,window,1)
+				setCommandDisable('ok',true);
+			},10000);
+		}
+	//-->
+	</script>
+</body>
+</html>

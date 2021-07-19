@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<expression-config>
+
+		<!-- 配置名称，创建实例的时候需要通过名字引用。可以有多个配置。 -->
+		<property k="config.name">ebaic</property>
+		
+		<!-- 引擎实现类，目前有默认引擎和久其引擎，久其引擎支持更丰富表达式 -->
+		<property k="engine">com.gwssi.expression.component.engine.Engine</property>	
+		<property k="engine.traceliteralinterpreter" v="com.gwssi.expression.component.interpreter.TraceLiteralInterpreter" />		
+		<!-- 函数名忽略大小写 -->
+		<property k="function.ignoreCase">true</property>			
+		<property k="trace.namingobject">false</property>
+		<property k="trace.methodInvocation">false</property>
+		<property k="trace.operator">false</property>
+		<property k="trace.bracket">false</property>
+		
+		
+		<!-- 函数定义 -->
+		<functions>
+			
+			<!-- ******** SQL类 ********* -->	  
+			<function name="sqlForRow" class="com.gwssi.rodimus.expr.func.SqlForRow"/>
+			<function name="sqlForValue" class="com.gwssi.rodimus.expr.func.SqlForValue"/>
+			<function name="sqlForList" class="com.gwssi.rodimus.expr.func.SqlForList"/>
+			<function name="sqlForDict" class="com.gwssi.rodimus.expr.func.SqlForDict"/>
+			<function name="GetColValues" class="com.gwssi.rodimus.expr.func.GetColumnValues"/>
+			
+		 	<function name="dot" 		class="com.gwssi.rodimus.expr.func.Dot" />
+			<function name="length" 	class="com.gwssi.rodimus.expr.func.Length"/>
+			<function name="in" 	class="com.gwssi.rodimus.expr.func.In"/>
+			<function name="notIn" 	class="com.gwssi.rodimus.expr.func.NotIn"/>
+			<function name="Dict" 	class="com.gwssi.rodimus.expr.func.Dict"/>
+			<function name="IsBlank" 	class="com.gwssi.rodimus.expr.func.IsBlank"/>
+			<function name="IsNotBlank" 	class="com.gwssi.rodimus.expr.func.IsNotBlank"/>
+			<!-- 内置函数  -->
+			<!-- ******** 数学 ********* -->
+			<function name="abs" class="com.gwssi.expression.component.function.math.Abs"/>
+			<function name="div" class="com.gwssi.expression.component.function.math.Divide"/>
+			<function name="mod" class="com.gwssi.expression.component.function.math.Modulus"/>
+			<function name="mul" class="com.gwssi.expression.component.function.math.Multiply"/>
+			<function name="plus" class="com.gwssi.expression.component.function.math.Plus" />
+			<function name="minus" class="com.gwssi.expression.component.function.math.Subtract"/>
+			<function name="uminus" class="com.gwssi.expression.component.function.math.UMinus"/>		
+			<!-- ******** 逻辑 ********* -->
+			<!-- ! not --><function name="not" class="com.gwssi.expression.component.function.logic.Not"/>
+			<!-- && and --><function name="and" class="com.gwssi.expression.component.function.logic.LogicalAnd"/>
+			<!-- || or --><function name="or" class="com.gwssi.expression.component.function.logic.LogicalOr"/>
+			<!-- > --><function name="gt" class="com.gwssi.expression.component.function.logic.ComparisonGt"/>
+			<!-- >= --><function name="ge" class="com.gwssi.expression.component.function.logic.ComparisonGe"/>
+			<!-- < --><function name="lt" class="com.gwssi.expression.component.function.logic.ComparisonLt"/>
+			<!-- <= --><function name="le" class="com.gwssi.expression.component.function.logic.ComparisonLe"/>
+			<!-- == --><function name="eq" class="com.gwssi.expression.component.function.logic.ComparisonEq"/>
+			<!-- != <> --><function name="ne" class="com.gwssi.expression.component.function.logic.ComparisonNe"/>
+			<!-- ******** 运算符 ********* -->
+			<!-- () --><function name="parenthesis" class="com.gwssi.expression.component.function.operator.Parenthesis"/>
+			<!-- ******** 一般 ********* -->
+			<function name="if" class="com.gwssi.expression.component.function.general.If"/>
+			<!-- ******** 统计 ********* -->
+			<function name="max" class="com.gwssi.expression.component.function.statistical.Max"/>
+			<function name="min" class="com.gwssi.expression.component.function.statistical.Min"/>
+			<function name="avg" class="com.gwssi.expression.component.function.statistical.Avg"/>
+			<function name="sum" class="com.gwssi.expression.component.function.statistical.Sum"/>
+			<function name="count" class="com.gwssi.expression.component.function.statistical.Count"/>			
+		</functions>
+		
+		<!-- 操作符 -->
+		<!-- 中间操作符 -->
+		<infix-operator>
+			<operator name="/" function="div"/>
+			<operator name="%" function="mod"/>
+			<operator name="*" function="mul"/>
+			<operator name="+" function="plus"/>
+			<operator name="-" function="minus"/>			
+			<operator name="&amp;&amp;" function="and"/>	    
+			<operator name="||" function="or"/>
+			<operator name=">" function="gt"/>	    
+			<operator name=">=" function="ge"/>
+			<operator name="&lt;" function="lt"/>	    
+			<operator name="&lt;=" function="le"/>
+			<operator name="==" function="eq"/>	    
+			<operator name="&lt;&gt;" function="ne"/>
+			<operator name="!=" function="ne"/>	
+        	<operator name="." function="dot"/>
+		</infix-operator>
+		<prefix-operator>
+			<operator name="-" function="uminus" />
+			<operator name="!" function="not"/>
+		</prefix-operator>
+		<enclose-operator>
+			<operator name="()" function="parenthesis"/>
+		</enclose-operator>
+</expression-config>

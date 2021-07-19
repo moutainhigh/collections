@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ly.dao.ChiCangDao">
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from chi_cang t where t.code = #{code}
+		</selectKey>
+		<if test="count > 0">
+			update chi_cang
+			<trim prefix="set" suffixOverrides=",">
+				<if test="code != null">code = #{code, jdbcType=VARCHAR},</if>
+				<if test="name != null">name = #{name,jdbcType=VARCHAR},</if>
+				<if test="cost_price != null">cost_price = #{cost_price,jdbcType=VARCHAR},</if>
+				<if test="income_balance_ratio != null">income_balance_ratio = #{income_balance_ratio,jdbcType=VARCHAR},</if>
+				<if test="market_value != null">market_value = #{market_value,jdbcType=VARCHAR},</if>
+				<if test="current_amount != null">current_amount = #{current_amount,jdbcType=VARCHAR},</if>
+				<if test="enable_amount != null">enable_amount = #{enable_amount,jdbcType=VARCHAR},</if>
+				<if test="last_price != null">last_price = #{last_price,jdbcType=VARCHAR},</if>
+				<if test="income_balance != null">income_balance = #{income_balance,jdbcType=VARCHAR},</if>
+				<if test="enroute_amount != null">enroute_amount = #{enroute_amount,jdbcType=VARCHAR},</if>
+			</trim>
+			where code = #{code}
+		</if>
+		<if test="count == 0">
+			insert into chi_cang
+			(
+			code,
+			name,
+			cost_price,
+			income_balance_ratio,
+			market_value,
+			current_amount,
+			enable_amount,
+			last_price,
+			income_balance,
+			enroute_amount
+			)
+			values
+			(
+			#{code, jdbcType=VARCHAR},
+			#{name, jdbcType=VARCHAR},
+			#{cost_price, jdbcType=VARCHAR},
+			#{income_balance_ratio, jdbcType=VARCHAR},
+			#{market_value, jdbcType=VARCHAR},
+			#{current_amount,jdbcType=VARCHAR},
+			#{enable_amount,jdbcType=VARCHAR},
+			#{last_price,jdbcType=VARCHAR},
+			#{income_balance,jdbcType=VARCHAR},
+			#{enroute_amount,jdbcType=VARCHAR}
+			)
+		</if>
+	</insert>
+
+</mapper>

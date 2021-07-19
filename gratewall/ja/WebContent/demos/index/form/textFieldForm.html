@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script>
+</head>
+<body>
+
+	<div id="formpanel" name="formpanel" vtype="formpanel" titledisplay="true" width="650" layout="table" height="150" title="地区信息">
+   		<div name='auto_1' vtype="autocompletecomboxfield" label="地区1" labelalign="right" width="300" 
+   		     dataurl="combox.json" minquerylength="0"></div>
+   		     
+   		<div name='auto_2' vtype="autocompletecomboxfield" label="地区2" labelalign="right" width="300" 
+   		     dataurl="combox.json" minquerylength="1"></div>   		     
+   </div>
+<script>
+    $(function(){
+        //调整父页面iframe高度
+        parent.setWinHeight(300);
+    });
+</script>  
+</body>
+</html>

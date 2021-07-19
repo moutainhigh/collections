@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="主从表[主表通过导航按钮，维护子表信息]" page="master-detail-table-2.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="multi-table-2.gif"/>
+  <struts name="case_bus_case.xml" app-path="/dw/aic/bj/cas/" app-name="case_bus_case" description="案件管理信息" template="master-detail-table-2.xml"/>
+  <table name="case_bus_case.xml" app-name="case_bus_case" app-desc="案件" delete-action="delete" description="案件管理信息" class-name="com.gwssi.dw.aic.bj.cas.txn.TxnCaseBusCase" template="master-detail-table-2.master.java" dao-class-template="single-table.java" type="master">
+	  <jsp page-name="query-case_bus_case.jsp" txn-code="60130001" description="查询案件列表" template="master-detail-2/master-table-query.jsp">
+	    <button type="button" name="增加案件" path="insert-case_bus_case.jsp" description="增加案件" func-name="addRecord"/>
+	    <button type="button" name="修改案件" path="/txn60130004.do" description="修改案件" func-name="updateRecord"/>
+	    <button type="button" name="删除案件" path="/txn60130005.do" description="删除案件" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60130001.do" description="查询案件信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-case_bus_case.jsp" txn-code="60130003" description="增加案件信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60130003.do" description="保存案件信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60130003.do" description="保存案件信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60130001.do" description="保存案件信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60130001.do" description="返回到案件明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-case_bus_case.jsp" txn-code="60130002" description="修改案件信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60130001.do" description="修改案件信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60130001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-case_bus_case.jsp" txn-code="60130001" description="查询案件列表">
+	    <forward error-code="success" path="query-case_bus_case.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-case_bus_case.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-case_bus_case.jsp" txn-code="60130002" description="修改案件信息">
+	    <forward error-code="success" path="update-case_bus_case.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-case_bus_case.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-case_bus_case.jsp" txn-code="60130003" description="增加案件信息">
+	    <forward error-code="success" path="insert-case_bus_case.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-case_bus_case.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-case_bus_case.jsp" txn-code="60130004" description="查询案件用于修改">
+	    <forward error-code="success" path="update-case_bus_case.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-case_bus_case.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-case_bus_case.jsp" txn-code="60130005" description="删除案件信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.CaseBusCaseContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.VoCaseBusCase" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.VoCaseBusCaseSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.VoCaseBusCasePrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="case_bus_clue.xml" app-name="case_bus_clue" app-desc="案源信息" delete-action="delete" description="案件线索表" class-name="com.gwssi.dw.aic.bj.cas.txn.TxnCaseBusClue" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60130011">
+	  <jsp page-name="case_bus_clue/query-case_bus_clue.jsp" txn-code="60130011" description="查询案源信息列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加案源信息" path="case_bus_clue/insert-case_bus_clue.jsp" description="增加案源信息" func-name="addRecord"/>
+	    <button type="button" name="修改案源信息" path="/txn60130014.do" description="修改案源信息" func-name="updateRecord"/>
+	    <button type="button" name="删除案源信息" path="/txn60130015.do" description="删除案源信息" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60130001.do" description="返回到案件明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60130011.do" description="查询案源信息信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="case_bus_clue/insert-case_bus_clue.jsp" txn-code="60130013" description="增加案源信息信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60130013.do" description="保存案源信息信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60130013.do" description="保存案源信息信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60130011.do" description="保存案源信息信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60130011.do" description="返回到案源信息明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="case_bus_clue/update-case_bus_clue.jsp" txn-code="60130012" description="修改案源信息信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60130011.do" description="修改案源信息信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60130011.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="case_bus_clue/query-case_bus_clue.jsp" txn-code="60130011" description="查询案源信息列表">
+	    <forward error-code="success" path="case_bus_clue/query-case_bus_clue.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="case_bus_clue/query-case_bus_clue.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="case_bus_clue/update-case_bus_clue.jsp" txn-code="60130012" description="修改案源信息信息">
+	    <forward error-code="success" path="case_bus_clue/update-case_bus_clue.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="case_bus_clue/update-case_bus_clue.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="case_bus_clue/insert-case_bus_clue.jsp" txn-code="60130013" description="增加案源信息信息">
+	    <forward error-code="success" path="case_bus_clue/insert-case_bus_clue.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="case_bus_clue/insert-case_bus_clue.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="case_bus_clue/query-case_bus_clue.jsp" txn-code="60130014" description="查询案源信息用于修改">
+	    <forward error-code="success" path="case_bus_clue/update-case_bus_clue.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="case_bus_clue/update-case_bus_clue.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="case_bus_clue/query-case_bus_clue.jsp" txn-code="60130015" description="删除案源信息信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.CaseBusClueContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.VoCaseBusClue" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.VoCaseBusClueSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.VoCaseBusCluePrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="case_bus_mater.xml" app-name="case_bus_mater" app-desc="罚没信息" delete-action="delete" description="罚没物品表" class-name="com.gwssi.dw.aic.bj.cas.txn.TxnCaseBusMater" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60130021">
+	  <jsp page-name="case_bus_mater/query-case_bus_mater.jsp" txn-code="60130021" description="查询罚没信息列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加罚没信息" path="case_bus_mater/insert-case_bus_mater.jsp" description="增加罚没信息" func-name="addRecord"/>
+	    <button type="button" name="修改罚没信息" path="/txn60130024.do" description="修改罚没信息" func-name="updateRecord"/>
+	    <button type="button" name="删除罚没信息" path="/txn60130025.do" description="删除罚没信息" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60130001.do" description="返回到案件明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60130021.do" description="查询罚没信息信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="case_bus_mater/insert-case_bus_mater.jsp" txn-code="60130023" description="增加罚没信息信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60130023.do" description="保存罚没信息信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60130023.do" description="保存罚没信息信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60130021.do" description="保存罚没信息信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60130021.do" description="返回到罚没信息明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="case_bus_mater/update-case_bus_mater.jsp" txn-code="60130022" description="修改罚没信息信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60130021.do" description="修改罚没信息信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60130021.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="case_bus_mater/query-case_bus_mater.jsp" txn-code="60130021" description="查询罚没信息列表">
+	    <forward error-code="success" path="case_bus_mater/query-case_bus_mater.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="case_bus_mater/query-case_bus_mater.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="case_bus_mater/update-case_bus_mater.jsp" txn-code="60130022" description="修改罚没信息信息">
+	    <forward error-code="success" path="case_bus_mater/update-case_bus_mater.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="case_bus_mater/update-case_bus_mater.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="case_bus_mater/insert-case_bus_mater.jsp" txn-code="60130023" description="增加罚没信息信息">
+	    <forward error-code="success" path="case_bus_mater/insert-case_bus_mater.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="case_bus_mater/insert-case_bus_mater.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="case_bus_mater/query-case_bus_mater.jsp" txn-code="60130024" description="查询罚没信息用于修改">
+	    <forward error-code="success" path="case_bus_mater/update-case_bus_mater.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="case_bus_mater/update-case_bus_mater.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="case_bus_mater/query-case_bus_mater.jsp" txn-code="60130025" description="删除罚没信息信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.CaseBusMaterContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.VoCaseBusMater" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.VoCaseBusMaterSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.VoCaseBusMaterPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="case_bus_rev.xml" app-name="case_bus_rev" app-desc="听证复议信息" delete-action="delete" description="复议案件表" class-name="com.gwssi.dw.aic.bj.cas.txn.TxnCaseBusRev" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60130031">
+	  <jsp page-name="case_bus_rev/query-case_bus_rev.jsp" txn-code="60130031" description="查询听证复议信息列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加听证复议信息" path="case_bus_rev/insert-case_bus_rev.jsp" description="增加听证复议信息" func-name="addRecord"/>
+	    <button type="button" name="修改听证复议信息" path="/txn60130034.do" description="修改听证复议信息" func-name="updateRecord"/>
+	    <button type="button" name="删除听证复议信息" path="/txn60130035.do" description="删除听证复议信息" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60130001.do" description="返回到案件明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60130031.do" description="查询听证复议信息信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="case_bus_rev/insert-case_bus_rev.jsp" txn-code="60130033" description="增加听证复议信息信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60130033.do" description="保存听证复议信息信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60130033.do" description="保存听证复议信息信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60130031.do" description="保存听证复议信息信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60130031.do" description="返回到听证复议信息明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="case_bus_rev/update-case_bus_rev.jsp" txn-code="60130032" description="修改听证复议信息信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60130031.do" description="修改听证复议信息信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60130031.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="case_bus_rev/query-case_bus_rev.jsp" txn-code="60130031" description="查询听证复议信息列表">
+	    <forward error-code="success" path="case_bus_rev/query-case_bus_rev.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="case_bus_rev/query-case_bus_rev.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="case_bus_rev/update-case_bus_rev.jsp" txn-code="60130032" description="修改听证复议信息信息">
+	    <forward error-code="success" path="case_bus_rev/update-case_bus_rev.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="case_bus_rev/update-case_bus_rev.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="case_bus_rev/insert-case_bus_rev.jsp" txn-code="60130033" description="增加听证复议信息信息">
+	    <forward error-code="success" path="case_bus_rev/insert-case_bus_rev.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="case_bus_rev/insert-case_bus_rev.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="case_bus_rev/query-case_bus_rev.jsp" txn-code="60130034" description="查询听证复议信息用于修改">
+	    <forward error-code="success" path="case_bus_rev/detail-case_bus_rev.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="case_bus_rev/detail-case_bus_rev.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="case_bus_rev/query-case_bus_rev.jsp" txn-code="60130035" description="删除听证复议信息信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.CaseBusRevContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.VoCaseBusRev" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.VoCaseBusRevSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.cas.vo.VoCaseBusRevPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+</resource>

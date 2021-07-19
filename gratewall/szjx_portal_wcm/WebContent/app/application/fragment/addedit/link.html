@@ -1,0 +1,12 @@
+<!--链接文本-->
+<script language="javascript">
+<!--
+	new com.trs.ui.XLink({
+		disabled : ${NOTEDIT},
+		name : '<TRS_ViewField field="DBFieldName" filterForJs="true" />',
+		value : '<%=CMyString.filterForJs(getValue(obj, "${FieldName}", "<TRS_ViewField field="DefaultValue" filterForJava="true" />"))%>',
+		channelId : m_nChannelId,
+		validation:"type:'string',required:'${NotNull}',max_len:'${DBLength}',desc:'<TRS_ViewField field="AnotherName" filterForJs="true" doubleFilter="true" />'"
+	}).render();
+//-->
+</script>

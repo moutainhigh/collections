@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+<div class="content">
+	<!-- 构建页面==开始 -->
+	<!-- 数据展现 -->
+	<div vtype="formpanel" wid="financeCECfgId" name="updateFinanceC_Form" dataview="false"
+		titleDisplay="true" title="财务负责人信息" width="100%" showborder="true" toggleable="true"
+		dataurl="" layout="table" layoutconfig="{cols:1, columnwidth: ['100%']}" labelstyleclass="labelstyle">
+		<div name="contactId" vtype="hiddenfield" label="主键" labelwidth="200" labelalign="right" width="500" ></div>
+		<div name="name" vtype="textfield" label="财务负责人姓名" labelwidth="200" labelalign="right" width="500" tooltip="请填写财务负责人姓名" rule="must_length;2,10" ></div>
+		<div name="tel" vtype="textfield" label="联系电话" labelwidth="200" labelalign="right" width="498" tooltip="请填写联系电话" rule="must||telephone||cellphone"></div>
+		<div name="cerType" vtype="comboxfield" label="证件类型" labelwidth="200" labelalign="right" width="500" tooltip="请选择证件类型" rule="must" dataurl="../../../dictionary/queryData.do?dicId=CB16"></div>
+		<div name="cerNo" vtype="textfield" label="证件号码" labelwidth="200" labelalign="right" width="500" tooltip="请填写证件号码" rule="must_idcard"></div>
+	
+	</div>
+	<div name="financeChiefEditToolbar" vtype="toolbar" location="bottom" align="center">
+		<div name="financeChiefEdit_save_button" class="commonBt" >保存
+		</div>
+		<div name="financeChiefEdit_reset_button" class="commonBt">重置
+		</div>
+	</div>
+</div>
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../../static/js/config.js"></script>
+<script type="text/javascript" data-main="torch/finance_chief_editTorch.js" src="../../../static/lib/require.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>采集日志</menu-name>
+  <menu-path>/page/share/clt/</menu-path>
+  <description>采集日志</description>
+  <form-beans>
+    <form-bean name="SysCltLogForm">
+      <description>采集日志</description>
+      <form-property prefix="select-key" name="sys_clt_user_id" type="string" size="32" cannull="false" description="采集策略id"/>
+      <form-property prefix="select-key" name="sys_clt_log_id" type="string" size="32" cannull="false" description="采集日志id"/>
+      <form-property prefix="record" name="sys_clt_user_id" type="string" size="32" cannull="false" description="采集策略id"/>
+      <form-property prefix="record" name="sys_clt_log_id" type="string" size="32" cannull="false" description="采集日志id"/>
+      <form-property prefix="record" name="sys_clt_log_detail_id" type="string" size="32" cannull="false" description="采集日志详细id"/>
+      <form-property prefix="record" name="clt_startdate" type="string" size="10" cannull="false" description="采集数据开始日期"/>
+      <form-property prefix="record" name="clt_enddate" type="string" size="10" cannull="false" description="采集数据结束日期"/>
+      <form-property prefix="record" name="exc_starttime" type="string" size="20" cannull="false" description="采集执行开始时间"/>
+      <form-property prefix="record" name="exc_endtime" type="string" size="20" cannull="false" description="采集执行结束时间"/>
+      <form-property prefix="record" name="state" type="string" size="1" cannull="false" description="采集执行状态(成功或失败)"/>
+      <form-property prefix="record" name="logdesc" type="string" size="200" description="采集日志描述"/>
+      <form-property prefix="record" name="inf_name" type="string" size="50" cannull="false" description="接口名称"/>
+      <form-property prefix="record" name="inf_desc" type="string" size="100" cannull="false" description="接口描述"/>
+      <form-property prefix="record" name="clt_num" type="string" size="10" cannull="false" description="秒"/>
+    </form-bean>
+  </form-beans>
+  <action-mappings>
+    <action input="clt_log_list.jsp" name="SysCltLogForm" txn-code="50212001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>采集日志列表</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysCltLog" func-name="txn50212001" input-node="select-key" output-node="record" description="查询采集日志列表"/>
+      <forward error-code="success" path="clt_log_list.jsp"/>
+      <forward error-code="failure" path="clt_log_list.jsp"/>
+    </action>
+    <action input="clt_log_list.jsp" name="SysCltLogForm" txn-code="50212002" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查看采集日志</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysCltLog" func-name="txn50212002" input-node="select-key" output-node="record" description="查看采集日志详细"/>
+      <forward error-code="success" path="clt_log_detail.jsp"/>
+      <forward error-code="failure" path="clt_log_detail.jsp"/>
+    </action>
+  </action-mappings>
+</struts-config>
+

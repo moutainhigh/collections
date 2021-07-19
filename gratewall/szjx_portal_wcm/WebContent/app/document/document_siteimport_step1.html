@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="document_siteimport_step1.html.title">新建文档到...</title>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/data/locale/document.js"></script>
+<script src="../../app/js/data/locale/system.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	window.m_fpCfg = {
+		m_arrCommands : [{
+			cmd : 'getSeletedIds',
+			name : (wcm.LANG.DOCUMENT_PROCESS_31 ||'确定')
+		}],
+		size : [300, 400]
+};
+//-->
+</SCRIPT>
+<script>
+	var myActualTop = $MsgCenter.getActualTop();
+	var iSiteId = getParameter("SiteId");
+	var sObjectids = getParameter("DocumentIds");
+
+	function getSeletedIds(){
+		var sChannelNames = '';
+		try{
+			sSelIds = $('allTreeNav').contentWindow.getCheckValues();
+			sChannelNames = $('allTreeNav').contentWindow.getCheckNames();
+		}catch(err){
+			sSelIds = '';
+			sChannelNames = '';
+		}
+		if(!sSelIds||sSelIds.length==0) {
+			myActualTop.Ext.Msg.$alert(wcm.LANG.DOCUMENT_PROCESS_49 || '请选择文档的所属栏目!');
+			return false;
+		}
+		var result = {};
+		result.DocumentId = 0;
+		result.ChannelId = sSelIds.join(',');
+		result.SiteId = iSiteId;
+		result.ChannelName = sChannelNames;
+		notifyFPCallback(result);
+		/*wcm.CrashBoarder.get('DIALOG_DOCUMENT_IMPORT').show({
+			title : '文档-导入文档到栏目['+sChannelNames+']',
+			src : WCMConstants.WCM6_PATH +'document/document_import.jsp?',
+			width:'500px',
+			height:'300px',
+			maskable:true,
+			params : oParams
+			
+		});*/
+		//FloatPanel.openIn(WCMConstants.WCM6_PATH +'document/document_import.jsp?' + $toQueryStr(oParams), '文档-导入文档到栏目['+sChannelNames+']', 500, 300);
+		//return false;
+	}
+</SCRIPT>
+<style type="text/css">
+	.iframe_container{
+		width:100%;
+		height:100%;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<DIV id="all_channels_tree" class="iframe_container">
+	<iframe id="allTreeNav" src="../include/blank.html" style="width:100%;height:100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+</DIV>
+<script language="javascript">
+<!--
+	$('allTreeNav').src = WCMConstants.WCM6_PATH + "nav_tree/nav_tree_select.jsp?IsRadio=1&MultiSites=0&ExcludeSelf=0&ExcludeVirtual=1&CurrSiteId="+iSiteId+"&SiteId="
+	+iSiteId+"&RightIndex=31";
+//-->
+</script>
+</BODY>
+</HTML>

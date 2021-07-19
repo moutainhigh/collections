@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全流程电子化）</title>
+<link rel="stylesheet" href="../../../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" type="text/css" />
+<link rel="stylesheet" href="../../../../static/css/common.css" />
+<link rel="stylesheet" href="../../../../static/css/baseInfo.css" />
+<style>
+	article {
+    background-color: #fff;
+    width: 1000px;
+    margin: 0 auto;
+}
+	.content{
+		background-color: #fff;
+	    width:1000px;
+	    border:none;
+	    margin:0 auto;
+	    overflow: hidden;
+	}
+.jazz-panel{
+		width:952px;
+		margin:0 auto;
+	}
+	.text-align-right{
+		text-align:center;
+		font-size: 13px;
+		font-family: Microsoft YaHei;
+	}
+	.jazz-grid-headerCell-inner{
+		color: #666;
+		font-size:14px;
+	    font-style: bold;
+	    font-family: Microsoft YaHei;
+		overflow: hidden;
+		white-space: nowrap;
+		word-break: break-all;
+		text-align:center;
+	}
+	.jazz-grid-data-table tr {
+		/* background-color: #fbf8e5; */
+	    cursor: pointer; 
+	}
+	.jazz-grid-cell-no {
+		font-size: 11pt;
+		text-align: center;
+		width:30px;
+		word-break:keep-all;
+		text-overflow:clip;
+	}
+	.jazz-grid-cell:hover{
+		border-left: 5px solid #f6f6f6;
+	}
+	.content-top{
+		width:952px;
+		margin:0 auto;
+		margin-top:10px;
+		
+	}
+	.flag{
+		width:60px;
+	}
+	.jazz-grid-cell {
+    border-left: 5px solid #fff;
+}
+.jazz-grid-cell:hover{
+	background-color:#f6f6f6;
+	border-left: 5px solid #E57D45;
+}
+.jazz-gridtable-even{
+	background:#fff;
+}
+.button-main-left {
+	display:none;
+}
+.back{
+	position: relative;
+	top:16px;	
+}
+.back1{
+	width:130px;
+	position: relative;
+	top:16px;	
+}
+</style>
+</head>
+
+<body>
+<article>
+ <div class="content"> 
+	<div class="content-top">
+		<img src="../../../static/image/img/icon/inv-white.png"> 
+		<span>历史服务列表</span>
+	</div>
+<!-- 构建页面==开始 -->
+
+<!-- 查询条件 -->
+	<div name="queryEntValidate_Form" wid="query_ent_validate_hs_record"
+		vtype="formpanel" width="952" layout="table"
+		layoutconfig="{cols:4, columnwidth: ['50%','10%','10%','30%']}" 
+		labelstyleclass="labelstyle" title="企业认证历史记录" 
+		titledisplay="false" showborder="true">
+		<div name="operCode" vtype="textfield" label="服务编号" labelwidth="200" labelalign="right" width="400" tooltip="" rule=""></div>
+		<div name="queryEntValidateRecord_reseat_button" class='commonBt back'" text="">重&nbsp;置</div>
+		<div name="queryEntValidateHsRecord_query_button" class='commonBt back'" text="">查&nbsp;询</div>
+		<div name="queryEntValidateHsRecord_back_button" class='commonBt back1'" text="">返回当前服务列表</div>
+	</div>
+<!-- 数据展现 -->
+	<div vtype="gridpanel" name="queryEntValidate_Grid" wid="query_ent_validate_hs_record" hideheader='true' lineno='true' isshowselecthelper="false" 
+	 width="952"  showborder="true" dataurl=""  titledisplay='false' selecttype="0" style="font-family: 微软雅黑;"
+		>
+		<div vtype="gridcolumn" name="grid_column" width="953" height="100%">
+			<div>
+				<div name="operCode" text="服务编号"  textalign="right" width="10%" dataurl=""></div>
+				<div name="authCode" text="认证码"  textalign="right" width="10%" dataurl=""></div>
+				<div name="entName" text="企业名称"  textalign="right" width="20%" dataurl=""></div>
+			 	<div name="regNo" text="注册号（统一社会信用代码）"  textalign="right" width="24%" dataurl=""></div>
+				<!-- <div name="unicCode" text="认证序号"  textalign="right" width="" dataurl=""></div> -->
+				<div name="validateCodeStartTime" text="认证码生成时间"  textalign="right" width="18%" dataurl=""></div>
+				<div name="validateCodeEndTime" text="认证码过期时间"  textalign="right" width="18%" dataurl=""></div>
+				
+			</div>
+		</div>
+		<div vtype="gridtable" name="grid_table" width="100%"></div>
+		<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10" width="100%"></div>
+	</div>
+	<div name="queryEntValidateHsRecordToolbar" vtype="toolbar" location="bottom" align="center" style="margin-top:10px;margin-bottom:10px">
+		
+		</div>
+	</div>
+</div>
+</article>
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../../../static/js/config.js"></script>
+<script type="text/javascript" data-main="torch/queryEntValidateHsRecordTorch.js" src="../../../../static/lib/require.js"></script>
+</body>
+</html>

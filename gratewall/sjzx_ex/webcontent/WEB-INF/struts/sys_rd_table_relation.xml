@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>表关系</menu-name>
+  <menu-path>/page/resource/res/rd/metadata/datastructure/claim/relation/</menu-path>
+  <description>表关系</description>
+  <form-beans>
+    <form-bean name="SysRdTableRelationRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="primary-key" name="sys_rd_table_relation_id" type="string" size="32" cannull="false" description="关联ID"/>
+      
+      <form-property prefix="select-key" name="table_name" type="string" size="100" description="主表中文名称"/>
+      <form-property prefix="select-key" name="table_code" type="string" size="100" description="主表中文名称"/>
+       <form-property prefix="select-key" name="table_fk" type="string" size="100" description="主表字段"/>
+       <form-property prefix="select-key" name="table_fk_name" type="string" size="100" description="主表字段名称"/>
+      
+       <form-property prefix="select-key" name="relation_table_fk" type="string" size="100" description="主表字段"/>
+       <form-property prefix="select-key" name="relation_table_fk_name" type="string" size="100" description="主表字段名称"/>
+      <form-property prefix="select-key" name="relation_table_code" type="string" size="100" description="主表字段"/>
+      <form-property prefix="select-key" name="relation_table_name" type="string" size="100" description="主表字段名称"/>
+      
+      
+      <form-property prefix="select-key" name="sys_rd_table_id" type="string" size="32" cannull="true" description="主表ID"/>
+      <form-property prefix="select-key" name="sys_rd_system_id" type="string" size="32" cannull="true" description="主表所属主题ID"/>
+      <form-property prefix="select-key" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="主表所属数据源ID"/> 
+       
+      <form-property prefix="record" name="sys_rd_table_relation_id" type="string" size="32" cannull="false" description="关联ID"/>
+      <form-property prefix="record" name="sys_rd_table_id" type="string" size="32" cannull="true" description="主表ID"/>
+      <form-property prefix="record" name="table_code" type="string" size="100" cannull="true" description="主表代码"/>
+      <form-property prefix="record" name="table_name" type="string" size="100" cannull="true" description="主表中文名称"/>
+      <form-property prefix="record" name="table_fk" type="string" size="100" cannull="true" description="主表字段"/>
+      <form-property prefix="record" name="table_fk_name" type="string" size="100" cannull="true" description="主表字段名称"/>
+      <form-property prefix="record" name="relation_table_code" type="string" size="100" cannull="true" description="关联表代码"/>
+      <form-property prefix="record" name="relation_table_name" type="string" size="100" cannull="true" description="关联表中文名称"/>
+      <form-property prefix="record" name="relation_table_fk" type="string" size="100" cannull="true" description="关联表字段"/>
+      <form-property prefix="record" name="relation_table_fk_name" type="string" size="100" cannull="true" description="关联表字段中文名称"/>
+      <form-property prefix="record" name="sys_rd_system_id" type="string" size="32" cannull="true" description="主表所属主题ID"/>
+      <form-property prefix="record" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="主表所属数据源ID"/>
+      <form-property prefix="record" name="ref_sys_rd_system_id" type="string" size="32" cannull="true" description="关联表所属主题ID"/>
+      <form-property prefix="record" name="ref_sys_rd_data_source_id" type="string" size="32" cannull="true" description="关联表所属数据源ID"/>
+      <form-property prefix="record" name="table_relation_type" type="string" size="2" cannull="true" description="关联关系类型"/>
+      <form-property prefix="record" name="remarks" type="string" size="1000" cannull="true" description="注释"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+    </form-bean>
+    
+    <form-bean name="SysRdTableRelationEditForm">
+      <description>表间关系维护</description>
+    
+      <form-property prefix="select-key" name="sys_rd_table_id" type="string" size="32" cannull="true" description="主表ID"/>
+      <form-property prefix="select-key" name="sys_rd_system_id" type="string" size="32" cannull="true" description="主表所属主题ID"/>
+      <form-property prefix="select-key" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="主表所属数据源ID"/> 
+      <form-property prefix="select-key" name="table_name" type="string" size="100" cannull="true" description="主表中文名称"/>
+      <form-property prefix="select-key" name="table_code" type="string" size="100" cannull="true" description="主表代码"/>
+         
+      <form-property prefix="record" name="sys_rd_table_relation_id" type="string" size="32" cannull="false" description="关联ID"/>
+      <form-property prefix="record" name="sys_rd_table_id" type="string" size="32" cannull="true" description="主表ID"/>
+      <form-property prefix="record" name="table_code" type="string" size="400" cannull="true" description="主表代码"/>
+      <form-property prefix="record" name="table_name" type="string" size="400" cannull="true" description="主表中文名称"/>
+      <form-property prefix="record" name="table_fk" type="string" size="400" cannull="true" description="主表字段"/>
+      <form-property prefix="record" name="table_fk_name" type="string" size="400" cannull="true" description="主表字段名称"/>
+      <form-property prefix="record" name="relation_table_code" type="string" size="400" cannull="true" description="关联表代码"/>
+      <form-property prefix="record" name="relation_table_name" type="string" size="400" cannull="true" description="关联表中文名称"/>
+      <form-property prefix="record" name="relation_table_fk" type="string" size="400" cannull="true" description="关联表字段"/>
+      <form-property prefix="record" name="relation_table_fk_name" type="string" size="400" cannull="true" description="关联表字段中文名称"/>
+      <form-property prefix="record" name="sys_rd_system_id" type="string" size="32" cannull="true" description="主表所属主题ID"/>
+      <form-property prefix="record" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="主表所属数据源ID"/>
+      <form-property prefix="record" name="ref_sys_rd_system_id" type="string" size="32" cannull="true" description="关联表所属主题ID"/>
+      <form-property prefix="record" name="ref_sys_rd_data_source_id" type="string" size="32" cannull="true" description="关联表所属数据源ID"/>
+      <form-property prefix="record" name="ref_sys_rd_table_id" type="string" size="32" cannull="true" description="关联表ID"/>
+      <form-property prefix="record" name="table_relation_type" type="string" size="2" cannull="true" description="关联关系类型"/>
+      <form-property prefix="record" name="remarks" type="string" size="1000" cannull="true" description="注释"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+      <form-property prefix="record" name="no" type="string" size="32" cannull="true" description="序号"/>
+      <form-property prefix="record" name="table" type="string" size="400" cannull="true" description="主表名称"/>
+    
+    
+      <form-property prefix="record2" name="sys_rd_table_relation_id" type="string" size="32" cannull="false" description="关联ID"/>
+      <form-property prefix="record2" name="sys_rd_table_id" type="string" size="32" cannull="true" description="主表ID"/>
+      <form-property prefix="record2" name="table_code" type="string" size="100" cannull="true" description="主表代码"/>
+      <form-property prefix="record2" name="table_name" type="string" size="100" cannull="true" description="主表中文名称"/>
+      <form-property prefix="record2" name="table_fk" type="string" size="100" cannull="true" description="主表字段"/>
+      <form-property prefix="record2" name="table_fk_name" type="string" size="100" cannull="true" description="主表字段名称"/>
+      <form-property prefix="record2" name="relation_table_code" type="string" size="100" cannull="true" description="关联表代码"/>
+      <form-property prefix="record2" name="relation_table_name" type="string" size="100" cannull="true" description="关联表中文名称"/>
+      <form-property prefix="record2" name="relation_table_fk" type="string" size="100" cannull="true" description="关联表字段"/>
+      <form-property prefix="record2" name="relation_table_fk_name" type="string" size="100" cannull="true" description="关联表字段中文名称"/>
+      <form-property prefix="record2" name="sys_rd_system_id" type="string" size="32" cannull="true" description="主表所属主题ID"/>
+      <form-property prefix="record2" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="主表所属数据源ID"/>
+      <form-property prefix="record2" name="ref_sys_rd_system_id" type="string" size="32" cannull="true" description="关联表所属主题ID"/>
+      <form-property prefix="record2" name="ref_sys_rd_data_source_id" type="string" size="32" cannull="true" description="关联表所属数据源ID"/>
+      <form-property prefix="record2" name="ref_sys_rd_table_id" type="string" size="32" cannull="true" description="关联表ID"/>
+      <form-property prefix="record2" name="table_relation_type" type="string" size="2" cannull="true" description="关联关系类型"/>
+      <form-property prefix="record2" name="remarks" type="string" size="1000" cannull="true" description="注释"/>
+      <form-property prefix="record2" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+
+      <form-property prefix="record2" name="ds_id_str" type="string" size="1000" cannull="true" description="数据源ID串"/>
+      <form-property prefix="record2" name="ds_name_str" type="string" size="1000" cannull="true" description="数据源名称串"/>
+      
+      <form-property prefix="record2" name="table_fk_str" type="string" size="100" cannull="true" description="主表字段"/>
+      <form-property prefix="record2" name="table_fk_name_str" type="string" size="100" cannull="true" description="主表字段名称"/>
+      
+    </form-bean>
+
+    <form-bean name="SysRdTableRelationUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_rd_table_relation_id" type="string" size="32" cannull="false" description="关联ID"/>
+       <form-property prefix="record" name="sys_rd_table_relation_id" type="string" size="32" cannull="false" description="关联ID"/>
+      <form-property prefix="record" name="sys_rd_table_id" type="string" size="32" cannull="true" description="主表ID"/>
+      <form-property prefix="record" name="table_code" type="string" size="100" cannull="true" description="主表代码"/>
+      <form-property prefix="record" name="table_name" type="string" size="100" cannull="true" description="主表中文名称"/>
+      <form-property prefix="record" name="table_fk" type="string" size="100" cannull="true" description="主表字段"/>
+      <form-property prefix="record" name="table_fk_name" type="string" size="100" cannull="true" description="主表字段名称"/>
+      <form-property prefix="record" name="relation_table_code" type="string" size="100" cannull="true" description="关联表代码"/>
+      <form-property prefix="record" name="relation_table_name" type="string" size="100" cannull="true" description="关联表中文名称"/>
+      <form-property prefix="record" name="relation_table_fk" type="string" size="100" cannull="true" description="关联表字段"/>
+      <form-property prefix="record" name="relation_table_fk_name" type="string" size="100" cannull="true" description="关联表字段中文名称"/>
+      <form-property prefix="record" name="sys_rd_system_id" type="string" size="32" cannull="true" description="主表所属主题ID"/>
+      <form-property prefix="record" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="主表所属数据源ID"/>
+      <form-property prefix="record" name="ref_sys_rd_system_id" type="string" size="32" cannull="true" description="关联表所属主题ID"/>
+      <form-property prefix="record" name="ref_sys_rd_data_source_id" type="string" size="32" cannull="true" description="关联表所属数据源ID"/>
+      <form-property prefix="record" name="ref_sys_rd_table_id" type="string" size="32" cannull="true" description="关联表ID"/>
+      <form-property prefix="record" name="table_relation_type" type="string" size="2" cannull="true" description="关联关系类型"/>
+      <form-property prefix="record" name="remarks" type="string" size="1000" cannull="true" description="注释"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+    </form-bean>
+
+    <form-bean name="SysRdTableRelationDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_rd_table_relation_id" type="string" size="32" cannull="false" description="关联ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_rd_table_relation.jsp" name="SysRdTableRelationRowsetForm" txn-code="80002601" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询表关系列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdTableRelation" func-name="txn80002601" input-node="select-key" output-node="record" description="查询表关系列表"/>
+      <forward error-code="success" path="query-sys_rd_table_relation.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_table_relation.jsp"/>
+    </action>
+
+    <action input="update-sys_rd_table_relation.jsp" name="SysRdTableRelationUpdateForm" txn-code="80002602" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改表关系信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdTableRelation" func-name="txn80002602" input-node="record" description="修改表关系信息"/>
+      <forward error-code="success" path="update-sys_rd_table_relation.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_table_relation.jsp"/>
+    </action>
+
+    <action input="insert-sys_rd_table_relation.jsp" name="SysRdTableRelationUpdateForm" txn-code="80002603" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>增加表关系信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdTableRelation" func-name="txn80002603" input-node="record" description="增加表关系信息"/>
+      <forward error-code="success" path="insert-sys_rd_table_relation.jsp"/>
+      <forward error-code="failure" path="insert-sys_rd_table_relation.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_table_relation.jsp" name="SysRdTableRelationUpdateForm" txn-code="80002604" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询表关系用于修改</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdTableRelation" func-name="txn80002604" input-node="primary-key" output-node="record" description="查询表关系用于修改"/>
+      <forward error-code="success" path="update-sys_rd_table_relation.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_table_relation.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_table_relation.jsp" name="SysRdTableRelationDeleteForm" txn-code="80002605" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除表关系信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdTableRelation" func-name="txn80002605" input-node="primary-key" description="删除表关系信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+     <action input="edit-sys_rd_table_relation.jsp" name="SysRdTableRelationEditForm" txn-code="80002606" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>打开修改表关系信息页面</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdTableRelation" func-name="txn80002606" input-node="select-key" output-node="record" description="修改表关系信息"/>
+      <forward error-code="success" path="edit-sys_rd_table_relation.jsp"/>
+      <forward error-code="failure" path="edit-sys_rd_table_relation.jsp"/>
+    </action>
+    
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_rd_table_relation.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/metadata/datastructure/claim/relation/query-sys_rd_table_relation.jsp" description="查询表关系列表"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/metadata/datastructure/claim/relation/insert-sys_rd_table_relation.jsp" description="增加表关系信息"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/metadata/datastructure/claim/relation/update-sys_rd_table_relation.jsp" description="修改表关系信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.SysRdTableRelationContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.VoSysRdTableRelation" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.VoSysRdTableRelationSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.VoSysRdTableRelationPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

@@ -1,0 +1,81 @@
+<html>
+<HEAD>
+<TITLE>分类法的维护</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<SCRIPT language=JavaScript src="../js/com.trs.util/Common.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import("com.trs.tree.TreeNav");
+	$import("com.trs.tree.TreeManager");
+    $import('com.trs.wcm.MessageCenter');
+</SCRIPT>
+<SCRIPT language=JavaScript src="DelayedTask.js"></SCRIPT>
+<SCRIPT language=JavaScript src="classinfo_config.js"></SCRIPT>
+<style type="text/css">
+    *{
+        margin:0px;
+        padding:0px;
+        font-size:12px;
+    }
+    #TreeView{
+        padding:5px 0px 0px 15px;
+        width:55%;
+        height:100%;
+        overflow:auto;
+        float:left;
+    }
+    .description{
+        float:right;
+        width:45%;
+        height:100%;
+        overflow:auto;
+        border-left:1px solid gray;
+    }
+    .description div{
+        padding:3px 5px;
+    }
+    .keyword{
+        color:green;
+        font-weight:bold;
+    }
+    .row .label{
+        margin-left:4px;
+    }
+    .row input{
+        margin-left:4px;
+        border:1px solid silver;
+    }
+</style>
+</HEAD>
+
+<BODY style="background-color:white;">
+<div class="TreeView" id="TreeView">
+	<div><a href=""></a></div><ul></ul>
+</div>
+<div class="description">
+    <fieldset style="margin:3px 4px;">
+        <legend>快捷键说明：</legend>
+        <div>1.<span class="keyword">Insert</span>创建选中节点的子节点</div>
+        <div>2.<span class="keyword">Enter</span>创建选中节点的兄弟节点</div>
+        <div>3.<span class="keyword">F2</span>编辑选中的节点</div>
+        <div>4.<span class="keyword">Delete</span>删除选中的节点</div>
+        <div>5.<span class="keyword">Esc</span>撤销当前输入状态</div>
+        <div>6.<span class="keyword">方向键</span>切换选中的节点</div>
+        <div>7.<span class="keyword">shift+方向键</span>排序选中的节点</div>
+    </fieldset>
+    <fieldset style="margin:3px 4px;">
+        <legend>分类属性：</legend>
+        <div class="row">
+            <div class="label">分类描述：</div>
+            <input type="text" name="Desc" id="cDesc" value="" onkeydown="keyDownEvent();" onblur="saveClassInfo(this);" maxlen="100">
+        </div>
+        <div class="row">
+            <div class="label">分类编码：</div>
+            <input type="text" name="cCode" id="cCode" value="" onkeydown="keyDownEvent();" onblur="saveClassInfo(this);" maxlen="20">
+        </div>
+    </fieldset>
+</div>
+</BODY>
+</HTML>

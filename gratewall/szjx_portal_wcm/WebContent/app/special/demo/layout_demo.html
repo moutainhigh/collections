@@ -1,0 +1,591 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict/dtd">
+<html>
+ <head>
+  <title> DEMO </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="Author" content="CH">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+	<link href="../css/widgets.css" rel="stylesheet" type="text/css" />	
+	<link href="../css/common.css" rel="stylesheet" type="text/css" />
+
+	<script src="../../js/easyversion/lightbase.js"></script>
+	<script src="../../js/source/wcmlib/WCMConstants.js"></script>
+	<script src="../../js/data/locale/system.js"></script>
+	<script src="../../js/easyversion/extrender.js"></script>
+	<script src="../../js/easyversion/elementmore.js"></script>
+	<script src="../../js/source/wcmlib/core/MsgCenter.js"></script>
+	<script src="../../js/source/wcmlib/Observable.js"></script>
+	<!-- Component Start -->
+	<script src="../../js/source/wcmlib/dragdrop/dd.js"></script>
+	<script src="../../js/source/wcmlib/dragdrop/wcm-dd.js"></script>
+	<script src="../../js/source/wcmlib/Component.js"></script>
+	<script src="../../js/source/wcmlib/dialog/Dialog.js"></script>
+	<script src="../../js/source/wcmlib/crashboard/CrashBoard.js"></script>
+	<!-- Component End -->
+	<!--Ajax Start-->
+	<script src="../../js/easyversion/ajax.js"></script>
+	<script src="../../js/easyversion/basicdatahelper.js"></script>
+	<script src="../../js/easyversion/web2frameadapter.js"></script>
+
+<link href="../layout/default.css" rel="stylesheet" type="text/css" />
+<script language="javascript" src="layout_demo.js" type="text/javascript"></script>
+<style type="text/css">
+	body{
+		font-size:12px;
+	}
+	.mark .c-box{
+		border:1px dashed red;
+		padding:0px;
+	}
+	.operator{
+		width:200px;
+		float:left;
+		border-right:1px solid blue;
+		height:650px;
+		padding:10px;
+	}
+	button{
+		display:block;
+	}
+	input{
+		width:50px;
+	}
+	.layout_show{
+		padding:10px;
+		overflow:hidden;
+	}
+
+	.c_1,.c_2,.c_3,.c_4{
+		background:#eeeeee;
+	}
+</style>
+	<script language="javascript">
+	/*<!--
+		var LAYOUT_MARKED = "mark";
+		var WRAP_CLASS_NAME="trs_wrap";
+		var LAYOUT_CLASS_NAME="trs_layout";
+		var ATTR_RATIO="_ratio";
+		var ATTR_RATIOTYPE="_ratiotype";
+		var C_SEP="c_sep";
+		var WRAPS=[];
+		var m_oMarkElem=null;
+		function SelectLayout(){
+			wcm.CrashBoarder.get('layout-query').show({
+				title : '布局选择页面',
+				src : '../layout/layout_select.jsp',
+				maskable:true,
+				width:'570px',
+				height:'320px',
+				callback : insertLayout
+			});
+		}
+		var i=0
+		function insertLayout(_parames){
+			// 获取选择的元素
+			var newEl = __getElemFromString(_parames.content);
+			// TODO 设置这个布局元素的ID
+			var divId = "part_"+(i++);
+			// 设置当前布局的ID
+			newEl.setAttribute("id",divId);
+
+			if(!m_oMarkElem){
+				// TODO 获取当前的容器
+				var currWrap = WRAPS[0];
+				__appendLayout(newEl,currWrap);
+			}else{
+				var elem = m_oMarkElem;
+				if(!Element.hasClassName(m_oMarkElem,LAYOUT_CLASS_NAME))
+					elem = m_oMarkElem.parentNode;
+				__insertAfter(newEl,elem);
+			}
+			removeMark();
+			// 标识刚插入的布局
+			addMark(divId);
+			m_oMarkElem = newEl;
+		}
+		// 从字符串获取布局元素
+		function __getElemFromString(_sHtml){
+			var newEl = document.createElement("div");
+			newEl.innerHTML=_sHtml;
+			var children = newEl.children;
+			for(var i=0;children.length;i++){
+				if(children[i].tagName=="DIV")
+					return children[i];
+			}
+			return null;
+		}
+		// 将布局元素添加到目标容器中
+		function __appendLayout(_newEl,_tarEl){
+			var tarEl =$(_tarEl);
+			var newEl = $(_newEl);
+			if(!tarEl || !newEl)
+				return ;
+			if(Element.hasClassName(tarEl,WRAP_CLASS_NAME)){
+				tarEl.appendChild(newEl);
+			}
+			// TODO 撤销重做堆栈更新
+		}
+		// 删除某个标识的布局
+		function deleteElem(){
+			if(!m_oMarkElem)
+				return;
+			// 如果是列元素
+			if(Element.hasClassName(m_oMarkElem.parentNode,LAYOUT_CLASS_NAME)){
+				// 如果只有最后一个列元素
+				if(m_oMarkElem.parentNode.children.length==1){
+					Element.remove(m_oMarkElem.parentNode);
+					m_oMarkElem=null;
+					// TODO 撤销重做堆栈更新
+				}else{
+					var _nRatioType=m_oMarkElem.parentNode.getAttribute(ATTR_RATIOTYPE);
+					var _sRatios = m_oMarkElem.parentNode.getAttribute(ATTR_RATIO).split(":");
+					var info=__getInfoOfElem(m_oMarkElem);
+					_sRatios.remove(info.colValue);
+					// 发送服务
+					var option={
+						RatioType:_nRatioType,
+						Ratio: _sRatios.join(":")
+					}
+					// 发送服务
+					BasicDataHelper.Call('wcm61_layout', 'getLayoutHtml',option, false, function(oTransport, oJson){
+						delete_callBack(oTransport.responseText);
+					});
+				}
+			}else if(Element.hasClassName(m_oMarkElem,LAYOUT_CLASS_NAME)){		
+				Element.remove(m_oMarkElem);
+				m_oMarkElem=null;
+				// TODO 撤销重做堆栈更新
+			}
+		}
+		// deleteLayout_callBack 回调函数
+		function delete_callBack(_content){
+			var num=__getInfoOfElem(m_oMarkElem).colNum;
+			m_oMarkElem=m_oMarkElem.parentNode;
+			modify_callBack({content:_content,deleteCol:num});
+		}
+		// 获取存放布局的容器
+		function getTrsWraps(){
+			return document.getElementsByClassName(WRAP_CLASS_NAME);
+		}
+	
+		// 删除所有的标识
+		function removeAllMark(){
+			for(var k=0;k<WRAPS.length;k++){
+				var childrenNodes = WRAPS[k].children;
+				for(var i=0;i<childrenNodes.length;i++){
+					removeMark();
+				}
+			}
+		}
+		// 标识一个布局
+		function addMark(elem){
+			elem = $(elem)
+			if(!elem)
+				return;
+			if(Element.hasClassName(elem,LAYOUT_MARKED))
+				return;
+			if(elem.tagName=="DIV" && (Element.hasClassName(elem,LAYOUT_CLASS_NAME) ||
+				Element.hasClassName(elem.parentNode,LAYOUT_CLASS_NAME))){
+				// 删除其它的布局标识
+				removeMark();
+				Element.addClassName(elem,LAYOUT_MARKED);
+				m_oMarkElem = elem;
+			}
+		}
+		// 删除布局的标识
+		function removeMark(){
+			if(!m_oMarkElem)
+				return;
+			if(Element.hasClassName(m_oMarkElem,LAYOUT_MARKED)){
+				Element.removeClassName(m_oMarkElem,LAYOUT_MARKED);
+				m_oMarkElem=null;
+			}
+		}
+		// 创建横向分隔div
+		function __createR_SEP(){
+			var elem = document.createElement("div");
+			elem.innerHTML="<div class='r_sep'></div>";
+			return elem.firstChild;
+		}
+		// 往elem前插入一个布局元素
+		function __insertBefore(newEl,tarElem){
+			if(!tarElem)
+				return;
+			tarElem.parentNode.insertBefore(newEl,tarElem);
+			// TODO 撤销重做堆栈更新
+		}
+		// 往后插入一个布局元素
+		function __insertAfter(newEl,tarElem){
+			if(!tarElem)
+				return;
+			if(tarElem.parentNode.lastChild==tarElem){
+				tarElem.parentNode.appendChild(newEl);
+				// TODO 撤销重做堆栈更新
+			}else{
+				__insertBefore(newEl,tarElem.nextSibling);
+			}
+		}
+		function modifyLayout(){
+			// 获取选中的布局
+			var elem = m_oMarkElem;
+			if(!elem){
+				Ext.Msg.alert("没有选中布局!");
+				return;
+			}
+			if(!Element.hasClassName(elem,LAYOUT_CLASS_NAME)){
+				Ext.Msg.alert("选中的不是布局元素");
+				return;
+			}
+			// 获取布局的比例信息
+			var ratio = elem.getAttribute(ATTR_RATIO);
+			var ratioType = elem.getAttribute(ATTR_RATIOTYPE);
+			// 构造CLASS名
+			wcm.CrashBoarder.get('layout-modify').show({
+				title : '布局修改页面',
+				src : '../layout/layout_modify.jsp',
+				params:{
+					Ratio:ratio,
+					RatioType:ratioType
+				},
+				maskable:true,
+				width:'500px',
+				height:'200px',
+				callback : modify_callBack
+			});
+		}
+		function modify_callBack(params){
+			var newElem=__getElemFromString(params.content);
+			var sNewRatio=newElem.getAttribute(ATTR_RATIO);
+			var sOrigRatio = m_oMarkElem.getAttribute(ATTR_RATIO);
+			var nOrignColumn = sOrigRatio.split(":").length;
+			// 替换列中的内容
+			for(var i=1;i<=nOrignColumn;i++){
+				var num=i;
+				if(params.deleteCol<=i){
+					num++;
+				}
+				var sContent=getHtmlOfColumn(num,m_oMarkElem);
+				addContentToColumn(i,newElem,sContent);
+			}
+			newElem.setAttribute("id",m_oMarkElem.id);
+			// 将新元素添加到HTML内容中
+			m_oMarkElem.parentNode.replaceChild(newElem, m_oMarkElem);
+			//标识新的布局
+			addMark(newElem);
+			// TODO 撤销重做堆栈更新
+		}
+		// 在某列处添加内容
+		function addContentToColumn(_column,_elem,_content){
+			var sRatio = _elem.getAttribute(ATTR_RATIO);
+			var colNumOfAll = sRatio.split(":").length;
+			// 获取_elem的第_column列对应的元素
+			var el=__getInfoOfColumn(_column,_elem).elem;
+			if(el && _content && _content.length>0)
+				el.innerHTML=_content;
+		}
+		// 获取某列的内容
+		function getHtmlOfColumn(_column,_elem){
+			var el=__getInfoOfColumn(_column,_elem).elem;
+			return el?el.innerHTML:"";
+		}
+		Event.observe(window, 'load',function(){
+			// 获取所有的容器
+			WRAPS = getTrsWraps();
+		});
+		// 标识某一列
+		function markColumn(_cl){
+			var elem =m_oMarkElem;
+			if(!elem)
+				return;
+			if(Element.hasClassName(elem.parentNode,LAYOUT_CLASS_NAME))
+				elem=elem.parentNode;
+			// 获取第_cl列元素
+			var el =__getInfoOfColumn(_cl,elem).elem;
+			//var elems = document.getElementsByClassName(_cl,elem);
+			addMark(el);
+		}
+		//获取某列的信息,例如第一列对应的HTML元素,对应的比例信息等
+		// 这是从比例信息中的列 对应到HTML代码
+		function __getInfoOfColumn(_nCol,_parent){
+			var children = _parent.children;
+			var sRatio = _parent.getAttribute(ATTR_RATIO);
+			var sRatios = sRatio.split(":");
+			if(sRatios.length<_nCol){
+				return {};
+			}
+			var colNumOfChar = __getColNumOfChar(sRatio);
+			var el=null;
+			if(colNumOfChar<0 || _nCol<colNumOfChar){
+				for(var i=0,j=0;i<children.length;i++){
+					if(!children[i].className.match(/c_\d/))
+						continue;
+					j++;
+					if(_nCol==j){
+						el=children[i];
+						break;
+					}
+				}
+			}else{
+				for(var i=0,j=0;i<children.length;i++){
+					if(!children[i].className.match(/c_\d/))
+						continue;
+					j++;
+					if((sRatios.length+colNumOfChar-_nCol)==j){
+						el=children[i];
+						break;
+					}
+				}
+			}
+			return {elem:el,ratioValue:sRatios[_nCol-1]}
+		}
+		// 获取HTML元素的相关信息,例如比例信息,在比例中属于第几列等
+		// 这是从HTML元素到比例信息的对应
+		function __getInfoOfElem(_elem){
+			if(!_elem || !_elem.className.match(/c_\d/))
+				return null;
+			if(!Element.hasClassName(_elem.parentNode,LAYOUT_CLASS_NAME))
+				return null;
+			var sRatio = _elem.parentNode.getAttribute(ATTR_RATIO);
+			var colNumOfChar = __getColNumOfChar(sRatio);
+			var children = _elem.parentNode.children;
+			var nCol = 0;
+			var oInfo={};
+			for(var i=0;i<children.length;i++){
+				if(!children[i].className.match(/c_\d/))
+					continue;
+				nCol++;
+				if(children[i]==_elem){
+					break;
+				}
+			}
+			// 如果没有自适应列
+			if(colNumOfChar<0 || nCol<colNumOfChar){
+				oInfo={colNum:nCol,colValue:sRatio.split(":")[nCol-1]};
+			}else{
+				var nNum = sRatio.split(":").length-nCol+colNumOfChar;
+				oInfo={colNum:nNum,colValue:sRatio.split(":")[nNum-1]};
+			}
+			return oInfo;
+		}
+		// 获取自适应列所在的列数
+		function __getColNumOfChar(_sRatio){
+			var temp = _sRatio.substring(0,_sRatio.indexOf("*")+1);
+			return temp.length>0?temp.split(":").length:-1;
+		}
+		function modifyColumn(_nCol){
+			wcm.CrashBoarder.get('layout-column-modify').show({
+				title : '布局列修改页面',
+				html : m_oHtml,
+				maskable:true,
+				width:'500px',
+				height:'200px',
+				callback : modify_callBack
+			});
+		}
+		var m_oHtml="";
+		*/
+	//-->
+	</script>
+	<script language="javascript">
+	<!--
+	/*
+		// 将布局结构反解成树结构
+		// 将结构成json结构
+		function formTree(){
+			var sJson="{";
+			if(WRAPS.length==0)
+				return null;
+			for(var i=0;i<WRAPS.length;i++){
+				sJson+="container_"+i+":";
+				sJson+=formWrap(WRAPS[i]);
+				if(i!=WRAPS.length-1)
+					sJson+=",";
+			}
+			sJson+="}";
+			alert(sJson);
+		}
+		function formWrap(_wrap){
+			var sJson="{"
+			// 确保为一级子节点
+			var arrLayouts = _wrap.children;//document.getElementsByClassName(LAYOUT_CLASS_NAME,_wrap);
+			if(arrLayouts.length==0)
+				return null;
+			for(var i=0;i<arrLayouts.length;i++){
+				// TODO 如果不是布局,间隔DIV被过滤，如果需要在树节点中显示该DIV，则去掉过滤逻辑
+				if(arrLayouts[i].className.indexOf(LAYOUT_CLASS_NAME)<0){
+					continue;
+				}
+				sJson+="layout_"+i+":";
+				sJson+=formLayout(arrLayouts[i]);
+				if(i!=arrLayouts.length-1)
+					sJson+=",";
+			}
+			sJson+="}";
+			return sJson.length>2?sJson:null;
+		}
+		function formLayout(_layout){
+			var sJson="{ id:"+_layout.id+",children:{";
+			var ratios=_layout.getAttribute("_ratio").split(":");
+			//var arrCBox =document.getElementsByClassName("c-box",_layout);
+			for(var i=0;i<ratios.length;i++){
+				var tempElem = __getInfoOfColumn(i+1,_layout).elem;
+				sJson+="col_"+i+":"+formCol(tempElem);
+				if(i!=ratios.length-1)
+					sJson+=",";
+			}
+			sJson+="}}";
+			return sJson;
+		}
+		function formCol(_col){
+			//-----------------------------------------------------------------------
+			// TODO 列中可以存放布局用
+			//var child=formWrap(_col);
+			//-----------------------------------------------------------------------
+			// --------------------------列中应该存放资源块-----------------------
+			var resources = document.getElementsByClassName("----------------resource-------------",_col);
+			var sJson="{id:"+_col.parentNode.id+"_"+_col.className+",children:"+(resources && resources.length>0?resources:null)+"}";
+			return sJson;
+		}
+
+		function markCol(_parentId,_className){
+			if(!$(_parentId))
+				return;
+			var children=$(_parentId).children;
+			for(var i=0;i<children.length;i++){
+				if(children[i].className.indexOf(_className)>=0){
+					addMark(children[i]);
+					m_oMarkElem=children[i];
+					break;
+				}
+			}
+		}
+		*/
+	//-->
+	</script>
+	<script language="javascript">
+	<!--
+		// 将布局结构反解成树结构
+		// 将结构成json结构
+		function formTree(){
+			var sJson="[";
+			if(WRAPS.length==0)
+				return null;
+			for(var i=0;i<WRAPS.length;i++){
+				sJson+=formWrap(WRAPS[i]);
+				if(i!=WRAPS.length-1)
+					sJson+=",";
+			}
+			sJson+="]";
+			$('text').innerHTML=sJson;
+		}
+		function formWrap(_wrap){
+			var sJson="{id:'"+_wrap.id+"',type:'wrap',children:["
+			// 确保为一级子节点
+			//var arrLayouts = _wrap.children;//document.getElementsByClassName(LAYOUT_CLASS_NAME,_wrap);
+			while(_wrap.childNodes[0] && !Element.hasClassName(_wrap.childNodes[0],Layout.LAYOUT_CLASS_NAME)){
+				_wrap=_wrap.childNodes[0];
+			}
+			var arrLayouts=_wrap.childNodes;
+			if(arrLayouts.length==0)
+				return null;
+			for(var i=0;i<arrLayouts.length;i++){
+				// TODO 如果不是布局,间隔DIV被过滤，如果需要在树节点中显示该DIV，则去掉过滤逻辑
+				if(!Element.hasClassName(arrLayouts[i],Layout.LAYOUT_CLASS_NAME)){
+					continue;
+				}
+				sJson+=formLayout(arrLayouts[i]);
+				if(i!=arrLayouts.length-1)
+					sJson+=",";
+			}
+			sJson+="]}";
+			return sJson;
+		}
+		function formLayout(_layout){
+			var sJson="{id:'"+_layout.id+"',type:'layout',children:[";
+			var ratios=_layout.getAttribute("_ratio").split(":");
+			//var arrCBox =document.getElementsByClassName("c-box",_layout);
+			for(var i=0;i<ratios.length;i++){
+				var tempElem = Layout._getElemOfColumn(i+1,_layout).elem;
+				sJson+=formCol(_layout.id,tempElem);
+				if(i!=ratios.length-1)
+					sJson+=",";
+			}
+			sJson+="]}";
+			return sJson;
+		}
+		function formCol(layoutid,_col){
+			//-----------------------------------------------------------------------
+			// TODO 列中可以存放布局用
+			//var child=formWrap(_col);
+			//-----------------------------------------------------------------------
+			// --------------------------列中应该存放资源块-----------------------
+			var sJson="{id:'"+layoutid+"_"+_col.className+"',type:'column',children:[";
+			var children =getWidgetsOfCol(_col);
+			for(var i=0; children && i<children.length;i++){
+				if(Element.hasClassName(children[i],"widget")){
+					sJson+=formWidget(children[i]);
+				}
+			}
+			sJson+="]}";
+			return sJson;
+		}
+		
+		function formWidget(_rec){
+			var sJson="{id:'"+_rec.id+"' type:'widget'}";
+		}
+
+		function markCol(_parentId,_className){
+			if(!$(_parentId))
+				return;
+			var children=$(_parentId).children;
+			for(var i=0;i<children.length;i++){
+				if(children[i].className.indexOf(_className)>=0){
+					Design.Layout.mark(children[i]);
+					m_oMarkElem=children[i];
+					break;
+				}
+			}
+		}
+		// 获取列的一级子节点 资源
+		function getWidgetsOfCol(_col){
+			while(_col.childNodes[0]){
+				var children = _col.childNodes;
+				for(i=0;i<children.length;i++){
+					if(Element.hasClassName(children[i],"widget"))
+						return children;
+				}
+				_col=_col.childNodes[0];
+			}
+			return null
+		}
+	//-->
+	</script>
+ </head>
+
+ <body>
+ <div class="operator">
+	 <span WCMAnt:param="layout_demo.html.selectonelayoutandgivedividtoinsert">选择一个布局，并将指定的布局插入到指定ID的DIV后面</span>
+	<button onclick="Layout.add()" WCMAnt:param="layout_demo.html.selcetlayout">选择布局</button> 
+	<button onclick="addMark($('addmark').value)" WCMAnt:param="layout_demo.html.addmark">添加标识</button>
+	<span WCMAnt:param="layout_demo.html.inputlayoutidneedtomarked">输入需要标识的布局ID：</span><input type="text" id="addmark" name="addmark" value="">
+	<button onclick="Layout.removeMark()" WCMAnt:param="layout_demo.html.deletemark">删除标识</button>
+	<button onclick="removeAllMark()" WCMAnt:param="layout_demo.html.deleteallmarks">删除所有标识</button>
+	<hr>
+	<button onclick="Layout.deleteElem()" WCMAnt:param="layout_demo.html.deletecontentchecked">删除选中的内容</button>
+	<button onclick="Layout.modify()" WCMAnt:param="layout_demo.html.modifylayoutchecked">修改选中的布局</button>
+	<button onclick="modifyCol()" WCMAnt:param="layout_demo.html.modifycolumnchecked">修改选中的列</button>
+	<button onclick="Layout.mark(document.getElementsByClassName('c_1')[0])" WCMAnt:param="layout_demo.html.markcurrlayoutfirstcolumn">标识当前布局的第一列</button>
+	<button onclick="Layout.mark(document.getElementsByClassName('c_2')[0])" WCMAnt:param="layout_demo.html.markcurrlayoutsecondcolumn">标识当前布局的第二列</button>
+	<button onclick="Layout.mark(document.getElementsByClassName('c_3')[0])" WCMAnt:param="layout_demo.html.markcurrlayoutthirdcolumn">标识当前布局的第三列</button>
+	<button onclick="Layout.mark(document.getElementsByClassName('c_4')[0])" WCMAnt:param="layout_demo.html.markcurrlayoutfourthcolumn">标识当前布局的第四列</button>
+	<button onclick="formTree()" WCMAnt:param="layout_demo.html.generatelayouttree">构造布局树</button>
+	<button onclick="markCol($('layoutid').value,$('columnclass').value)" WCMAnt:param="layout_demo.html.marklayoutcolumns">标识布局中的列</button>
+	<input type="text" name="layoutid" value="">
+	<input type="text" name="columnclass" value="">
+ </div>
+<div class="layout_show trs_wrap" id="trs_wrap">
+</div>
+<textarea name="" rows="40" cols="20" id="text"></textarea>
+ </body>
+</html>

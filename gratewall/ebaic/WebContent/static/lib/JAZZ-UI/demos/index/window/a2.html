@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jazz-ui.js" type="text/javascript"></script>
+</head>
+<script>
+var win = null;
+function _btn1(){
+//	win = window.top.window.win3();
+ 	win = jazz.widget({
+		vtype: 'window',
+		name: 'a2_win',
+    	title: '窗口_a2',
+    	titlealign: 'center',
+    	titledisplay: true,
+        width: 200,
+        height: 200,
+        modal:true,
+        visible: true,
+        frameurl: "a3.html"
+   });
+}
+
+function _btn2(e){
+	jazz.window.close(e);
+}
+
+function _btn0(){
+	jazz.info("***");
+}
+</script>
+<body>
+	<input id="btn0" type="button" value="打开实例a0" onclick="_btn0()" />
+	<input id="btn1" type="button" value="打开实例a2" onclick="_btn1()" />
+	<div id="btn2" vtype="button" text="关闭实例a2" click="_btn2()" />
+</body>
+</html> 

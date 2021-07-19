@@ -1,0 +1,134 @@
+<HTML>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<TITLE fcklang="LETTERSTATSTIC">字数统计</TITLE>
+	<script language="javascript">
+		var oEditor = window.parent.InnerDialogLoaded() ;
+		var FCK = oEditor.FCK;
+		var myActualTop = (top.actualTop||top);
+		function $(el) {
+			if (typeof el == 'string')
+				el = document.getElementById(el) || document.getElementsByName(el)[0];
+			return el;
+		}
+
+		/*待统计的事项有
+		全部字符(带空格)/(不带空格)
+		汉字：
+		全角字符
+		半角字符
+
+		*/
+		var charNumWithOutEmpty = 0;
+		var charNumWithEmpty = 0;
+		var characterNum = 0;
+		var DbNum = 0;
+		var SbNum = 0;
+		var bFinished = false;
+
+		function countCharacters(str){
+			//清理换行
+			str = str.replace(/\r\n/img,"");
+			var totalCount = 0;  
+			var count = 0;
+			for (var i=0; i<str.length; i++) {  
+				var code = str.charCodeAt(i); 
+				//全角字符
+				if (code >= 65281 && code <= 65373){
+					charNumWithOutEmpty ++;
+					charNumWithEmpty ++;
+					DbNum ++;
+				}else if (code == 12288){
+					//全角空格
+					charNumWithEmpty ++;
+					DbNum ++;
+				}else if (code >= 33 && code <= 126){ 
+					//半角字符
+					charNumWithOutEmpty ++;
+					charNumWithEmpty ++;
+					SbNum ++;
+				}else if (code == 32){
+					//半角空格
+					charNumWithEmpty ++;
+					SbNum ++;
+				}else if ((code >= 0x0001 && code <= 0x007e) || (0xff60<=code && code<=0xff9f)) {  
+					charNumWithOutEmpty ++;
+					charNumWithEmpty ++;
+				}else {     
+					characterNum ++;
+					charNumWithOutEmpty ++;
+					charNumWithEmpty ++;
+				}  
+			}
+			bFinished = true;
+			return;
+		}
+		function OnLoad(){
+			oEditor.FCKLanguageManager.TranslatePage( document);
+			var text = oEditor.FCK.GetText();
+			countCharacters(text);
+			if(bFinished){
+				if($("charNumWithOutEmpty")){
+					$("charNumWithOutEmpty").innerHTML = charNumWithOutEmpty;
+				}
+				if($("charNumWithEmpty")){
+					$("charNumWithEmpty").innerHTML = charNumWithEmpty;
+				}
+				if($("characterNum")){
+					$("characterNum").innerHTML = characterNum;
+				}
+				if($("dbnum")){
+					$("dbnum").innerHTML = DbNum;
+				}
+				if($("sbnum")){
+					$("sbnum").innerHTML = SbNum;
+				}
+			}
+		}
+	</script>
+	<style type="text/css">
+		body {
+			padding-top:0px;
+			background-color: #CCCCCC;
+			font-size:12px;
+		}
+		.desc{
+			color:blue;
+		}
+		.lpl {
+			PADDING-LEFT: 0px
+		}
+	</style>
+</HEAD>
+<BODY onload="OnLoad();" style="margin:0;padding:0;">
+	<table height="100%" width="100%">
+		<tr>
+			<td align="left" valign="top" style="padding-left:5px;margin-top:5px;">
+				<div fcklang="STATICMESSAGE" class="desc">统计信息</div><hr/>
+				<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0 id="props-box">
+					<TR>
+						<TD class=lpl noWrap style="height:22px"><label fcklang="CHARNUMWITHOUTEMPTY">字符数(不计空格)：</label></TD>
+						<TD id="charNumWithOutEmpty"></TD>
+					</TR>
+					<TR>
+						<TD class=lpl noWrap style="height:22px"><label fcklang="CHARNUMWITHEMPTY">字符数(计空格)：</label></TD>
+						<TD id="charNumWithEmpty"></TD>
+					</TR>
+					<TR>
+						<TD class=lpl noWrap style="height:22px"><label fcklang="CHARACTERNUM">中文字符数：</label></TD>
+						<TD id="characterNum"></TD>
+					</TR>
+					<TR>
+						<TD class=lpl noWrap style="height:22px"><label fcklang="DbNum">全角字符数：</label></TD>
+						<TD id="dbnum"></TD>
+					</TR>
+					<TR>
+						<TD class=lpl noWrap style="height:22px"><label fcklang="SbNum">半角字符数：</label></TD>
+						<TD id="sbnum"></TD>
+					</TR>
+				</TABLE>
+			</td>
+		</tr>
+	</table>
+</BODY>
+</HTML>

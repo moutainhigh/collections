@@ -1,0 +1,216 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc">记录移动到...</title>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script>
+	$import('com.trs.wcm.FloatPanel');
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.ProcessBar');
+</script>
+<style type="text/css">
+    *{
+        margin:0px;
+        padding:0px;
+    }
+    .box{
+        position:relative;
+        width:100%;
+        height:100%;
+        padding-top:28px;
+    }
+    .navContainer{
+        position:absolute;
+        left:0px;
+        top:0px;
+        width:100%;
+        height:28px;
+        border-bottom:1px solid silver;
+    }
+    .bodyContainer{
+        width:100%;
+        height:100%;
+    }
+    .navItem{
+        width:45%;
+        white-space:nowrap;
+        overflow:hidden;
+    }
+    .ClassInfoContainer{
+        position:absolute;
+        width:100%;
+        height:100%;
+        padding-top:28px;
+    }
+    .tip{
+        position:absolute;
+        left:5px;
+        top:0px;
+        height:28px;
+        line-height:28px;
+        white-space:nowrap;
+        overflow:hidden;
+        color:red;
+        font-weight:bold;
+    }
+    .row{
+        height:28px;
+        line-height:28px;
+        width:100%;
+        padding-left:8px;
+        white-space:nowrap;
+        overflow:hidden;
+    }
+</style>
+<script language="javascript">
+<!--
+    var nSrcClassInfoId = getParameter("classInfoId") || 0;
+    var sDocIds = getParameter("objectids") || 0;
+
+    Event.observe(window, 'load', function(){
+        var oHelper = new com.trs.web2frame.BasicDataHelper();
+        oHelper.Call(
+            'wcm6_ClassInfoView',
+            'queryClassInfos',
+            {
+                docIds:sDocIds, 
+                classInfoid:nSrcClassInfoId
+            }, 
+            true, 
+            function(transport, json){
+                var sValue = TempEvaler.evaluateTemplater('classInfo_template', json);
+                Element.update("srcClassInfoContainer", sValue);	
+                var radioCls = $('r_' + nSrcClassInfoId);
+                if(radioCls){
+                    radioCls.checked = true;
+                }
+            }
+        );
+    });
+
+	var myActualTop = (top.actualTop||top);
+	FloatPanel.addCloseCommand();
+	FloatPanel.addCommand('okBtn', '确定', 'onOk', null);
+
+	function onOk(){
+        var sSrcClassInfoIds = getSrcClassInfos();
+		try{
+			oResult = $("selectTree").contentWindow.getCheckedValues();
+		}catch(err){
+			oResult = {ids:0, names:""};
+		}
+        var sSelIds = oResult["ids"];
+		if(!sSelIds||sSelIds.length==0) {
+			$alert('请选择要当前记录要移动到的目标分类!');
+			return false;
+		}
+		else if(sSelIds.length==1){
+            /*
+            if(("," + sSrcClassInfoIds + ",").indexOf("," + sSelIds[0] + ",") >= 0){
+    			$alert('不能将当前记录从当前分类移动到自身!');
+	    		return false;
+            }
+            */
+		}
+        
+        ProcessBar.init('执行进度，请稍候...');
+        ProcessBar.addState('正在提交数据');
+        ProcessBar.addState('成功执行完成');
+        ProcessBar.start();
+        var oPostData = {
+            "ObjectIds" : sDocIds,
+            "SrcClassInfoIds" : sSrcClassInfoIds,
+            "DestClassInfoId" : sSelIds
+        }
+        var func = function(){
+            $MessageCenter.sendMessage('main', 'PageContext.RefreshList', 'PageContext', []);
+            FloatPanel.close(true);
+        };
+        var oHelper = new com.trs.web2frame.BasicDataHelper();
+        oHelper.Call('wcm6_MetaDataCenter','moveViewDatas',oPostData, true,
+            function(_transport,_json){
+                ProcessBar.exit();
+                func();
+                FloatPanel.close();
+            },
+            function(_transport,_json){
+                $render500Err(_transport,_json);
+                FloatPanel.close(true);
+            }
+        );
+        return false;
+	}
+
+    function toggle(sContainer){
+        sContainer = sContainer.toUpperCase();
+        var oContainer = $('bodyContainer');
+        var childNodes = oContainer.childNodes;
+        for(var index = 0; index < childNodes.length; index++){
+            if(childNodes[index].nodeType != 1){
+                continue;
+            }
+            var sMethod = sContainer == childNodes[index].id.toUpperCase() ? "show" : "hide";
+            Element[sMethod](childNodes[index]);
+        }
+    }
+
+    function getSrcClassInfos(){
+        var result = [];
+        var radios = document.getElementsByName("srcClassInfo");
+        for(var index = 0; index < radios.length; index++){
+            if(radios[index].checked){
+                result.push(radios[index].value);
+            }
+        }
+        return result.join(",");
+    }
+//-->
+</script>
+</HEAD>
+
+<BODY>
+    <div class="box">
+        <div class="navContainer">
+            <span class="navItem">
+                <input type="radio" name="navItem" id="src_nav" onclick="toggle('srcContainer');">
+                <label for="src_nav">源分类：</label>
+            </span>
+            <span class="navItem">
+                <input type="radio" name="navItem" id="dest_nav" checked onclick="toggle('destContainer');">
+                <label for="dest_nav">目标分类：</label>
+            </span>
+        </div>
+        <div class="bodyContainer" id="bodyContainer">
+            <div id="srcContainer" class="ClassInfoContainer" style="display:none;">
+                <div class="tip">当前记录涉及到以下分类，请选择从哪些源分类进行移动：</div>
+                <div id="srcClassInfoContainer" style="width:100%;height:100%;overflow:auto;"></div>
+            </div>
+            <div id="destContainer" class="ClassInfoContainer">
+                <div class="tip">请选择当前记录要移动到的目标分类：</div>
+                <script language="javascript">
+                <!--
+                    var sURL = "classinfo_select_tree2.html?objectId=" + nSrcClassInfoId + "&treeType=2";
+                    document.write("<iframe width='100%' height='100%' src='" + sURL + "' id='selectTree'></iframe>");
+                //-->
+                </script>
+            </div>
+        </div>
+    </div>
+
+    <textarea name="classInfo_template" style="display:none;">
+		<for select="ClassInfos.ClassInfo" blankRef="divNoObjectFound">
+            <div class="row">
+                <input type="checkbox" name="srcClassInfo" id="r_{#ClassInfoId}" value="{#ClassInfoId}" checked>
+                <label for="r_{#ClassInfoId}">{#cname}[{#classinfoid}]</label>
+            </div>
+        </for>
+    </textarea>
+    <div id="divNoObjectFound" style="display:none;">没有找到源分类</div>
+</BODY>
+</HTML>

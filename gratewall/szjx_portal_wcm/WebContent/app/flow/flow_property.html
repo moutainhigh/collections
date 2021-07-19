@@ -1,0 +1,182 @@
+<HTML>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE WCMAnt:param="flow.property.html.title">工作流属性</TITLE>
+<link href="../css/workflow.css" rel="stylesheet" type="text/css" />
+<!--my import-->
+<script type="text/javascript" src="../js/data/locale/wcm52.js"></script>
+<script src="../../app/js/wcm52/CTRSRequestParam.js"></script>
+<script src="../../app/js/wcm52/CTRSAction.js"></script>
+<script src="../../app/js/wcm52/CTRSArray.js"></script>
+<script src="../js/runtime/myext-debug.js"></script>
+<script src="../../app/js/data/locale/system.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/flow.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/TempEvaler.js"></script>
+<!--page scrop-->
+<script src="./flow_property.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.workflow/WorkFlow.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/lang/cn.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<!-- CarshBoard Outer Start -->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/resource/widget.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Outer End -->
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog end-->
+<script label="TagParser">
+	top.actualTop = window; 
+</script>
+<STYLE>
+table{
+	font-size: 12px;
+}
+.font_red{
+	color: red;
+}
+.options_box{
+	width: 539px;
+}
+#divRuleSkimList{
+	height: 88px;
+}
+#divRuleDefine{
+	top: 408px;	
+}
+#divOptions{			
+	top: 448px;
+}
+#frmRuleDef{
+	width: 529px;
+}
+#idXML{
+	width: 519px;
+}
+</STYLE>
+</HEAD>
+<BODY bgcolor="#f6f6f6" align="center">
+<div id="dy_adjust">
+</div>
+<script>
+	var m_nRuleContentHeight = 400;
+	function adjustScale(){
+		var sStyleId = 'dy_adjust';
+		var eStyleDiv = $(sStyleId);
+		var nBoxWidth = Element.getDimensions(document.body)["width"] - 15;
+		var cssStr = '.options_box{width: ' + nBoxWidth + 'px;}';
+		var nSkimListHeight = Element.getDimensions(document.body)["height"] - 400;
+		cssStr += '#divRuleSkimList{height: ' + nSkimListHeight + 'px;}';
+		var nRuleDefineTop = Element.getDimensions(document.body)["height"] - 80;
+		cssStr += '#divRuleDefine{top: ' + nRuleDefineTop + 'px;}';
+		cssStr += '#divOptions{top: ' + (nRuleDefineTop + 40) + 'px;}';
+		cssStr += '#frmRuleDef{width: ' + (nBoxWidth - 10) + 'px;}';		
+		cssStr += '#idXML{width: ' + (nBoxWidth - 20) + 'px;}';					
+		var eStyle = $style(cssStr);
+		$removeChilds(eStyleDiv);
+		eStyleDiv.appendChild(eStyle);
+
+		m_nRuleContentHeight = nRuleDefineTop - 20;
+	}
+	//adjustScale();
+</script>
+<div style="width: 100%; margin-top: -5px; overflow: hidden;" id="divContent">
+  <div class="options_box">
+	<div>
+		<span class="box_header_left"></span>
+		<span class="box_header_center"  style="width:33%;" WCMAnt:param="flow.property.html.basicinfo">基本信息</span>
+		<span class="box_header_right"></span>
+	</div>
+	<div class="box_body" id="divHeader">
+		<table border="0" cellspacing="0" cellpadding="3" style="table-layout:fixed">
+		<tbody>
+			<tr>
+				<td align="center" width="15%" style="white-space: nowrap" WCMAnt:param="flow.property.html.flowName">工作流名称：</td>
+				<td align="left" width="85%"><input class="inputtext" id="flowName" size=25 validation="type:'string',required:'true',max_len:'50',desc:'工作流名称'" validation_desc="工作流名称" WCMAnt:paramattr="validation_desc:flow_property.html.flowNameDesc"></td>
+			</tr>
+			<tr>
+				<td align="center" WCMAnt:param="flow.property.html.flowDesc">工作流描述：</td>
+				<td align="left"><input class="inputtext" id="flowDesc" size=25 validation="type:'string',max_len:'200',desc:'工作流说明'" WCMAnt:paramattr="validation_desc:flow_property.html.flowDis" validation_desc="工作流说明"></td>
+			</tr>
+		</tbody>
+		</table>	
+	</div>
+	</div>
+	<div class="options_box" style="margin-top: 10px;">
+	<div>
+		<span class="box_header_left"></span>
+		<span class="box_header_center"  style="width:33%;" WCMAnt:param="flow.property.html.xmlDiscrip">Xml描述</span>
+		<span class="box_header_right"></span>
+	</div>
+	<div class="box_body">
+		<table border="0" cellspacing="0" cellpadding="5">
+		<tbody>
+			<tr>
+				<td align="center" width="100%"><textarea id="idXML" ROWS="9" READONLY="true"></textarea></td>
+			</tr>
+		</tbody>
+		</table>	
+	</div>
+	</div>
+</div>
+<div id="divRules">
+	<div class="options_box" style="height: 100px;">
+		<div>
+			<span class="box_header_left"></span>
+			<span class="box_header_center"  style="width:33%;" WCMAnt:param="flow.property.html.rule">规则</span>
+			<span class="box_header_right"></span>
+		</div>
+		<div class="box_body">
+			<div id="divRuleSkimList" style="height: 60px"></div>
+			<textarea id="rules_template" style="display: none; font-size: 14px;">
+			<for select="rules" blankRef="divNoItem">
+				<div style="width: 100%;" class="data_item">
+					<span style="font-family: Georgia">{$$index}. </span>
+					<span title="颜色标明有效时机" WCMAnt:paramattr="title:flow.property.html.ruleType"><img src="../images/workflow/ball_{#ruletype}.gif" align="absmiddle">({@WorkflowHelper.getRuleTypeName(#ruletype)})</span>
+				&nbsp;<span>{#ruleName}</span>
+				</div>
+			</for>
+			</textarea>
+			<div style="overflow: hidden;">
+				<iframe id="frmRuleDef" src="workflow_rules_define.html" height="0" frameborder="0" style="border: 0px solid gray"></iframe>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="divRuleDefine" style="text-align: center; position: absolute; left: 0; width: 100%;">
+	<a href="#" onclick="defineRules(); return false;" id="lnkToggle" class="btn_style_link" WCMAnt:param="flow.property.html.startDefine">开始规则定义</a>
+</div>	
+<div id="divOptions" style="width: 100%; margin-top: 5px; position: absolute; left: 0px;">
+<table border="0" cellspacing="0" cellpadding="0" style="width: 100%;">
+<tbody>
+	<tr>
+		<td align="center"><span><button type="button" onclick="doOK()"><span WCMAnt:param="flow.property.html.confirm">确定</span></button></span>&nbsp;&nbsp;<span><button type="button" onclick="doCancel()"><span WCMAnt:param="flow.property.html.cancel">取消</span></button></span></td>
+	</tr>
+</tbody>
+</table>
+
+</div>
+<div id="divNoItem" style="display:none;">
+	<div class="no_object_found" WCMAnt:param="flow.property.html.clickDefine">(当前没有规则。请点击"开始规则定义"进行添加)</div>
+</div>
+<script language="javascript">
+<!--
+	init();
+//-->
+</script>
+</BODY>
+</HTML>

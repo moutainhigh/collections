@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../../static/script/jazz.js" type="text/javascript"></script>
+<script>
+	var pkCodeTableManager;
+	$(function() {
+		
+		pkCodeTableManager = jazz.util.getParameter("pkCodeTableManager");
+		//alert(pkCodeTableManager);
+		if(pkCodeTableManager == null){
+			
+		}else{
+			$('div[name="formpanel_edit"]').formpanel('option', 'dataurl',rootPath+
+					'/dictionaryList/show.do?pkCodeTableManager='+pkCodeTableManager);
+			$('div[name="formpanel_edit"]').formpanel('reload');
+			$('div[name="codeTableEnName"]').textfield("option", "disabled", true);
+				
+		}
+		$('div[name="pkSysIntegration"]').comboxfield('option','dataurl',rootPath+'/dictionaryList/systemList.do');
+		$('div[name="pkSysIntegration"]').comboxfield('reload');
+	});
+	
+
+	function save() {
+		var pkSysIntegration = $("div[name='pkSysIntegration']").comboxfield('getValue');
+		var codeTableChName = $("div[name='codeTableChName']").textfield('getValue');
+		var codeTableEnName = $("div[name='codeTableEnName']").textfield('getValue');
+		var codeTableDesc = $("div[name='codeTableDesc']").textfield('getValue');
+		var state = $("div[name='state']").comboxfield('getValue');
+		var codeColumn = $("div[name='codeColumn']").textfield('getValue');
+		var valueColumn = $("div[name='valueColumn']").textfield('getValue');
+		var cacheType = $("div[name='cacheType']").comboxfield('getValue');
+		
+		//alert(pkSysIntegration);
+		if(pkSysIntegration == ''||codeTableChName == ''||codeTableEnName==''||codeTableDesc==''||
+				state==''||codeColumn==''||valueColumn==''||cacheType==''){
+			jazz.info("有必填选项未填写，添加失败");
+		}else{
+			var params = {
+				url : rootPath+'/dictionaryList/save.do',
+				components : [ 'formpanel_edit' ],
+				
+				callback : function(data, r, res) { 
+					if (res.getAttr("back") == 'success'){
+						jazz.info("保存成功");
+						parent.queryDef();
+						parent.win.window("close");
+						$("div[name=pkCodeTableManager]").hiddenfield("setValue",res.getAttr("pkCodeTableManager"));
+					} 
+					else 
+						jazz.info("代码表已经存在，添加失败");
+					
+				}
+			};
+			$.DataAdapter.submit(params);
+		}
+	}
+	
+	
+	
+	function back() {
+		parent.winEdit.window("close");
+	}
+
+</script>
+</head>
+<body>
+	<div id="formpanel_edit" name="formpanel_edit" vtype="formpanel"
+		tableStyleClass="tablecss" titledisplay="false" showborder="false" width="100%"
+		layout="table" layoutconfig="{cols:2, columnwidth: ['50%','*']}"
+		dataurl="">
+
+		<div name='pkCodeTableManager' vtype="hiddenfield" label="主键" labelAlign="right"></div>
+		<div name='codeTableEnName' vtype="textfield" label="代码表名称" labelAlign="right"
+			rule="must" width="350" labelwidth="100"></div>
+		<div name='codeTableChName' vtype="textfield" label="代码表中文名" labelAlign="right"
+			rule="must" width="350" labelwidth="100"></div>
+		<div name='pkSysIntegration' vtype="comboxfield" label="所属子系统" labelAlign="right"
+			rule="must" width="350" labelwidth="100"></div>
+		<div name='codeTableDesc' vtype="textfield" label="描述" labelAlign="right" 
+			rule="must" width="350" labelwidth="100"></div>
+		<div name='codeColumn' vtype="textfield" label="code字段" labelAlign="right" 
+			rule="must" width="350" labelwidth="100"></div>
+		<div name='valueColumn' vtype="textfield" label="value字段" labelAlign="right"
+			rule="must" width="350" labelwidth="100"></div>
+		<div name='cacheType' vtype="comboxfield" label="存储类型" rule="must"
+			labelAlign="right" rule="must" width="350" labelwidth="100"
+			dataurl='[{"text":"存储到内存","value":"0"},{"text":"存储到数据库","value":"1"}]'></div>
+		<div name='state' vtype="comboxfield" label="状态" labelAlign="right" rule="must" width="350" 
+		labelwidth="100" dataurl='[{"text":"正常","value":"0"},{"text":"禁用","value":"1"}]'></div>
+		
+		<div id="toolbar" name="toolbar" vtype="toolbar" location="bottom" align="center">
+			<div id="btn1" name="btn1" vtype="button" text="保存"
+				icon="../../../style/default/images/save.png" click="save()"></div>
+			<div id="btn2" name="btn2" vtype="button" text="返回"
+				icon="../../../style/default/images/fh.png" click="back()"></div>
+		</div>
+	</div>
+
+</body>
+</html>

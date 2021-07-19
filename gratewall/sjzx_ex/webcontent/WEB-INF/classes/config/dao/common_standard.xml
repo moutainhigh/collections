@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="common_standard" class-name="com.gwssi.standard.dao.CommonStandard" check-flag="false" backup-flag="false">
+    <description>规则标准</description>
+  </table-info>
+
+  <column name="standard_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="标准ID"/>
+  <column name="standard_name" data-type="varchar" length="100" not-null="false" value-from="input" description="标准名称"/>
+  <column name="standard_type" data-type="varchar" length="20" not-null="false" value-from="input" description="标准类型"/>
+  <column name="specificate_type" data-type="varchar" length="20" not-null="false" value-from="input" description="规则类型"/>
+  <column name="issuing_unit" data-type="varchar" length="20" not-null="false" value-from="input" description="发布单位"/>
+  <column name="specificate_no" data-type="varchar" length="50" not-null="false" value-from="input" description="类型号"/>
+  <column name="specificate_desc" data-type="varchar" length="2000" not-null="false" value-from="input" description="类型描述"/>
+  <column name="specificate_status" data-type="varchar" length="20" not-null="false" value-from="input" description="类型状态"/>
+  <column name="is_markup" data-type="varchar" length="1" not-null="false" value-from="input" description="代码集 无效 有效"/>
+  <column name="creator_id" data-type="varchar" length="32" not-null="false" value-from="input" description="创建人ID"/>
+  <column name="created_time" data-type="varchar" length="19" not-null="false" value-from="input" description="创建时间"/>
+  <column name="last_modify_id" data-type="varchar" length="32" not-null="false" value-from="input" description="最后修改人ID"/>
+  <column name="fj_fk" data-type="varchar" length="2000" not-null="false" value-from="input" description="附件id"/>
+  <column name="fjmc" data-type="varchar" length="2000" not-null="false" value-from="input" description="附件名称"/>
+  <column name="last_modify_time" data-type="varchar" length="19" not-null="false" value-from="input" description="最后修改时间"/>
+  <column name="enable_time" data-type="varchar" length="19" not-null="false" value-from="input" description="启用时间"/>
+  <column name="disable_time" data-type="varchar" length="19" not-null="false" value-from="input" description="停用时间"/>
+  <primary-key name="pk_common_standard" column-list="standard_id"/>
+  <index name="pk_common_standard" index-type="unique" cluster="cluster" column-list="standard_id"/>
+  <function func-name="select one common_standard" func-type="select" column-list="standard_id,standard_name,standard_type,specificate_type,issuing_unit,specificate_no,specificate_desc,specificate_status,is_markup,creator_id,created_time,last_modify_id,last_modify_time,fj_fk,fjmc,enable_time,disable_time">
+    <filter-column column-name="standard_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="insert one common_standard" func-type="insert" column-list="standard_id,standard_name,standard_type,specificate_type,issuing_unit,specificate_no,specificate_desc,specificate_status,is_markup,creator_id,created_time,last_modify_id,last_modify_time,fj_fk,fjmc,enable_time,disable_time">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="select common_standard list" func-type="rowset" column-list="standard_id,standard_name,standard_type,specificate_type,issuing_unit,specificate_no,specificate_desc,specificate_status,is_markup,creator_id,created_time,last_modify_id,last_modify_time,fj_fk,fjmc,enable_time,disable_time" max-record="10">
+    <filter-column column-name="standard_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="specificate_no" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="created_time" operator="between" value-from="input" value-item="created_time_start" value-item2="created_time_end" empty-flag="skip"/>
+    <filter-column column-name="standard_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="fjmc" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="fj_fk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="delete one common_standard" func-type="delete">
+    <filter-column column-name="standard_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one common_standard" func-type="update" column-list="standard_name,standard_type,specificate_type,issuing_unit,specificate_no,specificate_desc,specificate_status,is_markup,creator_id,created_time,last_modify_id,last_modify_time,fj_fk,fjmc,enable_time,disable_time">
+    <filter-column column-name="standard_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

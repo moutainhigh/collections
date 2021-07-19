@@ -1,0 +1,456 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<meta http-equiv="Content-Language" content="gb2312">
+<link href="browse.css" rel="stylesheet" type="text/css">
+<head>
+<title>请选择参数</title>
+<script language="javascript">
+function SourceDefine()
+{
+	this.window = null;
+	this.selectList = null;
+	this.selectedValue = null;
+	this.showColumn = null;
+	this.selectFunction = null;
+}
+
+var	sourceDefine = new SourceDefine();
+
+// 初始化
+
+/*******************************
+输入参数：
+1、window
+2、所有可以选择的参数
+3、已经选择的参数
+4、需要显示的列
+5、选中后的执行函数
+************************************************/
+function init( selectList, selectedValue, showColumn, selectFunction )
+{
+	if( selectedValue == null ){
+		selectedValue = '';
+	}
+	
+	sourceDefine.window = window.parent;
+	sourceDefine.selectList = selectList;
+	sourceDefine.selectedValue = selectedValue;
+	sourceDefine.showColumn = showColumn;
+	sourceDefine.selectFunction = selectFunction;
+	
+	// 格式化
+	var	ii;
+	for( ii=0; ii<selectList.length; ii++ ){
+		selectList[ii][1] = selectList[ii][1].replace(/[,;]/g, '.' );
+	}
+	
+	// 删除列表
+	obj=document.getElementById('s1');
+	for (x=obj.options.length-1;x>=0;x--) {
+		obj.remove(x);
+	}
+	
+	obj=document.getElementById('s2');
+	for (x=obj.options.length-1;x>=0;x--) {
+		obj.remove(x);
+	}
+	
+	// 生成列表
+	createSelectItem('s1', 's2');
+}
+
+function getAllCode(){
+  return sourceDefine.selectList;
+}
+
+function getFunction(){
+	return 'sourceDefine.window.' + sourceDefine.selectFunction;
+}
+
+function getShowColumn(){
+	return sourceDefine.showColumn;
+}
+
+function getSelectedCode(){
+	return sourceDefine.selectedValue;
+}
+
+// 关闭窗口
+function hideWindow()
+{
+	sourceDefine.window.hiddenBrowse();
+}
+
+// 增加选项
+function addOptionValue( objName, selectList, selectedList, showColumn )
+{
+	if( selectedList == null || selectedList.length <= 0 ){
+		return;
+	}
+	
+	// 显示的列
+	var	showList = showColumn.split( ';' );
+	
+	// 计算每列的最大长度
+	var	maxWidth = new Array();
+	for( i=0; i<showList.length; i++ ){
+		maxWidth[i] = getMaxWidth( selectList, selectedList, showList[i] );
+	}
+	
+	var	i;
+	var	idx;
+	var obj = document.getElementById( objName );
+	var newOptionItem;
+	
+	for (i=0; i<selectedList.length; i++) {
+		idx = selectedList[i];
+		newOptionItem = new Option(getShowValue(selectList[idx], showList, maxWidth), idx);		
+		obj.add( newOptionItem );
+	}
+}
+
+// 取显示的信息
+function getShowValue( selectData, showList, maxWidth )
+{
+	var	i;
+	var	idx;
+	var	len;
+	var	str = '';
+	for( i=0; i<showList.length; i++ ){
+		idx = showList[i];
+		if( i == 0 ){
+			str = selectData[idx];
+		}
+		else{
+			str = str + '--' + selectData[idx];
+		}
+	}
+	
+	return str;
+}
+
+// 取列的最大长度
+function getMaxWidth( selectList, selectedList, idx )
+{
+	var	ii;
+	var	j;
+	var	maxWidth = 0;
+	for( ii=0; ii<selectedList.length; ii++ ){
+		j = selectedList[ii];
+		if( maxWidth < selectList[j][idx].length ){
+			maxWidth = selectList[j][idx].length;
+		}
+	}
+	
+	return maxWidth;
+}
+
+
+	
+// 保存已经选中的数据
+function saveSelectedValue( objName )
+{
+	var	i;
+	var	idx = new Array();
+	
+	var	allCode = getAllCode();
+	var	obj = document.getElementById( objName );
+	
+	for (i=0; i<obj.options.length; i++){
+		idx[i] = obj.options[i].value;
+	}
+	
+	// 选中的信息
+	var	selectedData = new Array();
+	for( i=0; i<idx.length; i++ ){
+		selectedData[i] = allCode[idx[i]];
+	}
+	
+	var	func = getFunction() + '( selectedData )';
+	eval( func );
+}
+
+
+
+// 热键
+document.onkeydown = defaultKeydown;
+
+function defaultKeydown()
+{
+	var	keyCode = window.event.keyCode;
+	if( keyCode == 27 ){
+		hideWindow();
+	}
+	else if( window.event.ctrlKey && keyCode == 83 ){	// CTRL + S
+		submitPress();
+	}
+	else if( keyCode == 9 ){
+		// 设置焦点
+		_nextField();
+	}
+}
+
+
+
+// 导航到下一个域
+function _nextField( )
+{
+	var	obj = window.event.srcElement;
+	if( obj == null ){
+		return;
+	}
+	
+	var	id = obj.id;
+	if( id == null ){
+		return;
+	}
+	
+	// 查找当前域
+	var	ii;
+	var	fieldList = ['close', 's1', 's2', 'ok', 'close'];
+	
+	for( ii=0; ii<fieldList.length; ii++ ){
+		if( fieldList[ii] == id ){
+			break;
+		}
+	}
+	
+	if( ii >= fieldList.length ){
+		ii = 0;
+	}
+	
+	// 设置焦点
+	var	obj = document.getElementById( fieldList[ii+1] );
+	if( obj != null ){
+		obj.focus();
+	}
+	
+	window.event.keyCode = 0;
+	window.event.returnValue = false;
+}
+
+
+
+
+
+
+	
+	/***************把字符串转成select的option项****************
+	函数：   
+	obj=你的select的id
+	************************************************/
+	function createSelectItem( obj,obj1 )
+	{
+		var	allCode = getAllCode();
+		var	selectedCode = getSelectedCode();
+		
+		// 显示的列
+		var	showColumn = getShowColumn();
+		var	showList = showColumn.split( ';' );
+		
+		// 可以选择
+		var unselectList = getUnselectList( allCode, selectedCode, showList[0] );
+		addOptionValue( obj, allCode, unselectList, showColumn );
+		
+		// 已经选择
+		var selectedList = getSelectedList( allCode, selectedCode, showList[0] );
+		addOptionValue( obj1, allCode, selectedList, showColumn );
+	}
+	
+	// 已经选择
+	function getSelectedList( HiddenAllValue,selectedAllValue, idx ){
+		var	i, j;
+		var	num = 0;
+		var selectedList = new Array();	
+		var SArray = selectedAllValue.split(',');
+		
+		for (j=0; j<SArray.length; j++) {
+			SArray[j] = trimSpace( SArray[j], 0 );
+			
+			for (i=0; i<HiddenAllValue.length; i++) {
+				if (SArray[j] == HiddenAllValue[i][idx]){
+					selectedList[num] = i;
+					num = num + 1;
+				}
+			}
+		}
+		
+		return selectedList;
+	} 
+	
+	
+	// 可以选择
+	function getUnselectList( HiddenAllValue, selectedAllValue, idx ){
+		var	i, j;
+		var	num = 0;
+		var unselectList = new Array();
+		var SArray=selectedAllValue.split(',');
+		
+		for (j=0; j<SArray.length; j++) {
+			SArray[j] = trimSpace( SArray[j], 0 );
+		}
+		
+		for (j=0;j<HiddenAllValue.length;j++) {
+			for( i=0; i<SArray.length; i++ ){
+				if( SArray[i] == HiddenAllValue[j][idx] ){
+					break;
+				}
+			}
+			
+			if( i >= SArray.length ){
+				unselectList[num] = j;
+				num = num + 1
+			}
+		}
+		
+		return unselectList;	
+	}
+	
+	
+	/**************提页面****************
+	函数：  
+	返回：
+	************************************************/
+	function submitPress() {
+		saveSelectedValue( 's2' );
+		hideWindow();
+	}
+	
+	/**
+	*中丛源select中移动被选中的option项到目标select中
+	*2005/06/28
+	*参数: objectSel源select名,funSel目标select名,bFlag为真判断是否有option项被选中,假为不判断既全部移动
+	*/
+	function moveSelect(objectSel, funSel, bFlag)
+	{
+		var newOption
+		
+		//得到源option元素组
+		obj=document.getElementById(objectSel);
+		
+		//得到目标option元素组
+		oobj=document.getElementById(funSel);
+		
+		// options数量
+		var	len = obj.options.length;
+		
+		if( !bFlag ){
+			// 处理全部记录
+			for( x=0; x<len; x++ ){
+				//新建一个它(optionitem)
+				newOption = new Option(obj.options[0].text, obj.options[0].value);
+				
+				//在目标是插入它
+				oobj.add( newOption );
+				
+				//在源中删除它
+				obj.remove( 0 );
+			}
+		}
+		else{
+			// 处理选中的记录
+			for( x=0; x<len; x++ ){
+				//如果一个元素被选中了
+				if ( obj.options[x].selected ){
+					//新建一个(optionitem)
+					var newOption = new Option(obj.options[x].text, obj.options[x].value);
+					
+					//在目标是插入它
+					oobj.add(newOption);
+				}
+			}
+			
+			// 删除选中的记录
+			for (x=obj.options.length-1;x>=0;x--){
+				if ( obj.options[x].selected ){
+					obj.remove(x);
+				}
+			}
+		}
+	}
+	
+	function selectItem(objectSel,funSel,bFlag)
+	{
+		if( event.keyCode == 13 ){
+			moveSelect(objectSel,funSel,bFlag);
+		}
+	}
+	
+	
+// 截去空格
+// type=0 - 去除前后空格; 1 - 去前导空格; 2 - 去尾部空格
+function trimSpace( str, trimType )
+{
+	var i = -1
+	var tmpStr = ' '
+	
+	// 前空格
+	if(trimType == 0 || trimType == 1){
+		while( tmpStr == ' ' ){
+			++i
+			tmpStr = str.substr(i,1)
+		}
+		
+		str = str.substring(i)
+	}
+	
+	// 后空格
+	if(trimType == 0 || trimType == 2){
+		tmpStr = ' '
+		i = str.length
+		while(tmpStr == ' '){
+			--i
+			tmpStr = str.substr(i,1)
+		}
+		
+		str = str.substring(0,i+1)
+	}
+	
+	return str
+}
+
+
+// 初始化页面
+function initPage()
+{
+	var param = window.parent._browseParameter;
+	init( param.selectList, param.selectedValue, param.showColumn, param.selectFunction );
+	
+	// 设置焦点：如果点击比较快，关闭窗口时域可能还没有显示，会出错
+	try{
+		document.getElementById('s1').focus();
+	} catch( e ){ }
+}
+</script>
+</head>
+
+<body leftmargin="0" topmargin="0" onload="initPage()">
+<form name="seltestformA">
+	<table class='td_color' bgcolor="#efefde" width="370px" border="0" cellspacing="0" cellpadding="0" style="table-layout:fixed;">
+	<tr>
+		<td width="174px" class='td_title'>可选择的内容</td>            
+		<td width="20px" class='td_title'> </td>
+		<td width="174px" class='td_title'>已选择的内容</td>
+	</tr>
+	<tr height="190px">
+	<td class='td_form' align="center">
+		<span style="width:170px; height:184px; bgcolor:white; border:1px solid #6371B5; overflow:hidden">
+		<select name="s1" multiple  id="s1" size="12" style="width:174px; height:188px; cursor:hand; margin-left:-3px; margin-right:-2px; margin-top:-3px; margin-bottom:-2px" class="mselect" onkeydown="selectItem('s1', 's2', true)" ondblclick="moveSelect('s1', 's2', true)"></select>
+		</span>
+	</td>            
+	<td class='td_form' align="left">		
+		 <div onclick="moveSelect('s1', 's2', true)" style="height:20pt;cursor:hand;"> <img src="button_nexts.gif" alt="选取一项"></div>		
+		 <div onclick="moveSelect('s1', 's2', false)" style="height:20pt;cursor:hand;"> <img src="button_ends.gif" alt="选取全部"></div>		
+		 <div onclick="moveSelect('s2', 's1', true)" style="height:20pt;cursor:hand;"><img src="button_prvs.gif" alt="取消一项"></div>
+		 <div onclick="moveSelect('s2', 's1', false)" style="height:20pt;cursor:hand;"> <img src="button_begins.gif" alt="取消全部"></div>		
+	</td>
+	<td class='td_form' align="center">
+		<span style="width:170px; height:184px; bgcolor:white; border:1px solid #6371B5; overflow:hidden">
+		<select name="s2" multiple  id="s2" size="12" style="width:174px; height:188px; cursor:hand; margin-left:-3px; margin-right:-2px; margin-top:-3px; margin-bottom:-2px" class="mselect" onkeydown="selectItem('s2', 's1', true)" ondblclick="moveSelect('s2', 's1', true)"></select>
+		</span>
+	</td></tr>
+	<tr><td colspan="3" class='td_form' align="center"><input type="button" id="ok" value="&nbsp;确认&nbsp;" style="cursor:hand;" onclick="submitPress();">&nbsp; &nbsp;&nbsp;&nbsp;<input type="reset" id="close" value="&nbsp;关闭&nbsp;" style="cursor:hand;" onclick="hideWindow();"></td></tr>
+	</table>
+</form>
+</body>
+</html>

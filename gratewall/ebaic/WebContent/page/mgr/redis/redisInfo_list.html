@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<link rel="stylesheet" href="../../../../static/css/common.css">
+<link href="../../../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+
+</style>
+
+</head>
+<body style="overflow-x:hidden">
+	<!-- 构建页面==开始 -->
+	<!-- 查询条件 -->
+	<div vtype="formpanel" name="insertManageScope_Form"
+		id="insertManageScope_Form" wid="37B99F7C0F863A45E055000000000001"
+		dataview="false" titleDisplay="true" title="redis查询条件" width="100%"
+		showborder="true" dataurl="" layout="table" style="text-align: center;"
+		layoutconfig="{cols:2, columnwidth: ['50%','50%']}"
+		labelstyleclass="labelstyle">
+		
+		<div name="redisInfo" vtype="comboxfield" rule="must" id="redisInfo" style="margin-left: 340px;"
+			labelwidth="200" label="redis缓存信息" valuetip="请选择..." width="500"
+			dataurl='[{"text":"Redis 服务器信息（Server）","value":"Server"},
+							 {"text":"已连接客户端信息（Clients）","value":"Clients"},
+							 {"text":"RDB 和 AOF 的相关信息（Persistence）","value":"Persistence"},
+							 {"text":"一般统计信息（Stats）","value":"Stats"},
+							 {"text":"主/从复制信息（Replication）","value":"Replication"},
+							 {"text":"CPU 计算量统计信息（CPU）","value":"CPU"},
+							 {"text":"数据库相关的统计信息（Keyspace）","value":"Keyspace"}]'>
+		</div>
+		
+		<!-- 数据展现 -->
+		<div name="redisToolbar"
+			class="redisToolbar" vtype="toolbar" location="bottom"
+			align="left" style="margin-left: 500px; float: left;">
+			<!-- <div name="redis_save_button" vtype="button" text="查询">
+			</div> -->
+			<div name="redis_reset_button" vtype="button" text="重置">
+			</div>
+		</div>
+	</div>
+
+	<div name="redisInfoGrid" id="redisInfoGrid" vtype="gridpanel" style="text-align: center;"
+		titleDisplay=true title="redis缓存信息" lineno=true layout="auto"
+		showborder=true width="100%">
+
+		<div name="redisInfoGrid_column" vtype="gridcolumn">
+			<div>
+				<div name='key' text="Info" textalign="center" width='495'></div>
+				<div name='value' text="详细信息" textalign="center" width='600'></div>
+			</div>
+		</div>
+
+	    <div vtype="gridtable" name="grid_table"></div>
+		<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10"></div>
+		<div class="nodata" style="display: none;"></div>
+	</div>
+
+	<!-- 		<div vtype="textareafield" name='redisInfo' id='redisInfo'  label="Redis 服务器的各种信息和统计数值" height="500" width='820' labelwidth='240'>
+
+			</div> 
+	 -->
+
+	<!-- 构建页面==结束 -->
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" src="../../../static/lib/require.js" 
+		data-main="torch/redisListTorch.js"></script>
+</body>
+</html>

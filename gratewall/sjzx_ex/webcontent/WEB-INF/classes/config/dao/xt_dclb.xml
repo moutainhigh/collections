@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="xt_dclb" class-name="cn.gwssi.csdb.xt.dao.XtDclb" check-flag="false" backup-flag="false"/>
+  <column name="dm_dclb" data-type="varchar" length="2" not-null="true" value-from="input" description="调查类别代码"/>
+  <column name="dclb_mc" data-type="varchar" length="30" not-null="true" value-from="input" description="调查类别名称"/>
+  <primary-key name="p_xtkey2" column-list="dm_dclb"/>
+  <index name="p_xtkey2" index-type="unique" cluster="cluster" column-list="dm_dclb"/>
+  <foreign-key foreign-table="xt_dclb" foreign-type="one-to-many" on-delete="none" on-update="none" column-names="dm_dclb" foreign-names="dm_dclb"/>
+  <function func-name="select one xt_dclb" func-type="select" column-list="dm_dclb,dclb_mc">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select xt_dclb list" func-type="rowset" column-list="dm_dclb,dclb_mc" max-record="10">
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one xt_dclb" func-type="insert" column-list="dm_dclb,dclb_mc">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one xt_dclb" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="bgqb_codeList" func-type="rowset" column-list="dm_dclb as codevalue,dclb_mc as codename" max-record="-1">
+    <description>多记录查询</description>
+  </function>
+</table>
+

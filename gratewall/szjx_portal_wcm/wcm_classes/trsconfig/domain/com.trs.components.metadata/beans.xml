@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0" id="components.metadata">
+	<beans>
+		<!-- Server BEGIN -->
+		<!-- Server END -->
+
+		<!-- Mgr BEGIN -->
+		<bean id="IClassInfoCountCacheForPublish"
+			class="com.trs.components.metadata.publish.ClassInfoCountCacheForPublishImpl"
+			singleton="false" />
+		<bean id="IClassInfoCacheMgr"
+			class="com.trs.components.metadata.definition.ClassInfoCacheMgr"
+			singleton="true" />
+		<bean id="IMetaDataDefCacheMgr"
+			class="com.trs.components.metadata.definition.MetaDataDefCacheMgr"
+			singleton="true" />
+		<bean id="IMetaDataDefMgr"
+			class="com.trs.components.metadata.definition.MetaDataDefMgr"
+			singleton="true" />
+		<bean id="IClassInfoMgr"
+			class="com.trs.components.metadata.definition.ClassInfoMgr"
+			singleton="true" />
+		<bean id="IMetaViewEmployerMgr"
+			class="com.trs.components.metadata.center.MetaViewEmployerMgr"
+			singleton="true" />
+		<bean id="IClassInfoViewMgr"
+			class="com.trs.components.metadata.center.ClassInfoViewMgr"
+			singleton="true" />
+		<bean id="IMetaViewFieldGroupMgr"
+			class="com.trs.components.metadata.definition.MetaViewFieldGroupMgr"
+			singleton="true" />
+		<!-- Mgr END -->
+
+		<bean id="ChnlDocLCListenerForSynToMetaData"
+			class="com.trs.components.metadata.center.ChnlDocLCListenerForSynToMetaData"
+			singleton="true" />
+		<bean id="MetaDBFieldListenerForChannelSynRule"
+			class="com.trs.components.metadata.definition.MetaDBFieldListenerForChannelSynRule"
+			singleton="true" />
+		<bean id="DocumentListenerForMetaViewData"
+			class="com.trs.components.metadata.center.DocumentListenerForMetaViewData"
+			singleton="true" />
+		<bean id="ClassInfoListenerForViewData"
+			class="com.trs.components.metadata.definition.ClassInfoListenerForViewData"
+			singleton="true" />
+		<bean id="MetaViewFieldListenerForFieldGroup"
+			class="com.trs.components.metadata.definition.MetaViewFieldListenerForFieldGroup"
+			singleton="true" />
+	</beans>
+</plugin>

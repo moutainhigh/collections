@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title></title>
+<meta charset="UTF-8" />
+<script language="javascript" src="ckeditor/ckeditor_source.js"></script>
+<style id="styles" type="text/css">
+	/*WORD清理显示中文按钮样式*/
+	.cke_button_clearWordStyleCommand .cke_icon
+	{
+		display: none !important;
+	}
+	.cke_button_clearWordStyleCommand .cke_label
+	{
+		display: inline !important;
+	}
+	/*统一样式显示中文按钮样式*/
+	.cke_button_clearClassesCommand .cke_icon
+	{
+		display: none !important;
+	}
+	.cke_button_clearClassesCommand .cke_label
+	{
+		display: inline !important;
+	}
+	/*转换全角空格显示中文按钮样式*/
+	.cke_button_replaceNbspsCommand .cke_icon
+	{
+		display: none !important;
+	}
+	.cke_button_replaceNbspsCommand .cke_label
+	{
+		display: inline !important;
+	}
+	/*一键排版显示中文按钮样式*/
+	.cke_button_key4formatCommand .cke_icon
+	{
+		display: none !important;
+	}
+	.cke_button_key4formatCommand .cke_label
+	{
+		display: inline !important;
+	}
+</style>
+<body>
+<textarea name="" rows="" cols="" id='ckeditor'></textarea>
+<script type="text/javascript">
+<!--
+	//CKEDITOR.replace("ckeditor");
+	CKEDITOR.replace("ckeditor",{customConfig : "sourceconfig.js", height : "200px"});
+//-->
+</script>
+</body>
+</html>

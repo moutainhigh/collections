@@ -1,0 +1,125 @@
+<HTML xmlns:TRS>
+<HEAD>
+<TITLE>新建/修改替换内容</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../css/add_edit.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	input{
+		height:20px;
+	}
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script>
+	$import('com.trs.wcm.MessageCenter');
+    $import('com.trs.validator.Validator');
+    $import('com.trs.wcm.util.LockedUtil');
+</script>
+<script language="javascript">
+<!--	
+    var objType = 105;
+    var channelId = getParameter("channelid") || 0;
+    var objectId = getParameter("objectid") || 0;
+
+    if(objectId != 0){
+        LockerUtil.register2(objectId, objType, true, 'savebtn');
+    }
+    Event.observe(window, 'load', function(){
+        FloatPanel.addCloseCommand();        
+        FloatPanel.addCommand('savebtn', '确定', 'saveReplace', null);
+
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+        if(objectId != 0){
+            oHelper.Call('wcm6_replace', 'findbyid', {
+                ObjectId:objectId
+            }, true, function(oTransport, oJson){
+                $('replaceName').value = com.trs.util.JSON.value(oJson, 'REPLACE.REPLACENAME');
+                $('replaceContent').value = com.trs.util.JSON.value(oJson, 'REPLACE.REPLACECONTENT');
+                initCheck();
+                $('replaceForm').style.display = '';
+            });
+        }else{
+            initCheck();
+            $('replaceForm').style.display = '';
+        }
+    });
+
+    function initCheck(){
+        ValidationHelper.addValidListener(function(){
+            FloatPanel.disableCommand('savebtn', false);
+        }, "replaceForm");
+        ValidationHelper.addInvalidListener(function(){
+            FloatPanel.disableCommand('savebtn', true);
+        }, "replaceForm");
+        ValidationHelper.initValidation(); 
+    }
+
+    Event.observe(window, 'unload', function(){
+        FloatPanel.removeCloseCommand();        
+        FloatPanel.removeCommand('savebtn'); 
+    });
+
+    function saveReplace(){
+        ProcessBar.init('执行进度，请稍候...');
+        ProcessBar.addState('正在提交数据');
+        ProcessBar.addState('成功完成');
+        ProcessBar.start();
+        ProcessBar.next();
+
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+        oHelper.Call('wcm6_replace', 'save', {
+            channelid:channelId,
+            ObjectId:objectId,
+            replaceName: $('replaceName').value,
+            replaceContent:$('replaceContent').value
+        }, true, function(oTransport, oJson){
+            ProcessBar.next();
+            $MessageCenter.sendMessage('main', 'PageContext.RefreshList', 'PageContext', []);
+            FloatPanel.close();
+        });   
+        return false;
+    }
+
+    function checkReplaceName(){
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+        oHelper.Call('wcm6_replace', 'existsSimilarName', {
+            channelid:channelId,
+            ObjectId:objectId,
+            replaceName: $('replaceName').value          
+         }, true, function(transport, json){
+            if(com.trs.util.JSON.value(json, "result") == 'false'){
+                ValidationHelper.successRPCCallBack();
+            }else{
+                ValidationHelper.failureRPCCallBack("标题已经存在");
+            }
+        });     
+    }
+</script>
+</head>
+
+<body>
+<form id="replaceForm" style="display:none;" onsubmit="return false;">
+<table border=0 cellspacing=0 cellpadding=0 style="width:100%;font-size:12px;">
+	<tr style="height:20px;">
+		<td style="width:50px;" align="right">标题:</td>
+        <td>
+            <input type="text" name="replaceName" id="replaceName" value="" validation="type:'string',max_len:'50',showid:'replaceNameValidDesc',required:'',desc:'标题',rpc:'checkReplaceName'"><span id="replaceNameValidDesc"></span>
+        </td>
+	</tr>
+	<tr>
+		<td style="width:50px;" align="right" valign="top">内容:</td>
+        <td>
+            <textarea name="replaceContent" id="replaceContent" rows="6" cols="50" validation="type:'string',max_len:'500',showid:'replaceContentValidDesc',required:'',desc:'内容'" style="border:1px solid lightblue;"></textarea>
+        </td>
+	</tr>
+</table>
+<div id="replaceContentValidDesc" style="padding-left:40px;height:20px;"></div>
+</form>
+</body>
+</html>

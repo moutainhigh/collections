@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>首页</sort-name>
+  <table-info name="work_status" class-name="com.gwssi.dw.aic.bj.homepage.dao.WorkStatus" check-flag="false" backup-flag="false">
+    <description>待办任务表</description>
+  </table-info>
+
+  <column name="work_status_id" data-type="varchar" length="32" not-null="true" value-from="input" description="工作状态ID"/>
+  <column name="work_status_name" data-type="varchar" length="200" not-null="false" value-from="input" description="待办任务名称"/>
+  <column name="work_status_content" data-type="varchar" length="200" not-null="false" value-from="input" description="待办任务内容"/>
+  <column name="initiator_id" data-type="varchar" length="60" not-null="false" value-from="input" description="发起人ID"/>
+  <column name="initiator_name" data-type="varchar" length="32" not-null="false" value-from="input" description="发起人名称"/>
+  <column name="initiator_agen_id" data-type="varchar" length="32" not-null="false" value-from="input" description="发起人机构ID"/>
+  <column name="initiator_agen_name" data-type="varchar" length="60" not-null="false" value-from="input" description="发起人机构名称"/>
+  <column name="initiator_date" data-type="varchar" length="10" not-null="false" value-from="input" description="发起日期"/>
+  <column name="initiator_time" data-type="varchar" length="8" not-null="false" value-from="input" description="发起时间"/>
+  <column name="link_url" data-type="varchar" length="2000" not-null="false" value-from="input" description="链接地址"/>
+  <column name="txncode" data-type="varchar" length="32" not-null="false" value-from="input" description="交易代码"/>
+  <column name="isvalid" data-type="varchar" length="1" not-null="false" value-from="input" description="是否有效"/>
+  <column name="scour_table_name" data-type="varchar" length="30" not-null="false" value-from="input" description="源表名"/>
+  <column name="scour_table_key_col" data-type="varchar" length="32" not-null="false" value-from="input" description="源表主键ID"/>
+  <column name="bak_col_1" data-type="varchar" length="200" not-null="false" value-from="input" description="预留1"/>
+  <column name="bak_col_2" data-type="varchar" length="200" not-null="false" value-from="input" description="预留2"/>
+  <column name="bak_col_3" data-type="varchar" length="200" not-null="false" value-from="input" description="预留3"/>
+  <column name="bak_col_4" data-type="varchar" length="200" not-null="false" value-from="input" description="预留4"/>
+  <column name="bak_col_5" data-type="varchar" length="200" not-null="false" value-from="input" description="预留5"/>
+  <column name="apply_count" data-type="long" length="22" not-null="false" value-from="input" description="申请记录条数"/>  
+  <primary-key name="pk_work_status" column-list="work_status_id"/>
+  <index name="pk_work_status" index-type="unique" cluster="cluster" column-list="work_status_id"/>
+  <function func-name="select one work_status" func-type="select" column-list="work_status_id,work_status_name,work_status_content,initiator_id,initiator_name,initiator_agen_id,initiator_agen_name,initiator_date,initiator_time,link_url,txncode,isvalid,scour_table_name,scour_table_key_col,bak_col_1,bak_col_2,bak_col_3,bak_col_4,bak_col_5,apply_count">
+    <filter-column column-name="work_status_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select work_status list" func-type="rowset" column-list="work_status_id,work_status_name,work_status_content,initiator_id,initiator_name,initiator_agen_id,initiator_agen_name,initiator_date,initiator_time,link_url,txncode,isvalid,scour_table_name,scour_table_key_col,bak_col_1,bak_col_2,bak_col_3,bak_col_4,bak_col_5,apply_count" sort-columns="work_status_name" max-record="10">
+    <filter-column column-name="scour_table_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="scour_table_key_col" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="work_status_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="isvalid" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one work_status" func-type="insert" column-list="work_status_id,work_status_name,work_status_content,initiator_id,initiator_name,initiator_agen_id,initiator_agen_name,initiator_date,initiator_time,link_url,txncode,isvalid,scour_table_name,scour_table_key_col,bak_col_1,bak_col_2,bak_col_3,bak_col_4,bak_col_5,apply_count">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one work_status" func-type="delete">
+    <filter-column column-name="work_status_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one work_status" func-type="update" column-list="work_status_name,work_status_content,initiator_id,initiator_name,initiator_agen_id,initiator_agen_name,initiator_date,initiator_time,link_url,txncode,isvalid,scour_table_name,scour_table_key_col,bak_col_1,bak_col_2,bak_col_3,bak_col_4,bak_col_5,apply_count">
+    <filter-column column-name="work_status_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

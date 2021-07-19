@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="../../static/js/jquery-1.8.3.js"></script>
+<script src="../../static/script/jquery.cookie.js"></script>
+<title>管辖区域</title>
+<style>
+body{font-family: "微软雅黑"}
+
+img{border: none;vertical-align:middle;display: block;float: left;}
+a{float: left;display: block;cursor: pointer;}
+
+
+.container{min-width:960px;width:1100px;margin: 0 auto;}
+
+/*表头的颜色*/
+
+tr:hover{
+	background: #ccc;
+}
+
+ tr:hover td {background:none;}
+
+th{
+	background: #E0ECFA;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 4px;
+	text-align: center;
+	color : #465886;
+}
+
+td{
+  color: #465886;
+  padding:0 4px;
+  font-size: 14px;
+}
+
+/*各分局的通用样式*/
+.regionAll{
+	background: #fff;
+	font-size: 14px;
+	color : #465886;
+}
+
+.regionDetail{
+	background: #fff;
+	padding: 4px 6px;
+	text-align: center;
+}
+
+
+.regionChildRows{
+	background: #E1F6CD;
+}
+
+.regionChildColum{
+	font-size: 12px;
+	padding:4px 6px;
+	
+}
+
+.regSel{
+	background: #EEEEEE;
+	text-align: center;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<h2 style="text-align: center;">年报情况统计表</h2>
+		<!-- <table width="980" border="1" cellspacing="0" cellpadding="0" bcolor="#f1f1f1"> -->
+		<table width = "1130"  cellspacing="1" cellpadding="0" border="0" bgcolor="#DEDEDE">
+			<thead>
+				<tr>
+					<th  rowspan="2"><div align="center">序号</div></th>
+					<th rowspan="2"><div align="center">管辖区域</div></th>
+					<th colspan="3"><div align="center">企业</div></th>
+					<th colspan="3"><div align="center">内资</div></th>
+					<th colspan="3"><div align="center">外资</div></th>
+					<th colspan="3"><div align="center">个体</div></th>
+				</tr>
+				<tr>
+					<th><div align="center">应年报户数</div></th>
+					<th><div align="center">已年报户数</div></th>
+					<th><div align="center">年报率</div></th>
+					<th><div align="center">应年报户数</div></th>
+					<th><div align="center">已年报户数</div></th>
+					<th><div align="center">年报率</div></th>
+					<th><div align="center">应年报户数</div></th>
+					<th><div align="center">已年报户数</div></th>
+					<th><div align="center">年报率</div></th>
+					<th><div align="center">应年报户数</div></th>
+					<th><div align="center">已年报户数</div></th>
+					<th><div align="center">年报率</div></th>
+				</tr>
+			</thead>
+
+			<tbody id="contents">
+				<!-- <tr>
+					<td>1</td>
+					<td><a onclick="openLuoHu(this)">福田局</a></td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr> -->
+			</tbody>
+
+		</table>
+	</div>
+
+
+
+	<script type="text/javascript">
+	
+	function getParameter(name){
+		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)"); 
+		var r = window.location.search.substr(1).match(reg); 
+		if (r!=null) { 
+		   return unescape(r[2]); 
+		} 
+		return null; 
+	}
+	
+	var code = getParameter("code");
+	var totalArrayStr = $.cookie(code);
+	var totalArray = totalArrayStr.split(",");
+	
+	var dataSet = "";
+		$.ajax({
+			url : "../../otherselect/getNbStatisticsInfo.do?code="+code,
+			type : "post",
+			dataType : "json",
+			success : function(data) {
+				var data = data;
+				//var data = data.data[0].data.rows;
+				var html='';
+				var num  = 0;
+				for (var i = 0; i < data.length; i++) {
+					html+="<tr >"+
+						"<td class='regionAll'>"+(++num)+"</td>"+
+						"<td class='regionAll'>"+data[i].codename+"</td>"+
+						"<td class='regionDetail'>"+data[i].qyYbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].qyYjnbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].qyNbl+"</td>"+
+						"<td class='regionDetail'>"+data[i].nzYbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].nzYjnbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].nzNbl+"</td>"+
+						"<td class='regionDetail'>"+data[i].wzYbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].wzYjnbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].wzNbl+"</td>"+
+						"<td class='regionDetail'>"+data[i].gtYbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].gtYjnbnum+"</td>"+
+						"<td class='regionDetail'>"+data[i].gtNbl+"</td>"+
+					"</tr>";
+				}
+				
+				$("#contents").append(html);
+				
+				var obj = [];
+				for(var i = 0;i<12;i++){
+					var total = 0;
+					$("#contents tr").each(function(){
+						var _this = $(this);
+						var rownum = 0;
+						rownum = _this.find(".regionDetail").eq(i).html();
+						total += parseInt(rownum);
+					});
+					obj.push(total);
+				}
+				
+				var wrl1 = totalArray[0]-obj[0];
+				var wrl2 = totalArray[1]-obj[1];
+				var wrl3;
+				if(parseInt(wrl2) == 0 || parseInt(wrl1) == 0){
+					wrl3 = '';
+				}else{
+					wrl3 = ((parseInt(wrl2)/parseInt(wrl1))*100).toFixed(2)+'%';
+				}
+				
+				var wrl4 = totalArray[2]-obj[3];
+				var wrl5 = totalArray[3]-obj[4];
+				var wrl6;
+				if(parseInt(wrl5) == 0 || parseInt(wrl4) == 0){
+					wrl6 = '';
+				}else{
+					wrl6 = ((parseInt(wrl5)/parseInt(wrl4))*100).toFixed(2)+'%';
+				}
+				
+				var wrl7 = totalArray[4]-obj[6];
+				var wrl8 = totalArray[5]-obj[7];
+				var wrl9;
+				if(parseInt(wrl8) == 0 || parseInt(wrl7) == 0 ){
+					wrl9 = '';
+				}else{
+					wrl9 = ((parseInt(wrl8)/parseInt(wrl7))*100).toFixed(2)+'%';
+				}
+				
+				var wrl10 = totalArray[6]-obj[9];
+				var wrl11 = totalArray[7]-obj[10];
+				var wrl12;
+				if(parseInt(wrl11) == 0 || parseInt(wrl2) == 0 ){
+					wrl12 = '';
+				}else{
+					wrl12 = ((parseInt(wrl11)/parseInt(wrl10))*100).toFixed(2)+'%';
+				}
+				
+				$("#contents").append("<tr>"+
+						"<td class='regionAll'>"+(++num)+"</td>"+
+						"<td class='regionAll'>未认领</td>"+
+						"<td class='regionDetail'>"+wrl1+"</td>"+
+						"<td class='regionDetail'>"+wrl2+"</td>"+
+						"<td class='regionDetail'>"+wrl3+"</td>"+
+						"<td class='regionDetail'>"+wrl4+"</td>"+
+						"<td class='regionDetail'>"+wrl5+"</td>"+
+						"<td class='regionDetail'>"+wrl6+"</td>"+
+						"<td class='regionDetail'>"+wrl7+"</td>"+
+						"<td class='regionDetail'>"+wrl8+"</td>"+
+						"<td class='regionDetail'>"+wrl9+"</td>"+
+						"<td class='regionDetail'>"+wrl10+"</td>"+
+						"<td class='regionDetail'>"+wrl11+"</td>"+
+						"<td class='regionDetail'>"+wrl12+"</td>"+
+					"</tr>");
+				
+				$("#contents").append("<tr bgcolor='#f1f1f1'>"+
+						"<td class='regionAll'>"+(++num)+"</td>"+
+						"<td align='left'>合计</td>"+
+						"<td align='center' bgcolor=''>"+totalArray[0]+"</td>"+
+						"<td align='center'>"+totalArray[1]+"</td>"+
+						"<td align='center'>"+((parseInt(totalArray[1])/parseInt(totalArray[0]))*100).toFixed(2)+"%</td>"+
+						"<td align='center'>"+totalArray[2]+"</td>"+
+						"<td align='center'>"+totalArray[3]+"</td>"+
+						"<td align='center'>"+((parseInt(totalArray[3])/parseInt(totalArray[2]))*100).toFixed(2)+"%</td>"+
+						"<td align='center'>"+totalArray[4]+"</td>"+
+						"<td align='center'>"+totalArray[5]+"</td>"+
+						"<td align='center'>"+((parseInt(totalArray[5])/parseInt(totalArray[4]))*100).toFixed(2)+"%</td>"+
+						"<td align='center'>"+totalArray[6]+"</td>"+
+						"<td align='center'>"+totalArray[7]+"</td>"+
+						"<td align='center'>"+((parseInt(totalArray[7])/parseInt(totalArray[6]))*100).toFixed(2)+"%</td>"+
+					"</tr>");
+				
+			}
+		});
+		
+		
+		
+		
+</script>
+</body>
+</html>

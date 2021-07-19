@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="resource/crashboard.css" rel="stylesheet" type="text/css" />
+<script language="javascript" src="CrashBoard.js" type="text/javascript"></script>
+<script language="javascript">
+<!--
+    function show(){
+        var cb = new wcm.CrashBoard({
+            width:'500px',
+            height:'350px',
+            title : wcm.LANG.crashboard_7021 || '系统弹出窗口',
+            //el : 'box',
+            //html : '<iframe src="blank.html"></iframe>',
+            src : 'http://www.baidu.com',
+            btns : [
+                {
+                    text : wcm.LANG.crashboard_7022 || '确定',
+                    cmd : function(){
+                        alert(1);
+                        return false;
+                    }
+                },
+                {
+                    text : wcm.LANG.crashboard_7023 || '取消'
+                }
+            ]
+        });
+        cb.show();
+    }
+//-->
+</script>
+</head>
+<body>
+<button type="button" onclick="show();">show crashboard</button>
+<div id="box" style="display:none;">
+    <textarea name="txtarea" rows="" cols=""></textarea>
+    <input type="text" name="userName" value="">
+    <input type="password" name="passWord" value="">
+</div>
+</body>
+</html>

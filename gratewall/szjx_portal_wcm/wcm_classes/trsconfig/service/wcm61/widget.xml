@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.common.publish.widget.WidgetServiceProvider" objclass="com.trs.components.common.publish.widget.Widget">
+	<method name="save" desc="保存资源">
+		<parameter name="ObjectId" desc="资源id" type="int" required="true"/>
+		<parameter name="WName" desc="资源名称" type="string" required="true"/>
+		<parameter name="WDesc" desc="资源描述" type="string" required="false"/>
+		<parameter name="WidgetContent" desc="资源内容" type="string" required="false"/>
+		<parameter name="WidgetAttrUrl" desc="资源属性设置页面地址" type="string" required="false"/>
+		<parameter name="WidgetPic" desc="资源缩略图" type="string" required="false"/>
+		<parameter name="WDefaultStyle" desc="默认资源风格" type="string" required="false"/>
+		<parameter name="ContentStyle" desc="资源可选内容风格" type="string" required="false"/>
+		<parameter name="WidgetType" desc="资源适应类型" type="int" required="false"/>
+		<parameter name="WidgetCategory" desc="资源分类" type="int" required="false"/>
+		<parameter name="CDefaultStyle" desc="默认资源内容风格" type="string" required="false"/>
+	</method>
+	<method name="delete" desc="删除资源">
+		<parameter name="objectIds" desc="资源id序列" type="string" required="true"/>
+	</method>
+	<method name="query">
+		<!-- 业务参数 -->
+					
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="资源排序字段及方式" type="string" required="false" default="WidgetOrder desc"/>
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="WName" desc="资源名称" type="string" required="false"
+			search="true" search-operator="like" search-field="WName"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>											
+		<parameter name="WidgetCategory" desc="资源分类" type="int" required="false" search="true"/>
+		<parameter name="WidgetCategoryLevel" desc="资源分类级别" type="int" required="false" search="true" search-operator=">"  search-field="WidgetCategory" />
+
+		
+		<!-- 检索相关配置 END -->
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="yyyy-MM-dd HH:mm:ss"/>
+	</method>
+	<method name="jQuery" truename="query"  convertor="uri:/app/special/widget/widget_query.jsp"/>
+	<method name="jSelectQuery" truename="query"  convertor="uri:/app/special/widget/widget_select_query.jsp"/>
+	<method name="export" desc="导出资源">
+		<parameter name="objectIds" desc="资源id序列" type="string" required="true"/>
+	</method>
+	<method name="importWidgets" desc="导入资源">
+		<parameter name="ImportFile" desc="导入文件名" type="string" required="true"/>
+		<parameter name="ImportMode" desc="资源同名的导入方式" type="int" required="false"/>
+	</method>
+	<method name="existsSimilarName" desc="是否存在同名资源">
+		<!-- 业务参数 -->
+		<parameter name="objectId" desc="资源id" type="int" required="false"/>
+		<parameter name="widgetName" desc="资源名称" type="string" required="false"/>			
+	</method>
+</service>

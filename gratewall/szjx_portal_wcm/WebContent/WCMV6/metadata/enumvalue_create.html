@@ -1,0 +1,229 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<TITLE></TITLE>
+<script src="../js/com.trs.util/Common.js"></script>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<script language="javascript">
+<!--
+    $import('com.trs.dialog.Dialog');
+//-->
+</script>
+<style type="text/css">
+    *{
+        font-size:12px;
+        margin:0px;
+        padding:0px;
+    }
+    .header{
+        width:100%;
+        height:100%;
+        font-size:14px;
+        font-weight:bold;
+        text-align:center;
+    }
+    .container{
+        width:100%;
+        height:100%;
+        padding-top:5px;
+        padding-left:60px;
+        text-align:center;
+        overflow:auto;
+        border:1px solid gray;
+        scrollbar-face-color : #EDEDED;
+        scrollbar-darkshadow-color : #EDEDED;
+    }
+    .commandbuttons{
+        width:100%;
+        height:100%;
+        padding:4px;
+        text-align:center;
+        overflow:hidden;
+    }
+    .row{
+        margin-left:-40px;
+    }
+    .desc{
+        width:40px;
+        text-align:right;
+        height:100%;
+        line-height:20px;
+        overflow:visible;
+    }
+    input{
+        border:1px solid silver;
+    }
+    .label{
+        width:120px;
+    }
+    .value{
+        width:50px;
+    }
+    .deleteRow{
+        background:url("../images/metadata/delete.gif") center center no-repeat;
+        width:16px;
+        height:16px;
+        cursor:pointer;
+    }
+</style>
+<script language="javascript">
+<!--
+    Event.observe(document, 'keydown', function(event){
+        //filter for condition.
+        event = window.event || event;
+        if(event.keyCode != Event.KEY_RETURN){
+            return true;
+        }
+        var activeElement = document.activeElement;
+        if(!activeElement || 
+                (activeElement.name != "enumValue" && activeElement.name != "enumLabel")){
+            return true;
+        }
+        //get row object.
+        var tempNode = getRowObject(activeElement);
+        if(!tempNode) return true;
+
+        if(activeElement.name == "enumLabel"){
+            var inputs = tempNode.getElementsByTagName("input");
+            if(inputs[1]) inputs[1].focus();
+            return true;
+        }
+
+        //create new row.
+        new Insertion.After(tempNode, $('template').innerHTML);
+
+        //focus the first form element in new row.
+        var newNode = getNextHTMLSibling(tempNode);
+        var inputs = newNode.getElementsByTagName("input");
+        if(inputs.length > 0) inputs[0].focus();
+    });
+
+    Event.observe(document, 'click', function(event){
+        //filter for condition.
+        var srcElement = Event.element(window.event || event);
+        if(!Element.hasClassName(srcElement, "deleteRow")){
+            return;
+        }
+
+        //get row object.
+        var tempNode = getRowObject(srcElement);
+        if(!tempNode) return true;
+
+        //delete the row or clear the value.
+        if(getPreviousHTMLSibling(tempNode) || getNextHTMLSibling(tempNode)){
+            Element.remove(tempNode);
+        }else{
+            var inputs = tempNode.getElementsByTagName("input");
+            for(var i = 0; i < inputs.length; i++){
+                inputs[i].value = "";
+            }
+        }
+    });
+
+    function getRowObject(tempNode){
+        while(tempNode){
+            if(Element.hasClassName(tempNode, "row")){
+                break;
+            }
+            tempNode = tempNode.parentNode;
+        }
+        return tempNode;
+    }
+
+    function getResult(){
+        var aResult = [];
+        var inputs = $('containerInner').getElementsByTagName("input");
+        for(var i = 0; i < inputs.length; i+=2){
+            var sLabel = inputs[i].value.trim();
+            if(sLabel == ''){
+                continue;
+            }
+            var sValue = inputs[i+1].value.trim();
+            if(sValue != ''){
+                sValue = "`" + sValue;
+            }
+            aResult.push(sLabel + sValue);
+        }
+        return aResult.join("~");
+    }
+
+    function onOk(){
+        if (window.parent.notifyParent2CloseMe){
+            var _args = {enumValue : getResult()};
+            window.parent.notifyParent2CloseMe(document.FRAME_NAME);
+            window.parent.notifyParentOnFinished(document.FRAME_NAME, _args);
+        }
+    }
+
+    function onCancel(){
+        if (window.parent.notifyParent2CloseMe){
+            window.parent.notifyParent2CloseMe(document.FRAME_NAME);
+        }
+    }
+
+    function init(_params) {
+        var hasItem = false;
+        _params = _params || {"enumValue" : ""};
+        var enumValue = _params["enumValue"].split("~");
+        for (var i = 0; i < enumValue.length; i++){
+            var aItem = enumValue[i].split("`");
+            var sLabel = aItem[0];
+            if(sLabel == null){
+                $alert("分析枚举值时发现枚举值不合法[" + enumValue + "]");
+                break;
+            }
+            var sValue = aItem[1] || "";
+            new Insertion.Bottom($('containerInner'), $('template').innerHTML);
+            var newNode = getLastHTMLChild($('containerInner'));
+            var inputs = newNode.getElementsByTagName("input");
+            if(inputs[0]){
+                inputs[0].value = sLabel;
+            }
+            if(inputs[1]){
+                inputs[1].value = sValue;
+            }
+            hasItem = true;
+        }
+        if(!hasItem){
+            new Insertion.Bottom($('containerInner'), $('template').innerHTML);
+        }
+    }
+    /*
+    window.onload = function(){
+        init({enumValue:"中国`1~美国`2"});
+    };
+    //*/
+//-->
+</script>
+</HEAD>
+
+<BODY>
+    <table border=0 cellspacing=0 cellpadding=0 style="width:100%;height:100%;table-layout:fixed;">
+        <tr>
+            <td>
+                <div class="container" id="container">
+                    <ol id="containerInner"></ol>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="height:25px;">
+                <div class="commandbuttons">
+                    <button onclick="onOk()">确定</button>&nbsp;&nbsp;
+                    <button onclick="onCancel()">取消</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+    <div id="template" style="display:none;">
+        <li class="row">
+            <span class="desc">描述：</span>
+            <span><input type="text" name="enumLabel" value="" class="label"></span>
+            <span class="desc">值：</span>
+            <span><input type="text" name="enumValue" value="" class="value"></span>
+            <span class="deleteRow"></span>
+        </li>
+    </div>
+</BODY>
+</HTML>

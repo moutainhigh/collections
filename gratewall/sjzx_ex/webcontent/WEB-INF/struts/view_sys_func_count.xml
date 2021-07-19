@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>功能使用统计</menu-name>
+  <menu-path>/page/sysmgr/stat/</menu-path>
+  <description>功能使用统计</description>
+  <form-beans>
+    <form-bean name="ViewSysFuncCountRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="query_date" type="string" size="10" description="执行日期"/>
+      <form-property prefix="select-key" name="query_date_from" type="string" size="10" description="执行日期"/>
+      <form-property prefix="select-key" name="query_date_to" type="string" size="10" description="执行日期"/>
+      <form-property prefix="select-key" name="func_name" type="string" size="100" description="功能模块"/>
+      <form-property prefix="select-key" name="func_index" type="string" size="100" description="序号"/>
+      <form-property prefix="select-key" name="count_type" type="string" size="10" description="统计类型"/>
+      <form-property prefix="select-key" name="first_func_name" type="string" size="10" description="功能大类"/>
+      <form-property prefix="select-key" name="second_func_name" type="string" size="10" description="功能小类"/>
+      <form-property prefix="select-key" name="sjjgid_fk" type="string" size="10" description="机构ID"/>
+      <form-property prefix="record" name="querytimes" type="long" cannull="true" description="次数"/>
+      <form-property prefix="record" name="query_date" type="string" size="10" cannull="true" description="执行日期"/>
+      <form-property prefix="record" name="func_name" type="string" size="100" cannull="true" description="功能模块"/>
+      <form-property prefix="record" name="first_func_name" type="string" size="100" cannull="true" description="功能大类"/>
+      <form-property prefix="record" name="sjjgid_fk" type="string" size="32" cannull="true" description="机构ID"/>
+      <form-property prefix="record" name="sjjgname" type="string" size="32" cannull="true" description="机构名称"/>
+      <form-property prefix="record" name="func_index" type="long" cannull="true" description="序号"/>
+    </form-bean>
+  </form-beans>
+  <action-mappings>
+    <action input="query-view_sys_func_count.jsp" name="ViewSysFuncCountRowsetForm" txn-code="60900001" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询功能大类使用统计列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnViewSysFuncCount" func-name="txn60900001" input-node="select-key" output-node="record" description="查询功能大类使用统计列表"/>
+      <forward error-code="success" path="query-view_sys_func_count_top.jsp"/>
+      <forward error-code="failure" path="query-view_sys_func_count_top.jsp"/>
+    </action>
+
+    <action input="update-view_sys_func_count.jsp" name="ViewSysFuncCountRowsetForm" txn-code="60900002" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询子功能使用情况统计</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnViewSysFuncCount" func-name="txn60900002" input-node="select-key" output-node="record" description="查询子功能使用情况统计"/>
+      <forward error-code="success" path="query-view_sys_func_count_sub1.jsp"/>
+      <forward error-code="failure" path="query-view_sys_func_count_sub1.jsp"/>
+    </action>
+
+    <action input="insert-view_sys_func_count.jsp" name="ViewSysFuncCountRowsetForm" txn-code="60900003" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询子子功能使用情况统计</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnViewSysFuncCount" func-name="txn60900003" input-node="select-key" output-node="record" description="查询子子功能使用情况统计"/>
+      <forward error-code="success" path="query-view_sys_func_count_sub2.jsp"/>
+      <forward error-code="failure" path="query-view_sys_func_count_sub2.jsp"/>
+    </action>
+    
+    <action input="query-view_log_statistics.jsp" name="ViewSysFuncCountRowsetForm" txn-code="620100201" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>用户使用日志统计</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnViewSysFuncCount" func-name="txn620100201" input-node="select-key" output-node="record" description="用户使用日志统计"/>
+      <forward error-code="success" path="query-view_log_statistics.jsp"/>
+      <forward error-code="failure" path="query-view_log_statistics.jsp"/>
+    </action>
+    
+	<action input="query-view_log_statistics.jsp" name="ViewSysFuncCountRowsetForm" txn-code="620100208" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>用户使用日志统计</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnViewSysFuncCount" func-name="txn620100208" input-node="select-key" output-node="record" description="用户使用日志统计"/>
+      <forward error-code="success" path="Excel-view_log_statistics.jsp"/>
+      <forward error-code="failure" path="Excel-view_log_statistics.jsp"/>
+    </action>
+
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-view_sys_func_count.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/sysmgr/stat/query-view_sys_func_count.jsp" description="查询功能使用统计列表"/>
+    <resource-file type="jsp" file-name="/page/sysmgr/stat/insert-view_sys_func_count.jsp" description="增加功能使用统计信息"/>
+    <resource-file type="jsp" file-name="/page/sysmgr/stat/update-view_sys_func_count.jsp" description="修改功能使用统计信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.vo.ViewSysFuncCountContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.vo.VoViewSysFuncCount" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.vo.VoViewSysFuncCountSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.vo.VoViewSysFuncCountPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

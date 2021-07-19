@@ -1,0 +1,248 @@
+<HTML>
+<HEAD>
+<TITLE>Define Rule</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!--myimport-->
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/data/locale/system.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/TempEvaler.js"></script>
+<script src="../../app/js/data/locale/flow.js"></script>
+<!-- page scope-->
+<script src="../../app/js/source/wcmlib/com.trs.workflow/WorkFlow.js"></script>
+<script src="./domain/Configurator.js"></script>
+<script src="./workflow_rules_define_base.js"></script>
+<script src="./workflow_rules_define.js"></script>
+<link href="../css/workflow.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<script src="../../app/js/source/wcmlib/dragdrop/dd.js"></script>
+<script src="../../app/js/source/wcmlib/dragdrop/wcm-dd.js"></script>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog end-->
+<!-- CarshBoard Out Start -->
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Out end -->
+<style type="text/css">
+	.options_box{
+		margin-top: 5px;
+		border: 1px solid #99CCFF; 
+	}
+	.box_header_left{
+		border-bottom: 1px solid #99CCFF; 
+		border-right: 1px solid #99CCFF;
+		background: #efefef;
+	}
+	.box_header_right{
+		border-bottom: 1px solid #99CCFF; 
+		border-left: 1px solid #99CCFF;
+		background: #efefef;
+	}
+	.item_index{
+		font-family: georgia;
+	}
+	body{
+		margin: 0;
+		padding: 0;
+		background: #ffffff;
+		overflow: hidden;
+	}
+	.tbody_dragging{
+		background-color:#FFFFDD;
+	}
+	.tbody_drag_icon{
+		width:20px;
+		height:20px;
+		background:url(../images/document_addedit/icon/Accessories.png) no-repeat center center;
+	}
+	.rule_item{
+		cursor: pointer;
+	}
+	.selected_item{
+		background-color: #f2fcff;
+	}
+	.option_header{
+		padding-bottom: 5px; 
+		border-bottom: 1px solid #efefef; 
+		text-align: left; height: 14px; 
+		line-height: 14px;	
+	}
+	.opetion_text{
+		float: right; 
+		font-size: 16px; 
+		font-weight: bold; 
+		padding-right: 10px; 
+		cursor: pointer;		
+	}
+	.option_bold{
+		font-family: arials; 
+		font-weight: bold; 
+		cursor: pointer; 
+		color: #010101;
+		margin-top: 4px;
+		border: 1px solid aliceblue;
+	}
+	.editable_field{
+		border: 0;
+		border-bottom: 1px solid blue;
+		color: blue;
+		text-align: center;
+		width: 50px;
+		cursor: pointer;
+		height: 18px;
+		line-height: 18px;
+	}
+	.box_container{
+		width: 529px;
+	}
+	.data_item{
+		width: 459;
+	}
+	.data_item_narrow{
+		width: 419;
+	}
+</style>
+</head>
+<body>
+<div id="dy_adjust">
+</div>
+<script>
+	var m_nBoxWidth = 450;
+	function adjustScale(){
+		var sStyleId = 'dy_adjust';
+		var eStyleDiv = $(sStyleId);
+		var m_nBoxWidth = Element.getDimensions(document.body)["width"];
+		var cssStr = '.options_box, .box_container{width: ' + (m_nBoxWidth) + 'px;}';
+		cssStr += '.data_item{width: ' + (m_nBoxWidth - 70) + '}';
+		cssStr += '.data_item_narrow{width: ' + (m_nBoxWidth - 110) + '}';
+		var eStyle = $style(cssStr);
+		$removeChilds(eStyleDiv);
+		eStyleDiv.appendChild(eStyle);
+	}
+	//adjustScale();
+</script>
+<center>
+<div class="box_container">
+	<div class="option_header">
+		<span style="font-weight: bold; float: left;" WCMAnt:param="workflow_rules_define.html.rulelist">规则列表</span>
+		<span class="skim_text" style="float: left">&nbsp;-&nbsp;<span WCMAnt:param="workflow_rules_define.html.order">拖动列表行可排序</span></span>
+		<span WCMAnt:paramattr="title:workflow_rules_define.html.addruletitle" class="opetion_text" title="点击添加规则" onclick="PageContext.editRule(0)"><img src="../images/workflow/option_add.gif" align="absmiddle" border="0"></span>
+	</div>
+	<textarea id="rules_template" style="display: none; font-size: 14px;overflow-x:hidden;overflow-y:scroll">
+		<table border="0" cellspacing="0" cellpadding="0" width="100%">
+		<tbody id="rules_tbody">
+		<for select="rules" blankRef="divNoItem">
+			<tr _order="{$$index}" _id="{#flowruleid}">
+				<td>
+					<span class="item_index">{$$index}. </span>
+				</td>
+				<td>
+					<span class="data_item" ondblclick="PageContext.editRule({$$index})">
+						<span WCMAnt:paramattr="title:workflow_rules_define.html.ruleType" title="有效时机:{@WorkflowHelper.getRuleTypeName(#ruletype)}"><img src="../images/workflow/ball_{#ruletype}.gif" align="absmiddle"></span>
+						<span style="font-weight: normal; cursor: pointer">({@thansferRuleName(#ruleName)})</span>
+						<span class="skim_text" style=" cursor: pointer" id="RuleDesc_{#flowruleid}"> -  ({#condtions, <span WCMAnt:param="workflow_rules_define.html.none">无</span>})  {#actions, }</span>
+					</span>
+				</td>
+				<td width="35px" align="center">&nbsp;
+					<span WCMAnt:paramattr="title:workflow_rules_define.html.edit" title="点击编辑该条目"><img src="../images/list/edit.png" align="absmiddle" onclick="PageContext.editRule({$$index})" _order="{$$index}"></span>
+					<span WCMAnt:paramattr="title:workflow_rules_define.html.delete" title="点击删除该条目"><img src="../images/icon/icon_close.gif" align="absmiddle" onclick="PageContext.deleteRule(event)" _order="{$$index}"></span>
+				</td>
+			</tr>
+		</for>
+		</tbody>
+		</table>
+	</textarea>
+	<div class="box_body" id="divRuleList" style="height: 70px; width: 100%;"></div>
+	
+	<div id="divItemDetail" style="width: 100%; border: 1px solid aliceblue; margin-top: 2px; padding-bottom: 3px; display: none;">
+		<table border="0" cellspacing="2" cellpadding="0" width="100%">
+			<tr>
+				<td id="colList_condition" height="120px" style="width: 100%" align="left">
+					<fieldset style="height: 100%; width: 100%">
+						<legend><span WCMAnt:param="workflow_rules_define.html.condition">条件</span>&nbsp;(<a href="#" onclick="PageContext.addEditCond(); return false;"><img src="../images/workflow/option_add.gif" align="absmiddle" border="0" alt="点击添加条件" WCMAnt:paramattr="alt:workflow_rules_define.html.addcondition"></a>)</legend>
+						<div id="divList_condition"></div>
+					</fieldset>
+				</td>
+				<textarea id="conds_template" style="display: none">
+					<table border="0" cellspacing="0" cellpadding="1" width="100%">
+					<tbody id="conds_tbody">
+					<for select="." blankRef="divNoItem">
+						<tr _order="{$$index}" _id="{#flowconditionid}" style="border-bottom: 1px solid silver;">
+							<td>
+								<span class="item_index">{$$index}.</span>
+								<span onclick="PageContext.setCondOperator(this, {$$index})" class="option_bold" style="margin-top:5px;" title='点击切换到{@getOptTitle(#isAndOperator)}' WCMAnt:paramattr="title:workflow_rules_define.html.condtiontitle">{@getOptDesc(#isAndOperator)}</span>
+								<span class="data_item data_item_narrow">
+									<a href="#" onclick="PageContext.addEditCond({$$index}); return false;">
+										<span WCMAnt:param="workflow_rules_define.html.if">如果</span><span style="font-family: courier new">{@getCondDesc(#handler, #paramvalue, #unitvalue)}</span>
+									</a>
+								</span>
+							</td>
+							<td width="20px" align="left" title="点击删除该条目" WCMAnt:paramattr="title:workflow_rules_define.html.clickdelete">&nbsp;
+								<img src="../images/icon/icon_close.gif" align="absmiddle" onclick="PageContext.deleteCond(event)" _order="{$$index}">
+							</td>
+						</tr>
+					</for>
+					</tbody>
+					</table>
+				</textarea>				
+			</td>
+			</tr>
+		</table>
+		<table border="0" cellspacing="2" cellpadding="0" width="100%" height="100%" style="margin-top:2px;">
+			<tr>
+				<td id="colList_action" style="height: 160px; width: 100%" align="left">
+					<fieldset style="height: 100%; width: 100%">
+						<legend><span WCMAnt:param="workflow_rules_define.html.oper">操作</span>&nbsp;(<a href="#" onclick="PageContext.addAction(); return false;"><img src="../images/workflow/option_add.gif" align="absmiddle" border="0" alt="点击添加操作" WCMAnt:paramattr="alt:workflow_rules_define.html.addaction"></a>)</legend>
+						<div id="divList_action"></div>
+					</fieldset>
+				</td>
+				<td id="colFrm_action">
+					<fieldset>
+						<legend><span WCMAnt:param="workflow_rules_define.html.setoper">设置操作</span></legend>
+						<iframe id="frmActionEdit" src="about:blank" height="145px;" width="100%" allowTransparency="true" frameborder="0" style="border: 0px solid gray"></iframe>
+					</fieldset>
+				</td>
+				<textarea id="actions_template" style="display: none">
+					<table border="0" cellspacing="0" cellpadding="0" width="100%">
+					<tbody id="actions_tbody">
+					<for select="." blankRef="divNoItem">
+						<tr _order="{$$index}" _id="{#flowactionid}">
+							<td width="15px">
+								<span class="item_index">{$$index}.</span>
+							</td>
+							<td>
+							<span class="data_item" onclick="PageContext.editAction({$$index}); return false;" style="cursor: pointer;">
+								<a href="#" title="{#inline.Name}">
+									{#inline.Name}
+								</a>
+								<span class="skim_text" title="{#inline.ParamsDesc, }">({#inline.ParamsDesc, })</span>
+
+							</span>
+							</td>
+							<td width="25px" align="center" title="点击删除该条目" WCMAnt:paramattr="title:workflow_rules_define.html.deleteclick">&nbsp;
+								<img src="../images/icon/icon_close.gif" align="absmiddle" onclick="PageContext.deleteAction(event)" _order="{$$index}">
+							</td>
+						</tr>
+					</for>
+					</tbody>
+					</table>
+				</textarea>				
+			</td>
+			</tr>
+		</table>
+	</div>
+</div>
+</center>
+<div id="divNoItem" style="display:none;">
+	<div class="no_object_found" style="text-decoration: italic;" WCMAnt:param="workflow_rules_define.html.add">(点击"+"进行)</div>
+</div>
+</body>
+</html>

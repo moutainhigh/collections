@@ -1,0 +1,29 @@
+ 项目中需要进行双机中资源的接管工作，其中需要暂停一下WAS，但是在重启后发现无法通过浏览器登陆控制台，但是门户可以正常访问使用。经过各种排查，管理员感觉是对WAS端口号记忆模糊，想查询一下端口号，虽然经过文档查询发现默认端口号已修改，但是笔者还是想弄明白如何在系统中确定WAS的端口信息。
+
+ 经查询，在路径：
+/usr/IBM/WebSphere/AppServer/profiles/Dmgr01/config/cells/testAPPCell01/nodes/testAPPCellManager01 下有一个serverindex.xml文件（上述路径中的testAPPCell01与testAPPCellManager01请根据具体环境自行修改），里面有各种端口的定义，可供查询，如需修改，也可以操作该端口或者是在控制台中修改。
+
+
+修改端口请参考一下网文：
+
+
+websphere端口号查看与修改
+1、首先打开WAS6.0的控制台
+  http://localhost:9060/ibm/console/ 以admin（任何标识）用户登录
+2、打开 环境－>虚拟主机－>default_host－>其它属性(主机别名)
+  ->首先把80端口修改为其它端口，然后再把9080端口修改为80端口
+3、修改（修改前先备份）
+（1）C:\WebSphere6\AppServer\profiles\AppSrv01\logs\portdef.props
+  把9080端口改为80
+（2）C:\WebSphere6\AppServer\profiles\AppSrv01\config\cells\softoaNode01Cell\nodes\softoaNode01\serverindex.xml
+  把9080端口改为80
+4、重启WAS服务，访问相关应用（这个时候不用输入端口）。 字符集可以修改jvm参数或者在启动was前设置环境变量  
+在小机部署完成WAS后，设置支持中文字符集，从WORD文档中直接COPY的通用参数，不知道是复制的失误还是其他原因，导致WAS启动失败，总是提示找不到 Java Class -Dfile.encoding=GBK
+解决办法：找到配置文件server1.xml进行修改enericJvmArguments为空，正常启动后再从管理控制台修改配置。
+设置参数以支持中文字符集
+路径：服务器——应用程序服务器——server1——进程定义——Java 虚拟机：
+通用JVM参数＝-Dfile.encoding=GBK -Ddefault.client.encoding=GBK
+修改的具体配置文件路径例子如下，如修改错误启动WAS失败可以修改回来。
+\usr\IBM\WebSphere\AppServer\profiles\AppSrv01\config\cells\loushangaixNode01Cell\nodes\loushangaixNode01\servers\server1.xml
+文件中的
+genericJvmArguments="-Dfile.encoding=GBK -Ddefault.client.encoding=GBK"

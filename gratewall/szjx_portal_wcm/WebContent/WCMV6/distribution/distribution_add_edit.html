@@ -1,0 +1,328 @@
+<HTML xmlns:TRS>
+<HEAD>
+<TITLE>新建/修改站点分发</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../css/add_edit.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	input{
+		height:20px;
+	}
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script>
+	$import('com.trs.wcm.MessageCenter');
+    $import('com.trs.wcm.util.LockedUtil');
+</script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+    $import('com.trs.dialog.Dialog');
+</script>
+<script language="javascript">
+<!--	
+    $FEncodeURIComponent = function(sControlName){
+        return encodeURIComponent($F(sControlName));
+    };
+
+    var channelObjType = 101;
+    var siteObjType = 103;
+    var siteId = getParameter("siteid") || 0;
+    var channelId = getParameter("channelid") || 0;
+    var objType = 955;
+    var objectId = getParameter("objectid") || 0;
+
+    if(objectId != 0){
+        LockerUtil.register2(objectId, objType, true, 'savebtn');
+    }
+
+    Event.observe(window, 'load', function(){
+        if(channelId){
+            $('FolderId').value = channelId;
+            $('FolderType').value = channelObjType;
+        }else{
+            $('FolderId').value = siteId;
+            $('FolderType').value = siteObjType;        
+        }
+        $('ObjectId').value = objectId;
+        FloatPanel.addCloseCommand();        
+        FloatPanel.addCommand('savebtn', '确定', 'saveDistribution', null);
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+        oHelper.Call('wcm6_distribution', 'findbyid', {
+            ObjectId:objectId,
+            FolderType:$FEncodeURIComponent('FolderType'),
+            FolderId:$FEncodeURIComponent('FolderId')
+        }, true, function(oTransport, oJson){
+            var value = TempEvaler.evaluateTemplater('distribution_template', oJson["PUBLISHDISTRIBUTION"]);
+            Element.update('distributionId', value);
+            var TargetType = $('TargetTypeAss').innerText;
+            if(TargetType != ''){
+                $('TargetType').value = TargetType;
+                changeTargetType(TargetType);            
+            }            
+        });
+    });
+
+    Event.observe(window, 'unload', function(){
+        FloatPanel.removeCloseCommand();        
+        FloatPanel.removeCommand('savebtn'); 
+    });
+  
+    function validField(obj){
+        for (var field in obj){
+            var domObj = $(field);
+            if(domObj.value.trim() == ''){
+                $alert(obj[field], function(){
+                    $dialog().hide();
+                    domObj.focus();
+                    domObj.select();                
+                });
+                return false;
+            }
+        }
+        return true;
+    }    
+
+    function checkParams(successCallBack){
+	/*
+        if(!$('Enabled').checked){
+            (successCallBack || Prototype.emptyFunction)();
+        }
+	*/
+        var targetType = $('TargetType').value;
+        var checkEmptyStrObj = null;
+        var checkValidObj = null;
+        var url = '';
+        if(targetType == "FILE"){            
+            checkEmptyStrObj = {
+                DataPath :     '存放路径不能为空'
+            };
+            checkValidObj = {
+                Direction :$FEncodeURIComponent('DataPath')
+            };
+            url = "/wcm/include/validate_dir_file.jsp";
+        }else{
+            checkEmptyStrObj = {
+                TargetServer : '服务器地址不能为空！',
+                TargetPort :   '服务器端口不能为空！',
+                DataPath :     '存放目录不能为空'
+            };
+            checkValidObj = {
+                Type : targetType,
+                Server:$FEncodeURIComponent('TargetServer'),
+                Port:$FEncodeURIComponent('TargetPort'),
+                User:$FEncodeURIComponent('LoginUser'),
+                Password:$FEncodeURIComponent('LoginPassword'),
+                DataPath:$FEncodeURIComponent('DataPath'),
+                Anonymous:$FEncodeURIComponent('AnonymFtp'),
+                PassiveMode:$FEncodeURIComponent('PassiveMode')
+            };
+            if(targetType == 'SFTP'){
+                Object.extend(checkEmptyStrObj, {
+                    LoginUser :    '用户名不能为空',
+                    LoginPassword :'密码不能为空'                    
+                });
+            }
+            url = "/wcm/include/validate_dir_ftp.jsp";
+        }
+        if(!validField(checkEmptyStrObj)){
+            return false;
+        }
+        if(targetType != 'FILE'){
+            if(!/^(\d)+$/.test($FEncodeURIComponent('TargetPort'))){
+                $alert('服务器端口不是数字！', function(){
+                    $dialog().hide();
+                    $('TargetPort').focus();
+                    $('TargetPort').select();
+                });
+                return false;
+            }
+        }
+        $('loading').style.display = '';
+        var request = new Ajax.Request(url, {
+            contentType:'application/x-www-form-urlencoded',
+            asynchronous:true, 
+            method:'post',
+            parameters:$toQueryStr(checkValidObj),
+            onSuccess : function(){
+                if(request.transport.responseText.trim() != ''){
+                    var regExp = /\[CDATA\[(.+)\]\]/m;
+                    var match = regExp.exec(request.transport.responseText);
+                    $alert(match[1]);
+                    return false;
+                }
+                (successCallBack || Prototype.emptyFunction)();
+                return true;                
+            },
+            onFailure : function(){
+                $alert('与服务器交互时出现错误！');
+                return false;
+            },
+            onComplete : function(){
+                $('loading').style.display = 'none';
+            }
+        });       
+    }
+
+    //保存站点分发
+    function saveDistribution(){
+        checkParams(function(){
+            var AnonymFtp = $('AnonymFtp');
+            var PassiveMode = $('PassiveMode');
+            var Enabled = $('Enabled');
+            AnonymFtp.value = AnonymFtp.checked ? 1 : 0;
+            PassiveMode.value = PassiveMode.checked ? 1 : 0;
+            Enabled.value = Enabled.checked ? 1 : 0;
+
+            var oHelper = new com.trs.web2frame.BasicDataHelper();
+            oHelper.Call('wcm6_distribution', 'save', 'distributionForm', true, function(oTransport, oJson){
+                $MessageCenter.sendMessage('main', 'PageContext.RefreshList', 'PageContext', []);
+                FloatPanel.close();
+            });   
+            return false;
+        });
+        return false;
+    }
+
+    //显示隐藏用户名/密码信息
+    function toggleUserInfo(hidden){
+        if(hidden){
+            Element.hide("userInfo");
+        }else{
+            Element.show("userInfo");
+        }
+    }
+
+    //根据TargetType显示隐藏相关信息
+    function changeTargetType(TargetType){        
+        switch(TargetType.toUpperCase()){
+            case 'SFTP':
+                Element.hide('checkInfo');
+                Element.show('userRed');
+                Element.show('passwordRed');
+                Element.show('userInfo');
+                Element.show('forFtp');
+                Element.update('pathDesc', '存放目录:');
+                $('TargetPort').value = 22;
+                break;
+            case 'FILE':
+                Element.hide('forFtp');
+                Element.update('pathDesc', '存放路径:');
+                break;
+            case 'FTP':                
+                toggleUserInfo($('AnonymFtp').checked);
+                Element.hide('userRed');
+                Element.hide('passwordRed');
+                Element.show('forFtp');  
+                Element.show('checkInfo');
+                Element.update('pathDesc', '存放目录:');
+                $('TargetPort').value = 21;
+                break;
+        }
+    }
+    function isChecked(checked, isDefault){
+        if(checked == '0'){
+            return '';
+        }else if(checked == '1' || isDefault == 1){
+            return 'checked';
+        }
+    }
+</script>
+<style type="text/css">
+    .row_title{
+        width:80px;
+        padding-left:10px;
+    }
+    .row_content{
+        width:200px;
+        padding:0px;
+    }
+    .check_row{
+        width:280px;
+        padding-left:10px;
+    }
+    .input_class{
+        width:150px;
+    }
+    .loading{
+        background:url('../images/distribution/loading.gif') center center no-repeat;
+        width:100%;
+        height:16px;
+        position:absolute;        
+        bottom:0px;
+    }
+</style>
+</head>
+
+<body style="font-size:12px;">
+<form id="distributionForm">
+<input type="hidden" name="FolderType" id="FolderType" value="">
+<input type="hidden" name="FolderId" id="FolderId" value="">
+<input type="hidden" name="ObjectId" id="ObjectId" value="">
+<div id="distributionId"></div>
+</form>
+<div class="loading" id="loading" style="display:none;"></div>
+<textarea name="" rows="" cols="" id="distribution_template" style="display:none;">
+    <div>
+        <span class="row_title">类型:</span>
+        <span class="row_content">
+            <select name="TargetType" id="TargetType" style="font-size:12px;" onchange="changeTargetType(this.value)">
+                <option value="SFTP">SFTP服务</option>
+                <option value="FILE" selected>文件系统</option>
+                <option value="FTP">FTP服务</option>
+            </select>
+        </span>	
+        <span id="TargetTypeAss" style="display:none;">{#TargetType}</span>
+    </div>
+    <div id="forFtp" style="display:none;">
+        <div>
+            <span class="row_title">服务器地址:</span>
+            <span class="row_content">
+                <input type="text" name="TargetServer" id="TargetServer" value="{#TargetServer}" class="input_class">
+                <span style="color:red">*</span>
+            </span>
+        </div>
+        <div>
+            <span class="row_title">服务器端口:</span>
+            <span class="row_content">
+                <input type="text" name="TargetPort" id="TargetPort" value="{#TargetPort}" class="input_class">
+                <span style="color:red">*</span>
+            </span>
+        </div>
+        <div>
+            <span class="check_row" id="checkInfo">
+                <input type="checkbox" name="AnonymFtp" id="AnonymFtp" isBoolean="true" value="1|0" onclick="toggleUserInfo(this.checked);" {@isChecked(#AnonymFtp)}>匿名登录
+                <input type="checkbox" name="PassiveMode" id="PassiveMode" isBoolean="true" value="1|0" {@isChecked(#PassiveMode)}>使用被动模式
+            </span>    
+        </div>
+        <div id="userInfo">
+            <div>
+                <span class="row_title">用户名:</span>
+                <span class="row_content">
+                    <input type="text" name="LoginUser" id="LoginUser" value="{#LoginUser}" class="input_class">
+                    <span style="color:red" id="userRed">*</span>
+                </span>
+            </div>
+            <div>
+                <span class="row_title">密码:</span>
+                <span class="row_content">
+                    <input type="password" name="LoginPassword" id="LoginPassword" value="{#LoginPassword}" class="input_class">
+                    <span style="color:red" id="passwordRed">*</span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div>
+        <span class="row_title" id="pathDesc">存放路径:</span>
+        <span class="row_content">
+            <input type="text" name="DataPath" id="DataPath" value="{#DataPath}" class="input_class">
+            <span style="color:red">*</span>
+        </span>
+    </div>
+    <div>
+        <span class="check_row"><input type="checkbox" name="Enabled" id="Enabled" isBoolean="true" value="1|0" {@isChecked(#Enabled, 1)}>启用配置</span>
+    </div>
+</textarea>
+</body>
+</html>

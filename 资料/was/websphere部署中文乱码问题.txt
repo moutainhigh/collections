@@ -1,0 +1,17 @@
+1.修改服务器编码类型：
+（1）前台修改方法：
+服务器-》服务器类型-》WebSphere Application Server-》 SuiteServer -》 进程定义 -》 Java 虚拟机
+通用 JVM 参数-》-Dfile.encoding=UTF-8 -Ddefault.client.encoding=UTF-8
+（2）后台修改方法：
+/opt/IBM/WebSphere/AppServer/profiles/AppSrv01/config/cells/10Cell01/nodes/10Node01/servers/SuiteServer
+修改其中的server.xml中的
+参数genericJvmArguments="-Dfile.encoding=UTF-8 -Ddefault.client.encoding=UTF-8"
+ 
+2.更换合适的db2驱动jar包:
+数据源驱动配置位置：资源-》JDBC-》JDBC提供程序，双击可进入查看驱动的具体内容，其中的驱动位置通过环境变量指定;
+环境变量配置位置：环境-》Websphere变量
+
+
+
+
+-Dfile.encoding=UTF-8 -Ddefault.client.encoding=UTF-8 -Dclient.encoding.override=UTF-8 -Duser.language=zh -Duser.region=CN -Duser.country=CN

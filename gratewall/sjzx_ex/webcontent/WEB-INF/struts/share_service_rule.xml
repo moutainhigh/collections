@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>共享服务访问规则表</menu-name>
+  <menu-path>/page/share/rule/</menu-path>
+  <description>共享服务访问规则表</description>
+  <form-beans>
+    <form-bean name="ShareServiceRuleRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="service_id" type="string" size="32" description="服务ID"/>
+      <form-property prefix="record" name="rule_id" type="string" size="32" cannull="false" description="服务访问规则ID"/>
+      <form-property prefix="record" name="service_id" type="string" size="32" cannull="true" description="服务ID"/>
+      <form-property prefix="record" name="week" type="string" size="2" cannull="true" description="是星期几"/>
+      <form-property prefix="record" name="start_time" type="string" size="10" cannull="true" description="服务当天开始时间"/>
+      <form-property prefix="record" name="end_time" type="string" size="10" cannull="true" description="服务当天结束时间"/>
+      <form-property prefix="record" name="times_day" type="long" cannull="true" description="服务当天可访问次数"/>
+      <form-property prefix="record" name="count_dat" type="long" cannull="true" description="服务当天一次可访问记录数目"/>
+      <form-property prefix="record" name="total_count_day" type="long" cannull="true" description="服务当天可访问总记录数目"/>
+    </form-bean>
+
+    <form-bean name="ShareServiceRuleUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="rule_id" type="string" size="32" cannull="false" description="服务访问规则ID"/>
+      <form-property prefix="record" name="rule_id" type="string" size="32" cannull="false" description="服务访问规则ID"/>
+      <form-property prefix="record" name="service_id" type="string" size="32" cannull="true" description="服务ID"/>
+      <form-property prefix="record" name="week" type="string" size="2" cannull="true" description="是星期几"/>
+      <form-property prefix="record" name="start_time" type="string" size="10" cannull="true" description="服务当天开始时间"/>
+      <form-property prefix="record" name="end_time" type="string" size="10" cannull="true" description="服务当天结束时间"/>
+      <form-property prefix="record" name="times_day" type="long" cannull="true" description="服务当天可访问次数"/>
+      <form-property prefix="record" name="count_dat" type="long" cannull="true" description="服务当天一次可访问记录数目"/>
+      <form-property prefix="record" name="total_count_day" type="long" cannull="true" description="服务当天可访问总记录数目"/>
+    </form-bean>
+
+    <form-bean name="ShareServiceRuleDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="rule_id" type="string" size="32" cannull="false" description="服务访问规则ID"/>
+	  <form-property prefix="primary-key" name="service_id" type="string" size="32" cannull="false" description="服务ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-share_service_rule.jsp" name="ShareServiceRuleRowsetForm" txn-code="403001" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询访问规则列表</description>
+      <step index="10" bean-name="com.gwssi.share.rule.txn.TxnShareServiceRule" func-name="txn403001" input-node="select-key" output-node="record" description="查询访问规则列表"/>
+      <forward error-code="success" path="query-share_service_rule.jsp"/>
+      <forward error-code="failure" path="query-share_service_rule.jsp"/>
+    </action>
+
+    <action input="update-share_service_rule.jsp" name="ShareServiceRuleUpdateForm" txn-code="403002" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改访问规则信息</description>
+      <step index="10" bean-name="com.gwssi.share.rule.txn.TxnShareServiceRule" func-name="txn403002" input-node="record" description="修改访问规则信息"/>
+      <forward error-code="success" path="update-share_service_rule.jsp"/>
+      <forward error-code="failure" path="update-share_service_rule.jsp"/>
+    </action>
+
+    <action input="insert-share_service_rule.jsp" name="ShareServiceRuleUpdateForm" txn-code="403003" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加访问规则信息</description>
+      <step index="10" bean-name="com.gwssi.share.rule.txn.TxnShareServiceRule" func-name="txn403003" input-node="record" description="增加访问规则信息"/>
+      <forward error-code="success" path="insert-share_service_rule.jsp"/>
+      <forward error-code="failure" path="insert-share_service_rule.jsp"/>
+    </action>
+
+    <action input="query-share_service_rule.jsp" name="ShareServiceRuleUpdateForm" txn-code="403004" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询访问规则用于修改</description>
+      <step index="10" bean-name="com.gwssi.share.rule.txn.TxnShareServiceRule" func-name="txn403004" input-node="primary-key" output-node="record" description="查询访问规则用于修改"/>
+      <forward error-code="success" path="update-share_service_rule.jsp"/>
+      <forward error-code="failure" path="update-share_service_rule.jsp"/>
+    </action>
+
+    <action input="query-share_service_rule.jsp" name="ShareServiceRuleDeleteForm" txn-code="403005" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除访问规则信息</description>
+      <step index="10" bean-name="com.gwssi.share.rule.txn.TxnShareServiceRule" func-name="txn403005" input-node="primary-key" description="删除访问规则信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+	
+	<action input="query-share_service_rule.jsp" name="ShareServiceRuleDeleteForm" txn-code="403007" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>根据服务ID删除访问规则信息</description>
+      <step index="10" bean-name="com.gwssi.share.rule.txn.TxnShareServiceRule" func-name="txn403007" input-node="primary-key" description="根据服务ID删除"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-share_service_rule.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/share/rule/query-share_service_rule.jsp" description="查询访问规则列表"/>
+    <resource-file type="jsp" file-name="/page/share/rule/insert-share_service_rule.jsp" description="增加访问规则信息"/>
+    <resource-file type="jsp" file-name="/page/share/rule/update-share_service_rule.jsp" description="修改访问规则信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.rule.vo.ShareServiceRuleContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.rule.vo.VoShareServiceRule" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.rule.vo.VoShareServiceRuleSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.rule.vo.VoShareServiceRulePrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

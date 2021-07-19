@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>任务调度表</menu-name>
+  <menu-path>/page/collect/config/schedule/</menu-path>
+  <description>任务调度表</description>
+  <form-beans>
+    <form-bean name="CollectTaskSchedulingRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="scheduling_type" type="string" size="2" description="计划任务类型"/>
+      <form-property prefix="select-key" name="year" type="string" size="4" description="计划任务年份"/>
+      <form-property prefix="select-key" name="month" type="string" size="2" description="计划任务月份"/>
+      <form-property prefix="select-key" name="day" type="string" size="2" description="计划任务日期"/>
+      <form-property prefix="record" name="task_scheduling_id" type="string" size="32" cannull="false" description="计划任务ID"/>
+      <form-property prefix="record" name="job_class_name" type="string" size="100" cannull="false" description="触发调用的类名"/>
+      <form-property prefix="record" name="scheduling_type" type="string" size="2" cannull="true" description="计划任务类型"/>
+      <form-property prefix="record" name="scheduling_day" type="string" size="7" cannull="true" description="计划任务日期"/>
+      <form-property prefix="record" name="start_time" type="string" size="11" cannull="true" description="计划任务开始时间"/>
+      <form-property prefix="record" name="end_time" type="string" size="11" cannull="true" description="计划任务结束时间"/>
+      <form-property prefix="record" name="scheduling_day1" type="string" size="100" cannull="true" description="计划任务周期"/>
+      <form-property prefix="record" name="scheduling_week" type="string" size="100" cannull="true" description="计划任务周天"/>
+      <form-property prefix="record" name="scheduling_count" type="string" size="4" cannull="true" description="计划任务执行次数"/>
+      <form-property prefix="record" name="interval_time" type="string" size="3" cannull="true" description="每次间隔时间"/>
+      <form-property prefix="record" name="task_expression" type="string" size="3" cannull="true" description="表达式"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人"/>
+      <form-property prefix="record" name="created_time" type="string" size="19" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="修改人"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="19" cannull="true" description="修改时间"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="有效标记"/>
+      <form-property prefix="record" name="task_name" type="string" size="200" cannull="true" description="任务名称" />
+      <form-property prefix="record" name="collect_task_id" type="string" size="32" cannull="true" description="任务ID" />
+    </form-bean>
+
+    <form-bean name="CollectTaskSchedulingUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="task_scheduling_id" type="string" size="32" cannull="false" description="计划任务ID"/>
+      <form-property prefix="record" name="collect_task_id" type="string" size="32" cannull="false" description="采集任务ID"/>
+      <form-property prefix="record" name="task_scheduling_id" type="string" size="32" cannull="false" description="计划任务ID"/>
+      <form-property prefix="record" name="job_class_name" type="string" size="100" cannull="false" description="触发调用的类名"/>
+      <form-property prefix="record" name="scheduling_type" type="string" size="2" cannull="true" description="计划任务类型"/>
+      <form-property prefix="record" name="scheduling_day" type="string" size="7" cannull="true" description="计划任务日期"/>
+      <form-property prefix="record" name="start_time" type="string" size="11" cannull="true" description="计划任务开始时间"/>
+      <form-property prefix="record" name="end_time" type="string" size="11" cannull="true" description="计划任务结束时间"/>
+      <form-property prefix="record" name="scheduling_day1" type="string" size="100" cannull="true" description="计划任务周期"/>
+      <form-property prefix="record" name="scheduling_week" type="string" size="100" cannull="true" description="计划任务周天"/>
+      <form-property prefix="record" name="scheduling_count" type="string" size="4" cannull="true" description="计划任务执行次数"/>
+      <form-property prefix="record" name="interval_time" type="string" size="3" cannull="true" description="每次间隔时间"/>
+      <form-property prefix="record" name="task_expression" type="string" size="3" cannull="true" description="表达式"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人"/>
+      <form-property prefix="record" name="created_time" type="string" size="19" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="修改人"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="19" cannull="true" description="修改时间"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="有效标记"/>
+    </form-bean>
+
+    <form-bean name="CollectTaskSchedulingDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="task_scheduling_id" type="string" size="32" cannull="false" description="计划任务ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-collect_task_scheduling.jsp" name="CollectTaskSchedulingRowsetForm" txn-code="30801001" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询任务调度列表</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectTaskScheduling" func-name="txn30801001" input-node="select-key" output-node="record" description="查询任务调度列表"/>
+      <forward error-code="success" path="query-collect_task_scheduling.jsp"/>
+      <forward error-code="failure" path="query-collect_task_scheduling.jsp"/>
+    </action>
+    
+    <action input="front.jsp" name="CollectTaskSchedulingRowsetForm" txn-code="30801006" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询任务调度列表</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectTaskScheduling" func-name="txn30801006" input-node="select-key" output-node="record" description="查询任务调度列表"/>
+      <forward error-code="success" path="/page/homepage/home/front.jsp"/>
+      <forward error-code="failure" path="/page/homepage/home/front.jsp"/>
+    </action>
+
+    <action input="update-collect_task_scheduling.jsp" name="CollectTaskSchedulingUpdateForm" txn-code="30801002" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改任务调度信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectTaskScheduling" func-name="txn30801002" input-node="record" description="修改任务调度信息"/>
+      <forward error-code="success" path="update-collect_task_scheduling.jsp"/>
+      <forward error-code="failure" path="update-collect_task_scheduling.jsp"/>
+    </action>
+
+    <action input="insert-collect_task_scheduling.jsp" name="CollectTaskSchedulingUpdateForm" txn-code="30801003" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加任务调度信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectTaskScheduling" func-name="txn30801003" input-node="record" output-node="record" description="增加任务调度信息"/>
+      <forward error-code="success" path="insert-collect_task_scheduling.jsp"/>
+      <forward error-code="failure" path="insert-collect_task_scheduling.jsp"/>
+    </action>
+
+    <action input="query-collect_task_scheduling.jsp" name="CollectTaskSchedulingUpdateForm" txn-code="30801004" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询任务调度用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectTaskScheduling" func-name="txn30801004" input-node="primary-key" output-node="record" description="查询任务调度用于修改"/>
+      <forward error-code="success" path="update-collect_task_scheduling.jsp"/>
+      <forward error-code="failure" path="update-collect_task_scheduling.jsp"/>
+    </action>
+
+    <action input="query-collect_task_scheduling.jsp" name="CollectTaskSchedulingDeleteForm" txn-code="30801005" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除任务调度信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectTaskScheduling" func-name="txn30801005" input-node="primary-key" description="删除任务调度信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-collect_task_scheduling.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/collect/config/schedule/query-collect_task_scheduling.jsp" description="查询任务调度列表"/>
+    <resource-file type="jsp" file-name="/page/collect/config/schedule/insert-collect_task_scheduling.jsp" description="增加任务调度信息"/>
+    <resource-file type="jsp" file-name="/page/collect/config/schedule/update-collect_task_scheduling.jsp" description="修改任务调度信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.vo.CollectTaskSchedulingContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.vo.VoCollectTaskScheduling" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.vo.VoCollectTaskSchedulingSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.vo.VoCollectTaskSchedulingPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

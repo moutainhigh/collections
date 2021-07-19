@@ -1,0 +1,209 @@
+<html xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>无标题文档</title>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/attribute.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	.operator_img_new{
+		background-image:url(../images/icon/New.png);
+	}
+	.operator_img_edit{
+		background-image:url(../images/icon/Update.png);
+	}
+	.operator_img_remove{
+		background-image:url(../images/icon/Delete.png);
+	}
+	.operator_img_sync{
+		background-image:url(../images/icon/x.png);
+	}
+
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="UITransformer">
+	$import('com.trs.util.UITransformer');
+</script>
+<script label="TagParser">
+	$import('com.trs.ajaxframe.TagParser');
+</script>
+<script label="DataSource">	
+	$import('com.trs.wcm.datasource.extendfield.CRTOperators');
+	$import('com.trs.wcm.datasource.extendfield.Operators');
+	$import('com.trs.wcm.datasource.extendfield.ExtendFieldAttribute');
+</script>
+<script label="SysImports">
+	$import('com.trs.wcm.MessageCenter');	
+	$import('com.trs.wcm.Operators');	
+	$import('com.trs.wcm.AttributeColumn');
+</script>
+<script src="extendfield_attribute.js" label="PageScope"></script>
+<script src="../js/com.trs.wcm/domain/ExtendFieldMgr.js" label="PageScope"></script>
+</head>
+<body>
+<!-- create operate begin -->
+<div class="attr_column" id='attr_column_crtextfield' style='display:none'>
+  <div class="attr_column_header">
+    <div class="attr_column_shrink" onclick="AttributeColumn.toggleColumn('attr_column_crtextfield',this)"></div>
+	<div class="attr_column_title" id="create_operators_title">操作任务,装载中...</div>
+  </div>
+  <div class="attr_column_body">
+    <div class="attr_column_flexible_content" id="attr_column_crtextfield_content">
+	<TRS:CRTOperators id="create_operators" style="display:inline;">
+      <TRS:table width="100%" border="0" cellpadding="0" cellspacing="0" class="attr_detail_fonts" >      
+		<TRS:tr justReplace="true">
+			<TRS:td colSpan="3">&nbsp;</TRS:td>
+		</TRS:tr>
+		<TRS:for select="PageOperators.PageOperator">
+			<TRS:if test="'{#ISDISPLAY}'=='1'">
+				<TRS:tr valign="middle" justReplace="true" class="operator_tr">
+					<TRS:td width="1" align="center">&nbsp;</TRS:td>
+					<TRS:td width="25" height="24" class="operator_img_td">
+						<TRS:div class="wcm_pointer operator_img operator_img_new"></TRS:div>
+					</TRS:td>
+					<TRS:td class="wcm_pointer operator_name_td">
+						<TRS:div title="{#OprDesc}">{#OprName}</TRS:div>
+					</TRS:td>
+					<TRS:td width="1" align="center">&nbsp;</TRS:td>
+				</TRS:tr>
+			</TRS:if>
+		</TRS:for>
+      </TRS:table>
+	</TRS:CRTOperators>
+    </div>
+  </div>
+  <div class="attr_column_underside"></div>
+</div>
+<!-- create operate end -->
+<div class="attr_column_sep"></div>
+<!-- update/delete/sync operate begin -->
+<div class="attr_column" id='attr_column_extfield_operators' style='display:none'>
+  <div class="attr_column_header">
+    <div class="attr_column_shrink" onclick="AttributeColumn.toggleColumn('attr_column_extfield_operators',this)"></div>
+	<div class="attr_column_title" id="extendfield_operators_title">扩展字段操作任务</div>
+  </div> 
+  <div class="attr_column_body">
+    <div class="attr_column_flexible_content" id="attr_column_extfield_operators_content">
+      <TRS:Operators id="extendfield_operators" style="display:inline;">
+      <TRS:table width="100%" border="0" cellpadding="0" cellspacing="0" class="attr_detail_fonts" >      
+		<TRS:tr justReplace="true">
+			<TRS:td colSpan="3">&nbsp;</TRS:td>
+		</TRS:tr>
+		<TRS:for select="PageOperators.PageOperator">			
+			<TRS:tr valign="middle" justReplace="true" class="operator_tr" operator_type="{#OprKey}">
+				<TRS:td width="1" align="center">&nbsp;</TRS:td>
+				<TRS:td width="25" height="24" class="operator_img_td">
+					<TRS:div class="wcm_pointer operator_img operator_img_{#OprKey}"></TRS:div>
+				</TRS:td>
+				<TRS:td class="wcm_pointer operator_name_td">
+					<TRS:div title="{#OprDesc}">{#OprName}</TRS:div>
+				</TRS:td>
+				<TRS:td width="1" align="center">&nbsp;</TRS:td>
+			</TRS:tr>			
+		</TRS:for>
+      </TRS:table>
+	</TRS:Operators>
+    </div>
+  </div>
+  <div class="attr_column_underside"></div>
+</div>
+<!-- extendfield detail begin -->
+<div class="attr_column_sep"></div>
+<!-- infos begin -->
+<div class="attr_column" id='attr_column_extfield_detail' style='display:none'>
+  <div class="attr_column_header">
+    <div class="attr_column_shrink" onclick="AttributeColumn.toggleColumn('attr_column_extfield_detail',this)"></div>
+	<div class="attr_column_title" id='attr_column_extfield_detail_title'>扩展字段详细信息</div>
+  </div>
+  <div class="attr_column_body">
+    <div class="attr_column_flexible_content" id="attr_column_extfield_detail_content">
+      <TRS:ExtendFieldAttribute id='extendfield_attribute' style='display:none'>
+      <TRS:table width="100%" border="0" cellpadding="0" cellspacing="0" class="attr_detail_fonts" select="ContentExtField">
+	  <TRS:tbody justReplace="true">
+        <TRS:tr>
+          <TRS:td height="3"></TRS:td>
+        </TRS:tr>
+        <TRS:tr>
+          <TRS:td class="attr_column_content_td" valign="top">
+			<span class="attr_detail_name">&nbsp;</span>
+			<TRS_UI:editPanel value="{#LOGICFIELDDESC}" class="attr_detail_value_doctitle" inputClass="attr_detail_value_doctitle" _fieldName="logicfielddesc">
+			</TRS_UI:editPanel>
+		  </TRS:td>
+        </TRS:tr>
+        <TRS:tr>
+          <TRS:td align="center" valign="middle" class="attr_column_content_td_sep"></TRS:td>
+        </TRS:tr>
+        <TRS:tr>
+          <TRS:td class="attr_column_content_td">
+			<a href="#" onclick="return false;" class="attr_detail_value attr_detail_value_cruser attr_detail_readonly">{#CRUSER}</a>,
+			<a href="#" onclick="return false;" class="attr_detail_value attr_detail_value_crtime attr_detail_readonly">{#CRTIME}</a>,
+			<a href="#" onclick="return false;" class="attr_detail_value attr_detail_value_docid attr_detail_readonly">{#CONTENTEXTFIELDID}</a>
+		  </TRS:td>
+        </TRS:tr>
+        <TRS:tr>
+          <TRS:td class="attr_column_content_td">
+			<span class="attr_detail_name">字段名称</span>：
+			<a href="#" onclick="return false;" class="attr_detail_value attr_detail_value_doctype attr_detail_readonly">{#DBFIELD.FieldName}</a>
+		  </TRS:td>
+        </TRS:tr>
+        <TRS:tr>
+          <TRS:td class="attr_column_content_td">
+			<span class="attr_detail_name">字段类型</span>：
+			<a href="#" onclick="return false;" class="attr_detail_value attr_detail_value_doctype attr_detail_readonly">{#DBFIELD.FieldTypeDesc}</a>
+		  </TRS:td>
+        </TRS:tr>
+		<TRS:tr>
+          <TRS:td class="attr_column_content_td">
+			<span class="attr_detail_name">字段长度</span>：
+			<a href="#" onclick="return false;" class="attr_detail_value attr_detail_value_doctype attr_detail_readonly">{#DBFIELD.MaxLength}</a>
+		  </TRS:td>
+        </TRS:tr>		
+        <TRS:tr>
+          <TRS:td align="center" valign="middle" class="attr_column_content_td_sep"></TRS:td>
+        </TRS:tr>
+        <TRS:tr>
+          <TRS:td class="attr_column_content_td">
+			<span class="attr_detail_name">所属对象</span>：
+			<a href="#" onclick="return false;" class="attr_detail_value attr_detail_value_doctype attr_detail_readonly">{#HOST.Name}</a>
+		  </TRS:td>
+        </TRS:tr>        
+		</TRS:tbody>
+      </TRS:table>
+	  </TRS:ExtendFieldAttribute>
+	  <table width="100%" border="0" cellpadding="0" cellspacing="0" class="attr_detail_fonts" style="display:none" id="multiselected">
+        <tr height="2"><td></td></tr>
+        <tr>
+          <td class="attr_column_content_td" id="selectedNums">
+			
+		  </td>
+        </tr>        
+      </table>
+    </div>
+  </div>
+  <div class="attr_column_underside"></div>
+</div>
+<!-- extendfield detail end -->
+<!-- update/delete/sync operate end -->
+<div class="attr_column_sep"></div>
+<!-- infos begin -->
+<div class="attr_column" id='attr_column_host' style='display:none'>
+  <div class="attr_column_header">
+    <div class="attr_column_shrink" onclick="AttributeColumn.toggleColumn('attr_column_host',this)"></div>
+	<div class="attr_column_title">栏目详细信息</div>
+  </div>
+  <div class="attr_column_body">
+    <div class="attr_column_flexible_content" id="attr_column_host_content">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="attr_detail_fonts">
+        <tr height="2"><td></td></tr>
+        <tr>
+          <td class="attr_column_content_td">
+			//TODO
+		  </td>
+        </tr>        
+      </table>
+    </div>
+  </div>
+  <div class="attr_column_underside"></div>
+</div>
+<!-- infos end -->
+</body>
+</html>

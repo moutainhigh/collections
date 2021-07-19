@@ -1,0 +1,303 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>图片列表</title>
+
+<!-- ~Common CSS Begin~ -->
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/wcm_list_abstract.css" rel="stylesheet" type="text/css" />
+<link href="../js/opensource/helptip/helptip.css" rel="stylesheet" type="text/css" />
+<link href="photo_list.css" rel="stylesheet" type="text/css" />
+<!-- ~Common CSS End~ -->
+
+<!-- ~Imports Begin~    -->
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script label="Imports">
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.util.CommonHelper');
+   $import('com.trs.wcm.SheetChanger');
+	$import('com.trs.wcm.QuickKey');
+	$import('com.trs.wcm.SimpleDragger');
+	$import('com.trs.wcm.Grid');
+	$import('com.trs.wcm.PageFilter');
+	$import('com.trs.wcm.BubblePanel');
+	$import('com.trs.wcm.FloatPanel');
+	$import('com.trs.crashboard.CrashBoarder');
+</script>
+<!-- ~Imports END~    -->
+
+<!-- ~PageJavaScript Begin~    -->
+<script language=JavaScript src="../js/opensource/helptip/helptip.js" type=text/javascript></script>
+<script src="../common/wcm_list_abstract.js" label="PageScope"></script>
+<script src="photo_list_editor.js" label="PageScope" desc="图片列表"></script>
+<!-- ~PageJavaScript END~    -->
+
+<style label="PageScope">
+	/*可变的列[文档标题]所使用的样式*/
+	.doctitle{
+		text-align:left;
+		padding-left:0!important;
+		padding-left:2px;
+		width:100px;
+		overflow:hidden;
+		white-space: nowrap; 
+		text-overflow:ellipsis;
+		cursor:pointer;
+	}
+
+	/**页面自己的样式**/
+	.object_preview{
+		background-image:url(../images/icon/Preview.png);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	.objectcannot_preview{
+		background-image:url(../images/icon/CannotPreview.png);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	.document_switcher{
+		float: right;
+		height: 29px;
+		width: 28px;
+		margin-right:5px;
+		overflow:hidden;
+	}
+	.document_mode_active{
+		float:left;
+		width:27px;
+		height:29px;
+		background:url(../images/document_normal_index/ico-bg1.png) no-repeat center center;
+	}
+	.document_mode_deactive{
+		float:left;
+		width:27px;
+		height:29px;
+		background:url(../images/document_normal_index/ico-bg.png) no-repeat center center;
+	}
+	.document_mode_normal{
+		float:left;
+		width:27px;
+		height:29px;
+		background:url(../images/icon/list.png) no-repeat center center;
+	}
+	.document_mode_read{
+		float:left;
+		width:27px;
+		height:29px;
+		background:url(../images/icon/file.png) no-repeat center center;
+	}
+	/*HTML*/
+	.doctype_20{
+		background-image:url(../images/icon/style.png);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	.doctype_10{
+		background-image:url(../images/icon/style.png);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	/* ls@07-0109 */
+.document_attribute_value_docindextitle{
+	width:70px;
+}
+body, *{
+	font-size: 12px;
+}
+
+/*--order*/
+div.listOrders0{
+	background-color:#FFFFFF;
+	padding:1px;
+	background-image:url(../images/include/cbg1.gif);
+}
+div.listOrders1{
+	background-image:url(../images/include/ccdot.gif);
+}
+.listOrders1 a,.listOrders1 a:link,.listOrders1 a:visited {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #5a758d!important;
+	text-decoration: none;
+}
+.listOrders1 a:hover{
+	font-family: "宋体";
+	font-size: 12px;
+	text-decoration: none;
+	color: #FF6600!important;
+}
+.help-tooltip{
+	width: 125px;
+}
+.orderClue{
+	font-size:12px;
+	color: gray;
+	width: 80px;
+}
+ul.listOrders{
+	list-style-type: none;
+	line-height: 25px;
+	font-size:12px;
+	margin:0;
+	margin-left:20px;
+}
+.listOrders li{
+	height:25px;
+}
+.listOrderCurrent{
+	list-style-type: disc;
+}
+.listOrderOthers{
+	list-style-type: none;
+}
+.photo_item{
+	background:url(../images/photo/picture_box.gif) no-repeat;
+	width:150px;
+	height:170px;
+	float:left;
+	margin:2px 2px;
+	background-color:#FFF;
+	border:0;
+}
+.photo_item_pic{
+	background-repeat:no-repeat;
+	background-position:center center;
+	width:144px;
+	height:144px;
+}
+.desc{
+	background:url(../images/photo/desc.gif) no-repeat 50 4;
+}
+.asc{
+	background:url(../images/photo/asc.gif) no-repeat 50 4;
+}
+	.document_modal_2{
+		width:14px;
+		background-image:url(../images/document_normal_index/shortcutdoc2.gif);
+		background-repeat:no-repeat;
+		background-position:0 bottom;
+	}
+	.document_modal_3{
+		width:14px;
+		background-image:url(../images/document_normal_index/shortcutdoc3.gif);
+		background-repeat:no-repeat;
+		background-position:0 bottom;
+	}
+	.docstatus_10{
+		color:green;
+	}
+</style>
+</head>
+
+<body>
+<div id="dy_list_adjust"></div>
+<table id="table_body" class="wcm_table_layout" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="wcm_list_view">
+			<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+			<tbody>
+				<tr style="height:29px">
+					<td>
+						<div class="grid_head" id="grid_head">
+							<div style="float:left;margin-left:5px;margin-top:4px">
+								<table height="24" border="0" cellpadding="0" cellspacing="0" background="../images/include/px2.gif" class="navtitle12" onclick="PageContext.addNewPhoto();" id="tb_newphoto" style="float:left;display:none;margin-left:5px;margin-right:5px">
+								  <tr> 
+									<td width="29" style="cursor:pointer;">
+										<a onclick="return false;" style="width:29px; height:24px;background:url(../images/photo/new.gif)"></a>
+									</td>
+									<td width="35" valign="top" style="padding-top:4px;cursor:hand">新建</td>
+									<td width="10" height="24" align="right" style="background:url(../images/include/px3.gif)"></td>
+								  </tr>
+								</table>
+								<table height="24" border="0" cellpadding="0" cellspacing="0" background="../images/include/px2.gif" class="navtitle12" onclick="PageContext.QuickSearch();" id="tb_search" style="float:left;margin-left:5px;margin-right:5px">
+								  <tr> 
+									<td width="29" style="cursor:pointer;">
+										<a onclick="return false;" style="width:29px; height:24px;background:url(../images/photo/search.gif)"></a>
+									</td>
+									<td width="35" valign="top" style="padding-top:4px;cursor:hand">检索</td>
+									<td width="10" height="24" align="right" style="background:url(../images/include/px3.gif)"></td>
+								  </tr>
+								</table>
+								<!--
+								<table height="24" border="0" cellpadding="0" cellspacing="0" background="../images/include/px2.gif" class="navtitle12" onclick="PageContext.DoRefresh();" style="float:left;margin-left:5px;margin-right:5px">
+								  <tr> 
+									<td width="29" style="cursor:pointer;">
+										<a onclick="return false;" style="width:29px; height:24px;background:url(../images/photo/refresh.gif)"></a>
+									</td>
+									<td width="35" valign="top" style="padding-top:4px;cursor:hand">刷新</td>
+									<td width="10" height="24" align="right" style="background:url(../images/include/px3.gif)"></td>
+								  </tr>
+								</table>
+								-->
+							</div>
+							<!--列表头模板-->
+							<div style="float:right;margin-right:10px;margin-top:4px">
+								<table height="24" border="0" cellpadding="0" cellspacing="0" background="../images/include/px2.gif" class="navtitle12">
+								  <tr> 
+									<td width="29" style="cursor:pointer;">
+										<a onclick="showOrderTypes(event); return false;" id="lnkFirer" style="width:29px; height:24px;background:url(../images/include/px1.gif)"></a>
+									</td>
+									<td width="60" valign="top" style="padding-top:4px;cursor:hand" id="spOrderClue" onclick="antitone(event);" class="desc">创建时间</td>
+									<td width="10" height="24" align="right" style="background:url(../images/include/px3.gif)"></td>
+								  </tr>
+								</table>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr class="list_view">
+					<td valign="top">
+						<div id="grid_data" class="grid_data"></div>
+						<!--Objects列表数据模板-->
+<textarea id="objects_template" select="ViewDocuments.ViewDocument" style='display:none'>
+	<for select="." blankRef="divNoObjectFound" noRecord="true">
+	<div class="grid_row photo_item {@dealWithRightCss(#Right,34)}" grid_rowid="{#RecId}" docid="{#DocId}" grid_function="cancelBubble">
+	<table border=0 cellspacing=0 cellpadding=0>
+	<tbody>
+		<tr>
+			<td title="查看图片" class="photo_item_pic" style="background-image:url({@mapFileName(#DOCRELWORDS,1,#ATTRIBUTE.SRCFILE)})" grid_function="photo_view">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<input type="checkbox" class="grid_checkbox wcm_pointer" name="DocId" value="{#RecId}" docid="{#DocId}" title="选中/取消选中" {@dealWithRight(#Right,34)} photo_srcs="{#DOCRELWORDS}" photo_desc="{#DocTitle}"/>
+				<span class="document_modal_{#Modal}"></span><span title="{#DocTitle}" class="doctitle docstatus_{#DocStatus.ID}" grid_function="photo_view">{#DocTitle}</span>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	</div>
+	</for>
+</textarea>
+					</td>
+				</tr>
+				<tr class="list_navigator">
+					<td>						
+						<div id="list_navigator" class="list_navigator_div">
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+</table>
+<div id="divNoObjectFound" style="display:none;">
+	<div class="no_object_found">不好意思, 没有找到符合条件的图片...-____-|||</div>	
+</div>
+<script language="javascript">
+<!--
+	PageContext.LoadPage();
+//-->
+</script>
+</body>
+</html>
+

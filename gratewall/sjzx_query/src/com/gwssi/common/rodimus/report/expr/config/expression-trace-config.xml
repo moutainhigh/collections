@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<expression-config>
+
+    <property k="config.name">trace</property>
+    
+    <property k="engine">com.gwssi.expression.component.engine.TraceEngine</property>
+
+    <property k="engine.traceliteralinterpreter" 
+        v="com.gwssi.expression.component.interpreter.TraceLiteralInterpreter" />
+
+    <property k="use.bigdecimal">false</property>
+    
+    <property k="function.ignoreCase">true</property>
+    
+    <property k="trace.namingobject">false</property>
+    <property k="trace.methodInvocation">false</property>
+    <property k="trace.operator">false</property>
+    
+    <include file="classpath:com/gwssi/expression/config/operator-config.xml" />
+    <include file="classpath:com/gwssi/expression/config/function-config.xml" />
+    <include file="classpath:com/gwssi/expression/config/function-assign-eq-config.xml" />
+    
+</expression-config>
+

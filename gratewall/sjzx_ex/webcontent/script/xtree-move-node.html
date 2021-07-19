@@ -1,0 +1,154 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>调整节点的位置</title>
+</head>
+
+<script language="javascript">
+var errorCode = '000000';
+var rootPath = parent.rootPath;
+var parentTreeDefine = null;
+var treeDefine = null;
+</script>
+
+<script language="javascript" src="public-func.js"></script>
+<script language="javascript" src="gwssi-xtree.js"></script>
+<link href="css/gwssi.css" rel="stylesheet" type="text/css">
+
+<script language="javascript">
+function prepareMenuList()
+{
+	parentTreeDefine = parent.getInnerWindowArgs()[0];
+	if( parentTreeDefine == null ){
+		return;
+	}
+	
+	// 初始化目录
+	cloneTreeDefine( parentTreeDefine );
+	
+	filterTempNode();
+	treeDefine.create('100%', '100%');
+}
+
+
+// 创建树的副本
+function cloneTreeDefine( tree )
+{
+	treeDefine = new TreeDefine( 'treeDefine', tree.root, tree.rootpage, tree.aspect, tree.visible, 
+		tree.txnCode, tree.nodename, tree.pidname, tree.idname, 
+		tree.textname, tree.memoname, tree.flodername, tree.iconname, tree.openname,
+		tree.bgcolor, tree.textcolor, tree.flodercloseicon, tree.floderopenicon, tree.nodeicon,
+		null, null, null, null, null, null, null, null, null, tree.nodes
+	);
+}
+
+
+// 过虑节点
+function filterTempNode()
+{
+	var nodes = treeDefine.nodes;
+	treeDefine.nodes = new Array();
+	if( nodes == null ){
+		return;
+	}
+	
+	// 过虑
+	var id;
+	var	text;
+	var iptr;
+	var node;
+	for( var ii=0; ii<nodes.length; ii++ ){
+		id = nodes[ii].id;
+		if( id.indexOf('@temp:') != 0 ){
+			text = nodes[ii].text
+			iptr = text.lastIndexOf('&nbsp');
+			if( iptr > 0 ){
+				text = text.substring( 0, iptr );
+			}
+			
+			// 增加节点
+			node = new XmenuNode( nodes[ii].parentid, id, text, nodes[ii].icon, nodes[ii].openicon );
+			treeDefine.nodes[treeDefine.nodes.length] = node;
+		}
+	}
+}
+
+function cmdCancel()
+{
+	parent.hiddenInnerWindow();
+}
+
+function cmdOK()
+{
+	var obj = document.getElementsByName( 'pos' );
+	if( obj == null ){
+		return;
+	}
+	
+	var	iType = null;
+	for( var i=0; i<obj.length; i++ ){
+		if( obj[i].checked == true ){
+			iType = obj[i].value;
+			break;
+		}
+	}
+	
+	if( iType == null ){
+		alert( '没有选择移动位置' );
+		obj[0].focus();
+		return;
+	}
+	
+	if( treeDefine.selectedNode == null ){
+		alert( '没有选择目标节点' );
+		return;
+	}
+	
+	parent.hiddenInnerWindow();
+	
+	// 执行功能
+	parentTreeDefine.menuNode = treeDefine.selectedNode;
+	var func = "parent." + parentTreeDefine.name + ".moveNode('" + iType + "')";
+	eval( func );
+}
+</script>
+
+<body topmargin="0" leftmargin="0" rightmargin="0" bottommargin="0">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" height="100%" bgcolor="F7F7F7" nowrap style='table-layout:fixed; border: 1px solid #3366FF'>
+<tr bgcolor="6699FF" valign="middle">
+<td width="1%"></td>
+<td width="99%" valign="middle" style="color: #FFFFFF">&nbsp;移动位置：
+<input type="radio" value="post" checked name="pos">节点后
+<input type="radio" value="pre" name="pos">节点前
+<input type="radio" value="sub" name="pos">子节点
+</td></tr>
+<tr height="1" bgcolor="3366FF"><td colspan="2"></td></tr>
+<tr height="90%"><td rowspan="4" width="5px"></td>
+<td>
+<script language="javascript">prepareMenuList();</script>
+</td></tr>
+<tr height="5px"><td></td></tr>
+<tr><td align="center">
+<input type='button' value='&nbsp确 定&nbsp' name="cmdOK" id="cmdOK" onclick="cmdOK()" class="menu">
+<input type='button' value='&nbsp取 消&nbsp' name="cmdCancel" id="cmdCancel" onclick="cmdCancel()" class="menu">
+</td></tr>
+<tr height="5px"><td></td></tr>
+</table>
+</body>
+<script language="javascript">
+var arg = parent.getInnerWindowArgs();
+if( arg != null && arg.length > 1 ){
+	var iType = arg[1];
+	
+	// 设置内容
+	var obj = document.getElementsByName( 'pos' );
+	for( var i=0; i<obj.length; i++ ){
+		if( obj[i].value == iType ){
+			obj[i].checked = true;
+			break;
+		}
+	}
+}
+</script>
+</html>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    
+	<title WCMAnt:param="trswcmregistercodenotcorrect">TRS WCM 注册码不正确</title>
+	<SCRIPT LANGUAGE="JavaScript" src="../console/js/CTRSHashtable.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" src="../console/js/CTRSRequestParam.js"></SCRIPT>
+	<SCRIPT LANGUAGE="JavaScript" src="../console/js/CTRSAction.js"></SCRIPT>
+</head>
+<body>
+	<script language="javascript">
+		licenseEditPage();
+		function licenseEditPage(){
+			var oTRSAction = new CTRSAction("license_edit.jsp");
+			oTRSAction.setParameter("TransferName", 1);
+			oTRSAction.doDialogAction(450, 300,'',(window.screen.availHeight - 300)/2,(window.screen.availWidth - 400)/2);
+		}
+		window.close();
+	</script>
+</body>
+</html>

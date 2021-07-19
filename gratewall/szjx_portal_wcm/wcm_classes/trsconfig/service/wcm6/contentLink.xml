@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.ContentLinkServiceProvider">
+
+	<method name="delete">	
+		<parameter name="ObjectIds" desc="待删除的热词ID序列" type="string" required="true"/>
+		<parameter name="ChannelId" desc="当前栏目Id" type="int" required="true"/>
+	</method>
+	
+	<!-- thie save method noly for quick edit.-->
+	<method name="save">
+		<parameter name="ObjectId" desc="热词ID" type="int" required="true"/>
+		<parameter name="LinkName" desc="热词内容" type="string" required="true"/>
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="true"/>
+	</method>
+	
+	<method name="query">
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="true"/>
+
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" required="false"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<!-- 检索相关配置 END -->
+	</method>
+	
+	<method name="findByIds" >
+		<parameter name="ObjectIds" desc="热词ID序列" type="string" required="true"/>
+	</method>
+	
+	<method name="findById">
+		<parameter name="ObjectId" desc="热词ID" type="int" required="true"/>
+	</method>
+
+	<method name="queryLinkType">
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="true"/>
+	</method>
+
+	<method name="queryTypes">
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="true"/>
+	</method>
+
+	<method name="setLinkType">
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="true"/>
+	</method>
+	
+	<method name="addLinkInChannel">
+		<parameter name="LinkName" desc="热词内容" type="string" required="true" />		
+		<parameter name="LinkTitle" desc="热词说明" type="string" required="false" />		
+		<parameter name="LinkUrl" desc="热词链接" type="string" required="true" />		
+		<parameter name="LinkTypeName" desc="热词分类名称" type="string" required="false" />		
+		<parameter name="LinkOrder" desc="热词排序" type="int" required="true" />
+		<parameter name="ChannelId" desc="栏目Id" type="int" required="false" />		
+	</method>
+	
+	<method name="editLinkInChannel">
+		<parameter name="LinkId" desc="热词ID" type="int" required="true"/>
+		<parameter name="LinkName" desc="热词内容" type="string" required="true" />
+		<parameter name="LinkTitle" desc="热词说明" type="string" required="false"/>
+		<parameter name="LinkUrl" desc="热词链接" type="string" required="true" />
+		<parameter name="LinkOrder" desc="热词排序" type="int" required="true" />
+		<parameter name="ChannelId" desc="栏目Id" type="int" required="false" />
+	</method>
+	
+	<method name="importSysLinks">
+		<parameter name="ContentLinkTypeIds" desc="热词分类ID序列" type="string" 
+			required="true"/>
+		<parameter name="ChannelId" desc="栏目Id" type="int" required="true" />
+	</method>
+	
+	<method name="changeOrder">
+		<parameter name="LinkId" desc="热词ID" type="int" required="true"/>
+		<parameter name="ChannelId" desc="栏目Id" type="int" required="true" />
+		<parameter name="NewOrder" desc="新排序序号" type="int" required="true" />
+	</method>
+</service>

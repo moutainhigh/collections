@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0" id="cluster">
+	<beans>
+		<bean id="IClusterMsgCenter" class="com.trs.cluster.ClusterMsgCenterImpl" 
+			singleton="true"/>
+		<bean id="TRSWCMClusterServer" class="com.trs.cluster.TRSWCMClusterServer" 
+			singleton="true"/>		
+	</beans>
+</plugin>

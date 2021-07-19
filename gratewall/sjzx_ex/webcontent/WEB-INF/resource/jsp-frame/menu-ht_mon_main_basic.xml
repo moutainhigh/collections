@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="主从表[子表采用TAB页维护]" page="master-detail-table-2.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="multi-table-3.gif"/>
+  <struts name="ht_mon_main_basic.xml" app-path="/dw/aic/bj/htjg/" app-name="ht_mon_main_basic" description="合同监管信息" template="master-detail-table-2.xml"/>
+  <table name="mon_main_basic.xml" app-name="ht_mon_main_basic" app-desc="经纪人" delete-action="delete" description="合同监管信息" class-name="com.gwssi.dw.aic.bj.htjg.txn.TxnMonMainBasic" template="master-detail-table-2.master.java" dao-class-template="single-table.java" type="master">
+	  <jsp page-name="frame-ht_mon_main_basic-update.jsp" txn-code="81218104" description="经纪人信息维护" template="master-detail-3/frame-detail-update.jsp">
+	    <button type="button" name="返 回" path="/txn81218101.do" description="返回到经纪人明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="query-ht_mon_main_basic.jsp" txn-code="81218101" description="查询经纪人列表" template="master-detail-3/master-table-query.jsp">
+	    <button type="button" name="增加经纪人" path="insert-ht_mon_main_basic.jsp" description="增加经纪人" func-name="addRecord"/>
+	    <button type="button" name="修改经纪人" path="frame-ht_mon_main_basic-update.jsp" description="修改经纪人" func-name="updateRecord"/>
+	    <button type="button" name="删除经纪人" path="/txn81218105.do" description="删除经纪人" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn81218101.do" description="查询经纪人信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-ht_mon_main_basic.jsp" txn-code="81218103" description="增加经纪人信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn81218103.do" description="保存经纪人信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn81218103.do" description="保存经纪人信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn81218101.do" description="保存经纪人信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn81218101.do" description="返回到经纪人明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-ht_mon_main_basic.jsp" txn-code="81218102" description="修改经纪人信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn81218101.do" description="修改经纪人信息" func-name="saveRecord"/>
+	  </jsp>
+
+	  <txn input="query-ht_mon_main_basic.jsp" txn-code="81218101" description="查询经纪人列表">
+	    <forward error-code="success" path="query-ht_mon_main_basic.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-ht_mon_main_basic.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-ht_mon_main_basic.jsp" txn-code="81218102" description="修改经纪人信息">
+	    <forward error-code="success" path="update-ht_mon_main_basic.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-ht_mon_main_basic.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-ht_mon_main_basic.jsp" txn-code="81218103" description="增加经纪人信息">
+	    <forward error-code="success" path="insert-ht_mon_main_basic.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-ht_mon_main_basic.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-ht_mon_main_basic.jsp" txn-code="81218104" description="查询经纪人用于修改">
+	    <forward error-code="success" path="update-ht_mon_main_basic.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-ht_mon_main_basic.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-ht_mon_main_basic.jsp" txn-code="81218105" description="删除经纪人信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.htjg.vo.HtMonMainBasicContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.htjg.vo.VoHtMonMainBasic" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.htjg.vo.VoHtMonMainBasicSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.htjg.vo.VoHtMonMainBasicPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+</resource>

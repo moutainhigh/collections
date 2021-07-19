@@ -1,0 +1,101 @@
+<textarea id="template_template" select="MultiResult">
+	<div class="attribute_row">
+		 <TRS_UI:editPanel id="txt_temp_name" value="{#Template.TempName}" class="attr_detail_value_doctitle" inputClass="attr_detail_value_doctitle" _fieldName="TempName" validation="type:'filename',required:'',max_len:'50',desc:'模板名称'" rightIndex="23">
+		</TRS_UI:editPanel>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row wcm_desc_info_row">
+		<span title="模板编号:{#Template.TempId}&#13;创建者:{#Template.CrUser}&#13;创建时间:{#Template.CrTime} " style="white-space:nowrap;overflow:hidden;">
+			<span style="">用户</span><span class="desc_info_value">{#Template.CrUser}</span><span>创建于</span><span class="desc_info_value">{#Template.CrTime,,getPrettyTime}</span>
+		</span>
+	</div>
+	<div class="attribute_row_sep"></div>		
+	<div class="attribute_row">
+		<span class="attribute_name">所属位置:</span>
+		<span class="attr_value_short" title="{#Template.Folder.Name, }">
+			{#Template.Folder.Name}
+		</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">模板类型:</span>
+		<span class="attribute_value">
+			<TRS_UI:select value="{#Template.TempType.Id}" class="ui_select_docstatus" optionsClass="ui_select_options_docsource" _fieldName="TempType" options="PageContext.getAllTempTypes()" type="2" onchange="PageContext.switchTypedDisplay(this);PageContext.updateAttribute(this.$postdata, this);" rightIndex="23">
+			</TRS_UI:select>
+		</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">模板描述:</span>
+		<span class="attribute_value">
+			<TRS_UI:editPanel value="{#Template.TempDesc}" class="" inputClass="" _fieldName="TempDesc" validation="type:'string',max_len:'200',desc:'模板描述'" rightIndex="23">
+			</TRS_UI:editPanel>
+		</span>
+	</div>
+	<div class="attribute_row" id="divTempFileExtAttr" style="display: none">
+		<span class="attribute_name" style="width:80px;">文件扩展名:</span>
+		<span class="attribute_value">
+			<TRS_UI:editPanel value="{#Template.TempExt, html}" class="" inputClass="" _fieldName="TempExt" validation="type:'common_char',required:'true',max_len:'50',desc:'文件扩展名'" rightIndex="23">
+			</TRS_UI:editPanel>
+		</span>	
+	</div>		
+	<div class="attribute_row" id="divTempOutputFileAttr" style="display: none">
+		<span class="attribute_name" style="width:80px;">发布文件名:</span>
+		<span class="attribute_value">
+			<TRS_UI:editPanel value="{#Template.OutputFileName, default}" class="" inputClass="" _fieldName="OutputFileName" validation="type:'common_char',required:'true',max_len:'50',desc:'发布文件名'" rightIndex="23">
+			</TRS_UI:editPanel>
+		</span>
+	</div>
+
+	<div class="attribute_row_sep"></div>
+<div id="divTempRefedAttr" style="display: none">
+	<div class="attribute_row">
+		<span class="attribute_name" style="width: 100%;">被<span class="objects_num">{#TemplateEmploys.Num, 0}</span>个栏目或站点引用:</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_value" style="margin-left: 5px;">(<a href="#" id="lnkArrangeEmployment">分配</a>)</span>
+	</div>
+<for select="TemplateEmploys.TemplateEmploy" blankText="" params="TempType.Id">
+	<div class="attribute_row_hidden wcm_readonly">
+		{$$index}. <a href="#" onclick="previewFolder('{#Employer.Id}', '{#EmployerType}', '{#TemplateId}', '{#TempType.Id}'); return false;" class="template_employer" style="color: {@getAdaptedUsenessColor(#IsDefault)}; text-decoration: underline; cursor: pointer" title="{#Employer.Path, ,$transHtml}&#13;{@getAdaptedUsenessTip(#IsDefault)}&#13;提示：点击预览模板使用效果">{#Employer.Name}</a></span>
+	</div>
+</for>
+	<div id="divMoreEmployers" style="text-align: center; display: none; margin-top: 5px">
+		<span class="attribute_padding"></span>
+		<span class="attribute_value"><a href="#" id="lnkShowMoreEmp">更多</a></span>
+	</div>
+</div>
+<div id="divTempNestersAttr" style="display: none">
+	<div class="attribute_row">
+		<span class="attribute_name" style="width: 100%;">被<span class="objects_num">{#Templates.Num, 0}</span>个模板嵌套:</span>
+	</div>
+<for select="Templates.Template" blankText="">
+	<div class="attribute_row_hidden wcm_readonly" title="{#TempName}-({#TempId}, {#TempType.Name, })">
+		{$$index}. <span style="color: #010101">{#TempName} ({#TempId}, {#TempType.Name})</span>
+	</div>
+</for>	
+	<div id="divMoreNesters" style="text-align: center; display: none">
+		<span class="attribute_padding"></span>
+		<span class="attribute_value"><a href="#" id="lnkShowMoreNesters">更多</a></span>
+	</div>
+</div>
+	
+<div id="divTempNestedAttr" style="display: none">
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<span class="attribute_name" style="width: 100%;">嵌套使用了<span class="objects_num">{#Templates.Num, 0}</span>个模板:</span>
+	</div>
+<for select="Templates.Template" blankText="">
+	<div class="attribute_row_hidden wcm_readonly" title="{#TempName}-({#TempId}, {#TempType.Name, })">
+		{$$index}. <span style="color: #010101">{#TempName} ({#TempId}, {#TempType.Name})</span>
+	</div>
+</for>	
+	<div id="divMoreNested" style="text-align: center; display: none">
+		<span class="attribute_padding"></span>
+		<span class="attribute_value"><a href="#" id="lnkShowMoreNested">更多</a></span>
+	</div>
+</div>
+</textarea>
+<textarea id="template_templates">
+	<div class="attribute_row">
+		当前共选中<span class="objects_num">{#Num}</span>个模板.
+	</div>
+ </textarea>

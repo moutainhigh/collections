@@ -1,0 +1,37 @@
+/* ---------- 列表样式  begin ---------- */
+/*没有文档时候的提示样式*/
+h1{font-family:${h1_font_family};font-weight:${h1_font_weight};font-size:${h1_font_size};line-height:${h1_line_height};}
+/*文档标题背景，兼容导读，多篇文档标题放在一行的情况*/
+.p_doc_title_li{
+	background:url(${p_doc_title_background}) left center no-repeat;
+	padding:${p_doc_title_padding};
+}
+/*文档标题的图标样式*/
+.p_doc_title{font-family:${p_doc_title_font_family};font-weight:${p_doc_title_font_weight};font-size:${p_doc_title_font_size};line-height:${p_doc_title_line_height};height:${p_doc_title_line_height};}
+/*文档标题样式*/
+.p_doc_title a{width:${p_doc_title_a_width};${p_doc_title_a_ellipsis}}
+.p_doc_title a:link{
+	text-decoration:${p_doc_title_a_text_decoration};
+	color:${p_doc_title_a_color};
+}
+.p_doc_title a:active{
+	text-decoration:${p_doc_title_a_text_decoration};
+	color:${p_doc_title_a_color};
+}
+.p_doc_title a:visited{
+	text-decoration:${p_doc_title_a_visited_text_decoration};
+	color:${p_doc_title_a_visited_color};
+}
+.p_doc_title a:hover{
+	text-decoration:${p_doc_title_a_hover_text_decoration};
+	color:${p_doc_title_a_hover_color};
+}
+/*文档时间样式*/
+.datetime{font-size:${datetime_font_size};font-family:${datetime_font_family};color:${datetime_color};padding:${datetime_padding};}
+/*文档分割线样式*/
+.c_line{display:${c_line_display};background:url(${c_line_background_image}) left center repeat-x;height:${c_line_height};line-height:${c_line_height};}
+/*文档最后一道分割线样式*/
+.c_last_line{display:${c_last_line_display};background:url(${c_line_background_image}) left center repeat-x;height:${c_line_height};line-height:${c_line_height};}
+/*最新文档标识样式*/
+.doc_new_icon{display:${doc_new_icon_display};background:url(${doc_new_icon_background_image}) no-repeat left center;padding-left:${doc_new_icon_width};height:${doc_new_icon_height};line-height:${doc_new_icon_height};margin:${doc_new_icon_margin};}
+/* ---------- 列表样式  end ---------- */

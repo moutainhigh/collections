@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin name="WCM内容发布组件-Beans" version="1.0" id="wcm.publish">
+	<beans>
+		<!-- CacheMgr BEGIN -->
+		<bean id="IFolderPubStatusCacheMgr" 
+			class="com.trs.components.wcm.publish.FolderPubStatusCacheMgrImpl" 
+			singleton="true"/>
+		<!-- CacheMgr END -->
+					
+		<!-- WCMOBJ Life Cycle Listeners BEGIN -->
+		<bean id="WCMFolderLCListener" 
+			class="com.trs.components.wcm.publish.WCMFolderLCListener" 
+			singleton="true"/>
+		<bean id="ChnlDocLCListnerForPublish" 
+			class="com.trs.components.wcm.publish.ChnlDocLCListnerForPublish" 
+			singleton="true"/>
+		<bean id="DocumentLCListenerForPublish" 
+			class="com.trs.components.wcm.publish.DocumentLCListenerForPublish" 
+			singleton="true"/>					
+		<bean id="WCMFolderPublishConfigLCListener" 
+			class="com.trs.components.wcm.publish.WCMFolderPublishConfigLCListener" 
+			singleton="true"/>
+		<bean id="ChannelLCListenerForSpeical" 
+			class="com.trs.components.wcm.content.domain.ChannelLCListenerForSpeical" 
+			singleton="true"/>
+		<bean id="ChnlDocLCListenerForPreNextPage" 
+			class="com.trs.components.wcm.publish.ChnlDocLCListenerForPreNextPage" 
+			singleton="true"/>
+		<!-- WCMOBJ Life Cycle Listeners END -->
+	</beans>
+
+</plugin>

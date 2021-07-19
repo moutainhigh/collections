@@ -1,0 +1,701 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html,body,.main {
+	min-width: 1024px;
+	width: auto !important;
+	width: 1366px;
+}
+
+body>.main {
+	height: auto;
+	min-height: 100%;
+}
+/* 閹绘劗銇氭い鍨壉瀵紥tart  */
+#bg {
+	position: fixed;
+	width: 100%;
+	height: 170px;
+	background-color: black;
+	z-index: 1001;
+	-moz-opacity: 0.6;
+	opacity: .60;
+	filter: alpha(opacity =   60);
+	bottom: 0;
+}
+
+.show-tip {
+	background: url("../image/loginImages/notice1.png") no-repeat;
+	position: absolute;
+	z-index: 1003;
+	width: 681px;
+	height: 156px;
+	top: -10px;
+}
+
+.close-bg {
+	background: url("../image/loginImages/notice3.png") no-repeat;
+	width: 35px;
+	height: 39px;
+	position: fixed;
+	z-index: 1003;
+	/* left: 1100px; */
+	/* top:400px; */
+	bottom: 120px;
+	right:100px;
+}
+
+#show-notice {
+	left: 35%;
+	position: absolute;
+	padding: 8px;
+	border: 0px solid #E8E9F7;
+	opacity: 1;
+	z-index: 1002;
+	margin: 100px auto auto -300px;
+	top: 10%;
+}
+
+/* 閹绘劗銇氭い鍨壉瀵坏nd  */
+
+/* 閻ц缍嶆い绀筫ader start */
+.banner {
+	background: url("../image/loginImages/topLine.png") repeat;
+	height: 86px;
+}
+
+.banner-bg {
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	height: 86px;
+	background-color: #fff;
+	-moz-opacity: 0.1;
+	opacity: .10;
+	filter: alpha(opacity =   10);
+	width: 100%;
+}
+
+.top {
+	width: 900px;
+	margin: 0px auto;
+	padding-top: 17px;
+}
+
+.logo {
+	width: 651px;
+	background: url("../image/img/logo-top.png") no-repeat;
+	height: 64px;
+	position: relative;
+}
+
+.center {
+	/* min-width: 1024px;
+    width: auto !important;
+    width: 1366px; */
+	background: url("../image/loginImages/entbgCenter.png") center no-repeat;
+	position: relative;
+	min-height: 638px;
+	height: auto;
+/* 	background-color: #035e97;  */
+	margin-top:-1px;
+	
+}
+
+.login-panel {
+	height: 350px;
+	background-color: #FFF;
+	position: absolute;
+	top: 130px;
+	left: 650px;
+	box-shadow: -2px 0 10px #003366, 0 -2px 10px #003366, 0 2px 10px #003366,
+		2px 0 10px #003366;
+	border-radius: 2px;
+}
+@media screen and (max-width:1024px){
+	body{
+		overflow-x:hidden;
+	}
+	.login-panel{
+		left:580px;
+		top:130px;
+		width:332px;
+		height:380px;
+	}
+}
+.login-main {
+	height: 600px;
+	width: 970px;
+	margin: auto;
+	position: relative;
+}
+
+.login-top {
+	width: 100%;
+	height: 39px;
+	float: left;
+	color: #148AC0;
+	font-family: Microsoft YaHei;
+	font-size: 18px;
+	margin: 20px 0px 0px 34px;
+	/* padding-bottom: 20px; */
+}
+
+.login-content {
+	position: relative;
+	width: 350px;
+	/* height: 222px; */
+	/* margin-top: 59px; */
+}
+
+/* 閻劍鍩涚猾璇茬�閹稿鎸� start*/
+/* .user-button {
+	position: relative;
+	margin-left: 35px;
+	width: 315px;
+	height: 80px;
+}
+ */
+.user-btn {
+	position: relative;
+	margin-left: 35px;
+	width: 315px;
+	height: 65px;
+}
+
+#person-user {
+	position: relative;
+	float: left;
+}
+
+.person-left {
+	background: url("../image/loginImages/leftClick.png") no-repeat;
+	height: 35px;
+	width: 19px;
+	float: left;
+}
+
+.personCenter {
+	background: url("../image/loginImages/centercLick.png") repeat-x;
+	height: 35px;
+	width: 90px;
+	float: left;
+	text-align: center;
+	vertical-align: middle;
+	padding-top: 3px;
+	color: #148AC0;
+	font: 14px Microsoft YaHei;
+	padding-left: 15px;
+}
+
+.person-leftNoClick {
+	background: url("../image/loginImages/leftNoClick.png") no-repeat;
+	height: 35px;
+	width: 19px;
+	float: left;
+}
+
+.person-center-noclick {
+	background: url("../image/loginImages/centerNoClick.png") repeat-x;
+	height: 35px;
+	width: 90px;
+	float: left;
+	text-align: center;
+	vertical-align: middle;
+	padding-top: 3px;
+	color: #148AC0;
+	font: 14px Microsoft YaHei;
+	padding-left: 15px;
+	margin-left: -2px;
+}
+
+.person-head {
+	background: url("../image/loginImages/personHead.png") no-repeat;
+	width: 15px;
+	position: relative;
+	float: left;
+	height: 35px;
+	margin-top: 3px;
+	margin-left: -10px;
+}
+
+#ent-user {
+	position: relative;
+	float: left;
+}
+
+.person-right {
+	background: url("../image/loginImages/rightClick.png") no-repeat;
+	height: 35px;
+	width: 25px;
+	position: absolute;
+	float: right;
+	z-index: 11;
+}
+
+.person-right-noclick {
+	background: url("../image/loginImages/rightNoClick.png") no-repeat;
+	height: 35px;
+	width: 25px;
+	position: absolute;
+	float: right;
+	z-index: 11;
+	z-index: 11;
+}
+
+.ent-left-click {
+	height: 35px;
+	width: 19px;
+	position: absolute;
+	top: 0px;
+	z-index: 9999;
+	background: url("../image/loginImages/leftClick.png") repeat-x;
+	left: 1px;
+}
+
+.ent-center-click {
+	background: url("../image/loginImages/centercLick.png") repeat-x;
+	height: 35px;
+	width: 110px;
+	float: left;
+	text-align: center;
+	vertical-align: middle;
+	padding-top: 3px;
+	color: #148AC0;
+	font: 14px Microsoft YaHei;
+	padding-left: 35px;
+}
+
+.ent-left {
+	height: 35px;
+	width: 19px;
+	position: absolute;
+	top: 0px;
+	z-index: 1;
+	background: url("../image/loginImages/leftNoClick.png") repeat-x;
+	left: 1px;
+}
+
+.ent-center {
+	background: url("../image/loginImages/centerNoClick.png") repeat-x;
+	height: 35px;
+	width: 110px;
+	float: left;
+	text-align: center;
+	vertical-align: middle;
+	padding-top: 3px;
+	color: #148AC0;
+	font: 14px Microsoft YaHei;
+	padding-left: 35px;
+}
+
+.ent-head {
+	background: url("../image/loginImages/entHead.png") no-repeat;
+	width: 20px;
+	position: relative;
+	float: left;
+	height: 35px;
+	margin-top: 3px;
+	margin-left: -10px;
+}
+
+.ent-right {
+	background: url("../image/loginImages/rightNoClick.png") no-repeat;
+	height: 35px;
+	width: 25px;
+	float: left;
+}
+
+.ent-right-click {
+	background: url("../image/loginImages/rightClick.png") no-repeat;
+	height: 35px;
+	width: 25px;
+	float: left;
+}
+
+input {
+	outline: none;
+}
+
+.user-name {
+	width: 280px;
+	height: 35px;
+	margin-left: 40px;
+	color: #148AC0;
+/* 	margin-bottom: 2px; */
+	margin-top:70px;
+}
+
+.mob {
+	width: 170px;
+	height: 35px;
+	margin-left: 40px;
+	color: #148AC0;
+	margin-bottom: 2px;
+}
+
+.sendSmsVercodeBtn {
+	width: 96px;
+	height: 27px;
+	color:#148AC0;
+
+}
+
+.login-margin {
+	margin-top: 15px;
+}
+
+.user-name span {
+	line-height: 35px;
+}
+
+
+
+.pwd {
+	width: 280px;
+	height: 35px;
+	margin-left: 40px;
+	color: #148AC0;
+	margin-top: 10px;
+}
+
+.pwd span {
+	line-height: 36px;
+}
+
+.pwd .pwdLock {
+	background: url("../image/loginImages/pwd.png") no-repeat;
+	width: 17px;
+	height: 16px;
+	position: relative;
+	float: right;
+	margin: 5px 25px 0px 0px;
+}
+
+.user-name .name-img {
+	background: url("../image/loginImages/nameImg.png") no-repeat;
+	width: 17px;
+	height: 16px;
+	position: relative;
+	float: right;
+	margin-right:25px;
+	/* margin: -20px 50px 0px 0px; */
+	margin-top:-18px;
+}
+
+.user-name .line {
+	width: 300px;
+	height: 10px;
+	background-color: blue;
+}
+
+#name {
+	height: 25px;
+	width: 220px;
+	border: 0px;
+	/* color: #148AC0; */
+	display:block;
+	font: 16px Microsoft YaHei;
+}
+
+#mob {
+	height: 25px;
+	width: 150px;
+	border: 0px;
+	/* color: #148AC0; */
+	font: 16px Microsoft YaHei;
+}
+
+#pwd {
+	height: 27px;
+	width: 220px;
+	border: 0px;
+	/* color: #148AC0; */
+	font: 16px Microsoft YaHei;
+}
+/*  */
+/* #mob {
+		height: 25px;
+		width: 220px;
+		border: 0px;
+		color: #148AC0;
+		font: 16px Microsoft YaHei;
+	} */
+.mobile {
+	width: 290px;
+	height: 35px;
+	margin-left: 40px;
+	color: #148AC0;
+	margin-bottom: 2px;
+	margin-top:10px;
+}
+
+.mobile span {
+	line-height: 36px;
+}
+
+.mobile .mobile-img {
+	background: url("../image/loginImages/nameImg.png") no-repeat;
+	width: 17px;
+	height: 16px;
+	position: relative;
+	float: right;
+	/* margin: -20px 50px 0px 0px; */
+}
+
+.mobile .line {
+	width: 300px;
+	height: 10px;
+	background-color: blue;
+}
+
+#mobCode {
+	height: 25px;
+	width: 220px;
+	border: 0px;
+	/* color: #148AC0; */
+	font: 16px Microsoft YaHei;
+}
+
+.mobVerify-code {
+	width: 280px;
+	height: 35px;
+	margin-left: 40px;
+	color: #148AC0;
+	margin-bottom: 2px;
+	margin-top:10px;
+}
+
+.mobVerify-code span {
+	line-height: 36px;
+}
+
+.mobVerify-code .line {
+	width: 300px;
+	height: 10px;
+	background-color: blue;
+}
+
+.mobVerify-code .mobCode-img {
+	background: url("../image/loginImages/nameImg.png") no-repeat;
+	width: 17px;
+	height: 16px;
+	position: relative;
+	float: right;
+	/* margin: -20px 50px 0px 0px; */
+}
+/*  */
+.login {
+	position: relative;
+	margin-left: 40px;
+	width: 300px;
+	height: 50px;
+	margin-top: 10px;
+}
+
+.login-bt-first {
+	position: relative;
+	left: 46px;
+	width: 300px;
+}
+
+.loginFirst {
+	background: url("../image/loginImages/notice2.png");
+	position: absolute;
+	z-index: 1003;
+	top: 362px;
+	width: 501px;
+	height: 178px;
+	left: 424px;
+}
+
+.loginLeft,.loginCenter,.login-right,#person-user,#ent-user {
+	cursor: pointer;
+}
+
+.login-bt-first .loginLeft {
+	float: left;
+	width: 31px;
+	background: url("../image/loginImages/loginLeft.png") repeat-x;
+	height: 36px;
+	margin-top: 20px;
+}
+
+.login-bt-first .loginCenter {
+	height: 36px;
+	float: left;
+	width: 188px;
+	margin-top: 20px;
+	background: url("../image/loginImages/loginCenter.png") repeat-x;
+	text-align: center;
+	color: #f2f8f4;
+	font: 18px Microsoft YaHei;
+	line-height: 32px;
+}
+
+.login-bt-first .login-right {
+	height: 36px;
+	float: right;
+	width: 31px;
+	margin-top: 20px;
+	margin-right: 50px;
+	background: url("../image/loginImages/loginRight.png") no-repeat;
+}
+
+.login-bottom {
+	margin-left: 40px;
+	width: 300px;
+	margin-top: 10px;
+	height: 20px;
+	float: left;
+}
+
+.forget-pwd {
+	font: 14px Microsoft YaHei;
+	color: #148ac0;
+	cursor: pointer;
+}
+
+.regist-user {
+	font: 14px Microsoft YaHei;
+	color: #148ac0;
+	float: right;
+	margin-right: 20px;
+	cursor: pointer;
+	text-decoration:none;
+}
+/* /* 妤犲矁鐦夐惍锟�/ */
+.verify-code {
+	width: 280px;
+	height: 35px;
+	margin-left: 40px;
+	color: #148AC0;
+	margin-top: 10px;
+}
+
+.verify-code .line {
+	width: 220px;
+}
+
+#verifycode {
+	outline: none;
+	height: 27px;
+	width: 130px;
+	border: 0px;
+	/* color: #148AC0; */
+	font: 16px Microsoft YaHei;
+}
+article{
+	background-color: #035e97;
+}
+.top-line {
+	width: 1366px;
+	background: url("../image/loginImages/topLine.png") repeat;
+	min-height: 1px;
+	height: auto;
+	background-size:100%;
+	margin:0 auto;
+}
+
+.bottom-line {
+	background: url("../image/loginImages/bottomLine.png") repeat-y;
+	width: 1366px;
+	height: auto;
+	min-height: 1px;
+	background-size:100%;
+	margin:0 auto;
+}
+
+.line {
+	border-bottom: 1px solid rgb(20, 138, 192);
+	width: 260px;
+	margin-left: 35px;
+	margin-top: -2px;
+}
+
+.codeLine {
+	border-bottom: 1px solid rgb(20, 138, 192);
+	width: 260px;
+	margin-left: 35px;
+	margin-top: -2px;
+	/* display: none */
+}
+/* footer閺嶅嘲绱�*/
+footer {
+	background: url("../image/loginImages/bgFooter.png");
+	width: 100%;
+	height: 39px;
+	color: #acacac;
+	font: 12px;
+	font-family: simsun;
+	font-size: 12px;
+	position: relative;
+	/* margin-top: -50px; */
+	bottom: 0px;
+	clear: both;
+	
+}
+
+footer .word {
+	margin-right: 10px;
+}
+
+footer .tip {
+	position: relative;
+	height: 39px;
+	line-height: 39px;
+	width: 670px;
+	margin: 0px auto;
+}
+
+.img-verifycode {
+	display: inline-block;
+	vertical-align: bottom;
+	/* margin-left:20px; */
+}
+
+.imgPosition {
+	position: fixed;
+	bottom: 50px;
+}
+input{
+	color:#666;
+}
+input::-webkit-input-placeholder{
+	color:rgb(20, 138, 192)!important;
+}
+#change-code{
+	color:#71B0E0;
+	font:bold 14px Microsoft YaHei,Songti TC,sans-serif;
+/* 	margin-left:20px; */
+}
+.jazz-formpanel-content{
+	background-color:#f4f4f4;
+}
+.license{
+	font-size:14px;
+	margin-left:30px;
+	color:#148ac0;
+	float:right;
+	margin-right:48px;
+	margin-top:15px;
+	font-family:"Microsoft YaHei";
+}
+/* 1024鍒嗚鲸鐜囦笅鐨勬牱寮�*/
+@media screen and (max-width:1024px){
+	.img-verifycode{
+		display: inline-block;
+	vertical-align: bottom;
+	margin-left:0px;
+	}
+	.license{
+	font-size:14px;
+	margin-left:30px;
+	color:#148ac0;
+	float:right;
+	margin-right:40px;
+	margin-top:10px;
+}
+}

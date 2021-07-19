@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../../../themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+
+<script src="../../../external/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="../../../external/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+<script src="../../../dist/jazz-all.js" type="text/javascript"></script>
+
+<style type="text/css">
+
+</style>
+<script>
+  	function getsummary(rows){
+  		var result = 0;
+  		for(var i=0,len=rows.length;i<len;i++){
+  			result += parseInt(rows[i]["age"]);
+  		}
+  		return result+"-";
+  	}
+  	function getsummaryrender(result,rows){
+  		return result+"周岁";
+  	}
+  
+</script> 
+</head>
+<body>
+
+<div vtype="gridpanel" name="gridpanel" width="680" datarender="" rowselectable=false editortype="cell" 
+	isgroupsummary=true ispagesummary=true groupfield="org" grouptitlefield="org" isgroupexpand=true
+	 titledisplay="true" title="查询结果" dataurl="reg.json" isshowselecthelper="true" selecttype="2">
+	<div vtype="gridcolumn" name="grid_column">
+		<div>
+			<div name="id" key="true" visible="false"></div>
+			<div datatype="comboxtreefield"
+				 name="name" text="地点" textalign="center" sort="true" width="150px" iseditable=true></div>
+			<div datatype="comboxfield" iseditable=true name="sex" text="性别" textalign="center" sort="true" dataurl='[{"text": "男","value": "1"},{"text": "女", "value": "2"}]' width="50px"></div>
+			<div datatype="numberfield" iseditable=true issummary=false summarytype="getsummary()" summaryrender="getsummaryrender()" name="age" text="年龄" textalign="center" sort="true" width="100px"></div>
+			<div datatype="datefield" iseditable=true name="birthday" text="出生日期" textalign="center" sort="true" dataformat="yyyy-MM-dd" width="150px"></div>
+			<div datatype="textfield" iseditable=true name="org" text="所属机构" textalign="center" sort="true"  width="50px"></div>
+			<div name="custom" text="自定义" textalign="center" width="100px"></div>
+			
+		</div>
+	</div>
+	<div vtype="gridtable" name="grid_table" ></div>
+</div>
+
+</body>
+</html>

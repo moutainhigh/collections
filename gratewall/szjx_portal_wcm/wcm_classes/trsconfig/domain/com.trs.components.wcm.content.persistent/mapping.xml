@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="GB2312"?>
+<mapping>
+	<!--Mapping for Document Fields Publish Fields BEGIN-->
+	<class name="com.trs.components.wcm.content.persistent.DocumentFieldConfig" identity="name">
+		<map-to xml="document-field-config"/>
+		<field name="fields">
+			<bind-xml name="fields" node="attribute"/>
+		</field>
+		<field name="desc">
+			<bind-xml name="desc" node="attribute"/>
+		</field>
+		<field name="type" type="integer">
+			<bind-xml name="type" node="attribute"/>
+		</field>
+		<field name="import" type="integer">
+			<bind-xml name="import" node="attribute"/>
+		</field>
+	</class>
+	<!--Mapping for Document Fields Publish END-->
+	<class name="com.trs.components.wcm.content.persistent.DocumentShowFieldConfig" identity="name">
+		<map-to xml="document-showfield-config"/>
+		<field name="fieldname">
+			<bind-xml name="fieldname" node="attribute"/>
+		</field>
+		<field name="desc">
+			<bind-xml name="desc" node="attribute"/>
+		</field>
+		<field name="write" type="boolean">
+			<bind-xml name="write" node="attribute"/>
+		</field>
+		<field name="read" type="boolean">
+			<bind-xml name="read" node="attribute"/>
+		</field>
+	</class>
+	
+</mapping>

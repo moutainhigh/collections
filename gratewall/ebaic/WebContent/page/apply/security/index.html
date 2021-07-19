@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1">
+<title>个人中心入口</title>
+<link rel="stylesheet"  href="../../../static/css/common.css">
+
+<style>
+.realname-info{
+	width:941px;
+	margin:15px auto;
+	cursor: pointer;
+	height:250px;
+}
+.realname-identify {
+	width: 939px;
+	height:250px;
+	background-color:#ff984d;
+	float: left;
+}
+.auth{
+	width:305px;
+	height:250px;
+	display:inline-block;
+	background-color:#cc6ae8;
+	margin-left: 12px;
+	transition:height 0.5s;
+}
+.auth:hover {
+	background-color: #cc6ae8;
+	height:244px;
+}
+.auth .enter-click {
+	background-color:rgba(204,106,232,0.5);
+	color:#cc6ae8;
+	margin-top:40px;
+}
+
+.auth .enter-click-out {
+	color:#000;
+} 
+.circle {
+    background: url(../security/images/circle.png) repeat-x;
+ 	height: 10px;
+	width: 98%;
+	position: relative;
+	float: left;
+	margin-left: 10px;
+}
+.auth .circle{
+	width: 94%;
+}
+.phone .circle,.user-info .circle,.user-pwd .circle {
+	width: 94%;
+}
+.tip {
+	text-align: center;
+	font-size:18px;
+	color:#fff;
+	padding-top: 10px;
+}
+.name-identify {
+	font-size:24px;
+}
+.tip img {
+	padding-top: 40px;
+}
+.realname-identify .tip img{
+	padding-top: 70px;
+}
+.auth .tip img {
+	padding-top: 90px;
+}
+.info {
+	width:941px;
+	height:220px;
+	margin: 20px auto;
+}
+.phone {
+	background-color: #e9d849;
+	width:305px;
+	height:248px;
+	float:left;
+	transition:height 0.5s;
+	cursor: pointer;
+}
+.phone:hover {
+	background-color: #e9d849;
+	height:182px;
+}
+
+.user-info {
+	background-color: #37d6bb;
+	width:305px;
+	height:248px;
+	float:left;
+	margin-left:12px;
+	transition:height 0.5s;
+	cursor: pointer;
+}
+.user-info:hover {
+	background-color: #37d6bb;
+	height:182px;
+}
+
+.user-pwd {
+	background-color: #27709e;
+	width:305px;
+	height:248px;
+	margin-left: 634px;
+	transition:height 0.5s;
+	cursor: pointer;
+}
+.user-pwd:hover {
+	background-color: #27709e;
+	height:182px;
+}
+
+.photos {
+	width: 65px;
+ 	height: 64px;
+	margin: auto;
+}
+.tips {
+	margin:15px auto;
+	font:18px Microsoft Yahei;
+	color:#fff;
+	width: 80px;
+}
+
+.user-info .tips {
+	margin: 10px 10px 10px -40px;
+	width: 160px;
+}
+
+.user-pwd .tips {
+	margin: 10px 10px 10px -20px;
+	width: 160px;
+}
+.enter-click {
+	height:70px;
+	width:305px;
+	color:#fff;
+	text-align: center;
+	line-height: 70px;
+	font-size:18px;
+	margin-top:30px;
+}
+
+.phone .enter-click {
+	background-color: rgba(233,216,73,0.5);
+	color:#e9d849;
+}
+
+.phone .enter-click-out {
+	color:#000;
+}
+
+.user-info .enter-click {
+	background-color: rgba(55,214,187,0.5);
+	color:#37d6bb;
+}
+
+.user-info .enter-click-out {
+	color:#37d6bb;
+}
+.user-pwd .enter-click {
+	background-color: rgba(39,112,158,0.5);
+	color:#27709e;
+}
+.user-pwd .enter-click-out {
+	color:#27709e;
+}
+</style>
+</head>
+<body style="overflow-x:hidden;">
+
+<article>
+	<div class="wrapper">
+ 	<div class="realname-info">  
+		<div class="realname-identify" id="user-realname-identify">
+			<span class="circle"></span>
+				<div class="tip"><img  src="../security/images/userNmerIdentify.png" alt="个人实名认证" /></div>
+				<div class="tip name-identify">个人实名认证</div>
+				
+		</div>
+<!-- 		<div class="auth"> -->
+<!-- 				<span class="circle"></span> -->
+<!-- 				<div class="tip"><img src="../security/images/auther.png" alt="法定代表人授权"/></div> -->
+<!-- 				<div class="tip">法定代表人授权</div>	 -->
+<!-- 				<div class="enter-click" id="auth-enter-click" style="display:none;">点击进入</div> -->
+<!-- 		</div>  -->
+		
+	</div> 
+		<div class="info">
+			<div class="phone">
+				<span class="circle"></span>
+				<div class="tip"><img src="../security/images/phoneImg.png" alt="移动电话"/></div>
+				<div class="tip">移动电话</div>	
+				<div class="enter-click" id="phone-enter-click" style="display:none;">点击进入</div>
+			</div>
+			<div class="user-info">
+				<span class="circle"></span>
+				<div class="tip"><img src="../security/images/usernameImg.png" alt="用户注册信息修改"/></div>
+					<div class="tip">用户注册信息修改</div>
+				<div class="enter-click" id="info-enter-click"  style="display:none;">点击进入</div>
+			</div>
+			<div class="user-pwd">
+				<span class="circle"></span>
+				<div class="tip"><img src="../security/images/pwdImg.png" alt="登录密码修改"/></div>
+				<div class="tip">登录密码修改</div>
+				<div class="enter-click" id="pwd-enter-click" style="display:none;">点击进入</div>
+			</div>
+		</div>
+	</div>
+</article>
+   <script type="text/javascript" src="../../../static/js/config.js"></script> 
+   <script type="text/javascript" src="../../../static/lib/require.js"  data-main="apply/security/index.js"></script> 
+</body>
+</html>

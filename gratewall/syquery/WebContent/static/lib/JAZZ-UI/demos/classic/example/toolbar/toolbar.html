@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="../../../../external/jquery-ui/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../../themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+
+<script src="../../../../external/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="../../../../external/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+<script src="../../../../jazz/jazz-all.js" type="text/javascript"></script>
+<style type="text/css">
+body,html{
+	height:100%;
+}
+h3{
+	border-bottom: 2px solid #000;
+	margin: 20px 0;
+}
+.jazz-field-comp {
+    margin: 0px 10px 0px 0px;
+}
+</style>
+<script type="text/javascript">
+
+
+
+function addElement(){
+	var data = [{
+		vtype: "button",
+		name: "bt31",
+		width:80,
+		text: "新增1",
+		click: function(){
+			alert("welcome to jazz!");
+		}
+	},{
+		"class": "separator"
+	},{
+		vtype: "button",
+		name: "bt32",
+		width:80,
+		text: "新增2",
+		click: function(){
+			alert("welcome to jazz!");
+		}
+	}] ;
+	$('#toolbar_1').toolbar("addElement",data);
+	//$('#toolbar_1').toolbar("appendElement",data,"bt3");
+	//$('#toolbar_1').toolbar("prependElement",data,"bt3");
+}
+function removeElement(){
+	$('#toolbar_1').toolbar("removeButton","bt31");
+	$('#toolbar_1').toolbar("removeButton","bt32");
+}
+function hideElement(){
+	$('#toolbar_1').toolbar("hideButton","btn1");
+	$('#toolbar_1').toolbar("hideButton","btn2");
+	$('#toolbar_1').toolbar("hideButton","btn3");
+}
+function showElement(){
+	$('#toolbar_1').toolbar("showButton","btn1");
+	$('#toolbar_1').toolbar("showButton","btn2");
+	$('#toolbar_1').toolbar("showButton","btn3");
+}
+
+var opt = [{
+	vtype:"menu",
+	target: null,
+    items:[{
+			text:"CUT",
+			iconurl:"../../../themes/default/toolbar/images/cut.png",
+			click:function(e){
+				alert("aid click....");
+			}
+		},{
+			text:"Delphi",
+			iconurl:"../../../themes/default/toolbar/images/pencil.png",
+			click:function(e){
+				
+			},
+			items:[{
+					text:"Delphi",
+					iconurl:"",
+					click:function(e){
+			
+					}
+				},{
+					text:"Saarland",
+					iconurl:"",
+					click:function(e){
+			
+					}
+				},{
+					text:"AMMS",
+					iconurl:"",
+					click:function(e){
+			
+					}
+				}
+			]
+		},{
+			text:"Amesville",
+			iconurl:"",
+			click:function(e){
+			
+			}
+		}
+	]
+} 
+];
+
+$(document.body).parseComponent();
+
+</script>
+</head>
+<body>  
+<h3>基本按钮操作工具栏
+<div name="add" vtype="button" text="添加"  click="addElement()"></div>
+<div name="del" vtype="button" text="删除"  click="removeElement()"></div>
+<div name="hide" vtype="button" text="隐藏"  click="hideElement()"></div>
+<div name="show" vtype="button" text="显示"  click="showElement()"></div>
+</h3>
+<div id="toolbar_1" name="toolbar_1" vtype="toolbar" style="border:1px solid red;">
+	<div name="btn1" vtype="button" text="文件" items="opt" iconurl="images/print.png"></div>
+	<div name="btn2" vtype="button" text="增加" align="left" iconurl="images/print.png"></div>
+	<div name="btn3" vtype="button" text="修改" align="left" iconurl="images/print.png"></div>
+	<div name="btn4" vtype="button" text="删除" align="left" iconurl="images/print.png"></div>
+	<div name="btn5" vtype="button" text="刷新" align="left" iconurl="images/print.png"></div>
+	<div name="btn6" vtype="button" text="下载" align="left" iconurl="images/print.png"></div>
+	<div name="btn7" vtype="button" text="打印" align="right" iconurl="images/print.png"></div>
+	<div name="btn8" vtype="button" text="提示" align="right" iconurl="images/print.png"></div>
+	<div name="btn9" vtype="button" text="撤销" align="right" iconurl="images/print.png"></div>
+</div>
+<h3>自定义操作工具栏</h3>
+<div name="toolbar_2" vtype="toolbar" style="border:1px solid blue;">
+	<div name="btn21" vtype="button" text="文件" items="opt" align="left" iconurl="images/print.gif" click=""></div>
+	<div name="btn22" vtype="button" text="增加" align="left" iconurl="images/print.gif" click=""></div>
+	<div name="btn23" vtype="button" text="修改" align="left" iconurl="images/print.gif" click=""></div>
+	<div class="separator" ></div>
+	<div name="text24" vtype="textfield" width="100" editable="true"></div>
+	<div name="btn25" vtype="button" text="查询" defaultview=1 align="left" click=""></div>
+	<div name="filter" vtype="textfield" label="Filter by" labelalign="left" width="200" editable="true" align="right"></div>
+</div>
+
+<h3>垂直工具栏</h3>
+
+<div name="toolbar_fit" vtype="toolbar" orientation="vertical" height='300' style="border:1px solid green;">
+	<div name="bt01" vtype="button" align="left" defaultview="2" issplitbutton=true  showmenuevent="click" text="修改1" items="opt" ></div>
+	<div name="bt02" vtype="button" align="left" text="修改2"  iconurl='' toggleiconurl=''></div>
+  	<div name="bt03" vtype="button" align="left" text="删除3"  iconurl=""></div>
+  	<div name="bt04" vtype="button" align="left" text="修改4"  iconurl='' toggleiconurl=''></div>
+  	<div name="bt05" vtype="button" align="left" text="修改5"  iconurl='' toggleiconurl=''></div>
+  	<div name="bt06" vtype="button" align="left" text="修改6"  issplitbutton=true showmenuevent="click" items="opt" iconurl='' toggleiconurl=''></div>
+  	<div name="bt07" vtype="button" align="left" text="修改7"  iconurl='' toggleiconurl=''></div>
+  	<div name="bt08" vtype="button" align="left" text="修改8"  iconurl='' toggleiconurl=''></div>
+  	<div name="bt09" vtype="button" align="left" text="修改9"  iconurl='' toggleiconurl=''></div>
+  	<div name="bt10" vtype="button" align="left" text="修改10" issplitbutton=false showmenuevent="hover" click="test()" items="opt" iconurl='' toggleiconurl=''></div>
+  	<div name="bt11" vtype="button" align="left" text="修改11"  iconurl='' toggleiconurl=''></div>
+  	<div name="bt12" vtype="button" align="left" text="修改12"  iconurl='' toggleiconurl=''></div>
+  	<div name="bt13" vtype="button" align="right" text="修改13"  iconurl='' toggleiconurl=''></div>
+  	<div name="bt14" vtype="button" align="right" text="修改14"  iconurl='' toggleiconurl=''></div>
+  	<div name="bt15" vtype="button" align="right" text="修改15"  iconurl='' toggleiconurl=''></div>
+  	<div name="bt16" vtype="button" align="right" text="修改16"  iconurl='' toggleiconurl=''></div>
+</div>
+</br>
+</br>
+</body>  
+</html>  

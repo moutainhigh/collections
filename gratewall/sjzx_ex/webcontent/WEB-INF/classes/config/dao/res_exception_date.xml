@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="res_exception_date" class-name="com.gwssi.resource.exception.dao.ResExceptionDate" check-flag="false" backup-flag="false">
+    <description>例外日期表</description>
+  </table-info>
+
+  <column name="exception_date_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="例外日期ID"/>
+  <column name="exception_date_name" data-type="varchar" length="100" not-null="false" value-from="input" description="例外名称"/>
+  <column name="exception_type" data-type="varchar" length="20" not-null="false" value-from="input" description="例外类型"/>
+  <column name="exception_desc" data-type="varchar" length="2000" not-null="false" value-from="input" description="例外描述"/>
+  <column name="is_markup" data-type="varchar" length="1" not-null="false" value-from="input" description="有效标记"/>
+  <column name="creator_id" data-type="varchar" length="32" not-null="false" value-from="input" description="创建人ID"/>
+  <column name="created_time" data-type="timestamp" length="11" fraction-length="6" not-null="false" value-from="input" description="创建时间"/>
+  <column name="last_modify_id" data-type="varchar" length="32" not-null="false" value-from="input" description="最后修改人ID"/>
+  <column name="last_modify_time" data-type="timestamp" length="11" fraction-length="6" not-null="false" value-from="input" func-name="currentDateTime" description="最后修改时间"/>
+  <column name="exception_id" data-type="varchar" length="32" not-null="false" value-from="input" description="例外编号"/>
+  <column name="exception_date" data-type="varchar" length="10" not-null="false" value-from="input" description="例外日期"/>
+  <primary-key name="pk_res_exception_date" column-list="exception_date_id"/>
+  <index name="pk_res_exception_date" index-type="unique" cluster="cluster" column-list="exception_date_id"/>
+  <function func-name="select one res_exception_date" func-type="select" column-list="exception_date_id,exception_date_name,exception_type,exception_desc,is_markup,creator_id,created_time,last_modify_id,last_modify_time,exception_id,exception_date">
+    <filter-column column-name="exception_date" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select res_exception_date list" func-type="rowset" column-list="exception_date_id,exception_date_name,exception_type,exception_desc,is_markup,creator_id,created_time,last_modify_id,last_modify_time,exception_id,exception_date" max-record="10">
+    <filter-column column-name="is_markup" operator="eq" value-from="input" empty-flag="skip" default="Y"/>
+	<filter-column column-name="exception_date" operator="end" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one res_exception_date" func-type="insert" column-list="exception_date_id,exception_date_name,exception_type,exception_desc,is_markup,creator_id,created_time,last_modify_id,last_modify_time,exception_id,exception_date">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one res_exception_date" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one res_exception_date" func-type="update" column-list="exception_date_name,exception_type,exception_desc,is_markup,last_modify_id,last_modify_time,exception_date">
+    <description>修改记录</description>
+  </function>
+</table>
+

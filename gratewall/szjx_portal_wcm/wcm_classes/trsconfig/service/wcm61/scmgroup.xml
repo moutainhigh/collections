@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.scm.service.SCMGroupServiceProvider">
+	
+	<method name="delete" >
+		<parameter name="ObjectIds" desc="分组的序列号集合" type="string" required="true" min-length="1"/>
+	</method>
+	
+	<method name="query" >
+		
+	</method>
+	
+	<method name="save" >
+		<parameter name="ObjectId" desc="分组ID" type="int" required="true"/>
+		<parameter name="GroupName" desc="分组名称" type="string" required="true" min-length="1"/>
+	</method>
+	
+	<method name="findById" >
+		<parameter name="ObjectId" desc="分组ID" type="int" required="true"/>
+	</method>
+	
+	<method name="findByIds" >
+		<parameter name="ObjectIds" desc="分组IDs" type="string" required="true" min-length="1"/>
+	</method>
+	
+	<method name="getGroupsOfUser" >
+		<parameter name="UserId" desc="用户ID" type="int" required="true"/>
+	</method>
+	
+	<method name="getGroupsForRightSet" desc="获取可以进行权限设置的分组">
+		<parameter name="UserId" desc="用户ID" type="int" required="true"/>
+	</method>
+	
+	<method name="getAdminsOfGroup">		
+		<parameter name="SCMGroupId" desc="分组ID" type="int" required="true"/>			
+	</method>
+	
+	<method name="isAdminsOfSCMGroups" desc="判断当前登录用户是否是SCM的组管理员或者分组维护人员">		
+	</method>
+	
+	<method name="saveAdminsOfGroup">		
+		<parameter name="SCMGroupId" desc="分组ID" type="int" required="true"/>	
+		<parameter name="UserIds" desc="用户IDs" type="string" required="true" min-length="1"/>			
+	</method>
+	
+	<method name="deleteAdminOfGroup">		
+		<parameter name="SCMGroupId" desc="分组ID" type="int" required="true"/>	
+		<parameter name="UserId" desc="用户IDs" type="string" required="true" min-length="1"/>			
+	</method>
+	
+	<method name="addAccountToGroup" desc="添加账号到分组">		
+		<parameter name="SCMGroupId" desc="分组ID" type="int" required="true"/>
+		<parameter name="AccountId" desc="账号ID" type="int" required="true"/>		
+	</method>
+	
+	<method name="removeAccountFromGroup" desc="将账号从分组中删除">
+		<parameter name="SCMGroupId" desc="分组ID" type="int" required="true"/>
+		<parameter name="AccountId" desc="账号ID" type="int" required="true"/>
+	</method>
+	
+	<method name="isHasAccounts">		
+		<parameter name="SCMGroupId" desc="分组ID" type="int" required="true"/>			
+	</method>
+	 
+</service>

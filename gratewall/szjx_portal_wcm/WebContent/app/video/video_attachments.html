@@ -1,0 +1,720 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE WCMAnt:param="video_attachment.html.appendixMgr">TRS WCM 附件管理</TITLE>
+<style>
+	.message {
+		font-family: "宋体", "Arial", "Courier New";
+		font-size: 12px;
+		float:left;
+		height:18px;
+		line-height:18px;
+	}
+	.input_file{
+		float:left;
+		width:220px;
+		height:20px;
+		border:1px solid black;
+	}
+	.file_cover{
+		margin-left:-70px;
+		width:70px;
+	}
+	.input_text{
+		float:left;
+		width:180px;
+		height:20px;
+		border:1px solid black;
+	}
+	.input_text1{
+		width:100%;
+		height:20px;
+		border:0;
+		background:#ffffcf;
+		font-size:12px;
+	}
+	.input_button{
+		float:left;
+		width:70px;
+		height:20px;
+		border:1px solid black;
+		background-color:#fff9d4;
+	}
+	.appendix_grid{
+		font-size:12px;
+		background:#646464;
+	}
+	.grid_head{
+		height:25px;
+		background:#d3e6fa;
+		color:#133151;
+		overflow : auto;
+	}
+	.grid_row{
+		height:25px;background:#FFFFFF;
+	}
+	.grid_container{
+		height:100%;
+		width:100%;
+		overflow:auto;
+		overflow-x:hidden;
+	}
+	.row_up{
+		background:url(../images/icon/SortUp.gif) no-repeat center center;	
+	}
+	.row_down{
+		background:url(../images/icon/SortDown.gif) no-repeat center center;	
+	}
+	.row_order{width:35px;margin:0px 2px;border:0px;border-bottom:1px dotted silver;}
+	.grid_function{cursor:pointer;width:16px;height:16px;}
+	.row_delete{padding:8px;background:url(../images/icon/Delete_2.gif) no-repeat center center;}
+</style>
+<script src="../js/runtime/myext-debug.js"></script>
+<script src="../js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../js/data/locale/document.js"></script>
+<script src="../js/data/locale/system.js"></script>
+<script src="../js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/tabpanel/TabPanel.js"></SCRIPT>
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/tabpanel/resource/tabpanel.css" rel="stylesheet" type="text/css" />
+<script src="../js/source/wcmlib/util/YUIConnection.js"></script>
+<!--validator-->
+<script src="../../app/js/source/wcmlib/com.trs.validator/lang/cn.js" WCMAnt:locale="../../app/js/source/wcmlib/com.trs.validator/lang/$locale$.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<link href="../../app/js/source/wcmlib/com.trs.validator/css/validator.css" rel="stylesheet" type="text/css" />
+<script src="../js/source/wcmlib/com.trs.web2frame/TempEvaler.js"></script>
+<script language="javascript">
+window.m_fpCfg = {
+	m_arrCommands : [{
+		cmd : 'myClose',
+		name : wcm.LANG.DOCUMENT_PROCESS_26 || '保存'
+	}],
+	size : [700, 365]
+};
+</script>
+<style type="text/css">
+    .wcm-tab-panel{
+        width:670px;
+        height:230px;
+    }
+	.tab-item-head{height:30px;padding-top:4px;}
+</style>
+<script language="javascript">
+
+function getRow(target){
+	while(target!=null && target.tagName!='BODY'){
+		if(target.getAttribute('grid_rowid', 2))return target;
+		target = target.parentNode;
+	}
+	return null;
+}
+function isShowThumbEle(target){
+	while(target!=null && target.tagName!='BODY'){
+		if(target.getAttribute('_showthumb', 2))return true;
+		target = target.parentNode;
+	}
+	return false;
+}
+function doGridFunction(event, target){
+	var row = getRow(target);
+	if(row==null)return;
+	var gridFunc = target.getAttribute('grid_function', 2);
+	if(!PageContext[gridFunc])return;
+	PageContext[gridFunc](row);
+}
+function doMouseOverRow(event, row){
+	var eDiv = $('picthumb');
+	var eImg = eDiv.getElementsByTagName('IMG')[0];
+	var newImg = new Image();
+	newImg.src = row.getAttribute("PicUrl", 2);
+	newImg.onload = function(){
+		this.onload = null;
+		if(this.width>200)this.width = 200;
+		eImg.width = this.width;
+		eDiv.style.position = 'absolute';
+		var point = event.getPoint();
+		eDiv.style.left = point.x + 4;
+		eDiv.style.zIndex = 1000;
+		if(row.rowIndex<=5){
+			eDiv.style.top = point.y - eDiv.offsetHeight/2 + 4;
+		}
+		else{
+			eDiv.style.bottom = document.body.offsetHeight - point.y -4;
+		}
+		Element.show(eDiv);
+	};
+	eImg.src = row.getAttribute("PicUrl", 2);
+}
+function doMouseOutRow(event, target){
+	var eDiv = $('picthumb');
+	Element.hide(eDiv);
+	var eImg = eDiv.getElementsByTagName('IMG')[0];
+	eImg.src = '../images/loading.gif';
+}
+Event.observe(window, 'load', function(){
+	var tabpanel = new wcm.TabPanel({
+		id : 'tabPanel',
+		activeTab : 'AppPicUpload'
+	});
+	tabpanel.on('beforetabchange', function(currTab, toKey){
+		PageContext.collectDatas();
+		if(toKey=='AppPicUpload')
+			showPicsGrid();
+		if(toKey=='AppFileUpload')
+			showFilesGrid();
+		if(toKey=='AppLink')
+			showLinksGrid();
+	});
+	tabpanel.show();
+	Ext.get('tabPanel').on('click', function(event, target){
+		if(target.getAttribute('grid_function', 2)){
+			return doGridFunction(event, target);
+		}
+	});
+	Ext.get('curr_pics').on('mouseover', function(event, target){
+		var row = getRow(target);
+		if(row==null || !isShowThumbEle(target)){
+			return doMouseOutRow(event, target);
+		}
+		return doMouseOverRow(event, row);
+	});
+	Ext.get('curr_pics').on('mousemove', function(event, target){
+		var row = getRow(target);
+		if(row==null || !isShowThumbEle(target)){
+			return doMouseOutRow(event, target);
+		}
+		return doMouseOverRow(event, row);
+	});
+	Ext.get('tabPanel').on('keydown', function(event, target){
+		if(target.name != 'order') return;
+		OrderHandler.init(target);
+	});
+});
+</script>
+<script>
+var m_Appendixes = Object.deepClone(FloatPanel.dialogArguments) || {
+	Type_40 : {
+		APPENDIXES : {
+			APPENDIX : [
+			]
+		}
+	},
+	Type_10 : [],
+	Type_20 : []
+};
+var PageContext = {};
+function fastCreate(namespace, scope){
+	scope = scope || window;
+	if(namespace==null || namespace=='')return;
+	var arr = namespace.split('.');
+	for(var i=0,n=arr.length;i<n;i++){
+		if(!scope[arr[i]]){
+			scope[arr[i]] = {};
+		}
+		scope = scope[arr[i]];
+	}
+}
+function getAppendixArray(appendixes){
+	var arr = $v(appendixes, "APPENDIXES.APPENDIX");
+	if(arr==null || arr==false){
+		fastCreate("APPENDIXES.APPENDIX", appendixes);
+		arr = appendixes["APPENDIXES"]["APPENDIX"] = [];
+	}
+	else if(!Array.isArray(arr)){
+		var tmpArr = appendixes["APPENDIXES"]["APPENDIX"] = [];
+		tmpArr.push(arr);
+		arr = tmpArr;
+	}
+	return arr;
+}
+Ext.apply(PageContext, {
+	_collectData : function(flag){
+		var tbody = $('appendix_tbody_' + flag);
+		if(tbody==null)return;
+		var appendixes = m_Appendixes["Type_" + flag];
+		appendixes = appendixes || {};
+		var arr = getAppendixArray(appendixes);
+		for(var i=0, n=tbody.rows.length; i<n; i++){
+			var row = tbody.rows[i];
+			var appendixInfo = arr[i];
+			if(appendixInfo==null)continue;
+			var arrInputs = row.getElementsByTagName("input");
+			for(var j=0, nj=arrInputs.length; j<nj; j++){
+				var input = arrInputs[j];
+				if(input.name == 'order') continue;
+				appendixInfo[input.name.toUpperCase()] = input.value;
+			}
+		}
+		m_Appendixes["Type_" + flag] = appendixes;
+	},
+	collectDatas : function(){
+		this._collectData(10);
+		this._collectData(20);
+		this._collectData(40);
+	},
+	"add" : function(_iAppendixType, _Appendix){
+		this.collectDatas();
+		var appendixes = m_Appendixes["Type_"+_iAppendixType];
+		appendixes = appendixes || {};
+		var arr = getAppendixArray(appendixes);
+		var oAppendix = {};
+		if(_iAppendixType=='20'){
+			oAppendix["APPFILE"] = {};
+			oAppendix["APPFILE"]["FILENAME"] = _Appendix["AppFile"];
+			oAppendix["APPFILE"]["URL"] = _Appendix["FileUrl"];
+		}
+		else{
+			oAppendix["APPFILE"] = _Appendix["AppFile"];
+		}
+		oAppendix["SRCFILE"] = _Appendix["SrcFile"];
+		oAppendix["APPDESC"] = _Appendix["AppDesc"];
+		oAppendix["APPLINKALT"] = _Appendix["AppLinkAlt"];
+		oAppendix["APPFLAG"] = _iAppendixType;
+		oAppendix["APPENDIXID"] = "0_" + $MsgCenter.genId();
+		arr.push(oAppendix);
+		refreshGrid(_iAppendixType);
+	},
+	"delete" : function(row){
+		this.collectDatas();
+		var appendixId = row.getAttribute("grid_rowid", 2);
+		var iAppendixType = row.getAttribute("appendix_type", 2);
+//		row.parentNode.deleteRow(row.rowIndex - 1);
+		var appendixes = m_Appendixes["Type_"+iAppendixType];
+		var arr = getAppendixArray(appendixes);
+		var result = [];
+		for(var i=0;arr&&i<arr.length;i++){
+			if(appendixId != $v(arr[i],"APPENDIXID")){
+				result.push(arr[i]);
+			}
+		}
+		appendixes["APPENDIXES"]["APPENDIX"] = result;
+		refreshGrid(iAppendixType);
+	},
+	"up" : function(row){
+		if(row.rowIndex<=1)return;
+		this.collectDatas();
+		var iAppendixType = row.getAttribute("appendix_type", 2);
+		var appendixes = m_Appendixes["Type_"+iAppendixType];
+		var arr = getAppendixArray(appendixes);
+		var currData = arr[row.rowIndex-1];
+		arr[row.rowIndex-1] = arr[row.rowIndex-2];
+		arr[row.rowIndex-2] = currData;
+		appendixes["APPENDIXES"]["APPENDIX"] = arr;
+		refreshGrid(iAppendixType);
+	},
+	"down" : function(row){
+		if(row.rowIndex>=row.parentNode.rows.length)return;
+		this.collectDatas();
+		var iAppendixType = row.getAttribute("appendix_type", 2);
+		var appendixes = m_Appendixes["Type_"+iAppendixType];
+		var arr = getAppendixArray(appendixes);
+		var currData = arr[row.rowIndex-1];
+		arr[row.rowIndex-1] = arr[row.rowIndex];
+		arr[row.rowIndex] = currData;
+		appendixes["APPENDIXES"]["APPENDIX"] = arr;
+		refreshGrid(iAppendixType);
+	}
+});
+
+//change order start
+var OrderHandler = {
+	init : function(dom){
+		if(dom.getAttribute('inited')) return;
+		dom.setAttribute('inited', true);
+		dom.onblur = OrderHandler.blur;
+		dom.onkeydown = OrderHandler.keydown;
+	},
+	destroy : function(dom){
+		dom.removeAttribute('inited');
+		dom.onblur = null;
+		dom.onkeydown = null;
+	},
+	valid : function(dom){
+		if(!/^\d+$/.test(dom.value)){
+			alert(wcm.LANG.DOCUMENT_PROCESS_215 || '请输入合法的数字');
+			dom.select();
+			return false;
+		}		
+		return true;
+	},
+	blur : function(event){
+		var dom = this;
+		if(!OrderHandler.valid(dom)) return;
+		OrderHandler.destroy(dom);
+		OrderHandler.change(dom);
+	},
+	keydown : function(event){
+		event = window.event || event;
+		if(event.keyCode != 13) return;
+		this.blur();
+	},
+	change : function(dom){
+		PageContext.collectDatas();
+		var iAppendixType = getRow(dom).getAttribute("appendix_type", 2);
+		var appendixes = m_Appendixes["Type_"+iAppendixType];
+		var arr = getAppendixArray(appendixes);
+		appendixes["APPENDIXES"]["APPENDIX"] = arr;
+		var newOrder = dom.value;
+		if(newOrder <= 0) newOrder = 1;
+		if(newOrder > arr.length) newOrder = arr.length;
+		var oldOrder = dom.getAttribute("_value");
+		if(oldOrder == newOrder) return;
+		OrderHandler.insert(arr, oldOrder - 1, newOrder - 1);
+		refreshGrid(iAppendixType);
+	},
+	insert : function(arr, from, to){
+		arr.splice(to, 0, arr.splice(from, 1)[0]);
+	}
+};
+//change order end
+
+function refreshGrid(_iAppendixType){
+	switch(parseInt(_iAppendixType, 10)){
+		case 10:
+			showFilesGrid();
+			break;
+		case 20:
+			showPicsGrid();
+			break;
+		case 40:
+			showLinksGrid();
+			break;
+	}
+}
+function myClose(){
+	if(!ValidationHelper.doValid('frmData')){
+		return false;
+	}
+	PageContext.collectDatas();
+	notifyFPCallback(m_Appendixes);
+}
+/** 附件类型标识：文档附件 */
+var FLAG_DOCAPD = 10; //文档附件:Document Appendix
+/** 附件类型标识：文档图片 */
+var FLAG_DOCPIC = 20; //文档图片:Document Picture
+/** 附件类型标识：链接附件 */
+var FLAG_LINK = 40; //链接附件:Link
+var FLAG_ALL = -1;
+
+function uploadOk(sResponseText, info){
+	return function(){
+		var fileNames = null;
+		eval("fileNames="+sResponseText);
+		var sUploadFileName = fileNames[0];
+		var sShowName = fileNames[1];
+		PageContext.add(info.flag, {
+			"AppFile" : sUploadFileName,
+			"SrcFile" : sShowName,
+			"AppDesc" : sShowName,
+			"AppLinkAlt" : "",
+			"FileUrl" : info.fileName
+		});
+		$(info.frm).reset();
+	}
+}
+function Upload(info){
+	var elementId = info.elementId;
+	var sFileName = info.fileName = $(elementId).value;
+	if(sFileName.trim().length > 100){
+		Ext.Msg.$alert(wcm.LANG.DOCUMENT_PROCESS_214 || '输入串长度超长');
+		return ;
+	}
+	try{
+		FileUploadHelper.validFileExt(sFileName, info.allowExt);
+	}catch(err){
+		Ext.Msg.$alert(err.message, function(){
+			$(elementId).focus();
+		});
+		return;
+	}
+	YUIConnect.setForm(info.frm, true, Ext.isSecure);
+	YUIConnect.asyncRequest('POST', 
+		'../system/file_upload_dowith.jsp?ResponseType=2&FileParamName=' + elementId, {
+		"upload" : function(_transport){
+			var sResponseText = _transport.responseText;
+			FileUploadHelper.fileUploadedAlert(sResponseText,{
+				succ : uploadOk(sResponseText, info)
+			});
+		}
+	});
+	return false;
+}
+function UploadPic(){
+	return Upload({
+		flag : 20,
+		frm : 'fm_pic',
+		elementId : 'PicUpload',
+		allowExt : 'jpg,gif,png,bmp'
+	});
+}
+function UploadFile(){
+	return Upload({
+		flag : 10,
+		frm : 'fm_file',
+		elementId : 'FileUpload',
+		allowExt : '.*'
+	});
+}
+function AddLink(){
+	var sLinkUrl = $("Link").value;
+	if(!sLinkUrl.match(/^(http|ftp|https|file):(\/){2}.+$/i)){
+		Ext.Msg.alert(wcm.LANG.DOCUMENT_PROCESS_27 || '输入的URL地址不符合规范"(http|ftp|https|file)://..".',function(){
+			$("Link").focus();
+		});
+		return;
+	}
+	PageContext.add(40, {
+		"AppFile":sLinkUrl,
+		"SrcFile":sLinkUrl,
+		"AppDesc":sLinkUrl,
+		"AppLinkAlt":"",
+		"FileUrl":sLinkUrl
+	});
+	$("Link").value = '';
+}
+
+function LoadFromPicLib(){
+	var dialogWidth = 950, dialogHeight = 660;
+	var sFeatures = 'help:no;scroll:no;status:no' +
+	';resizable:no'+
+	';dialogWidth:' + dialogWidth + 'px' +
+	';dialogHeight:' + dialogHeight + 'px' ;
+	var result = window.showModalDialog('../document/attachment_photolib.jsp', {win : window}, sFeatures);
+	if(result!=null && Array.isArray(result)){
+		for(var i = 0; i < result.length; i++ ){
+			if(!result[i])continue;
+			var sUploadFileName = result[i]['src'];
+			var sShowName = result[i]['desc'];
+			PageContext.add(20,{
+				"AppFile":sUploadFileName,
+				"SrcFile":sShowName,
+				"AppDesc":sShowName,
+				"AppLinkAlt":"",
+				"FileUrl":result[i]['url']
+			});
+		}
+	}
+}
+function SaveValue(_Element){
+	var appendixId = _Element.getAttribute("grid_rowid",2);
+	if(appendixId==null){
+		alert(wcm.LANG.DOCUMENT_PROCESS_28 || 'SimpleEditPanel控件上未指定属性"grid_rowid"');
+		return;
+	}
+	var sFieldName = _Element.getAttribute("_fieldName",2);
+	if(sFieldName==null){
+		alert(wcm.LANG.DOCUMENT_PROCESS_29 || 'SimpleEditPanel控件上未指定属性"_fieldName"');
+		return;
+	}
+	var iAppendixType = _Element.getAttribute("appendix_type",2);
+	if(iAppendixType==null){
+		alert(wcm.LANG.DOCUMENT_PROCESS_30 || 'SimpleEditPanel控件上未指定属性"appendix_type"');
+		return;
+	}
+	sFieldName = sFieldName.toUpperCase().trim();
+	var appendixes = myActualTop.m_Appendixes["Type_"+iAppendixType];
+	var arr = getAppendixArray(appendixes);
+	for(var i=0;i<arr.length;i++){
+		if(appendixId==com.trs.util.JSON.value(arr[i],"APPENDIXID")){
+			arr[i][sFieldName] = _Element.getAttribute("title",2);
+		}
+	}
+}
+function showPicsGrid(){
+	Element.update($('curr_pics'), '');
+	var sValue = TempEvaler.evaluateTemplater('template_pics', m_Appendixes["Type_20"],{});
+	Element.update($('curr_pics'), sValue);
+}
+function showFilesGrid(){
+	Element.update($('curr_files'), '');
+	var sValue = TempEvaler.evaluateTemplater('template_files', m_Appendixes["Type_10"],{});
+	Element.update($('curr_files'), sValue);
+}
+function showLinksGrid(){
+	Element.update($('curr_links'), '');
+	var sValue = TempEvaler.evaluateTemplater('template_links', m_Appendixes["Type_40"],{});
+	Element.update($('curr_links'), sValue);
+}
+</SCRIPT>
+</HEAD>
+
+<BODY style="margin:0;padding:0;" id="frmData">
+	<div id="picthumb" style="display:none">
+		<img src="../images/loading.gif" border="0">
+	</div>
+	<div class="wcm-tab-panel" id="tabPanel">
+		<div class="head-box" style="padding-left:20px;">
+			<div class="tab-head" item="AppPicUpload" id="tab-1-header"><a href="#" WCMAnt:param="video_attachments.html.pic">图片</a></div>
+			<div class="tab-head" item="AppFileUpload" id="tab-2-header"><a href="#" WCMAnt:param="video_attachments.html.file">文件</a></div>
+			<div class="tab-head" item="AppLink" id="tab-3-header"><a href="#" WCMAnt:param="video_attachments.html.link">链接</a></div>
+		</div>
+	    <div class="body-box" style="padding:10px;height:219px;">
+	        <div class="tab-body" id="AppPicUpload">
+				<div class="tab-item-head">
+				<span class="message" WCMAnt:param="video_attachments.html.selectPicFile">选择图片文件：</span> 
+				<form id="fm_pic" name="fm_pic" style="margin:0;" enctype='multipart/form-data' onsubmit="UploadPic();return false;">
+					<input type="file" class="input_file" id="PicUpload" name="PicUpload" value="">
+					<input type="button" class="input_button" style="margin-left:5px;" value="上传" onclick="UploadPic();" WCMAnt:paramattr="value:video_attachments.html.upload">
+					<input type="button" class="input_button" style="margin-left:5px;" value="图片库选择"  WCMAnt:paramattr="value:video_attachments.html.selectPicLib" onclick="LoadFromPicLib();">
+				</form>
+				</div>
+				<div id="curr_pics" class="grid_container"></div>
+			</div>
+	        <div class="tab-body" id="AppFileUpload">
+				<div class="tab-item-head">
+				<span class="message" WCMAnt:param="video_attachments.html.selectFile">选择文件：</span> 
+				<form id="fm_file" name="fm_file" style="margin:0;" enctype='multipart/form-data' onsubmit="UploadFile();return false;">
+					<input type="file" class="input_file" id="FileUpload" name="FileUpload" value="">
+					<input type="button" class="input_button" style="margin-left:5px;" value="上传" WCMAnt:paramattr="value:video_attachments.html.upload" onclick="UploadFile();">
+				</form>
+				</div>
+				<div id="curr_files" class="grid_container"></div>
+			</div>
+	        <div class="tab-body" id="AppLink">
+				<div class="tab-item-head">
+				<span class="message" WCMAnt:param="video_attachments.html.inputAdderess">输入地址：</span> 
+				<form id="fm_link" style="margin:0;" onsubmit="AddLink();return false;">
+					<input type="text" class="input_text" id="Link" name="Link" value="">
+					<input type="button" class="input_button" style="margin-left:5px;" value="添加" onclick="AddLink();" WCMAnt:paramattr="value:video_attachments.html.add">
+				</form>
+				</div>
+				<div id="curr_links" class="grid_container"></div>
+			</div>
+		</div>
+	</div>
+	<textarea id="template_pics" style="display:none">
+		<TABLE width="624" border="0" cellpadding="0" cellspacing="1" class="appendix_grid" style="table-layout:fixed;">
+			<THEAD align="center" valign="middle" class="grid_head">
+				<TD width="27" WCMAnt:param="video_attachments.html.order">序号</TD>
+				<TD width="130" WCMAnt:param="video_attachments.html.fileName">文件名</TD>
+				<TD width="130" WCMAnt:param="video_attachments.html.originalFileName_a">原文件名</TD>
+				<TD width="135" WCMAnt:param="video_attachments.html.outputName_a">显示名称</TD>
+				<TD width="131" WCMAnt:param="video_attachments.html.tipMessage_a">提示信息</TD>
+				<TD width="31" WCMAnt:param="video_attachments.html.delete">删除</TD>
+				<TD width="40" WCMAnt:param="video_attachments.html.listOrder">排序</TD>
+			</THEAD>
+			<TBODY id="appendix_tbody_20">
+		    <for select="Appendixes.Appendix" blankRef="noObjectFound">
+			<TR align="center" valign="middle" class="grid_row" grid_rowid="{#APPENDIXID}" appendix_order="{$$INDEX}"  PicUrl="{#APPFILE.URL}" title="{#APPFILE.FileName}" appendix_type="20">
+				<TD>{$$INDEX}</TD>
+				<TD _showthumb="1">
+				<div style="overflow:hidden;width:100%;height:100%;line-height:25px;">{#APPFILE.FileName}</div>
+				</TD>
+				<TD>
+					<input class="input_text1" name="srcFile" value="{@$transHtml(#SRCFILE)}" validation="max_len:'50',type:'string',required:true,desc:'原文件名'" validation_desc="原文件名" WCMAnt:paramattr="validation_desc:video_attachments.html.originalFileName">
+				</TD>
+				<TD>
+					<input class="input_text1" name="appDesc" value="{@$transHtml(#AppDesc)}" validation="max_len:'50',type:'string',required:true,desc:'显示名称'" validation_desc="显示名称" WCMAnt:paramattr="validation_desc:video_attachments.html.outputName">
+				</TD>
+				<TD>
+					<input class="input_text1" name="applinkalt" value="{@$transHtml(#APPLINKALT)}"  validation="max_len:'50',type:'string',desc:'提示信息'" validation_desc="提示信息" WCMAnt:paramattr="validation_desc:video_attachments.html.tipMessage">
+				</TD>
+				<TD>
+					<SPAN class="row_delete grid_function" grid_function="delete">&nbsp;&nbsp;</SPAN>
+				</TD>
+				<TD>
+					<input type="text" name="order" class="row_order" _value="{$$INDEX}" value="{$$INDEX}">
+				</TD>
+			</TR>
+			</for>
+			</TBODY>
+		</TABLE>
+	</textarea>
+	<textarea id="template_files" style="display:none">
+		<TABLE width="624" border="0" cellpadding="0" cellspacing="1" class="appendix_grid" style="table-layout:fixed">
+			<THEAD align="center" valign="middle" class="grid_head">
+				<TD width="27" WCMAnt:param="video_attachments.html.order">序号</TD>
+				<TD width="130" WCMAnt:param="video_attachments.html.fileName">文件名</TD>
+				<TD width="130" WCMAnt:param="video_attachments.html.originalFileName_a">原文件名</TD>
+				<TD width="135" WCMAnt:param="video_attachments.html.outputName_a">显示名称</TD>
+				<TD width="131" WCMAnt:param="video_attachments.html.tipMessage_a">提示信息</TD>
+				<TD width="31" WCMAnt:param="video_attachments.html.delete">删除</TD>
+				<TD width="40" WCMAnt:param="video_attachments.html.listOrder">排序</TD>
+			</THEAD>
+			<TBODY id="appendix_tbody_10">
+		    <for select="Appendixes.Appendix" blankRef="noObjectFound">
+			<TR align="center" valign="middle" class="grid_row" grid_rowid="{#APPENDIXID}" appendix_order="{$$INDEX}"  PicUrl="{#APPFILE.URL}" title="{#APPFILE.FileName}" appendix_type="10">
+				<TD>{$$INDEX}</TD>
+				<TD>
+				<div style="overflow:hidden;width:100%;height:100%;line-height:25px;">{#APPFILE}</div>
+				</TD>
+				<TD>
+					<input class="input_text1" name="srcFile" value="{@$transHtml(#SRCFILE)}" validation="max_len:'50',type:'string',required:true,desc:'原文件名'" validation_desc="原文件名" WCMAnt:paramattr="validation_desc:video_attachments.html.originalFileName">
+				</TD>
+				<TD>
+					<input class="input_text1" name="appDesc" value="{@$transHtml(#AppDesc)}" validation="max_len:'50',type:'string',required:true,desc:'显示名称'" validation_desc="显示名称" WCMAnt:paramattr="validation_desc:video_attachments.html.outputName">
+				</TD>
+				<TD>
+					<input class="input_text1" name="applinkalt" value="{@$transHtml(#APPLINKALT)}"  validation="max_len:'50',type:'string',desc:'提示信息'" validation_desc="提示信息" WCMAnt:paramattr="validation_desc:video_attachments.html.tipMessage">
+				</TD>
+				<TD>
+					<SPAN class="row_delete grid_function" grid_function="delete">&nbsp;&nbsp;</SPAN>
+				</TD>
+				<TD>
+					<input type="text" name="order" class="row_order" _value="{$$INDEX}" value="{$$INDEX}">
+				</TD>
+			</TR>
+			</for>
+			</TBODY>
+		</TABLE>
+	</textarea>
+	<textarea id="template_links" style="display:none">
+		<TABLE width="624" border="0" cellpadding="0" cellspacing="1" class="appendix_grid" style="table-layout:fixed">
+			<THEAD align="center" valign="middle" class="grid_head">
+				<TD width="27" WCMAnt:param="video_attachments.html.order">序号</TD>
+				<TD width="220" WCMAnt:param="video_attachments.html.linkAdderess">链接地址</TD>
+				<TD width="150" WCMAnt:param="video_attachments.html.outputName_a">显示名称</TD>
+				<TD width="156" WCMAnt:param="video_attachments.html.tipMessage_a">提示信息</TD>
+				<TD width="31" WCMAnt:param="video_attachments.html.delete">删除</TD>
+				<TD width="40" WCMAnt:param="video_attachments.html.listOrder">排序</TD>
+			</THEAD>
+			<TBODY id="appendix_tbody_40">
+		    <for select="Appendixes.Appendix" blankRef="noObjectFound2">
+			<TR align="center" valign="middle" class="grid_row" grid_rowid="{#APPENDIXID}" appendix_order="{$$INDEX}" appendix_type="40">
+				<TD>{$$INDEX}</TD>
+				<TD title="{#APPFILE}">
+					<div style="overflow:hidden;width:100%;height:100%;line-height:25px;">{#APPFILE}</div>
+				</TD>
+				<TD>
+					<input class="input_text1" name="appDesc" value="{@$transHtml(#AppDesc)}" validation="max_len:'50',type:'string',required:true,desc:'显示名称'" validation_desc="显示名称" WCMAnt:paramattr="validation_desc:video_attachments.html.outputName">
+				</TD>
+				<TD>
+					<input class="input_text1" name="applinkalt" value="{@$transHtml(#APPLINKALT)}"  validation="max_len:'50',type:'string',desc:'提示信息'" validation_desc="提示信息" WCMAnt:paramattr="validation_desc:video_attachments.html.tipMessage">
+				</TD>
+				<TD>
+					<SPAN class="row_delete grid_function" grid_function="delete">&nbsp;&nbsp;</SPAN>
+				</TD>
+				<TD>
+					<input type="text" name="order" class="row_order" _value="{$$INDEX}" value="{$$INDEX}">
+				</TD>
+			</TR>
+			</for>
+			</TBODY>
+		</TABLE>
+	</textarea>
+	<TABLE style="display:none">
+	<TBODY id="noObjectFound">
+		<TR class="grid_row">
+			<TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD>
+		</TR>
+	</TBODY>
+	<TBODY id="noObjectFound2">
+		<TR class="grid_row">
+			<TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD>
+		</TR>
+	</TBODY>
+	</TABLE>
+</BODY>
+</HTML>

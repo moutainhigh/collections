@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="GB2312"?>
+<parameters>	
+	<parameter name="RoleId"  desc="默认选中的频道ID"  min-value="0" type="int" default="0"/>
+	<parameter name="RoleIds"  desc="默认选中的频道ID序列"  type="string"/>
+
+	<parameter name="TransferName"  desc="是否传递名称" type="int" default="0"/>
+
+	<parameter name="TreeType"  desc="栏目树类型"  min-value="0" type="int" default="1"/>
+	<parameter name="OperType"  desc="导航操作类型"  min-value="0" type="int" default="-1"/>
+
+	<parameter name="ObjTreeName"  desc="JavaScript TREE对象名称" type="string" default="oTRSTree"/>
+	
+	<parameter name="DisabledRoles"  desc="栏目树不允许选择的角色ID序列" type="string" required="false" default="1"/>
+	
+	<!--TODO-->
+	<parameter name="RightIndex"  desc="权限值"  min-value="0" type="int" default="0"/>
+
+	<parameter name="ShowAll"  desc="是否显示所有角色" type="int" default="1"/>
+
+</parameters>

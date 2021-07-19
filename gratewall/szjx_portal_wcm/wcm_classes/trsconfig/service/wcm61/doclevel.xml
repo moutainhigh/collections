@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.DocLevelServiceProvider" objclass="com.trs.components.wcm.resource.DocLevel">
+	<method name="save" desc="保存字段库字段">
+		<parameter name="ObjectId" desc="密级ID" type="int" required="true"/>
+		<parameter name="LName" desc="密级名称" type="string" required="true"/>
+		<parameter name="LValue" desc="密级值" type="string" required="false"/>
+		<parameter name="PreDocLevelId" desc="上一个密级ID" type="int" required="false"/>
+	</method>
+	<method name="query">
+		<!-- 业务参数 -->
+					
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="字段的排序字段及方式" type="string" required="false" default="LVALUE ASC"/>
+		<!-- 检索相关配置 BEGIN -->
+													
+		<!-- 检索相关配置 END -->
+	</method>
+	<method name="queryBySecurityDesc" desc="获取按照密级从高到底排序的密级集合">
+	</method>
+	<method name="existsSimilarName" desc="是否存在同名的密级">
+		<parameter name="DOCLEVELID" desc="密级ID" type="int" required="true"/>
+		<parameter name="LNAME" desc="密级名称" type="string" required="true"/>
+	</method>
+	
+</service>

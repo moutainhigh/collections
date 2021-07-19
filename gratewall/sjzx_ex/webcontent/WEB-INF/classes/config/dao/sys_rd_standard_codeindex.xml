@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="sys_rd_standard_codeindex" class-name="cn.gwssi.dw.rd.standard.dao.SysRdStandardCodeindex" check-flag="false" backup-flag="false">
+    <description>基础代码集管理</description>
+  </table-info>
+
+  <column name="sys_rd_standar_codeindex" data-type="varchar" length="10" not-null="true" value-from="input" description="代码集标识符"/>
+  <column name="codeindex_name" data-type="varchar" length="255" not-null="false" value-from="input" description="代码集名称"/>
+  <column name="codeindex_category" data-type="varchar" length="2" not-null="false" value-from="input" description="代码集分类"/>
+  <column name="representation" data-type="varchar" length="10" not-null="false" value-from="input" description="表示"/>
+  <column name="standard_codeindex_version" data-type="varchar" length="10" not-null="false" value-from="input" description="版本"/>
+  <column name="code_table" data-type="varchar" length="64" not-null="false" value-from="input" description="代码表"/>
+  <column name="coding_methods" data-type="varchar" length="4000" not-null="false" value-from="input" description="编码方法"/>
+  <column name="description" data-type="varchar" length="2000" not-null="false" value-from="input" description="说明"/>
+  <primary-key name="pk_jc_standard_codename" column-list="sys_rd_standar_codeindex"/>
+  <index name="pk_jc_standard_codename" index-type="unique" cluster="cluster" column-list="sys_rd_standar_codeindex"/>
+  <function func-name="select one sys_rd_standard_codeindex" func-type="select" column-list="sys_rd_standar_codeindex,codeindex_name,codeindex_category,representation,standard_codeindex_version,code_table,coding_methods,description" sort-columns="codeindex_name">
+    <filter-column column-name="sys_rd_standar_codeindex" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_rd_standard_codeindex list" func-type="rowset" column-list="sys_rd_standar_codeindex,codeindex_name,codeindex_category,representation,standard_codeindex_version,code_table,coding_methods,description" sort-columns="codeindex_name" max-record="10">
+    <filter-column column-name="sys_rd_standar_codeindex" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="codeindex_name" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_rd_standard_codeindex" func-type="insert" column-list="sys_rd_standar_codeindex,codeindex_name,codeindex_category,representation,standard_codeindex_version,code_table,coding_methods,description">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_rd_standard_codeindex" func-type="delete">
+    <filter-column column-name="sys_rd_standar_codeindex" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_rd_standard_codeindex" func-type="update" column-list="sys_rd_standar_codeindex,codeindex_name,codeindex_category,representation,standard_codeindex_version,code_table,coding_methods,description">
+    <filter-column column-name="sys_rd_standar_codeindex" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

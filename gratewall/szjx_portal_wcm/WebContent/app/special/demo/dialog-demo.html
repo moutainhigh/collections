@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="dialog-demo.html.resourcelistpage"> 资源列表页面 </title>
+	<link href="../css/common.css" rel="stylesheet" type="text/css" />
+	<link href="../css/list.css" rel="stylesheet" type="text/css" />
+	<link href="list.css" rel="stylesheet" type="text/css" />
+	<script src="../../js/easyversion/lightbase.js"></script>
+	<script src="../../js/easyversion/extrender.js"></script>
+	<script src="../js/adapter4Top.js"></script>
+    <script language="javascript">
+    <!--
+        function doTimeAlert(){
+            Ext.Msg.$timeAlert("this is time alert info", 5, function(){alert(1);});
+        }
+       function doAlert(){
+            Ext.Msg.alert("this is alert message", function(){
+                alert("this is call back function.")
+            });
+        }
+        
+        function doConfirm(){
+            Ext.Msg.confirm('this is confirm message,<input type="checkbox" name="cbx" value="">', {
+                yes : function(){
+                    alert(this.$("cbx").checked);
+                    alert("i click ok button.");
+                },
+                no : function(){
+                    alert("i click cancel button.");
+                }
+            });
+        }
+        function doReport(){
+            //show the wcm report info.
+            wcm.ReportDialog.show({
+                REPORTS:{
+                    IS_SUCCESS:"true",
+                    TITLE:'共处理4篇文档导入.成功导入4篇,有0篇导入失败!',
+                    REPORT:[
+                        {
+                            IS_SUCCESS:"true",
+                            TITLE:'在最高人民法院公布《人民法院审判长选任办法（试行）》新闻发布会上的讲话[文档-706]导入成功!',
+                            TYPE:3
+                        },
+                        {
+                            IS_SUCCESS:"true",
+                            TITLE:'接受社会监督 确保先进真实最高法院对拟表彰的先进单位和个人向社会公示[文档-707]导入成功!',
+                            TYPE:3
+                        },
+                        {
+                            IS_SUCCESS:"true",
+                            TITLE:'副院长刘家琛做客新华网直播间[文档-708]导入成功!',
+                            TYPE:3
+                        },
+                        {
+                            IS_SUCCESS:"true",
+                            TITLE:'从南方谈话到“三个代表”[文档-709]导入成功!',
+                            TYPE:3
+                        }
+                    ]
+                }
+            });
+        }
+        function doFault(){
+            //show the wcm fault info.
+            Ext.Msg.fault({
+                message : 'here is wcm-fault-json.',
+                detail : 'this is detail'
+            });
+        }
+        function doShow(){
+            //show normal dialog.
+            Ext.Msg.show({
+                title : '自定义提示框',
+                icon : 'icon-info',
+                msg : 'here is dialog config info.',
+                btns : [
+                    {text : '是', cmd : function(){alert("是");}},
+                    {text : '否', cmd : function(){alert("否");}},
+                    {text : '取消', cmd : function(){alert("取消");}}
+                ]
+            });
+        }
+    //-->
+    </script>
+</head>
+
+<body>
+<button onclick="doTimeAlert();">timeAlert</button>
+<button onclick="doAlert();">alert</button>
+<button onclick="doConfirm();">confirm</button>
+<button onclick="doReport();">report</button>
+<button onclick="doFault();">fault</button>
+<button onclick="doShow();">show</button>
+<select name="" style="position:absolute;left:200px;top:400px;width:800px;">
+    <option></option>
+</select>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.AuthServiceProvider" desc="系统相关服务提供者">
+	
+	<method name="deleteOperatorRight" desc="删除指定ID的权限">
+		<parameter name="ObjectId" desc="指定的权限ID" type="int" required="true"/>
+	</method>	
+	
+	<method name="saveOperatorRights" desc="保存在指定Operator上设置的多个权限">
+		<parameter name="RightsXML" desc="保存权限的XML" type="string" required="true"/>
+		<parameter name="OperatorType" desc="指定的Operator类型" type="int" required="true"/>		
+		<parameter name="OperatorId" desc="指定的OperatorId" type="int" required="true"/>		
+	</method>
+	
+</service>

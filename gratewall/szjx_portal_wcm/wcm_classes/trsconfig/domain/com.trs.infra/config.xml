@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.2">
+	<!--Config For Server BEGIN-->
+	<extension element-class="com.trs.infra.ServerConfig" id="Server">
+		<server bean-id="CacheServer" name="缓冲服务器"/>
+		<server bean-id="ConfigServer" name="系统配置服务器"/>
+		<server bean-id="ObjectLCMonitorServer" name="生命周期服务器"/>
+		<server bean-id="UpdateServer" name="升级管理服务器"/>
+	</extension>
+	<!--Config For Server END-->
+	<!--Config For SMTPServer BEGIN-->
+	<extension element-class="com.trs.infra.util.email.SMTPServerConfigs" 
+		id="SMTPServer">
+		<smtp-servers default="mail.trs.com.cn">
+			<smtp-server name="mail.trs.com.cn" port="25" auth="true" 
+				user="intranet" password="www.trs" />
+			<smtp-server name="mail.isc.org.cn" port="25" auth="true" 
+				user="hanxiao" password="!trswcm123" />
+		</smtp-servers>
+	</extension>
+	<!--Config For SMTPServer END-->	
+
+	<!-- Config For ObjectLCMonitor BEGIN -->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		1：新增
+		2：修改
+		3：删除前
+		4、删除后
+		多个以逗号隔开
+	-->
+	<extension element-class="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		id="ObjectLCMonitor">		
+		<!-- 目录配置 -->
+		<monitor-host name="目录配置" 
+			class-name="com.trs.infra.support.config.Config">
+			<listener bean-id="PathConfigLCListener"></listener>
+			<listener bean-id="ConfigServer" event-type="1,2,3"/>
+		</monitor-host>
+	</extension>
+	<!-- Config For ObjectLCMonitor END -->
+	
+	<!--Config For System Collocation BEGIN-->
+	<extension 
+		element-class="com.trs.infra.support.config.SystemCollocationConfig" 
+		id="SystemCollocation">
+		<config-type name="代理服务器" type-id="1"/>
+		<config-type name="目录配置" type-id="10"/>
+		<config-type name="智能创建文档配置" type-id="12"/>
+		<config-type name="集群配置" type-id="13"/>
+		<!-- <config-type name="邮件服务器" type-id="11"/> -->
+		<config-type name="短信配置" type-id="17"/>
+		<!-- <config-type name="任务计划" type-id="15"/> -->
+		<!-- <config-type name="TRS CKM" type-id="16"/> -->
+		<config-type name="其它配置" type-id="0"/>
+		<!--TypeId 20 以上为自定义-->
+		<config-type name="用户新增配置" type-id="20"/>
+	</extension>
+	<!--Config For System Collocation END-->
+</plugin>

@@ -1,0 +1,17 @@
+<!--复杂编辑器-->
+<script language="javascript">
+<!--
+	new com.trs.ui.XEditor({
+		lazyRender : true,
+		disabled : ${NOTEDIT},
+		name : '<TRS_ViewField field="DBFieldName" filterForJs="true" />', 
+		params : {
+			channelId : m_nChannelId, 
+			featureViewIds : '<TRS_ViewField field="#FeatureViewIds" filterForJs="true" />', 
+			featureChnlIds : '<TRS_ViewField field="#FeatureChnlIds" filterForJs="true" />'
+		},
+		validation:"type:'string',required:'${NotNull}',desc:'<TRS_ViewField field="AnotherName" filterForJs="true" doubleFilter="true" />'",
+		value : '<%=CMyString.filterForJs(makeHtmlCon(getValue(obj, "${FieldName}", "<TRS_ViewField field="DefaultValue" filterForJava="true" />")))%>'
+	}).render();
+//-->
+</script>

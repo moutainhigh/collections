@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>实体信息</menu-name>
+  <menu-path>/page/resource/res/rd/standard/gfgl/xxst/</menu-path>
+  <description>实体信息</description>
+  <form-beans>
+    <form-bean name="SysRdStandardTableRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="sys_rd_standard_id" type="string" size="32" description="标准ID"/>
+      <form-property prefix="select-key" name="standard_name" type="string" size="100" description="标准名称"/>
+      <form-property prefix="select-key" name="table_name" type="string" size="100" description="实体信息名称"/>
+      <form-property prefix="record" name="sys_rd_standard_table_id" type="string" size="32" cannull="false" description="实体信息ID"/>
+      <form-property prefix="record" name="sys_rd_standard_id" type="string" size="32" cannull="true" description="标准ID"/>
+      <form-property prefix="record" name="standard_name" type="string" size="100" cannull="true" description="标准名称"/>
+      <form-property prefix="record" name="table_name" type="string" size="100" cannull="true" description="实体信息名称"/>
+      <form-property prefix="record" name="table_belongs" type="string" size="100" cannull="true" description="所属体系"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="备注"/>
+      <form-property prefix="record" name="sort" type="long" cannull="true" description="排序号"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+    </form-bean>
+
+    <form-bean name="SysRdStandardTableUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_rd_standard_table_id" type="string" size="32" cannull="false" description="实体信息ID"/>
+      <form-property prefix="record" name="sys_rd_standard_table_id" type="string" size="32" cannull="false" description="实体信息ID"/>
+      <form-property prefix="record" name="sys_rd_standard_id" type="string" size="32" cannull="true" description="标准ID"/>
+      <form-property prefix="record" name="standard_name" type="string" size="100" cannull="true" description="标准名称"/>
+      <form-property prefix="record" name="table_name" type="string" size="100" cannull="true" description="实体信息名称"/>
+      <form-property prefix="record" name="table_belongs" type="string" size="100" cannull="true" description="所属体系"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="备注"/>
+      <form-property prefix="record" name="sort" type="long" cannull="true" description="排序号"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+    </form-bean>
+    
+    <form-bean name="SysRdStandardTableViewForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_rd_standard_table_id" type="string" size="32" cannull="false" description="实体信息ID"/>
+      <form-property prefix="record" name="sys_rd_standard_table_id" type="string" size="32" cannull="false" description="实体信息ID"/>
+      <form-property prefix="record" name="sys_rd_standard_id" type="string" size="32" cannull="true" description="标准ID"/>
+      <form-property prefix="record" name="standard_name" type="string" size="100" cannull="true" description="标准名称"/>
+      <form-property prefix="record" name="table_name" type="string" size="100" cannull="true" description="实体信息名称"/>
+      <form-property prefix="record" name="table_belongs" type="string" size="100" cannull="true" description="所属体系"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="备注"/>
+      <form-property prefix="record" name="sort" type="long" cannull="true" description="排序号"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+    </form-bean>
+
+    <form-bean name="SysRdStandardTableDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_rd_standard_table_id" type="string" size="32" cannull="false" description="实体信息ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_rd_standard_table.jsp" name="SysRdStandardTableRowsetForm" txn-code="7000211" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询实体信息列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardTable" func-name="txn7000211" input-node="select-key" output-node="record" description="查询实体信息列表"/>
+      <forward error-code="success" path="query-sys_rd_standard_table.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_standard_table.jsp"/>
+    </action>
+
+    <action input="update-sys_rd_standard_table.jsp" name="SysRdStandardTableUpdateForm" txn-code="7000212" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改实体信息信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardTable" func-name="txn7000212" input-node="record" description="修改实体信息信息"/>
+      <forward error-code="success" path="update-sys_rd_standard_table.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_standard_table.jsp"/>
+    </action>
+
+    <action input="insert-sys_rd_standard_table.jsp" name="SysRdStandardTableUpdateForm" txn-code="7000213" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加实体信息信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardTable" func-name="txn7000213" input-node="record" description="增加实体信息信息"/>
+      <forward error-code="success" path="insert-sys_rd_standard_table.jsp"/>
+      <forward error-code="failure" path="insert-sys_rd_standard_table.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_standard_table.jsp" name="SysRdStandardTableUpdateForm" txn-code="7000214" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询实体信息用于修改</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardTable" func-name="txn7000214" input-node="primary-key" output-node="record" description="查询实体信息用于修改"/>
+      <forward error-code="success" path="update-sys_rd_standard_table.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_standard_table.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_standard_table.jsp" name="SysRdStandardTableDeleteForm" txn-code="7000215" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除实体信息信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardTable" func-name="txn7000215" input-node="primary-key" description="删除实体信息信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+     <action input="query-sys_rd_standard_table.jsp" name="SysRdStandardTableViewForm" txn-code="7000216" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询实体信息用于视图</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardTable" func-name="txn7000216" input-node="primary-key" output-node="record" description="查询实体信息用于修改"/>
+      <forward error-code="success" path="view-sys_rd_standard_table.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_standard_table.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_rd_standard_table.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/standard/gfgl/xxst/query-sys_rd_standard_table.jsp" description="查询实体信息列表"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/standard/gfgl/xxst/insert-sys_rd_standard_table.jsp" description="增加实体信息信息"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/standard/gfgl/xxst/update-sys_rd_standard_table.jsp" description="修改实体信息信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.SysRdStandardTableContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardTable" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardTableSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardTablePrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

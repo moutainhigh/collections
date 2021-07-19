@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gwssi-menu SYSTEM "gwssi-menu.dtd">
+<gwssi-menu>
+  <title> 深圳市市场和质量监督管理委员会</title>
+  <menu-text>深圳市市场和质量监督管理委员会</menu-text>
+  <root-icon>menu_new_root.gif</root-icon>
+  
+  <menu id="100000" name="系统管理" path="/page/sysmgr" icon="fd_list3.gif" openicon="toolbar-bg.gif" visible="true">
+    <menu id="54000000" name="系统在线用户" path="/loginsessionhs" href="/txn81100001.do" txncode="81100001" icon="fd_close3.gif" visible="true"/>
+    <menu id="807000" name="用户管理" path="/user" href="/txn807001.do" txncode="807002" icon="file-17.gif" visible="true"/>
+    <menu id="110000" name="权限管理" path="/" icon="fd_close3.gif" openicon="fd_open3.gif" visible="true">
+       <menu id="101000" name="机构管理" path="/org" href="/txn806001.do" txncode="806001" icon="file-17.gif" visible="true"/>
+       <menu id="102000" name="角色管理" path="/role" href="/txn980321.do" txncode="980321" icon="file-17.gif" visible="true"/>
+       <menu id="980300" name="功能权限" path="/priv/func/info" href="/query-funcinfo.jsp"  txncode="9803001" icon="fd_close3.gif" visible="true"/>
+    </menu>
+    <menu id="60800000" name="公告管理" path="/popWindow" href="/txn60800001.do" txncode="60800001" icon="fd_close3.gif" openicon="fd_open3.gif" visible="true"/>
+  </menu>
+  
+  <menu id="2000000" name="资源管理" path="/page/resource" icon="fd_list3.gif" openicon="toolbar-bg.gif" visible="true">
+     <menu id="2010000" name="服务对象管理" path="/page/resource/svrObj" href="/txn201001.do" txncode="201001" icon="fd_close3.gif" visible="true"/>
+     <menu id="2010200" name="数据源管理" path="/page/resource/svrObj/datasource" href="/txn20102020.do" txncode="20102001" icon="fd_close3.gif" visible="true"/>
+     <menu id="2020000" name="采集资源管理" path="/colres/colTable" href="/txn20209001.do" txncode="20201001" icon="fd_close3.gif" visible="true"/>
+     <menu id="2030000" name="共享资源查看" path="/page/resource/svrObj" href="/txn201008.do" txncode="20301021" icon="fd_close3.gif" visible="true"/>
+     
+     <menu id="2040000" name="标准规范管理" path="/page/resource/standards" icon="fd_close3.gif" openicon="fd_open3.gif" visible="true">  
+    	<menu id="2040100" name="数据标准" path="/page/standard" href="/txn603901.do" txncode="603001" icon="file-17.gif" visible="true"/>
+    	<menu id="2040200" name="技术标准" path="/page/standard" href="/txn603904.do" txncode="603006" icon="file-17.gif" visible="true"/>
+    	<menu id="2040100" name="命名规范" path="/page/standard" href="/txn603907.do" txncode="603011" icon="file-17.gif" visible="true"/>
+    </menu>
+    <menu id="2050000" name="服务时间管理" path="/page/resource/svrdate" href="/txn205001.do" txncode="205001" icon="fd_close3.gif" visible="true"/>
+  </menu>
+  
+  <menu id="3000000" name="采集任务" path="/page/collect" icon="fd_list3.gif" openicon="toolbar-bg.gif" visible="true">
+    <menu id="3010000" name="任务配置" path="/config" icon="fd_close3.gif" openicon="fd_open3.gif" visible="true">
+     <menu id="3010100" name="采集任务" path="/org" href="/txn30101001.do" txncode="30101001" icon="file-17.gif" visible="true"/>
+     <menu id="3010200" name="手动执行" path="/" href="/manual_collect.jsp"  icon="file-17.gif" visible="true"/>
+    
+    </menu>
+  </menu>
+ 
+  <menu id="4000000" name="共享服务" path="/page/share" icon="fd_list3.gif" openicon="toolbar-bg.gif" visible="true">
+     <menu id="4010010" name="接口管理" path="/page/share/interface" href="/txn40109002.do"  txncode="401001" icon="file-17.gif" openicon="fd_open3.gif" visible="true"/>
+  	  <menu id="4010012" name="服务配置" path="/page/share/service" href="/txn40200001.do"  txncode="40209001" icon="file-17.gif" openicon="fd_open3.gif" visible="true"/>
+      <menu id="4010013" name="检索服务配置" path="/page/share/service" href="/txn40300001.do"  txncode="40300001" icon="file-17.gif" openicon="fd_open3.gif" visible="true"/>
+  </menu>
+
+<!-- 
+  <menu name="运行监控" id="5000000" path="/" icon="fd_list3.gif" openicon="toolbar-bg.gif" visible="true" >
+  	<menu name="实时监控" id="5100000" path="/" href="http://172.30.7.179:8080/exmon/index.do?method=rtime" txncode="5100000" icon="file-17.gif" openicon="fd_open3.gif" visible="true" />
+  	<menu name="监控指标管理" id="5200000" path="/" href="http://172.30.7.179:8080/exmon/index.do?method=mindex" txncode="5200000" icon="file-17.gif" openicon="fd_open3.gif" visible="true" />
+  	<menu name="监控管理" id="5300000" path="/" href="http://172.30.7.179:8080/exmon/index.do?method=manage" txncode="5300000" icon="file-17.gif" openicon="fd_open3.gif" visible="true" />
+  	<menu name="监控事件" id="5400000" path="/" href="http://172.30.7.179:8080/exmon/event.do?method=list" txncode="5400000" icon="file-17.gif" openicon="fd_open3.gif" visible="true" />
+  	<menu name="警情发现与管理" id="5500000" path="/" href="http://172.30.7.179:8080/exmon/event.do" txncode="5500000" icon="file-17.gif" openicon="fd_open3.gif" visible="true" />
+  </menu>
+ -->  
+  <menu name="运行监控" id="5000000" path="/" icon="fd_list3.gif" openicon="toolbar-bg.gif" visible="true" >
+  	<menu name="实时监控" id="5100000" path="/" href="http://localhost:8080/exmon/index.do?method=rtime" txncode="5100000" icon="file-17.gif" openicon="fd_open3.gif" visible="true" />
+  	<menu name="监控指标管理" id="5200000" path="/" href="http://localhost:8080/exmon/index.do?method=mindex" txncode="5200000" icon="file-17.gif" openicon="fd_open3.gif" visible="true" />
+  	<menu name="监控管理" id="5300000" path="/" href="http://localhost:8080/exmon/job.do" txncode="5300000" icon="file-17.gif" openicon="fd_open3.gif" visible="true" />
+  	<!-- <menu name="监控事件" id="5400000" path="/" href="http://160.99.2.100:7000/exmon/event.do?method=list" txncode="5200000" icon="file-17.gif" openicon="fd_open3.gif" visible="true" /> -->
+  	<menu name="警情发现与管理" id="5500000" path="/" href="http://localhost:8080/exmon/event.do" txncode="5200000" icon="file-17.gif" openicon="fd_open3.gif" visible="true" />
+  </menu>
+  
+  <menu id="9900000" name="系统概览" path="/" href=""  icon="fd_close3.gif" openicon="fd_open3.gif" visible="true">
+    <menu id="9900001" name="系统概览" path="/" txncode="9000001" href="xtgl.jsp"  icon="file-17.gif" visible="true"/>
+  </menu>
+  
+ <menu id="6000000" name="日志管理" path="" icon="fd_list3.gif"  openicon="toolbar-bg.gif" visible="true">
+  <menu id="6010000" name="日志查询" path="" icon="fd_close3.gif"  openicon="fd_open3.gif" visible="true">
+        <menu id="6010015" name="查询交换日志" path="/page/log" href="/txn6011020.do" txncode="6011020" icon="file-17.gif" visible="true"/>
+    	
+        <!-- <menu id="6010010" name="查询采集日志" path="/page/log" href="/txn6011011.do" txncode="6011010" icon="file-17.gif" visible="true"/>
+    	<menu id="6010011" name="查询共享日志" path="/page/log" href="/txn6010011.do" txncode="6010010" icon="file-17.gif" visible="true"/>
+    	<menu id="6010012" name="查询运行监控日志" path="/page/log" href="/txn6010007.do" txncode="6010007" icon="file-17.gif" visible="true"/>
+    	 -->
+    	<menu id="6010013" name="查询系统操作日志" path="/page/log" href="/txn601011.do" txncode="601011" icon="file-17.gif" visible="true"/>
+    	<!-- <menu id="6010014" name="查询系统管理日志" path="/page/log" href="/txn981211.do" txncode="981211" icon="file-17.gif" visible="true"/> -->
+    	<!-- <menu id="6010015" name="查询ETL运行日志" path="/page/log" txncode="981211" href="http://160.99.1.4:9090/exmon/etl.do" icon="file-17.gif" visible="true"/> -->
+  </menu>
+  <menu id="6020000" name="日志统计" path="" href="" icon="fd_close3.gif"  openicon="fd_open3.gif" visible="true">
+    <menu id="6020008" name="服务综合统计" path="/page/zwt/statistcs" href="txn53000216.do"  icon="file-17.gif" visible="true"/>
+    <!-- <menu id="6020007" name="共享服务情况统计" path="/page/log/statistics/info" href="statistics-share_info.jsp" txncode="6020001" icon="file-17.gif" visible="true"/>
+  	<menu id="6020001" name="共享服务指标统计" path="/page/log" href="/txn6020001.do" txncode="6020001" icon="file-17.gif" visible="true"/>
+	 -->
+	<menu id="6020004" name="未用服务情况统计" path="/page/log" href="/txn6020005.do" txncode="6020005" icon="file-17.gif" visible="true"/>
+	<menu id="6020005" name="服务异常情况统计" path="/page/log/statistics/error" href="/txn6020023.do" txncode="6020023" icon="file-17.gif" visible="true"/>
+	<!-- <menu id="6020006" name="服务分布情况统计" path="/page/log/statistics/spread" href="statistics-share_spread.jsp" txncode="6020001" icon="file-17.gif" visible="true"/>
+ -->  
+ </menu>
+  
+  <menu id="6030000" name="使用报告" path="/page/log" href=""  icon="fd_close3.gif" openicon="fd_open3.gif" visible="true">
+    <menu id="6030001" name="系统使用报告" path="/page/log/" href="/txn620200101.do" txncode="620200101" icon="file-17.gif" visible="true"/>
+  	<menu id="6030002" name="使用报告使用情况" path="/page/log" href="/txn620200201.do" txncode="620200201" icon="file-17.gif" visible="true"/>
+  </menu>
+</menu>
+<menu id="7000000" name="帮助中心" path="" href=""  icon="fd_close3.gif" openicon="fd_open3.gif" visible="true">
+    <menu id="7000001" name="平台介绍" path="/page/help" txncode="7100001" href="ptjs.jsp"  icon="file-17.gif" visible="true"/>
+  	<menu id="7000002" name="使用说明" path="/page/help/" href="sysm.jsp" txncode="7100002" icon="file-17.gif" visible="false"/>
+  	<menu id="7000003" name="平台与服务对象的关系图" path="/page/help" href="ptyfwdxdgxt.jsp"  icon="file-17.gif" visible="false"/>
+  	<menu id="7000004" name="服务对象的职能,角色介绍" path="/page/help" href="fwdxdznjsjs.jsp" txncode="7100004" icon="file-17.gif" visible="true"/> 
+  	<menu id="7000005" name="采集服务流程" path="/page/help" href="cjfwlc.jsp" txncode="7100005" icon="file-17.gif" visible="true"/>
+  	<menu id="7000006" name="共享服务流程" path="/page/help" href="gxfwlc.jsp" txncode="7100006" icon="file-17.gif" visible="true"/>
+    <menu id="7000007" name="交换平台部署" path="/page/help" href="jhptbs.jsp" txncode="7100007" icon="file-17.gif" visible="true"/>
+    <menu id="7000008" name="交换流程" path="/page/help" href="jhlc.jsp" txncode="7100008" icon="file-17.gif" visible="true"/>
+ </menu> 
+ <!-- 快捷功能菜单编号默认10000000， 菜单项为本文中定义的其他菜单项，使用原交易码 -->
+<menu id="10000000" name="快捷功能" path="" href=""  icon="fd_close3.gif" openicon="fd_open3.gif" visible="true">
+    <menu id="10000010" name="服务对象" path="/page/resource/svrObj" href="/txn201001.do" txncode="201001" icon="fd_close3.gif" visible="true"/>
+    <menu id="10000020" name="共享资源" path="/page/resource/svrObj" href="/txn201008.do" txncode="20301021" icon="fd_close3.gif" visible="true"/>
+    <menu id="10000030" name="接口管理" path="/page/share/interface" href="/txn40109002.do"  txncode="401001" icon="file-17.gif" openicon="fd_open3.gif" visible="true"/>
+  	<menu id="10000040" name="服务配置" path="/page/share/service" href="/txn40200001.do"  txncode="40209001" icon="file-17.gif" openicon="fd_open3.gif" visible="true"/>
+    <menu id="10000050" name="采集任务" path="/org" href="/txn30101001.do" txncode="30101001" icon="file-17.gif" visible="true"/>
+    <menu id="10000060" name="实时监控" path="/" href="http://160.99.1.4:9090/exmon/index.do?method=rtime" txncode="5100000" icon="file-17.gif" openicon="fd_open3.gif" visible="true" />
+</menu> 
+</gwssi-menu>

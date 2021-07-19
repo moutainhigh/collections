@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全流程电子化）</title>
+<link rel="stylesheet" href="../../../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" type="text/css" />
+<link rel="stylesheet" href="../../../../static/css/common.css" />
+<link rel="stylesheet" href="../../../../static/css/baseInfo.css" />
+
+</head>
+<body>
+<!-- 构建页面==开始 -->
+
+
+
+<!-- 查询条件 -->
+<div name="queryForm_Form" wid="3922320F48272C42E055000000000001"
+	vtype="formpanel" width="100%" layout="table"
+	layoutconfig="{cols:2, columnwidth: ['50%','50%']}" 
+	labelstyleclass="labelstyle" title="查看经营许可详情" 
+	titledisplay="true" showborder="false">
+	<div name="licAnth" vtype="textfield" label="部门名称" labelwidth="200" labelalign="right" width="500" tooltip="" rule=""></div>
+	<div name="sn" vtype="textfield" label="编号" labelwidth="200" labelalign="right" width="500" tooltip="" rule=""></div>
+	<div name="flag" vtype="radiofield" label="运营状态" labelwidth="200" labelalign="right" width="500" tooltip="" rule="" dataurl = "[{checked: true,value: '1',text: '是'},{value: '2',text: '否'}]"></div>
+</div>
+
+<!-- 数据展现 -->
+<div vtype="gridpanel" name="queryForm_Grid" wid="3922320F48272C42E055000000000001" datarender=""
+	titledisplay="true" title="查看经营许可详情" width="100%" showborder="false" lineno="false"
+	dataurl="../../../../torch/service.do?fid=3922320F48262C42E055000000000001&wid=3922320F48272C42E055000000000001">
+	<div name = "license2Edit_update_button" vtype = "button" text = "编辑" ></div>
+	<div name = "license2Edit_insert_button" vtype = "button" text = "新增" ></div>
+	<div name= "license2Delet_button" vtype="button" text="删除"></div>
+	<div vtype="gridcolumn" name="grid_column" width="100%">
+		<div>
+			<div name="sn" text="编号"  textalign="center" width="70" dataurl=""></div>
+			<div name="licAnth" text="部门名称"  textalign="center" width="" dataurl=""></div>
+			<div name="licMetterMemo" text="经营范围"  textalign="center" width="" dataurl=""></div>
+			<div name="flag" text="运营状态"  textalign="center" width="80" dataurl="[{value: '1',text: '是'},{value: '2',text: '否'}]"></div>
+			<div name="licConfigId" text="id标识" visible="false" textalign="right" width="" dataurl=""></div>
+			<div name="memo" text="备注"  textalign="center" width="" dataurl=""></div>
+			
+		</div>
+	</div>
+	<div vtype="gridtable" name="grid_table" width="100%"></div>
+	<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10" width="100%"></div>
+</div>
+<div name="query_license2Toolbar" vtype="toolbar" location="bottom" align="center" style="margin-top:10px;margin-bottom:10px">
+	<div name="query_license2_query_button" vtype="button" text="确定">
+	</div>
+	<div name="query_license2_reset_button" vtype="button" text="重置">
+	</div>
+</div>
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../../../static/js/config.js"></script>
+<script type="text/javascript" data-main="torch/license2Torch.js" src="../../../../static/lib/require.js"></script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>共享服务-服务配置</menu-name>
+  <menu-path>/page/share/service/</menu-path>
+  <description>共享服务的服务表</description>
+  <form-beans>
+    <form-bean name="ShareServiceRowsetForm">
+      <description>多记录查询</description>
+	  
+	  <form-property prefix="select-key" name="share_table_id" type="string" size="32" description="共享表ID"/>
+      <form-property prefix="select-key" name="service_targets_id" type="string" size="32" description="所属服务对象"/>
+      <form-property prefix="select-key" name="service_targets_type" type="string" size="32" description="所属服务对象类型"/>
+      <form-property prefix="select-key" name="service_name" type="string" size="100" description="服务名称"/>
+      <form-property prefix="select-key" name="service_type" type="string" size="20" description="服务类型"/>
+      <form-property prefix="select-key" name="service_state" type="string" size="20" description="服务状态"/>
+      <form-property prefix="select-key" name="interface_id" type="string" size="32" description="接口ID"/>
+      <form-property prefix="select-key" name="service_id" type="string" size="32" cannull="false" description="服务ID"/>
+      <form-property prefix="select-key" name="created_time" type="string" size="20" cannull="false" description="创建时间"/>
+      <form-property prefix="record" name="service_id" type="string" size="32" cannull="false" description="服务ID"/>
+      <form-property prefix="record" name="interface_id" type="string" size="32" cannull="true" description="接口ID"/>
+      <form-property prefix="record" name="service_targets_id" type="string" size="32" cannull="true" description="所属服务对象"/>
+      <form-property prefix="record" name="service_targets_name" type="string" size="32" cannull="true" description="所属服务对象名称"/>
+      <form-property prefix="record" name="service_name" type="string" size="100" cannull="true" description="服务名称"/>
+      <form-property prefix="record" name="service_type" type="string" size="20" cannull="true" description="服务类型"/>
+      <form-property prefix="record" name="service_no" type="string" size="20" cannull="true" description="服务编号"/>
+      <form-property prefix="record" name="old_service_no" type="string" size="20" cannull="true" description="旧服务编号"/>
+      <form-property prefix="record" name="column_no" type="string" size="2000" cannull="true" description="数据项ID"/>
+	  <form-property prefix="record" name="column_name_en" type="string" size="2000" cannull="true" description="数据项英文名称"/>
+      <form-property prefix="record" name="column_name_cn" type="string" size="2000" cannull="true" description="数据项中文名称"/>
+      <form-property prefix="record" name="column_alias" type="string" size="2000" cannull="true" description="数据项别名"/>
+      <form-property prefix="record" name="sort_column" type="string" size="100" cannull="true" description="排序字段"/>
+      <form-property prefix="record" name="sql" type="string" size="4000" cannull="true" description="SQL"/>
+      <form-property prefix="record" name="sql_one" type="string" size="4000" cannull="true" description="SQL1"/>
+      <form-property prefix="record" name="sql_two" type="string" size="4000" cannull="true" description="SQL2"/>
+      <form-property prefix="record" name="service_description" type="string" size="2000" cannull="true" description="服务说明"/>
+      <form-property prefix="record" name="regist_description" type="string" size="2000" cannull="true" description="备案说明"/>
+      <form-property prefix="record" name="service_state" type="string" size="20" cannull="true" description="服务状态"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="有效标记"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人ID"/>
+      <form-property prefix="record" name="yhxm" type="string" size="100" cannull="true" description="创建人"/>
+      <form-property prefix="record" name="created_time" type="string" size="19" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="19" cannull="true" description="最后修改时间"/>
+	  <form-property prefix="record" name="is_month_data" type="string" size="1" cannull="true" description="是否限制访问当月数据"/>
+      <form-property prefix="record" name="visit_period" type="string" size="3" cannull="true" description="访问时间间隔"/>
+      <form-property prefix="record" name="is_single" type="string" size="1" cannull="true" description="是否单户"/>
+	  
+	  <form-property prefix="record" name="dataString" type="string" size="500" cannull="true" description="数据表列表"/>
+	  <form-property prefix="record" name="tableParam" type="string" size="500" cannull="true" description="接口条件字段"/>
+	  
+	  <form-property prefix="config-inf" name="service_no" type="string" size="20" cannull="true" description="服务编号"/>
+	  <from-property prefix="config-inf" name="old_service_no" type="string" size="20" cannull="true" description="服务编号" />
+	  <form-property prefix="config-inf" name="permit_column_cn_array" type="string" size="4000" cannull="true" description="字段中文名"/>
+	  <form-property prefix="config-inf" name="column_name_en" type="string" size="4000" cannull="true" description="字段英文名"/>
+	  
+	  <form-property prefix="config-inf" name="username" type="string" size="400" cannull="true" description="用户名"/>
+	  <form-property prefix="config-inf" name="password" type="string" size="400" cannull="true" description="密码"/>
+	  
+	  
+	  <form-property prefix="record" name="fj_fk" type="string" size="2000" cannull="true" description="附件id"/>
+      <form-property prefix="record" name="fjmc" type="string" size="2000" cannull="true" description="附件名称"/>
+	  <form-property prefix="record" name="interfacesql" type="string" size="4000" cannull="true" description="接口原始SQL"/>
+	  <form-property prefix="record" name="jsoncolumns" type="string" cannull="true" description="ajax提交json数据"/>
+	  <form-property prefix="record" name="limit_data" type="string" cannull="true" description="ajax提交json数据2"/>
+	  <form-property prefix="record" name="jsonparams" type="string" cannull="true" description="ajax提交json数据"/>
+	  <form-property prefix="record" name="jsonconditions" type="string" cannull="true" description="ajax提交json数据"/>
+	  
+	  <form-property prefix="record" name="service_condition" type="string"  cannull="true" description="条件字段"/>
+	  <form-property prefix="record" name="service_param" type="string"  cannull="true" description="参数字段"/>
+	  
+	  <form-property name="dataString" type="string"  description="ajax返回select里json数据"/>
+	  <form-property name="service_no" type="string"  description="ajax返回的服务编号"/>
+	  <form-property name="svrType" type="string"  description="ajax返回的服务编号"/>
+	  <form-property name="svtState" type="string"  description="ajax返回select里json数据"/>
+	  <form-property name="svrTarget" type="string"  description="ajax返回的服务编号"/>
+	  <form-property name="svrInterface" type="string"  description="ajax返回select里json数据"/>
+	  <form-property name="pinyinInterface" type="string"  description="根据拼音首字母排序的列表"/>
+    </form-bean>
+
+    <form-bean name="ShareServiceUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="service_id" type="string" size="32" cannull="false" description="服务ID"/>
+      <form-property prefix="primary-key" name="service_name" type="string" size="32" cannull="false" description="服务名称"/>
+      <form-property prefix="primary-key" name="start_time" type="string" size="32" cannull="false" description="开始时间"/>
+      <form-property prefix="primary-key" name="end_time" type="string" size="32" cannull="false" description="结束时间"/>
+	  <form-property prefix="primary-key" name="service_state" type="string" size="20" cannull="false" description="服务状态"/>
+	   <form-property prefix="primary-key" name="service_type" type="string" size="20" cannull="false" description="服务类型"/>
+      <form-property prefix="record" name="service_id" type="string" size="32" cannull="false" description="服务ID"/>
+      <form-property prefix="record" name="interface_id" type="string" size="32" cannull="true" description="接口ID"/>
+      <form-property prefix="record" name="service_targets_id" type="string" size="32" cannull="true" description="所属服务对象"/>
+      <form-property prefix="record" name="service_name" type="string" size="100" cannull="true" description="服务名称"/>
+      <form-property prefix="record" name="service_type" type="string" size="20" cannull="true" description="服务类型"/>
+      <form-property prefix="record" name="service_no" type="string" size="20" cannull="true" description="服务编号"/>
+      <form-property prefix="record" name="old_service_no" type="string" size="20" cannull="true" description="服务编号"/>
+      <form-property prefix="record" name="column_no" type="string" size="2000" cannull="true" description="数据项ID"/>
+      <form-property prefix="record" name="column_name_en" type="string" size="2000" cannull="true" description="数据项英文名称"/>
+      <form-property prefix="record" name="column_name_cn" type="string" size="2000" cannull="true" description="数据项中文名称"/>
+      <form-property prefix="record" name="column_alias" type="string" size="2000" cannull="true" description="数据项别名"/>
+      <form-property prefix="record" name="sort_column" type="string" size="100" cannull="true" description="排序字段"/>
+      <form-property prefix="record" name="sql" type="string" size="4000" cannull="true" description="SQL"/>
+      <form-property prefix="record" name="sql_one" type="string" size="4000" cannull="true" description="SQL1"/>
+      <form-property prefix="record" name="sql_two" type="string" size="4000" cannull="true" description="SQL2"/>
+      <form-property prefix="record" name="service_description" type="string" size="2000" cannull="true" description="服务说明"/>
+      <form-property prefix="record" name="regist_description" type="string" size="2000" cannull="true" description="备案说明"/>
+      <form-property prefix="record" name="service_state" type="string" size="20" cannull="true" description="服务状态"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="有效标记"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人ID"/>
+      <form-property prefix="record" name="created_time" type="string" size="19" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="19" cannull="true" description="最后修改时间"/>
+   	  <form-property prefix="record" name="jsoncolumns" type="string" cannull="true" description="ajax提交json数据"/>
+	  <form-property prefix="record" name="fj_fk" type="string" size="2000" cannull="true" description="附件id"/>
+      <form-property prefix="record" name="fjmc" type="string" size="2000" cannull="true" description="附件名称"/>
+	  <form-property prefix="record" name="limit_data" type="string" cannull="true" description="ajax提交json数据2"/>
+	  <form-property prefix="record" name="is_month_data" type="string" size="1" cannull="true" description="是否限制访问当月数据"/>
+      <form-property prefix="record" name="visit_period" type="string" size="3" cannull="true" description="访问时间间隔"/>
+	  <form-property prefix="record" name="is_single" type="string" size="1" cannull="true" description="是否单户"/>
+	  
+	  <form-property prefix="record" name="service_condition" type="string"  cannull="true" description="条件字段"/>
+	  <form-property prefix="record" name="service_param" type="string"  cannull="true" description="参数字段"/>
+	  
+	  
+	  <form-property prefix="record" name="delIDs" type="string" size="1000" cannull="true" description="删除附件ids"/>
+      <form-property prefix="record" name="delNAMEs" type="string" size="2000" cannull="true" description="删除附件的名称"/>
+      <form-property prefix="record" name="delID1" type="string" size="1000" cannull="true" description="删除附件id"/>
+      <form-property prefix="record" name="delNAME1" type="string" size="2000" cannull="true" description="删除附件的名称"/>
+      
+      <form-property prefix="grap_data" name="stime_str" type="string"  cannull="true" description="时间串"/>
+	  <form-property prefix="grap_data" name="sstat_num_str" type="string"  cannull="true" description="参数字段"/>
+	  <form-property prefix="grap_data" name="sstat_count_str" type="string"  cannull="true" description="条件字段"/>
+	  <form-property prefix="grap_data" name="sstat_info_str" type="string"  cannull="true" description="参数字段"/>
+	  <form-property prefix="grap_data" name="service_name" type="string"  cannull="true" description="服务名称"/>
+	  
+	  <form-property prefix="share_grap" name="log_date" type="string"  cannull="true" description="时间串"/>
+	  <form-property prefix="share_grap" name="sum_num" type="string"  cannull="true" description="参数字段"/>
+	  <form-property prefix="share_grap" name="sum_count" type="string"  cannull="true" description="条件字段"/>
+	  <form-property prefix="share_grap" name="avg_time" type="string"  cannull="true" description="参数字段"/>
+	  <form-property prefix="share_grap" name="error_num" type="string"  cannull="true" description="参数字段"/>
+      
+    </form-bean>
+
+    <form-bean name="ShareServiceDeleteForm">
+      <description>删除共享服务</description>
+      <form-property prefix="primary-key" name="service_id" type="string" size="32" cannull="false" description="服务ID"/>
+      <form-property prefix="primary-key" name="service_type" type="string" size="32" cannull="false" description="服务ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-share_service.jsp" name="ShareServiceRowsetForm" txn-code="40200001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询共享服务</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200001" input-node="select-key" output-node="record" description="查询服务表列表"/>
+      <forward error-code="success" path="query-share_service.jsp"/>
+      <forward error-code="failure" path="query-share_service.jsp"/>
+    </action>
+    
+    <action input="list-share_service.jsp" name="ShareServiceRowsetForm" txn-code="40209001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询共享服务</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200015" input-node="select-key" output-node="record" description="查询服务表列表"/>
+      <forward error-code="success" path="query-share_service.jsp"/>
+      <forward error-code="failure" path="query-share_service.jsp"/>
+    </action>
+    
+    <action input="list-share_service.jsp" name="ShareServiceRowsetForm" txn-code="40209002" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询共享服务列表</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200201" input-node="select-key" output-node="record" description="查询服务表列表"/>
+      <forward error-code="success" path="view-share_service.jsp"/>
+      <forward error-code="failure" path="view-share_service.jsp"/>
+    </action>
+
+    <action input="update-share_service.jsp" name="ShareServiceUpdateForm" txn-code="40200002" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改共享服务</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200002" input-node="record" description="修改服务表信息"/>
+      <forward error-code="success" path="update-share_service.jsp"/>
+      <forward error-code="failure" path="update-share_service.jsp"/>
+    </action>
+
+    <action input="insert-share_service.jsp" name="ShareServiceUpdateForm" txn-code="40200003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加共享服务</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200003" input-node="record" description="增加服务表信息"/>
+      <forward error-code="success" path="/script/insertsuccess.jsp?nextPage=txn40200001.do" redirect="true" />
+      <forward error-code="failure" path="insert-share_service.jsp"/>
+    </action>
+
+    <action input="query-share_service.jsp" name="ShareServiceUpdateForm" txn-code="40200004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务表用于修改</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200004" input-node="primary-key" output-node="record" description="查询服务表用于修改"/>
+      <forward error-code="success" path="update-share_service.jsp"/>
+      <forward error-code="failure" path="update-share_service.jsp"/>
+    </action>
+
+    <action input="query-share_service.jsp" name="ShareServiceDeleteForm" txn-code="40200005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除共享服务</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200005" input-node="primary-key" description="删除服务表信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+	
+	<action input="insert-share_service.jsp" name="ShareServiceUpdateForm" txn-code="40200006" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>原增加服务表信息</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200006" input-node="record" description="原增加服务表信息"/>
+      <forward error-code="success" path="insert-share_service.jsp"/>
+      <forward error-code="failure" path="insert-share_service.jsp"/>
+    </action>
+	
+	<action input="insert-share_service.jsp" name="ShareServiceRowsetForm" txn-code="40200007" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>根据接口ID获取数据表列表</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200007" input-node="record" description="根据接口ID获取数据表列表"/>
+      <forward error-code="success" path="insert-share_service.jsp"/>
+      <forward error-code="failure" path="insert-share_service.jsp"/>
+    </action>
+	
+    <action input="insert-share_service.jsp" name="ShareServiceRowsetForm" txn-code="40200008" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>根据数据表ID获取数据项</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200008" input-node="record" description="根据数据表ID获取数据项"/>
+      <forward error-code="success" path="insert-share_service.jsp"/>
+      <forward error-code="failure" path="insert-share_service.jsp"/>
+    </action>
+	
+    <action input="insert-share_service.jsp" name="ShareServiceRowsetForm" txn-code="40200009" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加共享服务</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200009" input-node="record" description="增加服务表信息"/>
+      <forward error-code="success" path="insert-share_service.jsp"/>
+      <forward error-code="failure" path="insert-share_service.jsp"/>
+    </action>
+    
+	<action input="update-share_service.jsp" name="ShareServiceUpdateForm" txn-code="40200010" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改共享服务</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200010" input-node="record" description="修改服务表信息"/>
+      <forward error-code="success" path="update-share_service.jsp"/>
+      <forward error-code="failure" path="update-share_service.jsp"/>
+    </action>
+	
+	<action input="query-share_service.jsp" name="ShareServiceDeleteForm" txn-code="40200011" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除共享服务</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200011" input-node="primary-key" description="逻辑设置标志位删除服务表信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+	
+	<action input="query-share_service.jsp" name="ShareServiceRowsetForm" txn-code="40200012" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>获取最大编号</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200012" input-node="select-key" description="获取最大编号"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+	
+	
+	<action input="query-share_service.jsp" name="ShareServiceUpdateForm" txn-code="40200013" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>共享服务(启用停用)</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200013" input-node="select-key" description="修改启用/停用状态"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+	
+	<action input="query-share_service.jsp" name="ShareServiceUpdateForm" txn-code="40200014" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务表用于展示</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200014" input-node="primary-key" output-node="record" description="查询服务表用于修改"/>
+      <forward error-code="success" path="show-share_service.jsp"/>
+      <forward error-code="failure" path="show-share_service.jsp"/>
+    </action>
+    
+    <action input="/page/homepage/preview/service_info_tree.jsp" name="ShareServiceUpdateForm" txn-code="40200025" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询共享服务用于预览页面</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200025" input-node="primary-key" output-node="record" description="查询服务表用于修改"/>
+      <forward error-code="success" path="/page/homepage/preview/service_detail.jsp"/>
+      <forward error-code="failure" path="/page/homepage/preview/service_detail.jsp"/>
+    </action>
+    
+    <action input="/page/homepage/preview/service_info_tree.jsp" name="ShareServiceUpdateForm" txn-code="40200026" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询共享服务用于预览页面</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200026" input-node="primary-key" output-node="record" description="查询服务表用于修改"/>
+      <forward error-code="success" path="/page/homepage/preview/service_detail_count.jsp"/>
+      <forward error-code="failure" path="/page/homepage/preview/service_detail_count.jsp"/>
+    </action>
+	
+	<action input="/page/share/service/subgrid/subgrid.jsp" name="ShareServiceUpdateForm" txn-code="40201201" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>接口信息</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40201201" input-node="primary-key" output-node="record" description="接口信息"/>
+      <forward error-code="success" path="/page/share/service/subgrid/subgrid.jsp"/>
+      <forward error-code="failure" path="/page/share/service/subgrid/subgrid.jsp"/>
+    </action>
+	
+	<action input="query-share_service.jsp" name="ShareServiceUpdateForm" txn-code="40200016" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>导出共享服务</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200016" input-node="primary-key" output-node="record" description="查询服务表用于修改"/>
+      <forward error-code="success" path="file-share_service.jsp"/>
+      <forward error-code="failure" path="file-share_service.jsp"/>
+    </action>
+	
+    <action input="query-share_service.jsp" name="ShareServiceRowsetForm" txn-code="40200101" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务号</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40200101" input-node="select-key" output-node="config-inf" description="查询服务表列表"/>
+      <forward error-code="success" path="query-share_service.jsp"/>
+      <forward error-code="failure" path="query-share_service.jsp"/>
+    </action>	
+    
+    
+    <action input="batchPage.jsp" name="ShareServiceRowsetForm" txn-code="40201111" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务号</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40201111" input-node="select-key" output-node="config-inf" description="查询服务表列表"/>
+      <forward error-code="success" path="batchPage.jsp"/>
+      <forward error-code="failure" path="batchPage.jsp"/>
+    </action>	
+    
+    <action input="singerPage.jsp" name="ShareServiceRowsetForm" txn-code="40201112" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务号</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40201112" input-node="select-key" output-node="config-inf" description="查询服务表列表"/>
+      <forward error-code="success" path="singerPage.jsp"/>
+      <forward error-code="failure" path="singerPage.jsp"/>
+    </action>	
+    
+    <action input="connect.jsp" name="ShareServiceRowsetForm" txn-code="40201113" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务号</description>
+      <step index="10" bean-name="com.gwssi.share.service.txn.TxnShareService" func-name="txn40201113" input-node="select-key" output-node="config-inf" description="查询服务表列表"/>
+      <forward error-code="success" path="connect.jsp"/>
+      <forward error-code="failure" path="connect.jsp"/>
+    </action>
+    
+    
+    
+	
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-share_service.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/share/service/query-share_service.jsp" description="查询服务表列表"/>
+    <resource-file type="jsp" file-name="/page/share/service/insert-share_service.jsp" description="增加服务表信息"/>
+    <resource-file type="jsp" file-name="/page/share/service/update-share_service.jsp" description="修改服务表信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.service.vo.ShareServiceContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.service.vo.VoShareService" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.service.vo.VoShareServiceSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.service.vo.VoShareServicePrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

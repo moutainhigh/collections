@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>采集服务</sort-name>
+  <table-info name="collect_database_task" class-name="com.gwssi.collect.database.dao.CollectDatabaseTask" check-flag="false" backup-flag="false">
+    <description>采集数据库表</description>
+  </table-info>
+
+  <column name="database_task_id" data-type="varchar" length="32" not-null="true" value-from="input" description="采集数据库主键ID"/>
+  <column name="collect_task_id" data-type="varchar" length="32" not-null="false" value-from="input" description="采集任务ID"/>
+  <column name="source_collect_table" data-type="varchar" length="100" not-null="true" value-from="input" description="源采集表"/>
+  <column name="source_collect_column" data-type="varchar" length="100" not-null="false" value-from="input" description="源采集字段"/>
+  <column name="collect_mode" data-type="varchar" length="2" not-null="true" value-from="input" description="采集方式"/>
+  <column name="collect_table" data-type="varchar" length="32" not-null="false" value-from="input" description="对应采集表"/>
+  <column name="created_time" data-type="varchar" length="19" not-null="true" value-from="input" description="创建时间"/>
+  <column name="description" data-type="varchar" length="1000" not-null="false" value-from="input" description="描述"/>
+  <primary-key name="pk_collect_database_task" column-list="database_task_id"/>
+  <index name="pk_collect_database_task" index-type="unique" cluster="cluster" column-list="database_task_id"/>
+  <function func-name="select one collect_database_task" func-type="select" column-list="database_task_id,collect_task_id,source_collect_table,source_collect_column,collect_mode,collect_table,created_time,description">
+    <filter-column column-name="database_task_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select collect_database_task list" func-type="rowset" column-list="database_task_id,collect_task_id,source_collect_table,source_collect_column,collect_mode,collect_table,created_time,description" max-record="10">
+    <filter-column column-name="collect_task_id" operator="eq" value-from="input" empty-flag="skip"/>
+  </function>
+
+  <function func-name="insert one collect_database_task" func-type="insert" column-list="database_task_id,collect_task_id,source_collect_table,source_collect_column,collect_mode,collect_table,created_time,description">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one collect_database_task" func-type="delete">
+    <filter-column column-name="database_task_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one collect_database_task" func-type="update" column-list="source_collect_table,source_collect_column,collect_mode,collect_table,description">
+    <filter-column column-name="database_task_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

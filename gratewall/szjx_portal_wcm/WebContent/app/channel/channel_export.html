@@ -1,0 +1,118 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="channel_export.html.title">export some channels</title>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../js/data/locale/channel.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+
+<!--ProcessBar Start-->
+<script src="../../app/js/source/wcmlib/components/ProcessBar.js"></script>
+<link rel="stylesheet" type="text/css" href="../../app/css/wcm-common.css">
+<link rel="stylesheet" type="text/css" href="../../app/js/source/wcmlib/components/processbar.css">
+<!--ProcessBar End-->
+<script language="javascript">
+window.m_fpCfg = {
+	m_arrCommands : [{
+		cmd : 'doExport',
+		name : wcm.LANG.CHANNEL_TRUE||'确定'
+	}],
+	size : [320, 100]
+};
+</script>
+<script>
+
+	//var PageContext = {
+	//	params: getAllParameters()
+	//};
+	
+	var params = location.search.parseQuery();
+	function doExport(){
+		ProcessBar.start(wcm.LANG.WEBSITE_5||"执行导出栏目..");
+		var oPostData = {
+			ContainsChildren: $('chkContainsChildren').checked,
+			ContainsRelated: $('chkContainsRelated').checked
+		};
+		Object.extend(oPostData,params );
+		BasicDataHelper.call('wcm6_channel', 'export', oPostData, true, function(_oXMLHttp, _json){
+			ProcessBar.exit();
+			if(_oXMLHttp.responseText.trim() == 'no-available-channels'){
+				Ext.Msg.alert(wcm.LANG.CHANNEL_67||'没有任何要导出的栏目。', function(){
+					FloatPanel.close();
+				});
+				return;
+			}
+			var sFileUrl = _oXMLHttp.responseText;
+            var frm = $MsgCenter.getActualTop().$('iframe4download');
+			if(frm == null) {
+                frm = $MsgCenter.getActualTop().document.createElement('IFRAME');
+                frm.id = "iframe4download";
+                frm.style.display = 'none';
+                $MsgCenter.getActualTop().document.body.appendChild(frm);
+			}
+			sFileUrl = WCMConstants.WCM_ROOTPATH +"file/read_file.jsp?DownName=CHANNEL&FileName=" + sFileUrl;
+			frm.src = sFileUrl;
+            FloatPanel.close();
+		});
+		FloatPanel.hide();
+        return false;
+	}
+</SCRIPT>
+<style type="text/css">
+	#divBox{
+		margin:5px;
+		background: lightblue;
+		padding:1px;
+		height: 90%;
+		width: 100%;
+	}
+	#divContainer{
+		background: #ffffff;
+		padding:5px;
+		height: 100%;
+	}
+	.divRow{
+		font-size: 12px;
+		line-height: 22px;
+		height: auto;
+	}
+	body{
+		background:whitesmoke;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<div id="divBox">
+<div id="divContainer">
+	<div class="divRow">
+		<input type="checkbox" id="chkContainsChildren" checked>&nbsp;<span id="spDesc" style="cursor: pointer;" onclick="$('chkContainsChildren').click()"></span>
+	</div>
+	<div class="divRow">
+		<input type="checkbox" id="chkContainsRelated" checked>&nbsp;<span style="cursor: pointer;" onclick="$('chkContainsRelated').click()" WCMAnt:param="channel_export.html.export">同时导出扩展字段</span>
+	</div>
+</div>
+</div>
+<script language="javascript">
+<!--
+	//$('spDesc').innerHTML = PageContext.params['ObjectIds'] != null ?
+	$('spDesc').innerHTML = getParameter('ObjectIds') != "" ?
+		(wcm.LANG.CHANNEL_2||'导出当前栏目及其下的各级子栏目') : (wcm.LANG.CHANNEL_3||'递归导出所有子栏目及其下的各级子栏目');
+//-->
+</script>
+</BODY>
+</HTML>

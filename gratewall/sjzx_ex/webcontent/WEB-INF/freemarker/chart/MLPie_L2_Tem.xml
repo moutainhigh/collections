@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<chart chartRightMargin='30'  rotateXAxisName='0'  yAxisName='${y_name}' caption='[${sys_name}]服务分布情况'  formatNumberScale='0'
+	  bgColor='FFFFFF,FFFFFF' showBorder='1' baseFontSize='12' canvasBorderThickness='1' canvasBorderColor='999999' plotFillAngle='330' plotBorderColor='999999' showAlternateVGridColor='1' divLineAlpha='0' link='page/zwt/MLPie_L1.jsp' >
+<#list sys as x><set label='${x.NAME}'   <#if '${x.TOTAL}'=='0' > toolText='下级服务没有数据' value='${x.TOTAL}' <#else> link='/txn53000211.do?${x.LINK3}' value='${x.TOTAL}' </#if> /></#list>
+</chart>
+

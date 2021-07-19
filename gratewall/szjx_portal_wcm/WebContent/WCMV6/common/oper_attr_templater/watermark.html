@@ -1,0 +1,31 @@
+<textarea id="template_watermark" select="WaterMark">
+	<div class="attribute_row">
+		<TRS_UI:editPanel value="{#WMNAME}" class="attr_detail_value_doctitle" inputClass="attr_detail_value_doctitle" _fieldName="WMNAME" rightindex="32" validation="type:'string',required:'true',desc:'水印名称',max_len:50">
+		</TRS_UI:editPanel>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row" style="padding-left:5px;font-size:12px;width:95%;">
+		<span title="ID:{#WATERMARKID},创建者:{#CRUSER},创建时间:{#CRTIME}" style="white-space:nowrap;overflow:hidden;"><span style="font-size:10px;">用户</span><span style="color:red;font-weight:bold">{#CRUSER}</span><span style="font-size:10px;">创建于</span><span style="color:red;font-weight:bold;font-size:10px;">{#CRTIME}</span>
+		</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">水印名称:</span>
+		<span class="attribute_value">{#WMNAME}</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">所属图库:</span>
+		<span class="attribute_value">{#LibId.Name}</span>
+	</div>	
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<a href="{#WMPICTURE.MAPNAME}" target="_blank" class="docpuburl" title='{#WMPICTURE.SRCNAME}'>{#WMPICTURE.SRCNAME}</a>		
+	</div>
+	<div class="attribute_row_sep"></div>
+ </textarea>
+
+ <textarea id="template_watermarks">
+	<div class="attribute_row">
+		当前共选中<span class="objects_num">{#Num}</span>个水印.
+	</div>
+ </textarea>
+

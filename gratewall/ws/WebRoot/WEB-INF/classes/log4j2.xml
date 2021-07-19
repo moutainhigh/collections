@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="WARN" monitorInterval="30">
+    <appenders>
+        <console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%-d{yyyy-MM-dd HH:mm:ss} %p %m%n"/>
+        </console>
+
+        <RollingFile name="RollingFileInfo" fileName="C:/logs/info.log"
+                     filePattern="C:/logs/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch）-->         
+            <Filters>
+                <ThresholdFilter level="INFO"/>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+
+        <RollingFile name="RollingFileWarn" fileName="C:/logs/warn.log"
+                     filePattern="C:/logs/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <ThresholdFilter level="WARN"/>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+            </Filters>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+             <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+
+        <RollingFile name="RollingFileError" fileName="C:/logs/error.log"
+                     filePattern="C:/logs/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="ERROR"/>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+        
+        
+        <RollingFile name="RollingFileOff" fileName="C:/logs/off.log"
+                     filePattern="C:/logs/$${date:yyyy-MM}/off-%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="OFF"/>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+
+    </appenders>
+
+    <loggers>
+        <!--过滤掉spring和mybatis的一些无用的DEBUG信息-->
+        <logger name="org.springframework" level="DEBUG"></logger>
+        <logger name="org.mybatis" level="DEBUG"></logger>
+        <root level="all">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileWarn"/>
+            <appender-ref ref="RollingFileError"/>
+            <appender-ref ref="RollingFileOff"/>
+        </root>
+    </loggers>
+
+</configuration>
+ <!-- http://blog.csdn.net/axwolfer/article/details/40718609 -->
+ <!-- http://blog.csdn.net/lu8000/article/details/25754415 -->
+ <!-- https://www.cnblogs.com/lzb1096101803/p/5796849.html -->
+ 
+ <!-- 定期功能 -->
+<!--  http://blog.csdn.net/al_assad/article/details/76285871
+ http://www.jianshu.com/p/c6d9b418e433
+ http://z724130632.iteye.com/blog/2319988
+ http://blog.csdn.net/zhang168/article/details/46814489 
+ http://blog.csdn.net/azheng270/article/details/2173430/
+ 
+ http://www.jianshu.com/p/c6d9b418e433
+ http://blog.csdn.net/zouxucong/article/details/56013053?utm_source=itdadao&utm_medium=referral
+ 
+ 本页面配置：
+ https://www.cnblogs.com/lzb1096101803/p/5796849.html
+ -->
+ <!-- https://www.cnblogs.com/li3807/p/7061898.html -->

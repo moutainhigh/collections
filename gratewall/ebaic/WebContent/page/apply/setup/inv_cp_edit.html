@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>非自然人股东</title>
+<link href="../../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/common.css" rel="stylesheet" type="text/css" />
+<style>
+	body{
+		background-color: #fff;
+	}
+	#capital{
+		font-size:14px;
+		font-weight:bold;
+		color:#f89406;
+		margin:10px 0;
+	}
+	.fullLine{
+		display:block;
+		border-top:1px solid  #6ABEF2;
+	}
+
+</style>
+</head>
+<body>
+<!-- 构建页面==开始 -->
+
+﻿<article>
+<!-- 数据展现 -->
+<div vtype="formpanel" wid="applySetupInvCpSave" name="applySetupInvCpSave_Form" dataview="false"
+	titleDisplay="false" title="非自然人股东信息" width="100%" showborder="false" id="applySetupInvCpSave_Form" class="formpanel">
+	<div name="investorId" vtype="hiddenfield" label="主键" labelwidth="120" labelalign="right" width="390"></div>
+	<div name="infoTab" vtype="hiddenfield"  id="infoTab" label="状态" labelwidth="120" labelalign="right" width="390"></div>
+	<div name="inv" id="inv" vtype="textfield" label="单位名称" labelwidth="120" labelalign="right" width="390" tooltip="" rule="must" readonly="true"></div><br>
+	<div name="invType" id="invType" vtype="comboxfield" label="单位类型" labelwidth="120" width="390" rule="must" 
+			dataurl="../../../dmj/getIvtTypes.do"></div>
+	<div name="bLicType" id="bLicType" vtype="comboxfield" label="证照类型" labelwidth="120" labelalign="right" width="390" tooltip="" rule="must" dataurl="../../../dictionary/queryData.do?dicId=CA50"></div>
+	<div name="contry" id="contry" vtype="comboxfield" label="国别和地区" labelwidth="120" width="390" dataurl="../../../dictionary/queryData.do?dicId=CA02" rule="must"></div>
+	<div name="bLicNo" id="bLicNo" vtype="textfield" label="证照号码" labelwidth="120" labelalign="right" width="390" tooltip="" rule="must_length;0;30"></div>
+	<div style="display:none" name="localSign" id="localSign" vtype="radiofield" label="中方标识" labelwidth="110" width="350" itemwidth="100" dataurl="[{value: '0',text: '中方'},{value: '1',text: '外方'}]"></div>
+	<div style="display:none" font: 14px '宋体','Arial Narrow',HELVETICA;margin: 18px 0 5px;" id="initiatorSign1" ></div>
+	
+	<!-- <div>*若股东法定代表人证件类型不是身份证,暂不通过"全程电子化办理业务"</div> -->
+	<div name="subConAm" id="subConAm" vtype="hiddenfield" ></div>	
+	
+	<div id="dom" name="dom" vtype="hiddenfield" ></div> <!-- 详细地址的隐藏域 -->
+	<div id="address" style="width: 1000px;">
+		<div name="prov" id="prov" vtype="comboxfield" label="住所" labelwidth="120" width="270" rule="must"></div>	
+		<div name="city" id="city" vtype="comboxfield" width="150" labelwidth="0"  ></div>
+		<div name="domOther" id="domOther" vtype="textfield" width="420" labelwidth="0"  rule="must_length;0,40"></div>
+	</div>
+	
+</div>
+
+<!-- 数据展现 -->
+
+
+</article>
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../../static/js/config.js"></script>
+<script type="text/javascript" data-main="apply/setupInvCpEdit.js" src="../../../static/lib/require.js"></script>
+
+</body>
+</html>

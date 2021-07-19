@@ -1,0 +1,43 @@
+server:
+  port: 9000
+spring:
+  cloud:
+    zookeeper:
+      connect-string: 139.196.127.34:2181
+      discovery:
+        instance-host: localhost
+  application:
+    name: gateway
+  boot:
+    admin:
+      client:
+        url: http://localhost:10000
+# 配置管理信息
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  server:
+    port: 8666
+zuul:
+  routes:
+    # 用户服务的路由配置
+    user:
+      path: /user/**
+      serviceId:  user-service
+    # 房屋服务的路由配置
+    house:
+      path: /house/**
+      serviceId:  house-service
+    # 房屋服务的路由配置
+    comment:
+      path: /comment/**
+      serviceId:  comment-service
+  ignored-services: "*"
+  sensitive-headers:
+
+# ribbon:
+# ReadTimeout: 1000  #处理超时时间 默认5秒
+# ConnectTimeout: 2000 #连接超时时间 默认2秒
+# zuul.host.connect-timeout-millis: 2000

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="主从表[主表通过导航按钮，维护子表信息]" page="master-detail-table-2.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="multi-table-2.gif"/>
+  <struts name="food_rec_food.xml" app-path="/dw/aic/bj/foo/rec/" app-name="food_rec_food" description="食品备案" template="master-detail-table-2.xml"/>
+  <table name="food_rec_food.xml" app-name="food_rec_food" app-desc="备案食品" delete-action="delete" description="食品备案" class-name="com.gwssi.dw.aic.bj.foo.rec.txn.TxnFoodRecFood" template="master-detail-table-2.master.java" dao-class-template="single-table.java" type="master">
+	  <jsp page-name="query-food_rec_food.jsp" txn-code="60141001" description="查询备案食品列表" template="master-detail-2/master-table-query.jsp">
+	    <button type="button" name="增加备案食品" path="insert-food_rec_food.jsp" description="增加备案食品" func-name="addRecord"/>
+	    <button type="button" name="修改备案食品" path="/txn60141004.do" description="修改备案食品" func-name="updateRecord"/>
+	    <button type="button" name="删除备案食品" path="/txn60141005.do" description="删除备案食品" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60141001.do" description="查询备案食品信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-food_rec_food.jsp" txn-code="60141003" description="增加备案食品信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60141003.do" description="保存备案食品信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60141003.do" description="保存备案食品信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60141001.do" description="保存备案食品信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60141001.do" description="返回到备案食品明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-food_rec_food.jsp" txn-code="60141002" description="修改备案食品信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60141001.do" description="修改备案食品信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60141001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-food_rec_food.jsp" txn-code="60141001" description="查询备案食品列表">
+	    <forward error-code="success" path="query-food_rec_food.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-food_rec_food.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-food_rec_food.jsp" txn-code="60141002" description="修改备案食品信息">
+	    <forward error-code="success" path="update-food_rec_food.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-food_rec_food.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-food_rec_food.jsp" txn-code="60141003" description="增加备案食品信息">
+	    <forward error-code="success" path="insert-food_rec_food.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-food_rec_food.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-food_rec_food.jsp" txn-code="60141004" description="查询备案食品用于修改">
+	    <forward error-code="success" path="update-food_rec_food.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-food_rec_food.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-food_rec_food.jsp" txn-code="60141005" description="删除备案食品信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.rec.vo.FoodRecFoodContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.rec.vo.VoFoodRecFood" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.rec.vo.VoFoodRecFoodSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.rec.vo.VoFoodRecFoodPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="food_test_data.xml" app-name="food_test_data" app-desc="检测信息" delete-action="delete" description="检测数据信息表" class-name="com.gwssi.dw.aic.bj.foo.tes.txn.TxnFoodTestData" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60141011">
+	  <jsp page-name="food_test_data/query-food_test_data.jsp" txn-code="60141011" description="查询检测信息列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加检测信息" path="food_test_data/insert-food_test_data.jsp" description="增加检测信息" func-name="addRecord"/>
+	    <button type="button" name="修改检测信息" path="/txn60141014.do" description="修改检测信息" func-name="updateRecord"/>
+	    <button type="button" name="检测信息" path="/txn60141015.do" description=" 查询" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60141001.do" description="返回到备案食品明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60141011.do" description="查询检测信息信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="food_test_data/insert-food_test_data.jsp" txn-code="60141013" description="增加检测信息信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60141013.do" description="保存检测信息信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60141013.do" description="保存检测信息信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60141011.do" description="保存检测信息信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60141011.do" description="返回到检测信息明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="food_test_data/update-food_test_data.jsp" txn-code="60141012" description="修改检测信息信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60141011.do" description="修改检测信息信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60141011.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="food_test_data/query-food_test_data.jsp" txn-code="60141011" description="查询检测信息列表">
+	    <forward error-code="success" path="food_test_data/query-food_test_data.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="food_test_data/query-food_test_data.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="food_test_data/update-food_test_data.jsp" txn-code="60141012" description="修改检测信息信息">
+	    <forward error-code="success" path="food_test_data/update-food_test_data.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="food_test_data/update-food_test_data.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_test_data/insert-food_test_data.jsp" txn-code="60141013" description="增加检测信息信息">
+	    <forward error-code="success" path="food_test_data/insert-food_test_data.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="food_test_data/insert-food_test_data.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_test_data/query-food_test_data.jsp" txn-code="60141014" description="查询检测信息用于修改">
+	    <forward error-code="success" path="food_test_data/update-food_test_data.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="food_test_data/update-food_test_data.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_test_data/query-food_test_data.jsp" txn-code="60141015" description="删除检测信息信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.tes.vo.FoodTestDataContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.tes.vo.VoFoodTestData" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.tes.vo.VoFoodTestDataSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.tes.vo.VoFoodTestDataPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="food_cred_info.xml" app-name="food_cred_info" app-desc="信用信息" delete-action="delete" description="食品信用表" class-name="com.gwssi.dw.aic.bj.foo.cre.txn.TxnFoodCredInfo" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60141021">
+	  <jsp page-name="food_cred_info/query-food_cred_info.jsp" txn-code="60141021" description="查询信用信息列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加信用信息" path="food_cred_info/insert-food_cred_info.jsp" description="增加信用信息" func-name="addRecord"/>
+	    <button type="button" name="修改信用信息" path="/txn60141024.do" description="修改信用信息" func-name="updateRecord"/>
+	    <button type="button" name="删除信用信息" path="/txn60141025.do" description="删除信用信息" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60141001.do" description="返回到备案食品明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60141021.do" description="查询信用信息信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="food_cred_info/insert-food_cred_info.jsp" txn-code="60141023" description="增加信用信息信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60141023.do" description="保存信用信息信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60141023.do" description="保存信用信息信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60141021.do" description="保存信用信息信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60141021.do" description="返回到信用信息明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="food_cred_info/update-food_cred_info.jsp" txn-code="60141022" description="修改信用信息信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60141021.do" description="修改信用信息信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60141021.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="food_cred_info/query-food_cred_info.jsp" txn-code="60141021" description="查询信用信息列表">
+	    <forward error-code="success" path="food_cred_info/query-food_cred_info.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="food_cred_info/query-food_cred_info.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="food_cred_info/update-food_cred_info.jsp" txn-code="60141022" description="修改信用信息信息">
+	    <forward error-code="success" path="food_cred_info/update-food_cred_info.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="food_cred_info/update-food_cred_info.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_cred_info/insert-food_cred_info.jsp" txn-code="60141023" description="增加信用信息信息">
+	    <forward error-code="success" path="food_cred_info/insert-food_cred_info.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="food_cred_info/insert-food_cred_info.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_cred_info/query-food_cred_info.jsp" txn-code="60141024" description="查询信用信息用于修改">
+	    <forward error-code="success" path="food_cred_info/update-food_cred_info.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="food_cred_info/update-food_cred_info.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_cred_info/query-food_cred_info.jsp" txn-code="60141025" description="删除信用信息信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.cre.vo.FoodCredInfoContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.cre.vo.VoFoodCredInfo" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.cre.vo.VoFoodCredInfoSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.cre.vo.VoFoodCredInfoPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="food_rec_food_auth.xml" app-name="food_rec_food_auth" app-desc="认证/认定信息" delete-action="delete" description="食品备案认证/认定表" class-name="com.gwssi.dw.aic.bj.foo.rec.txn.TxnFoodRecFoodAuth" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60141031">
+	  <jsp page-name="food_rec_food_auth/query-food_rec_food_auth.jsp" txn-code="60141031" description="查询认证/认定信息列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加认证/认定信息" path="food_rec_food_auth/insert-food_rec_food_auth.jsp" description="增加认证/认定信息" func-name="addRecord"/>
+	    <button type="button" name="修改认证/认定信息" path="/txn60141034.do" description="修改认证/认定信息" func-name="updateRecord"/>
+	    <button type="button" name="删除认证/认定信息" path="/txn60141035.do" description="删除认证/认定信息" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60141001.do" description="返回到备案食品明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60141031.do" description="查询认证/认定信息信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="food_rec_food_auth/insert-food_rec_food_auth.jsp" txn-code="60141033" description="增加认证/认定信息信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60141033.do" description="保存认证/认定信息信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60141033.do" description="保存认证/认定信息信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60141031.do" description="保存认证/认定信息信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60141031.do" description="返回到认证/认定信息明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="food_rec_food_auth/update-food_rec_food_auth.jsp" txn-code="60141032" description="修改认证/认定信息信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60141031.do" description="修改认证/认定信息信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60141031.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="food_rec_food_auth/query-food_rec_food_auth.jsp" txn-code="60141031" description="查询认证/认定信息列表">
+	    <forward error-code="success" path="food_rec_food_auth/query-food_rec_food_auth.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="food_rec_food_auth/query-food_rec_food_auth.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="food_rec_food_auth/update-food_rec_food_auth.jsp" txn-code="60141032" description="修改认证/认定信息信息">
+	    <forward error-code="success" path="food_rec_food_auth/update-food_rec_food_auth.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="food_rec_food_auth/update-food_rec_food_auth.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_rec_food_auth/insert-food_rec_food_auth.jsp" txn-code="60141033" description="增加认证/认定信息信息">
+	    <forward error-code="success" path="food_rec_food_auth/insert-food_rec_food_auth.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="food_rec_food_auth/insert-food_rec_food_auth.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_rec_food_auth/query-food_rec_food_auth.jsp" txn-code="60141034" description="查询认证/认定信息用于修改">
+	    <forward error-code="success" path="food_rec_food_auth/update-food_rec_food_auth.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="food_rec_food_auth/update-food_rec_food_auth.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_rec_food_auth/query-food_rec_food_auth.jsp" txn-code="60141035" description="删除认证/认定信息信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.rec.vo.FoodRecFoodAuthContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.rec.vo.VoFoodRecFoodAuth" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.rec.vo.VoFoodRecFoodAuthSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.rec.vo.VoFoodRecFoodAuthPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="food_rec_food_lic.xml" app-name="food_rec_food_lic" app-desc="许可审批" delete-action="delete" description="食品许可证表" class-name="com.gwssi.dw.aic.bj.foo.rec.txn.TxnFoodRecFoodLic" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60141041">
+	  <jsp page-name="food_rec_food_lic/query-food_rec_food_lic.jsp" txn-code="60141041" description="查询许可审批列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加许可审批" path="food_rec_food_lic/insert-food_rec_food_lic.jsp" description="增加许可审批" func-name="addRecord"/>
+	    <button type="button" name="修改许可审批" path="/txn60141044.do" description="修改许可审批" func-name="updateRecord"/>
+	    <button type="button" name="删除许可审批" path="/txn60141045.do" description="删除许可审批" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60141001.do" description="返回到备案食品明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60141041.do" description="查询许可审批信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="food_rec_food_lic/insert-food_rec_food_lic.jsp" txn-code="60141043" description="增加许可审批信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60141043.do" description="保存许可审批信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60141043.do" description="保存许可审批信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60141041.do" description="保存许可审批信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60141041.do" description="返回到许可审批明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="food_rec_food_lic/update-food_rec_food_lic.jsp" txn-code="60141042" description="修改许可审批信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60141041.do" description="修改许可审批信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60141041.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="food_rec_food_lic/query-food_rec_food_lic.jsp" txn-code="60141041" description="查询许可审批列表">
+	    <forward error-code="success" path="food_rec_food_lic/query-food_rec_food_lic.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="food_rec_food_lic/query-food_rec_food_lic.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="food_rec_food_lic/update-food_rec_food_lic.jsp" txn-code="60141042" description="修改许可审批信息">
+	    <forward error-code="success" path="food_rec_food_lic/update-food_rec_food_lic.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="food_rec_food_lic/update-food_rec_food_lic.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_rec_food_lic/insert-food_rec_food_lic.jsp" txn-code="60141043" description="增加许可审批信息">
+	    <forward error-code="success" path="food_rec_food_lic/insert-food_rec_food_lic.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="food_rec_food_lic/insert-food_rec_food_lic.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_rec_food_lic/query-food_rec_food_lic.jsp" txn-code="60141044" description="查询许可审批用于修改">
+	    <forward error-code="success" path="food_rec_food_lic/update-food_rec_food_lic.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="food_rec_food_lic/update-food_rec_food_lic.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_rec_food_lic/query-food_rec_food_lic.jsp" txn-code="60141045" description="删除许可审批信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.rec.vo.FoodRecFoodLicContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.rec.vo.VoFoodRecFoodLic" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.rec.vo.VoFoodRecFoodLicSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.foo.rec.vo.VoFoodRecFoodLicPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+</resource>

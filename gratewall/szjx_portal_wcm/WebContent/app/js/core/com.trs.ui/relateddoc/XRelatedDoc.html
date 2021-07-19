@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> relateddoc demo </title>
+	<!-- 组件依赖的代码 BEGIN -->
+	<script src="../../core.js" type="text/javascript"></script>
+	<script src="../../com.trs.util/Observable.js" type="text/javascript"></script>
+	<script src="../BaseComponent.js" type="text/javascript"></script>
+	<!-- 组件依赖的代码 END -->
+
+	<script src="../../wcm-adapter.js" type="text/javascript"></script>
+
+	<!-- 窗口组件依赖的代码 BEGIN -->
+	<script src="../../../../js/source/wcmlib/com.trs.floatpanel/FloatPanel.js"></script>
+	<!-- 窗口组件依赖的代码 END -->
+
+	<!--Ajax Framework BEGIN-->
+	<script src="../../ajax.js" type="text/javascript"></script>
+	<script src="../../wcm-ajax.js" type="text/javascript"></script>
+	<!--Ajax Framework END-->
+
+	<script language="javascript" src="XRelatedDoc.js" type="text/javascript"></script>
+	<link href="resource/XRelatedDoc.css" rel="stylesheet" type="text/css" />	
+</head>
+
+<body>
+<span WCMAnt:param="XRelatedDoc.html.demo1">demo1:将通过ajax获取相关文档的详细信息,传入了相关文档的id序列</span>
+<div id="myRelatedDoc1Box" WCMAnt:param="XRelatedDoc.html.myrelateddocgenerate">myRelatedDoc1将产生在此处...</div>
+<script language="javascript">
+<!--
+	/*
+	*将通过ajax获取相关文档的详细信息,传入了相关文档的id序列
+	*/
+	new com.trs.ui.XRelatedDoc({
+		renderTo : 'myRelatedDoc1Box',//可选参数，指定生成的控件将使用的容器
+		params:{channelId:3,selectType:'radio'},//导航树默认展开的栏目id
+		name : 'myRelatedDoc1', 
+		value : '47,48,49,50,51'//relateddocids
+	}).render();
+//-->
+</script>
+<button onclick="getValue('myRelatedDoc1');" WCMAnt:param="XRelatedDoc.html.getrelateddoc">获取相关文档的值</button>
+<br />
+<hr />
+<span WCMAnt:param="XRelatedDoc.html.demo2">demo2:将通过ajax获取相关文档的详细信息,传入了文档的id</span>
+<script language="javascript">
+<!--
+	/*
+	*将通过ajax获取相关文档的详细信息,传入了文档的id
+	*/
+	new com.trs.ui.XRelatedDoc({
+		params:{channelId:3},//导航树默认展开的栏目id
+		name : 'myRelatedDoc2', 
+		objectId : '54'//docid
+	}).render();
+//-->
+</script>
+<button onclick="getValue('myRelatedDoc2');" WCMAnt:param="XRelatedDoc.html.getrelateddoc">获取相关文档的值</button>
+<br />
+<hr />
+<span WCMAnt:param="XRelatedDoc.html.demo3">demo3:传入了相关文档的详细信息，不再发送ajax请求，以提高性能</span>
+<script language="javascript">
+<!--
+	/*
+	*传入了相关文档的详细信息，不再发送ajax请求，以提高性能
+	*/
+	new com.trs.ui.XRelatedDoc({
+		params:{channelId:3},//导航树默认展开的栏目id
+		name : 'myRelatedDoc3', 
+		items : [
+			{id : '51', title : '22省份将招聘7.4万农村特岗教师', channelId : '7'},
+			{id : '50', title : '河南万名特岗教师27日起网上报名 期满解决编制', channelId : '7'},
+			{id : '49', title : '浙大学子竞聘城管协管员 录用比例10比1', channelId : '7'}
+		] 
+	}).render();
+//-->
+</script>
+<br />
+<button onclick="getValue('myRelatedDoc3');"WCMAnt:param="XRelatedDoc.html.getrelateddoc">获取相关文档的值</button>
+<script language="javascript">
+<!--
+	function getValue(sName){	
+		var oMyRelatedDoc = com.trs.ui.ComponentMgr.get(sName);
+		alert(oMyRelatedDoc.getValue());		
+	}
+//-->
+</script>
+</body>
+</html>

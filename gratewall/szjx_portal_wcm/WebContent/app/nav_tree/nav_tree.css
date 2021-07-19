@@ -1,0 +1,167 @@
+#bodyContainer{width:192px;height:100%;overflow:auto;position:relative;}
+.ext-ie8 #bodyContainer{position:absolute;overflow:hidden;}
+/*ie6*/
+.ext-ie6 .layout_container{padding-top:21px;height:100%;}
+.ext-ie6 .layout_north{height:22px;}
+.ext-ie6 .layout_center_container{width:100%;height:100%;}
+/*strict*/
+.ext-strict .layout_north{height:22px;}
+.ext-strict .layout_center_container{top:21px;height:auto;bottom:0;}
+/*all*/
+.nav_options{position:absolute;left:0px;top:0px;width:100%;height:21px;background:url(../images/nav_tree/nav_tree.png) left -111px no-repeat;overflow:hidden;}
+#tblOptions{float:right;}
+.nav_option{float:left;cursor:pointer;width:21px;height:20px;overflow:hidden;}
+.nav_option_refresh{background:url(../images/nav_tree/bg.png) 0px -525px no-repeat;}
+.nav_option_locate{background:url(../images/nav_tree/bg.png) 0px -606px no-repeat;}
+.nav_option_more{background:url(../images/nav_tree/bg.png) 0px -566px no-repeat;}
+
+.layout_center_container{
+	overflow:auto!important;
+	border-top:0;
+	background-color: white;
+	border-right:#84a4c1 1px solid;
+	border-bottom:#84a4c1 1px solid;
+}
+.layout_center_container div{overflow:visible;zoom:1;}
+.nav_tree{overflow:auto!important;}
+.nav_tree div{overflow:visible;zoom:1;}
+.ext-ie6 .TreeView{
+	width:100%;
+	height:100%;
+}
+.TreeView{position:absolute;top:0;bottom:0;left:0;right:0;}
+
+.TreeView ul{padding:0 0 0 15px;}
+/*文字库*/
+.TreeView div.SiteType0Root{
+	background:transparent url(../images/nav_tree/bg.png) 1px -166px no-repeat;	
+	text-indent:22px;
+	line-height:26px; 
+}
+.TreeView div.SiteType0RootOpened{
+	background:transparent url(../images/nav_tree/bg.png) 1px -142px no-repeat;	
+	text-indent:22px;
+	line-height:26px; 
+}
+/*图片库*/
+.TreeView div.SiteType1Root{
+	background:transparent url(../images/nav_tree/bg.png) 1px -119px no-repeat;	
+	text-indent:22px;
+	line-height:26px; 
+}
+.TreeView div.SiteType1RootOpened{
+	background:transparent url(../images/nav_tree/bg.png) 1px -95px no-repeat;	
+	text-indent:22px;
+	line-height:26px; 
+}
+/*视频库*/
+.TreeView div.SiteType2Root{
+	background:transparent url(../images/nav_tree/bg.png) 1px -71px no-repeat;	
+	text-indent:22px;
+	line-height:26px; 
+}
+.TreeView div.SiteType2RootOpened{
+	background:transparent url(../images/nav_tree/bg.png) 1px -47px no-repeat;	
+	text-indent:22px;
+	line-height:26px; 
+}
+/*资源库*/
+.TreeView div.SiteType4Root{
+	background:transparent url(../images/nav_tree/bg.png) 1px -432px no-repeat;	
+	text-indent:21px;
+	line-height:26px; 
+}
+.TreeView div.SiteType4RootOpened{
+	background:transparent url(../images/nav_tree/bg.png) 1px -408px no-repeat;	
+	text-indent:21px;
+	line-height:26px; 
+}
+/*协作服务*/
+.TreeView div.MyIntRoot{
+	background:transparent url(../images/nav_tree/bg.png) 1px -23px no-repeat;	
+	text-indent:22px;
+	line-height:26px; 
+}
+.TreeView div.MyIntRootOpened{
+	background:transparent url(../images/nav_tree/bg.png) 1px 1px no-repeat;	
+	text-indent:22px;
+	line-height:26px; 
+}
+.TreeView div.MyWorkPage{
+	background:transparent url(../images/nav_tree/bg.png) 1px -359px no-repeat;	
+	text-indent:22px;
+	line-height:26px; 
+}
+.TreeView div.MyMsgPage{
+	background:transparent url(../images/nav_tree/bg.png) 1px -385px no-repeat;	
+	text-indent:22px;
+	line-height:26px; 
+}
+.TreeView div.TrsServerPage{
+	background:transparent url(../images/nav_tree/bg.png) 1px -240px no-repeat;	
+	text-indent:22px;
+	line-height:26px; 
+}
+.TreeView div.siteFolder{
+	background:transparent url(../images/nav_tree/bg.png) 1px -215px no-repeat;	
+	line-height:26px; 
+	text-indent:22px;
+}
+.TreeView div.siteFolderOpened{
+	background:transparent url(../images/nav_tree/bg.png) 1px -191px no-repeat;	
+	line-height:26px; 
+	text-indent:22px;
+}
+.TreeView div.sitePage{
+	background:transparent url(../images/nav_tree/bg.png) 1px -501px no-repeat;	
+	line-height:26px; 
+	text-indent:22px;
+}
+/*普通栏目*/
+.TreeView div.channelFolder{
+	background:transparent url(../images/nav_tree/bg.png) 9px -481px no-repeat;	
+	text-indent:32px;
+}
+.TreeView div.channelFolderOpened{
+	background:transparent url(../images/nav_tree/bg.png) 9px -457px no-repeat;	
+	text-indent:32px;
+}
+.TreeView div.channelPage{
+	background:transparent url(../images/nav_tree/bg.png) 9px -338px no-repeat;	
+	text-indent:32px;
+}
+/*图片栏目*/
+.TreeView div.channel1Page{
+	background:transparent url(../images/nav_tree/bg.png) 9px -314px no-repeat;	
+	text-indent:32px;
+}
+/*头条栏目*/
+.TreeView div.channel2Page{
+	background:transparent url(../images/nav_tree/bg.png) 9px -290px no-repeat;	
+	text-indent:32px;
+}
+/*链接栏目*/
+.TreeView div.channel11Page{
+	background:transparent url(../images/nav_tree/bg.png) 9px -265px no-repeat;	
+	text-indent:32px;
+}
+/*表单栏目*/
+.TreeView div.channel13Page{
+	background:transparent url(../images/nav_tree/bg.png) 9px -241px no-repeat;	
+	text-indent:32px;
+}
+.contextmenustatus{
+	font-weight:bold;
+}
+
+/*个性化栏目*/
+.TreeView div.SiteType3Root{
+	background:transparent url(../images/nav_tree/bg.png) 2px -699px no-repeat;	
+	text-indent:22px;
+	line-height:26px; 
+}
+.TreeView div.SiteType3RootOpened{
+	background:transparent url(../images/nav_tree/bg.png) 2px -672px no-repeat;	
+	text-indent:22px;
+	line-height:26px; 
+}

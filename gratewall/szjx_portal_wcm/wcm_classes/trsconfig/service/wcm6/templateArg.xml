@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.TemplateServiceProvider">
+	<method name="queryArgs" desc="获取站点/栏目的可设置的模板变量">
+		<parameter name="HostType" desc="对象（站点/栏目）类型" type="int" required="true"/>
+		<parameter name="HostId" desc="对象（站点/栏目）ID" type="int" required="true"/>	
+	</method>	
+
+	<method name="saveArgument" desc="保存在站点/栏目上设置模板变量值">
+		<parameter name="HostType" desc="对象（站点/栏目）类型" type="int" required="true"/>
+		<parameter name="HostId" desc="对象（站点/栏目）ID" type="int" required="true"/>	
+		<parameter name="TemplateId" desc="模板ID" type="int" required="true"/>			
+		
+		<parameter name="ParameterName" desc="参数名称" type="string" required="true"/>	
+		<parameter name="PrexName" desc="参数前缀(默认为不传入)" type="string" required="false"/>			
+		<parameter name="ArgValue" desc="设置的参数值" type="string" required="true"/>
+		<parameter name="SyncSameName" desc="是否同步修改子栏目的变量" type="boolean" required="false"/>
+	</method>	
+	
+	<method name="cancelArgVal" desc="取消模板变量的设置值">
+		<parameter name="HostType" desc="对象（站点/栏目）类型" type="int" required="true"/>
+		<parameter name="HostId" desc="对象（站点/栏目）ID" type="int" required="true"/>	
+		<parameter name="TemplateId" desc="模板ID" type="int" required="true"/>			
+		
+		<parameter name="ParameterNames" desc="参数名称" type="string" required="true"/>
+		<parameter name="PrexName" desc="参数前缀(默认为不传入)" type="string" required="false"/>		
+	</method>	
+</service>

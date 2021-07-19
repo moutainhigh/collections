@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../common.js" type="text/javascript"></script> 
+<script>
+    
+	function add(){
+		var data = [{"id":"8888888888888888","birthday":"2014-08-30","resume":"aaa","sex":"1","age":"30","name":"shane flin","hobby":"球","origin":"","org":"1","photo":"","password":"ssss"},
+		            {"id":"9999999999999999","birthday":"2014-08-30","resume":"aaa","sex":"1","age":"30","name":"joe","hobby":"球","origin":"","org":"1","photo":"","password":"ssss"}];
+		$('div[name="gridpanel"]').gridpanel('addRow', data);
+	}
+	function update(){
+		var data = $('div[name="gridpanel"]').gridpanel('getSelection');
+		if(data.length==1){
+			var id = data[0]["id"];
+			var newdata = {"sex":"2","age":"28","name":"Emily","hobby":"swimming"};
+			$('div[name="gridpanel"]').gridpanel('updateRowById',newdata,id);
+		}else{
+			alert("请选择一条要删除的表格数据。");
+		}
+	}
+	function remove(){
+		var data = $('div[name="gridpanel"]').gridpanel('getSelection');
+		if(data.length>0){
+	    	for(var i=0;i<data.length;i++){
+	    		var id = data[i]["id"];
+	    		$('div[name="gridpanel"]').gridpanel('removeRowById',id);
+	    	}
+		}else{
+			alert("请选择要删除的表格数据。");
+		}
+	}
+  	//数据渲染函数
+    function renderdata(data){
+		for(var i=0;i<data.length;i++){
+			data[i]["@toolsopration"] = '<div class="jazz-grid-cell-inner"><a href="javascript:void(0);" onclick="callcustom()">'+data[i]["name"]+'</a></div>';
+			data[i]["custom"] = '<div class="jazz-grid-cell-inner"><a href="javascript:void(0);" onclick="callcustom()">'+data[i]["name"]+'</a></div>';
+		}
+		return data;
+    }
+  	
+    $(function(){
+        //调整父页面iframe高度
+        try{
+            parent.setWinHeight(365);           
+        }catch(e){
+            jazz.log(e);
+        }
+    });
+</script>
+</head>
+<body>
+
+<div vtype="gridpanel" name="gridpanel" height="360" width="680" dataloadcomplete="" datarender="renderdata()" 
+titledisplay="true" title="查询结果" dataurl="reg.json" isshowselecthelper="true" selecttype="2">
+	<div name="toolbar" vtype="toolbar">
+		<div name="add_button" vtype="button" text="新增" click="add()"></div>
+		<div name="update_button" vtype="button" text="修改"  click="update()"></div>
+    	<div name="delete_button" vtype="button" text="删除" click="remove()"></div>
+    </div>
+	<div vtype="gridcolumn" name="grid_column" >
+		<div> <!-- 单行表头-->
+			<div name="id" key="true" visible="false"></div>
+			<div name="name"  text="姓名" textalign="center" sort="true" width="120px"></div>
+			<div name="sex" text="性别" textalign="center" sort="true" dataurl='[{"text":"男","value":"1"},{"text":"女","value":"2"}]' width="50px"></div>
+			<div name="age" text="年龄" textalign="center" sort="true" width="50px"></div>
+			<div name="org" text="所属机构" textalign="center" sort="true" dataurl="/JAZZ/dictionary/queryData.do?dicId=org" width="100px"></div>
+			<div name="birthday" text="出生日期" textalign="center" sort="true" datatype="date" dataformat="" width="150px"></div>
+			<div name="custom" text="自定义" textalign="center" width="140px"></div>
+		</div>
+	</div>
+	<!-- 表格 -->
+	<div vtype="gridtable" name="grid_table"></div>
+</div>
+
+</body>
+</html>

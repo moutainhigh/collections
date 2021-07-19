@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="GB2312"?>
+<mapping>
+	<description>the Mapping of the core config</description>
+	<!--The Core Mapping BEGIN-->
+	<class name="com.trs.infra.config.persistent.PluginConfig" identity="id">
+		<map-to xml="plugin"/>
+		<field name="id">
+			<bind-xml name="id" node="attribute"/>
+		</field>
+		<field name="name">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		<field name="version">
+			<bind-xml name="version" node="attribute"/>
+		</field>
+		<field name="beans" type="com.trs.infra.config.persistent.BeanConfig" 
+			collection="collection" container="false">
+			<bind-xml name="beans"/>
+		</field>
+		<field name="extensions" 
+			type="com.trs.infra.config.persistent.ExtensionConfigs" 
+			collection="collection">
+			<bind-xml name="extension"/>
+		</field>
+	</class>
+	<class name="com.trs.infra.config.persistent.BeanConfig" identity="id" 
+		auto-complete="true">
+		<map-to xml="bean"/>
+		<field name="id">
+			<bind-xml name="id" node="attribute"/>
+		</field>
+		<field name="className">
+			<bind-xml name="class" node="attribute"/>
+		</field>
+		<field name="singleton" type="boolean">
+			<bind-xml name="singleton" node="attribute"/>
+		</field>
+	</class>
+	<class name="com.trs.infra.config.persistent.ExtensionConfigs" 
+		identity="id" auto-complete="true">
+		<map-to xml="extension"/>
+		<field name="id">
+			<bind-xml name="id" node="attribute"/>
+		</field>
+		<field name="className">
+			<bind-xml name="element-class" node="attribute"/>
+		</field>
+		<field name="configElements" 
+			type="com.trs.infra.config.persistent.IConfigElement" 
+			collection="collection">
+			<bind-xml auto-naming="deriveByClass"/>
+		</field>
+	</class>
+	<!--The Core Mapping END-->
+	<!--The DB Connection Mapping BEGIN-->
+	<class name="com.trs.infra.persistent.db.DBConnectionConfigs" 
+		identity="defaultConn" auto-complete="true">
+		<map-to xml="DBConnections"/>
+		<field name="defaultConnection">
+			<bind-xml name="default" node="attribute"/>
+		</field>
+		<field name="dBConnectionConfigColl" 
+			type="com.trs.infra.persistent.db.DBConnectionConfig" 
+			collection="collection">
+			<bind-xml auto-naming="deriveByClass"/>
+		</field>
+	</class>
+	<class name="com.trs.infra.persistent.db.DBConnectionConfig" identity="name" 
+		auto-complete="true">
+		<map-to xml="DBConnect"/>
+		<field name="name">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		<field name="className">
+			<bind-xml name="className" node="attribute"/>
+		</field>
+		<field name="dowithClob" type="boolean">
+			<bind-xml name="dowithClob" node="attribute"/>
+		</field>
+		<field name="connectionURL">
+			<bind-xml name="connectionURL" node="attribute"/>
+		</field>
+		<field name="connectionUser">
+			<bind-xml name="connectionUser" node="attribute"/>
+		</field>
+		<field name="connectionPassword">
+			<bind-xml name="connectionPassword" node="attribute"/>
+		</field>
+		<field name="initConnects" type="integer">
+			<bind-xml name="initConnects" node="attribute"/>
+		</field>
+		<field name="maxConnects" type="integer">
+			<bind-xml name="maxConnects" node="attribute"/>
+		</field>
+		<field name="waitIfBusy" type="boolean">
+			<bind-xml name="waitIfBusy" node="attribute"/>
+		</field>
+		<field name="traceAssign" type="boolean">
+			<bind-xml name="traceAssign" node="attribute"/>
+		</field>
+		<field name="timeToLiveOverUse" type="integer">
+			<bind-xml name="timeToLiveOverUse" node="attribute"/>
+		</field>
+		<field name="cacheScheme">
+			<bind-xml name="cacheScheme" node="attribute"/>
+		</field>
+		<field name="testSQL">
+			<bind-xml name="testSQL" node="attribute" />
+		</field>
+		<field name="testOnAssign" type="boolean">
+			<bind-xml name="testOnAssign" node="attribute" />
+		</field>
+		<!-- wenyh@2007.11.23 add additinal parameters -->
+		<field name="maxOrphanTime" type="integer">
+			<bind-xml name="maxOrphanTime" node="attribute" />
+		</field>
+		<field name="testOnIdle" type="boolean">
+			<bind-xml name="testOnIdle" node="attribute" />
+		</field>
+		<field name="maxIdleTime" type="integer">
+			<bind-xml name="maxIdleTime" node="attribute" />
+		</field>
+		<field name="monitorInterval" type="integer">
+			<bind-xml name="monitorInterval" node="attribute" />
+		</field>
+	</class>
+	<!--The DB Connection Mapping END-->
+</mapping>

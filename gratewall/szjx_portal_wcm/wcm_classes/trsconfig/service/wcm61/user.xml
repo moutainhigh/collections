@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.UserServiceProvider">
+
+	<method name="getOnlineUsers" desc="获取在线用户信息" params-required="false">
+		<parameter name="PageSize" desc="分页大小(此方法不分页)" type="int" required="false" default="-1"/>
+		<parameter name="SelectFields" desc="提取那些字段" type="string" required="false" default="UserId,UserName,NickName,TrueName,Email,LoginTime,Attribute"/>
+	</method>
+
+	<method name="getUsersByNames" desc="获取在线用户信息">
+		<parameter name="UserNames" desc="查询的user names" type="string" required="true"/>
+	</method>
+	
+	<method name="save" desc="保存用户信息">
+		<parameter name="UserId" desc="获取用户的ID" type="string" required="true"/>
+		<parameter name="GroupId" desc="获取用户组织ID" type="string" required="false"/>
+		<parameter name="USERNAME" desc="获取用户名" type="string" required="true"/>
+		<parameter name="NICKNAME" desc="获取用户呢称" type="string" required="true"/>
+		<parameter name="EMAIL" desc="获取用户EMAIL" type="string" required="true"/>
+		<parameter name="PASSWORD" desc="获取用户密码" type="string" required="false"/>
+		<parameter name="TRUENAME" desc="获取用户真实姓名" type="string" required="false"/>
+		<parameter name="TEL" desc="获取用户电话" type="string" required="false"/>
+		<parameter name="MOBILE" desc="获取用户移动电话" type="string" required="false"/>
+		<parameter name="ADDRESS" desc="获取用户地址" type="string" required="false"/>
+	</method>		
+
+	<method name="getUsersOfRole" desc="获取指定角色和站点下的用户集合,兼容系统级角色和非系统级角色">
+		<!--排序字段begin-->
+		<parameter name="OrderBy" desc="角色的用户列表排序字段及方式" type="string" required="false"/>	
+		<!--排序字段end-->
+		<parameter name="RoleId" desc="角色ID" type="int" required="true" />
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>
+		<!--检索字段begin-->
+		<parameter name="USERNAME" desc="用户名" type="string" required="false" search="true"
+			search-operator="like"/>		
+		<parameter name="TRUENAME" desc="真实姓名" type="string" required="false" search="true"
+			search-operator="like"/>
+		<!--检索字段end-->
+	</method>		
+
+	<method name="getUsersOfSystemRoleOnSite" desc="获取指定系统级角色和站点下的用户集合">
+		<!--排序字段begin-->
+		<parameter name="OrderBy" desc="角色的用户列表排序字段及方式" type="string" required="false"/>	
+		<!--排序字段end-->
+		<parameter name="RoleId" desc="角色ID" type="int" required="true" />
+		<parameter name="SiteId" desc="站点ID" type="int" required="true"/>
+		<!--检索字段begin-->
+		<parameter name="USERNAME" desc="用户名" type="string" required="false" search="true"
+			search-operator="like"/>		
+		<parameter name="TRUENAME" desc="真实姓名" type="string" required="false" search="true"
+			search-operator="like"/>
+		<!--检索字段end-->
+	</method>		
+
+	<method name="getUsersOfSpecialRole" desc="获取指定特定角色下的用户集合">
+		<!--排序字段begin-->
+		<parameter name="OrderBy" desc="角色的用户列表排序字段及方式" type="string" required="false"/>	
+		<!--排序字段end-->
+		<parameter name="RoleId" desc="角色ID" type="int" required="true" />
+		<!--检索字段begin-->
+		<parameter name="USERNAME" desc="用户名" type="string" required="false" search="true"
+			search-operator="like"/>		
+		<parameter name="TRUENAME" desc="真实姓名" type="string" required="false" search="true"
+			search-operator="like"/>
+		<!--检索字段end-->
+	</method>		
+	<method name="getUsersOfGroup" desc="获取指定组织下的用户集合">
+		<!--排序字段begin-->
+		<parameter name="OrderBy" desc="组织的用户列表排序字段及方式" type="string" required="false"/>	
+		<!--排序字段end-->
+		<parameter name="GroupId" desc="组织ID" type="int" required="true" />
+		<!--检索字段begin-->
+		<parameter name="USERNAME" desc="用户名" type="string" required="false" search="true"
+			search-operator="like"/>		
+		<parameter name="TRUENAME" desc="真实姓名" type="string" required="false" search="true"
+			search-operator="like"/>
+		<!--检索字段end-->
+	</method>	
+</service>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="share_service_rule" class-name="com.gwssi.share.rule.dao.ShareServiceRule" check-flag="false" backup-flag="false">
+    <description>共享服务访问规则表</description>
+  </table-info>
+
+  <column name="rule_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="服务访问规则ID"/>
+  <column name="service_id" data-type="varchar" length="32" not-null="false" value-from="input" description="服务ID"/>
+  <column name="week" data-type="varchar" length="2" not-null="false" value-from="input" description="是星期几"/>
+  <column name="start_time" data-type="varchar" length="10" not-null="false" value-from="input" description="服务当天开始时间"/>
+  <column name="end_time" data-type="varchar" length="10" not-null="false" value-from="input" description="服务当天结束时间"/>
+  <column name="times_day" data-type="long" length="0" not-null="false" value-from="input" description="服务当天可访问次数"/>
+  <column name="count_dat" data-type="long" length="0" not-null="false" value-from="input" description="服务当天一次可访问记录数目"/>
+  <column name="total_count_day" data-type="long" length="0" not-null="false" value-from="input" description="服务当天可访问总记录数目"/>
+  <primary-key name="pk_share_service_rule" column-list="rule_id"/>
+  <index name="pk_share_service_rule" index-type="unique" cluster="cluster" column-list="rule_id"/>
+  <function func-name="select one share_service_rule" func-type="select" column-list="rule_id,service_id,week,start_time,end_time,times_day,count_dat,total_count_day">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="insert one share_service_rule" func-type="insert" column-list="rule_id,service_id,week,start_time,end_time,times_day,count_dat,total_count_day">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one share_service_rule" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="select share_service_rule list" func-type="rowset" column-list="rule_id,service_id,week,start_time,end_time,times_day,count_dat,total_count_day" max-record="10">
+    <filter-column column-name="service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="update one share_service_rule" func-type="update" column-list="rule_id,service_id,week,start_time,end_time,times_day,count_dat,total_count_day">
+    <description>修改记录</description>
+  </function>
+</table>
+

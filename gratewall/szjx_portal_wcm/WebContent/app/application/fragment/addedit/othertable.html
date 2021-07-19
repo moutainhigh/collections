@@ -1,0 +1,18 @@
+<!--其它表-->
+<%
+	String myUpper${FieldName} = "${FieldName}".toUpperCase();
+%>
+<script language="javascript">
+<!--
+	new com.trs.ui.XOtherField({
+		disabled : ${NOTEDIT},
+		name : '<%=myUpper${FieldName}%>', 
+		value : '<%=CMyString.filterForJs(getValue(obj, "${FieldName}", ""))%>',
+		desc : '<%=CMyString.filterForJs(getDesc(obj, "${FieldName}", ""))%>',
+		viewId : ${ViewId},
+		tableName : 'WCMMetaTable${TableName}',
+		anotherName : '${AnotherName}',
+		validation : "type:'string',required:'${NotNull}',desc:'<TRS_ViewField field="AnotherName" filterForJs="true" doubleFilter="true" />'"
+	}).render();
+//-->
+</script>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="sys_popwindow" class-name="com.gwssi.sysmgr.dao.SysPopwindow" check-flag="false" backup-flag="false">
+    <description>弹窗记录表</description>
+  </table-info>
+
+  <column name="sys_popwindow_id" data-type="varchar" length="32" not-null="true" value-from="input" description="系统任务ID"/>
+  <column name="content" data-type="varchar" length="4000" not-null="false" value-from="input" description="内容"/>
+  <column name="publish_date" data-type="varchar" length="10" not-null="false" value-from="input" description="发布日期"/>
+  <column name="expire_date" data-type="varchar" length="10" not-null="false" value-from="input" description="到期日期"/>
+  <column name="roles" data-type="varchar" length="1000" not-null="false" value-from="input" description="角色列表"/>
+  <column name="PUBLISH_DEPART" data-type="varchar" length="25" not-null="false" value-from="input" description="发布部门"/>
+  <column name="AUTHOR" data-type="varchar" length="10" not-null="false" value-from="input" description="发布人"/>
+  
+  <primary-key name="pk_sys_popwindow" column-list="sys_popwindow_id"/>
+  <index name="pk_sys_popwindow" index-type="unique" cluster="cluster" column-list="sys_popwindow_id"/>
+  <function func-name="select one sys_popwindow" func-type="select" column-list="sys_popwindow_id,content,publish_date,expire_date,roles,PUBLISH_DEPART,AUTHOR">
+    <filter-column column-name="sys_popwindow_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_popwindow list" func-type="rowset" column-list="content, publish_date, expire_date, roles, sys_popwindow_id,PUBLISH_DEPART,AUTHOR" sort-columns="publish_date desc" max-record="10">
+    <filter-column column-name="content" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="expire_date" operator="le" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_popwindow" func-type="insert" column-list="sys_popwindow_id,content,publish_date,expire_date,roles,PUBLISH_DEPART,AUTHOR">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_popwindow" func-type="delete">
+    <filter-column column-name="sys_popwindow_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_popwindow" func-type="update" column-list="content,publish_date,expire_date,roles,PUBLISH_DEPART,AUTHOR">
+    <filter-column column-name="sys_popwindow_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

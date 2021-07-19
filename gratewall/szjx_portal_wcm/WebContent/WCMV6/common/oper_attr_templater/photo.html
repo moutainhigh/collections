@@ -1,0 +1,62 @@
+<textarea id="template_photo" select="ViewDocument">	
+	<div class="attribute_row">
+		<TRS_UI:editPanel value="{#DocTitle}" class="attr_detail_value_doctitle" inputClass="attr_detail_value_doctitle" _fieldName="doctitle" rightindex="32" _docId="{#DocID}" validation="required:'true',type:'string',max_len:'200',desc:'标题'">
+		</TRS_UI:editPanel>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row" style="padding-left:5px;font-size:12px;width:95%;">
+		<span title="ID:{#DocId},创建者:{#CRUSER},创建时间:{#CRTIME}" style="white-space:nowrap;overflow:hidden;"><span style="font-size:10px;">用户</span><span style="color:red;font-weight:bold">{#CRUSER}</span><span style="font-size:10px;">创建于</span><span style="color:red;font-weight:bold;font-size:10px;">{#CRTIME}</span>
+		</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">图片标题:</span>
+		<span class="attribute_value">{#DocTitle}</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">所在分类:</span>
+		<span class="attribute_value">{#CHNLID.Name}</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name" style="width:40px">作者:</span>
+		<span class="attribute_value"><TRS_UI:editPanel value="{#DocAuthor}" class="inputClass_"  inputClass="inputClass_" _fieldName="DocAuthor" _docId="{#DocID}" validation="type:'string',max_len:'100',desc:'作者'" rightindex="32">
+		</TRS_UI:editPanel></span>
+	</div>	
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<span class="attribute_name" style="width:40px">人物:</span>
+		<span class="attribute_value"><TRS_UI:editPanel value="{#DocPeople}" class="inputClass_"  inputClass="inputClass_" _fieldName="DocPeople" _docId="{#DocID}" validation="type:'string',max_len:'100',desc:'人物'" rightindex="32">
+		</TRS_UI:editPanel></span>
+	</div>	
+	<div class="attribute_row">
+		<span class="attribute_name" style="width:40px">地点:</span>
+		<span class="attribute_value"><TRS_UI:editPanel value="{#DocPlace}" class="inputClass_"  inputClass="inputClass_" _fieldName="DocPlace" _docId="{#DocID}" validation="type:'string',max_len:'100',desc:'地点'" rightindex="32">
+		</TRS_UI:editPanel></span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name" style="width:40px">时间:</span>
+		<span class="attribute_value"><TRS_UI:editPanel value="{#DocRelTime}" class="inputClass_"  inputClass="inputClass_" _fieldName="DocRelTime" _docId="{#DocID}" id="DocRelTime" style="width:80px;text-overflow:ecllips;overflow:hidden" rightindex="32">
+		</TRS_UI:editPanel>{@drawCalendarIfNeed(#DocRelTime)}</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">关键词:</span>
+		<span class="attribute_value"><TRS_UI:editPanel value="{#DOCKEYWORDS}" class="attr_detail_value_dockeys" inputClass="attr_detail_value_dockeys" _fieldName="DOCKEYWORDS" rightindex="32" _docId="{#DocID}" validation="type:'string',max_len:'100',desc:'关键词'" rightindex="32">
+		</TRS_UI:editPanel></span>
+	</div>		
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<span class="attribute_name">图片状态:</span>
+		<span class="attribute_value">{#DocStatus.Name}</span>		
+	</div>
+	<div class="attribute_row" style="display:{@setDisplay(#DocStatus.Id)}">
+		<span class="attribute_name">发布时间:</span>
+		<span class="attribute_value">{#DocPubTime}</span>
+	</div>
+	<div class="attribute_row_sep"></div>
+ </textarea>
+
+ <textarea id="template_photos">
+	<div class="attribute_row">
+		当前共选中<span class="objects_num">{#Num}</span>幅图片.
+	</div>	
+ </textarea>
+

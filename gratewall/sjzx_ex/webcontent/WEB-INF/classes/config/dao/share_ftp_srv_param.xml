@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="share_ftp_srv_param" class-name="com.gwssi.share.ftp.dao.ShareFtpSrvParam" check-flag="false" backup-flag="false">
+    <description>ftp服务参数</description>
+  </table-info>
+
+  <column name="srv_param_id" data-type="varchar" length="32" not-null="true" value-from="input" description="参数值ID"/>
+  <column name="ftp_service_id" data-type="varchar" length="32" not-null="false" value-from="input" description="FTP服务ID"/>
+  <column name="param_value_type" data-type="varchar" length="20" not-null="false" value-from="input" description="代码表String INT BOOLEAN"/>
+  <column name="patameter_name" data-type="varchar" length="20" not-null="false" value-from="input" description="参数名"/>
+  <column name="patameter_value" data-type="varchar" length="50" not-null="false" value-from="input" description="参数值"/>
+  <column name="style" data-type="varchar" length="20" not-null="false" value-from="input" description="格式"/>
+  <column name="showorder" data-type="long" length="0" not-null="false" value-from="input" description="顺序字段"/>
+  <primary-key name="pk_share_ftp_srv_param" column-list="srv_param_id"/>
+  <index name="pk_share_ftp_srv_param" index-type="unique" cluster="cluster" column-list="srv_param_id"/>
+  <function func-name="select one share_ftp_srv_param" func-type="select" column-list="srv_param_id,ftp_service_id,param_value_type,patameter_name,patameter_value,style,showorder">
+    <filter-column column-name="srv_param_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="insert one share_ftp_srv_param" func-type="insert" column-list="srv_param_id,ftp_service_id,param_value_type,patameter_name,patameter_value,style,showorder">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one share_ftp_srv_param" func-type="delete">
+    <filter-column column-name="srv_param_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one share_ftp_srv_param" func-type="update">
+    <filter-column column-name="srv_param_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="select share_ftp_srv_param list" func-type="rowset" column-list="srv_param_id,ftp_service_id,param_value_type,patameter_name,patameter_value,style,showorder" max-record="10">
+    <description>多记录查询</description>
+  </function>
+</table>
+

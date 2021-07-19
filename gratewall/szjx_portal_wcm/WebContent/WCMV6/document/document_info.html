@@ -1,0 +1,128 @@
+<HTML>
+<HEAD>
+<TITLE>display of document quoted info before operators</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+	$import('com.trs.dialog.wcmbutton.WCMButton');
+</script>
+<script>
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.domain.TemplateMgr');	//*/
+</script>
+<script src="./document_info.js"></script>
+<style type="text/css">
+	.area_errInfo{
+		font-size: 12px;
+		width: 100%;
+		overflow: auto;
+		border: 0;
+		padding: 3px;
+	}
+	.alertion_top_title{
+		color: red;
+		font-weight: bold;
+	}
+	.alertion_title{
+		color: navy;
+	}
+	body{
+		padding:0px;
+		margin:0px;
+		font-family: Georgia;
+	}
+	button{
+		color: #1571D5;
+		border: solid 1px silver;
+		padding-left: 5px;
+		padding-right: 5px;
+		height: 20px;
+		line-height: 17px;
+		width: 70px;
+		text-align: center;
+		background: #ffffff;
+	}
+	.dataItem{
+		line-height: 18px;
+		list-style-type: decimal;
+		margin-top: 5px;
+		border-bottom: solid 1px #efefef;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<div style="padding-top:5px;">
+	<table border=0 align="center" cellspacing=1 cellpadding=3 style="font-size:12px; width: 100%; background: silver;">
+	<tbody>
+		<tr>
+			<td style="width: 90px; height: 200px; background: #ffffff" align="center">
+				<img id="imClue" src="../js/com.trs.dialog/img/7.gif">
+			</td>
+			<td style="background: #ffffff;" align="left" valign="top">
+				<div style="width: 100%;" id="divIfoContainer">
+					<div style="width: 100%; height: 30px; line-height: 30px; overflow: visible; border-bottom: 1px solid aliceblue; font-size: 14px; padding-left: 10px; font-weight: normal;">
+						<div id="divOptionsDesc">
+							<span class="alertion_top_title" id="spOperation"></span>
+						</div>
+					</div>
+					<div style="height: 160px; overflow: auto">
+						<div style="width: 100%; padding: 3px;" id="divDocInfo"></div>
+					</div>
+					<textarea id="txtDocInfo" select="." style="display: none;">
+						<for1 select=".">
+						<div class="dataItem">
+							<span style="padding:2px;">{$$index}.</span>
+							<span title="文档ID={#docid}">
+								{#docTitle,,$transHtml}, 
+							</span>
+							<span>隶属于栏目</span>
+							<span>
+								[<span class="alertion_title">{#channel}</span>]
+							</span>
+							<span style="display: {#refChannels,none}">
+								<span>, 并被栏目</span>
+								<for2 select="refChannels">
+									[<span class="alertion_title">{#.}</span>]
+								</for2>
+								<span>引用</span>
+							</span><br>
+							<span style="color: red; font-weight: normal; display: {#restore_flag,none}">{@getOperationDesc(#restore_flag)}</span>
+						</div>
+						</for1>
+					</textarea>				
+				</div>
+				<div id="divNoObjectFound" style="display:none;">
+					<div class="no_object_found">没有任何可操作的对象..-____-|||</div>
+				</div>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	<table border=0 align="center" cellspacing=0 cellpadding=3 style="font-size:12px;width:100%; background:#DEDCDD;height:40px;">
+	<tbody>
+		<tr id="trOnError">
+            <!--
+			<td style="width: 50%;" align="right">
+				<button id="btnSubmit" onclick="closeframe(true)">确定</button>
+			</td>
+			<td align="left">
+				<button id="btnCancel" onclick="closeframe(false)">取消</button>
+			</td>
+            //-->
+            <td id="ButtonContainer" align="center" valign="middle" style="padding-top:10px;"></td>
+		</tr>
+	</tbody>
+	</table>
+</div>
+<div id="divNoObjectFound" style="display:none;">
+	<div class="no_object_found">没有任何可操作的对象..-____-|||</div>
+</div>
+</BODY>
+</HTML>

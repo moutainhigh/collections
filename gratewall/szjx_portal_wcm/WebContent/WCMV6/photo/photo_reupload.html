@@ -1,0 +1,287 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>重新上传图片</title>
+	<link href="../css/common.css" rel="stylesheet" type="text/css" />
+	<style>
+		.input_file{
+			float:left;
+			width:220px;
+			height:20px;
+			border:1px solid black;	
+			margin-top:2px;
+		}
+		label{
+			cursor:hand;
+		}
+		button{
+			height: 22px;
+			background: #eeeeee;
+			border: solid 1px silver;
+			font-size: 12px;
+			padding: -5px 3px;
+			margin: -3px 3px;
+			cursor:hand;
+		}
+		td.attrname{
+			font-size:12px;
+			font-weight:bold;
+			text-align:right;
+		}
+	</style>
+	<script src="../js/com.trs.util/Common.js"></script>
+	<script label="web2frame">
+		$import('com.trs.web2frame.DataHelper');
+		$import('com.trs.web2frame.TempEvaler');
+		$import('com.trs.wcm.Web2frameDefault');
+		$import('com.trs.dialog.Dialog');		
+	</script>
+	<script>
+		$import('com.trs.wcm.MessageCenter');
+		$import('com.trs.wcm.util.FileUploadHelper');
+		$import('com.trs.util.YUIConnection');
+	</script>
+	<script>
+	function upload(){		
+		var isSSL = location.href.indexOf("https://")!=-1;		
+		var fn = $("PicUpload").value;	
+		//if(!FileUploadHelper.validFileExt(fn, ".jpg,.gif,.jpeg,.png,.bmp")){
+		//	return false;
+		//}
+		var ix = fn.lastIndexOf(".");
+		if(ix > 0){				
+			if(m_hValidateFiles[fn.substr(ix+1).toLowerCase()] == void(0)){
+				$alert("仅支持["+m_hValidateFiles.toStr()+"]类型的图片!");
+				return false;
+			}
+		}
+		ProcessBar.init('执行进度，请稍候...');
+		ProcessBar.addState('正在上传文件:' + fn);
+		ProcessBar.addState('成功上传文件.');
+		ProcessBar.addState('正在保存图片.');
+		ProcessBar.addState('保存图片成功.');
+		ProcessBar.start();
+		
+		var callBack1 = {
+			"upload":function(_transport){
+				var sResponseText = _transport.responseText;			
+				if(sResponseText.match(/<!--ERROR-->/img)){
+					var texts = sResponseText.split('<!--##########-->');
+					FaultDialog.show({
+						code		: texts[0],
+						message		: texts[1],
+						detail		: texts[2],
+						suggestion  : ''
+					}, '上传文件失败，与服务器交互时出错啦！');
+					ProcessBar.close();
+				}
+				else{
+					$("PhotoFile").value = _transport.responseText;					
+
+					ProcessBar.next();
+					setTimeout(ProcessBar.next.bind(ProcessBar),10);
+					
+					var posEls = $("LT","CM","RB");
+					var t = [];
+					var posEl = null;
+					for(var i=0;i<3;i++){
+						posEl = posEls[i];
+						if(posEl.checked){
+							t.push(posEl.value);
+						}
+					}
+					
+					$("WatermarkPos").value = t.join(",");					
+					BasicDataHelper.call("wcm6_photo","save","form_imageinfo",true,function(_transport,_json){
+						window.parent.notifyParent2CloseMe(document.FRAME_NAME);
+						window.parent.notifyParentOnFinished(document.FRAME_NAME);	
+						ProcessBar.exit();
+					});										
+				}
+			}
+		}
+
+		try{
+			YUIConnect.setForm("form_pic",true,isSSL);
+			YUIConnect.asyncRequest('POST','../system/file_upload_dowith.jsp?FileParamName=PicUpload',callBack1);
+		}catch(err){
+			ProcessBar.exit();
+			$alert(err.message);
+		}
+			
+		return true;
+	}
+
+	function closeframe(){
+		if (window.parent){
+			window.parent.notifyParent2CloseMe(document.FRAME_NAME);
+		}
+		return true;
+	}
+	var m_hValidateFiles = {
+		toStr : function(){
+			var str = [];
+			for(var p in this){
+				if(p != "toStr"){
+					str.push(p);
+				}
+			}
+			return str.join(",");
+		}
+	};
+	function init(_args){
+		$("PhotoDocId").value = _args.ObjectId;
+		BasicDataHelper.call("wcm6_watermark","query",_args,false,function(_transport,_json){
+			var sValue = TempEvaler.evaluateTemplater('template_watermarks', _json);
+			Element.update($("watermarks"),sValue);
+			Event.observe($("selwatermark"),"change",changeWatermark);
+		});
+		/*
+		BasicDataHelper.call("wcm6_photo","getDefaultBmpConverType",null,false,function(_transport,_json){			
+			$("BmpConverTypeSelect").value = _transport.responseText;
+			$("BmpConverType").value = _transport.responseText;
+		});*///
+		BasicDataHelper.call("wcm6_photo","getSupportedFormat",null,false,function(_transport,_json){			
+			var sValue = _transport.responseText;
+			if(sValue.trim().length > 0){
+				eval("var j = "+sValue);
+				Object.extend(m_hValidateFiles,j);						
+			}
+		});
+	}
+
+	function changeWatermark(){
+		var el = $("selwatermark");
+		var op = el.options[el.selectedIndex];
+		if(op.value == -1){
+			Element.hide($("watermarkpic"));
+			Element.hide($("div_watermarkpos"));					
+			$("WatermarkFile").value = "";
+		}else{
+			var imgLoaded = new Image();
+			imgLoaded.onload = function(){
+				resizeIfNeed(imgLoaded.height,imgLoaded.width);
+				imgLoaded.onload = null;
+			}
+			imgLoaded.src = op._picsrc + "?r="+Math.random();
+			$("watermarkpic").src = op._picsrc;
+			$("watermarkpic").style.display = "none";
+			Element.show($("watermarkpic"));			
+			Element.show($("div_watermarkpos"));
+			$("WatermarkFile").value = op._picfile;
+		}
+		el = null;
+		op = null;
+	}
+
+	function resizeIfNeed(height,width){
+		var h = height,w = width;
+		if(height > 124 || width > 97){	
+			if(height > width){				
+				h = 124;	
+				w = 124 * width/height;
+			}else{				
+				w = 97;
+				h = 97 * height/width;
+			}			
+		}
+
+		$("watermarkpic").width = w;
+		$("watermarkpic").height = h;
+		
+		$("watermarkpic").style.display = "inline";
+	}
+
+	function convertBmp(_typeSel){
+		$("BmpConverType").value = _typeSel.value;
+	}
+
+	//全选或反全选水印位置
+	function selectAllPos(){
+		var poses = $("LT","CM","RB");
+		var unchecked = false;
+		for(var i=0;i<poses.length;i++){
+			if(!poses[i].checked){
+				unchecked = true;
+				poses[i].checked = true;
+			}
+		}
+
+		if(!unchecked){
+			for(var i=0;i<poses.length;i++){				
+				poses[i].checked = false;				
+			}
+		}
+		
+		poses = null;
+	}
+
+	function truncateStr(_srcstr){
+		if(_srcstr.length > 14){
+			_srcstr = _srcstr.substr(0,12)+"...";
+		}
+
+		return _srcstr;
+	}
+	</script>
+</head>
+
+<body>
+<center>
+<div style="margin:20px;height:110px">
+	<div style="height:25px;width:100%">
+		<form id="form_pic" name="fm_pic" style="margin:0;" enctype='multipart/form-data'>
+			<input type="file" class="input_file" style="width:280px;" id="PicUpload" name="PicUpload">			
+		</form>
+		<form id="form_imageinfo">
+			<input type="hidden" name="WatermarkFile" id="WatermarkFile" value="">
+			<input type="hidden" name="WatermarkPos" id="WatermarkPos" value="">
+			<input type="hidden" name="PhotoDocId" id="PhotoDocId" value="">			
+			<input type="hidden" name="PhotoFile" id="PhotoFile" value="">
+			<input type="hidden" name="BmpConverType" id="BmpConverType" value="">
+		</form>
+	</div>
+	<div style="margin:5px;height:20px;width:100%;">
+		<table border="0" cellspacing="1" cellpadding="1" align="left">
+		<tbody>
+			<!--tr>
+				<td  class="attrname">BMP图片转换格式：</td>
+				<td>
+				<select onchange="convertBmp(this);" id="BmpConverTypeSelect">
+					<option value="bmp">不转换</option>
+					<option value="gif">GIF</option>
+					<option value="jpg">JPG</option>
+				</select>
+				</td>
+			</tr-->
+			<tr>
+				<td  class="attrname">选择水印：</td><td><span style="float:left;" id="watermarks"></span></td>
+			</tr>
+		</tbody>
+		</table>		
+		<textarea style="display:none" id="template_watermarks">
+			<select id="selwatermark">
+				<option value="-1">--不添加水印--</option>
+			<for select="Watermarks.Watermark">
+				<option value="{#WATERMARKID}" _picsrc="{#WMPICTURE.MAPNAME}" _picfile="{#WMPICTURE.SRCNAME}">{@truncateStr(#WMNAME)}</option>
+			</for>
+			</select>
+		</textarea>
+	</div>
+	<div id="div_watermarkpos" style="display:none;float:left;height:25px;">
+		<span style="float:left;font-weight:bold;margin-top:5px" title="点击全选" style="cursor:hand" onclick="selectAllPos()">水印位置：</span>
+		<label for="LT">左上<input type="checkbox" id="LT" value="1" /></label>
+		<label for="CM">居中<input type="checkbox" id="CM" value="2" /></label>
+		<label for="RB">右下<input type="checkbox" id="RB" value="3" checked="true" /></label>
+	</div>
+</div>
+<div style="height:90px;cursor:hand">	
+	<button onclick="upload();return false;">确定</button>&nbsp;&nbsp;
+	<button onclick="closeframe(); return false;">取消</button>
+</div>
+</center>
+<div style="margin:-220px 0 0 310px">
+	<img src="../images/loading.gif"  style="display:none" id="watermarkpic" width="120">
+</div>
+</body>
+</html>

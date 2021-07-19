@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>基础代码分项表(隐藏)</menu-name>
+  <menu-path>/page/resource/res/metadata/basecode/</menu-path>
+  <description>基础代码分项表(隐藏)</description>
+  <form-beans>
+    <form-bean name="GzDmJcdmFxRowsetForm">
+      <description>基础代码分项表(隐藏)多记录查询</description>
+      <form-property prefix="select-key" name="jcsjfx_id" type="string" size="36" description="基础数据分项ID"/>
+      <form-property prefix="select-key" name="jc_dm_id" type="string" size="36" description="基础代码ID"/>
+      <form-property prefix="select-key" name="jc_dm_dm" type="string" size="36" cannull="true" description="基础代码"/>
+      <form-property prefix="select-key" name="jc_dm_mc" type="string" size="255" cannull="true" description="基础代码名称"/>
+      <form-property prefix="select-key" name="jc_dm_bzly" type="string" size="1" cannull="true" description="标准来源"/>
+      <form-property prefix="select-key" name="jcsjfx_fjd" type="string" size="36" cannull="true" description="基础数据分项父节点代码"/>
+      <form-property prefix="select-key" name="jcsjfx_dm" type="string" size="36" cannull="true" description="基础数据分项代码"/>
+      <form-property prefix="select-key" name="jcsjfx_mc" type="string" size="255" cannull="true" description="基础数据分项名称"/>
+      <form-property prefix="select-key" name="sy_zt" type="string" size="1" cannull="true" description="使用状态"/>
+      <form-property prefix="record" name="jcsjfx_id" type="string" size="36" cannull="false" description="基础数据分项ID"/>
+      <form-property prefix="record" name="jc_dm_id" type="string" size="36" cannull="false" description="基础代码ID"/>
+      <form-property prefix="record" name="jcsjfx_dm" type="string" size="36" cannull="true" description="基础数据分项代码"/>
+      <form-property prefix="record" name="jcsjfx_mc" type="string" size="255" cannull="true" description="基础数据分项名称"/>
+      <form-property prefix="record" name="jcsjfx_cjm" type="string" size="36" cannull="true" description="基础数据分项层级码"/>
+      <form-property prefix="record" name="jcsjfx_fjd" type="string" size="36" cannull="true" description="基础数据分项父节点代码"/>
+      <form-property prefix="record" name="szcc" type="string" size="2" cannull="true" description="所在层次"/>
+      <form-property prefix="record" name="xssx" type="int" cannull="true" description="显示顺序"/>
+      <form-property prefix="record" name="sfmx" type="string" size="1" cannull="true" description="是否明细"/>
+      <form-property prefix="record" name="fx_ms" type="string" size="32700" cannull="true" description="分项描述"/>
+      <form-property prefix="record" name="sy_zt" type="string" size="1" cannull="true" description="使用状态"/>
+      <form-property prefix="record" name="expand" type="string" size="5" cannull="true" description="是否展开"/>
+      <form-property prefix="record" name="jcsjfx_lj" type="string" size="255" cannull="true" description="基础数据分项全路径"/>
+    </form-bean>
+
+    <form-bean name="GzDmJcdmFxUpdateForm">
+      <description>基础代码分项表(隐藏)单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="jcsjfx_id" type="string" size="36" cannull="false" description="基础数据分项ID"/>
+      <form-property prefix="record" name="jcsjfx_id" type="string" size="36" cannull="false" description="基础数据分项ID"/>
+      <form-property prefix="record" name="jc_dm_id" type="string" size="36" cannull="false" description="基础代码ID"/>
+      <form-property prefix="record" name="jcsjfx_dm" type="string" size="36" cannull="true" description="基础数据分项代码"/>
+      <form-property prefix="record" name="jcsjfx_mc" type="string" size="255" cannull="true" description="基础数据分项名称"/>
+      <form-property prefix="record" name="jcsjfx_cjm" type="string" size="36" cannull="true" description="基础数据分项层级码"/>
+      <form-property prefix="record" name="jcsjfx_fjd" type="string" size="36" cannull="true" description="基础数据分项父节点代码"/>
+      <form-property prefix="record" name="szcc" type="string" size="2" cannull="true" description="所在层次"/>
+      <form-property prefix="record" name="xssx" type="int" cannull="true" description="显示顺序"/>
+      <form-property prefix="record" name="sfmx" type="string" size="1" cannull="true" description="是否明细"/>
+      <form-property prefix="record" name="fx_ms" type="string" size="32700" cannull="true" description="分项描述"/>
+      <form-property prefix="record" name="sy_zt" type="string" size="1" cannull="true" description="使用状态"/>
+    </form-bean>
+
+    <form-bean name="GzDmJcdmFxDeleteForm">
+      <description>基础代码分项表(隐藏)多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="jcsjfx_id" type="string" size="36" cannull="false" description="基础数据分项ID"/>
+      <form-property prefix="select-key" name="jcsjfx_mc" type="string" size="255" cannull="true" description="基础数据分项名称"/>
+      <form-property prefix="select-key" name="sy_zt" type="string" size="1" cannull="true" description="使用状态"/>
+    </form-bean>
+    
+    <form-bean name="GzZbDmJcsjFxSwapNodeForm">
+      <description>节点交换</description>
+      <form-property prefix="select-key" name="first_jcsjfx_nm" type="string" size="36" cannull="false" description="树节点内码"/>
+      <form-property prefix="select-key" name="first_xssx" type="string" size="36" cannull="false" description="树节点显示序号"/>
+      <form-property prefix="select-key" name="last_jcsjfx_nm" type="string" size="36" cannull="false" description="树交换节点内码"/>
+      <form-property prefix="select-key" name="last_xssx" type="string" size="36" cannull="false" description="树交换节点显示序号"/>
+    </form-bean>
+        
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-gz_dm_jcdm_fx.jsp" name="GzDmJcdmFxRowsetForm" txn-code="3010101" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询基础代码分项列表</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdmFx" func-name="txn3010101" input-node="select-key" output-node="record" description="查询基础代码分项列表"/>
+      <forward error-code="success" path="query-gz_dm_jcdm_fx.jsp"/>
+      <forward error-code="failure" path="query-gz_dm_jcdm_fx.jsp"/>
+    </action>
+	
+	<action input="query-gz_dm_jcdm_fx_gl.jsp" name="GzDmJcdmFxRowsetForm" txn-code="3010111" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询基础代码分项列表_概览</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdmFx" func-name="txn3010101" input-node="select-key" output-node="record" description="查询基础代码分项列表"/>
+      <forward error-code="success" path="query-gz_dm_jcdm_fx_gl.jsp"/>
+      <forward error-code="failure" path="query-gz_dm_jcdm_fx_gl.jsp"/>
+    </action>
+
+    <action input="update-gz_dm_jcdm_fx.jsp" name="GzDmJcdmFxUpdateForm" txn-code="3010102" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改基础代码分项信息</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdmFx" func-name="txn3010102" input-node="record" output-node="record" description="修改基础代码分项信息"/>
+      <forward error-code="success" path="update-gz_dm_jcdm_fx.jsp"/>
+      <forward error-code="failure" path="update-gz_dm_jcdm_fx.jsp"/>
+    </action>
+
+    <action input="insert-gz_dm_jcdm_fx.jsp" name="GzDmJcdmFxUpdateForm" txn-code="3010103" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加基础代码分项信息</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdmFx" func-name="txn3010103" input-node="record" description="增加基础代码分项信息"/>
+      <forward error-code="success" path="insert-gz_dm_jcdm_fx.jsp"/>
+      <forward error-code="failure" path="insert-gz_dm_jcdm_fx.jsp"/>
+    </action>
+
+    <action input="query-gz_dm_jcdm_fx.jsp" name="GzDmJcdmFxUpdateForm" txn-code="3010104" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询基础代码分项用于修改</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdmFx" func-name="txn3010104" input-node="primary-key" output-node="record" description="查询基础代码分项用于修改"/>
+      <forward error-code="success" path="update-gz_dm_jcdm_fx.jsp"/>
+      <forward error-code="failure" path="update-gz_dm_jcdm_fx.jsp"/>
+    </action>
+
+    <action input="query-gz_dm_jcdm_fx.jsp" name="GzDmJcdmFxDeleteForm" txn-code="3010105" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除基础代码分项信息</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdmFx" func-name="txn3010105" input-node="primary-key" output-node="record" description="删除基础代码分项信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+
+    <action input="showtree-gz_dm_jcdm_fx.jsp" name="GzDmJcdmFxRowsetForm" txn-code="3010106" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>基础代码信息</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdmFx" func-name="txn3010106" input-node="select-key" output-node="record" description="基础代码信息"/>
+      <forward error-code="success" path="showtree-gz_dm_jcdm_fx.jsp"/>
+      <forward error-code="failure" path="showtree-gz_dm_jcdm_fx.jsp"/>
+    </action>
+    <action input="showtree-gz_dm_jcdm_fx.jsp" name="GzDmJcdmFxRowsetForm" txn-code="3010107" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>基础代码分项信息</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdmFx" func-name="txn3010107" input-node="select-key" output-node="record" description="基础数据分项信息"/>
+      <forward error-code="success" path="showtree-gz_dm_jcdm_fx.jsp"/>
+      <forward error-code="failure" path="showtree-gz_dm_jcdm_fx.jsp"/>
+    </action>
+     <action input="showtree-gz_dm_jcdm_fx.jsp" name="GzDmJcdmFxRowsetForm" txn-code="3010108" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>基础代码分项信息</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdmFx" func-name="txn3010108" input-node="select-key" output-node="record" description="基础数据分项信息"/>
+      <forward error-code="success" path="insert-gz_dm_jcdm_fx.jsp"/>
+      <forward error-code="failure" path="insert-gz_dm_jcdm_fx.jsp"/>
+    </action>
+    
+    <action input="query-gz_dm_jcdm_fx.jsp" name="GzZbDmJcsjFxSwapNodeForm" txn-code="3010110" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>交换显示顺序</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdmFx" func-name="txn3010110" input-node="primary-key" description="交换"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+    <action input="query-gz_dm_jcdm_fx.jsp" name="GzDmJcdmFxRowsetForm" txn-code="3010109" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>基础数据分项树模糊查询</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.basecode.txn.TxnGzDmJcdmFx" func-name="txn3010109" input-node="select-key" output-node="record" description="基础数据分项树模糊查询"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-gz_dm_jcdm_fx.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/dw/metadata/basecode/query-gz_dm_jcdm_fx.jsp" description="查询基础代码分项列表"/>
+    <resource-file type="jsp" file-name="/dw/metadata/basecode/insert-gz_dm_jcdm_fx.jsp" description="增加基础代码分项信息"/>
+    <resource-file type="jsp" file-name="/dw/metadata/basecode/update-gz_dm_jcdm_fx.jsp" description="修改基础代码分项信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.metadata.basecode.vo.VoGzDmJcdmFx" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.metadata.basecode.vo.VoGzDmJcdmFxSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.metadata.basecode.vo.VoGzDmJcdmFxPrimaryKey" description="数据库主键对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.metadata.basecode.vo.GzDmJcdmFxContext" description="应用对应的数据上下文对象"/>
+  </resource>
+</struts-config>
+

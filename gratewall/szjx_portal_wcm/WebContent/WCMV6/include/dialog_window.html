@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8">
+<TITLE>TRS WCM V6.0 Dialog</TITLE>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="Imports">
+	//$import('com.trs.logger.Logger');
+	//$import('com.trs.dialog.Dialog');
+	//$import('com.trs.crashboard.CrashBoard');
+</script>
+<SCRIPT LANGUAGE="JavaScript">
+function init(){
+	var arArgs = window.dialogArguments;
+	if(!arArgs || !arArgs[0] || !arArgs[1]){
+		alert("传入无效的参数对象，对话框初始化失败！");
+		window.close();
+		return;
+	}
+	var sUrl = arArgs[0];
+	if(sUrl.indexOf("../") < 0){
+		var sParentUrl = arArgs[1];
+		var nPos = sParentUrl.lastIndexOf("/");
+		var sPreFix = sParentUrl.substring(0, nPos+1);
+		sUrl = sPreFix + sUrl;
+	}
+	var subWin = document.frames("subWindow");
+	subWin.location.href = sUrl;
+}
+
+function getDialogArguments(){
+	var arArgs = window.dialogArguments;
+	try{
+		return arArgs[2];
+	} catch(e) {return null;}
+}
+</SCRIPT>
+</HEAD>
+
+<BODY style="height:100%;">
+<IFRAME name="subWindow" src="about:blank" frameborder="NO" border="0" framespacing="0" width="100%" height="100%" Scrolling="auto"></IFRAME>
+</BODY>
+</HTML>
+<SCRIPT LANGUAGE="JavaScript">
+	init();
+</SCRIPT>

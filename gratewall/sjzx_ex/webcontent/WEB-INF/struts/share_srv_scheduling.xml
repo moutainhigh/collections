@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>共享任务调度</menu-name>
+  <menu-path>/page/share/ftp/scheduling/</menu-path>
+  <description>共享任务调度</description>
+  <form-beans>
+    <form-bean name="ShareSrvSchedulingRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="record" name="srv_scheduling_id" type="string" size="32" cannull="false" description="任务调度ID"/>
+      <form-property prefix="record" name="service_id" type="string" size="32" cannull="true" description="服务ID"/>
+      <form-property prefix="record" name="service_no" type="string" size="20" cannull="true" description="服务编号"/>
+      <form-property prefix="record" name="service_name" type="string" size="100" cannull="true" description="任务名称"/>
+      <form-property prefix="record" name="job_class_name" type="string" size="100" cannull="true" description="触发调用的类名"/>
+      <form-property prefix="record" name="scheduling_type" type="string" size="2" cannull="true" description="计划任务类型"/>
+      <form-property prefix="record" name="scheduling_day" type="string" size="2" cannull="true" description="计划任务日期"/>
+      <form-property prefix="record" name="start_time" type="string" size="10" cannull="true" description="计划任务开始时间"/>
+      <form-property prefix="record" name="end_time" type="string" size="10" cannull="true" description="计划任务结束时间"/>
+      <form-property prefix="record" name="scheduling_count" type="string" size="4" cannull="true" description="计划任务执行次数"/>
+      <form-property prefix="record" name="interval_time" type="string" size="3" cannull="true" description="每次间隔时间"/>
+      <form-property prefix="record" name="scheduling_week" type="string" size="100" cannull="true" description="计划任务周天"/>
+      <form-property prefix="record" name="scheduling_day1" type="string" size="500" cannull="true" description="计划任务周期中文"/>
+      <form-property prefix="record" name="task_expression" type="string" size="200" cannull="true" description="表达式"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="代码表 有效 无效"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人ID"/>
+      <form-property prefix="record" name="created_time" type="string" size="19" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="19" cannull="true" description="最后修改时间"/>
+    </form-bean>
+
+    <form-bean name="ShareSrvSchedulingUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="srv_scheduling_id" type="string" size="32" cannull="false" description="任务调度ID"/>
+      <form-property prefix="record" name="srv_scheduling_id" type="string" size="32" cannull="false" description="任务调度ID"/>
+      <form-property prefix="record" name="service_id" type="string" size="32" cannull="true" description="服务ID"/>
+      <form-property prefix="record" name="service_no" type="string" size="20" cannull="true" description="服务编号"/>
+      <form-property prefix="record" name="service_name" type="string" size="100" cannull="true" description="任务名称"/>
+      <form-property prefix="record" name="job_class_name" type="string" size="100" cannull="true" description="触发调用的类名"/>
+      <form-property prefix="record" name="scheduling_type" type="string" size="2" cannull="true" description="计划任务类型"/>
+      <form-property prefix="record" name="scheduling_day" type="string" size="2" cannull="true" description="计划任务日期"/>
+      <form-property prefix="record" name="start_time" type="string" size="10" cannull="true" description="计划任务开始时间"/>
+      <form-property prefix="record" name="end_time" type="string" size="10" cannull="true" description="计划任务结束时间"/>
+      <form-property prefix="record" name="scheduling_count" type="string" size="4" cannull="true" description="计划任务执行次数"/>
+      <form-property prefix="record" name="interval_time" type="string" size="3" cannull="true" description="每次间隔时间"/>
+      <form-property prefix="record" name="scheduling_week" type="string" size="100" cannull="true" description="计划任务周天"/>
+      <form-property prefix="record" name="scheduling_day1" type="string" size="500" cannull="true" description="计划任务周期中文"/>
+      <form-property prefix="record" name="task_expression" type="string" size="200" cannull="true" description="表达式"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="代码表 有效 无效"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人ID"/>
+      <form-property prefix="record" name="created_time" type="string" size="19" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="19" cannull="true" description="最后修改时间"/>
+    </form-bean>
+
+    <form-bean name="ShareSrvSchedulingDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="srv_scheduling_id" type="string" size="32" cannull="false" description="任务调度ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-share_srv_scheduling.jsp" name="ShareSrvSchedulingRowsetForm" txn-code="40400001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询共享调度列表</description>
+      <step index="10" bean-name="com.gwssi.share.ftp.txn.TxnShareSrvScheduling" func-name="txn40400001" input-node="select-key" output-node="record" description="查询共享调度列表"/>
+      <forward error-code="success" path="query-share_srv_scheduling.jsp"/>
+      <forward error-code="failure" path="query-share_srv_scheduling.jsp"/>
+    </action>
+
+    <action input="update-share_srv_scheduling.jsp" name="ShareSrvSchedulingUpdateForm" txn-code="40400002" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改共享调度信息</description>
+      <step index="10" bean-name="com.gwssi.share.ftp.txn.TxnShareSrvScheduling" func-name="txn40400002" input-node="record" description="修改共享调度信息"/>
+      <forward error-code="success" path="update-share_srv_scheduling.jsp"/>
+      <forward error-code="failure" path="update-share_srv_scheduling.jsp"/>
+    </action>
+
+    <action input="insert-share_srv_scheduling.jsp" name="ShareSrvSchedulingUpdateForm" txn-code="40400003" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加共享调度信息</description>
+      <step index="10" bean-name="com.gwssi.share.ftp.txn.TxnShareSrvScheduling" func-name="txn40400003" input-node="record" description="增加共享调度信息"/>
+      <forward error-code="success" path="insert-share_srv_scheduling.jsp"/>
+      <forward error-code="failure" path="insert-share_srv_scheduling.jsp"/>
+    </action>
+
+    <action input="query-share_srv_scheduling.jsp" name="ShareSrvSchedulingUpdateForm" txn-code="40400004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询共享调度用于修改</description>
+      <step index="10" bean-name="com.gwssi.share.ftp.txn.TxnShareSrvScheduling" func-name="txn40400004" input-node="primary-key" output-node="record" description="查询共享调度用于修改"/>
+      <forward error-code="success" path="update-share_srv_scheduling.jsp"/>
+      <forward error-code="failure" path="update-share_srv_scheduling.jsp"/>
+    </action>
+
+    <action input="query-share_srv_scheduling.jsp" name="ShareSrvSchedulingDeleteForm" txn-code="40400005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除共享调度信息</description>
+      <step index="10" bean-name="com.gwssi.share.ftp.txn.TxnShareSrvScheduling" func-name="txn40400005" input-node="primary-key" description="删除共享调度信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-share_srv_scheduling.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/share/ftp/scheduling/query-share_srv_scheduling.jsp" description="查询共享调度列表"/>
+    <resource-file type="jsp" file-name="/page/share/ftp/scheduling/insert-share_srv_scheduling.jsp" description="增加共享调度信息"/>
+    <resource-file type="jsp" file-name="/page/share/ftp/scheduling/update-share_srv_scheduling.jsp" description="修改共享调度信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.ftp.vo.ShareSrvSchedulingContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.ftp.vo.VoShareSrvScheduling" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.ftp.vo.VoShareSrvSchedulingSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.ftp.vo.VoShareSrvSchedulingPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

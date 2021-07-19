@@ -1,0 +1,267 @@
+@charset "utf-8";
+/* CSS Document */
+
+/*委里网站底部*/
+body{font-family:"微软雅黑","Arial","宋体";font-size:12px;color:#333;margin:0;padding:0; }
+/*body{font-family:arial,'Hiragino Sans GB','Microsoft Yahei','微软雅黑','宋体',宋体,Tahoma,Arial,Helvetica,STHeiti;font-size:12px;color:#333;margin:0;padding:0; }*/
+
+div,form,img,ul,ol,li,dl,dt,dd{margin:0;padding:0;border:0;}
+li{list-style:none;}
+h1,h2,h3,h4,h5,h6,p{margin:0;padding:0;font-size:14px; font-weight:normal;}
+a:link{color:#333;text-decoration:none;}
+a:visited{color:#333;text-decoration:none;}
+a:hover{color:#f60;text-decoration:none;}
+a:active{color:#333;}
+.border0{border:0;}
+.fleft{float:left;}
+.fright{float:right;}
+.fbold{ font-weight:bold;}
+.clear{clear:both;}
+.dis{display:block;}
+.undis{display:none;}
+.clearfix:after {
+visibility: hidden;
+display: block;
+font-size: 0;
+content: " ";
+clear: both;
+height: 0;
+}
+img{border:0;}
+
+.fl{float:left;}
+.fr{float:right;}
+
+body{ background:#f7f7f7;}
+.wrap{margin:0 auto;width:1004px;}
+.wrap-n{margin:0 auto;width:1366px;  margin: 0 0px 0px -683px;  left: 50%;  position: absolute;}
+.inside_wrap{margin:0 auto;width:1000px;}
+
+.bottom_link{min-width:1000px;height:148px; /* background:url(../images/bottom_bg.jpg) repeat-x */;background: #0277AD;}
+.bottom_link_left{float:left;padding-top:24px;width:362px;color:#ffffff;font-size:12px; border-right:1px solid #467bbd;}
+.bottom_link_left a{color:#ffffff;font-size:12px;}
+.sz_wj{float:left;width:124px;height:52px;margin-top:26px; background:#fff;}
+.ga_security{float:right;margin-right:62px;width:124px;height:52px;margin-top:24px;background:#fff;}
+.bottom_link_right{float:right;width:640px;}
+.erweima{float:left;margin-left:38px;margin-top:26px;width:90px;height:90px; background:#fff;}
+.bottom_word{float:left;margin-top:20px;margin-left:20px;width:470px; font-size:12px;color:#fff; line-height:26px;}
+
+
+/*头部样式*/
+.header{   position: relative;min-width:1000px;  margin-bottom:15px;background:url(../images/head_logo.jpg) center repeat-x; height:215px;}
+.wrap-r{  position: absolute;  right: 0; top: 0; width:50%;background:url(../images/head_bg2.jpg) top left repeat-x; height:215px;}
+
+
+
+/*中间部分样式*/
+.d_gs_box{ width:980px; background:#fff; padding:10px 9px; margin:0 auto 20px; border:1px solid #dedede;}
+.d_gs_nav{ height:39px; width:981px; border-bottom:3px solid #1E9FFF; margin-bottom:5px;  }/*margin-bottom:35px;*/
+.d_gs_nav li{ width:489px; float:left; background:url(../images/gs-bg.jpg) top left repeat-x;border-top:1px solid #d4d4d4; text-align:center; font-size:18px; font-weight:bold; color:#444444; list-style:none; height:38px; line-height:38px; cursor:pointer;}
+.d_gs_nav .left_li{ border-left:1px solid #d4d4d4;}
+.d_gs_nav .right_li{ border-right:1px solid #d4d4d4;}
+.d_gs_nav .on{ background:#1E9FFF; border-top:1px solid #1E9FFF; color:#fff;}
+.d_gs_nav .on.left_li{ border-left:1px solid #1E9FFF;}
+.d_gs_nav .on.right_li{ border-right:1px solid #1E9FFF;}
+.d_gs_main{ width:980px; overflow:hidden; min-height:320px; margin-top:30px;  }
+.d_gs_main .d_gs_search{ height:42px; width:628px; margin:0 auto; position:relative;margin-bottom:20px;}
+.d_gs_main .d_gs_search .d_gs_dept{ height:42px; background:#2b6cac; cursor:pointer; width:150px; float:left; font-size:16px; text-align:center; color:#fff; line-height:42px;}
+.d_gs_main .d_gs_search .d_gs_input{ height:34px; padding:3px; line-height:34px; border:1px solid #cccccc; float:left; width:477px; color:#777; font-size:14px; outline:none;}
+.d_gs_main .d_gs_search .d_gs_btn{ width:141px; height:42px; background:#1E9FFF; color:#fff; text-align:center; font-size:16px; line-height:42px; border:none; font-family:"Microsoft YaHei"; cursor:pointer; outline:none;}
+.d_gs_search .d_gs_dept_pop{ width:774px; border:1px solid #2b6cac; background:#fff; position:absolute; left:0; top:42px; min-height:100px; display:none;}
+.d_gs_search .on{ display:block !important;}
+.d_gs_search .d_gs_dept_pop .top_ul{ padding:10px; overflow:hidden; }
+.d_gs_search .d_gs_dept_pop .top_ul li{ height:32px; float:left; width:25%; list-style:none; line-height:32px; }
+.d_gs_search .d_gs_dept_pop .top_ul label{font-size:14px;}
+.d_gs_search .d_gs_dept_pop .bot_all{ height:36px; padding:7px 10px;border-top:1px dashed #ccc;}
+.d_gs_search .d_gs_dept_pop .bot_all .select_all{ float:left; height:36px; line-height:36px; font-size:14px;}
+.d_gs_search .d_gs_dept_pop .bot_all .select_all label{font-size:14px;}
+.d_gs_search .d_gs_dept_pop .bot_all .select_btn{ width:140px; height:34px; border:1px solid #cccccc; background:url(../images/gs-bg.jpg) left bottom repeat-x; text-align:center; ; float:right; font-size:16px; color:#333; font-family:"Microsoft YaHei"; cursor:pointer; border-radius:3px; float:right;}
+.d_gs_main .list_ul{ overflow:hidden;}
+.d_gs_main .list_ul li{border-bottom:1px dashed #ccc; list-style:none; }
+.d_gs_main .list_ul li span{ float:right; color:#666;}
+.d_gs_main .list_ul li a{ color:#333; text-decoration:none; background:url(../images/list-arrow.png) 6px center no-repeat; padding:0 10px 0 20px; display:block; font-size:14px; height:39px; line-height:39px;overflow:hidden;}
+.d_gs_main .list_ul li a:hover{ background-color:#f0f0f0;}
+.d_gs_main .list_ul .list_bg{ background-color:#f8f8f8;}
+
+.d_gs_title{ height:36px; padding:10px 0 5px; border-bottom:1px solid #cccccc; background:url(../images/icon_detail.png) left center no-repeat; margin-bottom:10px; padding-left:20px; font-size:22px; font-weight:normal;
+             overflow: hidden; /*自动隐藏文字*/
+			text-overflow: ellipsis;/*文字隐藏后添加省略号*/
+			white-space: nowrap;/*强制不换行*/
+			  padding-right: 50px;
+             }
+.d_gs_detail{ overflow:hidden;}
+.d_gs_detail table{border: 1px solid #dcdcdc;padding: 10px;border-spacing: 0px; border-collapse: collapse;width: 100%;margin-bottom: 10px; font-size:14px;}
+.d_gs_detail table tr td{height: 41px;line-height: 25px;border: 0px;}
+.d_gs_detail table tr.first{background: #f3f3f3;}
+.d_gs_detail table tr.seconde{background: #fff;}
+.d_gs_detail table tr td.label{text-align: right;width: 170px;font-family: "微软雅黑";font-size: 14px;margin: 0px;padding: 0px;+width: 270px;+padding-right: 8px;}
+
+.d_gs_detail table tr td.value{
+	margin: 0px;
+	padding: 0px;
+	font-size: 14px;
+	color: #333;
+	text-align: left;
+	padding-left: 8px;
+}
+/*******************目前该样式用于信息类的资质许可，行政处罚*****************************/
+.d_gs_detail  table tr td.label{
+	padding-right: 8px;
+	width: 200px;
+	border: 1px solid #dbdbdb;
+	
+}
+.d_gs_detail   table tr td.value{
+	border: 1px solid #dbdbdb;
+}
+.d_gs_detail  table tr td.table-inner{
+	padding-left: 0px;
+}
+.d_gs_detail  table tr td.table-inner table{
+	width: 100%;
+	padding: 0px;
+	margin: 0px;
+	border-collapse: collapse;
+	border: 0px;
+}
+.d_gs_detail  table tr td.table-inner table tr td{
+	text-align: center;
+	font-family: "微软雅黑";
+    font-size: 14px;
+}
+.d_gs_detail table tr td.table-inner table tr.label td{
+	border-left: 1px solid #dbdbdb;
+	border-bottom: 1px solid #dbdbdb;
+	border-right: 1px solid #dbdbdb;
+	border-top: 0px;
+}
+.d_gs_detail  table tr td.table-inner table tr.value td{
+	border-left: 1px solid #dbdbdb;
+	border-top: 1px solid #dbdbdb;
+	border-right: 1px solid #dbdbdb;
+	border-bottom: 0px;
+}
+.d_gs_detail table tr td.table-inner table tr td.left{
+	border-left: 0px;
+}
+.d_gs_detail  table tr td.table-inner table tr td.right{
+	border-right: 0px;
+}
+
+
+/**分页**/
+#Pagination {
+  overflow: hidden;  
+  width: 100%;
+  margin:15px 0;
+}
+#Pagination .pagination 
+{
+  float:right;
+  height: 40px;
+  text-align: right;
+  font-family: \u5b8b\u4f53,Arial;
+}
+#Pagination .pagination a,
+#Pagination .pagination span {
+  float: left;
+  display: inline;
+  padding: 11px 13px;
+  border: 1px solid #e6e6e6;
+  border-right: none;
+  background: #f6f6f6;
+  color: #666666;
+  font-family: \u5b8b\u4f53,Arial;
+  font-size: 14px;
+  cursor: pointer;
+}
+#Pagination .pagination .current {
+  background: #428bca;
+  color: #fff;
+}
+#Pagination .pagination .prev,
+#Pagination .pagination .next {
+  float: left;
+  padding: 11px 13px;
+  border: 1px solid #e6e6e6;
+  background: #f6f6f6;
+  color: #666666;
+  cursor: pointer;
+}
+#Pagination .pagination .prev i,
+#Pagination .pagination .next i {
+  display: inline-block;
+  width: 4px;
+  height: 11px;
+  margin-right: 5px;
+}
+#Pagination .pagination .prev {
+  border-right: none;
+}
+#Pagination .pagination .prev i {
+  background-position: -144px -1px;
+  *background-position: -144px -4px;
+}
+#Pagination .pagination .next i {
+  background-position: -156px -1px;
+  *background-position: -156px -4px;
+}
+#Pagination .pagination .pagination-break {
+  padding: 11px 5px;
+  border: none;
+  border-left: 1px solid #e6e6e6;
+  background: none;
+  cursor: default;
+}
+.searchPage {
+  float: left;
+  padding: 8px 0;
+}
+.searchPage .page-sum {
+  padding: 11px 13px;
+  color: #999999;
+  font-family: \u5b8b\u4f53,Arial;
+  font-size: 14px;
+}
+.searchPage .page-go {
+  padding: 8px 0;
+  color: #999999;
+  font-family: \u5b8b\u4f53,Arial;
+  font-size: 14px;
+  padding: 10px 0\9;
+  *padding: 6px 0;
+}
+.searchPage .page-go input {
+  width: 21px;
+  height: 20px;
+  margin: 0 5px;
+  padding-left: 5px;
+  border: 1px solid #e4e4e4;
+}
+.searchPage .page-btn {
+  margin: 9px 0 5px 5px;
+  padding: 2px 5px;
+  background: #ffac59;
+  border-radius: 2px;
+  color: #ffffff;
+  font-family: Arial, 'Microsoft YaHei';
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.list_ul #List{ border:1px solid #eee;  font-family: "微软雅黑";font-size: 14px;}
+.list_ul #List tr th{ border:1px solid #eee; background-color:#dbdbdb; height:40px;}
+.list_ul #List tr td{ border:1px solid #eee; text-align:center;  height: 40px;}
+.lookSXML{text-align:right;   display: block; }
+
+
+/*导入事项目录*/
+.d_gs_main .d_gs_search .d_file_input{ display:block; cursor:pointer; background-color:#EBEBE4; text-indent: 10px; height:34px; padding:3px; line-height:34px; border:1px solid #cccccc; float:left; width:390px; color:#777; font-size:14px; outline:none;}
+.d_gs_main .d_gs_search .d_file_btn{ width:77px; height:42px; background:#2b6cac; color:#fff; text-align:center; font-size:16px; line-height:42px; border:none; font-family:"Microsoft YaHei"; cursor:pointer; outline:none;}
+
+
+
+.footer{
+	background: #0277AD;
+	
+}

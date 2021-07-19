@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title> TabPanel demo </title>
+<link href="../css/tabpanel.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	.wcm-tabpanel{
+		width:100%;
+	}
+	.wcm-tabpanel .body-box{
+		height:250px;
+	}
+</style>
+<script src="../../js/easyversion/lightbase.js"></script>
+<script src="../../js/easyversion/extrender.js"></script>
+<script src="../../js/easyversion/elementmore.js"></script>
+<script src="../../js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../js/source/wcmlib/Observable.js"></script>
+<script src="../../js/source/wcmlib/Component.js"></script>
+<script src="../../js/source/wcmlib/tabpanel/TabPanel.js"></script>
+<script language="javascript">
+<!--
+    Event.observe(window,'load', function(){
+        new wcm.TabPanel({
+            id : 'tabPanel',
+            activeTab : 'tab-body-2'
+        }).show();
+
+        wcmXCom.get('tabPanel').on('beforetabchange', function(sOldTab, sNewTab){
+			return;
+            if(sOldTab == 'tab-body-2' && !$('cbx').checked){
+                alert('请选中页面中的checkbox再切换');
+                return false;
+            }
+        });
+        wcmXCom.get('tabPanel').on('tabchange', function(sCurrTab){
+			return;
+            alert(String.format("当前标签为：[{0}]",sCurrTab));
+        });
+    });
+//-->
+</script>
+</head>
+
+<body>
+<div class="wcm-tabpanel" id="tabPanel">
+	<div class="head-box">
+		<div class="wrapper">
+			<div class="tab-head" item="tab-body-1"><div class="r"><div class="c">
+				<a href="#" WCMAnt:param="tabpanel-demo.html.baseattribute">基本属性</a>
+			</div></div></div>
+			<div class="tab-head" item="tab-body-2"><div class="r"><div class="c">
+				<a href="#" WCMAnt:param="tabpanel-demo.html.resourcevariable">资源变量</a>
+			</div></div></div>
+		</div>
+	</div>
+	<div class="body-box">
+		<div class="tab-body" id="tab-body-1">
+            This is text of tab 1. This is text of tab 1. This is text of tab 1. This is text of tab 1. 
+            <br>
+            This is text of tab 1. This is text of tab 1. This is text of tab 1. This is text of tab 1. 
+            <br>		
+		</div>
+		<div class="tab-body" id="tab-body-2">
+            This is text of tab 2. This is text of tab 2. This is text of tab 2. This is text of tab 2. 
+            <br>
+            <input type="checkbox" name="cbx" value=""><span WCMAnt:param="tabpanel-demo.html.canBeChanged">可以切换</span>		
+		</div>
+	</div>
+</div>
+</body>
+</html>

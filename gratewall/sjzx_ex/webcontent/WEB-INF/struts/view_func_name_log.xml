@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>功能大小类对应表</menu-name>
+  <menu-path>/page/log/</menu-path>
+  <description>功能大小类对应表</description>
+  <form-beans>
+    <form-bean name="ViewFuncNameLogRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="record" name="first_func_name" type="string" size="8" cannull="true" description="功能大类"/>
+      <form-property prefix="record" name="second_func_name" type="string" size="200" cannull="true" description="功能小类"/>
+    </form-bean>
+
+    <form-bean name="ViewFuncNameLogUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="record" name="first_func_name" type="string" size="8" cannull="true" description="功能大类"/>
+      <form-property prefix="record" name="second_func_name" type="string" size="200" cannull="true" description="功能小类"/>
+    </form-bean>
+
+    <form-bean name="ViewFuncNameLogDeleteForm">
+      <description>多记录和单记录删除</description>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-view_func_name_log.jsp" name="ViewFuncNameLogRowsetForm" txn-code="620100401" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询功能大小类对应列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewFuncNameLog" func-name="txn620100401" input-node="select-key" output-node="record" description="查询功能大小类对应列表"/>
+      <forward error-code="success" path="query-view_func_name_log.jsp"/>
+      <forward error-code="failure" path="query-view_func_name_log.jsp"/>
+    </action>
+
+    <action input="update-view_func_name_log.jsp" name="ViewFuncNameLogUpdateForm" txn-code="620100402" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改功能大小类对应信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewFuncNameLog" func-name="txn620100402" input-node="record" description="修改功能大小类对应信息"/>
+      <forward error-code="success" path="update-view_func_name_log.jsp"/>
+      <forward error-code="failure" path="update-view_func_name_log.jsp"/>
+    </action>
+
+    <action input="insert-view_func_name_log.jsp" name="ViewFuncNameLogUpdateForm" txn-code="620100403" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加功能大小类对应信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewFuncNameLog" func-name="txn620100403" input-node="record" description="增加功能大小类对应信息"/>
+      <forward error-code="success" path="insert-view_func_name_log.jsp"/>
+      <forward error-code="failure" path="insert-view_func_name_log.jsp"/>
+    </action>
+
+    <action input="query-view_func_name_log.jsp" name="ViewFuncNameLogUpdateForm" txn-code="620100404" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询功能大小类对应用于修改</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewFuncNameLog" func-name="txn620100404" input-node="primary-key" output-node="record" description="查询功能大小类对应用于修改"/>
+      <forward error-code="success" path="update-view_func_name_log.jsp"/>
+      <forward error-code="failure" path="update-view_func_name_log.jsp"/>
+    </action>
+
+    <action input="query-view_func_name_log.jsp" name="ViewFuncNameLogDeleteForm" txn-code="620100405" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除功能大小类对应信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.log.txn.TxnViewFuncNameLog" func-name="txn620100405" input-node="primary-key" description="删除功能大小类对应信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-view_func_name_log.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/dw/rd/log/query-view_func_name_log.jsp" description="查询功能大小类对应列表"/>
+    <resource-file type="jsp" file-name="/dw/rd/log/insert-view_func_name_log.jsp" description="增加功能大小类对应信息"/>
+    <resource-file type="jsp" file-name="/dw/rd/log/update-view_func_name_log.jsp" description="修改功能大小类对应信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.log.vo.ViewFuncNameLogContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.log.vo.VoViewFuncNameLog" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.log.vo.VoViewFuncNameLogSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.log.vo.VoViewFuncNameLogPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

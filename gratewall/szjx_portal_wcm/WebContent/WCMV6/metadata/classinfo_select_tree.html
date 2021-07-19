@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<TITLE>分类法选择</TITLE>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<script src="../js/com.trs.util/Common.js"></script>
+<SCRIPT LANGUAGE="JavaScript">
+	$import("com.trs.util.JSON");
+	$import("com.trs.tree.TreeNav");
+</SCRIPT>
+<script src="classinfo_select_tree.js"></script>
+<style type="text/css">
+    *{
+        margin:0px;
+        padding:0px;
+    }
+    .TreeView{
+        width:100%;
+        height:88%;
+        overflow:auto;
+        background:white;
+    }
+    .CommandButtons{
+        width:100%;
+        height:12%;
+        padding-top:4px;
+        text-align:center;
+    }
+</style>
+</HEAD>
+
+<BODY>
+<div class="TreeView" id="TreeView">
+	<div onlynode="true"><a href=""></a></div><ul></ul>
+</div>
+<div class="CommandButtons">
+    <button onclick="onOk();">确定</button>&nbsp;<button onclick="onCancel();">取消</button>    
+</div>
+</BODY>
+</HTML>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<expression-config>
+
+    <property k="config.name">default</property>
+    
+    <property k="engine">com.gwssi.expression.component.engine.Engine</property>
+    
+    <property k="engine.traceliteralinterpreter"
+      v="com.gwssi.expression.component.interpreter.TraceLiteralInterpreter" />
+
+    <property k="use.bigdecimal">false</property>
+    
+    <property k="function.ignoreCase">true</property>
+    
+    <include file="classpath:com/gwssi/common/rodimus/report/expr/config/operator-config.xml" />
+    <include file="classpath:com/gwssi/common/rodimus/report/expr/config/fastfunction-config.xml" />
+    <include file="classpath:com/gwssi/common/rodimus/report/expr/config/function-assign-eq-config.xml" />
+    
+</expression-config>
+

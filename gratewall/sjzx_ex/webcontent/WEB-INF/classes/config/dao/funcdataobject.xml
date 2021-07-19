@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>csdb</sort-name>
+  <table-info name="funcdataobject" class-name="com.gwssi.sysmgr.priv.datapriv.dao.Funcdataobject" check-flag="false" backup-flag="false">
+    <description>功能数据关系配置</description>
+  </table-info>
+
+  <column name="funcode" data-type="varchar" length="36" not-null="true" value-from="input" description="功能代码"/>
+  <column name="objectid" data-type="long" length="19" not-null="true" value-from="input" description="数据对象代码"/>
+  <primary-key name="sql070828124130010" column-list="funcode,objectid"/>
+  <index name="sql070828124129890" index-type="unique" cluster="other" column-list="funcode,objectid"/>
+  <foreign-key foreign-table="funcinfo" foreign-type="one-to-many" on-delete="none" on-update="none" column-names="funcode" foreign-names="funccode"/>
+  <function func-name="select funcdataobject list" func-type="rowset" column-list="funcode,objectid" >
+    <filter-column column-name="objectid" operator="eq" value-from="input" empty-flag="empty"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one funcdataobject" func-type="insert" column-list="funcode,objectid">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one funcdataobject" func-type="delete">
+    <filter-column column-name="objectid" operator="eq" value-from="input" empty-flag="empty"/>
+    <description>删除记录</description>
+  </function>
+</table>
+

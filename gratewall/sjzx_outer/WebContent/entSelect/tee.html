@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+<!-- 第一步开始 -->
+<script type="text/javascript" src="../statics/bt/js/jquery.min.js"></script>
+<script type="text/javascript" src="../statics/js/util.js"></script>
+<script type="text/javascript" src="../statics/js/base64.js"></script>
+<script type="text/javascript" src="../statics/js/jquery.cookie.js"></script>
+<!-- 第一步结束 -->
+</head>
+<body>
+
+
+	<form name="form1" method="get" action="" id="form1" onsubmit="return false" target="_blank">
+		<h4>
+			<a href="https://app03.szmqs.gov.cn/outer/entSelect/gs.html" target="_blank">商事登记簿查询</a>
+		</h4>
+		<h5>（商事主体登记及备案信息查询）</h5>
+		<ul>
+			<li>
+				<input type="text" name="n" id="chkname" value="华为技术有限公司" class="sInput w78" placeholder="商事主体名称">
+				<span class="ip-state">
+					<input name="chkEntname" type="checkbox" id="chkEntname" checked>
+					全称
+				</span>
+			</li>
+			<li>
+				<input type="text" name="ern" value="" id="chkern" class="sInput w42" placeholder="注册号\统一社会信用代码" >
+				<input type="text" class="sInput w42" name="eoc" id="chkeoc" value="" placeholder="组织机构代码" style="display: none">
+			</li>
+			<li>
+				<input type="text" name="txtcheckCode" id="txtcheckCode" value="" class="sInput w42" placeholder="验证码">
+				<img src="" class="yzm" alt="" id="rndImg" onclick="getCode()">
+				<button class="ifSearchBtn" id="ifSearchBtn" name="">立即查询</button>
+			</li>
+		</ul>
+	</form>
+<script>
+
+
+function getCode() {
+	$("#txtcheckCode").val("");
+	var url = "http://app02.szmqs.gov.cn/outer/validate/getCodeTwo.do?timestamp="+(new Date()).valueOf();//生成验证码的地址
+	//var url = "../validate/getCodeTwo.do?timestamp="+(new Date()).valueOf();//生成验证码的地址
+	$("#rndImg").attr("src", url);
+}
+
+$(function(){
+	getCode();
+})
+
+$("#rndImg").click(function(){
+	getCode();
+}); 
+
+
+$("#ifSearchBtn").click(function(){
+	preValue();
+});
+
+function preValue(){
+	var checkCode = $.trim($("#txtcheckCode").val());
+	if("验证码"==checkCode || ""==checkCode){
+		$("#txtcheckCode").focus();
+		alert("请输入验证码!");
+		//return false;
+	}else{
+		var mycheck = "";
+		//if($("#chkEntname").attr("checked")){
+		if($("#chkEntname").is(':checked')){
+			$("#mycheck").val("1");
+			mycheck = "1";
+		}else{
+			$("#mycheck").val("0");
+			mycheck = "0";
+		}
+
+		var chknamevalue = $.trim($("#chkname").val());
+		if("请输入商事主体名称"==chknamevalue){
+			$("#chkname").val("");
+		}
+		var chkernvalue = $.trim($("#chkern").val());
+		if("请输入商事主体注册号"==chkernvalue){
+			$("#chkern").val("");
+		}
+		var isCorrect = false;
+		
+		if($("#txtcheckCode").is(':hidden')){
+	　　　　	return;
+		}
+		var  code = $("#txtcheckCode").val();
+        $.ajax({
+      	  type : "post",
+      	    async:false,
+            url : "http://app02.szmqs.gov.cn/outer/validate/checkCodeTwo.do",
+            //url : "../validate/checkCodeTwo.do",
+            dataType:"jsonp",
+            jsonp:"callbackparam",  
+            jsonpCallback:"jsonpCallback",
+           　		data : {
+		　　　　	code:code,
+		　　　　　},
+            success: function(json){
+          		if(json.flag==1){
+					var entName = chknamevalue;
+					entName = encode(entName);
+					var entUUID = chkernvalue;          			
+          			var isCheck= mycheck;
+          			
+          			var flag = false;
+        			if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+        				flag = true;
+        				
+        			} else if (/(Android)/i.test(navigator.userAgent)) {
+        				flag = true;
+        			}
+        			if(flag){
+        			    //window.open("https://app02.szmqs.gov.cn/outer/mobile/gs.html","mobile");//跳到手机端查询页面
+        				window.open("https://app02.szmqs.gov.cn/outer/mobile/gs.html?eName="+entName+"&euid="+entUUID+"&ec="+isCheck,"mobile");//跳到手机端查询页面
+        			}else{
+        				//window.open("https://app02.szmqs.gov.cn/outer/entSelect/gs.html","comput");//跳到电脑端
+        				window.open("https://app02.szmqs.gov.cn/outer/entSelect/gs.html?eName="+entName+"&euid="+entUUID+"&ec="+isCheck,"comput");//跳到电脑端
+        			}
+          		}else{
+          			 alert("验证码错误");
+          		}
+            },
+            error:function(data){
+          	  alert("验证码错误");
+            }
+        });  
+	}
+}
+</script>
+</body>
+</html>

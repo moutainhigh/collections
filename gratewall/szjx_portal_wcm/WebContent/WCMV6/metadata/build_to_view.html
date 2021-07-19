@@ -1,0 +1,132 @@
+<html>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<TITLE>生成视图</TITLE>
+<SCRIPT language=JavaScript src="../js/com.trs.util/Common.js"></SCRIPT>
+<script language="javascript" src="build_to_view.js" type="text/javascript"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.wcm.ProcessBar');
+</script>
+<script language="javascript">
+<!--
+	var gCount = 1;
+	function count(bIncrease){
+		if(bIncrease == 'false'){
+			return gCount;
+		}
+		return gCount++;
+	}
+//-->
+</script>
+<link href="build_to_view.css" rel="stylesheet" type="text/css" />
+</HEAD>
+
+<BODY>
+    <div style="text-align:left;margin:5px;">
+        <span>视图名称:</span>
+        <span><input type="text" name="viewName" id="viewName" value="" style="border:1px solid silver;width:200px;"><font color="red">*</font></span>
+        <span style="margin-left:10px;">
+            <input type="checkbox" name="hiddenAppendix" id="hiddenAppendix" value="">
+            <label for="hiddenAppendix">禁用附件管理</label>
+        </span>
+    </div>
+    <div class="Container">
+        <table border=0 cellspacing=0 cellpadding=0 class="ViewContainer">
+            <tr class="row_head">
+                <td id="viewHead">
+                    <div class="row_head_cell_float row_head_cell" key="SearchField">检索字段</div>
+                    <div class="row_head_cell_float row_head_cell" style="cursor:default;">标题字段</div>
+                    <div class="row_head_cell_float row_head_cell" key="InDetail" style="display:none;">细览显示</div>
+                    <div class="row_head_cell_float row_head_cell" key="InOutline">概览显示</div>
+                    <div class="row_head_cell">字段描述</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top;">
+                    <div id="ViewContainer" style="overflow:auto;height:100%;"></div>
+                </td>
+            </tr>
+        </table>
+        <table class="FieldContainer" border=0 cellspacing=0 cellpadding=0>
+            <tr class="row_head">
+                <td>
+                    <div class="row_head_cell">字段名称</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top;">
+                    <div id="FieldContainer" style="overflow:auto;height:100%;"></div>
+                </td>
+            </tr>
+        </table>
+        <table class="TableContainer" border=0 cellspacing=0 cellpadding=0>
+            <tr class="row_head">
+                <td>
+                    <div class="row_head_cell" style="float:left;width:40px;border-right:1px solid gray;">
+                        主表
+                    </div>
+                    <div class="row_head_cell">元数据</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="vertical-align:top;">
+                    <div id="TableContainer" style="overflow:auto;height:100%;"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="Command">
+        <div class="ViewCommand" id="ViewCommand">
+            <button id="viewUpBtn">上移</button>
+            <button id="viewDownBtn">下移</button>
+            <button id="viewDeleteBtn">删除</button>
+        </div>
+        <div class="FieldCommand" id="FieldCommand">
+            <button id="fieldSelectAllBtn">选择全部</button>
+            <button id="fieldDeselectAllBtn">取消全部</button>        
+        </div>
+        <div class="TableCommand" id="TableCommand"></div>
+    </div>
+    <div style="border:1px solid gray;overflow:hidden;height:1px;margin:5px;"></div>
+    <div class="Command">
+        <button id="okBtn">保存</button>
+        <button id="closeBtn">关闭</button>
+    </div>
+
+    <!---------------------------------------------内部模板开始---------------------------------------------//-->
+    <textarea name="tableTemplate" id="tableTemplate" style="display:none;" select="MetaDBTables">
+        <for select="MetaDBTable" blankRef="divNoObjectFound">
+            <div class="row row_normal" id="table_{#TABLEINFOID}" title="{#TABLENAME}">
+                <span style="width:40px;float:left;"><input type="radio" name="isPrimary" value="{#TABLEINFOID}"></span>                
+                <span class="tableAnotherName" title="{#TABLENAME}" _id="{#TABLEINFOID}" triggerEvent="true">{#ANOTHERNAME}</span>
+            </div>
+        </for>
+    </textarea>
+    <textarea name="fieldTemplate" id="fieldTemplate" style="display:none;" select="MetaDBFields">
+        <for select="MetaDBField" blankRef="divNoObjectFound">
+            <div class="row row_normal" title="{#FIELDNAME}">
+                <input id="fcb_{#DBFIELDINFOID}" type="checkbox" name="isChecked" value="" _id="{#DBFIELDINFOID}" triggerEvent="true"/>
+                <span title="{#FIELDNAME}" _id="{#DBFIELDINFOID}"><label for='fcb_{#DBFIELDINFOID}'>{#ANOTHERNAME}</label></span>
+            </div>
+        </for>
+    </textarea>
+    <textarea name="viewTemplate" id="viewTemplate" style="display:none;" select="MetaViewFields">
+        <for select="MetaViewField" blankRef="divNoObjectFound">
+            <div class="row row_normal" id="view_{#DBFIELD}" style="clear:both;" _id="{#VIEWFIELDINFOID}">
+                <span class="row_body_cell_float row_body_cell"><input type="checkbox" name="SearchField" {@isChecked(#SearchField)}></span>
+                <span class="row_body_cell_float row_body_cell"><input type="radio" name="TitleField" _id="{@count(false)}" onclick="setTitleEvent(this);" {@isChecked(#TitleField)}></span>
+                <span class="row_body_cell_float row_body_cell" style="display:none;"><input type="checkbox" name="InDetail" {@isChecked(#InDetail)}></span>
+                <span class="row_body_cell_float row_body_cell"><input type="checkbox" name="InOutline" id="InOutline_{@count()}" {@isChecked(#InOutline)} {@isDisabled(#TitleField)}></span>
+                <span class="row_body_cell" triggerEvent="true" style="cursor:pointer;" title="{@getViewDesc(#TABLENAME.DESC,#TABLENAME,#DBFIELDNAME.DESC,#DBFIELDNAME,#ANOTHERNAME)}">{@getViewDesc(#TABLENAME.DESC,#TABLENAME,#DBFIELDNAME.DESC,#DBFIELDNAME,#ANOTHERNAME)}</span>
+            </div>
+        </for>
+    </textarea>
+    <div id="divNoObjectFound" style="display:none;">
+        <div class="no_object_found">不好意思, 没有找到符合条件的对象..-____-|||</div>
+    </div>
+    <!---------------------------------------------内部模板结束---------------------------------------------//-->
+</BODY>
+</HTML>

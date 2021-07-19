@@ -1,0 +1,536 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE WCMAnt:param="document_attachment.html.appendixMgr">TRS WCM 附件管理</TITLE>
+<style>
+	.message-info {
+		font-family: "宋体", "Arial", "Courier New";
+		font-size: 12px;
+		float:left;
+		height:18px;
+		line-height:18px;
+	}
+	.input_file{
+		float:left;
+		width:220px;
+		border:1px solid black;
+	}
+	.file_cover{
+		margin-left:-70px;
+		width:70px;
+	}
+	.input_text{
+		float:left;
+		width:180px;
+		border:1px solid black;
+	}
+	.input_text1{
+		width:100%;
+		height:20px;
+		border:0;
+		background:#ffffcf;
+		font-size:12px;
+		border-bottom:1px dotted silver;
+	}
+	.input_button{
+		padding:0px 4px !important;
+		min-width:85px;
+		height:20px;
+		float:left;
+		border:1px solid black;
+		background-color:#fff9d4;
+	}
+	.ext-ie6 .input_button{
+		padding:0px 2px !important;
+		width:85px;
+		overflow:visible;
+	}
+	.appendix_grid{
+		font-size:12px;
+		background:#646464;
+	}
+	.grid_head{
+		height:25px;
+		color:#133151;
+		overflow : auto;
+	}
+	.ext-ie .grid_head{
+		background:#d3e6fa;
+	}
+	.grid_row{
+		height:25px;background:#FFFFFF;
+		cursor:pointer;
+	}
+	.grid_container{
+		height:280px;
+		width:100%;
+		overflow:auto;
+		overflow-x:hidden;
+	}
+	.row_up{
+		background:url(../images/icon/SortUp.gif) no-repeat center center;	
+	}
+	.row_down{
+		background:url(../images/icon/SortDown.gif) no-repeat center center;	
+	}
+	.row_order{width:35px;margin:0px 2px;border:0px;border-bottom:1px dotted silver;}
+	.grid_function{cursor:pointer;width:16px;height:16px;}
+	.row_delete{padding:8px;background:url(../images/icon/Delete_2.gif) no-repeat center center;}
+	.row_edit{padding:8px;background:url(../images/icon/Update.png) no-repeat center center;}
+	.row_import{padding:8px;background:url(../images/icon/import.gif) no-repeat center center;}
+	.ext-ie .body-box{padding:10px;height:219px;}
+	.ext-ie8 .body-box{padding:10px;height:313px;}
+	.ext-gecko .body-box{padding:10px;height:313px;}
+	.ext-gecko .grid_container{height:90%;}
+	.ext-gecko thead td{padding:0px;margin:0px;background:#d3e6fa;}
+	.ext-safari .body-box{padding:10px;height:313px;}
+	.ext-safari .grid_container{height:90%;}
+	.ext-safari thead td{padding:0px;margin:0px;background:#d3e6fa;}
+	.wcm-tab-panel{
+		width:700px;
+		height:230px;
+	}
+	.tab-item-head{height:30px;padding-top:4px;}
+</style>
+<script src="../js/runtime/myext-debug.js"></script>
+
+<script src="../../app/js/easyversion/lightbase.js"></script>
+<script src="../../app/js/easyversion/elementmore.js"></script>
+<script src="../../app/js/easyversion/crashboard.js"></script>
+<script src="../js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../js/data/locale/document.js"></script>
+<script src="../js/data/locale/system.js"></script>
+<script src="../js/data/locale/ajax.js"></script>
+<script src="../js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/tabpanel/TabPanel.js"></SCRIPT>
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/easyversion/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/tabpanel/resource/tabpanel.css" rel="stylesheet" type="text/css" />
+<script src="../js/source/wcmlib/util/YUIConnection.js"></script>
+<!--ajax-->
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<!--validator-->
+<script src="../../app/js/source/wcmlib/com.trs.validator/lang/cn.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<link href="../../app/js/source/wcmlib/com.trs.validator/css/validator.css" rel="stylesheet" type="text/css" />
+<script src="../js/source/wcmlib/com.trs.web2frame/TempEvaler.js"></script>
+
+<!--flash上传组件--->
+<script language="javascript" src="swfupload/swfupload.js" type="text/javascript"></script>
+<script type="text/javascript" src="swfupload/swfupload.queue.js"></script>
+<script type="text/javascript" src="swfupload/handler/fileprogress.js"></script>
+<script type="text/javascript" src="swfupload/handler/handlers.js"></script>
+<script language="javascript" src="sessionid.jsp" type="text/javascript"></script>
+<script language="javascript" src="../include/photoEnableInfo.jsp" type="text/javascript"></script>
+<script language="javascript" src="document_attachments.js" type="text/javascript"></script>
+<style type="text/css">
+	.picthumb{
+		margin:4px;
+		width:210px;
+		height:150px;
+		border:1px solid #bbbbbb;
+		float:left;
+		background-color:#eeeeee;
+	}
+	.picthumb .d-b{
+		width:100%;
+		height:100px;
+		text-align:center;
+	}
+	.picthumb .d-b .img{
+		width:200px;
+		height:100px;
+		padding:1px;
+		margin:auto;
+		overflow:hidden;
+	}
+	.picthumb .d-h{
+		padding-left:5px;
+	}
+	.picthumb .d-f{
+		padding-left:5px;
+		padding-top:5px;
+	}
+	.picthumb .input_text1{
+		width:auto;
+		background-color:#eeeeee;
+		height:auto;
+	}
+	.picthumb .row_order{
+		background-color:#eeeeee;
+	}
+	.selected,.selected .input_text1,.selected .row_order{
+		background-COLOR:#FFFFCF;
+	}
+	.grid_function{
+		padding:0px;
+	}
+	#wcm-drag-destPosition{
+		background-color:white;
+	}
+	.swfupload{
+		border:1px solid black;
+	}
+	.tab-item-head .swfupload,.tab-item-head .input_button{
+		vertical-align:middle;
+		float:left;
+		height:18px;
+	}
+	.ext-gecko  .tab-item-head .swfupload,.tab-item-head .input_button{
+		vertical-align:middle;
+		float:left;
+		height:20px;
+	}
+	.display-none{
+		display:none;
+	}
+	#maskDiv{
+		position:absolute;
+		width:100%;
+		height:100%;
+		background:gray;
+		filter:alpha(opacity=50); 
+		-moz-opacity:0.5;
+		-khtml-opacity: 0.5; 
+		opacity: 0.5;
+		z-index:49999;
+	}
+	#fsUploadProgress{
+		text-align:center;
+		position:absolute;
+		left:200px;
+		height:100%;
+		overflow-y:auto;
+		z-index:50000;
+	}
+	.progressWrapper {
+		text-align:left;
+		width: 357px;
+		margin:0 auto;
+		overflow: hidden;
+		background:white;
+	}
+
+	.progressContainer {
+		margin: 5px;
+		padding: 4px;
+		border: solid 1px #E8E8E8;
+		background-color: #F7F7F7;
+		overflow: hidden;
+	}
+	/* Message */
+	.message {
+		margin: 1em 0;
+		padding: 10px 20px;
+		border: solid 1px #FFDD99;
+		background-color: #FFFFCC;
+		overflow: hidden;
+	}
+	/* Error */
+	.red {
+		border: solid 1px #B50000;
+		background-color: #FFEBEB;
+	}
+
+	/* Current */
+	.green {
+		border: solid 1px #DDF0DD;
+		background-color: #EBFFEB;
+	}
+
+	/* Complete */
+	.blue {
+		border: solid 1px #CEE2F2;
+		background-color: #F0F5FF;
+	}
+
+	.progressName {
+		font-size: 8pt;
+		font-weight: 700;
+		color: #555;
+		width: 323px;
+		height: 14px;
+		text-align: left;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+
+	.progressBarInProgress,
+	.progressBarComplete,
+	.progressBarError {
+		font-size: 0;
+		width: 0%;
+		height: 2px;
+		background-color: blue;
+		margin-top: 2px;
+	}
+
+	.progressBarComplete {
+		width: 100%;
+		background-color: green;
+		visibility: hidden;
+	}
+
+	.progressBarError {
+		width: 100%;
+		background-color: red;
+		visibility: hidden;
+	}
+
+	.progressBarStatus {
+		margin-top: 2px;
+		width: 337px;
+		font-size: 7pt;
+		font-family: Arial;
+		text-align: left;
+		white-space: nowrap;
+	}
+
+	a.progressCancel {
+		font-size: 0;
+		display: block;
+		height: 14px;
+		width: 14px;
+		background-image: url(../images/cancelbutton.gif);
+		background-repeat: no-repeat;
+		background-position: -14px 0px;
+		float: right;
+	}
+
+	a.progressCancel:hover {
+		background-position: 0px 0px;
+	}
+</style>
+</HEAD>
+
+<BODY style="margin:0;padding:0;" id="frmData">
+	<div class="display-none" id="maskDiv"></div>
+	<div class="display-none" id="fsUploadProgress"></div>
+	<div id="picthumb" style="display:none">
+		<img src="../images/loading.gif" border="0">
+	</div>
+	<div class="wcm-tab-panel" id="tabPanel">
+		<div class="head-box" style="padding-left:20px;">
+			<div class="tab-head" item="AppPicUpload" id="tab-1-header">
+			<a href="#" id="uploadImages" WCMAnt:param="document_attachments.html.pic">图片</a>
+			<span id="tipsBar" style="margin-top:2px;display: inline-block;">【图片规范：图片上传宽度应为1024，宽高比为3:2】</span></div>
+
+			<div class="tab-head" item="AppFileUpload" id="tab-2-header"><a href="#" WCMAnt:param="document_attachments.html.file">文件</a></div>
+
+			<div class="tab-head" style="display:none" item="AppLink" id="tab-3-header"><a href="#" WCMAnt:param="document_attachments.html.link">链接</a></div>
+		</div>
+	    <div class="body-box">
+	        <div class="tab-body" id="AppPicUpload">
+				<div class="tab-item-head">
+				<!--<span class="message" WCMAnt:param="document_attachments.html.selectPicFile">选择图片文件：</span> 
+				<form id="fm_pic" name="fm_pic" style="margin:0;" enctype='multipart/form-data' onsubmit="UploadPic();return false;">-->
+					<span id="uploadpic"></span>
+					<!--<input type="file" class="input_file" id="PicUpload" name="PicUpload" value="">
+					<input type="button" class="input_button" style="margin-left:5px;" value="上传" onclick="UploadPic();" 
+					WCMAnt:paramattr="value:document_attachments.html.upload">
+					-->
+					<input type="button" class="input_button relatepicplugins" style="margin-left:5px;" value="图片库选择"  WCMAnt:paramattr="value:document_attachments.html.selectPicLib" onclick="LoadFromPicLib();">
+					<input type="button" class="input_button relatepicplugins" style="margin-left:5px;" value="设置水印" WCMAnt:paramattr="value:document_attachments.html.setwatermark" onclick="setWaterMark();">
+					<input type="button"  class="input_button" style="margin-left:5px;float:right;display:none" value="全选" WCMAnt:paramattr="value:document_attachments.html.selectall" onclick="selectAll();">
+					<!--
+					<input type="button" class="input_button" style="margin-left:5px;" value="批量上传图片"  
+					WCMAnt:paramattr="value:document_attachments.html.piliang" onclick="uploadFiles('photo','图片');">
+					
+				</form>-->
+				</div>
+				<div id="curr_pics" class="grid_container"></div>
+			</div>
+	        <div class="tab-body" id="AppFileUpload">
+				<div class="tab-item-head">
+					<span id="uploadfile"></span>
+				</div>
+				<div id="curr_files" class="grid_container"></div>
+			</div>
+	        <div class="tab-body" id="AppLink">
+				<div class="tab-item-head">
+				<span class="message-info" WCMAnt:param="document_attachments.html.inputAdderess">输入地址：</span> 
+				<form id="fm_link" style="margin:0;" onsubmit="AddLink();return false;">
+					<input type="text" class="input_text" id="Link" name="Link" value="">
+					<input type="button" class="input_button" style="margin-left:5px;" value="添加" onclick="AddLink();"  WCMAnt:paramattr="value:document_attachments.html.add">
+				</form>
+				<input type="button" class="input_button" style="margin-left:5px;" value="添加链接文档"  WCMAnt:paramattr="value:document_attachments.html.addInnerDocLink" onclick="AddInnerDocLink();">
+				<input type="button" class="input_button" style="margin-left:5px;" value="添加链接栏目" WCMAnt:paramattr="value:document_attachments.html.addInnerChannelLink" onclick="AddInnerChannelLink();">
+				</div>
+				<div id="curr_links" class="grid_container"></div>
+			</div>
+		</div>
+	</div>
+	<textarea id="template_pics" style="display:none">
+		<dl id="appendix_tbody_20">
+		<for select="Appendixes.Appendix" blankRef="noObjectFound">
+			<dd class="picthumb" grid_rowid="{#APPENDIXID}" appendix_order="{$$INDEX}" PicUrl="{#APPFILE.FileName}" appendix_type="20">
+				<div class="d-h">
+					<input type="text" name="order" class="row_order" _value="{$$INDEX}" value="{$$INDEX}">
+					<span class="picinfo"></span>
+				</div>
+				<div class="d-b"><div class="img"><img class="appendix_img" src="../../file/read_image.jsp?FileName={#APPFILE.FileName}&ScaleWidth=208" border=0 alt="" /></div></div>
+				<div class="d-f">
+					<span title="{@$transHtml(#AppDesc)}"><input class="input_text1" name="appDesc" value="{@$transHtml(#AppDesc)}"  validation="max_len:'120',type:'string',required:true,desc:'显示名称'" 
+					validation_desc="显示名称" WCMAnt:paramattr="validation_desc:document_attachments.html.outputName"></span>
+					<SPAN class="row_edit relatepicplugins grid_function" grid_function="edit" title="编辑" WCMAnt:paramattr="title:document_attachments.html.edit">&nbsp;&nbsp;</SPAN>
+					<SPAN class="row_import relatepicplugins grid_function" grid_function="importToLib" title="提取为图片库图片" WCMAnt:paramattr="title:document_attachments.html.importToLib">&nbsp;&nbsp;</SPAN>
+					<SPAN class="row_delete grid_function" grid_function="delete">&nbsp;&nbsp;</SPAN>
+				</div>
+			</dd>
+		</for>
+		</dl>
+	</textarea>
+	<textarea id="template_files" style="display:none">
+		<TABLE width="624" border="0" cellpadding="0" cellspacing="1" class="appendix_grid" style="table-layout:fixed">
+			<THEAD align="center" valign="middle" class="grid_head">
+				<TD width="27" WCMAnt:param="document_attachments.html.order">序号</TD>
+				<TD width="140" WCMAnt:param="document_attachments.html.fileName">文件名</TD>
+				<TD width="140" WCMAnt:param="document_attachments.html.originalFileName_a">原文件名</TD>
+				<TD width="145" WCMAnt:param="document_attachments.html.outputName_a">显示名称</TD>
+				<TD width="131" WCMAnt:param="document_attachments.html.tipMessage_a">提示信息</TD>
+				<TD width="31" WCMAnt:param="document_attachments.html.delete">删除</TD>
+				<TD width="40" WCMAnt:param="document_attachments.html.listOrder">排序</TD>
+			</THEAD>
+			<TBODY id="appendix_tbody_10">
+		    <for select="Appendixes.Appendix" blankRef="noObjectFound">
+			<TR align="center" valign="middle" class="grid_row" grid_rowid="{#APPENDIXID}" appendix_order="{$$INDEX}"  PicUrl="{#APPFILE.URL}" 
+			title="{#APPFILE.FileName}" appendix_type="10">
+				<TD>{$$INDEX}</TD>
+				<TD title="{#APPFILE}">
+				<div style="overflow:hidden;width:100%;height:100%;line-height:25px;white-space:nowrap;text-overflow:ellipsis">{#APPFILE}</div>
+				</TD>
+				<TD>
+					<input class="input_text1" name="srcFile" value="{@$transHtml(#SRCFILE)}" validation="max_len:'50',type:'string',required:true,desc:'原文件名'" 
+					validation_desc="原文件名" WCMAnt:paramattr="validation_desc:document_attachments.html.originalFileName">
+				</TD>
+				<TD>
+					<input class="input_text1" name="appDesc" value="{@$transHtml(#AppDesc)}" validation="max_len:'120',type:'string',required:true,desc:'显示名称'" 
+					validation_desc="显示名称" WCMAnt:paramattr="validation_desc:document_attachments.html.outputName">
+				</TD>
+				<TD>
+					<input class="input_text1" name="applinkalt" value="{@$transHtml(#APPLINKALT)}"  validation="max_len:'50',type:'string',desc:'提示信息'" 
+					validation_desc="提示信息" WCMAnt:paramattr="validation_desc:document_attachments.html.tipMessage">
+				</TD>
+				<TD>
+					<SPAN class="row_delete grid_function" grid_function="delete">&nbsp;&nbsp;</SPAN>
+				</TD>
+				<TD>
+					<input type="text" name="order" class="row_order" _value="{$$INDEX}" value="{$$INDEX}">
+				</TD>
+			</TR>
+			</for>
+			</TBODY>
+		</TABLE>
+	</textarea>
+	<textarea id="template_links" style="display:none">
+		<TABLE width="624" border="0" cellpadding="0" cellspacing="1" class="appendix_grid" style="table-layout:fixed">
+			<THEAD align="center" valign="middle" class="grid_head">
+				<TD width="27" WCMAnt:param="document_attachments.html.order">序号</TD>
+				<TD width="230" WCMAnt:param="document_attachments.html.linkAdderess">链接地址</TD>
+				<TD width="160" WCMAnt:param="document_attachments.html.outputName_a">显示名称</TD>
+				<TD width="166" WCMAnt:param="document_attachments.html.tipMessage_a">提示信息</TD>
+				<TD width="31" WCMAnt:param="document_attachments.html.delete">删除</TD>
+				<TD width="40" WCMAnt:param="document_attachments.html.listOrder">排序</TD>
+			</THEAD>
+			<TBODY id="appendix_tbody_40">
+		    <for select="Appendixes.Appendix" blankRef="noObjectFound2">
+			<TR align="center" valign="middle" class="grid_row" grid_rowid="{#APPENDIXID}" appendix_order="{$$INDEX}" appendix_type="40">
+				<TD>{$$INDEX}</TD>
+				<TD title="{#APPFILE}">
+					<div 
+					style="text-align:left;padding-left:4px;overflow:hidden;width:100%;height:100%;line-height:25px;white-space:nowrap;text-overflow:ellipsis">{#APPFILE}</div>
+				</TD>
+				<TD>
+					<input class="input_text1" name="appDesc" value="{@$transHtml(#AppDesc)}" validation="max_len:'120',type:'string',required:true,desc:'显示名称'" 
+					validation_desc="显示名称" WCMAnt:paramattr="validation_desc:document_attachments.html.outputName">
+				</TD>
+				<TD>
+					<input class="input_text1" name="applinkalt" value="{@$transHtml(#APPLINKALT)}"  validation="max_len:'50',type:'string',desc:'提示信息'" 
+					validation_desc="提示信息" WCMAnt:paramattr="validation_desc:document_attachments.html.tipMessage">
+				</TD>
+				<TD>
+					<SPAN class="row_delete grid_function" grid_function="delete">&nbsp;&nbsp;</SPAN>
+				</TD>
+				<TD>
+					<input type="text" name="order" class="row_order" _value="{$$INDEX}" value="{$$INDEX}">
+				</TD>
+			</TR>
+			</for>
+			</TBODY>
+		</TABLE>
+	</textarea>
+	<TABLE style="display:none">
+	<TBODY id="noObjectFound">
+		<TR class="grid_row">
+			<TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD>
+		</TR>
+	</TBODY>
+	<TBODY id="noObjectFound2">
+		<TR class="grid_row">
+			<TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD>
+		</TR>
+	</TBODY>
+	</TABLE>
+
+
+	<script>
+	   /*查验图片是否规范的内容*/
+		function checkImgPX() {  
+			var img = null;  
+			var width = 1024;
+			img = document.getElementById("img"); 
+			var imgwidth = img.offsetWidth;  
+			var imgheight = img.offsetHeight;  
+			  
+			alert(imgwidth + "," + imgheight);  
+			  
+			if(imgwidth != width) {  
+				alert("图的尺寸应该是" + width + "x"+ height);  
+				ths.value = "";  
+				return false;  
+			}  
+			return true;  
+		} 
+
+
+
+		function getCookie(name){
+				var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+				if(arr=document.cookie.match(reg))
+					return unescape(arr[2]);
+				else{
+					return null;
+				}
+		}
+
+	    var cid = getCookie("cid");
+		if(cid=="57"){//新闻投稿，只能上传图片
+			//document.getElementById("tab-2-header").style.display="none";//文件
+			//document.getElementById("tab-3-header").style.display="none";//链接
+		}
+		
+		else{
+		/*
+			document.getElementById("tab-1-header").style.display="block";
+			document.getElementById("AppPicUpload").style.display="none";
+			document.getElementById("tab-2-header").style.display="block";
+			document.getElementById("uploadImages").style.display="none";
+			document.getElementById("tipsBar").innerHTML="";*/
+			//document.getElementById("curr_pics").style.display="none";
+		}
+</script>
+</BODY>
+</HTML>

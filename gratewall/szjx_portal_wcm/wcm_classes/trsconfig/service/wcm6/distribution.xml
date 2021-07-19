@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.DistributeServiceProvider">
+
+	<method name="save">		
+		<parameter name="FolderType" desc="类型（站点/栏目）" type="int" required="false"/>
+		<parameter name="FolderId" desc="站点/栏目ID" type="int" required="false"/>	
+		<parameter name="ObjectId" desc="分发信息ID" type="int" required="true"/>
+	</method>
+
+	<method name="delete">	
+		<parameter name="ObjectIds" desc="待删除的分发信息ID序列" type="string" required="true"/>
+	</method>
+	
+	<method name="query">
+		<parameter name="FolderType" desc="类型（站点/栏目）" type="int" required="true"/>
+		<parameter name="FolderId" desc="站点/栏目ID" type="int" required="true"/>	
+		
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" required="false" default="PublishDistributionId Desc"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<!-- 检索相关配置 END -->
+	</method>
+	
+	<method name="findByIds" >
+		<parameter name="ObjectIds" desc="分发信息ID序列" type="string" required="true"/>
+	</method>
+	
+	<method name="findById">
+		<!--默认的参数，可以不写-->
+		<parameter name="ObjectId" desc="分发信息ID" type="int" required="true"/>
+	</method>
+	
+	<method name="updateStatus" desc="改变多分发的状态">
+		<parameter name="ObjectIds" desc="分发信息ID序列" type="string" required="true"/>	
+		<parameter name="Enable" desc="是否启用" type="boolean" required="true"/>			
+	</method>
+	<method name="updateStatusAll" desc="改变所有对象分发的状态">
+		<parameter name="FolderType" desc="类型（站点/栏目）" type="int" required="true"/>
+		<parameter name="FolderId" desc="站点/栏目ID" type="int" required="true"/>	
+		<parameter name="Enable" desc="是否启用" type="boolean" required="true"/>			
+	</method>	
+	<method name="queryTargetTypes" desc="获取系统的分发类型" params-required="false"/>
+	
+</service>

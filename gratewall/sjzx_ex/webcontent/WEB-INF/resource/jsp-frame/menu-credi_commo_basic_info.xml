@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="credi_commo_basic_info.xml" app-path="/dw/aic/bj/reg/credi/" app-name="credi_commo_basic_info" description="简单查询" template="single-table.xml"/>
+  <table name="credi_commo_basic_info.xml" app-name="credi_commo_basic_info" app-desc="信用信息" delete-action="delete" description="简单查询" class-name="com.gwssi.dw.aic.bj.credi.txn.TxnCrediCommoBasicInfo" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-credi_commo_basic_info.jsp" txn-code="70110001" description="查询信用信息列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加信用信息" path="insert-credi_commo_basic_info.jsp" description="增加信用信息" func-name="addRecord"/>
+	    <button type="button" name="修改信用信息" path="/txn70110004.do" description="修改信用信息" func-name="updateRecord"/>
+	    <button type="button" name="删除信用信息" path="/txn70110005.do" description="删除信用信息" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn70110001.do" description="查询信用信息信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-credi_commo_basic_info.jsp" txn-code="70110003" description="增加信用信息信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn70110003.do" description="保存信用信息信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn70110003.do" description="保存信用信息信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn70110001.do" description="保存信用信息信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn70110001.do" description="返回到信用信息明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-credi_commo_basic_info.jsp" txn-code="70110002" description="修改信用信息信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn70110001.do" description="修改信用信息信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn70110001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-credi_commo_basic_info.jsp" txn-code="70110001" description="查询信用信息列表">
+	    <forward error-code="success" path="query-credi_commo_basic_info.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-credi_commo_basic_info.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-credi_commo_basic_info.jsp" txn-code="70110002" description="修改信用信息信息">
+	    <forward error-code="success" path="update-credi_commo_basic_info.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-credi_commo_basic_info.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-credi_commo_basic_info.jsp" txn-code="70110003" description="增加信用信息信息">
+	    <forward error-code="success" path="insert-credi_commo_basic_info.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-credi_commo_basic_info.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-credi_commo_basic_info.jsp" txn-code="70110004" description="查询信用信息用于修改">
+	    <forward error-code="success" path="update-credi_commo_basic_info.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-credi_commo_basic_info.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-credi_commo_basic_info.jsp" txn-code="70110005" description="删除信用信息信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.credi.vo.CrediCommoBasicInfoContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.credi.vo.VoCrediCommoBasicInfo" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.credi.vo.VoCrediCommoBasicInfoSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.credi.vo.VoCrediCommoBasicInfoPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

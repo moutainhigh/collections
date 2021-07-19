@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.WatermarkServiceProvider">
+	<method name="save">
+	</method>
+	<method name="findById"/>
+	<method name="jFindById" truename="findById"  convertor="uri:/app/watermark/watermark_findbyid.jsp"/>
+	<method name="query">
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>		
+		<!--文档过滤器-->
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" required="false"/>
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="wmname" desc="水印显示名称" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="cruser" desc="水印创建者" type="string" required="false" search="true"
+			search-operator="like"/>
+		<!-- 检索相关配置 END -->
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>			
+	</method>
+	<method name="jQuery" truename="query"  convertor="uri:/app/watermark/watermark_query.jsp"/>
+	<method name="jThumbQuery" truename="query"  convertor="uri:/app/watermark/watermark_thumb_query.jsp"/>
+</service>

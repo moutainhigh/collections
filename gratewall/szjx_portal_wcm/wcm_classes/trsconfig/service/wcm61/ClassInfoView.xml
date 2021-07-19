@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.metadata.service.ClassInfoViewServiceProvider">
+	<method name="queryViews" desc="获取指定分类法下的视图信息">		
+		<parameter name="classInfoId" desc="分类ID" type="int" required="true" default="0"/>			 
+		<parameter name="withChildren" desc="是否包含子分类" type="boolean" required="false" default="0"/>					 
+	</method>
+	<method name="queryViewsByClassInfo" desc="获取使用了指定分类法的视图信息">		
+		<parameter name="classInfoId" desc="分类ID" type="int" required="true" default="0"/>			 
+	</method>
+	<method name="queryDocuments" desc="获取指定分类法下的视图信息">		
+		<parameter name="classInfoId" desc="分类ID" type="int" required="true" default="0"/>			 
+		<parameter name="withChildren" desc="是否包含子分类" type="boolean" required="false" default="0"/>					 
+		<parameter name="viewId" desc="视图ID" type="int" required="false"
+			search="true" search-operator="=" search-field="docKind"/>
+		<parameter name="docTitle" desc="文档标题" type="string" required="false"
+			search="true" search-operator="like" search-field="docTitle"/>			
+	</method>
+	<method name="jQueryDocuments" truename="queryDocuments"  convertor="uri:/app/viewclassinfo/classinfo_document_query.jsp"/>
+	<method name="queryClassInfos" desc="获取指定文档所属分类法信息">		
+		<parameter name="docId" desc="文档ID" type="int" required="false" />			 
+		<parameter name="docIds" desc="文档ID" type="string" required="false" />			 
+		<parameter name="classinfoid" desc="文档ID" type="int" required="false" />			 
+	</method>
+	
+	<method name="queryDocNumMapping" desc="获取指定分类下的文档数隐射">		
+		<parameter name="classInfoIds" desc="分类ID序列" type="string" required="false" />			 
+		<parameter name="classInfoId" desc="分类ID" type="int" required="false" />			 
+	</method>
+	<method name="preview" desc="预览指定分类下的一级分类的首页">		
+		<parameter name="ParentId" desc="父分类ID" type="int" required="true" default="0"/>			 
+		<parameter name="TemplateIds" desc="预览采用的模板" type="string" required="true"/>					 
+	</method>
+
+	<method name="publish" desc="发布指定分类下的一级分类的首页">		
+		<parameter name="ParentId" desc="父分类ID" type="int" required="true" default="0"/>			 
+		<parameter name="TemplateIds" desc="发布采用的模板" type="string" required="true"/>					 
+	</method>
+	
+</service>

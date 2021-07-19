@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script language="javascript" src="../easyversion/lightbase.js" type="text/javascript"></script>
+	<script language="javascript" src="../easyversion/validator.js" type="text/javascript"></script>
+    <script language="javascript">
+    <!--
+        function check(){
+            var aHtml = [];
+            var result = ValidationHelper.validForm('form1');
+            for (var i = 0; i < result.length; i++){
+                aHtml.push("{isValid:" + result[i]['isValid'] + "\nMsg:" + result[i]['message']+ "\nwarning:" + result[i]['warning']+"}");
+            }
+            alert(aHtml.join("\n"));
+            return false;
+        }
+    //-->
+    </script>
+</head>
+<body>
+<ul class="introduction">
+	<li WCMAnt:param="validator.html.elementattr">元素上绑定属性validation;
+	<li ><span WCMAnt:param="validator.html.validationintroduce">validation的值支持严格的json格式及普通字符格式（名值对之内用冒号分隔，之间用逗号或分号分隔）;
+		如：</span>
+		<ul>
+			<li WCMAnt:param="validator.html.jsonform">json格式：
+				<br>validation="type:'string',min_len:'5',max_len:'20'"
+			<li WCMAnt:param="validator.html.fontform">普通字符格式：
+				<br>validation="type:string,min_len:5,max_len:20"
+				<br>validation="type:string;min_len:'5';max_len:20"
+		</ul>
+	<li WCMAnt:param="validator.html.pageonloadover">页面加载完成后，调用ValidationHelper.initValidation();初始化校验
+</ul>
+
+<form method="post" action="submit.htm" id="form1">
+<div>
+<span WCMAnt:param="validator.html.typerequired">type任意:必填项(required),如： </span><b WCMAnt:param="validator.html.validationname">validation="required:true,desc:名称"</b>
+</div>
+<div>
+<input type="text" name="text1" id="text1" value="" validation="required:true,desc:名称">  
+</div>
+<br>
+
+<div>
+整型:type:int;指定最大值(max)，最小值(min)，值范围(value_range),如：<b>validation="type:int;desc:年龄;min:6"</b>
+</div>
+<div>
+<input type="text" name="userName1" id="userName1" value="" validation="type:int;desc:年龄;min:6">  
+</div>
+<br>
+
+<div>
+    浮点型:type:float;指定最大值(max)，最小值(min)，值范围(value_range),如：<b> validation="type:'float',desc:'金额', required:'',value_range:'3.5,7.8'"</b>
+</div>
+<div>
+<input type="text" name="money1" id="money1" value="" validation="type:'float',desc:'金额', required:'',value_range:'3.5,7.8'">
+</div>
+<br>
+
+<div>
+    字符串:type:string;指定最大长度(max)，最小长度(min)，长度范围(length_range),如：<b> validation="type:'string',min_len:5,max_len:20"</b>
+</div>
+<div>
+    <input type="text" name="text5" value="" validation="type:'string',min_len:5,max_len:20">
+</div>
+<br>
+
+<div>
+    URL:type:url;符合url规则;同时具有type为string的特性,如：<b> validation="type:url,max_len:50"</b>
+</div>
+<div>
+    <input type="text" name="url1" value="" validation="type:url,max_len:50">
+</div>
+<br>
+
+<div>
+    IP地址:type:ip,如：<b> validation="type:'ip',desc:'IP地址'"</b>
+</div>
+<div>
+    <input type="text" name="ip1" id="ip1" value="" validation="type:'ip',desc:'IP地址'">
+</div>
+<br>
+
+
+<input type="submit" name="eee1" id="eee1" value="递交" onclick="return check();" WCMAnt:paramattr="value:validator.html.submit">
+<div id="tip"></div>
+</form>
+</body>
+</html>

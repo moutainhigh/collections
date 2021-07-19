@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="xt_zzjg_yh_new" class-name="com.gwssi.sysmgr.user.dao.Xt_zzjg_yh" check-flag="false">
+    <description>用户管理</description>
+  </table-info>
+
+  <column name="yhid_pk" data-type="varchar" length="50" not-null="true" empty-is-null="false" unique="true" value-from="generate" func-name="getUUID" description="用户ID"/>
+  <column name="jgid_fk" data-type="varchar" length="50" not-null="false" empty-is-null="false" unique="false" value-from="input" description="所属机构ID"/>
+  <column name="yhzh" data-type="varchar" length="20" not-null="true" empty-is-null="false" unique="true" value-from="input" description="用户帐号"/>
+  <column name="yhmm" data-type="varchar" length="32" not-null="false" empty-is-null="false" unique="false" value-from="input" description="用户密码"/>
+  <column name="yhxm" data-type="varchar" length="20" not-null="true" empty-is-null="false" unique="false" value-from="input" description="用户姓名"/>
+  <column name="sfyx" data-type="char" length="2" not-null="true" empty-is-null="false" unique="false" value-from="input" description="是否有效"/>
+  <column name="plxh" data-type="integer" length="10" not-null="false" empty-is-null="false" unique="false" value-from="input" description="排列序号"/>
+  <column name="sfz" data-type="varchar" length="20" not-null="false" empty-is-null="false" unique="false" value-from="input" description="身份证号"/>
+  <column name="zw" data-type="varchar" length="64" not-null="false" empty-is-null="false" unique="false" value-from="input" description="职位"/>
+  <column name="zyzz" data-type="varchar" length="255" not-null="false" empty-is-null="false" unique="false" value-from="input" description="主要职责"/>
+  <column name="gzdh" data-type="varchar" length="20" not-null="false" empty-is-null="false" unique="false" value-from="input" description="工作电话"/>
+  <column name="lxdh" data-type="varchar" length="20" not-null="false" empty-is-null="false" unique="false" value-from="input" description="联系电话"/>
+  <column name="qtlxfs" data-type="varchar" length="64" not-null="false" empty-is-null="false" unique="false" value-from="input" description="其他联系方式"/>
+  <column name="dzyx" data-type="varchar" length="64" not-null="false" empty-is-null="false" unique="false" value-from="input" description="电子邮件"/>
+  <column name="bz" data-type="varchar" length="255" not-null="false" empty-is-null="false" unique="false" value-from="input" description="备注"/>
+  <column name="jzjgid" data-type="varchar" length="1000" not-null="false" empty-is-null="false" unique="false" value-from="input" description="兼职机构ID"/>
+  <column name="roleids" data-type="varchar" length="1000" not-null="false" empty-is-null="false" unique="false" value-from="input" description="角色ID列表"/>
+  <column name="mainrole" data-type="varchar" length="20" not-null="false" empty-is-null="false" unique="false" value-from="input" description="主角色"/>
+  <column name="yhbh" data-type="varchar" length="20" not-null="false" empty-is-null="false" unique="false" value-from="input" description="用户编号"/>
+  <column name="jgname" data-type="varchar" length="60" not-null="false" empty-is-null="false" unique="false" value-from="input" description="所属机构名称"/>
+  <column name="jzjgname" data-type="varchar" length="2000" not-null="false" empty-is-null="false" unique="false" value-from="input" description="兼职机构名称"/>
+  <column name="rolenames" data-type="varchar" length="2000" not-null="false" empty-is-null="false" unique="false" value-from="input" description="所属角色名称"/>
+  <column name="mainrolename" data-type="varchar" length="60" not-null="false" empty-is-null="false" unique="false" value-from="input" description="主角色名称"/>
+  <column name="roletype" data-type="varchar" length="3" not-null="false" empty-is-null="false" default="0" unique="false" value-from="input" description="用户类型"/>
+  <column name="mmxgrq" data-type="varchar" length="10" not-null="false" empty-is-null="false" unique="false" value-from="input" description="密码修改日期"/>
+  <column name="maxline" data-type="long" length="22" not-null="false" empty-is-null="false" unique="false" value-from="input" description="最大同时在线数"/>
+  <column name="isneedkey" data-type="varchar" length="1" not-null="false" empty-is-null="false" unique="false" value-from="input" description="是否需要证书认证"/>
+  <column name="keynumber" data-type="varchar" length="32" not-null="false" empty-is-null="false" unique="false" value-from="input" description="证书号码"/>
+  <column name="last_login_time" data-type="varchar" length="32" not-null="false" empty-is-null="false" unique="false" value-from="input" description="最后登录时间"/>
+  
+  <primary-key name="xt_zzjg_yh_pk" column-list="yhid_pk"/>
+  <foreign-key foreign-table="xt_zzjg_jg" foreign-type="many-to-one" on-delete="none" on-update="none" column-names="jgid_fk" foreign-names="jgid_pk"/>
+  <function func-name="YHGL-select one xt_zzjg_yh" func-type="select" column-list="yhid_pk,jgid_fk,yhzh,yhmm,yhxm,sfyx,plxh,sfz,zw,zyzz,gzdh,lxdh,qtlxfs,dzyx,bz,jzjgid,roleids,mainrole,yhbh,jgname,jzjgname,rolenames,mainrolename,roletype,mmxgrq,maxline,isneedkey,keynumber">
+    <filter-column column-name="yhid_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="YHGL-select xt_zzjg_yh list" func-type="rowset" column-list="yhid_pk,jgid_fk,yhzh,yhmm,yhxm,sfyx,plxh,sfz,zw,zyzz,gzdh,lxdh,qtlxfs,dzyx,bz,jzjgid,roleids,mainrole,yhbh,jgname,jzjgname,rolenames,mainrolename,roletype,mmxgrq,xt_zzjg_jg.jgid_pk,xt_zzjg_jg.sjjgid_fk,xt_zzjg_jg.sjjgname,xt_zzjg_jg.jgbh,xt_zzjg_jg.jgmc,xt_zzjg_jg.jgjc,xt_zzjg_jg.jglx,xt_zzjg_jg.jgfzr,maxline,isneedkey,keynumber" sort-columns="xt_zzjg_jg.plxh,yhxm" max-record="10">
+    <filter-column column-name="yhzh" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="yhxm" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="jgid_fk" operator="end" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="rolenames" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="yhbh" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sfyx" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>用户查询</description>
+  </function>
+
+  <function func-name="YHGL-insert one xt_zzjg_yh" func-type="insert" column-list="yhid_pk,jgid_fk,yhzh,yhmm,yhxm,sfyx,plxh,sfz,zw,zyzz,gzdh,lxdh,qtlxfs,dzyx,bz,jzjgid,roleids,mainrole,yhbh,jgname,jzjgname,rolenames,mainrolename,roletype,mmxgrq,maxline,isneedkey,keynumber">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="YHGL-delete one xt_zzjg_yh" func-type="delete">
+    <filter-column column-name="yhid_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="YHGL-update one xt_zzjg_yh" func-type="update" column-list="jgid_fk,yhbh,yhmm,yhxm,plxh,sfz,zw,zyzz,gzdh,lxdh,qtlxfs,dzyx,bz,jzjgid,roleids,mainrole,yhzh,jgname,jzjgname,rolenames,mainrolename,roletype,mmxgrq,sfyx,maxline,isneedkey,keynumber">
+    <filter-column column-name="yhid_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="YHGL-update one without psw xt_zzjg_yh" func-type="update" column-list="jgid_fk,yhbh,yhxm,plxh,sfz,zw,zyzz,gzdh,lxdh,qtlxfs,dzyx,bz,jzjgid,roleids,mainrole,yhzh,jgname,jzjgname,rolenames,mainrolename,roletype">
+    <filter-column column-name="yhid_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录密码除外</description>
+  </function>
+
+  <function func-name="YHGL-update status xt_zzjg_yh" func-type="update" column-list="sfyx">
+    <filter-column column-name="yhid_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改用户状态</description>
+  </function>
+
+  <function func-name="JGGL-select xt_zzjg_yh for org list" func-type="rowset" column-list="yhid_pk,jgid_fk,yhzh,yhmm,yhxm,sfyx,plxh,sfz,zw,zyzz,gzdh,lxdh,qtlxfs,dzyx,bz,jzjgid,roleids,mainrole,yhbh,jgname,jzjgname,rolenames,mainrolename,roletype,maxline,isneedkey,keynumber" sort-columns="yhxm" max-record="10">
+    <filter-column column-name="jgid_fk" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="yhxm" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="yhzh" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sfyx" operator="eq" value-from="default" empty-flag="skip" default="0"/>
+    <description>机构内用户查询</description>
+  </function>
+
+  <function func-name="YHGL-update password xt_zzjg_yh" func-type="update" column-list="yhmm">
+    <filter-column column-name="yhid_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="LOGIN-select one xt_zzjg_yh" func-type="select" column-list="yhid_pk,jgid_fk,yhxm,yhzh,yhmm,sfz,roleids,mainrole,jzjgid,jgname,jzjgname,rolenames,mainrolename,mmxgrq,maxline,isneedkey,keynumber">
+    <filter-column column-name="yhzh" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sfyx" operator="eq" value-from="default" empty-flag="skip" default="0"/>
+    <description>登录用户查询</description>
+  </function>
+
+  <function func-name="select xt_zzjg_yh list for jgyhxz" func-type="rowset" column-list="yhid_pk,jgid_fk,yhxm" max-record="-1">
+    <filter-column column-name="jgid_fk" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="roletype" operator="ne" value-from="default" empty-flag="skip" default="1"/>
+    <filter-column column-name="sfyx" operator="eq" value-from="default" empty-flag="skip" default="0"/>
+    <description>机构用户选择</description>
+  </function>
+
+  <function func-name="validateUser" func-type="select" column-list="yhid_pk,yhbh,yhzh,yhxm,yhmm,sfyx,mmxgrq">
+    <filter-column column-name="yhzh" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sfyx" operator="eq" value-from="default" empty-flag="skip" default="0"/>
+    <description>修改密码时校验用户</description>
+  </function>
+
+  <function func-name="update password  inte xt_zzjg_yh" func-type="update" column-list="yhmm,mmxgrq">
+    <filter-column column-name="yhid_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>初始化用户密码</description>
+  </function>
+</table>
+

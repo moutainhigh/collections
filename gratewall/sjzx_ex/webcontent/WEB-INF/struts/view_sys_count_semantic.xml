@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>日增量查询</menu-name>
+  <menu-path>/page/sysmgr/datecount/</menu-path>
+  <description>日增量查询</description>
+  <form-beans>
+    <form-bean name="ViewSysCountSemanticRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="primary-key" name="table_class_id" type="string" size="32" cannull="true" description="关联ID"/>
+      <form-property prefix="select-key" name="sys_name" type="string" size="100" description="主题名称"/>
+      <form-property prefix="select-key" name="table_name_cn" type="string" size="100" description="表中文名"/>
+      <form-property prefix="select-key" name="count_date" type="string" size="10" description="统计日期"/>
+      <form-property prefix="select-key" name="class_state" type="string" size="32" description="状态标志"/>
+      <form-property prefix="select-key" name="year" type="string" size="32" description="查询年份"/>
+      <form-property prefix="select-key" name="month" type="string" size="32" description="查询月份"/>
+      <form-property prefix="select-key" name="show_full" type="string" size="32" description="是否显示全量标志"/>
+      
+      <form-property prefix="record" name="table_class_id" type="string" size="32" cannull="true" description="关联ID"/>
+      <form-property prefix="record" name="sys_name" type="string" size="100" cannull="false" description="主题名称"/>
+      <form-property prefix="record" name="table_name" type="string" size="60" cannull="false" description="表英文名"/>
+      <form-property prefix="record" name="table_name_cn" type="string" size="100" cannull="false" description="表中文名"/>
+      <form-property prefix="record" name="class_sort" type="string" size="32" cannull="true" description="分类标志"/>
+      <form-property prefix="record" name="class_state" type="string" size="32" cannull="true" description="状态标志"/>
+      <form-property prefix="record" name="count_date" type="string" size="10" cannull="true" description="统计日期"/>
+      <form-property prefix="record" name="count_full" type="long" cannull="true" description="表全量"/>
+      <form-property prefix="record" name="count_incre" type="long" cannull="true" description="表增量"/>
+      <form-property prefix="record" name="sys_order" type="long" cannull="true" description="主题排序"/>
+      <form-property prefix="record" name="table_order" type="long" cannull="true" description="表排序"/>
+      <form-property prefix="record" name="sort_order" type="long" cannull="true" description="分类排序"/>
+      <form-property prefix="record" name="state_order" type="long" cannull="true" description="状态排序"/>
+      <form-property prefix="record" name="value_id" type="string" cannull="true" description="预警参数ID"/>
+      <form-property prefix="record" name="min_value" type="long" cannull="true" description="下限值"/>
+      <form-property prefix="record" name="max_value" type="long" cannull="true" description="上限值"/>
+      <form-property prefix="record" name="in_out_sign" type="long" cannull="true" description="范围标志"/>
+      
+    </form-bean>
+
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-view_sys_count_semantic.jsp" name="ViewSysCountSemanticRowsetForm" txn-code="81200001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>日增量查询</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnViewSysCountSemantic" func-name="txn81200001" input-node="select-key" output-node="record" description="日增量查询"/>
+      <forward error-code="success" path="query-view_sys_count_semantic.jsp"/>
+      <forward error-code="failure" path="query-view_sys_count_semantic.jsp"/>
+    </action>
+    
+    <action input="update-view_sys_count_semantic.jsp" name="ViewSysCountSemanticRowsetForm" txn-code="81200002" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>历史增量查询</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnViewSysCountSemantic" func-name="txn81200002" input-node="select-key" output-node="record" description="历史增量查询"/>
+      <forward error-code="success" path="query-view_sys_count_semantic_his.jsp"/>
+      <forward error-code="failure" path="query-view_sys_count_semantic_his.jsp"/>
+    </action>
+
+    <action input="insert-view_sys_count_semantic.jsp" name="ViewSysCountSemanticRowsetForm" txn-code="81200003" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>预警参数定义</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnViewSysCountSemantic" func-name="txn81200003" input-node="select-key" output-node="record" description="预警参数定义"/>
+      <forward error-code="success" path="query-view_sys_count_semantic_incre.jsp"/>
+      <forward error-code="failure" path="query-view_sys_count_semantic_incre.jsp"/>
+    </action>
+
+    <action input="query-view_sys_count_semantic.jsp" name="ViewSysCountSemanticRowsetForm" txn-code="81200004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询预警参数用于修改</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnViewSysCountSemantic" func-name="txn81200004" input-node="primary-key" output-node="record" description="查询预警参数用于修改"/>
+      <forward error-code="success" path="update-view_sys_count_semantic.jsp"/>
+      <forward error-code="failure" path="update-view_sys_count_semantic.jsp"/>
+    </action>
+
+    <action input="query-view_sys_count_semantic.jsp" name="ViewSysCountSemanticRowsetForm" txn-code="81200005" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>预警参数设置</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnViewSysCountSemantic" func-name="txn81200005" input-node="record" output-node="record" description="预警参数设置"/>
+      <forward error-code="success" path="update-view_sys_count_semantic.jsp"/>
+      <forward error-code="failure" path="update-view_sys_count_semantic.jsp"/>
+    </action>
+    
+    <action input="query-view_sys_count_semantic.jsp" name="ViewSysCountSemanticRowsetForm" txn-code="81200006" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>日增量查询导出</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnViewSysCountSemantic" func-name="txn81200006" input-node="select-key" output-node="record" description="日增量查询"/>
+      <forward error-code="success" path="Excel-view_sys_count_semantic.jsp"/>
+      <forward error-code="failure" path="Excel-view_sys_count_semantic.jsp"/>
+    </action>
+
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-view_sys_count_semantic.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/sysmgr/datecount/query-view_sys_count_semantic.jsp" description="查询日增量查询列表"/>
+    <resource-file type="jsp" file-name="/page/sysmgr/datecount/insert-view_sys_count_semantic.jsp" description="增加日增量查询信息"/>
+    <resource-file type="jsp" file-name="/page/sysmgr/datecount/update-view_sys_count_semantic.jsp" description="查询历史增量查询列表"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.ViewSysCountSemanticContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoViewSysCountSemantic" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoViewSysCountSemanticSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoViewSysCountSemanticPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

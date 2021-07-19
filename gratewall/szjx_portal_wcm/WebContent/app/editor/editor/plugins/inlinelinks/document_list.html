@@ -1,0 +1,257 @@
+<HTML xmlns:TRS_UI>
+<HEAD>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<TITLE WCMAnt:param="document_relations.html.inLineMgr">TRS WCM 内联文档管理</TITLE>
+	<script src="../../../../js/runtime/myext-debug.js"></script>
+	<script src="../../../../js/source/wcmlib/WCMConstants.js"></script>
+	<script src="../../../../js/data/locale/document.js"></script>
+	<script src="../../../../js/source/wcmlib/core/MsgCenter.js"></script>
+	<script src="../../../../js/source/wcmlib/core/CMSObj.js"></script>
+	<!--wcm-dialog start-->
+	<SCRIPT src="../../../../js/source/wcmlib/Observable.js"></SCRIPT>
+	<SCRIPT src="../../../../js/source/wcmlib/Component.js"></SCRIPT>
+	<SCRIPT src="../../../../js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+	<SCRIPT src="../../../../js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+	<link href="../../../../css/wcm-widget.css" rel="stylesheet" type="text/css" />
+	<link href="../../../../js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+	<link href="../../../../js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+	<!--wcm-dialog end-->
+	<!--AJAX-->
+	<script src="../../../../js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+	<script language="javascript">
+	<!--
+		var oEditor = window.parent.InnerDialogLoaded() ;
+		var FCK = oEditor.FCK;
+		var myActualTop = (top.actualTop||top);
+		var CurrChannelId = myActualTop.DocChannelId;
+		var CurrDocId = myActualTop.CurrDocId;
+		var PRV_OBJ_TYPE_DOCUMENT = "Document_Relation";
+		var PRV_OBJ_TYPE_CURRPAGE = "CurrPage_Relation";
+	//-->
+	</script>
+	<style type="text/css">
+		body {
+			padding-top:0px;
+			background-color: #CCCCCC;
+		}
+		.input_btn{
+			width:60px;
+			margin-right:10px;
+		}
+	</style>
+	<script language="javascript">
+	<!--
+		$MsgCenter.on({
+			objType : WCMConstants.OBJ_TYPE_TREENODE,
+			afterclick : function(event){
+				//负责导航树对应的页面切换
+				var context = event.getContext();
+				var objId = context.objId;
+				var objType = context.objType;
+				var sParams = '';
+				var sHostType = mappingHostWithObjType(objType);
+				var mySrc = '../../../../document/document_relation_select.html';
+				switch(objType){
+					case WCMConstants.OBJ_TYPE_WEBSITEROOT:
+						mySrc = "../../../../include/blank.html";
+						sParams = '&SiteType=' + context.siteType;
+						break;
+					case WCMConstants.OBJ_TYPE_WEBSITE:
+						sParams = '&SiteId=' + objId;
+						sParams += '&SiteType=' + context.siteType;
+						break;
+					case WCMConstants.OBJ_TYPE_CHANNEL:
+						sParams = '&ChannelId=' + objId;
+						sParams += '&SiteType=' + context.siteType;
+						sParams += '&IsVirtual=' + context.isVirtual;
+						sParams += '&ChannelType=' + context.channelType;
+						break;
+				}
+				sParams += '&RightValue=' + context.right;
+				sParams += '&ExcludeDocIds=' + CurrDocId;
+		//		sParams += '&' + $('FieldName').value + '=' + $('SearchWord').value;
+				$('channel_doc_list').src = mySrc + '?' + sParams;
+				return false;
+			}
+		});
+		$MsgCenter.on({
+			objType : PRV_OBJ_TYPE_CURRPAGE,
+			afterinit : function(event){
+				var objs = CMSObj.createEnumsFrom({
+					objType : PRV_OBJ_TYPE_DOCUMENT
+				});
+				for(var i=0, n=defaultSelect.length; i<n; i++){
+					objs.addElement(CMSObj.createFrom({
+						objId : defaultSelect[i],
+						objType : PRV_OBJ_TYPE_DOCUMENT
+					}));
+				}
+				objs.afterselect();
+			}
+		});
+		$MsgCenter.on({
+			objType : WCMConstants.OBJ_TYPE_CHNLDOC,
+			afterselect : function(event){
+				var obj = event.getObjs().getAt(0);
+				if(obj==null)return;
+				AddSelectedDoc(obj.getPropertyAsInt('docid', 0), obj.getId());
+				defaultSelect.push(obj.getPropertyAsInt('docid', 0));
+			},
+			afterunselect : function(event){
+				var obj = event.getObjs().getAt(0);
+				if(obj==null)return;
+				RemoveSelectedDoc(obj.getPropertyAsInt('docid', 0), obj.getId());
+				defaultSelect.remove(obj.getPropertyAsInt('docid', 0));
+			}
+		});
+		var hsSelectedDocIds = {};
+		var defaultSelect = [];
+		function mappingHostWithObjType(objType){
+			switch(objType){
+				case WCMConstants.OBJ_TYPE_WEBSITEROOT:
+					return WCMConstants.TAB_HOST_TYPE_WEBSITEROOT;
+				case WCMConstants.OBJ_TYPE_WEBSITE:
+					return WCMConstants.TAB_HOST_TYPE_WEBSITE;
+				case WCMConstants.OBJ_TYPE_CHANNEL:
+					return WCMConstants.TAB_HOST_TYPE_CHANNEL;
+				case WCMConstants.OBJ_TYPE_MYFLOWDOCLIST:
+					return WCMConstants.TAB_HOST_TYPE_MYFLOWDOCLIST;
+				case WCMConstants.OBJ_TYPE_MYMSGLIST:
+					return WCMConstants.TAB_HOST_TYPE_MYMSGLIST;
+			}
+		}
+		function AddSelectedDoc(_nDocId,_sRelDocId){
+			hsSelectedDocIds[_nDocId] = _sRelDocId;
+		}
+		function RemoveSelectedDoc(_nDocId,_sRelDocId){
+			if(hsSelectedDocIds[_nDocId]==_sRelDocId)
+				delete hsSelectedDocIds[_nDocId];
+		}
+		function Ok(){
+			var arrDocIds = [];
+			for(var sDocId in hsSelectedDocIds){
+				arrDocIds.push(sDocId);
+			}
+			var oPostData = {
+				"DocumentIds" : arrDocIds.join(','),
+				"CaseSensitive" : true
+			}
+			var oHelper = new com.trs.web2frame.BasicDataHelper();
+			oHelper.JspRequest('document_publish_info.jsp',oPostData,false,
+				function(_transport,_json){
+					if(_json&&_json["DOCUMENTS"]){
+						CreateLinks(_json["DOCUMENTS"]);
+					}
+					setTimeout(function(){
+						window.parent.Cancel(true);
+					},10);
+				}
+			);
+			return false;
+		}
+		function CreateLinks(_arrDocInfos){
+			var n = (_arrDocInfos)?_arrDocInfos.length:0;
+			if(n<=0) return;
+			oEditor.FCKUndo.SaveUndoStep() ;
+			var isInUL = oEditor.FCKSelection.HasAncestorNode("UL");
+			var oLi =oEditor.FCKSelection.MoveToAncestorNode("LI");
+			//debugger;
+			if(oLi && oLi.innerHTML.trim().length==0){
+				oLi.removeNode(true);
+			}
+			if(!isInUL)
+				var oUl = oEditor.FCK.CreateElement( 'UL' );
+			for(var i=0;i<n;i++){
+				try{
+					var oLi = oEditor.FCK.CreateElement( 'LI' );
+					var oLink = oEditor.FCK.CreateElement( 'A' );
+					var oDocInfo = _arrDocInfos[i];
+					oLink.href = oDocInfo["PUBURL"];
+					oLink.setAttribute('_fcksavedurl',oDocInfo["PUBURL"]) ;
+					oLink.target = '_blank';
+					oLink.setAttribute('title'	, oDocInfo["TITLE"]) ;
+					oLink.setAttribute('id'	, 'inner_doc_' + oDocInfo["ID"]) ;
+					oLink.setAttribute('_innerdocid'	, oDocInfo["ID"]) ;
+					oLink.innerHTML = oDocInfo["TITLE"];
+					oLi.appendChild(oLink);
+					if(!isInUL)
+						oUl.appendChild(oLi);
+				}catch(err){
+					//Just Skip it.
+					//alert(err.message);
+				}
+			}
+			//oEditor.FCKSelection.SelectNode( oLink.parentNode );
+		}
+	//-->
+	</script>
+</HEAD>
+<BODY style="margin:0;padding:0;">
+		<table height="100%" width="100%">
+			<tr>
+				<td align="left" valign="top" width="600">
+	<TABLE width="600" height="100%" border="0" cellpadding="0" cellspacing="0">
+		<TR>
+			<TD valign="top">
+				<DIV id="docs_explorer" style="padding:2px;height:350px;overflow:auto;">
+					<TABLE width="780" height="340px" border="0" cellpadding="0" cellspacing="1" style="font-size:12px">
+						<TR>
+							<TD width="200">
+								<iframe src="../../../../include/blank.html" id="treeNav" allowtransparency="true" scrolling="no" frameborder="0" style="width:200px;height:340px;"></iframe>
+							</TD>
+							<TD width="590">
+								<table style="width:100%;height:100%">
+									<tr style="height:0px;"><td>
+									<DIV id="search" style="width:530px;height:22px;overflow:hidden;font-size:12px;display:none">
+										<SPAN style="float:right;height:22px;margin-right:20px;">
+										<select name="FieldName" id="FieldName" style="float:left;width:60px;height:18px;overflow:hidden;marign:-2px 4px 0 0;">
+											<option value="DocTitle" WCMAnt:param="document_relations.html.docTitle">标题</option>
+											<option value="CrUser" WCMAnt:param="document_relations.html.docCruser">发稿人</option>
+											<option value="DocKeywords" WCMAnt:param="document_relations.html.docKeywords">关键词</option>
+										</select>
+										<input id="SearchWord" type='text' class="input_text" style="float:left;border-color:gray;height:18px;width:100px;margin:2px 3px 0;">
+										<SPAN style="float:left;border:1px solid gray;height:16px;margin-top:2px;padding:1 4px;cursor:pointer" tabIndex="1" onclick="doSearch();" WCMAnt:param="document_relations.html.docQuery">检索</SPAN></SPAN>
+									</DIV>
+									</td></tr>
+									<tr><td>
+									<iframe id='channel_doc_list' src="../../../../include/blank.html" allowtransparency="true" scrolling="no" frameborder="0" style="width:100%;height:100%"></iframe>
+									</td></tr>
+								</table>
+							</TD>
+						</TR>
+					</TABLE>
+				</DIV>
+			</TD>
+		</TR>
+	</TABLE>
+				</td>
+				<td width="10" align="center" valign="top">
+					<div style="width:2px;border-left:1px solid gray;background:white;overflow:hidden;height:360px;"></div></td>
+				<td width="90" valign="top">
+					<input id="btnOk" class="input_btn" onclick="window.parent.Ok();"
+						type="button" value="确定" fcklang="DlgBtnOK"/>
+					<div style="height:5px;overflow:hidden"></div>
+					<input name="button2" class="input_btn" type="button" value="取消" onclick="window.parent.Cancel();" fcklang="DlgBtnCancel"/>
+				</td>
+			</tr>
+		</table>
+		<div id="container_tmp" style="display:none">
+		</div>
+<script>
+	Event.observe(window, 'load', function(){
+		$('treeNav').src = '../../../../nav_tree/nav_tree_inner.html?siteTypes=0,4&ChannelId='+CurrChannelId;
+		oEditor.FCKLanguageManager.TranslatePage( document ) ;
+	});
+	function doSearch(){
+		var oPostData = Ext.Json.toUpperCase($('channel_doc_list').src.parseQuery());
+		var selFieldName = $('FieldName');
+		var sFieldName = selFieldName.value;
+		for (var i = 0; i < selFieldName.options.length; i++){
+			delete oPostData[selFieldName.options[i].value.toUpperCase()];
+		}
+		oPostData[sFieldName] = $('SearchWord').value;
+		$('channel_doc_list').src = '../../../../document/document_relation_select.html?' + $toQueryStr(oPostData);
+	}
+</script>
+</BODY>
+</HTML>

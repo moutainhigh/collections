@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="metaresource.main.html.resourcemanagesys"> 资源管理系统 </title>
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/jquery-wcm-extend.js"></script>
+	<script src="js/jquery-wcm-ui-extend.js"></script>
+	
+	<script src="js/tabpage/jquery.ui.tabpage.js"></script>
+	<link href="main.css" rel="stylesheet" type="text/css" />
+	<link href="js/tabpage/tabpage.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="container">
+	<div class="header" style="z-index:999;">
+		<div class="logo">
+			<div class="wcm-tab-page" id="tabpage">
+				<div class="head-box" style="padding-left:20px;" id="tab_head_box">
+					<div class="menu" id="">
+						<div class="l"><div class="r"><div class="c"><div class="desc" WCMAnt:param="metaresource.main.html.menu">菜单</div><div class="more_tb"></div><div id="more_menubar" class="more_menubar" style="display:none;"></div></div></div></div>
+					</div>
+					<div class="tab-head base_main" id="base_main"><div class="l active"><div class="r"><div class="c"><div class="desc" WCMAnt:param="metaresource.main.html.resourcecenter">资源中心</div></div></div></div><span class="closepic"></span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="main" id="main"><iframe id="base_main_ifm" src="demo/resourcestr_list_demo.jsp" width="100%" height="100%" frameborder="0"></iframe></div>
+	<div class="bottom"></div>
+	
+</div>
+<script language="javascript">
+<!--
+	$(function() {
+		function openViewtab(){
+			alert(1);
+			$(document.body).tabpage({
+				URL : 'resourcestructure/resourcestr_list.jsp',
+				params : {id:'resource_list',text:'资源结构管理',withClose:true},
+				callback : null
+			});
+		}
+		function opentab(){
+		alert(1);
+			$(document.body).tabpage({
+				URL : 'classinfo/classinfo_list.jsp',
+				params : {id:'classinfo_list',text:'分类法',withClose:true},
+				callback : null
+			});
+		}
+		function openLibFieldtab(){
+		alert(1);
+			$(document.body).tabpage({
+				URL : 'libfield/libfield_list.jsp',
+				params : {id:'libfield_list',text:'字段库管理',withClose:true},
+				callback : null
+			});
+		}
+		$(document.body).tabpage({
+			menu:[
+					{
+						id : 'fenleifa',
+						text : '按分类管理资源',
+						cmd : function(){
+							alert(1);
+							opentab();
+						}
+					},
+					{
+						id : 'resource_mgr',
+						text : '资源结构管理',
+						cmd : function(){
+						alert(2);
+							openViewtab();
+						}
+					},
+					{
+						id : 'ziduanku',
+						text : '字段库管理',
+						cmd : function(){
+						alert(3);
+							openLibFieldtab();
+						}
+					},
+					{
+						id : 'classinfo_mgr',
+						text : '所属分类管理',
+						cmd : function(){
+						alert(4);
+							opentab();
+						}
+					}
+				]
+		});
+
+		
+	})
+	//var currTabPage = new wcm.TabPage();
+	/*currTabPage.onRender([
+		{
+			id : 'fenleifa',
+			text : '按分类管理资源',
+			cmd : function(){
+				opentab();
+			}
+		},
+		{
+			id : 'resource_mgr',
+			text : '资源结构管理',
+			cmd : function(){
+				openViewtab();
+			}
+		},
+		{
+			id : 'ziduanku',
+			text : '字段库管理',
+			cmd : function(){
+				openLibFieldtab();
+			}
+		},
+		{
+			id : 'classinfo_mgr',
+			text : '所属分类管理',
+			cmd : function(){
+				opentab();
+			}
+		}
+	]);*/
+	
+//-->
+</script>
+</body>
+</html>

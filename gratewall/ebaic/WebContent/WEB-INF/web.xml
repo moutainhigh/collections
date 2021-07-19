@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  	<display-name>ebaic</display-name>
+  
+  	<session-config>
+		<session-timeout>100</session-timeout>
+	</session-config>
+
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>ebaic</web-resource-name>
+			<url-pattern>*.*</url-pattern>
+			<http-method>GET</http-method>
+			<http-method>POST</http-method>
+		</web-resource-collection>
+	</security-constraint> 
+	
+	<!-- Encoding -->
+	<filter>
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- End of Encoding -->
+	
+	
+	<!-- Spring Context -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	<!-- End of Spring Context-->
+	
+	
+	
+	<!-- Spring MVC -->
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:springmvc-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<!-- End of Spring MVC -->
+	
+	<!-- Hessian -->
+	<servlet>
+		<servlet-name>hessianSpringMvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:rpc-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>hessianSpringMvc</servlet-name>
+		<url-pattern>/rpc/*</url-pattern>
+	</servlet-mapping>
+	<!-- End of Hessian -->
+	
+  	<!-- Optimus -->
+  	<filter>
+        <filter-name>optimusFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+        <init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>uncheckUrlTail</param-name>
+			<param-value>js, css, jpg, json, pdf, bmp, gif, png</param-value>
+		</init-param>
+		<init-param>
+			<param-name>loginPage</param-name>
+			<param-value>/page/admin/login.html</param-value>
+		</init-param>
+		<init-param>
+			<param-name>noRightPage</param-name>
+			<param-value>/page/admin/noRight.html</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ajaxNoSession</param-name>
+			<param-value>/page/admin/noSessionRight.html</param-value>
+		</init-param>
+    </filter>
+    <filter-mapping>
+		<filter-name>optimusFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>optimusFilter</filter-name>
+		<url-pattern>*.html</url-pattern>
+	</filter-mapping>
+	<!-- End of Optimus -->
+	
+	<!-- Torch 初始化Listener -->
+ 	<listener>
+		<listener-class>com.gwssi.torch.core.TorchContextListener</listener-class>
+	</listener>
+	<!-- 集群分布式session -->
+ 	<listener>
+		<listener-class>com.gwssi.session.HttpTorchSessionListener</listener-class>
+	</listener>
+	<!-- Default Url -->
+	<error-page>
+		<error-code>403</error-code>
+		<location>/page/admin/login.html</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.jsp</location>
+	</error-page>
+	<welcome-file-list>
+		<welcome-file>page/apply/index.html</welcome-file>
+	</welcome-file-list>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<!-- End of Default Url -->
+</web-app>

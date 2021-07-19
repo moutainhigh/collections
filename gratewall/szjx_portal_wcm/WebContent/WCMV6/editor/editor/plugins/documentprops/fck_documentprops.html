@@ -1,0 +1,357 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>设置页面属性</TITLE>
+<script src="../../../../js/com.trs.util/Common.js"></script>
+<script language="javascript">
+	var oEditor = window.parent.InnerDialogLoaded() ;
+	var FCK = oEditor.FCK;
+	var oCurrStyle = null;
+	var oCookies = FCK.loadCookie();
+	function OnLoad()
+	{
+		// First of all, translate the dialog box texts.
+		oEditor.FCKLanguageManager.TranslatePage( document ) ;
+		initCurrStyle();
+		var sEditorEnableWordClient = oCookies['EditorEnableWordClient'] || '0';
+		if(sEditorEnableWordClient == '0'){
+			$('officeactivex_status').innerHTML = '已停止';
+			$('officeactivex').value = '1';
+			$('lbl_officeactivex').innerHTML = '开启';
+		}
+		else if(sEditorEnableWordClient == '1'){
+			$('officeactivex_status').innerHTML = '已开启';
+			$('officeactivex').value = '0';
+			$('lbl_officeactivex').innerHTML = '停止';
+		}
+		var sEditorEnableCustomStyle = oCookies['EditorEnableCustomStyle'] || '0';
+		if(sEditorEnableCustomStyle == '0'){
+			$('docprops_status').innerHTML = '已停止';
+			$('docprops').value = '1';
+			$('lbl_docprops').innerHTML = '开启';
+		}
+		else if(sEditorEnableCustomStyle == '1'){
+			$('docprops_status').innerHTML = '已开启';
+			$('docprops').value = '0';
+			$('lbl_docprops').innerHTML = '停止';
+		}
+		window.parent.SetBtnsRow(false);
+		window.parent.SetAutoSize( true );
+	}
+	function Ok(){
+		try{
+			DoPreview();
+			if($('officeactivex').checked){
+				FCK.setCookie("EditorEnableWordClient",$('officeactivex').value);
+			}
+			if($('docprops').checked){
+				FCK.setCookie("EditorEnableCustomStyle",$('docprops').value);
+			}
+			var strCurrStyle = transObj2Str(oCurrStyle);
+			FCK.SetCustomStyle(oCurrStyle,strCurrStyle);
+			if($('makeDefault').checked){
+				FCK.setCookie("EditorCustomStyle", strCurrStyle);
+			}
+			if($('removeDefault').checked){
+				FCK.setCookie("EditorCustomStyle", "");
+			}
+		}catch(err){
+		}
+		return true;
+	}
+	function DoPreview() {
+		var preview = $("preview");
+		oCurrStyle = {};
+		preview.style.fontFamily = $("fontNameSel").value;
+		preview.style.fontWeight = $("fontWeight").checked?$("fontWeight").value:'';
+		preview.style.fontSize = $("fontSizeSel").value;
+		preview.style.lineHeight = $("paraSpacingSel").value;
+		preview.style.direction = $("rtlSetting").checked?$("rtlSetting").value:'';
+		oCurrStyle[""] = oCurrStyle["li"] = oCurrStyle["div"] = oCurrStyle["td"] = oCurrStyle["p"] = {
+			"font-family" : preview.style.fontFamily,
+			"font-weight" : preview.style.fontWeight,
+			"font-size" : preview.style.fontSize,
+			"line-height" : preview.style.lineHeight,
+			"direction" : preview.style.direction,
+			"margin-top" : $("paraMarginSel1").value,
+			"margin-bottom" : $("paraMarginSel2").value
+		}
+//		preview.style.backgroundColor = $("docBgColor").innerHTML.trim();
+		var pps = preview.getElementsByTagName("p");
+		for(var i=0;i<pps.length;i++){
+			pps[i].style.marginTop = $("paraMarginSel1").value;
+			pps[i].style.marginBottom = $("paraMarginSel2").value;
+			pps[i].style.textIndent = $("textIndentSel").value;
+		}
+		oCurrStyle["p"]["text-indent"] = $("textIndentSel").value;
+	}
+	function initCurrStyle(){
+		var oStyle = FCK.CustomStyle;
+		if(oStyle==null&&oCookies&&oCookies['EditorCustomStyle']){
+			eval('oStyle = FCK.CustomStyle = '+oCookies['EditorCustomStyle']);
+		}
+		if(oStyle!=null){
+			var pBodySetting = FCK.CustomStyle[""];
+			if(pBodySetting){
+				$("fontNameSel").value = pBodySetting["font-family"]||'';
+				$("fontWeight").checked = pBodySetting["font-weight"]==$("fontWeight").value;
+				$("fontSizeSel").value = pBodySetting["font-size"]||'';
+				$("paraSpacingSel").value = pBodySetting["line-height"]||'';
+				$("rtlSetting").checked = pBodySetting["direction"]==$("rtlSetting").value;
+				$("paraMarginSel1").value = pBodySetting["margin-top"]||'';
+				$("paraMarginSel2").value = pBodySetting["margin-bottom"]||'';
+			}
+			var pParaSetting = FCK.CustomStyle["p"];
+			if(pParaSetting){
+//				$("paraMarginSel1").value = pParaSetting["margin-top"]||'';
+//				$("paraMarginSel2").value = pParaSetting["margin-bottom"]||'';
+				$("textIndentSel").value = pParaSetting["text-indent"]||'';
+			}
+		}
+		DoPreview();
+	}
+	function transObj2Str(_obj){
+		if(_obj){
+			if(String.isString(_obj)){
+				return '"' + _obj + '"';
+			}
+			var retVal = "{";
+			var bFirst = true;
+			for(var sName in _obj){
+				if(_obj[sName]!=null){
+					if(!bFirst)retVal += ',';
+					retVal += '"' + sName + '":' + transObj2Str(_obj[sName]);
+					bFirst = false;
+				}
+			}
+			retVal += '}';
+			return retVal;
+		}
+		return '""';
+	}
+window.onload = OnLoad;
+</SCRIPT>
+<style>
+body {
+	padding:10px;
+	margin:0;
+	background-color: #CCCCCC;
+}
+td{
+	height:30px;
+}
+.input_btn{
+	width:60px;
+	margin-right:10px;
+}
+.input_file{
+	border:1px solid gray;
+	width:260px;
+}
+.lpl {
+	PADDING-LEFT: 0px
+}
+.lpr {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 8px
+}
+.preview{
+	FONT-SIZE: 12pt;
+	OVERFLOW: auto;
+	WIDTH: 240px;
+	COLOR: #000000;
+	BACKGROUND-COLOR:#ffffef;
+	FONT-FAMILY: Arial;
+	HEIGHT: 250px;
+	border:1px solid gray;
+	padding:5px;
+}
+.app{
+	font-size:12px;
+}
+</STYLE>
+</HEAD>
+
+<BODY>
+	<table cellspacing="0" cellpadding="0" width="100%" border="0" height="100%">
+		<tr>
+			<td valign="top">
+				<table cellspacing="1" cellpadding="1" width="100%" border="0">
+					<tr>
+						<td width="84%" valign="top">
+<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+	<TBODY>
+		<TR vAlign=top>
+			<TD>
+				<DIV style="PADDING-LEFT: 12px">
+					<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+						<TR>
+							<TD class=lpl noWrap style="height:22px"><B>字体：</B></TD>
+							<TD rowspan="13" valign="top">
+								<SPAN class=lpl style="height:22px"><b>预览：</b></SPAN>
+								<DIV style="BORDER: #cccccc 1px solid; PADDING: 3px;">
+								<DIV id=preview class="preview"><p>北京拓尔思(TRS)信息技术有限公司成立于1993年，是中文全文检索的创始者，在企业和互联网搜索、内容管理和信息挖掘等领域具有领先的技术和产品，是国内最大的搜索和内容管理技术提供者，在大中华地区拥有约2000家企业级用户，是非结构化信息处理技术领域的创新者和领导者。</p>
+								<p>
+								公司总部在北京，现有员工200多人，已在全国主要城市建立了分公司、办事处或合作伙伴网络，为当地客户提供高水平的本地化服务。</p>
+								<p>
+								公司成立十余年来，销售收入和利润始终保持持续的增长，自1996年以来连续10年盈利，是中国从事自主核心技术和软件产品研发的典范企业之一。
+								</p>
+								</DIV></DIV>
+							</TD>
+						</TR>
+						<TR>
+						<TD class=lpr noWrap style="height:22px">
+							<SELECT id=fontNameSel style="width:100px" onchange=DoPreview()> 
+							<OPTION value="宋体" selected>宋体</OPTION>
+							<OPTION value="新宋体">新宋体</OPTION>
+							<OPTION value="楷体_GB2312">楷体_GB2312</OPTION>
+							<OPTION value="仿宋_GB2312">仿宋_GB2312</OPTION>
+							<OPTION value="黑体">黑体</OPTION> 
+							<OPTION value="隶书">隶书</OPTION>
+							<OPTION value="Arial">Arial</OPTION>
+							<OPTION value="Comic Sans MS">Comic Sans MS</OPTION>
+							<OPTION value="Courier New">Courier New</OPTION>
+							<OPTION value="Tahoma">Tahoma</OPTION>
+							<OPTION value="Times New Roman">Times New Roman</OPTION>
+							<OPTION value="Verdana">Verdana</OPTION>
+							</SELECT>
+							<SELECT id=fontSizeSel style="width:60px" onchange=DoPreview()> 
+							<OPTION value="42pt">初号</OPTION>
+							<OPTION value="36pt">小初</OPTION>
+							<OPTION value="26pt">一号</OPTION>
+							<OPTION value="24pt">小一</OPTION>
+							<OPTION value="22pt">二号</OPTION>
+							<OPTION value="18pt">小二</OPTION>
+							<OPTION value="16pt">三号</OPTION>
+							<OPTION value="15pt">小三</OPTION>
+							<OPTION value="14pt">四号</OPTION>
+							<OPTION value="12pt">小四</OPTION>
+							<OPTION value="10.5pt" selected>五号</OPTION>
+							<OPTION value="9pt">小五</OPTION>
+							</SELECT>
+						</TD>
+						</TR>
+						<TR>
+							<TD class="lpr" style="height:22px"><input type="checkbox" id=fontWeight value="bold" style="margin-left:-3px;" onclick=DoPreview()>
+								<label for="fontWeight">加粗</label>
+							</TD>
+						</TR>
+						<TR>
+							<TD class=lpl noWrap style="height:22px"><B>行距：</B></TD>
+						</TR>
+						<TR>
+							<TD class=lpr style="height:22px">
+								<SELECT id=paraSpacingSel style="width:120px" onchange=DoPreview()> 
+								<OPTION value="" selected>常规</OPTION>
+								<OPTION value=1>单倍行距</OPTION>
+								<OPTION value=1.5>1.5 倍行距</OPTION>
+								<OPTION value=2>两倍行距</OPTION>
+								<OPTION value=3>三倍行距</OPTION>
+								</SELECT>
+							</TD>
+						</TR>
+						<TR>
+							<TD class=lpl noWrap style="height:22px"><B>段落行距：</B></TD>
+						</TR>
+						<TR>
+							<TD class=lpr style="height:22px">
+								段前:<SELECT id=paraMarginSel1 style="width:60px" onchange=DoPreview()> 
+								<OPTION value="">常规</OPTION>
+								<OPTION value="0">0px</OPTION>
+								<OPTION value="6px" selected>6px</OPTION>
+								<OPTION value="12px">12px</OPTION>
+								<OPTION value="24px">24px</OPTION>
+								</SELECT>
+								段后:<SELECT id=paraMarginSel2 style="width:60px" onchange=DoPreview()> 
+								<OPTION value="">常规</OPTION>
+								<OPTION value="0">0px</OPTION>
+								<OPTION value="6px" selected>6px</OPTION>
+								<OPTION value="12px">12px</OPTION>
+								<OPTION value="24px">24px</OPTION>
+								</SELECT>
+							</TD>
+						</TR>
+						<TR>
+							<TD class=lpl noWrap style="height:22px"><B>段落缩进：</B></TD>
+						</TR>
+						<TR>
+							<TD class=lpr style="height:22px">
+								<SELECT id=textIndentSel style="width:120px" onchange=DoPreview()> 
+								<OPTION value="" selected>常规</OPTION>
+								<OPTION value="14px">缩进一格</OPTION>
+								<OPTION value="28px">缩进两格</OPTION>
+								</SELECT>
+							</TD>
+						</TR>
+						<TR>
+							<TD class=lpl noWrap style="height:22px"><B>文本方向：</B></TD>
+						</TR>
+						<TR>
+							<TD class=lpr style="height:22px">
+								<INPUT id=rtlSetting type=checkbox value="rtl" name=pageRTL onclick=DoPreview()>
+								<LABEL for=rtlSetting>从右到左对齐页面文字</LABEL>
+							</TD>
+						</TR>
+						<TR>
+							<TD class="lpl" style="font-style:italic;color:gray;font-size:9pt;height:22px">
+								(针对希伯来和阿拉伯语文档）
+							</TD>
+						</TR>
+						<!--
+						<TR>
+							<TD class=lpl noWrap style="height:22px"><B>文档背景颜色：</B></TD>
+						</TR>
+						<TR>
+						<TD class=lpr style="height:22px">
+						<DIV id=docBgColor style="margin-left:2px;width:60px;COLOR: #000000; BACKGROUND-COLOR: #FFFFFF" onclick=ShowColorDlg(this); onchange="DoPreview();">#FFFFFF</DIV>
+						</TD></TR>
+						-->
+						<TR>
+							<TD colspan="2"></TD>
+						</TR>
+					</TABLE>
+				</DIV>
+			</TD>
+		</TR>
+		<TR>
+			<TD class=app style="PADDING-LEFT: 12px; PADDING-TOP: 3px" align=left>
+				<b>Office ActiveX控件开启设置(<span style="color:red;" id="officeactivex_status"></span>):</b>
+				<INPUT id=officeactivex name="officeactivex" type=checkbox value="1">
+				<LABEL id="lbl_officeactivex" for=officeactivex>开启/停止</LABEL>
+			</TD>
+		</TR>
+		<TR>
+			<TD class=app style="PADDING-LEFT: 12px; PADDING-TOP: 3px" align=left>
+				<b>页面属性开启设置(<span style="color:red;" id="docprops_status"></span>):</b>
+				<INPUT id=docprops name="docprops" type=checkbox value="1">
+				<LABEL id="lbl_docprops" for=docprops>开启/停止</LABEL>
+			</TD>
+		</TR>
+		<TR>
+			<TD class=app style="PADDING-LEFT: 12px; PADDING-TOP: 3px" align=left>
+				<b>文档缺省设置：</b>
+				<INPUT id=holdDefault name="setDefault" type=radio checked>
+				<LABEL for=holdDefault>不改变设置</LABEL>&nbsp;&nbsp;&nbsp;
+				<INPUT id=makeDefault name="setDefault" type=radio>
+				<LABEL for=makeDefault>设置为以上设置</LABEL>
+				<INPUT id=removeDefault name="setDefault" type=radio>
+				<LABEL for=removeDefault>取消所有设置</LABEL>&nbsp;&nbsp;&nbsp;
+			</TD>
+		</TR>
+	</TBODY>
+</TABLE>
+						</td>
+						<td width="4%" align="center" valign="top">
+							<div style="width:2px;border-left:1px solid gray;background:white;overflow:hidden;height:340px;"></div></td>
+						<td width="12%" valign="top">
+							<input id="btnOk" class="input_btn" onclick="window.parent.Ok();"
+								type="button" value="Ok" fcklang="DlgBtnOK"/>
+							<div style="height:5px;overflow:hidden"></div>
+							<input id="btnCancel" name="button2" class="input_btn" type="button" value="Close" onclick="window.parent.Cancel();" fcklang="DlgBtnCancel">
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</BODY>
+</HTML>

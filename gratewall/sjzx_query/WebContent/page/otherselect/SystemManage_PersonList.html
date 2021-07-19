@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<title>系统管理-用户管理</title>
+<link rel="stylesheet" href="../../static/css/common.css">
+<link href="../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.jazz-field-comp-input{
+	line-height: 22px;
+	_line-height: 22px;
+}
+
+#openWin{
+	position:absolute; 
+	top:70px; 
+	left:29%;
+	z-index: 9999;
+	}
+	
+#winContent{
+	border-style:solid;
+    border-width:1px;
+    border-color: #EDEDED;
+}
+#add_button{
+	position: absolute;
+    /* top: 134px; */
+    top: 180px;
+    z-index: 0;
+    /* left: 1080px; */
+    left: 1062px;
+    display: none;
+}
+</style>
+
+
+</head>
+<body>
+<script>
+
+</script>
+<body style="overflow-x:hidden">
+<!-- 构建页面==开始 -->
+<div>
+<!-- 查询条件 -->
+<div name="RolePersonListPanel" id="RoleQueryListPanel"
+	vtype="formpanel" width="100%" layout="table"  style="text-align: center;"
+	layoutconfig="{cols:2, columnwidth: ['50%','50%']}" 
+	labelstyleclass="labelstyle" title="用户管理" 
+	titledisplay="true" showborder="false" >
+	<div name="userId" vtype="textfield" label="用户账号" labelwidth="150" labelalign="right" width="400" valuetip="请输入用户账号……"
+	 tooltip="" rule="" ></div>
+	<div name="userName" vtype="textfield" label="用户姓名" labelwidth="150" labelalign="right" width="400" valuetip="请输入用户账号……"
+	 tooltip="" rule="" ></div>
+	<div name="deptName" vtype="textfield" label="部门名称" labelwidth="150" labelalign="right" width="400" valuetip="请输入部门名称……"
+	 tooltip="" rule="" ></div>
+    <div id="toolbar" name="toolbar" vtype="toolbar" location="bottom"
+				align="center" width="100%">
+				<!-- <div name="add_button" id="add_button" vtype="button" text="添加"
+					icon="../query/queryssuo.png"></div> -->
+				<div name="save_button" id="save_button" vtype="button" text="查询"
+					icon="../query/queryssuo.png"></div>
+				<div name="reset_button" id="reset_button" vtype="button" text="重置"></div>
+    </div>
+</div> 
+<!-- 数据展现 -->
+		<div name="RolePersonListGrid" id="RolePersonListGrid" vtype="gridpanel" titleDisplay="false" title="详情信息"   isshowselecthelper="false"
+		  showborder=true width="100%" >
+	<div name="functionConfigGrid_column" vtype="gridcolumn">
+				<div>
+					<div name='userId' text="用户账号" textalign="left" width="10%"></div>
+					<div name="userName" text="用户姓名" textalign="left" width="10%"></div>
+					<div name='name' text="部门名称" textalign="left" width='20%'></div>
+					<div name='roleNames' text="角色名称" textalign="center" width='55%'></div>
+					<div name='opt' text="操作" textalign="center" width='5%'></div>
+				</div>
+			</div>
+			<div vtype="gridtable" name="grid_table"></div>
+		    <div vtype="paginator" name="grid_paginator" theme="2" pagerows="10"></div> 
+			<div class="nodata" style="display: none;"></div>
+		</div>
+</div>
+<input type="button" value='添加用户' class="btns" id="add_button" icon="../query/queryssuo.png" />
+
+<div id="openWin">
+	<iframe id="winContent"  frameborder="no" border="0" src=""  style="display:none;"></iframe>
+</div>
+
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../static/js/config.js"></script>
+<script type="text/javascript" data-main="other/SystemManage_PersonList.js" src="../../static/lib/require.js"></script>
+</body>
+</html>

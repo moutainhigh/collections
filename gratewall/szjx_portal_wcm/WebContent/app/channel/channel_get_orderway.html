@@ -1,0 +1,272 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="channel_get_orderway.html.selectorderway">select order way</title>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+html, body{
+	margin:0px;
+	padding:0px;
+}
+.ext-gecko .sp_name{
+	display:-moz-inline-box;
+}
+.ext-safari .sp_name{
+	display:inline-block;
+}
+td, select{
+	font-size:12px;
+}
+.sp_name{
+	font-size:12px;
+}
+#dvContainer{
+	width:100%;
+	height:100%;
+	overflow:hidden;
+}
+#dvContent{
+	width:99%;
+	height:85%;
+	overflow-x:hidden;
+	overflow-y:auto;
+	scrollbar-face-color: #f6f6f6;
+	scrollbar-highlight-color: #ffffff;
+	scrollbar-shadow-color: #cccccc; 
+	scrollbar-3dlight-color: #cccccc; 
+	scrollbar-arrow-color: #330000; 
+	scrollbar-track-color: #f6f6f6; 
+	scrollbar-darkshadow-color: #ffffff;
+}
+#dvBottom{
+	width:100%;
+	height:5%;
+	padding:3px;
+}
+legend{
+	font-size:13px;
+	font-weight:bold;
+}
+.deleteElement{
+	background:url("../images/channel/delete.gif") center center no-repeat;
+	width:16px;
+	height:16px;
+	cursor:pointer;
+	position:absolute;
+}
+</style>
+</HEAD>
+<BODY style="width:100%;height:100%;margin:5px;overflow:hidden;">
+<div id="dvContainer">
+	<div id="dvContent" onscroll="forceReplain();">
+	</div>
+	<div id="dvBottom">
+		<input type="checkbox" name="docorderpri" value="" id="docorderpri"/><span class="sp_name" WCMAnt:param="channel_get_orderway.html.docorderpri">置顶设置有效</span>
+	<div>
+</div>
+<div id="template" style="display:none">
+	<div style="margin-top:8px;width:98%;position:relative;">
+		<fieldset>
+			<legend>
+				<span WCMAnt:paramattr="title:channel_get_orderway.html.clicktoadd" class="opetion_text" title="点击进行添加" onclick="addSelectDiv(this);return false;"><img src="../images/channel/option_add.gif" align="absmiddle" border="0"></span>
+			</legend>
+			<span>
+				<span class="sp_name" WCMAnt:param="channel_get_orderway.html.selectfield">选择排序字段：</span>
+				<select name="OrderField" style="width:100px;">
+					<option value="" WCMAnt:param="channel_get_orderway.html.pleaseselect">请选择</option>
+					<option name="doctitleOption" id="doctitleOption" value="wcmdocument.doctitle" WCMAnt:param="channel_get_orderway.html.title">标题</option>
+					<option value="wcmchnldoc.crtime" WCMAnt:param="channel_get_orderway.html.crtime">创建时间</option>
+					<option value="wcmchnldoc.cruser" WCMAnt:param="channel_get_orderway.html.cruser">创建者</option>
+					<option value="wcmchnldoc.docreltime" WCMAnt:param="channel_get_orderway.html.docreltime">撰写时间</option>
+					<option value="wcmchnldoc.operuser" WCMAnt:param="channel_get_orderway.html.operuser">最后修改人</option>
+					<option value="wcmchnldoc.opertime" WCMAnt:param="channel_get_orderway.html.opertime">最后修改时间</option>
+				</select>
+			</span>&nbsp;&nbsp;&nbsp;
+			<span>
+				<span class="sp_name" WCMAnt:param="channel_get_orderway.html.orderway">选择排序方式：</span>
+				<select name="OrderWay" style="width:60px;">
+					<option value="asc" WCMAnt:param="channel_get_orderway.html.asc">升序</option>
+					<option value="desc" WCMAnt:param="channel_get_orderway.html.desc">降序</option>
+				</select>
+			</span>
+			<span class="deleteElement" id="deleteEl" onClick="deleteSelectDiv(this)"></span>
+		</fieldset>
+	</div>
+</div>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/channel.js"></script>
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></SCRIPT>
+<script language="javascript">
+
+window.m_cbCfg = {
+	btns : [
+		{
+			text : wcm.LANG['CHANNEL_TRUE'] || '确定',
+			cmd : function(){
+				return submit();
+			}
+		},{
+			text : wcm.LANG['CHANNEL_CANCEL'] || '取消',
+			cmd : function(){
+				return cancel();
+			}
+		}
+	]
+};
+function init(selValue){
+	
+	//by CC 20120618 如果栏目配置了视图，需要隐藏掉wcmdocument.doctitle字段排序
+	var bHiddenDocTitle = selValue.bHiddenDocTitle;
+	if(bHiddenDocTitle == "true"){
+		$("OrderField").remove($("doctitleOption").index);
+	}
+	
+	selValue = selValue.initValue.trim();
+	if(selValue.trim() == ''){
+		new Insertion.Bottom($('dvContent'), $('template').innerHTML);
+		return;
+	}
+	var orderWayGroups = selValue.split(",");
+	//开始遍历每一个排序信息
+	for(var i=0; i<orderWayGroups.length; i++){
+		 var orderWayGroup = orderWayGroups[i];
+		 //如果是置顶信息，则初始化置顶信息，继续
+		 if(orderWayGroup.indexOf('docorderpri desc') >=0){
+			$('docorderpri').checked = true;
+			continue;
+		 }
+		 if(orderWayGroup.trim() !=''){
+			//生成一组选择按钮
+			new Insertion.Bottom($('dvContent'), $('template').innerHTML);
+			var newNode = Element.last($('dvContent'));
+			var selectEls = newNode.getElementsByTagName('select');
+			var orderWayGroupArr = orderWayGroup.split(" ");
+			var hasInitField = false;
+			for(var k=0; k<orderWayGroupArr.length; k++){
+				if(orderWayGroupArr[k].trim()=='')
+					continue;
+				if(selectEls[0] && !hasInitField){
+					hasInitField = true;
+					initSelectEl(selectEls[0], orderWayGroupArr[k]);
+					continue;
+				}
+				if(selectEls[1] && hasInitField){
+					initSelectEl(selectEls[1], orderWayGroupArr[k]);
+					break;
+				}
+			}
+				
+		 }
+	}
+	
+};
+function addSelectDiv(currEl){
+	var tempNode = getAddSelectDiv(currEl);
+	if(tempNode == null) return;
+	new Insertion.After(tempNode, $('template').innerHTML);
+	var newNode = Element.next(tempNode);
+	var sellectNodes = newNode.getElementsByTagName('select');
+	if(sellectNodes[0]){
+		sellectNodes[0].focus();
+	}
+}
+function deleteSelectDiv(currEl){
+	var tempNode = getDeleteSelectDiv(currEl);
+	if(tempNode == null) return;
+	if(Element.previous(tempNode) || Element.next(tempNode)){
+		Element.remove(tempNode);
+	}
+}
+function getAddSelectDiv(currEl){
+	var parentEl = currEl.parentNode.parentNode;
+	if(parentEl.tagName.toLowerCase() != 'fieldset')
+	   return null;
+	else return parentEl.parentNode;
+}
+function getDeleteSelectDiv(currEl){
+	var parentEl = currEl.parentNode;
+	if(parentEl.tagName.toLowerCase() != 'fieldset')
+	   return null;
+	else return parentEl.parentNode;
+}
+function getDocorderPriValue(){
+	var el = document.getElementById("docorderpri");
+	if(el.checked) 
+		return 1;
+	else 
+		return 0;
+}
+function initSelectEl(_selectEL, _value){
+	if(_selectEL.tagName.toUpperCase() != 'SELECT' || _value.trim() == '')
+		return;
+	else{
+		var optionEls = _selectEL.options;
+		var bFindTargetOption = false;
+		for(var i=0; i<optionEls.length; i++){
+			if(optionEls[i].value != _value.trim())continue;
+			else {
+				optionEls[i].selected = true;
+				bFindTargetOption = true;
+				break;
+			}
+		}
+		if(!bFindTargetOption){
+			var varItem = new Option(_value.trim(), _value.trim());  
+			_selectEL.options.add(varItem);
+			varItem.selected = true;
+		}
+	}
+}
+function forceReplain(){
+	var fieldSelectEls = document.getElementsByName('OrderField');
+	for(var index=0; index<fieldSelectEls.length; index++){
+		var el = fieldSelectEls[index];
+		Element.removeClassName(el, 'xx');
+		Element.addClassName(el, 'xx');
+	}
+	var waySelectEls = document.getElementsByName('OrderWay');
+	for(var i=0; i<waySelectEls.length; i++){
+		var el = waySelectEls[i];
+		Element.addClassName(el, 'xx');
+		Element.removeClassName(el, 'xx');
+	}
+	var deleteEl = document.getElementById('deleteEl');
+	Element.addClassName(deleteEl, 'xx');
+	Element.removeClassName(deleteEl, 'xx');
+}
+function submit(){
+	var submitData = "";
+	if(getDocorderPriValue() == 1){
+		submitData = "wcmchnldoc.docorderpri desc,"
+	}
+	var fieldSelectEls = document.getElementsByName('OrderField');
+	var waySelectEls = document.getElementsByName('OrderWay');
+	for(var index=0; index<fieldSelectEls.length-1; index++){
+		if(fieldSelectEls[index].value.trim() == ''){
+			alert(String.format( "第[{0}]个设置为空!",index + 1));
+			return false;
+		}else{
+			submitData+= fieldSelectEls[index].value.trim()
+			submitData+=" " + waySelectEls[index].value.trim() + ",";
+		}
+	}
+	var cbr = wcm.CrashBoarder.get("selectOrderWay");
+	cbr.notify(submitData.substr(0, submitData.length-1));
+	return false;
+}
+function cancel(){
+	var cbr = wcm.CrashBoarder.get("selectOrderWay");
+	cbr.notify("");
+	return false;
+}
+</script>
+</BODY>
+
+</HTML>

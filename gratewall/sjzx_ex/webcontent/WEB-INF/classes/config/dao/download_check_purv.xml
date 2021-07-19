@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="download_check_purv" class-name="com.gwssi.dw.aic.download.dao.DownloadCheckPurv" check-flag="false" backup-flag="false">
+    <description>下载审批权限表</description>
+  </table-info>
+
+  <column name="download_check_purv_id" data-type="varchar" length="32" not-null="true" value-from="input" description="下载审批权限ID"/>
+  <column name="roleid" data-type="long" length="22" not-null="false" value-from="input" description="角色ID"/>
+  <column name="max_size" data-type="long" length="22" not-null="false" value-from="input" description="上限阀值"/>
+  <column name="min_size" data-type="long" length="22" not-null="false" value-from="input" description="下限阀值"/>
+  <column name="download_purv_id" data-type="varchar" length="32" not-null="false" value-from="input" description="下载权限设置ID"/>
+  <column name="multi_download_check" data-type="varchar" length="1" not-null="false" value-from="input" description="重复下载审批"/>
+  <primary-key name="pk_download_check_purv" column-list="download_check_purv_id"/>
+  <index name="pk_download_check_purv" index-type="unique" cluster="cluster" column-list="download_check_purv_id"/>
+  <function func-name="select one download_check_purv" func-type="select" column-list="download_check_purv_id,roleid,max_size,min_size,download_purv_id,multi_download_check">
+    <filter-column column-name="download_check_purv_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select download_check_purv list" func-type="rowset" column-list="download_check_purv_id,roleid,max_size,min_size,download_purv_id,multi_download_check" sort-columns="max_size,min_size" max-record="10">
+    <filter-column column-name="download_check_purv_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="roleid" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="download_purv_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one download_check_purv" func-type="insert" column-list="download_check_purv_id,roleid,max_size,min_size,download_purv_id,multi_download_check">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one download_check_purv" func-type="delete">
+    <filter-column column-name="download_check_purv_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one download_check_purv" func-type="update" column-list="roleid,max_size,min_size,download_purv_id,multi_download_check">
+    <filter-column column-name="download_check_purv_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

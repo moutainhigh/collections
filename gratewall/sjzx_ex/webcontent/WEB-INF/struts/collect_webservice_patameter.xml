@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>参数表</menu-name>
+  <menu-path>/page/collect/config/webService/</menu-path>
+  <description>参数表</description>
+  <form-beans>
+    <form-bean name="CollectWebservicePatameterRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="record" name="webservice_patameter_id" type="string" size="32" cannull="false" description="参数ID"/>
+      <form-property prefix="record" name="webservice_task_id" type="string" size="32" cannull="true" description="webservice任务ID"/>
+      <form-property prefix="record" name="patameter_type" type="string" size="20" cannull="true" description="参数类型"/>
+      <form-property prefix="record" name="patameter_name" type="string" size="100" cannull="true" description="参数名"/>
+      <form-property prefix="record" name="patameter_value" type="string" size="1000" cannull="true" description="参数值"/>
+	  <form-property prefix="record" name="patameter_style" type="string" size="20" cannull="true" description="参数格式"/>
+    </form-bean>
+
+    <form-bean name="CollectWebservicePatameterUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="webservice_patameter_id" type="string" size="32" cannull="false" description="参数ID"/>
+      <form-property prefix="select-key" name="webservice_patameter_id" type="string" size="32" cannull="false" description="参数ID"/>
+      <form-property prefix="primary-key" name="webservice_task_id" type="string" size="32" cannull="false" description="webservice任务ID"/>
+      <form-property prefix="select-key" name="webservice_task_id" type="string" size="32" cannull="false" description="webservice任务ID"/>
+      <form-property prefix="primary-key" name="patameter_name" type="string" size="100" cannull="false" description="参数名"/>
+      <form-property prefix="record" name="webservice_patameter_id" type="string" size="32" cannull="false" description="参数ID"/>
+      <form-property prefix="record" name="jsondata" type="string" size="4000" cannull="false" description="数据"/>
+      <form-property prefix="record" name="webservice_task_id" type="string" size="32" cannull="true" description="webservice任务ID"/>
+      <form-property prefix="record" name="service_targets_id" type="string" size="32" cannull="false" description="服务ID"/>
+      <form-property prefix="record" name="patameter_type" type="string" size="20" cannull="true" description="参数类型"/>
+      <form-property prefix="record" name="patameter_name" type="string" size="100" cannull="true" description="参数名"/>
+      <form-property prefix="record" name="patameter_value" type="string" size="1000" cannull="true" description="参数值"/>
+      <form-property prefix="record" name="name_nums" type="string" size="11" cannull="true" description="重名数"/>
+	  <form-property prefix="record" name="patameter_style" type="string" size="20" cannull="true" description="参数格式"/>
+	  <form-property prefix="param" name="patameter_style" type="string" size="20" cannull="true" description="参数格式"/>
+	  <form-property name="param_style" type="string" size="20" cannull="true" description="参数类型"/>
+	  <form-property name="date_style" type="string" size="20" cannull="true" description="日期格式"/>
+    </form-bean>
+
+    <form-bean name="CollectWebservicePatameterDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="webservice_patameter_id" type="string" size="32" cannull="false" description="参数ID"/>
+      <form-property prefix="primary-key" name="webservice_task_id" type="string" size="32" cannull="false" description="方法ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+  	<action input="query-collect_webservice_patameter.jsp" name="CollectWebservicePatameterUpdateForm" txn-code="30103000" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>查询参数名称是否重复</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebservicePatameter" func-name="txn30103000" input-node="primary-key" output-node="record" description="查询参数名称是否重复"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletesuccess.jsp"/>
+    </action>
+  	<action input="query-collect_webservice_patameter.jsp" name="CollectWebservicePatameterRowsetForm" txn-code="30103001" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+  		<description>查询参数维护列表</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebservicePatameter" func-name="txn30103001" input-node="select-key" output-node="record" description="查询参数维护列表"/>
+      <forward error-code="success" path="query-collect_webservice_patameter.jsp"/>
+      <forward error-code="failure" path="query-collect_webservice_patameter.jsp"/>
+    </action>
+
+ 	<action input="insert-collect_webservice_patameter.jsp" name="CollectWebservicePatameterUpdateForm" txn-code="30103033" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>跳转到增加参数维护信息页面</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebservicePatameter" func-name="txn30103033" input-node="record" description="增加参数维护信息"/>
+      <forward error-code="success" path="insert-collect_parameter.jsp"/>
+      <forward error-code="failure" path="insert-collect_parameter.jsp"/>
+    </action>
+
+	<action input="insert-collect_webservice_patameter.jsp" name="CollectWebservicePatameterUpdateForm" txn-code="30103003" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加参数维护信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebservicePatameter" func-name="txn30103003" input-node="record" description="增加参数维护信息"/>
+      <forward error-code="success" path="insert-collect_parameter.jsp"/>
+      <forward error-code="failure" path="insert-collect_parameter.jsp"/>
+    </action>
+    
+   
+    <!-- <action input="update-collect_webservice_patameter.jsp" name="CollectWebservicePatameterUpdateForm" txn-code="30103002" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改webservice方法的参数信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebservicePatameter" func-name="txn30103002" input-node="record" description="修改参数维护信息"/>
+      <forward error-code="success" path="update-collect_webservice_patameter.jsp"/>
+      <forward error-code="failure" path="update-collect_webservice_patameter.jsp"/>
+    </action>
+
+    <action input="insert-collect_webservice_patameter.jsp" name="CollectWebservicePatameterUpdateForm" txn-code="30103003" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加参数维护信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebservicePatameter" func-name="txn30103003" input-node="record" description="增加参数维护信息"/>
+      <forward error-code="success" path="insert-collect_webservice_patameter.jsp"/>
+      <forward error-code="failure" path="insert-collect_webservice_patameter.jsp"/>
+    </action>  -->
+
+    <action input="query-collect_webservice_patameter.jsp" name="CollectWebservicePatameterUpdateForm" txn-code="30103004" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询参数维护用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebservicePatameter" func-name="txn30103004" input-node="primary-key" output-node="record" description="查询参数维护用于修改"/>
+      <forward error-code="success" path="update-collect_webservice_patameter.jsp"/>
+      <forward error-code="failure" path="update-collect_webservice_patameter.jsp"/>
+    </action>
+
+    <action input="query-collect_webservice_patameter.jsp" name="CollectWebservicePatameterDeleteForm" txn-code="30103005" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除参数维护信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebservicePatameter" func-name="txn30103005" input-node="primary-key" description="删除参数维护信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+    <action input="query-collect_webservice_patameter.jsp" name="CollectWebservicePatameterDeleteForm" txn-code="30103055" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除参数维护信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebservicePatameter" func-name="txn30103055" input-node="primary-key" description="删除参数维护信息"/>
+      <forward error-code="success" path="query-collect_ws_info.jsp"/>
+      <forward error-code="failure" path="query-collect_ws_info.jsp"/>
+    </action>
+    
+    <action input="query-collect_webservice_patameter.jsp" name="CollectWebservicePatameterUpdateForm" txn-code="30103006" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询参数维护用于新增</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebservicePatameter" func-name="txn30103006" input-node="primary-key" output-node="record" description="查询参数维护用于新增"/>
+      <forward error-code="success" path="/page/collect/config/socket/insert-collect_socket_patameter.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/socket/insert-collect_socket_patameter.jsp"/>
+    </action>
+    
+     <action input="query-collect_webservice_patameter.jsp" name="CollectWebservicePatameterUpdateForm" txn-code="30103007" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询参数维护用于修改socket</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebservicePatameter" func-name="txn30103007" input-node="primary-key" output-node="record" description="查询参数维护用于修改socket"/>
+      <forward error-code="success" path="/page/collect/config/socket/update-collect_socket_patameter.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/socket/update-collect_socket_patameter.jsp"/>
+    </action>
+     <action input="query-collect_webservice_patameter.jsp" name="CollectWebservicePatameterUpdateForm" txn-code="30103008" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询参数维护用于修改socket</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebservicePatameter" func-name="txn30103008" input-node="primary-key" output-node="record" description="查询参数维护用于修改socket"/>
+      <forward error-code="success" path="update-collect_webservice_patameter.jsp"/>
+      <forward error-code="failure" path="update-collect_webservice_patameter.jsp"/>
+    </action>
+    
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-collect_webservice_patameter.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/collect/config/webservice/query-collect_webservice_patameter.jsp" description="查询参数维护列表"/>
+    <resource-file type="jsp" file-name="/page/collect/config/webservice/insert-collect_webservice_patameter.jsp" description="增加参数维护信息"/>
+    <resource-file type="jsp" file-name="/page/collect/config/webservice/update-collect_webservice_patameter.jsp" description="修改参数维护信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.vo.CollectWebservicePatameterContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.vo.VoCollectWebservicePatameter" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.vo.VoCollectWebservicePatameterSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.vo.VoCollectWebservicePatameterPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

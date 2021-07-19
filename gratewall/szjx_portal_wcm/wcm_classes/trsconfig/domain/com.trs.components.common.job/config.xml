@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0"  id="components.common.job">
+	<!--Config For Server BEGIN-->
+	<extension element-class="com.trs.infra.ServerConfig" id="Server">
+		<server bean-id="JobScheduleServer" name="计划调度服务器"/>
+	</extension>
+	<!--Config For Server END-->
+		
+	<!-- Cached-Object Config For ICachePOMgr BEGIN -->
+	<extension element-class="com.trs.infra.persistent.cache.CachedObjectConfig" id="CachedObjs">
+		<cached-object Name="计划任务类型" 
+			ClassName="com.trs.components.common.job.JobWorkerType"/>
+	</extension>
+	<!-- Cached-Object Config For ICachePOMgr END -->
+	
+	<!--Config For ObjectLCMonitor BEGIN-->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		1：新增
+		2：修改
+		3：删除前
+		4、删除后
+		多个以逗号隔开
+	-->
+	<extension element-class="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		id="components.wcm.content.ObjectLCMonitor">		
+		<!-- 计划调度 -->
+		<monitor-host name="计划调度" 
+			class-name="com.trs.components.common.job.Schedule">
+			<listener bean-id="ScheduleLCListenerForServer"/>
+		</monitor-host>	
+		<monitor-host name="调度类型" 
+			class-name="com.trs.components.common.job.JobWorkerType">
+			<listener bean-id="JobWorkerForSchedule" event-type="3"/>
+		</monitor-host>
+	</extension>
+	<!--Config For ObjectLCMonitor END-->
+	
+	<!--Object Types BEGIN-->
+	<extension element-class="com.trs.infra.persistent.ObjectTypeConfig" id="ObjectTypes">
+		<object-type ObjectType="501" name="计划任务" ObjectClassName="com.trs.components.common.job.Schedule"/>		
+	</extension>
+	<!--Object Types END-->
+</plugin>

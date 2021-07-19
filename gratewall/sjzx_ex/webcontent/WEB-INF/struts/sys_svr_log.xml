@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>服务日志</menu-name>
+  <menu-path>/page/share/svrlog/</menu-path>
+  <description>服务日志</description>
+  <form-beans>
+    <form-bean name="SysSvrLogRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="user_id" type="string" size="32" description="使用共享服务编号"/>
+      <form-property prefix="select-key" name="sys_svr_user_id" type="string" size="32" description="使用共享服务编号"/>
+      <form-property prefix="select-key" name="sys_svr_service_id" type="string" size="32" description="共享服务编号"/>
+      <form-property prefix="select-key" name="execute_start_time" type="string" size="32" description="执行开始时间"/>
+      <form-property prefix="select-key" name="execute_end_time" type="string" size="32" description="执行结束时间"/>
+      <form-property prefix="select-key" name="state" type="string" size="32" description="执行结果"/>
+      <form-property prefix="select-key" name="login_name" type="string" size="32" description="用戶名"/>
+      <form-property prefix="select-key" name="execute_type" type="string" size="32" description="交换类型"/>
+      <form-property prefix="record" name="sys_svr_log_id" type="string" size="32" cannull="false" description="共享服务日志编号"/>
+      <form-property prefix="record" name="sys_svr_user_id" type="string" size="32" cannull="false" description="使用共享服务编号"/>
+      <form-property prefix="record" name="sys_svr_service_id" type="string" size="32" cannull="false" description="共享服务编号"/>
+      <form-property prefix="record" name="sys_svr_user_name" type="string" size="32" cannull="false" description="使用共享服务对象"/>
+      <form-property prefix="record" name="sys_svr_service_name" type="string" size="32" cannull="false" description="共享服务名称"/>
+      <form-property prefix="record" name="execute_start_time" type="string" size="32" cannull="false" description="执行开始时间"/>
+      <form-property prefix="record" name="execute_end_time" type="string" size="32" cannull="false" description="执行结束时间"/>
+      <form-property prefix="record" name="state" type="string" size="32" cannull="false" description="执行结果"/>
+      <form-property prefix="record" name="records_mount" type="long" cannull="false" description="返回记录数"/>
+      <form-property prefix="record" name="error_msg" type="string" size="32" cannull="true" description="错误描述"/>
+      <form-property prefix="record" name="client_ip" type="string" size="32" cannull="true" description="客户端IP"/>
+      <form-property prefix="record" name="login_name" type="string" size="32" cannull="true" description="用戶名"/>
+      
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_svr_log.jsp" name="SysSvrLogRowsetForm" txn-code="50207001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务日志列表</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrLog" func-name="txn50207001" input-node="select-key" output-node="record" description="查询服务日志列表"/>
+      <forward error-code="success" path="query-sys_svr_log.jsp"/>
+      <forward error-code="failure" path="query-sys_svr_log.jsp"/>
+    </action>
+    <action input="query-sys_svr_log.jsp" name="SysSvrLogRowsetForm" txn-code="50207002" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询交换日志</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrLog" func-name="txn50207002" input-node="select-key" output-node="record" description="查询交换日志"/>
+      <forward error-code="success" path="stat-query.jsp"/>
+      <forward error-code="failure" path="stat-query.jsp"/>
+    </action>
+    <action input="query-sys_svr_log.jsp" name="SysSvrLogRowsetForm" txn-code="50207003" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询所有服务对象</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrLog" func-name="txn50207003" input-node="select-key" output-node="record" description="查询所有服务对象"/>
+      <forward error-code="success" path="stat-query.jsp"/>
+      <forward error-code="failure" path="stat-query.jsp"/>
+    </action>
+    <action input="query-sys_svr_log.jsp" name="SysSvrLogRowsetForm" txn-code="50207004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询交换统计</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrLog" func-name="txn50207004" input-node="select-key" output-node="record" description="查询交换统计"/>
+      <forward error-code="success" path="stat-query2.jsp"/>
+      <forward error-code="failure" path="stat-query2.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_svr_log.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="//dw/runmgr/services/svrlog/query-sys_svr_log.jsp" description="查询服务日志列表"/>
+    <resource-file type="jsp" file-name="//dw/runmgr/services/svrlog/insert-sys_svr_log.jsp" description="增加服务日志信息"/>
+    <resource-file type="jsp" file-name="//dw/runmgr/services/svrlog/update-sys_svr_log.jsp" description="修改服务日志信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.SysSvrLogContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrLog" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrLogSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrLogPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

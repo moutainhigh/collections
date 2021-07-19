@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="../../static/js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="../../static/js/jquery.accordion.js"></script> 
+<title>管辖区域</title>
+<style>
+.nav {width: 213px; padding: 40px 28px 25px 0;}  
+ul.nav {padding: 0; margin: 0; font-size: 1em; line-height: 0.5em; list-style: none;}  
+ul.nav li {}  
+ul.nav li a {line-height: 5px; font-size: 14px; padding: 10px 5px; color: #000; display: block; 
+text-decoration: none; font-weight: bolder;} 
+ul.nav li a:hover {background-color:#675C7C;    color:white;} 
+ul.nav ul { margin: 0; padding: 0;display: none;}  
+ul.nav ul li { margin: 0; padding: 0; clear: both;}  
+ul.nav ul li a { padding-left: 20px; font-size: 12px; font-weight: normal;} 
+ul.nav ul li a:hover {background-color:#D3C99C; color:#675C7C;}  
+ul.nav ul ul li a {color:silver; padding-left: 40px;line-height: 5px;}  
+ul.nav ul ul li a:hover { background-color:#D3CEB8; color:#675C7C;}  
+ul.nav span{float:right;} 
+</style>
+<script>
+	$(function(){ 
+	   $(".nav").accordion({ 
+	        speed: 500, 
+	        closedSign: '[+]', 
+	        openedSign: '[-]' 
+	    }); 
+	});   
+	
+	 /*  $(function() {
+		    $( "#accordion" )
+		      .accordion({
+		        header: "> div > h3"
+		      })
+		      .sortable({
+		        axis: "y",
+		        handle: "h3",
+		        stop: function( event, ui ) {
+		          // 当排序时，IE 不能注册 blur，所以触发 focusout 处理程序来移除 .ui-state-focus
+		          ui.item.children( "h3" ).triggerHandler( "focusout" );
+		        }
+		      });
+		  }); */
+	
+	
+	function openLuoHu(){
+	}
+</script>
+</head>
+<body>
+ 	<ul class="nav"> 
+	<li><a href="#">管辖区域</a></li> 
+   <li><a onclick = "openLuoHu()">罗湖区</a>
+   		<ul> 
+           <li><a>黄贝所</a></li> 
+           <li><a>南湖所</a></li> 
+           <li><a>东门所</a></li> 
+           <li><a>桂园所</a></li> 
+           <li><a>笋岗所</a></li> 
+           <li><a>翠竹所</a></li> 
+           <li><a>莲塘所</a></li> 
+           <li><a>东湖所</a></li> 
+           <li><a>东晓所</a></li> 
+           <li><a>清水河所</a></li>
+        </ul> 
+   </li> 
+	<li><a onclick = "openLuoHu()">福田区</a>
+   		<ul> 
+           <li><a>华强北所</a></li> 
+           <li><a>园岭所</a></li> 
+           <li><a>华富所</a></li> 
+           <li><a>福保所</a></li> 
+           <li><a>梅林所</a></li> 
+           <li><a>莲花所</a></li> 
+           <li><a>福田所</a></li> 
+           <li><a>南园所</a></li> 
+           <li><a>沙头所</a></li> 
+           <li><a>香蜜湖所</a></li>
+        </ul> 
+   </li>   
+   <li><a onclick = "openLuoHu()">南山区</a>
+   		<ul> 
+           <li><a>南头所</a></li> 
+           <li><a>南山所</a></li> 
+           <li><a>粤海所</a></li> 
+           <li><a>招商所</a></li> 
+           <li><a>沙河所</a></li> 
+           <li><a>蛇口所</a></li> 
+           <li><a>西丽所</a></li> 
+           <li><a>桃源所</a></li> 
+        </ul> 
+   </li>
+   <li><a onclick = "openLuoHu()">宝安区</a>
+   		<ul> 
+           <li><a>新安所</a></li> 
+           <li><a>西乡所</a></li> 
+           <li><a>黄田所</a></li> 
+           <li><a>福永所</a></li> 
+           <li><a>沙井所</a></li> 
+           <li><a>新桥所</a></li> 
+           <li><a>松岗所</a></li> 
+           <li><a>沙溪所</a></li> 
+           <li><a>石岩所</a></li> 
+        </ul> 
+   </li> 
+   <li><a onclick = "openLuoHu()">龙岗区</a>
+   		<ul> 
+           <li><a>横岗所</a></li> 
+           <li><a>布吉所</a></li> 
+           <li><a>平湖所</a></li> 
+           <li><a>平南所</a></li> 
+           <li><a>龙城所</a></li> 
+           <li><a>坂田所</a></li> 
+           <li><a>南湾所</a></li> 
+           <li><a>坪地所</a></li> 
+           <li><a>龙岗所</a></li> 
+        </ul>
+   </li> 
+   <li><a onclick = "openLuoHu()">盐田区</a>
+   		<ul> 
+           <li><a>盐田局综合监管一科</a></li> 
+        </ul>
+   </li> 
+   <li><a onclick = "openLuoHu()">光明新区</a>
+   		<ul> 
+           <li><a>光明所</a></li> 
+           <li><a>公明所</a></li> 
+        </ul>
+   </li>
+   
+   	 
+   <li><a onclick = "openLuoHu()">坪山新区</a>
+   		<ul> 
+           <li><a>坪山局综合业务科</a></li> 
+           <li><a>坪山局监督管理科</a></li> 
+           <li><a>坪山所</a></li> 
+           <li><a>坑梓所</a></li> 
+        </ul>
+   </li> 
+   <li><a onclick = "openLuoHu()">龙华新区</a>
+   		<ul> 
+           <li><a>大浪所</a></li> 
+           <li><a>观澜所</a></li> 
+           <li><a>龙华所</a></li> 
+           <li><a>民治所</a></li> 
+        </ul>
+   </li> 
+   <li><a onclick = "openLuoHu()">大鹏新区</a>
+   		<ul> 
+           <li><a>大鹏所</li> 
+           <li><a>葵涌所</li> 
+           <li><a>南澳所</li> 
+        </ul>
+   </li> 
+   <li><a onclick = "openLuoHu()">其他</a>
+   		<ul> 
+        </ul>
+   </li> 
+</ul>  
+</body>
+</html>

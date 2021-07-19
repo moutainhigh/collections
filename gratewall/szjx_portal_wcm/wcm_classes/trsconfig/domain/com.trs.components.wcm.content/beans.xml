@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin name="WCM内容组件" version="1.0" id="wcm.content">
+	<beans>
+		<!--Mgr BEGIN-->
+		<bean id="IDocumentsTimeRangeMgr" 
+			class="com.trs.components.wcm.content.domain.DocumentsTimeRangeMgrImpl" 
+			singleton="true"/>
+		<bean id="IDocKeywordMgr" 
+			class="com.trs.components.wcm.content.domain.DocKeywordMgrImpl" 
+			singleton="true"/>
+		<bean id="IIntellMgr" 
+			class="com.trs.components.wcm.content.domain.intelligence.IntelMgrImpl" 
+			singleton="true"/>
+		<bean id="IIntellResLocator" 
+			class="com.trs.components.wcm.content.domain.intelligence.IntellResLocatorImpl" 
+			singleton="true"/>
+		<bean id="DocumentMgr" 
+			class="com.trs.components.wcm.content.domain.DocumentMgr" 
+			singleton="true"/>
+		<bean id="AppendixMgr" 
+			class="com.trs.components.wcm.content.domain.AppendixMgr" 
+			singleton="true"/>
+		<bean id="ChannelMgr" 
+			class="com.trs.components.wcm.content.domain.ChannelMgr" 
+			singleton="true"/>
+		<bean id="ContentLinkMgr" 
+			class="com.trs.components.wcm.content.domain.ContentLinkMgr" 
+			singleton="true"/>
+		<bean id="DocBakMgr" 
+			class="com.trs.components.wcm.content.domain.DocBakMgr" 
+			singleton="true"/>
+		<bean id="DocReplyMgr" 
+			class="com.trs.components.wcm.content.domain.DocReplyMgr" 
+			singleton="true"/>
+		<bean id="RelationMgr" 
+			class="com.trs.components.wcm.content.domain.RelationMgr" 
+			singleton="true"/>
+		<bean id="ReplaceMgr" 
+			class="com.trs.components.wcm.content.domain.ReplaceMgr" 
+			singleton="true"/>
+		<bean id="DocumentPriMgr" 
+			class="com.trs.components.wcm.content.domain.DocumentPriMgr" 
+			singleton="true"/>
+		<bean id="AutoDocBakMgr" 
+			class="com.trs.components.wcm.content.domain.AutoDocBakMgr" 
+			singleton="true"/>
+		<bean id="AutoTransmitMgr" 
+			class="com.trs.components.wcm.content.domain.AutoTransmitMgr" 
+			singleton="true"/>
+		<bean id="UserDocumentMgr" 
+			class="com.trs.components.wcm.content.domain.UserDocumentMgr" 
+			singleton="true"/>
+		<bean id="SiteMemberMgr" 
+			class="com.trs.components.wcm.content.domain.SiteMemberMgr" 
+			singleton="true"/>
+		<bean id="ContentExtFieldMgr" 
+			class="com.trs.components.wcm.content.domain.ContentExtFieldMgr" 
+			singleton="true"/>
+		<bean id="RegionEmployMgr" 
+			class="com.trs.components.wcm.publish.region.RegionEmployMgr" 
+			singleton="true"/>
+		<bean id="AdvisorMgr" 
+			class="com.trs.components.wcm.advisor.AdvisorMgr" 
+			singleton="true"/>
+		<bean id="FilterMgr" 
+			class="com.trs.components.wcm.filter.FilterMgr" 
+			singleton="true"/>
+		<!-- Mgr END -->
+		<!-- WCMOBJ Life Cycle Listeners BEGIN -->
+		<bean id="IChannelNameMgr" 
+			class="com.trs.components.wcm.content.persistent.ChannelNameMgr" 
+			singleton="true"/>
+		<bean id="IChildrenMgr" 
+			class="com.trs.components.wcm.content.persistent.ChildrenCacheMgr" 
+			singleton="true"/>
+		<bean id="ReplaceCacheMgr" 
+			class="com.trs.components.wcm.content.persistent.ReplaceCacheMgr" 
+			singleton="true"/>
+		<bean id="ApdHostLCListener" 
+			class="com.trs.components.wcm.content.domain.ApdHostLCListener" 
+			singleton="true"/>
+		<bean id="WebSiteLCListenerForSiteUser" 
+			class="com.trs.components.wcm.content.domain.WebSiteLCListenerForSiteUser" 
+			singleton="true"/>
+		<bean id="WebSiteLCListenerForAutoDocBak" 
+			class="com.trs.components.wcm.content.domain.WebSiteLCListenerForAutoDocBak" 
+			singleton="true"/>
+			
+		<bean id="ContentExtFieldLCListenerForDocFields" 
+			class="com.trs.components.wcm.content.domain.ContentExtFieldLCListenerForDocFields" 
+			singleton="true"/>
+		<bean id="ContentExtFieldCListenerForDocProps" 
+			class="com.trs.components.wcm.content.domain.ContentExtFieldCListenerForDocProps" 
+			singleton="true"/>
+			
+		<bean id="WebSiteLCListenerForContentLink" 
+			class="com.trs.components.wcm.content.domain.WebSiteLCListenerForContentLink" 
+			singleton="true"/>
+		<bean id="ChannelLCListenerForDocument" 
+			class="com.trs.components.wcm.content.domain.ChannelLCListenerForDocument" 
+			singleton="true"/>
+		<bean id="DocumentLCListenerForAutoDocBak" 
+			class="com.trs.components.wcm.content.domain.DocumentLCListenerForAutoDocBak" 
+			singleton="true"/>
+		<bean id="DocumentLCListenerForRelation" 
+			class="com.trs.components.wcm.content.domain.DocumentLCListenerForRelation" 
+			singleton="true"/>
+		<bean id="DocBakLCListenerForApd" 
+			class="com.trs.components.wcm.content.domain.DocBakLCListenerForApd" 
+			singleton="true"/>
+		<bean id="DocumentLCListenerForDocReply" 
+			class="com.trs.components.wcm.content.domain.DocumentLCListenerForDocReply" 
+			singleton="true"/>
+		<bean id="DocumentLCListenerForDocBak" 
+			class="com.trs.components.wcm.content.domain.DocumentLCListenerForDocBak" 
+			singleton="true"/>
+		<bean id="ExtendedFieldLCListenerForDocBak" 
+			class="com.trs.components.wcm.content.domain.ExtendedFieldLCListenerForDocBak" 
+			singleton="true"/>
+		<bean id="ChnlDocLCListenerForPri" 
+			class="com.trs.components.wcm.content.domain.ChnlDocLCListenerForPri" 
+			singleton="true"/>
+		<bean id="SiteMemberLCListner" 
+			class="com.trs.components.wcm.content.domain.SiteMemberLCListner" 
+			singleton="true"/>
+		<bean id="RightLCListenerForSynSiteMember" 
+			class="com.trs.components.wcm.content.domain.RightLCListenerForSynSiteMember" 
+			singleton="true"/>
+		<bean id="InfoViewEmployLCListenerForChannel" 
+			class="com.trs.components.wcm.content.domain.InfoViewEmployLCListenerForChannel" 
+			singleton="true"/>
+		<!-- wenyh@2005-8-22 modified,不再监听文档状态的改变产生版本保存. -->
+		<!--bean id="ChnlDocLCListenerForAutoDocBak" 
+			class="com.trs.components.wcm.content.domain.ChnlDocLCListenerForAutoDocBak" 
+			singleton="true" /-->
+		<bean id="ChannelLCListenerForExtField" 
+			class="com.trs.components.wcm.content.domain.ChannelLCListenerForExtField" 
+			singleton="true" />
+		<bean id="ChannelLCListenerForChannelSyn" 
+			class="com.trs.components.wcm.content.domain.ChannelLCListenerForChannelSyn" 
+			singleton="true" />
+		<!-- wenyh@2005-8-28 modified,添加处理文档外部文件 -->
+		<bean id="DocumentLCListenerForExternalFile" 
+			class="com.trs.components.wcm.content.domain.DocumentLCListenerForExternalFile" 
+			singleton="true" />
+		<!-- ch@200-02-10 add 文档监听器，处理关键词-->
+		<bean id="DocumentLCListenerForRelDocs" 
+			class="com.trs.components.wcm.content.domain.DocumentLCListenerForRelDocs" 
+			singleton="true" />
+		<!-- 文档监听器，处理文档所属-->
+		<bean id="DocumentLCListenerForDocForm" 
+			class="com.trs.components.wcm.content.domain.DocumentLCListenerForDocForm" 
+			singleton="true" />
+		<!-- ffx@2011-01-10 add 文档监听器，删除文档时同步删除设置的权限 -->
+		<bean id="DocumentLCListenerForRight" 
+			class="com.trs.components.wcm.content.domain.DocumentLCListenerForRight" 
+			singleton="true" />
+		<!-- WCMOBJ Life Cycle Listeners END -->
+		<!-- not singleton worker begin-->
+		<bean id="DocumentImporter" 
+			class="com.trs.components.wcm.content.domain.DocumentImporter" 
+			singleton="false" />
+		<bean id="DocumentExporter" 
+			class="com.trs.components.wcm.content.domain.DocumentExporter" 
+			singleton="false" />
+		<bean id="ChannelExporter" 
+			class="com.trs.components.wcm.content.domain.ChannelExporter" 
+			singleton="false"/>
+		<bean id="ChannelImporter" 
+			class="com.trs.components.wcm.content.domain.ChannelImporter" 
+			singleton="false"/>
+		<!-- not singleton worker end -->
+		<!-- wenyh@20070731 add bean:删除站点/栏目时同步删除所用的扩展字段 -->
+		<bean id="BaseChannelLCListener4ExtField" 
+			class="com.trs.components.wcm.content.domain.BaseChannelLCListener4ExtField" 
+			singleton="true" />
+		<bean id="BaseChannelLCListener4Region" 
+			class="com.trs.components.wcm.content.domain.BaseChannelLCListener4Region" 
+			singleton="true" />
+
+		<!-- ffx@2011-01-10 add 删除站点/栏目时，同步删除设置的权限 -->
+		<bean id="BaseChannelLCListener4Right" 
+			class="com.trs.components.wcm.content.domain.BaseChannelLCListener4Right" 
+			singleton="true" />
+		<!-- ffx@2011-01-10 add 删除站点/栏目时，同步删除设置的访问控制 -->
+		<bean id="BaseChannelLCListener4ObjectMember" 
+			class="com.trs.components.wcm.content.domain.BaseChannelLCListener4ObjectMember" 
+			singleton="true" />
+		<!-- ffx@2012-07-10 add 删除栏目时，同步删除设置的栏目组织关联 -->
+		<bean id="ChannelLCListener4ChnlDept" 
+			class="com.trs.components.wcm.content.domain.ChannelLCListener4ChnlDept" 
+			singleton="true" />
+		<!-- ffx@2012-07-10 add 删除组织时，同步删除设置的栏目组织关联 -->
+		<bean id="GroupLCListener4ChnlDept" 
+			class="com.trs.cms.auth.domain.GroupLCListener4ChnlDept" 
+			singleton="true" />
+	</beans>
+</plugin>

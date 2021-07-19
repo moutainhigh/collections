@@ -1,0 +1,39 @@
+﻿.XCombox *{
+	font-size:12px;
+}
+.ext-strict .XCombox{
+	position:relative;
+}
+.ext-strict .XCombox input{
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:2;
+	width: 150px; 
+	height:18px;
+	border:1px solid #7F9DB9;
+	border-right:0px;
+}
+.ext-strict .XCombox select{
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:1;
+	width:168px;
+	height:22px;
+	border:1px solid #7F9DB9;
+}
+.ext-ie6 .XCombox input{
+	width: 150px; 
+	height:21px;
+	border:1px solid #7F9DB9;
+	border-right:0px;
+}
+.ext-ie6 .XCombox select{
+	width:168px;
+	height:22px;
+	margin-left:-150px;
+}
+.ext-ie6 .XCombox span{
+	width:18px;
+}

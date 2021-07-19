@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="style.pagestyle)_list.html.pagestylelist"> 页面风格列表 </title>
+	<link href="../css/common.css" rel="stylesheet" type="text/css" />
+	<link href="../css/list.css" rel="stylesheet" type="text/css" />
+	<link href="../../../app/js/source/wcmlib/simplemenu/resource/SimpleMenu.css" rel="stylesheet" type="text/css" />
+	<link href="pagestyle_list.css" rel="stylesheet" type="text/css" />
+	<script src="../../js/easyversion/lightbase.js"></script>
+	<script src="../../js/easyversion/extrender.js"></script>
+	<script src="../../js/easyversion/elementmore.js"></script>
+	<script src="../js/adapter4Top.js"></script>
+	<script src="../../../app/js/source/wcmlib/simplemenu/SimpleMenu.js"></script>
+	<script src="../js/PageContext.js"></script>
+	<script src="./pagestyle_list.js"></script>
+</head>
+<body>
+<div class="container">
+	<div class="header">
+		<div class="toolbar" id="toolbar">
+			<li id="addel" class="add-style" cmd="addStyle" rightIndex="11"></li>
+			<li id="importel" class="import" cmd="import" rightIndex="11"></li>
+			<li id="exportel" class="export" cmd="export" rightIndex="14"></li>
+			<li id="deleteel" class="delete" cmd="delete" rightIndex="13"></li>
+			<li id="moreel" class="more" cmd="moreCmds" rightIndex=""></li>
+		</div>
+		<div class="search" id="search"></div>
+	</div>
+	<div class="content" id="list-data"></div>
+	<div class="footer">
+		<div class="page-nav" id="list_navigator"></div>
+	</div>
+	<div id="objectNotFound" style="display:none;"><div class="no_object_found" WCMAnt:param="style.pagestyle)_list.html.sorrynotfindobjectfit">不好意思, 没有找到符合条件的对象!</div></div>
+</div>
+<div class="selectAll"><label for="selectAll" style="font-size:16px;" WCMAnt:param="style.pagestyle_list.html.selectall">全选</label><input type="checkbox" value="" id="selectAll"></div>
+<div class="">
+<div style="position:absolute;left:120px;bottom:20px;" id="orderby-box">
+	<input type="radio" name="orderby" value="CrTime desc" id="orderbycritme" style="margin-left:20px;" /> <label for="orderbycritme">按创建时间排序</label>
+	<input type="radio" name="orderby" value="StyleDesc desc" id="orderbystylename" style="margin-left:20px;" /> <label for="orderbystylename">按名称排序</label>
+</div>
+</div> 
+</body>
+</html>

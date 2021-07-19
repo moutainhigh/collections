@@ -1,0 +1,31 @@
+<textarea id="template_TableInfo" select="MetaDBTable" >
+    <div class="attribute_row wcm_desc_info_row">
+        <span title="元数据编号:{#ClassInfoId}&#13;创建者:{#CRUser}&#13;创建时间:{#CrTime} " style="white-space:nowrap;overflow:hidden;">
+            <span style="">用户</span><span class="desc_info_value">{#CrUser}</span><span>创建于</span><span class="desc_info_value">{#CrTime,,getPrettyTime}</span>
+        </span>
+    </div>
+	<div class="attribute_row">
+		<span class="attribute_name" style="width:40px;">名称:</span>
+        <span class="attribute_value">
+            <TRS_UI:editPanel value="{#TableName}" class="inputClass_" inputClass="inputClass_" _fieldName="TableName" validation="type:'common_char',max_len:'16',required:'',desc:'名称'"></TRS_UI:editPanel>
+        </span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name" style="width:40px;">别名:</span>
+        <span class="attribute_value">
+            <TRS_UI:editPanel id="AnotherName" value="{#AnotherName}" class="inputClass_" inputClass="inputClass_" _fieldName="AnotherName" validation="type:'string',max_len:'60',required:'',desc:'别名'"></TRS_UI:editPanel>
+        </span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name" style="width:40px;">描述:</span>
+        <span class="attribute_value">
+            <TRS_UI:editPanel value="{#TableDesc}" class="inputClass_" inputClass="inputClass_" _fieldName="TableDesc" validation="type:'string',max_len:'120',desc:'描述'"></TRS_UI:editPanel>
+        </span>
+	</div>
+ </textarea>
+
+ <textarea id="template_TableInfos">
+	<div class="attribute_row">
+		当前共选中<span class="objects_num">{#Num}</span>个元数据.
+	</div>
+ </textarea>

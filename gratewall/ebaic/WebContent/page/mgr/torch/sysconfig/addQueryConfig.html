@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+
+<title>查询配置</title>
+<link rel="stylesheet" href="../../../../static/css/common.css">
+    <link href="../../../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+	<link href="../../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" rel="stylesheet" type="text/css" />	
+
+</head>
+<body>
+<script>
+
+</script>
+
+<body style="overflow-x:hidden">
+
+	<!-- 根据config_id展编辑sys_query_config中的当前行 -->
+	<div  name="sysQueryConfigPanel" vtype="formpanel" id="sysQueryConfigPanel" displayrows="1"
+		titleDisplay="false" width="100%" showborder=false style="text-align: center;"
+		labelStyleClass="labelstyle" title="sys_query_config">
+		
+		<div name='configId' id='configId' vtype="hiddenfield" label="配置ID(主键)"  labelAlign="center"
+			width="300" labelwidth='100'></div>
+		<div name='functionId' id='functionId' vtype="hiddenfield" label="上级功能ID" labelAlign="center"
+			width="300" labelwidth='100'  ></div>
+		<div name='configIndex' id='configIndex' vtype="textfield" label="功能序号" rule="must" tooltip="必须依次填写：1,2,3。。。" labelAlign="center"
+			width="300" labelwidth='100'  ></div>
+		<div name='configTitle' id='configTitle' vtype="textfield" label="功能标题"  rule="must" tooltip="最好是中文。。。" labelAlign="center"
+			width="300" labelwidth='100'  ></div>
+		<div name='configName' id='configName' vtype="textfield" label="功能名称" rule="must" tooltip="最好是英文。。。" labelAlign="center"
+			width="300" labelwidth='100'  ></div>
+		<div name='configDesc' id='configDesc' vtype="textfield" label="功能描述" rule="must" tooltip="最好是中文。。。" labelAlign="center"
+			width='300' labelwidth='100'></div>
+		<div name='tplPath' id='tplPath' vtype="comboxfield" label="模板路径" labelAlign="center"  
+			rule="must" valuetip="请选择..." dataurl="[{'value':'ebaicQueryGrid.ftl','text':'查询模板'}]"
+			width='300' labelwidth='100'></div>
+		<div name='adapterType' id='adapterType' vtype="comboxfield" label="适配类型" labelAlign="center"
+		rule="must" valuetip="请选择..." dataurl="[{'value':'jazz','text':'jazz'}]"
+			width='300' labelwidth='100'></div>
+		<div name='isPaging' id='isPaging' vtype="comboxfield" label="是否分页" labelAlign="center"
+			rule="must" valuetip="请选择..." dataurl="[{'value':'0','text':'false'},{'value':'1','text':'true'}]"
+			width='300' labelwidth='100'></div>
+		<div name='isQueryOnLoading' id='isQueryOnLoading' vtype="comboxfield" label="页面加载执行查询" labelAlign="center"
+			rule="must" valuetip="请选择..." dataurl="[{'value':'0','text':'false'},{'value':'1','text':'true'}]"
+			width='300' labelwidth='100'></div>
+		<div name='queryType' id='queryType' vtype="comboxfield" label="查询类型" labelAlign="center"
+			rule="must" valuetip="请选择..." dataurl="[{'value':'Form','text':'表单'},{'value':'Grid','text':'列表'}]"
+			width='300' labelwidth='100'></div>
+		<div name='editType' id='editType' vtype="comboxfield" label="编辑类型" rule="must" valuetip="请选择..." labelAlign="center" dataurl="[{'value':'query','text':'query'}]"
+			width='300' labelwidth='100'></div>
+		<div name='model1' id='model1' vtype="comboxfield" label="配置模式" rule="must" valuetip="请选择..." labelAlign="center" dataurl="[{'value':'high','text':'高级',checked:true}]"
+			width='300' labelwidth='100'></div>
+		<div name='kong' id='kong' vtype="textfield" label="" labelAlign="center"
+			width='0' labelwidth='100'></div>
+		<div name='configSql' id='configSql' vtype="textareafield" label="手写sql" rule="must" labelAlign="center"
+			width="800" labelwidth='328' height="150"></div>
+			
+		<div id="toolbar" name="toolbar" vtype="toolbar" location="bottom"
+			align="center" width="100%">
+			<div name="save_button" vtype="button" text="保存" id='save_button'
+				icon="../query/queryssuo.png"  ></div>
+			<div name="reset_button" id="reset_button" vtype="button" text="重置"></div>
+			<div name="back_button" id="back_button" vtype="button" text="返回"
+						icon="../query/queryssuo.png" ></div>
+		</div>
+	</div>
+	
+	</div> 
+	<script type="text/javascript" src="../../../../static/js/config.js"></script> 
+	<script type="text/javascript" src="../../../../static/lib/require.js"  data-main="sysconfig/queryConfig.js"></script> 
+</body>
+</html>

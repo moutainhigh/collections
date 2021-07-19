@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../../../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+<script type='text/javascript' src='../../../../static/lib/jquery-1.8.3.js' ></script>
+<script type='text/javascript' src='../../../../static/lib/jquery-ui-1.9.2.custom.js' ></script>
+<script type='text/javascript' src='../../../../static/lib/JAZZ-UI/external/jquery-2.2.3.js' ></script>
+<script type='text/javascript' src='../../../../static/lib/JAZZ-UI/lib/jazz-all.js' ></script>
+<script type="text/javascript" src="../../../../static/lib/etpl.source.js"></script>
+<script type="text/javascript" src="../../../../static/js/template.js"></script>
+<script type="text/javascript" src="../../../../static/js/renderTemplate.js"></script>
+<style type="text/css">
+.line {
+    height:auto;
+}
+</style>
+
+<script>
+	var treeId, //当前选中的功能ID
+	nodeName, //当前选中的功能名称
+	treePid, //当前选中功能的上级功能ID
+	type, //功能类型
+	sjgnMc; //当前选中功能的上级功能名称
+	
+	var setting = {
+		data: {
+			simpleData: {
+				enable: true,
+				idKey: "id",
+				pIdKey: "pid"
+			}
+		},
+		check: { 
+            enable: true, 
+            chkboxType:{ "Y":'s', "N":'s'}, 
+        }, 
+		callback: {
+			onClick: treeOnClick
+		}
+	};
+	
+	
+	//点击菜单树节点	
+	function treeOnClick(event, treeId, treeNode){
+		type = treeNode.type;
+		treeId = treeNode.id;
+		treePid = treeNode.pid;
+		var pnode = treeNode.getParentNode();
+		$('#treeformpanel').formpanel('reset');
+		//菜单树配置页面
+		if("tree"==type){
+			$("#treeformpanel").show();
+			$("#frame").hide();
+			$('#treeformpanel').formpanel('option', 'dataurl',rootPath+
+					'/torch/config/treeDetail.do?treeId='+treeId);
+			$('#treeformpanel').formpanel('reload');
+			
+		}else if("root"==type){
+			$('#treeformpanel').formpanel('reset');
+			alert("已经是根节点了！！");
+		}else{
+			$("#treeformpanel").hide();
+			$("#frame").show();
+			if("func"==type){//function配置页面
+				$("#frame").attr("src", rootPath + "/page/admin/torch/sysconfig/functionConfig.html?functionId="+treeId);
+			}/* else if("edit"==type){//编辑配置页面
+				$("#frame").attr("src", rootPath + "/page/admin/torch/sysconfig/editConfig.html?configId="+treeId);
+			}
+			else if("query"==type){//查询配置页面
+				$("#frame").attr("src", rootPath + "/page/admin/torch/sysconfig/queryConfig.html?configId"+treeId);
+			}else{
+				jazz.warn("数据错误");
+			} */
+		}
+			
+		
+		
+		//clearForm();
+		/* treeId = treeNode.id;
+		nodeName = treeId=="0"? "" : treeNode.name ;
+		var pnode = treeNode.getParentNode();
+		treePid = pnode.id;
+		sjgnMc = treePid=="0"? "无" : pnode.name;
+		$("#sjgnMc").textfield("setValue", sjgnMc);
+		$('#treeformpanel').formpanel('reset');
+		$('#treeformpanel').formpanel('option', 'dataurl',rootPath+
+				'/auth/funcDetail.do?treeId='+treeId);
+		$('#treeformpanel').formpanel('reload'); */
+	}
+	
+	var tree;
+	
+	var rootPath=location.protocol+"//"+location.host+'/ebaic';
+	
+	
+	
+	function refreshAll(){
+		refreshFuncTree();
+	}
+	
+	function refreshFuncTree(){
+		treeId='', nodeName='',treePid='',sjgnMc='';
+		var params = {
+			url : rootPath+'/torch/config/queryFuncTree.do',
+			callback : function(data, r, res) { 
+				var data = data["data"];
+				tree = $.fn.zTree.init($("#funcTree"), setting, data);
+				tree.expandAll(true);
+			}
+		}
+		$.DataAdapter.submit(params);
+	}
+	
+	function editFunc(event, rowdata){
+		var treeId = rowdata.treeId;
+		$("#sjgnMc").textfield("setValue", selectedGnMc);
+		$('#treeformpanel').formpanel('option', 'dataurl',rootPath+
+				'/auth/funcDetail.do?treeId='+treeId);
+		$('#treeformpanel').formpanel('reload');
+	}
+	
+	function saveTree() {
+		var params = {
+			url : rootPath+'/torch/config/saveTree.do',
+			components : [ 'treeformpanel' ],
+			callback : function(data, r, res) { 
+				jazz.info("保存成功");
+				refreshAll();
+			}
+		};
+		$.DataAdapter.submit(params);
+	}
+	
+	function clearForm(){
+		$('#treeId').hiddenfield("setValue", "");
+		$('#nodeName').textfield("setValue", "");
+	}
+	
+	function addTree(){
+		if("func"==type){
+			jazz.error("当前为功能节点不能添加节点。");
+			return;
+		}
+		var pname = $("#pname").textfield("getValue");
+		$("#treeformpanel").formpanel("reset");
+		$("#treeformpanel").show();
+		$("#frame").hide();
+		$("#treePid").hiddenfield('setValue',treeId);
+		$("#pname").textfield("setValue",pname);
+	}
+	
+	function addFunc(){
+		if("func"==type){
+			jazz.error("当前为功能节点不能添加节点。");
+			return;
+		}
+		$("#treeformpanel").hide();
+		$("#frame").show();
+		$("#frame").attr("src", rootPath + "/page/admin/torch/sysconfig/functionConfig.html");
+		/* clearForm();
+		$("#treePid").hiddenfield("setValue", treeId);
+		$("#sjgnMc").textfield("setValue", nodeName); */
+	}
+	
+	function deleteFunc(){
+		var selectedData = tree.getCheckedNodes(true);
+		if(selectedData==null || selectedData.length==0){
+			jazz.warn("请选择要删除的功能");
+			return;
+		}
+		var funcIds = new Array();
+		$.each(selectedData, function(i, n){
+			funcIds.push(n.id);
+		});
+		var funcIdsStr = funcIds.join(","); 
+		jazz.confirm("确定删除所选节点？", function(){
+			var params = {
+				url : rootPath+'/auth/deleteFunc.do',
+				params: {
+					funcIdsStr : funcIdsStr
+				},
+				callback : function(data, r, res) { 
+					jazz.info("删除成功");
+					clearForm();
+					refreshAll();
+				}
+			}
+			$.DataAdapter.submit(params);
+		}, function(){})
+	}
+	$(document).ready(function(){
+		refreshFuncTree();
+	});
+	
+</script>
+</head>
+<body>
+	<div id="table" vtype="panel" showborder=false layout="auto" width="100%"> 
+        <div id="demo"  style="border-right: 1px solid #40adff;width: 24%;float:left;">
+        	<div id="toolbar" name="toolbar" vtype="toolbar" align="left">
+				<div id="addTree" name="addTree" vtype="button" text="新增树节点"
+					icon="../../../style/default/images/save.png" click="addTree()"></div>
+				<div id="addFunc" name="addFunc" vtype="button" text="新增功能"
+					icon="../../../style/default/images/save.png" click="addFunc()"></div>	
+				<div id="delete" name="delete" vtype="button" text="删除"
+					icon="../../../style/default/images/fh.png" click="deleteFunc()"></div>
+			</div>
+			<div id="funcTree" name="funcTree" class="ztree"  ></div>
+		</div>
+    	
+    	<div style="width:75%;float:left;">
+    	
+    		<iframe id="frame" name="frame" height="100%" width="100%" src=""
+				style="border: 0px;display:none"></iframe>
+	   	
+	   		<div id="treeformpanel" name="treeformpanel" vtype="formpanel" showborder=false
+				tableStyleClass="tablecss" titledisplay="true" title="层级配置"
+				width="100%" layout="table" 
+				layoutconfig="{cols:2, columnwidth: ['50%','*']}">
+				
+				<div name='treeId' id="treeId"  vtype="hiddenfield" label="功能ID" labelAlign="right"></div>
+				<div name='treePid' id="treePid" vtype="hiddenfield" label="上级功能ID" 
+					labelAlign="right" ></div>
+				<div name='nodeName' id="nodeName" vtype="textfield" label="节点名称" labelAlign="right"
+					labelwidth="150"rule="must" width="350"></div>
+				<div name='pname' id="pname" vtype="textfield" label="上级节点名称" labelAlign="right" 
+					labelwidth="150" readonly=true width="350" defaultvalue="无"></div>
+				<div name='levelPath' id="levelPath" vtype="textfield" label="当前层级路径" labelAlign="right" 
+					labelwidth="150" rule="must" width="350" defaultvalue="无"></div>
+				<div name='treeIndex' id="treeIndex" vtype="textfield" label="序号" labelAlign="right"
+					labelwidth="150" rule="must" width="350"></div> 
+				
+				<div id="toolbar" name="toolbar" vtype="toolbar" align="center">
+					<div id="save" name="save" vtype="button" text="保存"
+						icon="../../../style/default/images/save.png" click="saveTree()"></div>
+					<div id="reset" name="reset" vtype="button" text="重置"
+						icon="../../../style/default/images/fh.png" click="clearForm()"></div>
+				</div>
+			</div>
+			
+   		</div>
+   		<div class="jazz-clear-both" style="versible:hidden;width:0;height:0;line-height:0;font-size:0;"></div>
+    </div>
+
+</body>
+</html>

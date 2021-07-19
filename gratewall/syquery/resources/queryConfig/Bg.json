@@ -1,0 +1,186 @@
+{
+	title:"变更业务各种类型对应sql以及显示字段",
+	data:[
+		{
+			code:"03",
+			desc:"人员表",
+			sql:"select * from v_qy_nzwz_renyuanbiao where pripid = ? licflag = 'fddbr' ",
+			column:"POST,POSBRFORM,OFFHFROM,OFFHTO,APPOINTUNIT"
+		},{
+			code:"30",
+			desc:"股东表",
+			sql:"SELECT * from v_qy_nzwz_gudongbiao  where priPid = ? ",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"46",
+			desc:"人员表",
+			sql:"select * from v_qy_nzwz_zhuyaorenyuanbiao t where pripid = ? and licflag in( 'DSZ','QTDS','ZJL','JSCY','QT') ",
+			column:"POST,POSBRFORM,OFFHFROM,OFFHTO,APPOINTUNIT"
+		},{
+			code:"A3",
+			desc:"人员表",
+			sql:"select * from v_qy_nzwz_zhuyaorenyuanbiao t where pripid = ? and licflag in( 'DSZ','QTDS','ZJL','JSCY','QT') ",
+			column:"POST,POSBRFORM,OFFHFROM,OFFHTO,APPOINTUNIT"
+		},{
+			code:"A8",
+			desc:"隶属企业表",
+			sql:"select * from v_qy_nzwz_lishuqiye t where pripid = ?",
+			column:"ENTNAME,UNIFSOCICREDIDEN,REGNO,LEREP"
+		},{
+			code:"A9",
+			desc:"隶属企业表",
+			sql:"select * from v_qy_nzwz_lishuqiye t where pripid = ?",
+			column:"ENTNAME,UNIFSOCICREDIDEN,REGNO,LEREP"
+		},{
+			code:"B7",
+			desc:"主要人员表",
+			sql:"select * from v_qy_nzwz_zhuyaorenyuanbiao t where pripid = ? and licflag = 'fddbr' ",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"B8",
+			desc:"主要人员表",
+			sql:"select * from v_qy_nzwz_zhuyaorenyuanbiao t where pripid = ? and licflag in( 'DSZ','QTDS','ZJL','JSCY','QT') ",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"B9",
+			desc:"人员表",
+			sql:"select * from v_qy_nzwz_renyuanbiao where pripid = ? and licflag = 'jyz' ",
+			column:"POST,POSBRFORM,OFFHFROM,OFFHTO,APPOINTUNIT"
+		},{
+			code:"C3",
+			desc:"人员表",
+			sql:"select * from v_qy_nzwz_renyuanbiao where pripid = ? and licflag = 'fddbr' ",
+			column:"POST,POSBRFORM,OFFHFROM,OFFHTO,APPOINTUNIT"
+		},{
+			code:"C7",
+			desc:"股东表",
+			sql:"select * from v_qy_nzwz_gudongbiao t where pripid = ?  ",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"C9",
+			desc:"出资计划表",
+			sql:"select * from v_qy_nzwz_chuzijihua t where pripid = ?",
+			column:"CONTERMNO,CONFROM,CONTO,CURSUBCONAM,CURACTCONAM,ACCONDDTE"
+		},{
+			code:"D1",
+			desc:"许可信息表",
+			sql:"select * from v_qy_nzwz_xukexinxi t where pripid = ?",
+			column:"LICNAME,LICNO,VALFROM,VALTO"
+		},{
+			code:"D2",
+			desc:"股东表",
+			sql:"SELECT * from v_qy_nzwz_gudongbiao  where priPid = ?",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"D6",
+			desc:"隶属企业表",
+			sql:"select * from v_qy_nzwz_lishuqiye t where pripid = ?",
+			column:"ENTNAME,UNIFSOCICREDIDEN,REGNO,LEREP"
+		},{
+			code:"D7",
+			desc:"隶属企业表",
+			sql:"select * from v_qy_nzwz_lishuqiye t where pripid = ?",
+			column:"ENTNAME,UNIFSOCICREDIDEN,REGNO,LEREP"
+		},{
+			code:"D9",
+			desc:"股东表",
+			sql:"SELECT * from v_qy_nzwz_gudongbiao  where priPid = ?",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"E3",
+			desc:"主要人员表",
+			sql:"select * from v_qy_nzwz_zhuyaorenyuanbiao t where pripid = ? and (licflag= 'qsz' or licflag= 'qszcy') ",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"E7",
+			desc:"主要人员表",
+			sql:"select * from v_qy_nzwz_zhuyaorenyuanbiao t where pripid = ? and (licflag= 'qsz' or licflag= 'qszcy') ",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"E9",
+			desc:"股东表",
+			sql:"SELECT * from v_qy_nzwz_gudongbiao  where priPid = ?",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"F4",
+			desc:"主要人员表",
+			sql:"select * from v_qy_nzwz_zhuyaorenyuanbiao t where pripid = ? and licflag = 'hhrxx' ",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"G4",
+			desc:"人员表",
+			sql:"select * from v_qy_nzwz_renyuanbiao t where pripid = ? and licflag ='flwssdr' ",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"43",
+			desc:"人员表",
+			sql:"select * from v_qy_nzwz_renyuanbiao where pripid = ? and licflag = 'gslly' ",
+			column:"POST,POSBRFORM,OFFHFROM,OFFHTO,APPOINTUNIT"
+		},{
+			code:"42",
+			desc:"隶属企业表",
+			sql:"select * from v_qy_nzwz_lishuqiye t where pripid = ?",
+			column:"ENTNAME,UNIFSOCICREDIDEN,REGNO,LEREP"
+		},{
+			code:"44",
+			desc:"许可信息表",
+			sql:"select * from v_qy_nzwz_xukexinxi t where pripid = ?",
+			column:"LICNAME,LICNO,VALFROM,VALTO"
+		},{
+			code:"45",
+			desc:"股权变更和公证书",
+			sql:"select * from v_qy_nzwz_guquanbiangeng t where pripid = ? and licflag in( 'DSZ','QTDS','ZJL','JSCY','QT') ",
+			column:"ALTDATE,ALTITEM,ALTBE,ALTAF"
+		},{
+			code:"47",
+			desc:"主要人员表",
+			sql:"select * from v_qy_nzwz_zhuyaorenyuanbiao t where pripid = ? and licflag in( 'DSZ','QTDS','ZJL','JSCY','QT') ",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"49",
+			desc:"主要人员表",
+			sql:"select * from v_qy_nzwz_zhuyaorenyuanbiao t where pripid = ? and licflag in( 'DSZ','QTDS','ZJL','JSCY','QT') ",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"70",
+			desc:"主要人员表",
+			sql:"select * from v_qy_nzwz_zhuyaorenyuanbiao t where pripid = ? and licflag in( 'DSZ','QTDS','ZJL','JSCY','QT') ",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"73",
+			desc:"主要人员表",
+			sql:"select * from v_qy_nzwz_zhuyaorenyuanbiao t where pripid = ? and licflag in ('qsz','qszcy') ",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"74",
+			desc:"主要人员表",
+			sql:"select * from v_qy_nzwz_zhuyaorenyuanbiao t where pripid = ?",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"15",
+			desc:"隶属企业表",
+			sql:"select * from v_qy_nzwz_lishuqiye t where pripid = ?",
+			column:"ENTNAME,UNIFSOCICREDIDEN,REGNO,LEREP"
+		},{
+			code:"B2",
+			desc:"隶属企业表",
+			sql:"select * from v_qy_nzwz_lishuqiye t where pripid = ?",
+			column:"ENTNAME,UNIFSOCICREDIDEN,REGNO,LEREP"
+		},{
+			code:"11",
+			desc:"股东表",
+			sql:"SELECT * from v_qy_nzwz_gudongbiao  where priPid = ?",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		},{
+			code:"19",
+			desc:"隶属企业表",
+			sql:"select * from v_qy_nzwz_lishuqiye t where pripid = ?",
+			column:"ENTNAME,UNIFSOCICREDIDEN,REGNO,LEREP"
+		},{
+			code:"48",
+			desc:"主要人员表",
+			sql:"select * from v_qy_nzwz_zhuyaorenyuanbiao t where pripid = ? and licflag in( 'DSZ','QTDS','ZJL','JSCY','QT') ",
+			column:"PERSNAME,SEX,CERTYPE,CERNO"
+		}
+	]
+}

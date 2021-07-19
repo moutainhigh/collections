@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>日志查询</sort-name>
+  <table-info name="collect_joumal" class-name="com.gwssi.log.collectlog.dao.CollectJoumal" check-flag="false" backup-flag="false">
+    <description>采集日志查询</description>
+  </table-info>
+
+  <column name="collect_joumal_id" data-type="varchar" length="32" not-null="true" value-from="UUID" description="采集日志ID"/>
+  <column name="collect_task_id" data-type="varchar" length="32" not-null="false" value-from="input" description="采集任务ID"/>
+  <column name="task_name" data-type="varchar" length="100" not-null="false" value-from="input" description="任务名称"/>
+  <column name="method_name_cn" data-type="varchar" length="100" not-null="false" value-from="input" description="方法名称"/>
+  <column name="collect_table_name" data-type="varchar" length="100" not-null="false" value-from="input" description="采集表名称"/>
+  
+  <column name="service_targets_id" data-type="varchar" length="32" not-null="false" value-from="input" description="服务对象ID"/>
+  <column name="service_targets_name" data-type="varchar" length="100" not-null="false" value-from="input" description="服务对象名称"/>
+  <column name="collect_type" data-type="varchar" length="20" not-null="false" value-from="input" description="代码表 ftp"/>
+  <column name="task_id" data-type="varchar" length="32" not-null="false" value-from="input" description="任务ID"/>
+  <column name="service_no" data-type="varchar" length="20" not-null="false" value-from="input" description="任务编号"/>
+  <column name="task_start_time" data-type="timestamp" length="11" fraction-length="6" not-null="false" value-from="input" description="任务开始时间"/>
+  <column name="task_end_time" data-type="timestamp" length="11" fraction-length="6" not-null="false" value-from="input" description="任务结束时间"/>
+  <column name="task_consume_time" data-type="varchar" length="10" not-null="false" value-from="input" description="单位毫秒"/>
+  <column name="collect_data_amount" data-type="varchar" length="10" not-null="false" value-from="input" description="本次采集数据量"/>
+  <column name="task_status" data-type="varchar" length="20" not-null="false" value-from="input" description="代码表 正常 失败"/>
+  <column name="patameter" data-type="varchar" length="100" not-null="false" value-from="input" description="入口参数"/>
+  <column name="return_codes" data-type="varchar" length="20" not-null="false" value-from="input" description="代码表 数据交换产生错误数据编号"/>
+  <primary-key name="collect_joumal_pk" column-list="collect_joumal_id"/>
+  <index name="collect_joumal_pk" index-type="unique" cluster="cluster" column-list="collect_joumal_id"/>
+  <function func-name="select collect_joumal list" func-type="rowset" column-list="collect_joumal_id,collect_task_id,task_name,method_name_cn,collect_table_name,service_targets_id,service_targets_name,collect_type,task_id,service_no,task_start_time,task_end_time,task_consume_time,collect_data_amount,task_status,patameter,return_codes" max-record="10">
+    <filter-column column-name="service_targets_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="collect_type" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="task_status" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="task_start_time" operator="between" value-from="input" value-item="task_start_time" value-item2="task_start_time_end" empty-flag="skip"/>
+    <filter-column column-name="task_name" operator="like" value-from="input" empty-flag="skip" />
+    
+    <description>多记录查询</description>
+  </function>
+</table>
+

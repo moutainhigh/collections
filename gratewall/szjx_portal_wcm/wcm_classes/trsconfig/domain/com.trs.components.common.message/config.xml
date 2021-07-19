@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0" id="components.common.message">
+	<!--Config for Message Sending Style Begin-->
+	<extension 
+		element-class="com.trs.components.common.message.MessageSendingConfig" 
+		id="MsgSending">
+		<msg-sender>
+			<name>Message</name>
+			<description>在线短消息</description>
+			<worker>MsgSendWorker</worker>
+		</msg-sender>
+		<msg-sender>
+			<name>Email</name>
+			<description>电子邮件</description>
+			<worker>EmailSendWorker</worker>
+		</msg-sender>
+		<msg-sender>
+			<name>SMS</name>
+			<description>手机短信</description>
+			<worker>SMSSendWorker</worker>
+		</msg-sender>
+	</extension>
+	<!--Config for Message Sending Style END-->
+	
+</plugin>

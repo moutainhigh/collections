@@ -1,0 +1,203 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>TRS WCMV6 图片库检索</title>
+<link href="../style/style.css" rel="stylesheet" type="text/css">
+<script src="../js/com.trs.util/Common.js"></script>
+<script>
+	$import('wcm52.calendar.Calendar');	
+</script>
+<script>
+var oParent = window.dialogArguments;
+function Ok() {
+	if(!validateTimeRange()) return;
+	
+	var oTopArgs = new oParent.Object();
+	var oArgs = {
+		DocStatus : document.getElementById("DocStatus").value || "",
+		DocTitle : document.getElementById("DocTitle").value || "",
+		Author : document.getElementById("Author").value || "",
+		CrUser : document.getElementById("CrUser").value || "",
+		DocKeywords : document.getElementById("Keywords").value || "",
+		//DocContent : document.getElementById("DocDesc").value || "",
+		DocPeople : document.getElementById("People").value || "",
+		DocPlace : document.getElementById("Place").value || "",
+		StartDate : document.getElementById("StartTime").value || "",
+		EndDate : document.getElementById("EndTime").value || ""
+	};
+	if(oArgs["DocStatus"] == 1){
+		oArgs["DocStatus"] = "10";
+	}else if(oArgs["DocStatus"] == 2){
+		oArgs["NotDocStatus"] = "10";
+		delete oArgs["DocStatus"];
+	}
+	else{
+		delete oArgs["DocStatus"];
+	}
+	Object.extend(oTopArgs,oArgs);
+	oParent.PageContext.DoSearch(oTopArgs);
+	setTimeout(function(){
+		window.close();
+	},10);
+}
+function validateTimeRange(){
+	var dtStart = document.getElementById("StartTime").value || "";	
+	var dtEnd = document.getElementById("EndTime").value || "";
+	
+	if(dtStart.length == 0 && dtEnd.length == 0){
+		return true;
+	}else if(dtEnd.length == 0){
+		alert("没有指定结束时间！");
+		return false;
+	}else if(dtStart.length == 0){
+		alert("没有指定开始时间！");
+		return false;
+	}
+
+	dtStart = Date.parseDate(dtStart,"%y-%m-%d %H-%M");
+	dtEnd = Date.parseDate(dtEnd,"%y-%m-%d %H-%M");
+	
+	if ((dtEnd.getTime() - dtStart.getTime()) <= 0){
+		alert("无效的时间段：结束时间早于或等于开始时间！");
+		return false;
+	}
+
+	return true;
+}
+</script>
+<style>
+body{
+	background:#ccc;
+	padding:20px 10px 5px;
+}
+body td{
+	font-size:12px;
+}
+.input_text{
+	border:1px solid black;
+	width:200px;
+}
+.btn{
+	height: 22px;
+	background: #eeeeee;
+	border: solid 1px silver;
+	font-size: 12px;
+	padding: 3px;
+	padding-right: 3px;
+	cursor:hand;
+}
+.attr_name{
+	font:bold 12px;
+	text-align:right;
+	margin:5px 10px;
+	padding:5px 10px;
+}
+.td_time{
+	font:12px;
+}
+.input_text{
+	height:20px;
+	border:1px solid black;
+	margin:0 1px;
+}
+.button{
+	margin:0 5px;
+	width:80px;
+	border:1px solid gray;
+	height:20px;
+	text-align:center;
+	padding-top:2px;
+}
+</style>
+</head>
+<body>
+	<table border="0" cellspacing="0" cellpadding="0">
+	<tbody>
+		<tr>
+			<td class="attr_name">状态</td>
+			<td>
+				<select name="DocStatus" id="DocStatus">
+					<option value="" selected>全部
+					<option value="1">已发布
+					<option value="2">未发布
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name">标题</td>
+			<td>
+				<input type="text" name="DocTitle" id="DocTitle" class="input_text">
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name">作者</td>
+			<td>
+				<input type="text" name="Author" id="Author" class="input_text">
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name">创建人</td>
+			<td>
+				<input type="text" name="CrUser" id="CrUser" class="input_text">
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name">关键词</td>
+			<td>
+				<input type="text" name="Keywords" id="Keywords" class="input_text">
+			</td>
+		</tr>
+		<!--tr>
+			<td class="attr_name">描述</td>
+			<td>
+				<input type="text" name="DocDesc" id="DocDesc" class="input_text">
+			</td>
+		</tr-->
+		<tr>
+			<td class="attr_name">人物</td>
+			<td>
+				<input type="text" name="People" id="People" class="input_text">
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name">地点</td>
+			<td>
+				<input type="text" name="Place" id="Place" class="input_text">
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name">创建时间</td>
+			<td class="td_time">
+				从&nbsp;&nbsp;&nbsp;&nbsp;
+				<script>
+				var oLastDay = new Date();
+				oLastDay.setTime(oLastDay.getTime()-24*60*60*1000);
+				TRSCalendar.drawWithTime("StartTime",oLastDay.toString("%yyyy-%mm-%dd %H24:%M") , true, true);</script>
+				&nbsp;&nbsp;(开始)
+			</td>
+		</tr>
+		<tr>
+			<td class="attr_name">&nbsp;</td>
+			<td class="td_time">
+				至&nbsp;&nbsp;&nbsp;&nbsp;
+				<script>
+				var oNow = new Date();
+				TRSCalendar.drawWithTime("EndTime",oNow.toString("%yyyy-%mm-%dd %H24:%M") , true, true);</script>
+				&nbsp;&nbsp;(结束)
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center" height="60">
+		<button onclick="Ok();" class="button">确定</button><button onclick="window.close();" class="button">取消</button>
+			</td>			
+		</tr>
+	</tbody>
+	</table>		
+	<script language="javascript">
+	<!--
+		document.getElementById("StartTime").value = '';
+		document.getElementById("EndTime").value = '';
+	//-->
+	</script>
+</body>
+</html>

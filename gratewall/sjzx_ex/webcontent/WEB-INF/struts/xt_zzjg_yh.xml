@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>用户管理</menu-name>
+  <menu-path>/page/sysmgr/user/</menu-path>
+  <description>用户管理</description>
+  <form-beans>
+    <form-bean name="Xt_zzjg_yhRowsetForm">
+      <description>用户管理多记录查询表单</description>
+      <form-property prefix="select-key" name="yhzh" type="string" size="20" cannull="false" description="用户帐号"/>
+      <form-property prefix="select-key" name="yhxm" type="string" size="20" cannull="false" description="用户姓名"/>
+      <form-property prefix="select-key" name="jgid_fk" type="string" size="50" cannull="true" description="所属机构ID"/>
+      <form-property prefix="select-key" name="mainrole" type="string" size="32" cannull="true" description="角色ID列表"/>
+      <form-property prefix="select-key" name="jgname" type="string" size="60" cannull="true" description="机构名称"/>
+      <form-property prefix="select-key" name="mainrolename" type="string" size="60" cannull="true" description="角色名称"/>
+      <form-property prefix="select-key" name="rolenames" type="string" size="2000" cannull="true" description="角色名称"/>
+      <form-property prefix="select-key" name="sfyx" type="string" size="2" cannull="false" description="是否有效"/>
+      
+      <form-property prefix="record" name="yhid_pk" type="string" size="32" cannull="false" description="用户ID"/>
+      <form-property prefix="record" name="jgid_fk" type="string" size="50" cannull="true" description="所属机构ID"/>
+      <form-property prefix="record" name="yhbh" type="string" size="20" cannull="false" description="用户编号"/>
+      <form-property prefix="record" name="yhzh" type="string" size="20" cannull="false" description="用户帐号"/>
+      <form-property prefix="record" name="yhmm" type="string" size="32" cannull="true" description="用户密码"/>
+      <form-property prefix="record" name="yhxm" type="string" size="20" cannull="false" description="用户姓名"/>
+      <form-property prefix="record" name="sfyx" type="string" size="2" cannull="false" description="是否有效"/>
+      <form-property prefix="record" name="plxh" type="int" cannull="true" description="排列序号"/>
+      <form-property prefix="record" name="sfz" type="string" size="20" cannull="true" description="身份证号"/>
+      <form-property prefix="record" name="zw" type="string" size="64" cannull="true" description="职位"/>
+      <form-property prefix="record" name="zyzz" type="string" size="255" cannull="true" description="主要职责"/>
+      <form-property prefix="record" name="gzdh" type="string" size="20" cannull="true" description="工作电话"/>
+      <form-property prefix="record" name="lxdh" type="string" size="20" cannull="true" description="联系电话"/>
+      <form-property prefix="record" name="qtlxfs" type="string" size="64" cannull="true" description="其他联系方式"/>
+      <form-property prefix="record" name="dzyx" type="string" size="64" cannull="true" description="电子邮件"/>
+      <form-property prefix="record" name="bz" type="string" size="255" cannull="true" description="备注"/>
+      <form-property prefix="record" name="jzjgid" type="string" size="2000" cannull="true" description="兼职机构ID"/>
+      <form-property prefix="record" name="roleids" type="string" size="2000" cannull="true" description="角色ID列表"/>
+      <form-property prefix="record" name="mainrole" type="string" size="20" cannull="true" description="主角色"/>
+      <form-property prefix="record" name="jgname" type="string" size="60" cannull="false" description="所属机构名称"/>
+      <form-property prefix="record" name="jzjgname" type="string" size="2000" cannull="true" description="兼职机构名称"/>
+      <form-property prefix="record" name="rolenames" type="string" size="2000" cannull="true" description="角色名称列表"/>
+      <form-property prefix="record" name="mainrolename" type="string" size="60" cannull="true" description="主角色名称"/>
+      <form-property prefix="record" name="roletype" type="string" size="3" cannull="true" description="用户类型"/>
+      <form-property prefix="record" name="maxline" type="long" cannull="true" description="最大同时在线数"/>
+      <form-property prefix="record" name="isneedkey" type="string" size="1" cannull="true" description="是否需要证书"/>
+      <form-property prefix="record" name="keynumber" type="string" size="32" cannull="true" description="证书编号"/>
+      <form-property prefix="record" name="last_login_time" type="string" size="32" cannull="true" description="最后登录时间"/>
+    </form-bean>
+
+    <form-bean name="Xt_zzjg_yhUpdateForm">
+      <description>用户管理单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="yhid_pk" type="string" size="32" cannull="false" description="用户ID"/>
+      <form-property prefix="primary-key" name="jgid_fk" type="string" size="32" cannull="false" description="所属机构ID"/>
+      <form-property prefix="record" name="yhid_pk" type="string" size="32" cannull="false" description="用户ID"/>
+      <form-property prefix="record" name="yhbh" type="string" size="20" cannull="false" description="用户编号"/>
+      <form-property prefix="record" name="jgid_fk" type="string" size="32" cannull="true" description="所属机构ID"/>
+      <form-property prefix="record" name="yhzh" type="string" size="20" cannull="false" description="用户帐号"/>
+      <form-property prefix="record" name="yhmm" type="string" size="32" cannull="true" description="用户密码"/>
+      <form-property prefix="record" name="yhxm" type="string" size="20" cannull="false" description="用户姓名"/>
+      <form-property prefix="record" name="sfyx" type="string" size="2" cannull="false" description="是否有效"/>
+      <form-property prefix="record" name="plxh" type="int" cannull="true" description="排列序号"/>
+      <form-property prefix="record" name="sfz" type="string" size="20" cannull="true" description="身份证号"/>
+      <form-property prefix="record" name="zw" type="string" size="64" cannull="true" description="职位"/>
+      <form-property prefix="record" name="zyzz" type="string" size="255" cannull="true" description="主要职责"/>
+      <form-property prefix="record" name="gzdh" type="string" size="20" cannull="true" description="工作电话"/>
+      <form-property prefix="record" name="lxdh" type="string" size="20" cannull="true" description="联系电话"/>
+      <form-property prefix="record" name="qtlxfs" type="string" size="64" cannull="true" description="其他联系方式"/>
+      <form-property prefix="record" name="dzyx" type="string" size="64" cannull="true" description="电子邮件"/>
+      <form-property prefix="record" name="bz" type="string" size="255" cannull="true" description="备注"/>
+      <form-property prefix="record" name="jzjgid" type="string" size="2000" cannull="true" description="兼职机构ID"/>
+      <form-property prefix="record" name="roleids" type="string" size="2000" cannull="true" description="角色ID列表"/>
+      <form-property prefix="record" name="mainrole" type="string" size="20" cannull="true" description="主角色"/>
+      <form-property prefix="record" name="jgname" type="string" size="60" cannull="false" description="所属机构名称"/>
+      <form-property prefix="record" name="jzjgname" type="string" size="2000" cannull="true" description="兼职机构名称"/>
+      <form-property prefix="record" name="rolenames" type="string" size="2000" cannull="true" description="角色名称列表"/>
+      <form-property prefix="record" name="mainrolename" type="string" size="60" cannull="true" description="主角色名称"/>
+      <form-property prefix="record" name="roletype" type="string" size="3" cannull="true" description="用户类型"/>
+      <form-property prefix="record" name="maxline" type="long" cannull="true" description="最大同时在线数"/>
+      <form-property prefix="record" name="isneedkey" type="string" size="1" cannull="true" description="是否需要证书"/>
+      <form-property prefix="record" name="keynumber" type="string" size="32" cannull="true" description="证书编号"/>
+    </form-bean>
+
+    <form-bean name="Xt_zzjg_yhDeleteForm">
+      <description>用户管理多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="yhid_pk" type="string" size="32" cannull="false" description="用户ID"/>
+      <form-property prefix="primary-key" name="yhxm" type="string" size="20" cannull="false" description="用户姓名"/>
+    </form-bean>
+
+    <form-bean name="Xt_yhModifyPwdForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="input-data" name="yhmm" type="string" cannull="true" description="新密码"/>
+      <form-property prefix="input-data" name="yhzh" type="string" size="32" cannull="false" description="用户帐号"/>
+      <form-property prefix="input-data" name="jmm" type="string" size="32" cannull="true" description="旧密码"/>
+      <form-property prefix="input-data" name="qrmm" type="string" size="32" cannull="true" description="确认密码"/>
+    </form-bean>
+    <form-bean name="Xt_zzjg_yhIntePswForm">
+      <description>初始化密码</description>
+      <form-property prefix="primary-key" name="yhid_pk" type="string" size="32" cannull="false" description="用户ID"/>
+      <form-property prefix="record" name="yhmm" type="string" size="32" cannull="true" description="用户密码"/>
+      <form-property prefix="record" name="mmxgrq" type="string" size="32" cannull="true" description="用户密码"/>
+      <form-property prefix="primary-key" name="yhxm" type="string" size="20" cannull="false" description="用户姓名"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-yhgl.jsp" name="Xt_zzjg_yhRowsetForm" txn-code="807001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询用户列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.user.txn.TxnXt_zzjg_yh" func-name="txn807001" input-node="select-key" output-node="record"/>
+      <forward error-code="success" path="query-yhgl.jsp" redirect="false"/>
+      <forward error-code="failure" path="query-yhgl.jsp" redirect="false"/>
+    </action>
+
+    <action input="org-query-yhgl.jsp" name="Xt_zzjg_yhRowsetForm" txn-code="807011" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>机构内查询用户列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.user.txn.TxnXt_zzjg_yh" func-name="txn807011" input-node="select-key" output-node="record"/>
+      <forward error-code="success" path="org-query-yhgl.jsp" redirect="false"/>
+      <forward error-code="failure" path="org-query-yhgl.jsp" redirect="false"/>
+    </action>
+
+    <action input="query-yhgl.jsp" name="Xt_zzjg_yhUpdateForm" txn-code="807004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询用户用于修改</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.user.txn.TxnXt_zzjg_yh" func-name="txn807004" input-node="primary-key" output-node="record"/>
+      <forward error-code="success" path="update-yhgl.jsp" redirect="false"/>
+      <forward error-code="failure" path="update-yhgl.jsp" redirect="false"/>
+    </action>
+    
+    <action input="org-query-yhgl.jsp" name="Xt_zzjg_yhUpdateForm" txn-code="807014" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>机构内查询用户用于修改</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.user.txn.TxnXt_zzjg_yh" func-name="txn807004" input-node="primary-key" output-node="record"/>
+      <forward error-code="success" path="org-update-yhgl.jsp" redirect="false"/>
+      <forward error-code="failure" path="org-update-yhgl.jsp" redirect="false"/>
+    </action>
+
+    <action input="update-yhgl.jsp" name="Xt_zzjg_yhUpdateForm" txn-code="807002" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>修改用户资料</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.user.txn.TxnXt_zzjg_yh" func-name="txn807002" input-node="record" output-node="record"/>
+      <forward error-code="success" path="update-yhgl.jsp" redirect="false"/>
+      <forward error-code="failure" path="update-yhgl.jsp" redirect="false"/>
+    </action>
+    <action input="org-update-yhgl.jsp" name="Xt_zzjg_yhUpdateForm" txn-code="807012" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>机构内修改用户资料</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.user.txn.TxnXt_zzjg_yh" func-name="txn807002" input-node="record" />
+      <forward error-code="success" path="org-update-yhgl.jsp" redirect="false"/>
+      <forward error-code="failure" path="org-update-yhgl.jsp" redirect="false"/>
+    </action>
+
+    <action input="insert-yhgl.jsp" name="Xt_zzjg_yhUpdateForm" txn-code="807003" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>增加用户资料</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.user.txn.TxnXt_zzjg_yh" func-name="txn807003" input-node="record" output-node="record"/>
+      <forward error-code="success" path="insert-yhgl.jsp" redirect="false"/>
+      <forward error-code="failure" path="insert-yhgl.jsp" redirect="false"/>
+    </action>
+
+    <action input="org-insert-yhgl.jsp" name="Xt_zzjg_yhUpdateForm" txn-code="807013" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>机构内增加用户资料</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.user.txn.TxnXt_zzjg_yh" func-name="txn807003" input-node="record"/>
+      <forward error-code="success" path="org-insert-yhgl.jsp" redirect="false"/>
+      <forward error-code="failure" path="org-insert-yhgl.jsp" redirect="false"/>
+    </action>
+    <action input="query-yhgl.jsp" name="Xt_zzjg_yhDeleteForm" txn-code="807005" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>停用用户</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.user.txn.TxnXt_zzjg_yh" func-name="txn807005" input-node="primary-key" description="停用用户"/>
+      <forward error-code="success" path="/txn807001.do" redirect="false"/>
+      <forward error-code="failure" path="/txn807001.do" redirect="false"/>
+    </action>
+
+    <action input="modifypwd-yhgl.jsp" name="Xt_yhModifyPwdForm" txn-code="807006" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>修改用户密码信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.user.txn.TxnXt_zzjg_yh" func-name="txn807006" input-node="input-data" output-node="input-data" description="修改用户密码信息"/>
+      <forward error-code="success" path="modifypwd-yhgl.jsp" redirect="false"/>
+      <forward error-code="failure" path="modifypwd-yhgl.jsp" redirect="false"/>
+    </action>
+
+    <action input="query-yhgl.jsp" name="Xt_zzjg_yhIntePswForm" txn-code="807007" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>初始化用户密码</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.user.txn.TxnXt_zzjg_yh" func-name="txn807007" input-node="primary-key" output-node="record" description="初始化用户密码"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp" redirect="false"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp" redirect="false"/>
+    </action>
+    
+    <action input="query-yhgl.jsp" name="Xt_zzjg_yhDeleteForm" txn-code="807008" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">    
+      <description>启用用户</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.user.txn.TxnXt_zzjg_yh" func-name="txn807008" input-node="primary-key" description="启用用户"/>
+      <forward error-code="success" path="/txn807001.do" redirect="false"/>
+      <forward error-code="failure" path="/txn807001.do" redirect="false"/>
+    </action>
+    
+    <action input="query-yhgl.jsp" name="Xt_zzjg_yhRowsetForm" txn-code="807009" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="false">    
+      <description>校验账号</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.user.txn.TxnXt_zzjg_yh" func-name="txn807009" input-node="select-key" output-node="record" description="校验账号"/>
+      <forward error-code="success" path="query-yhgl.jsp" redirect="false"/>
+      <forward error-code="failure" path="query-yhgl.jsp" redirect="false"/>
+    </action>      
+       
+  </action-mappings>
+
+  <jsp-pages>
+    <jsp-page name="query-yhgl.jsp" txn-code="807001" width="650" height="350" description="查询用户列表">
+      <frame frame-name="select-key" frame-type="query" caption="查询条件" width="95%">
+        <field field-name="yhzh" field-type="text" caption="用户帐号" property="style=width:90%,datatype=string,maxlength=20"/>
+        <field field-name="yhxm" field-type="text" caption="用户姓名" property="style=width:90%,datatype=string,maxlength=20"/>
+        <field field-name="jgid_fk" field-type="browsebox" caption="所属机构" value-set="orglist" property="style=width:90%,datatype=string,maxlength=32,show=name,data=value"/>
+        <field field-name="roleids" field-type="browsebox" caption="所属角色" value-set="用户角色信息" property="style=width:90%,show=name,data=value"/>
+      </frame>
+
+      <frame frame-name="record" frame-type="grid" caption="用户管理列表" keylist="record:yhid_pk" width="95%" property="navbar=bottom,fixrow=true">
+        <button button-name="record_addRecord" function-name="addRecord" caption="增加用户" next-page="insert-yhgl.jsp" hint="增加用户" txn-code="807003" property="enablerule=0,hotkey=ADD"/>
+        <button button-name="record_updateRecord" function-name="updateRecord" caption="修改用户" next-page="/txn807004.do" hint="修改用户" page-variable="primary-key:yhid_pk" value-list="record:yhid_pk" txn-code="807004" property="enablerule=1,hotkey=UPDATE"/>
+        <button button-name="record_deleteRecord" function-name="deleteRecord" caption="删除用户" next-page="/txn807005.do" hint="删除用户" page-variable="primary-key:yhid_pk" value-list="record:yhid_pk" txn-code="807005" property="enablerule=2,hotkey=DELETE"/>
+        <button button-name="psw-inte" function-name="intePsw" caption="重置密码" next-page="/txn807007.do" hint="初始化用户密码" property="align=right,enablerule=2,hotkey=UPDATE"/>
+        <field field-name="yhid_pk" field-type="hidden" caption="用户ID" property="style=width:10%,datatype=string,maxlength=32"/>
+        <field field-name="jgid_fk" field-type="cell" caption="所属机构" value-set="orglist" property="style=width:15%,show=name"/>
+        <field field-name="yhzh" field-type="cell" caption="用户帐号" property="style=width:15%,datatype=string,maxlength=20"/>
+        <field field-name="yhxm" field-type="cell" caption="用户姓名" property="style=width:15%,datatype=string,maxlength=20"/>
+        <field field-name="sfyx" field-type="cell" caption="是否有效" property="style=width:10%,datatype=string,maxlength=2"/>
+        <field field-name="zw" field-type="cell" caption="职位" property="style=width:15%,datatype=string,maxlength=64"/>
+        <field field-name="roleids" field-type="cell" caption="角色ID列表" property="style=width:30%,datatype=string,maxlength=2000"/>
+      </frame>
+
+    </jsp-page>
+
+    <jsp-page name="insert-yhgl.jsp" txn-code="807003" width="650" height="350" description="增加用户信息">
+      <frame frame-name="record" frame-type="block" caption="增加用户管理" width="95%">
+        <button button-name="record_saveRecord" function-name="saveRecord" caption="保 存" next-page="/txn807003.do" hint="保存用户信息" txn-code="807003" property="hotkey=SAVE"/>
+        <button button-name="record_goBack" function-name="goBack" caption="返 回" next-page="/txn807001.do" hint="返回到用户明细窗口" property="hotkey=CLOSE"/>
+        <field field-name="yhid_pk" field-type="hidden" caption="用户ID" property="style=width:90%,datatype=string,maxlength=32,minlength=1"/>
+        <field field-name="jgid_fk" field-type="browsebox" caption="所属机构" value-set="orglist" property="style=width:90%,datatype=string,maxlength=32,show=name,data=value"/>
+        <field field-name="yhzh" field-type="text" caption="用户帐号" property="style=width:90%,datatype=string,maxlength=20,minlength=1"/>
+        <field field-name="yhmm" field-type="password" caption="用户密码" property="style=width:90%,datatype=string,maxlength=32"/>
+        <field field-name="yhxm" field-type="text" caption="用户姓名" property="style=width:90%,datatype=string,maxlength=20,minlength=1"/>
+        <field field-name="sfyx" field-type="select" caption="是否有效" value-set="orgstatus" property="style=width:90%,datatype=string,maxlength=2,minlength=1"/>
+        <field field-name="plxh" field-type="text" caption="排列序号" property="style=width:90%,datatype=string,maxlength=10"/>
+        <field field-name="sfz" field-type="text" caption="身份证号" property="style=width:90%,datatype=string,maxlength=20"/>
+        <field field-name="zw" field-type="text" caption="职位" property="style=width:90%,datatype=string,maxlength=64"/>
+        <field field-name="zyzz" field-type="textarea" caption="主要职责" property="style=width:90%,datatype=string,maxlength=255,colspan=2,rows=2"/>
+        <field field-name="gzdh" field-type="text" caption="工作电话" property="style=width:90%,datatype=string,maxlength=20"/>
+        <field field-name="lxdh" field-type="text" caption="联系电话" property="style=width:90%,datatype=string,maxlength=20"/>
+        <field field-name="qtlxfs" field-type="text" caption="其他联系方式" property="style=width:90%,datatype=string,maxlength=64"/>
+        <field field-name="dzyx" field-type="text" caption="电子邮件" property="style=width:90%,datatype=string,maxlength=64"/>
+        <field field-name="bz" field-type="textarea" caption="备注" property="style=width:90%,datatype=string,maxlength=255,colspan=2,rows=5"/>
+        <field field-name="jzjgid" field-type="browsebox" caption="兼职机构" value-set="orglist" property="style=width:90%,datatype=string,maxlength=2000,show=name,data=value,multiple=true"/>
+        <field field-name="roleids" field-type="browsebox" caption="所属角色" value-set="用户角色信息" property="style=width:90%,datatype=string,maxlength=2000,show=name,data=value,multiple=true"/>
+        <field field-name="mainrole" field-type="browsebox" caption="主角色" value-set="用户角色信息" property="style=width:90%,datatype=string,maxlength=10,show=name,data=value"/>
+      </frame>
+
+    </jsp-page>
+
+    <jsp-page name="update-yhgl.jsp" txn-code="807002" width="650" height="350" description="修改用户信息">
+      <frame frame-name="primary-key" frame-type="frame" width="95%">
+        <field field-name="yhid_pk" field-type="hidden" caption="用户ID" property="style=width:90%,datatype=string,maxlength=32"/>
+      </frame>
+
+      <frame frame-name="record" frame-type="block" caption="修改用户管理" width="95%">
+        <button button-name="record_saveAndExit" function-name="saveAndExit" caption="保 存" next-page="/txn807002.do" hint="修改用户信息" txn-code="807002" property="hotkey=SAVE"/>
+        <button button-name="record_goBack" function-name="goBack" caption="返 回" next-page="/txn807001.do" hint="返回到明细窗口" property="hotkey=CLOSE"/>
+        <field field-name="yhid_pk" field-type="hidden" caption="用户ID" property="style=width:90%,datatype=string,maxlength=32"/>
+        <field field-name="jgid_fk" field-type="text" caption="所属机构ID" property="style=width:90%,datatype=string,maxlength=32"/>
+        <field field-name="yhzh" field-type="text" caption="用户帐号" property="style=width:90%,datatype=string,maxlength=20,minlength=1"/>
+        <field field-name="yhmm" field-type="text" caption="用户密码" property="style=width:90%,datatype=string,maxlength=32"/>
+        <field field-name="yhxm" field-type="text" caption="用户姓名" property="style=width:90%,datatype=string,maxlength=20,minlength=1"/>
+        <field field-name="sfyx" field-type="text" caption="是否有效" property="style=width:90%,datatype=string,maxlength=2,minlength=1"/>
+        <field field-name="plxh" field-type="text" caption="排列序号" property="style=width:90%,datatype=string,maxlength=10"/>
+        <field field-name="sfz" field-type="text" caption="身份证号" property="style=width:90%,datatype=string,maxlength=20"/>
+        <field field-name="zw" field-type="text" caption="职位" property="style=width:90%,datatype=string,maxlength=64"/>
+        <field field-name="zyzz" field-type="text" caption="主要职责" property="style=width:90%,datatype=string,maxlength=255"/>
+        <field field-name="gzdh" field-type="text" caption="工作电话" property="style=width:90%,datatype=string,maxlength=20"/>
+        <field field-name="lxdh" field-type="text" caption="联系电话" property="style=width:90%,datatype=string,maxlength=20"/>
+        <field field-name="qtlxfs" field-type="text" caption="其他联系方式" property="style=width:90%,datatype=string,maxlength=64"/>
+        <field field-name="dzyx" field-type="text" caption="电子邮件" property="style=width:90%,datatype=string,maxlength=64"/>
+        <field field-name="bz" field-type="text" caption="备注" property="style=width:90%,datatype=string,maxlength=255"/>
+        <field field-name="jzjgid" field-type="text" caption="兼职机构ID" property="style=width:90%,datatype=string,maxlength=2000"/>
+        <field field-name="roleids" field-type="text" caption="角色ID列表" property="style=width:90%,datatype=string,maxlength=2000"/>
+        <field field-name="mainrole" field-type="text" caption="主角色" property="style=width:90%,datatype=string,maxlength=10"/>
+      </frame>
+
+    </jsp-page>
+  </jsp-pages>
+</struts-config>
+

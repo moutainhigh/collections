@@ -1,0 +1,29 @@
+<textarea id="template_ClassInfo" select="ClassInfo" >
+    <div class="attribute_row wcm_desc_info_row">
+        <span title="分类法编号:{#ClassInfoId}&#13;创建者:{#CRUser}&#13;创建时间:{#CrTime} " style="white-space:nowrap;overflow:hidden;">
+            <span style="">用户</span><span class="desc_info_value">{#CrUser}</span><span>创建于</span><span class="desc_info_value">{#CrTime,,getPrettyTime}</span>
+        </span>
+    </div>
+	<div class="attribute_row">
+		<span class="attribute_name" style="width:40px;">编号:</span>
+        <span class="attribute_value" style="text-align:left;">{#ClassInfoId}</span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name" style="width:40px;">名称:</span>
+        <span class="attribute_value">
+            <TRS_UI:editPanel value="{#CNAME}" class="inputClass_" inputClass="inputClass_" _fieldName="NAME" validation="type:'string',max_len:'30',required:'',desc:'名称'"></TRS_UI:editPanel>
+        </span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name" style="width:40px;">描述:</span>
+        <span class="attribute_value">
+            <TRS_UI:editPanel value="{#CDESC}" class="inputClass_" inputClass="inputClass_" _fieldName="DESC" validation="type:'string',max_len:'100',desc:'描述'"></TRS_UI:editPanel>
+        </span>
+	</div>
+ </textarea>
+
+ <textarea id="template_ClassInfos">
+	<div class="attribute_row">
+		当前共选中<span class="objects_num">{#Num}</span>个分类法.
+	</div>
+ </textarea>

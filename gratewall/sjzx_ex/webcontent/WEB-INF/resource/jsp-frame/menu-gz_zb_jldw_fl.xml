@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="主从表[主表通过导航按钮，维护子表信息]" page="master-detail-table-2.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="multi-table-2.gif"/>
+  <struts name="gz_zb_jldw_fl.xml" app-path="/ysjgl/jcsjgl/jldwgl/" app-name="gz_zb_jldw_fl" description="计量单位管理" template="master-detail-table-2.xml"/>
+  <table name="gz_zb_jldw_fl.xml" app-name="gz_zb_jldw_fl" app-desc="计量单位类别" delete-action="delete" description="计量单位管理" class-name="cn.gwssi.csdb.ysjgl.txn.TxnGzZbJldwFl" template="master-detail-table-2.master.java" dao-class-template="single-table.java" type="master">
+	  <jsp page-name="query-gz_zb_jldw_fl.jsp" txn-code="301051" description="查询计量单位类别列表" template="master-detail-2/master-table-query.jsp">
+	    <button type="button" name="增加计量单位类别" path="insert-gz_zb_jldw_fl.jsp" description="增加计量单位类别" func-name="addRecord"/>
+	    <button type="button" name="修改计量单位类别" path="/txn301054.do" description="修改计量单位类别" func-name="updateRecord"/>
+	    <button type="button" name="删除计量单位类别" path="/txn301055.do" description="删除计量单位类别" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn301051.do" description="查询计量单位类别信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-gz_zb_jldw_fl.jsp" txn-code="301053" description="增加计量单位类别信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn301053.do" description="保存计量单位类别信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn301053.do" description="保存计量单位类别信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn301051.do" description="保存计量单位类别信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn301051.do" description="返回到计量单位类别明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-gz_zb_jldw_fl.jsp" txn-code="301052" description="修改计量单位类别信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn301051.do" description="修改计量单位类别信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn301051.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-gz_zb_jldw_fl.jsp" txn-code="301051" description="查询计量单位类别列表">
+	    <forward error-code="success" path="query-gz_zb_jldw_fl.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-gz_zb_jldw_fl.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-gz_zb_jldw_fl.jsp" txn-code="301052" description="修改计量单位类别信息">
+	    <forward error-code="success" path="update-gz_zb_jldw_fl.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-gz_zb_jldw_fl.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-gz_zb_jldw_fl.jsp" txn-code="301053" description="增加计量单位类别信息">
+	    <forward error-code="success" path="insert-gz_zb_jldw_fl.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-gz_zb_jldw_fl.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-gz_zb_jldw_fl.jsp" txn-code="301054" description="查询计量单位类别用于修改">
+	    <forward error-code="success" path="update-gz_zb_jldw_fl.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-gz_zb_jldw_fl.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-gz_zb_jldw_fl.jsp" txn-code="301055" description="删除计量单位类别信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.GzZbJldwFlContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.VoGzZbJldwFl" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.VoGzZbJldwFlSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.VoGzZbJldwFlPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="gz_zb_jldw.xml" app-name="gz_zb_jldw" app-desc="计量单位" delete-action="delete" description="计量单位表" class-name="cn.gwssi.csdb.ysjgl.txn.TxnGzZbJldw" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="301061">
+	  <jsp page-name="gz_zb_jldw/query-gz_zb_jldw.jsp" txn-code="301061" description="查询计量单位列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加计量单位" path="gz_zb_jldw/insert-gz_zb_jldw.jsp" description="增加计量单位" func-name="addRecord"/>
+	    <button type="button" name="修改计量单位" path="/txn301064.do" description="修改计量单位" func-name="updateRecord"/>
+	    <button type="button" name="删除计量单位" path="/txn301065.do" description="删除计量单位" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn301051.do" description="返回到计量单位类别明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn301061.do" description="查询计量单位信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="gz_zb_jldw/insert-gz_zb_jldw.jsp" txn-code="301063" description="增加计量单位信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn301063.do" description="保存计量单位信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn301063.do" description="保存计量单位信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn301061.do" description="保存计量单位信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn301061.do" description="返回到计量单位明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="gz_zb_jldw/update-gz_zb_jldw.jsp" txn-code="301062" description="修改计量单位信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn301061.do" description="修改计量单位信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn301061.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="gz_zb_jldw/query-gz_zb_jldw.jsp" txn-code="301061" description="查询计量单位列表">
+	    <forward error-code="success" path="gz_zb_jldw/query-gz_zb_jldw.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="gz_zb_jldw/query-gz_zb_jldw.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="gz_zb_jldw/update-gz_zb_jldw.jsp" txn-code="301062" description="修改计量单位信息">
+	    <forward error-code="success" path="gz_zb_jldw/update-gz_zb_jldw.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="gz_zb_jldw/update-gz_zb_jldw.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="gz_zb_jldw/insert-gz_zb_jldw.jsp" txn-code="301063" description="增加计量单位信息">
+	    <forward error-code="success" path="gz_zb_jldw/insert-gz_zb_jldw.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="gz_zb_jldw/insert-gz_zb_jldw.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="gz_zb_jldw/query-gz_zb_jldw.jsp" txn-code="301064" description="查询计量单位用于修改">
+	    <forward error-code="success" path="gz_zb_jldw/update-gz_zb_jldw.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="gz_zb_jldw/update-gz_zb_jldw.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="gz_zb_jldw/query-gz_zb_jldw.jsp" txn-code="301065" description="删除计量单位信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.GzZbJldwContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.VoGzZbJldw" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.VoGzZbJldwSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.ysjgl.vo.VoGzZbJldwPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+</resource>

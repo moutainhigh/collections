@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.stat.BonusRuleServiceProvider" objclass="com.trs.components.stat.BonusRule">
+	<method name="save" desc="保存奖励规则" />
+	
+	<method name="query" desc="查询奖励规则">
+		<!-- 业务参数 -->
+		<parameter name="BonusType" desc="奖金类型" type="int" required="false"/>			
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="奖金排序字段及方式" type="string" default="BonusType asc,PricePerUnit Asc" required="false"/>				
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="BonusType" desc="奖金类型" type="int" required="false"
+			search="true" search-operator="="/>	
+		<!-- 检索相关配置 END -->	
+	</method>
+	<method name="delete" desc="删除指定的奖励规则">
+		<!-- 业务参数 -->
+		<parameter name="ObjectIds" desc="要删除奖励规则的ID序列" type="string" required="true"/>
+	</method>
+</service>

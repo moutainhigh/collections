@@ -1,0 +1,174 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc">import some channels</title>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+</script>
+<script>
+	$import('com.trs.wcm.FloatPanel');
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.ProcessBar');
+</script>
+<script>
+	var PageContext = {};
+	Object.extend(PageContext, {
+		channelids: getParameter('channelids'),
+		siteids: getParameter('siteids'),
+		sitetype: getParameter('sitetype')
+	});
+
+	FloatPanel.addCloseCommand();
+	FloatPanel.addCommand('okBtn', '确定', 'getSeletedIds', null);
+
+	function getSeletedIds(){
+		//返回当前选择的信息
+		var result = {};
+		if($('rdSiteType').checked) {
+            //modified by hxj on 20080417 检索其他站点类型下的文章
+            var selectedSiteTypeId = 0;
+            var selectedSiteTypeDesc = '文字库';
+            var aSiteType = document.getElementsByName("siteType");
+            for (var i = 0; i < aSiteType.length; i++){
+                if(aSiteType[i].checked){
+                    selectedSiteTypeId = aSiteType[i].value;
+                    selectedSiteTypeDesc = aSiteType[i].parentNode.innerText;
+                    break;
+                }
+            }
+			result['sitetype'] = [{id: selectedSiteTypeId, name: selectedSiteTypeDesc}];
+		}else{
+			if($('rdChnlChild').checked) {//栏目
+				Object.extend(result, __getSelectedNavIds('frmTreeNavChnl', 'channels'));
+
+			}else{//站点
+				Object.extend(result, __getSelectedNavIds('frmTreeNavSite', 'sites'));
+			}
+		}
+		$MessageCenter.sendMessage('adv_search', 'PageContext.setRegion', 'PageContext', result);
+	}
+
+	function __getSelectedNavIds(_sNavId, _sFieldName){
+		var arrSelIds = $(_sNavId).contentWindow.getCheckValues();
+		var arrSelNames = $(_sNavId).contentWindow.getCheckNames();
+		var result = {};
+		if(arrSelIds.length != 0) {
+			var arrIds = [];
+			for (var i = 0; i < arrSelIds.length; i++){
+				arrIds.push({id: arrSelIds[i], name: arrSelNames[i]});
+			}
+			if(arrIds.length != 0) {
+				result[_sFieldName] = arrIds;
+			}
+		}
+		return result;
+	}
+	var m_bFirstShowSite = true, m_bFirstShowChnl = true;
+	function switch2SiteList(_bFlag){
+		Element.hide('divSiteType');
+		if(_bFlag === true) {// 站点
+			if(m_bFirstShowSite) {
+				loadSiteNav();
+				m_bFirstShowSite = false;
+			}
+			Element.hide('divTreeNavChnl');
+			Element.show('divTreeNavSite');
+		}else{//栏目
+			if(m_bFirstShowChnl) {
+				loadChnlNav();
+				m_bFirstShowChnl = false;
+			}
+			Element.hide('divTreeNavSite');
+			Element.show('divTreeNavChnl');
+		}
+	}
+	function switch2SiteType(){
+		Element.hide('divTreeNavChnl');
+		Element.hide('divTreeNavSite');
+		Element.show('divSiteType');
+	}
+
+	function loadChnlNav(){
+		var sUrl = '../nav_tree/nav_tree_select.jsp?SiteTypes=0,4&CurrSiteType=0&IsRadio=0&MultiSites=0&ExcludeSelf=0&ExcludeChildren=0&ExcludeTop=0&ExcludeLink=1&RightIndex=30'; // right: 检索栏目下的文档
+		if(PageContext.channelids != '') {
+			sUrl += '&SelectedChannelIds=' + PageContext.channelids;
+		}
+		$('frmTreeNavChnl').src = sUrl;
+
+		m_bFirstShowChnl = false;
+	}
+	function loadSiteNav(){
+		var sUrl = '../nav_tree/nav_tree_select_site.jsp?SiteTypes=0,4&CurrSiteType=0&IsRadio=0&RightIndex=30'; // right: 检索栏目下的文档
+		if(PageContext.siteids != '') {
+			sUrl += '&SelectedSiteIds=' + PageContext.siteids;
+		}
+		$('frmTreeNavSite').src = sUrl;
+		m_bFirstShowSite = false;
+	}
+</SCRIPT>
+<style type="text/css">
+	.selection_row{
+		line-height:25px;
+		height:25px;
+		text-align:center;
+		font-size:12px;
+		color:#010101;
+	}
+	body{
+		margin: 0;
+		padding: 0;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<div style="font-size: 12px; width: 100%; hegith: 100%; height: 25px; line-height: 25px; font-weight: normal; font-size: 14px; width: 300px;">
+	<div style="width: 100%; height: 100%; background-image: url(../images/channel_thumbs_index/button-bg.png); padding-left: 5px; border-bottom: 1px solid silver;">
+		选择站点或栏目
+	</div>
+</div>
+<div id="divOptions" style="border-bottom:1px solid #efefef; padding-top: 3px; padding-bottom: 3px;">
+	<span class="selection_row"><input id="rdSiteType" type="radio" name="Position" value="" onclick="switch2SiteType()">&nbsp;库结点下检索</span>
+	<span class="selection_row"><input id="rdSiteChnl" type="radio" name="Position" value="" onclick="switch2SiteList(true)">&nbsp;站点下检索</span>
+	<span class="selection_row"><input id="rdChnlChild" type="radio" name="Position" value="" onclick="switch2SiteList(false)">&nbsp;栏目下检索</span>
+</div>
+<div id="divSiteType" style="height: 310px; width: 300px;padding-top:10px;padding-left:10px;font-size:12px;">
+    <div style="height:25px;line-height:25px;">
+        <input type="radio" name="siteType" id="siteType0" value="0"> <label for="siteType0">文字库</label>
+    </div>
+    <div style="height:25px;line-height:25px;">
+        <input type="radio" name="siteType" id="siteType4" value="4"> <label for="siteType4">资源库</label>
+    </div>
+</div>
+<div id="divTreeNavChnl" style="height: 310px; width: 300px;">
+	<iframe id="frmTreeNavChnl" src="about:blank" width="290px" height="310px" frameborder="0" scrolling="no" allowtransparency="true">
+	</iframe>
+</div>
+<div id="divTreeNavSite" style="display: none; overflow: auto; height: 310px; width: 290px;">
+	<iframe id="frmTreeNavSite" src="about:blank" width="290px" height="310px" frameborder="0" scrolling="no" allowtransparency="true">
+	</iframe>
+</div>
+<script language="javascript">
+<!--
+
+Event.onDOMReady(function(){
+	if(PageContext.sitetype != '') {
+		$('rdSiteType').checked = true;
+		switch2SiteType();	
+		return;
+	}else if(PageContext.channelids != '') {
+		$('rdChnlChild').checked = true;
+		switch2SiteList(false);
+	}else{//默认为站点选择
+		$('rdSiteChnl').checked = true;
+		switch2SiteList(true);
+	}
+});
+//-->
+</script>
+</BODY>
+</HTML>

@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="document_siteadd_step1.html.newvideoto">新建视频到...</title>
+<script src="../js/runtime/myext-debug.js"></script>
+<script src="../js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/document.js"></script>
+<script src="../js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+<script language="javascript">
+window.m_fpCfg = {
+	size : [300, 400]
+};
+</script>
+<script>
+	var myActualTop = $MsgCenter.getActualTop();
+	var iSiteId = getParameter("SiteId");
+	var sObjectids = getParameter("DocumentIds");
+
+	function onOk(){
+		var sSelIds = '';
+		try{
+			sSelIds = $('allTreeNav').contentWindow.getCheckValues();
+		}catch(err){
+		}
+		if(!sSelIds||sSelIds.length==0) {
+			myActualTop.Ext.Msg.$alert('请选择要新建视频的所属栏目!');
+			return false;
+		}
+		var oParams = {
+			DocumentId : 0,
+			ChannelId : sSelIds.join(','),
+			SiteId : iSiteId,
+			FromEditor : 1
+		}
+		var iWidth = window.screen.availWidth - 12;
+		var iHeight = window.screen.availHeight - 40;
+		var sFeature = 'location=no,resizable=yes,menubar=no,scrollbars=no,status=no,titlebar=no,toolbar=no,top=0,left=0,border=0,width='+iWidth+',height='+iHeight;
+        setTimeout(function(){
+			var oWin = window.open("../document/document_addedit.jsp?" + $toQueryStr(oParams), "_blank" , sFeature);
+			if(oWin){
+				oWin.opener = $MsgCenter.getActualTop();
+				oWin.focus();
+			}
+			closeWindow();
+        }, 10);
+		return false;
+	}
+</SCRIPT>
+<style type="text/css">
+	.iframe_container{
+		width:100%;
+		height:100%;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<DIV id="all_channels_tree" class="iframe_container">
+	<iframe id="allTreeNav" src="../include/blank.html" style="width:100%;height:100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+</DIV>
+<script language="javascript">
+<!--
+	$('allTreeNav').src = "../nav_tree/nav_tree_select.jsp?IsRadio=1&MultiSites=0&ExcludeSelf=0&ExcludeVirtual=1&CurrSiteId="+iSiteId+"&RightIndex=31";
+//-->
+</script>
+</BODY>
+</HTML>

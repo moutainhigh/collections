@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script type="text/javascript" src="../../../static/lib/jquery-1.8.3.js"></script> 
+<script type="text/javascript" src="../../../static/lib/JAZZ-UI/demos/index/jazz-all.js"></script> 
+
+
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/common.css" data-main="torch/addAccountManagerTorch.js" rel="stylesheet" type="text/css" />
+<title>用户注册</title>
+</head>
+<script type="text/javascript">
+
+function user_add(){
+		var params = {
+				url : '../../my/test/addUser.do',
+				components : ['addUserPanel'],
+				callback : function(data, r, res) { 
+					jazz.info("添加成功");
+				}
+		}
+		$.DataAdapter.submit(params);
+}
+</script>
+<body>
+	<div name='addUserPanel' id='addUserPanel' vtype='formpanel' layout='auto' title="用户注册" showborder='true'>
+		<div id='userId' name='id' vtype='textfield' 
+			width='400' defaultheight='28' label='用户编号' labelwidth='150'>
+		</div>
+		
+		<div id='userName' name='name' vtype='textfield' 
+			width='400' defaultheight='28' label='用户名' labelwidth='150'>
+		</div>
+		
+		<div id='userPassword' name='password' vtype='textfield' 
+			width='400' defaultheight='28' label='密码' labelwidth='150'>
+		</div>
+		
+		<div id='userAge' name='age' vtype='textfield' 
+			width='400' defaultheight='28' label='年龄' labelwidth='150'>
+		</div>
+		
+		<div id='userSex' name='sex' vtype='textfield' 
+			width='400' defaultheight='28' label='性别' labelwidth='150'>
+		</div>
+		
+	</div>
+	
+	<input type="button" value="提交" onclick="user_add()"> 
+</body>
+</html>

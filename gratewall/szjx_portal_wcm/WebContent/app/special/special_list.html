@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="special.special_list.html.speciallistpage"> 专题列表页面 </title>
+
+	<link href="css/common.css" rel="stylesheet" type="text/css" />
+	<link href="css/list.css" rel="stylesheet" type="text/css" />
+	<link href="../../app/js/source/wcmlib/simplemenu/resource/SimpleMenu.css" rel="stylesheet" type="text/css" />
+	<link href="special_list.css" rel="stylesheet" type="text/css" />
+	<script src="../js/easyversion/lightbase.js"></script>
+	<script src="../js/easyversion/extrender.js"></script>
+	<script src="../js/easyversion/elementmore.js"></script>
+	<!--Ajax-->
+	<script src="js/adapter4Top.js"></script>
+	<script src="../../app/js/source/wcmlib/simplemenu/SimpleMenu.js"></script>
+	<script src="js/PageContext.js"></script>
+	<script src="special_list.js"></script>
+</head>
+
+<body>
+<div class="container">
+	<div class="header">
+		<div class="toolbar" id="toolbar">
+			<li class="add-special" cmd="create" id="addel" rightIndex="1"></li>
+			<li class="likecopy-special" cmd="likecopy" id="likecopy" rightIndex="1"></li>
+			<li class="mgr-special_recycle" cmd="mgrRecycle" id="mgrRecycle" rightIndex="1"></li>
+		</div>
+		<div class="search" id="search"></div>
+	</div>
+	<div class="content" id="list-data"></div>
+	<div class="footer">
+		<div class="page-nav" id="list_navigator"></div>
+	</div>
+	<div id="objectNotFound" style="display:none;"><div class="no_object_found" WCMAnt:param="special.special_list.html.sorrynotfindobjectfit">不好意思, 没有找到符合条件的对象!</div></div>
+</div>
+</body>
+</html>

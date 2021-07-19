@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="gz_dm_dlqy" class-name="cn.gwssi.csdb.ysjgl.dao.GzDmDlqy" check-flag="false" backup-flag="false">
+    <description>地理区域表</description>
+  </table-info>
+
+  <column name="dlqy_dm" data-type="char" length="2" not-null="true" value-from="input" description="地理区域代码"/>
+  <column name="dlqy_mc" data-type="varchar" length="40" not-null="true" value-from="input" description="地理区域名称"/>
+  <column name="xscx" data-type="integer" length="10" not-null="false" value-from="input" description="显示次序"/>
+  <primary-key name="pk_dlqy_dm" column-list="dlqy_dm"/>
+  <index name="p_dlqy_dm" index-type="unique" cluster="other" column-list="dlqy_dm"/>
+  <foreign-key foreign-table="gz_dm_xzqy" foreign-type="many-to-one" on-delete="none" on-update="none" column-names="dlqy_dm" foreign-names="dlqy_dm"/>
+  <function func-name="select one gz_dm_dlqy" func-type="select" column-list="dlqy_dm,dlqy_mc,xscx">
+    <filter-column column-name="dlqy_dm" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select gz_dm_dlqy list" func-type="rowset" column-list="dlqy_dm,dlqy_mc,xscx" max-record="10">
+    <filter-column column-name="dlqy_dm" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="dlqy_mc" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one gz_dm_dlqy" func-type="insert" column-list="dlqy_dm,dlqy_mc,xscx">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one gz_dm_dlqy" func-type="delete">
+    <filter-column column-name="dlqy_dm" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one gz_dm_dlqy" func-type="update" column-list="dlqy_mc,xscx">
+    <filter-column column-name="dlqy_dm" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="select gz_dm_dlqy" func-type="rowset" column-list="dlqy_dm as codevalue,dlqy_mc as codename" max-record="-1">
+    <description>多记录查询</description>
+  </function>
+</table>
+

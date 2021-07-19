@@ -1,0 +1,44 @@
+﻿<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>TRS WCM Dialog Window :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::</TITLE>
+<script src="../js/easyversion/lightbase.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<SCRIPT LANGUAGE="JavaScript">
+var obj = null;
+function init(params, cb){
+	obj = cb;
+	var sUrlparams = getParameter("URL");
+	//var wcmurl = getParameter("WCMURL");
+	var wcmurl = params.WCMURL;
+	var sUrl = WCMConstants.WCM_ROOTPATH + 
+	"console/integrate_installed/admanage_introduction2.jsp?URL="+sUrlparams+"&WCMURL="+encodeURIComponent(wcmurl);
+	var subWin = document.getElementById("subWindow");
+	//debugger
+	subWin.src = sUrl;
+}
+function onOk(sResult){
+	if(sResult){
+		var params = {
+			result : sResult
+		};
+		setTimeout(function(){
+			obj.callback(params);
+			obj.close();
+		}, 2000);
+		return false;
+	}
+}
+
+function onCancel(){
+	obj.close();
+}
+</SCRIPT>
+</HEAD>
+
+<BODY style="overflow:hidden">
+<input type="hidden" id="inp" value="">
+<IFRAME name="subWindow" id="subWindow" src="about:blank" frameborder="NO" border="0" framespacing="0" width="100%" height="100%" 
+Scrolling="no"></IFRAME>
+</BODY>
+</HTML>

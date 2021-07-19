@@ -1,0 +1,126 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="website_import.html.title">站点导入</title>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<script src="../js/data/locale/website.js"></script>
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog end-->
+<!--ProcessBar Start-->
+<script src="../../app/js/source/wcmlib/components/ProcessBar.js"></script>
+<link rel="stylesheet" type="text/css" href="../../app/css/wcm-common.css">
+<link rel="stylesheet" type="text/css" href="../../app/js/source/wcmlib/components/processbar.css">
+<!--ProcessBar End-->
+
+<script language="javascript">
+window.m_fpCfg = {
+	m_arrCommands : [{
+		cmd : 'uploadFile',
+		name : wcm.LANG.WEBSITE_TRUE||'确定'
+	}],
+	size : [400, 90]
+};
+</script>
+<script>
+
+	function uploadFile(){
+		var winUpload = $("frmUploadFile").contentWindow;
+		var frm = winUpload.document.getElementById("frmPost");
+		var sFileName = winUpload.document.getElementById("fileUpload").value;
+
+		if(!$("frmUploadFile").contentWindow.valid(sFileName)){
+			return false;
+		}
+		sFileName = sFileName.substring(sFileName.lastIndexOf("\\")+1);
+		$("RealFileName").value = sFileName;
+		frm.submit();
+		return false;
+	}
+
+	function addFile(_sFilePath){
+		if(_sFilePath==null){
+			doAlert(wcm.LANG.WEBSITE_8||"文件路径为空，上传失败！");
+			return false;
+		}
+		ProcessBar.start(wcm.LANG.WEBSITE_7||'导入站点..');
+		var oPostData = {
+			ImportFile: _sFilePath
+		};	
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+		oHelper.Call('wcm6_website', 'importSites', oPostData, true, function(_oTrans, _json){   
+			ProcessBar.close();
+			Ext.Msg.report(_json, wcm.LANG.WEBSITE_6||'报告', function(){
+                var isSuccess = com.trs.util.JSON.value(_json, 'REPORTS.IS_SUCCESS');
+                if(isSuccess.toLowerCase() == 'false') return;
+                var objectIds = $v(_json, 'REPORTS.OBJECTIDS.OBJECTID');
+                var objectId = Ext.isArray(objectIds) ? $v(objectIds[0],'') : objectIds;
+                try{
+					notifyFPCallback(objectId);
+                    FloatPanel.close();
+                }catch(error){
+					//TODO logger
+                    //alert(error.message);
+                }
+				FloatPanel.hide();
+            });			
+		});
+	}
+	function notifyOnUploadFileError(_sErrorMsg) {
+		doAlert(_sErrorMsg);
+	}
+	function doAlert(_sAlertion){
+		Ext.Msg.$alert(_sAlertion);
+		//$('divClue').innerHTML = _sAlertion;
+		//$('divClue').style.color = 'red';
+	}
+</SCRIPT>
+<style type="text/css">
+	#divBox{
+		/*margin:10px;*/
+		background: lightblue;
+		padding:1px;
+		/*height:80%;
+		width: 80%;*/
+	}
+	#divContainer{
+		background: #ffffff;
+		padding:5px;
+	}
+	#divClue{
+		color:blue;
+		font-size:14px;
+	}
+	body{
+		background:whitesmoke;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<div id="divBox">
+<div id="divContainer">
+	<div id="divFileUpload">
+		<IFRAME name="frmUploadFile" id="frmUploadFile" style="height:40; width:330" frameborder="0" vspace="0" src="../../file/file_upload.jsp?SelfControl=0&AllowExt=XML,ZIP" scrolling="NO" noresize></IFRAME>
+		<INPUT TYPE="hidden" NAME="RealFileName" id="RealFileName">
+	</div>
+	<div id="divClue" WCMAnt:param="website_import.html.filecode">
+		支持xml、zip格式文件
+	</div>
+</div>
+</div>
+</BODY>
+</HTML>

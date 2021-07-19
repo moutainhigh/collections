@@ -1,0 +1,152 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>分类法列表</title>
+
+<!-- ~Common CSS Begin~ -->
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/wcm_list_abstract.css" rel="stylesheet" type="text/css" />
+<!-- ~Common CSS End~ -->
+
+<!-- ~Imports Begin~    -->
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script label="Imports">
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.util.CommonHelper');
+    $import('com.trs.wcm.SheetChanger');
+	$import('com.trs.wcm.QuickKey');
+	$import('com.trs.wcm.SimpleDragger');
+	$import('com.trs.wcm.Grid');
+	$import('com.trs.wcm.PageFilter');
+	$import('com.trs.wcm.BubblePanel');		
+    $import('com.trs.wcm.domain.ClassInfoMgr');
+	$import('com.trs.wcm.SimpleQuery');
+</script>
+<!-- ~Imports END~    -->
+
+<!-- ~PageJavaScript Begin~    -->
+<script src="../common/wcm_list_abstract.js" label="PageScope"></script>
+<script src="classinfo_list.js" label="PageScope" desc="页面的描述文件"></script>
+<!-- ~PageJavaScript END~    -->
+
+<style label="PageScope">
+	/*可变的列[文档标题]所使用的样式*/
+	.ObjectDesc{
+		padding-left:0!important;
+		padding-left:2px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+	}
+
+	/**页面自己的样式**/
+	.object_edit{
+		background-image:url(../images/icon/config.gif);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	.object_delete{
+		background-image:url(../images/icon/Delete.png);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+
+    .ObjectName{
+        padding-left:3px;
+        width:150px; 
+        font-size:12px;
+        text-overflow:ellipsis;
+    }
+</style>
+</head>
+
+<body>
+<div id="dy_list_adjust"></div>
+<table id="table_body" class="wcm_table_layout" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="wcm_list_view">
+			<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+			<tbody>
+				<tr class="list_pageinfo">
+					<td colSpan="3">
+						<div class="pageinfo">
+							<div class="pageinfo_left"></div>
+							<div class="pageinfo_right"></div>
+                            <div style="float:right;" id="query_box"></div>                            
+						</div> 
+					</td>
+				</tr>
+				<tr class="list_view">
+					<td class="list_view_border"></td>
+					<td valign="top">
+						<DIV id='objects_grid' class="grid">
+							<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+								<tr style="height:29px">
+									<td>
+										<DIV class="grid_head" id="grid_head">
+											<!--列表头模板-->
+											<SPAN class="grid_head_column" onclick="Grid.toggleAllRows();" style="width:30px;">
+												全选
+											</SPAN>
+                                            <SPAN class="grid_head_column" style="width:30px">
+												维护
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:150px;" grid_sortby="CName">
+												名称
+											</SPAN>
+											<SPAN class="grid_head_column ObjectDesc" grid_sortby="CDesc" grid_dywidth="ObjectDesc,1.0">
+												描述
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:70px;" grid_sortby="CrUser">
+												创建者
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:120px;" grid_sortby="CrTime">
+												创建时间
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:30px;border-right:0">
+												删除
+											</SPAN>
+										</DIV>
+									</td>
+								</tr>
+								<tr>
+									<td valign="top">
+										<div id="grid_data" class="grid_data"></div>
+									</td>
+								</tr>
+							</table>
+						</DIV>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+				<tr class="list_navigator">
+					<td class="list_view_border"></td>
+					<td>
+						<DIV id="list_navigator" class="list_navigator_div">
+						</DIV>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+</table>
+<textarea id="objects_template" select="ClassInfos" style='display:none'>{#HTML}</textarea>
+
+<div id="divNoObjectFound" style="display:none;">
+	<div class="no_object_found">不好意思, 没有找到符合条件的对象..-____-|||</div>
+</div>
+<script language="javascript">
+<!--
+	PageContext.LoadPage();
+//-->
+</script>
+</body>
+</html>

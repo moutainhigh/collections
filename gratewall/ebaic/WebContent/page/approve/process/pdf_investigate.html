@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+<title>自定义章程审查</title>
+<style>
+.pdfViewer {
+	width: 850px;
+	background: #f2f2f2;
+	height: 536px;
+}
+
+.pdfContent {
+	float: left;
+	background: #EAF3F9;
+	width: 510px;
+	height: 536px;
+}
+
+.pdfRight {
+	float: right;
+	width: 330px;
+}
+
+.suggestion {
+	width: 328px;
+	height: 150px;
+}
+
+.title {
+	width: 100%;
+	height: 28px;
+	line-height: 28px;
+	background: #B4CAE9;
+}
+</style>
+</head>
+<body>
+	<div class="pdfViewer">
+		<div class="pdfContent">
+			<div id="PDF"></div>
+		</div>
+
+		<div class="pdfRight">
+			<div class="suggest">
+				<div class="title">
+					<span>审查意见</span>
+				</div>
+				<textarea id="suggestion" class="suggestion"></textarea>
+			</div>
+			<div class="btn-box" id="btn-box">
+				<div class="middleBt" id="pass">通过</div>
+				<div class="middleBt" id="nopass">不通过</div>
+			</div>
+			<div class="suggest">
+				<div class="title">
+					<span>历史审查意见</span>
+					<textarea id="hsSuggestion" class="suggestion"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<script type="text/javascript" src="../../../static/lib/jquery-1.8.3.js"></script>
+	<script type="text/javascript" src="../../../static/lib/jquery-ui-1.9.2.custom.js"></script>
+	<script type="text/javascript" src="../../../static/lib/JAZZ-UI/demos/classic/imageview/clsc/jazz-all/jazz-all.js"></script>
+	<script type="text/javascript" src="../../../static/lib/pdfobject.js"></script>
+	<script type="text/javascript" src="../../../static/js/approve/approvePDFView.js"></script>
+</body>
+</html>

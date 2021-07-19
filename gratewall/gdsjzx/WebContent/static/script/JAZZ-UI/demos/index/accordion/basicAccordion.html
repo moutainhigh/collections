@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" type="text/css" media="screen" href="../main.css" />
+<script src="../common.js" type="text/javascript"></script>
+<style type="text/css">
+    #demo{background-color: #fff;}
+</style>
+</head>
+<body>
+	<div id="default" vtype="accordionpanel" name="default" width="500"  showborder="true" multiple="false" >  
+	    <div title="第一个面板的标题部分的字数应该不能太长但是你不能要求开发人员或者使用者必须使用短字啊亲"
+	     iconurl="../../../themes/gongshang/accordion/images/tab-header-right.png"
+	     iconselect="../../../themes/gongshang/accordion/images/tab-header-bottom.png"> 
+	         <h2>面板一</h2>
+	         <P> 这是一个简单的手风琴组件，点击标题部分，会展开当前面板，并且收缩之前打开的面板。哈哈哈哈哈哈哈哈哈</P>
+	    </div>  
+	    <div title="第二个面板" iconurl="../../../themes/gongshang/accordion/images/tab-header-right.png"
+	       iconselect="../../../themes/gongshang/accordion/images/tab-header-bottom.png"> 
+	       <div id="default2" vtype="accordionpanel" name="default2" height="100%" showborder="false" multiple="false" >
+	       		<div title="testtesttest"
+				     iconurl="../../../themes/gongshang/accordion/images/tab-header-right.png"
+				     iconselect="../../../themes/gongshang/accordion/images/tab-header-bottom.png"> 
+			         <h2>面板一</h2>
+			         <P> 这是一个简单的手风琴组件，点击标题部分，会展开当前面板，并且收缩之前打开的面板。哈哈哈哈哈哈哈哈哈</P>
+			    </div>
+			    
+           </div>
+	    </div>  
+	    <div title="第三个面板" iconurl="../../../themes/gongshang/accordion/images/tab-header-right.png">  
+	         <h2>面板三</h2>
+	         <div id="default3" vtype="accordionpanel" name="default3" showborder="false" multiple="false" >
+	         	<h2>面板32</h2>
+	         	<P>面板32</P>
+	         </div>
+	    </div>      
+	</div> 
+	
+	</br>
+	</br>
+	<p>动态改变组件的宽度和高度</p>
+	</br>
+	输入值：<input type="text" id="value" style="height:23px;"></input>
+	<input type="button" value="改变宽度" onclick="alertWidth()"></input>
+	<input type="button" value="改变高度" onclick="alertHeight()"></input>
+	
+	 
+<script type="text/javascript">
+$(function(){
+    //调整父页面iframe高度
+    try{
+       	parent.setWinHeight(300);           
+    }catch(e){
+        //jazz.log(e);
+    }
+});
+
+function alertWidth(){
+	var value = $("#value").val();
+	$("#default").accordionpanel("option","width",value);
+}
+
+function alertHeight(){
+	var value = $("#value").val();
+	$("#default").accordionpanel("option","height",value);
+}
+</script>
+</body>
+</html>

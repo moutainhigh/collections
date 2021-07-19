@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT table (database?, default-config?, sort-name?, table-info, column*, primary-key?, index*, foreign-key*, function*)>
+
+<!-- 表信息定义 !-->
+<!-- description:字段描述 !-->
+<!ELEMENT table-info (description?)>
+
+<!-- 表名称 !-->
+<!ATTLIST table-info name CDATA #REQUIRED>
+
+<!-- 对应表的类名称:缺省为cn.gwssi.app.database.目录.表名称 !-->
+<!ATTLIST table-info class-name CDATA #IMPLIED>
+
+<!-- 处理缓存记录的类名称 !-->
+<!ATTLIST table-info cache-class CDATA #IMPLIED>
+
+<!-- 复核标志：true=修改需要复核、false=不需要复核 !-->
+<!ATTLIST table-info check-flag (true | false) "false">
+
+<!-- 保存历史数据的标志：true=修改需要把原始数据保存到历史表、false=不需要保存到历史表 !-->
+<!ATTLIST table-info backup-flag (true | false) "false">
+
+<!-- 数据表检测的周期 !-->
+<!ATTLIST table-info check-time CDATA  #IMPLIED>
+
+
+<!-- 字段定义 !-->
+<!-- description:字段描述 !-->
+<!ELEMENT column EMPTY>
+
+<!-- 字段名称 !-->
+<!ATTLIST column name CDATA #REQUIRED>
+
+<!-- 字段对应的数据项名称 !-->
+<!ATTLIST column java-name CDATA #IMPLIED>
+
+<!-- 数据类型 !-->
+<!ATTLIST column data-type (
+		integer | long | decimal | char | varchar | 
+		date | time | timestamp | binary
+	) "char" >
+
+<!-- 字段长度 !-->
+<!ATTLIST column length CDATA #IMPLIED>
+
+<!-- 小数位长度 !-->
+<!ATTLIST column fraction-length CDATA #IMPLIED>
+
+<!-- 字段是否能够空 !-->
+<!ATTLIST column not-null (true | false) "false">
+
+<!-- 空内容是否转换成NULL !-->
+<!ATTLIST column empty-is-null (true | false) "false">
+
+<!-- 缺省值 !-->
+<!ATTLIST column default CDATA #IMPLIED>
+
+<!-- 值是否唯一 !-->
+<!ATTLIST column unique (true|false) "false">
+
+<!-- 数据内容的来源 !-->
+<!ATTLIST column value-from (input | generate | sequence | autoincrement | UUID) "input">
+
+<!-- 转换函数 !-->
+<!ATTLIST column func-name CDATA #IMPLIED>
+
+<!-- 取值范围 !-->
+<!ATTLIST column value-set CDATA #IMPLIED>
+
+<!-- 校验函数 !-->
+<!ATTLIST column validator CDATA #IMPLIED>
+
+<!-- 字段描述 !-->
+<!ATTLIST column description CDATA #IMPLIED>
+
+
+<!-- 主键信息 !-->
+<!ELEMENT primary-key (description?)>
+
+<!-- 主键名称 !-->
+<!ATTLIST primary-key name CDATA #REQUIRED>
+
+<!-- 字段列表 !-->
+<!ATTLIST primary-key column-list CDATA #REQUIRED>
+
+<!-- 索引信息 !-->
+<!ELEMENT index (description?)>
+
+<!-- 索引名称 !-->
+<!ATTLIST index name CDATA #REQUIRED>
+
+<!-- 索引类型 !-->
+<!ATTLIST index index-type (unique | other) "other">
+
+<!-- cluster标志 !-->
+<!ATTLIST index cluster (cluster | other) "other">
+
+<!-- 字段列表 !-->
+<!ATTLIST index column-list CDATA #REQUIRED>
+
+<!-- 关联表信息 !-->
+<!ELEMENT foreign-key (description?)>
+
+<!-- 关联表名称 !-->
+<!ATTLIST foreign-key foreign-table CDATA #REQUIRED>
+
+<!-- 映射类型 !-->
+<!ATTLIST foreign-key foreign-type (one-to-one | one-to-many | many-to-one) "one-to-one">
+
+<!-- 删除时操作 !-->
+<!ATTLIST foreign-key on-delete ( cascade | setnull | restrict | none ) "none">
+
+<!-- 修改时操作 !-->
+<!ATTLIST foreign-key on-update ( cascade | setnull | restrict | none ) "none">
+
+<!-- 字段名称 !-->
+<!ATTLIST foreign-key column-names CDATA #REQUIRED>
+
+<!-- 外键名称 !-->
+<!ATTLIST foreign-key foreign-names CDATA #REQUIRED>
+
+<!-- 函数定义 !-->
+<!-- filter-column : 过滤条件 !-->
+<!ELEMENT function (filter-column*, description?)>
+
+<!-- 函数名称 !-->
+<!ATTLIST function func-name CDATA #REQUIRED>
+
+<!-- 函数类型 !-->
+<!ATTLIST function func-type (
+		select | rowset | insert | delete | 
+		update | procedure | statistic
+	) "select">
+
+<!-- 字段列表 !-->
+<!ATTLIST function column-list CDATA #IMPLIED>
+
+<!-- 条件定义 !-->
+<!ATTLIST function where-define CDATA #IMPLIED>
+
+<!-- 排序字段列表 !-->
+<!ATTLIST function sort-columns CDATA #IMPLIED>
+
+<!-- 统计字段 !-->
+<!ATTLIST function group-columns CDATA #IMPLIED>
+
+<!-- 查询返回的记录数量 !-->
+<!ATTLIST function max-record CDATA #IMPLIED>
+
+<!-- 过滤条件 !-->
+<!ELEMENT filter-column EMPTY>
+
+<!-- 字段名称 !-->
+<!ATTLIST filter-column column-name CDATA #REQUIRED>
+
+<!-- 比较方式 !-->
+<!ATTLIST filter-column operator (eq | ne | lt | le | gt | ge | between | like | start | end | in) "eq">
+
+<!-- 数据来源 !-->
+<!ATTLIST filter-column value-from (input | generate | default) "input">
+
+<!-- 转换函数 !-->
+<!ATTLIST filter-column func-name CDATA #IMPLIED>
+
+<!-- 条件数据项 !-->
+<!ATTLIST filter-column value-item CDATA #IMPLIED>
+
+<!-- 条件数据项2 !-->
+<!ATTLIST filter-column value-item2 CDATA #IMPLIED>
+
+<!-- 空值处理 !-->
+<!ATTLIST filter-column empty-flag (null | empty | skip) "skip">
+
+<!-- 缺省值 !-->
+<!ATTLIST filter-column default CDATA #IMPLIED>
+
+<!-- 连接的数据库名称 !-->
+<!ELEMENT database (#PCDATA)>
+
+<!-- 缺省的表处理配置信息 !-->
+<!ELEMENT default-config (#PCDATA)>
+
+<!-- 分类名称 !-->
+<!ELEMENT sort-name (#PCDATA)>
+
+<!ELEMENT description (#PCDATA)>

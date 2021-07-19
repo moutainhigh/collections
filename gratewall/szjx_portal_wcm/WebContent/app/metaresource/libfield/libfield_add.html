@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="libfield_add.html.new_modifywidgetstructruefield">新建/修改资源结构字段</title>
+	<link href="newcrfield.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<form method="post" action="" class="newFieldForm">
+	<ul class="fieldRow">
+		<li>
+			<div class="info" WCMAnt:param="libfield_add.html.widgetstructruename">资源结构名称：</div>
+			<div class="infoType" WCMAnt:param="libfield_add.html.dynamicupload">
+				<!--这里进行动态载入资源结构名称-->
+				动态载入
+			</div>
+		</li>
+		<li>
+			<div class="info" WCMAnt:param="libfield_add.html.fieldname">字段名称：</div>
+			<div class="infoType">
+				<input type="text" name="" id="" value="" />
+			</div>
+		</li>
+		<li>
+			<div class="info" WCMAnt:param="libfield_add.html.descname">显示名称：</div>
+			<div class="infoType">
+				<input type="text" name="" id="" value="" />
+			</div>
+		</li>
+		<li>
+			<div class="info" WCMAnt:param="libfield_add.html.fieldtype">字段类型：</div>
+			<div class="infoType">
+				<select name="" id="" >
+					<option value="" class="optionType" WCMAnt:param="libfield_add.html.commontext">普通文本</option>
+				</select>
+			</div>
+		</li>
+		<li class="enumType" style="display:none">
+			<div class="info" WCMAnt:param="libfield_add.html.enumtype">枚举类型：</div>
+			<div class="infoType">
+				<input type="text" name="" id="" value="" />
+			</div>
+		</li>
+		<li class="classicType" style="display:none">
+			<div class="info" WCMAnt:param="libfield_add.html.classicid">分类法ID：</div>
+			<div class="infoType">
+				<input type="text" name="" id="" value="" />
+			</div>
+		</li>
+		<li>
+			<div class="info" WCMAnt:param="libfield_add.html.librarytype">库中类型：</div>
+			<div class="infoType">
+				<select name="" id="" >
+					<option value="" class="optionType" WCMAnt:param="libfield_add.html.string">字符串</option>
+				</select>
+			</div>
+		</li>
+		<li class="libLength" style="display:none">
+			<div class="info" WCMAnt:param="libfield_add.html.liblength">库中长度：</div>
+			<div class="infoType">
+				<input type="text" name="" id="" value="" />
+			</div>
+		</li>
+		<li class="decimalLen" style="display:none">
+			<div class="info" WCMAnt:param="libfield_add.html.decimallength">小数位数：</div>
+			<div class="infoType">
+				<input type="text" name="" id="" value="" />
+			</div>
+		</li>
+		<li>
+			<div class="info" WCMAnt:param="libfield_add.html.fielddefaultvalue">字段默认值：</div>
+			<div class="infoType">
+				<input type="text" name="" id="" value="" />
+			</div>
+		</li>
+		<li>
+			<div class="info" WCMAnt:param="libfield_add.html.constraintway">约束方式：</div>
+			<div class="infoType">
+				<input type="checkbox" name="" value="" id="notNull"/><label for="notNull" WCMAnt:param="libfield_add.html.notnull">不能为空</label>
+				<input type="checkbox" name="" value="" id="notEdit"/><label for="notEdit" WCMAnt:param="libfield_add.html.notedit">不能编辑</label>
+				<input type="checkbox" name="" value="" id="onlyTip"/><label for="onlyTip" WCMAnt:param="libfield_add.html.onlytip">唯一标识</label>
+			</div>
+		</li>
+		<li>
+			<div class="info" WCMAnt:param="libfield_add.html.displayway">显示方式：</div>
+			<div class="infoType">
+				<input type="checkbox" name="" value="" id="overView"/><label for="overView" WCMAnt:param="libfield_add.html.overview">概览显示</label>
+				<input type="checkbox" name="" value="" id="detailView"/><label for="detailView" WCMAnt:param="libfield_add.html.detailview">细览显示</label>
+				<input type="checkbox" name="" value="" id="hiddenField"/><label for="hiddenField" WCMAnt:param="libfield_add.html.hiddenfield">隐藏字段</label>
+			</div>
+		</li>
+		<li>
+			<div class="info" WCMAnt:param="libfield_add.html.fieldset">字段设置：</div>
+			<div class="infoType">
+				<input type="checkbox" name="" value="" id="TitleField"/><label for="TitleField" WCMAnt:param="libfield_add.html.titlefield">标题字段</label>
+				<input type="checkbox" name="" value="" id="searchField"/><label for="searchField" WCMAnt:param="libfield_add.html.searchfield">检索字段</label>
+			</div>
+		</li>
+		<li class="blongClassic" style="display:none;">
+			<div class="info" WCMAnt:param="libfield_add.html.belongclassic">所属分类：</div>
+			<div class="infoType">
+				<button onclick="" id="" class="classic"></button>
+			</div>
+		</li>
+		<!--这个“其他”是“在资源结构操作中创建字段”时显示-->
+		<li class="anotherType" style="display: none;">
+			<div class="info" WCMAnt:param="libfield_add.html.onther">其他：</div>
+			<div class="infoType">
+				<input type="checkbox" name="" value="" id="addToLab"/><label for="addToLab" WCMAnt:param="libfield_add.html.addtofieldlib">添加到字段库</label>
+			</div>
+		</li>
+		<!--这个“其他”是“在字段库操作中编辑字段”时显示-->
+		<li class="defineselft" style="display: none;">
+			<div class="info" WCMAnt:param="libfield_add.html.onther">其他：</div>
+			<div class="infoType">
+				<input type="checkbox" name="" value="" id="addToLab"/><label for="addToLab" WCMAnt:param="libfield_add.html.synchronizationmodifyfield">同步修改所有资源结构的该字段</label>
+				<img src="../images/define.gif" border=0 alt="" /><a href="#" WCMAnt:param="libfield_add.html.customselect">自定义选择</a>
+			</div>
+		</li>
+	</ul>
+</form>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 
+	例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ly.dao.SMSDao">
+
+	<!--resultMap注释 http://www.cnblogs.com/kenhome/p/7764398.html -->
+
+
+
+	<select id="getSMSListByParam" resultType="SMSPhone">
+		select * from sms_phone_receive t where t.isSend >0
+	</select>
+
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from sms_phone_receive t where t.phone = #{phone}
+		</selectKey>
+		<if test="count > 0">
+			update sms_phone_receive
+			<trim prefix="set" suffixOverrides=",">
+				<if test="phone != null">phone = #{phone, jdbcType=VARCHAR},</if>
+				<if test="name != null">name = #{name, jdbcType=VARCHAR},</if>
+				<if test="isSend != null">isSend = #{isSend, jdbcType=VARCHAR},</if>
+			</trim>
+			where phone = #{phone}
+		</if>
+		<if test="count == 0">
+			insert into sms_phone_receive
+			(
+			phone,
+			name
+			)
+			values
+			(
+			#{phone,jdbcType=VARCHAR},
+			#{name, jdbcType=VARCHAR},
+			)
+		</if>
+	</insert>
+</mapper>

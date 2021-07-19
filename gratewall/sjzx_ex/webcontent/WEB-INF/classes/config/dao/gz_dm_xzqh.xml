@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>csdb</sort-name>
+  <table-info name="gz_dm_xzqh" class-name="cn.gwssi.csdb.ysjgl.dao.GzDmXzqh" check-flag="false" backup-flag="false">
+    <description>行政区划</description>
+  </table-info>
+
+  <column name="xzqh_id" data-type="varchar" length="36" not-null="true" value-from="input" description="行政区划ID"/>
+  <column name="xzqh_nm" data-type="varchar" length="36" not-null="false" value-from="input" description="行政区划内码"/>
+  <column name="bb_id" data-type="char" length="2" not-null="false" value-from="input" description="版本ID"/>
+  <column name="xzqh_dm" data-type="varchar" length="12" not-null="false" value-from="input" description="行政区划代码"/>
+  <column name="xzqh_mc" data-type="varchar" length="255" not-null="false" value-from="input" description="行政区划名称"/>
+  <column name="xzqh_cn_ms" data-type="varchar" length="255" not-null="false" value-from="input" description="行政区划中文描述"/>
+  <column name="xzqh_en_mc" data-type="varchar" length="255" not-null="false" value-from="input" description="行政区划英文名称"/>
+  <column name="xzqh_en_ms" data-type="varchar" length="255" not-null="false" value-from="input" description="行政区划英文描述"/>
+  <column name="xzqh_cjm" data-type="varchar" length="12" not-null="false" value-from="input" description="行政区划层级码"/>
+  <column name="xzqh_fjd" data-type="varchar" length="36" not-null="false" value-from="input" description="行政区划父节点"/>
+  <column name="xzqh_cc" data-type="char" length="2" not-null="false" value-from="input" description="所在层次"/>
+  <column name="szcc_sxm" data-type="integer" length="10" not-null="false" value-from="input" description="顺序码"/>
+  <column name="sf_mx" data-type="char" length="1" not-null="false" value-from="input" description="是否明细"/>
+  <primary-key name="p_xzqy_dm" column-list="xzqh_id"/>
+  <index name="sql070903100455670" index-type="unique" cluster="other" column-list="xzqh_id"/>
+  <foreign-key foreign-table="gz_zb_xzqybb" foreign-type="many-to-one" on-delete="none" on-update="none" column-names="bb_id" foreign-names="bb_id"/>
+  <foreign-key foreign-table="gz_dm_dlxz" foreign-type="one-to-many" on-delete="none" on-update="none" column-names="xzqh_id" foreign-names="xzqh_id"/>
+  <foreign-key foreign-table="gz_zbcc_sj" foreign-type="one-to-many" on-delete="none" on-update="none" column-names="xzqh_nm" foreign-names="xzqy_nm"/>
+  <function func-name="select one gz_dm_xzqh" func-type="select" column-list="xzqh_id,xzqh_nm,bb_id,xzqh_dm,xzqh_mc,xzqh_cn_ms,xzqh_en_mc,xzqh_en_ms,xzqh_cjm,xzqh_fjd,xzqh_cc,szcc_sxm,sf_mx">
+    <filter-column column-name="xzqh_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select gz_dm_xzqh list" func-type="rowset" column-list="xzqh_id,xzqh_nm,bb_id,xzqh_dm,xzqh_mc,xzqh_cn_ms,xzqh_en_mc,xzqh_en_ms,xzqh_cjm,xzqh_fjd,xzqh_cc,szcc_sxm,sf_mx" max-record="10">
+    <filter-column column-name="bb_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="xzqh_mc" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="xzqh_dm" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one gz_dm_xzqh" func-type="insert" column-list="xzqh_id,xzqh_nm,bb_id,xzqh_dm,xzqh_mc,xzqh_cn_ms,xzqh_en_mc,xzqh_en_ms,xzqh_cjm,xzqh_fjd,xzqh_cc,szcc_sxm,sf_mx">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one gz_dm_xzqh" func-type="delete">
+    <filter-column column-name="xzqh_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one gz_dm_xzqh" func-type="update" column-list="bb_id,xzqh_dm,xzqh_mc,xzqh_cn_ms,xzqh_en_mc,xzqh_en_ms,xzqh_cjm,xzqh_fjd,xzqh_cc,szcc_sxm,sf_mx">
+    <filter-column column-name="xzqh_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="update sf_mx gz_dm_xzqh" func-type="update" column-list="sf_mx">
+    <filter-column column-name="xzqh_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>增加子行政区划后，对父行政区划的sf_mx进行相应的修改</description>
+  </function>
+
+  <function func-name="list gz_dm_xzqh in one bb" func-type="rowset" column-list="xzqh_dm,xzqh_nm,xzqh_mc,xzqh_cn_ms,xzqh_en_mc,xzqh_en_ms,xzqh_cjm,xzqh_cc,szcc_sxm,sf_mx,xzqh_fjd,bb_id" sort-columns="xzqh_cc" max-record="-1">
+    <filter-column column-name="bb_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>复制版本时提供源版本的记录</description>
+  </function>
+
+  <function func-name="select one xzqh_dm on condition xzqh_fjd" func-type="select" column-list="xzqh_nm">
+    <filter-column column-name="xzqh_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>复制版本后更新父节点 第一步：根据子节点的xzqh_fjd，得到父节点的xzqh_nm</description>
+  </function>
+
+  <function func-name="select one xzqh_id on condition xzqh_dm and bb_id" func-type="select" column-list="xzqh_id">
+    <filter-column column-name="xzqh_nm" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="bb_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>复制版本后更新父节点 第二步：根据源版本父节点的xzqh_nm，以及目标版本的bb_id,得到目标版本父节点的xzqh_id</description>
+  </function>
+
+  <function func-name="update one xzqh_fjd on conditoin xzqh_dm and bb_id" func-type="update" column-list="xzqh_fjd">
+    <filter-column column-name="xzqh_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>复制版本后更新父节点 第三步：根据目标版本的xzqh_id唯一定位目标版本中的新增记录，并作更新：xzqh_fjd = 第二步得到的目标版本父节点的xzqh_id</description>
+  </function>
+
+  <function func-name="update one szcc_sxm" func-type="update" column-list="szcc_sxm">
+    <filter-column column-name="xzqh_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>上下移节点时，更新顺序号</description>
+  </function>
+
+  <function func-name="isHaveXzqhdm" func-type="rowset" column-list="xzqh_dm" max-record="-1">
+    <filter-column column-name="bb_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="xzqh_dm" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>判断某一版本中是否含有该行政区划代码</description>
+  </function>
+
+  <function func-name="isHaveXzqhnm" func-type="rowset" column-list="xzqh_nm" max-record="10">
+    <filter-column column-name="xzqh_nm" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="bb_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>在某一个版本中是否已经含有该行政区划内码</description>
+  </function>
+
+  <function func-name="codedata gz_dm_xzqh list" func-type="rowset" column-list="xzqh_nm as codevalue, xzqh_mc as codename" max-record="-1">
+    <description>行政区划列表－代码集</description>
+  </function>
+</table>
+

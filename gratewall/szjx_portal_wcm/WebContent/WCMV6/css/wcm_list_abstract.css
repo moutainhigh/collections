@@ -1,0 +1,144 @@
+/*BODY*/
+.grid_column{
+	float:left;
+	height:100%;
+	text-align:center;
+	border-right:1px solid gray;
+	padding:6px 0;
+	overflow-x:hidden;
+	overflow-y:visible;
+	white-space:nowrap;
+}
+.grid_column_autowrap{
+	float:left;
+	height:100%;
+	text-align:center;
+	border-right:1px solid gray;
+	padding:6px 0;
+	overflow-x:hidden;
+	overflow-y:visible;
+}
+.grid_column a:link,.grid_column a:visited{
+	color: #000000;
+	text-decoration: none;
+}
+.grid_column a:hover{
+	color: blue;
+	text-decoration:underline;
+}
+.grid_column_autowrap a:link,.grid_column_autowrap a:visited{
+	color: #000000;
+	text-decoration: none;
+}
+.grid_column_autowrap a:hover{
+	color: blue;
+	text-decoration:underline;
+}
+.pageinfo_left {
+	background-image: url(../images/document_normal_index/header_bg_left.png);
+	background-repeat: no-repeat;
+	height: 29px;
+	width: 4px;
+	float: left;
+}
+.pageinfo_right {
+	float: right;
+	background-image: url(../images/document_normal_index/header_bg_right.png);
+	background-repeat: no-repeat;
+	height: 29px;
+	width: 4px;
+}
+/*页面头部背景*/
+.pageinfo{
+	height: 29px;
+	width: 100%;
+	background-image: url(../images/document_normal_index/header_bg.png);
+	background-repeat: repeat-x;
+	margin:0px;
+	overflow:hidden;
+}
+
+/*新闻中心*/
+.pagefilter_displayname{
+	float:left;
+	padding:4px 8px 0px;
+	font-size:12px;
+	vertical-align:middle;
+	height:19px;
+}
+/*过滤条件*/
+.pagefilter_container{
+	padding:6px 10px 1px;
+}
+/*选中的过滤条件*/
+.pagefilter_active,.pagefilter_deactive{
+	float:left;
+	height:19px;
+	vertical-align:middle;
+	margin-top:-1px;
+	padding:0px 0px 0px;
+}
+.pagefilter_active td.left{
+	background-image:url(../images/document_normal_index/label/frame_left.png)
+}
+.pagefilter_active td.middle{
+	background-image:url(../images/document_normal_index/label/frame_middle.png)
+}
+.pagefilter_active td.right{
+	background-image:url(../images/document_normal_index/label/frame_right.png)
+}
+.pagefilter_active a{
+	padding:2px 4px 0px;
+}
+.pagefilter_active a:link {
+	color: #FFFFFF;
+	text-decoration: none;
+	font-size: 12px;
+}
+.pagefilter_active a:visited {
+	color: #FFFFFF;
+	text-decoration: none;
+	font-size: 12px;
+}
+.pagefilter_active a:hover {
+	color: #66CCFF;
+	text-decoration: none;
+	font-size: 12px;
+}
+.pagefilter_deactive a:link {
+	font-size: 12px;
+	color: #000000;
+	text-decoration: none;
+}
+.pagefilter_deactive a:visited {
+	font-size: 12px;
+	color: #000000;
+	text-decoration: none;
+}
+.pagefilter_deactive a:hover {
+	font-size: 12px;
+	color: #3366CC;
+	text-decoration: none;
+}
+/*更多过滤条件*/
+.pagefilter_more_btn{
+	float:left;
+	padding-left:10px;
+	width:29px;
+	height:12px;
+	background-image:url(../images/document_normal_index/more.png);
+	background-repeat:no-repeat;
+	background-position:center bottom;
+}
+.pagefilter_more_container{
+	position:absolute;
+	padding:2px;
+	border:1px solid #adadad;
+	background:#F7F7F7;
+}
+.grid_row_dragging{
+	background-color:buttonface;
+}
+.grid_row_dragging a:link,.grid_row_dragging a:hover,.grid_row_dragging a:visited{
+	color:red;
+}

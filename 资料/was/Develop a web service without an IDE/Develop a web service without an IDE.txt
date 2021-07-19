@@ -1,0 +1,85 @@
+Develop a web service without an IDE, Part 1: Focus on the Server: Create a web service provider on the command line.
+
+1.Create the SEI:
+
+
+package mypackage;
+
+public interface HelloWorld extends java.rmi.Remote {
+	public java.lang.String sayHello() throws java.rmi.RemoteException;
+}
+
+---------------------------------------------------------------------------------------
+cd C:\TEMP\Server8
+
+SET WAS_HOME=C:\WAS\IBM\WebSphere\AppServer
+
+call "%WAS_HOME%\bin\setupcmdline.bat"
+
+"%JAVA_HOME%\bin\javac" -encoding utf-8 -extdirs "%WAS_CLASSPATH%;%WAS_EXT_DIRS%;C:\TEMP\Server8\WEB-INF\lib\;." com\gwssi\BankService.java
+
+"%JAVA_HOME%\bin\javac" -encoding utf-8 -extdirs "%WAS_CLASSPATH%;%WAS_EXT_DIRS%;C:\TEMP\Server8\WEB-INF\lib\;." com\gwssi\ExWebServiceSoap.java
+
+
+
+======================================================================================
+2.Generate the WSDL file from the SEI:
+
+
+SET WAS_HOME=C:\WAS\IBM\WebSphere\AppServer
+call "%WAS_HOME%\bin\Java2WSDL" -style document -use literal -verbose -location http://localhost:9080/BankInterface/services/EntInfoBankService com.gwssi.BankService
+
+
+
+=====================================================================================================================
+3.Generate the server-side artifacts and SEI from the WSDL:
+
+
+SET WAS_HOME=C:\IBM\WebSphere\AppServer
+call "%WAS_HOME%\bin\WSDL2Java" -genJava overwrite -genXML overwrite -role server -container web -verbose -output . EntInfoBankService.wsdl
+
+
+SET WAS_HOME=C:\IBM\WebSphere\AppServer
+"%JAVA_HOME%\bin\javac" -encoding utf-8 -extdirs "%WAS_CLASSPATH%;%WAS_EXT_DIRS%;C:\TEMP\Server8\WEB-INF\lib\;." com\gwssi\EntInfoBankServiceSoapBindingImpl.java
+
+
+
+4.Package the WAR file
+
+
+A: First, create a directory called classesin WEB-INF. Copy the mypackage directory into the classes directory. You should have the following directory structure:
+
+WEB-INF\classes\mypackage\HelloWorld.class
+WEB-INF\classes\mypackage\HelloWorld.java
+WEB-INF\classes\mypackage\HelloWorldSoapBindingImpl.class
+WEB-INF\classes\mypackage\HelloWorldSoapBindingImpl.java
+
+B: Next, a wsdl directory should have been created by the Java2WSDL command. Copy the WSDL file into the WEB-INF\wsdl\ directory. This is the required location of the WSDL file.
+
+
+C: Create the web.xml file inside the WEB-INF folder:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+"http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app id="WebApp">
+	<display-name>HelloWorldWAR</display-name>
+	<servlet>
+		<servlet-name>gwssi_HelloWorldSoapBindingImpl</servlet-name>
+		<servlet-class>gwssi.HelloWorldSoapBindingImpl</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+</web-app>
+
+
+D:The element of concern is servlet-link. Change this value to mypackage_HelloWorldSoapBindingImpl. 
+   This links the Web service to an entry in the web.xml file. The webservices.xml file should now look like the following:
+
+
+
+5.Create the WAR file. Use your favorite zip program to create a WAR file from the WEB-INF directory. If you are using WinZip, you can follow these steps:
+	
+        Right click on the WEB-INF directory.
+	Click on WinZip --> Add to zip
+	Call the file HelloWorld.war. The WAR file should look like the following:
+

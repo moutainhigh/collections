@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="sys_rd_unclaim_column" class-name="cn.gwssi.dw.rd.metadata.dao.SysRdUnclaimColumn" check-flag="false" backup-flag="false">
+    <description>未认领表字段表</description>
+  </table-info>
+
+  <column name="sys_rd_unclaim_column_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="表主键"/>
+  <column name="sys_rd_unclaim_table_id" data-type="varchar" length="32" not-null="false" value-from="input" description="物理表ID"/>
+  <column name="sys_rd_data_source_id" data-type="varchar" length="32" not-null="false" value-from="input" description="数据源ID"/>
+  <column name="unclaim_tab_code" data-type="varchar" length="100" not-null="false" value-from="input" description="未认领表名"/>
+  <column name="unclaim_column_code" data-type="varchar" length="100" not-null="false" value-from="input" description="字段代码"/>
+  <column name="unclaim_column_name" data-type="varchar" length="100" not-null="false" value-from="input" description="字段名称"/>
+  <column name="unclaim_column_type" data-type="varchar" length="2" not-null="false" value-from="input" description="字段类型"/>
+  <column name="unclaim_column_length" data-type="long" length="22" not-null="false" value-from="input" description="字段长度"/>
+  <column name="is_primary_key" data-type="varchar" length="1" not-null="false" value-from="input" description="是否主键"/>
+  <column name="is_index" data-type="varchar" length="1" not-null="false" value-from="input" description="是否索引"/>
+  <column name="is_null" data-type="varchar" length="1" not-null="false" value-from="input" description="是否允许为空"/>
+  <column name="default_value" data-type="varchar" length="1000" not-null="false" value-from="input" description="默认值"/>
+  <column name="remarks" data-type="varchar" length="2000" not-null="false" value-from="input" description="备注"/>
+  <column name="timestamp" data-type="varchar" length="32" not-null="false" value-from="input" description="时间戳"/>
+  <primary-key name="pk_sys_rd_unclaim_column" column-list="sys_rd_unclaim_column_id"/>
+  <index name="pk_sys_rd_unclaim_column" index-type="unique" cluster="cluster" column-list="sys_rd_unclaim_column_id"/>
+  <function func-name="select one sys_rd_unclaim_column" func-type="select" column-list="sys_rd_unclaim_column_id,sys_rd_unclaim_table_id,sys_rd_data_source_id,unclaim_tab_code,unclaim_column_code,unclaim_column_name,unclaim_column_type,unclaim_column_length,is_primary_key,is_index,is_null,default_value,remarks,timestamp">
+    <filter-column column-name="sys_rd_unclaim_column_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_rd_unclaim_column list" func-type="rowset" column-list="sys_rd_unclaim_column_id,sys_rd_unclaim_table_id,sys_rd_data_source_id,unclaim_tab_code,unclaim_column_code,unclaim_column_name,unclaim_column_type,unclaim_column_length,is_primary_key,is_index,is_null,default_value,remarks,timestamp" sort-columns="unclaim_column_code" max-record="10">
+    <filter-column column-name="sys_rd_unclaim_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="unclaim_tab_code" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="unclaim_column_code" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="unclaim_column_type" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_rd_unclaim_column" func-type="insert" column-list="sys_rd_unclaim_column_id,sys_rd_unclaim_table_id,sys_rd_data_source_id,unclaim_tab_code,unclaim_column_code,unclaim_column_name,unclaim_column_type,unclaim_column_length,is_primary_key,is_index,is_null,default_value,remarks,timestamp">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_rd_unclaim_column" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_rd_unclaim_column" func-type="update" column-list="sys_rd_unclaim_table_id,sys_rd_data_source_id,unclaim_tab_code,unclaim_column_code,unclaim_column_name,unclaim_column_type,unclaim_column_length,is_primary_key,is_index,is_null,default_value,remarks,timestamp">
+    <description>修改记录</description>
+  </function>
+</table>
+

@@ -1,0 +1,44 @@
+/*01 首先消除默认的边框边距和字体大小*/
+*{margin: 0px; padding: 0px; }
+
+/*02 设置html、body的大小*/
+html, body {width:100%; height:100%; overflow: hidden;font-size: 12px;}
+
+/*03 开始设置表现层的位置显示区，位置的排列用position*/
+.editclassic {position:relative; width: 100%; height: 100%; overflow: hidden;}
+
+/*04 顶部信息描述*/
+.editclassic .header{position: absolute; left: 0px; top: 0px; width: 100%; height: 80px; padding-left: 20px; padding-top: 20px; color: #155C00; font-size: 25px; font-weight:bold;}
+
+/*05 中间内容信息列表*/
+.editclassic .container {position: absolute; left: 0px; top: 100px; right: 0px; bottom: 24px;}
+
+.editclassic .t{background:url("../images/l_t_l.gif") no-repeat; padding-left:9px;}
+.editclassic .t_r{background:url("../images/l_t_r.gif") no-repeat right; padding-right:6px;}
+.editclassic .t_c{background:url("../images/l_t_c.gif") repeat-x; height:46px; text-align: center; }
+.editclassic .t_c b{line-height: 40px; color: #003498; font-size: 20px; font-weight:bold;}
+.editclassic .t_c .hr{border-top: #AAAAAA solid 1px;vertical-align:middle;margin-right:4px;}
+
+.editclassic .c{background:url("../images/l_c_l.gif") repeat-y; padding-left:9px;}
+.editclassic .c_r{background:url("../images/l_c_r.gif") repeat-y right; padding-right:6px;}
+.editclassic .c_c{background:url("../images/l_c_c.gif") repeat; }
+
+.editclassic .b{background:url("../images/l_b_l.gif") no-repeat; padding-left:9px;}
+.editclassic .b_r{background:url("../images/l_b_r.gif") no-repeat right top; padding-right:6px;}
+.editclassic .b_c{background:url("../images/l_b_c.gif") repeat-x; height:7px;}
+
+.editclassic .container .main {margin: 0 auto; text-align: center; width: 800px;height: 550px;}
+.editclassic .container .main .content {width: 100%; height: 480px;}
+.editclassic .classicTree {width: 40%;float: left;height: 415px;overflow:auto; border: #DDDDDD solid 1px;}
+.editclassic .classicDesc {width: 56%; float: right; margin-right: 10px;background-color: #FEF6DC;}
+.editclassic .classicDesc .description {font-size: 14px; color: #563400; font-weight: bold; }
+.editclassic .classicDesc .keybordDesc {padding-bottom: 35px; }
+.editclassic .classicDesc .keybordDesc ul {padding-top: 10px; padding-left: 55px; text-align: left;}
+.editclassic .classicDesc .keybordDesc ul li {list-style: none; font-size: 13px; color: #494949; padding-top: 10px; }
+.editclassic .classicDesc .keybordDesc ul li span{color: #3E7D37; font-weight: bold; }
+
+.editclassic .button { clear: both;margin: 0 auto; padding:15px 5px;}
+.editclassic .button .btn {background: url(../images/btn.gif) no-repeat; width: 84px; height: 35px; border: 0px;margin-right: 5px;}
+
+/*06 底部*/
+.editclassic .footer{position: absolute; width: 100%; height: 24px; bottom: 0px; background: url("../images/list_bg_bottom.gif") repeat-x center center;}

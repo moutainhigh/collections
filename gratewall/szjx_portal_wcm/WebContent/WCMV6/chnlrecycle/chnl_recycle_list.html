@@ -1,0 +1,247 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>栏目回收站</title>
+
+<!-- ~Common CSS Begin~ -->
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/wcm_list_abstract.css" rel="stylesheet" type="text/css" />
+<!-- ~Common CSS End~ -->
+
+<!-- ~Imports Begin~    -->
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+</script>
+<script label="Imports">
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.util.CommonHelper');
+    $import('com.trs.wcm.SheetChanger');
+	$import('com.trs.wcm.QuickKey');
+	$import('com.trs.wcm.SimpleDragger');
+	$import('com.trs.wcm.Grid');
+	$import('com.trs.wcm.PageFilter');
+	$import('com.trs.wcm.BubblePanel');	
+	
+	$import('com.trs.wcm.domain.ChannelMgr');
+	$import('com.trs.wcm.SimpleQuery');
+</script>
+<!-- ~Imports END~    -->
+
+<!-- ~PageJavaScript Begin~    -->
+<script src="../common/wcm_list_abstract.js" label="PageScope"></script>
+<script src="./domain/ChnlRecycleMgr.js" label="PageScope" desc="业务对象"></script>
+<script src="chnl_recycle_list.js" label="PageScope" desc="页面的描述文件"></script>
+<!-- ~PageJavaScript END~    -->
+
+<style label="PageScope">
+	/*可变的列[标题]所使用的样式*/
+	.DynamicWidth1, .DynamicWidth2{
+		text-align:left;
+		padding-left:0!important;
+		padding-left:10px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	/**页面自己的样式**/
+	.object_restore{
+		width: 20px;
+		background-image:url(../images/icon/restore.gif);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	.object_delete{
+		background-image:url(../images/icon/delete.gif);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+
+	/**for path**/
+	A.navigation_channel_link_current:link{
+		color: #010101;
+		text-decoration:none;
+	}
+	.navigation_channel_desc{
+		color: darkred;
+	}
+	/**for pageinfo**/
+	.pageinfo_1 {
+		float:left;
+		width:100%;
+		height:29px;
+		overflow:hidden;
+		background-image:url(../images/channel_thumbs_index/header_bg.gif);
+		background-repeat:repeat-x;
+	}
+	.pageinfo_2{
+		float:left;
+		width:100%;
+		height:30px;
+		background-image: url(../images/channel_thumbs_index/button-bg.png);
+		background-repeat: repeat-x;
+		overflow:hidden;
+	}
+	.pageinfo_2_td{
+		padding-top:8px;
+		padding-left: 8px;
+		font-size: 12px;
+		border-bottom: 1px solid silver;
+		padding-bottom: 2px;
+		font-family: Courier New;
+	}
+</style>
+<script language="javascript">
+<!--
+	Event.onDOMReady(function(){
+		var arQueryFields = [
+			{name: 'queryChannelDesc', desc: '显示名称', type: 'string'},
+			{name: 'queryChannelName', desc: '唯一标识', type: 'string'},
+			{name: 'OperUser', desc: '删除者', type: 'string'},
+			{name: 'queryChannelId', desc: '栏目ID', type: 'int'}
+		]
+		SimpleQuery.register('query_box', arQueryFields, function(_params){
+			Object.extend(PageContext.params, _params);
+			PageContext.refreshCurrRows();
+		}, true);
+	});
+//-->
+</script>
+</head>
+
+<body>
+<script>
+</script>
+<div id="dy_list_adjust"></div>
+<table id="table_body" class="wcm_table_layout" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="wcm_list_view">
+			<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+			<tbody>
+				<tr class="list_pageinfo">
+					<td colSpan="3">
+						<div class="pageinfo_1">
+							<div class="pageinfo_left"></div>
+							<div class="pageinfo_right"></div>
+							<div style="float:right;" id="query_box"></div>
+						</div>
+						<div class="pageinfo_2">
+							<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+							<tbody>
+								<tr>
+									<td class="list_view_border"></td>
+									<td class="pageinfo_2_td">
+                                        <span><a href="#" onclick="PageContext.returnBack(); return false;" style="text-decoration: none;"><img src="../images/icon/return.gif" width="16px" border="0" align="absmiddle" style="margin-right:3px;">返回栏目列表</a>
+                                        </span>
+										<span id="literator_path" url="/wcm/WCMV6/include/entity_path.jsp" params="siteid={$siteid}&channelid={$channelid}&objectdesc=栏目回收站">正在加载路径信息..</span>
+									</td>
+									<td class="list_view_border"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div> 
+					</td>
+				</tr>
+				<tr class="list_view">
+					<td class="list_view_border"></td>
+					<td valign="top">
+						<DIV id='objects_grid' class="grid">
+							<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+								<tr style="height:29px">
+									<td>
+										<DIV class="grid_head" id="grid_head">
+											<!--列表头模板-->
+											<SPAN class="grid_head_column" onclick="Grid.toggleAllRows();" style="width:50px;">
+												全选
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:40px; cursor: auto">
+												还原
+											</SPAN>
+											<SPAN class="grid_head_column DynamicWidth2" grid_dywidth="DynamicWidth2,0.5" grid_sortby="ChnlDesc" style="text-align: center">
+												显示名称
+											</SPAN>
+											<SPAN class="grid_head_column DynamicWidth1" grid_dywidth="DynamicWidth1,0.5" grid_sortby="ChnlName" style="text-align: center">
+												唯一标识
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:100px;">
+												原位置
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:120px;" grid_sortby="OperTime">
+												删除时间
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:60px;" grid_sortby="OperUser">
+												删除者
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:60px;border-right:0; cursor: auto">
+												删除
+											</SPAN>
+										</DIV>
+									</td>
+								</tr>
+								<tr>
+									<td valign="top">
+										<div id="grid_data" class="grid_data"></div>
+										<!--Objects列表数据模板-->
+										<textarea id="objects_template" select="Channels.Channel" style='display:none'>
+											<for select="." blankRef="divNoObjectFound">
+											<DIV class="grid_row wcm_pointer" grid_rowid="{#CHANNELID}" right="{#Right}">
+												<SPAN class="grid_column" style="width:50px">
+													<input type="checkbox" class="wcm_pointer grid_checkbox" name="ChannelId" value="{#ChannelId}"/>
+													<span style="font-family: Georgia">{$$index}</span>
+												</SPAN>
+												<SPAN class="grid_column" style="width:40px;">
+													<span class="object_restore" grid_function="restore" title="还原"></span>&nbsp;
+												</SPAN>
+												<SPAN class="grid_column DynamicWidth2">
+													<span title="{#ChnlDesc, }" style="font-size: 14px;">{#ChnlDesc}</span>
+												</SPAN>
+												<SPAN class="grid_column DynamicWidth1">
+													<span title="{#ChnlName, }">{#ChnlName}</span>
+												</SPAN>
+												<SPAN class="grid_column"  style="width:100px;" title="{#Parent.Path, ,$trans2Html}">
+													{#Parent.Name}
+												</SPAN>
+												<SPAN class="grid_column" style="width:120px; font-family: Arial">
+													{#OperTime}
+												</SPAN>
+												<SPAN class="grid_column" style="width:60px;">
+													{#OperUser}
+												</SPAN>
+												<SPAN class="grid_column object_delete" style="width:60px;border-right:0" grid_function="delete" title="删除"></SPAN>
+											</DIV>
+											</for>
+										</textarea>
+									</td>
+								</tr>
+							</table>
+						</DIV>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+				<tr class="list_navigator">
+					<td class="list_view_border"></td>
+					<td>
+						<DIV id="list_navigator" class="list_navigator_div">
+						</DIV>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+</table>
+<div id="divNoObjectFound" style="display:none;">
+	<div class="no_object_found">不好意思, 没有找到符合条件的对象..-____-|||</div>
+</div>
+<script language="javascript">
+<!--
+	PageContext.drawLiterator('literator_path');
+	PageContext.LoadPage();
+//-->
+</script>
+</body>
+</html>

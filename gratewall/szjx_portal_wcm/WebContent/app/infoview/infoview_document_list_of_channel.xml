@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="GB2312"?>
+<parameters>	
+	<!--ge gfc modify @ 2008-1-8 兼容从V6链过来的情况
+	<parameter name="ChannelId"  desc="栏目ID"  min-value="1" type="int" required="true"/>
+	-->
+	<parameter name="ChannelId"  desc="栏目ID"  min-value="1" type="int" required="false"/>
+	<parameter name="channelid"  desc="栏目ID"  min-value="1" type="int" required="false"/>
+
+<!--分页相关配置 BEGIN-->
+	<parameter name="PageIndex" desc="当前页码" min-value="1" default="1" type="int" required="false"/>
+	<parameter name="PageItemCount" desc="页面记录数" min-value="1" default="10" type="int" required="false"/>
+	<parameter name="PageSize" desc="页面记录数" min-value="1" default="15" type="int" required="false"/>
+<!--分页相关配置 END-->
+
+<!--检索相关配置 BEGIN-->
+	<parameter name="SearchXML"  desc="检索对象"  type="string" required="false"/>
+	<parameter name="SearchTable"  desc="检索的表名"  type="string" required="false" default="WCMDOCUMENT"/>
+	<parameter name="SearchKey"  desc="检索的字段"  type="string" required="false" default="DOCTITLE"/>
+	<parameter name="SearchValue"  desc="检索的数据"  type="string" required="false" default=""/>
+	<parameter name="DocStatus" desc="待查询的状态" type="string" required="false" search="true"
+		search-operator="=" search-type="pint" search-field="WCMChnlDoc.DocStatus"/>
+	<parameter name="StartTime" desc="开始时间" type="datetime" required="false"
+		search="true" search-operator="&gt;=" search-field="WCMChnlDoc.CrTime"/>
+	<parameter name="EndTime" desc="结束时间" type="datetime" required="false"
+		search="true" search-operator="&lt;=" search-field="WCMChnlDoc.CrTime"/>
+
+<!--排序相关配置 BEGIN-->
+	<parameter name="OrderField"  desc="排序字段"  type="string" required="false" default="" />
+	<parameter name="OrderType"  desc="排序方式"  type="string" required="false" default="desc" />	
+<!--排序相关配置 END-->
+		
+	<parameter name="ChnlDocSelectFields" default="DocStatus,CrTime,CrUser,RecId,DOCID,ChnlId,Modal" desc="提取的ChnlDoc字段列表" type="string" required="false"/>
+	<parameter name="DocumentSelectFields" default="" desc="提取的Document字段列表" type="string" required="false"/> 
+	<parameter name="DocStatus"  desc="状态"  type="string" required="false" default="" />
+</parameters>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0"  id="components.common.publish">
+	<beans>
+		<bean id="PublishServer" 
+			class="com.trs.components.common.publish.domain.PublishServer" 
+			singleton="true"/>
+		<bean id="TemplateMgr" 
+			class="com.trs.components.common.publish.domain.template.TemplateMgr" 
+			singleton="true"/>
+		<bean id="PublishFolderLCListener" 
+			class="com.trs.components.common.publish.domain.element.PublishFolderLCListener" 
+			singleton="true"/>
+		<bean id="PublishContentCListener" 
+			class="com.trs.components.common.publish.domain.element.PublishContentLCListener" 
+			singleton="true"/>
+		<bean id="TagBeanLCListener" 
+			class="com.trs.components.common.publish.domain.tagparser.TagBeanLCListener" 
+			singleton="true"/>
+		<!-- <bean id="TempAppendixLCListener" 
+			class="com.trs.components.common.publish.persistent.template.TempAppendixLCListener" 
+			singleton="true"/>  -->
+		<bean id="TemplateArgumentCacheMgr" 
+			class="com.trs.components.common.publish.domain.template.TemplateArgumentCacheMgr" 
+			singleton="true" />
+		<bean id="TemplateArgumentMgr" 
+			class="com.trs.components.common.publish.domain.template.TemplateArgumentMgr" 
+			singleton="true" />
+		<bean id="ITemplateEmployCacheMgr" 
+			class="com.trs.components.common.publish.domain.template.TemplateEmployCacheMgrImpl" 
+			singleton="true" />
+		<bean id="TemplateCacheMgr" 
+			class="com.trs.components.common.publish.domain.template.TemplateCacheMgr" 
+			singleton="true" />
+		<bean id="TemplateNestMgr" 
+			class="com.trs.components.common.publish.domain.template.TemplateNestMgr" 
+			singleton="true" />
+		<bean id="TemplateEmployMgr" 
+			class="com.trs.components.common.publish.domain.template.TemplateEmployMgr" 
+			singleton="true" />
+		<bean id="TemplateParseMgr" 
+			class="com.trs.components.common.publish.domain.template.TemplateParseMgr" 
+			singleton="true" />
+		<bean id="TemplateQuoteMgr" 
+			class="com.trs.components.common.publish.domain.template.TemplateQuoteMgr" 
+			singleton="true" />
+		<bean id="IPublishTaskMgr" 
+			class="com.trs.components.common.publish.domain.taskdispatch.PublishTaskMgrImpl" 
+			singleton="true"/>
+		<bean id="IQueue.Publish" class="org.aton.container.QueueLinkImpl" 
+			singleton="true" />
+		<bean id="ILaborResourceMgr.Publish" 
+			class="com.trs.components.common.publish.domain.taskdispatch.LaborResourceMgrImpl" 
+			singleton="true" />
+		<bean id="PublishThreadPool" 
+			class="com.trs.components.common.publish.domain.taskdispatch.ThreadPool" 
+			singleton="true" />
+		<bean id="IPublishTaskDispatcher" 
+			class="com.trs.components.common.publish.domain.taskdispatch.PublishTaskDispatcherImpl" 
+			singleton="true"/>
+		<bean id="PublishDistributionMgr" 
+			class="com.trs.components.common.publish.domain.distribute.PublishDistributionMgr" 
+			singleton="true"/>
+		<bean id="PublishDistributionCacheMgr" 
+			class="com.trs.components.common.publish.domain.distribute.PublishDistributionCacheMgr" 
+			singleton="true"/>
+		<bean id="UftpConnectionCacheManager" 
+			class="com.trs.components.common.publish.domain.distribute.UftpConnectionCacheManager" 
+			singleton="true"/>
+		<bean id="TemplateLCListenerForNestedRename" 
+			class="com.trs.components.common.publish.domain.template.TemplateLCListenerForNestedRename" 
+			singleton="true"/>
+		<bean id="TemplateLCListenerForTypeChanged" 
+			class="com.trs.components.common.publish.domain.template.TemplateLCListenerForTypeChanged" 
+			singleton="true"/>
+		<bean id="TemplateArgumentLCListenerForEmployChanged" 
+			class="com.trs.components.common.publish.domain.template.TemplateArgumentLCListenerForEmployChanged" 
+			singleton="true"/>
+		<bean id="PublishDistributionLCListener" 
+			class="com.trs.components.common.publish.domain.distribute.PublishDistributionLCListener" 
+			singleton="true"/>
+	</beans>
+		
+</plugin>

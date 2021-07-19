@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="主从表[主表通过导航按钮，维护子表信息]" page="master-detail-table-2.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="multi-table-2.gif"/>
+  <struts name="reg_bus_ent_oc.xml" app-path="/dw/aic/bj/reg/oc/" app-name="reg_bus_ent_oc" description="委办局信息" template="master-detail-table-2.xml"/>
+  <table name="reg_bus_ent_oc.xml" app-name="reg_bus_ent_oc" app-desc="委办局信息" delete-action="delete" description="委办局信息" class-name="com.gwssi.dw.aic.bj.reg.oc.txn.TxnRegBusEntOc" template="master-detail-table-2.master.java" dao-class-template="single-table.java" type="master">
+	  <jsp page-name="query-reg_bus_ent_oc.jsp" txn-code="60111001" description="查询委办局信息列表" template="master-detail-2/master-table-query.jsp">
+	    <button type="button" name="增加委办局信息" path="insert-reg_bus_ent_oc.jsp" description="增加委办局信息" func-name="addRecord"/>
+	    <button type="button" name="修改委办局信息" path="/txn60111004.do" description="修改委办局信息" func-name="updateRecord"/>
+	    <button type="button" name="删除委办局信息" path="/txn60111005.do" description="删除委办局信息" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60111001.do" description="查询委办局信息信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-reg_bus_ent_oc.jsp" txn-code="60111003" description="增加委办局信息信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60111003.do" description="保存委办局信息信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60111003.do" description="保存委办局信息信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60111001.do" description="保存委办局信息信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60111001.do" description="返回到委办局信息明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-reg_bus_ent_oc.jsp" txn-code="60111002" description="修改委办局信息信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60111001.do" description="修改委办局信息信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60111001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-reg_bus_ent_oc.jsp" txn-code="60111001" description="查询委办局信息列表">
+	    <forward error-code="success" path="query-reg_bus_ent_oc.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-reg_bus_ent_oc.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-reg_bus_ent_oc.jsp" txn-code="60111002" description="修改委办局信息信息">
+	    <forward error-code="success" path="update-reg_bus_ent_oc.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-reg_bus_ent_oc.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-reg_bus_ent_oc.jsp" txn-code="60111003" description="增加委办局信息信息">
+	    <forward error-code="success" path="insert-reg_bus_ent_oc.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-reg_bus_ent_oc.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-reg_bus_ent_oc.jsp" txn-code="60111004" description="查询委办局信息用于修改">
+	    <forward error-code="success" path="update-reg_bus_ent_oc.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-reg_bus_ent_oc.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-reg_bus_ent_oc.jsp" txn-code="60111005" description="删除委办局信息信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.RegBusEntOcContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.VoRegBusEntOc" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.VoRegBusEntOcSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.VoRegBusEntOcPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="reg_bus_ent_mem_oc.xml" app-name="reg_bus_ent_mem_oc" app-desc="企业主要成员信息表(外埠)" delete-action="delete" description="企业主要成员信息表(外埠)" class-name="com.gwssi.dw.aic.bj.reg.oc.txn.TxnRegBusEntMemOc" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60111011">
+	  <jsp page-name="reg_bus_ent_mem_oc/query-reg_bus_ent_mem_oc.jsp" txn-code="60111011" description="查询企业主要成员信息表(外埠)列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加企业主要成员信息表(外埠)" path="reg_bus_ent_mem_oc/insert-reg_bus_ent_mem_oc.jsp" description="增加企业主要成员信息表(外埠)" func-name="addRecord"/>
+	    <button type="button" name="修改企业主要成员信息表(外埠)" path="/txn60111014.do" description="修改企业主要成员信息表(外埠)" func-name="updateRecord"/>
+	    <button type="button" name="删除企业主要成员信息表(外埠)" path="/txn60111015.do" description="删除企业主要成员信息表(外埠)" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60111001.do" description="返回到委办局信息明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60111011.do" description="查询企业主要成员信息表(外埠)信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="reg_bus_ent_mem_oc/insert-reg_bus_ent_mem_oc.jsp" txn-code="60111013" description="增加企业主要成员信息表(外埠)信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60111013.do" description="保存企业主要成员信息表(外埠)信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60111013.do" description="保存企业主要成员信息表(外埠)信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60111011.do" description="保存企业主要成员信息表(外埠)信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60111011.do" description="返回到企业主要成员信息表(外埠)明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="reg_bus_ent_mem_oc/update-reg_bus_ent_mem_oc.jsp" txn-code="60111012" description="修改企业主要成员信息表(外埠)信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60111011.do" description="修改企业主要成员信息表(外埠)信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60111011.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="reg_bus_ent_mem_oc/query-reg_bus_ent_mem_oc.jsp" txn-code="60111011" description="查询企业主要成员信息表(外埠)列表">
+	    <forward error-code="success" path="reg_bus_ent_mem_oc/query-reg_bus_ent_mem_oc.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="reg_bus_ent_mem_oc/query-reg_bus_ent_mem_oc.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="reg_bus_ent_mem_oc/update-reg_bus_ent_mem_oc.jsp" txn-code="60111012" description="修改企业主要成员信息表(外埠)信息">
+	    <forward error-code="success" path="reg_bus_ent_mem_oc/update-reg_bus_ent_mem_oc.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="reg_bus_ent_mem_oc/update-reg_bus_ent_mem_oc.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="reg_bus_ent_mem_oc/insert-reg_bus_ent_mem_oc.jsp" txn-code="60111013" description="增加企业主要成员信息表(外埠)信息">
+	    <forward error-code="success" path="reg_bus_ent_mem_oc/insert-reg_bus_ent_mem_oc.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="reg_bus_ent_mem_oc/insert-reg_bus_ent_mem_oc.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="reg_bus_ent_mem_oc/query-reg_bus_ent_mem_oc.jsp" txn-code="60111014" description="查询企业主要成员信息表(外埠)用于修改">
+	    <forward error-code="success" path="reg_bus_ent_mem_oc/update-reg_bus_ent_mem_oc.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="reg_bus_ent_mem_oc/update-reg_bus_ent_mem_oc.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="reg_bus_ent_mem_oc/query-reg_bus_ent_mem_oc.jsp" txn-code="60111015" description="删除企业主要成员信息表(外埠)信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.RegBusEntMemOcContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.VoRegBusEntMemOc" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.VoRegBusEntMemOcSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.VoRegBusEntMemOcPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="reg_bus_inv_oc.xml" app-name="reg_bus_inv_oc" app-desc="企业股东信息表(外埠)" delete-action="delete" description="企业股东信息表(外埠)" class-name="com.gwssi.dw.aic.bj.reg.oc.txn.TxnRegBusInvOc" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60111021">
+	  <jsp page-name="reg_bus_inv_oc/query-reg_bus_inv_oc.jsp" txn-code="60111021" description="查询企业股东信息表(外埠)列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加企业股东信息表(外埠)" path="reg_bus_inv_oc/insert-reg_bus_inv_oc.jsp" description="增加企业股东信息表(外埠)" func-name="addRecord"/>
+	    <button type="button" name="修改企业股东信息表(外埠)" path="/txn60111024.do" description="修改企业股东信息表(外埠)" func-name="updateRecord"/>
+	    <button type="button" name="删除企业股东信息表(外埠)" path="/txn60111025.do" description="删除企业股东信息表(外埠)" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60111001.do" description="返回到委办局信息明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60111021.do" description="查询企业股东信息表(外埠)信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="reg_bus_inv_oc/insert-reg_bus_inv_oc.jsp" txn-code="60111023" description="增加企业股东信息表(外埠)信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60111023.do" description="保存企业股东信息表(外埠)信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60111023.do" description="保存企业股东信息表(外埠)信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60111021.do" description="保存企业股东信息表(外埠)信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60111021.do" description="返回到企业股东信息表(外埠)明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="reg_bus_inv_oc/update-reg_bus_inv_oc.jsp" txn-code="60111022" description="修改企业股东信息表(外埠)信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60111021.do" description="修改企业股东信息表(外埠)信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60111021.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="reg_bus_inv_oc/query-reg_bus_inv_oc.jsp" txn-code="60111021" description="查询企业股东信息表(外埠)列表">
+	    <forward error-code="success" path="reg_bus_inv_oc/query-reg_bus_inv_oc.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="reg_bus_inv_oc/query-reg_bus_inv_oc.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="reg_bus_inv_oc/update-reg_bus_inv_oc.jsp" txn-code="60111022" description="修改企业股东信息表(外埠)信息">
+	    <forward error-code="success" path="reg_bus_inv_oc/update-reg_bus_inv_oc.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="reg_bus_inv_oc/update-reg_bus_inv_oc.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="reg_bus_inv_oc/insert-reg_bus_inv_oc.jsp" txn-code="60111023" description="增加企业股东信息表(外埠)信息">
+	    <forward error-code="success" path="reg_bus_inv_oc/insert-reg_bus_inv_oc.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="reg_bus_inv_oc/insert-reg_bus_inv_oc.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="reg_bus_inv_oc/query-reg_bus_inv_oc.jsp" txn-code="60111024" description="查询企业股东信息表(外埠)用于修改">
+	    <forward error-code="success" path="reg_bus_inv_oc/update-reg_bus_inv_oc.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="reg_bus_inv_oc/update-reg_bus_inv_oc.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="reg_bus_inv_oc/query-reg_bus_inv_oc.jsp" txn-code="60111025" description="删除企业股东信息表(外埠)信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.RegBusInvOcContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.VoRegBusInvOc" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.VoRegBusInvOcSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.VoRegBusInvOcPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="mon_ach_ent_res_oc.xml" app-name="mon_ach_ent_res_oc" app-desc="年检信息表(外埠)" delete-action="delete" description="年检信息表(外埠)" class-name="com.gwssi.dw.aic.bj.reg.oc.txn.TxnMonAchEntResOc" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60111031">
+	  <jsp page-name="mon_ach_ent_res_oc/query-mon_ach_ent_res_oc.jsp" txn-code="60111031" description="查询年检信息表(外埠)列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加年检信息表(外埠)" path="mon_ach_ent_res_oc/insert-mon_ach_ent_res_oc.jsp" description="增加年检信息表(外埠)" func-name="addRecord"/>
+	    <button type="button" name="修改年检信息表(外埠)" path="/txn60111034.do" description="修改年检信息表(外埠)" func-name="updateRecord"/>
+	    <button type="button" name="删除年检信息表(外埠)" path="/txn60111035.do" description="删除年检信息表(外埠)" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60111001.do" description="返回到委办局信息明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60111031.do" description="查询年检信息表(外埠)信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="mon_ach_ent_res_oc/insert-mon_ach_ent_res_oc.jsp" txn-code="60111033" description="增加年检信息表(外埠)信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60111033.do" description="保存年检信息表(外埠)信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60111033.do" description="保存年检信息表(外埠)信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60111031.do" description="保存年检信息表(外埠)信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60111031.do" description="返回到年检信息表(外埠)明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="mon_ach_ent_res_oc/update-mon_ach_ent_res_oc.jsp" txn-code="60111032" description="修改年检信息表(外埠)信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60111031.do" description="修改年检信息表(外埠)信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60111031.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="mon_ach_ent_res_oc/query-mon_ach_ent_res_oc.jsp" txn-code="60111031" description="查询年检信息表(外埠)列表">
+	    <forward error-code="success" path="mon_ach_ent_res_oc/query-mon_ach_ent_res_oc.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="mon_ach_ent_res_oc/query-mon_ach_ent_res_oc.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="mon_ach_ent_res_oc/update-mon_ach_ent_res_oc.jsp" txn-code="60111032" description="修改年检信息表(外埠)信息">
+	    <forward error-code="success" path="mon_ach_ent_res_oc/update-mon_ach_ent_res_oc.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="mon_ach_ent_res_oc/update-mon_ach_ent_res_oc.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="mon_ach_ent_res_oc/insert-mon_ach_ent_res_oc.jsp" txn-code="60111033" description="增加年检信息表(外埠)信息">
+	    <forward error-code="success" path="mon_ach_ent_res_oc/insert-mon_ach_ent_res_oc.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="mon_ach_ent_res_oc/insert-mon_ach_ent_res_oc.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="mon_ach_ent_res_oc/query-mon_ach_ent_res_oc.jsp" txn-code="60111034" description="查询年检信息表(外埠)用于修改">
+	    <forward error-code="success" path="mon_ach_ent_res_oc/update-mon_ach_ent_res_oc.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="mon_ach_ent_res_oc/update-mon_ach_ent_res_oc.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="mon_ach_ent_res_oc/query-mon_ach_ent_res_oc.jsp" txn-code="60111035" description="删除年检信息表(外埠)信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.MonAchEntResOcContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.VoMonAchEntResOc" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.VoMonAchEntResOcSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.oc.vo.VoMonAchEntResOcPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+</resource>

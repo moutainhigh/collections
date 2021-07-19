@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="content-type" />
+	<title>CKEditor Sample</title>
+	<script src="../js/runtime/lightlib.js"></script>
+	<script src="../js/runtime/core_main.js"></script>
+	<script src="../js/runtime/dialog_dd.js"></script>
+	<script src="../js/runtime/light_comps.js"></script>
+	<script src="../document/document_addedit.jsp.compress.js"></script>
+	<style type="text/css">
+		*{
+			padding:0px;
+			margin:0px;
+		}
+		html,body{
+			width:100%;
+			height:100%;
+			overflow:hidden;
+		}
+	</style>
+</head>
+<body>
+	<textarea name="myeditor" id="myeditor" rows="" cols="" style="display:none;">this is init value.</textarea>
+	<iframe src="editor.html?EditorValueElId=myeditor&height=400px" style="width:100%;height:100%;"></iframe>
+</body>
+</html>

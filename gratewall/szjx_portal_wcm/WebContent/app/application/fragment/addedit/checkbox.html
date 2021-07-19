@@ -1,0 +1,12 @@
+<!--多选-->
+<script language="javascript">
+<!--
+	new com.trs.ui.XCheckbox({
+		disabled : ${NOTEDIT},
+		name : '<TRS_ViewField field="DBFieldName" filterForJs="true" />',
+		value : '<%=CMyString.filterForJs(getValue(obj, "${FieldName}", "<TRS_ViewField field="DefaultValue" filterForJava="true" />"))%>',
+		items : '<TRS_ViewField field="EnmValue" filterForJs="true" />',
+		validation : "type:'string',required:'${NotNull}',max_len:'${DBLength}',desc:'<TRS_ViewField field="AnotherName" filterForJs="true" doubleFilter="true" />'"
+	}).render();
+//-->
+</script>

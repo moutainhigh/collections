@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>数据权限类型管理</menu-name>
+  <menu-path>/page/sysmgr/priv/datapriv/dataprivgroup/</menu-path>
+  <description>数据权限类型管理</description>
+  <form-beans>
+    <form-bean name="FuncdataobjectRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="objectid" type="long" description="数据对象代码"/>
+      <form-property prefix="record" name="funcode" type="string" size="36" cannull="false" description="功能代码"/>
+      <form-property prefix="record" name="objectid" type="long" cannull="false" description="数据对象代码"/>
+    </form-bean>
+
+    <form-bean name="FuncdataobjectUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="funcode" type="string" size="36" cannull="false" description="功能代码"/>
+      <form-property prefix="primary-key" name="objectid" type="long" cannull="false" description="数据对象代码"/>
+      <form-property prefix="record" name="funcode" type="string" size="36" cannull="false" description="功能代码"/>
+      <form-property prefix="record" name="objectid" type="long" cannull="false" description="数据对象代码"/>
+    </form-bean>
+
+    <form-bean name="FuncdataobjectDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="funcode" type="string" size="36" cannull="false" description="功能代码"/>
+      <form-property prefix="primary-key" name="objectid" type="long" cannull="false" description="数据对象代码"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-funcdataobject.jsp" name="FuncdataobjectRowsetForm" txn-code="103021" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询配置功能关系列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnFuncdataobject" func-name="txn103021" input-node="select-key" output-node="record" description="查询配置功能关系列表"/>
+      <forward error-code="success" path="query-funcdataobject.jsp"/>
+      <forward error-code="failure" path="query-funcdataobject.jsp"/>
+    </action>
+
+    <action input="update-funcdataobject.jsp" name="FuncdataobjectUpdateForm" txn-code="103022" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改配置功能关系信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnFuncdataobject" func-name="txn103022" input-node="record" description="修改配置功能关系信息"/>
+      <forward error-code="success" path="update-funcdataobject.jsp"/>
+      <forward error-code="failure" path="update-funcdataobject.jsp"/>
+    </action>
+
+    <action input="insert-funcdataobject.jsp" name="FuncdataobjectUpdateForm" txn-code="103023" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加配置功能关系信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnFuncdataobject" func-name="txn103023" input-node="record" description="增加配置功能关系信息"/>
+      <forward error-code="success" path="insert-funcdataobject.jsp"/>
+      <forward error-code="failure" path="insert-funcdataobject.jsp"/>
+    </action>
+
+    <action input="query-funcdataobject.jsp" name="FuncdataobjectUpdateForm" txn-code="103024" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询配置功能关系用于修改</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnFuncdataobject" func-name="txn103024" input-node="primary-key" output-node="record" description="查询配置功能关系用于修改"/>
+      <forward error-code="success" path="update-funcdataobject.jsp"/>
+      <forward error-code="failure" path="update-funcdataobject.jsp"/>
+    </action>
+
+    <action input="query-funcdataobject.jsp" name="FuncdataobjectDeleteForm" txn-code="103025" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除配置功能关系信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnFuncdataobject" func-name="txn103025" input-node="primary-key" description="删除配置功能关系信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-funcdataobject.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/xtgl/qxgl/sjqxlxgl/query-funcdataobject.jsp" description="查询配置功能关系列表"/>
+    <resource-file type="jsp" file-name="/xtgl/qxgl/sjqxlxgl/insert-funcdataobject.jsp" description="增加配置功能关系信息"/>
+    <resource-file type="jsp" file-name="/xtgl/qxgl/sjqxlxgl/update-funcdataobject.jsp" description="修改配置功能关系信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.FuncdataobjectContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.VoFuncdataobject" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.VoFuncdataobjectSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.VoFuncdataobjectPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

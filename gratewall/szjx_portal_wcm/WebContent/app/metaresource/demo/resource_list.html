@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="resource_list.html.resourcecenter"> 资源中心 </title>
+	<script src="../../js/easyversion/lightbase.js"></script>
+	<script src="../../js/source/wcmlib/WCMConstants.js"></script>
+	<script src="../../js/easyversion/extrender.js"></script>
+	<script src="../../js/easyversion/elementmore.js"></script>
+	<script src="../../js/source/wcmlib/core/MsgCenter.js"></script>
+	<script src="../../js/source/wcmlib/Observable.js"></script>
+
+	<!--Ajax Start-->
+	<script src="../../js/easyversion/ajax.js"></script>
+	<script src="../../js/easyversion/basicdatahelper.js"></script>
+	<script src="../../js/easyversion/web2frameadapter.js"></script>
+	<!--Ajax End-->
+	<script src="../js/PageContext.js"></script>
+	<script src="resource_list.js"></script>
+	<link href="../css/thumb_list_common.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div class="container">
+<div class="left">
+	
+</div>
+<div class="right">
+	<!-- 页面头部区域，提供的是操作按钮栏，描述信息和检索框 -->
+	<div class="header">
+		<!-- 操作按钮栏区域 -->
+		<div class="toolbar" id="toolbar">
+		</div>
+		<!-- 描述信息区域 -->
+		<div class="desc" WCMAnt:param="resource_list.html.manageresources">您可以管理以下结构的资源</div>
+		<!-- 检索框区域 -->
+		<div class="search" id="search"></div>
+	</div>
+
+	<!-- 数据区域 -->
+	<div class="content" id="list-data"></div>
+
+	<!-- 底部区域，主要是当需要的时候，做翻页的区域 -->
+	<div class="footer">
+	</div>
+	<!-- 当列表没有记录的时候，需要给一定的提示，可能需要结合实际情况给提示 -->
+	<div id="objectNotFound" style="display:none;"><div class="no_object_found" WCMAnt:param="resource_list.html.noobject">不好意思, 没有找到符合条件的对象!</div></div>
+</div>
+</div>
+</body>
+</html>

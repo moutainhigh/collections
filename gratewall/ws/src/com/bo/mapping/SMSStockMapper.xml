@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 
+	例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ye.dao.SMSStockDao">
+
+	<select id="getSMSStockByStockCode" resultType="SMSStock"	parameterType="String">
+		select *
+		from sms_stock where stockCode=#{stockCode}
+	</select>
+
+
+	<select id="selectAllSMSStockList" resultType="SMSStock">
+		select stockcode,
+		stockName,currentPrice,prevClose,rates,types,addDate,pinyin,todayMaxPrice,todayMinPrice,stockBelong,fudu,thumbsImg
+		from sms_stock
+	</select>
+
+	<select id="getNoNameSMSStock" resultType="SMSStock">
+		select stockcode,
+		stockName
+		from sms_stock where stockname is null
+		<if test="stockname==''">
+			or stockname = '';
+		</if>
+	</select>
+
+	<select id="getSMSStockByCodeOrName" resultType="SMSStock"
+		parameterType="String">
+		select *
+		from sms_stock where stockcode LIKE
+		concat(concat('%',#{queryStr}),'%') or
+		stockname like
+		concat(concat('%',#{queryStr}),'%') or pinYin like
+		concat(concat('%',#{queryStr}),'%')
+	</select>
+
+	<insert id="save" parameterType="SMSStock">
+		INSERT INTO sms_stock(stockCode,
+		stockName,currentPrice,rates,stockBelong) VALUES
+		(#{stockCode},#{stockName},#{currentPrice},#{rates},#{stockBelong})
+	</insert>
+
+	<update id="update" parameterType="SMSStock">
+		update sms_stock set
+		stockName= #{stockName},
+		currentPrice=#{currentPrice},
+		rates = #{rates},
+		todayMaxPrice=#{todayMaxPrice},
+		todayMinPrice=#{todayMinPrice},
+		stockBelong=#{stockBelong},
+		thumbsImg=#{thumbsImg},
+		fudu=#{fudu},
+		prevClose = #{prevClose},
+		pinYin =#{pinYin}
+		where
+		stockCode=#{stockCode}
+	</update>
+
+
+	<select id="getZhangFuStock" resultType="SMSStock" parameterType="Map">
+	select * from sms_stock s where s.currentPrice - s.prevClose  &gt;  0 and s.currentPrice !=0 ORDER BY s.currentPrice - s.prevClose and s.currentPrice !=0
+	<if test="codes!='' and  codes!=null">
+			and stockcode LIKE concat(concat('%',#{codes}),'%') or stockname like concat(concat('%',#{codes}),'%') or pinYin like concat(concat('%',#{codes}),'%')
+		</if>
+	</select>
+	
+    <select id="getDieFuStock" resultType="SMSStock" parameterType="Map">
+	select * from sms_stock s where s.currentPrice - s.prevClose &lt; 0  and s.currentPrice !=0 ORDER BY s.currentPrice - s.prevClose and s.currentPrice !=0
+	<if test="codes!='' and  codes!=null">
+			and stockcode LIKE concat(concat('%',#{codes}),'%') or stockname like concat(concat('%',#{codes}),'%') or pinYin like concat(concat('%',#{codes}),'%')
+		</if>
+	</select>
+</mapper>

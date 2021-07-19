@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="xt_zzjg_jg" class-name="com.gwssi.sysmgr.org.dao.Xt_zzjg_jg" check-flag="false">
+    <description>机构管理</description>
+  </table-info>
+
+  <column name="jgid_pk" data-type="varchar" length="32" not-null="true" empty-is-null="false" unique="true" value-from="generate" func-name="getUUID" description="机构ID"/>
+  <column name="sjjgid_fk" data-type="varchar" length="32" not-null="false" empty-is-null="false" unique="false" value-from="input" description="上级机构ID"/>
+  <column name="sjjgname" data-type="varchar" length="60" not-null="false" empty-is-null="false" unique="false" value-from="input" description="上级机构name"/>
+  <column name="jgbh" data-type="varchar" length="20" not-null="false" empty-is-null="false" unique="false" value-from="input" description="机构编号"/>
+  <column name="jgmc" data-type="varchar" length="60" not-null="true" empty-is-null="false" unique="false" value-from="input" description="机构名称"/>
+  <column name="jgjc" data-type="varchar" length="60" not-null="false" empty-is-null="false" unique="false" value-from="input" description="机构简称"/>
+  <column name="jglx" data-type="char" length="2" not-null="false" empty-is-null="false" unique="false" value-from="input" description="机构类型"/>
+  <column name="jgfzr" data-type="varchar" length="60" not-null="false" empty-is-null="false" unique="false" value-from="input" description="机构负责人"/>
+  <column name="sfyx" data-type="char" length="2" not-null="true" empty-is-null="false" unique="false" value-from="input" description="是否有效"/>
+  <column name="plxh" data-type="varchar" length="10" not-null="false" empty-is-null="false" unique="false" value-from="input" description="排列序号"/>
+  <column name="bz" data-type="varchar" length="255" not-null="false" empty-is-null="false" unique="false" value-from="input" description="备注"/>
+  <primary-key name="xt_zzjg_jg_pk" column-list="jgid_pk"/>
+  
+  <function func-name="select orgtree list xt_zzjg_jg" func-type="rowset" column-list="jgid_pk, sjjgid_fk, jgmc,jgjc,sjjgname" sort-columns=" to_number(xt_zzjg_jg.plxh)" max-record="-1">
+    <filter-column column-name="sfyx" operator="eq" value-from="default" empty-flag="skip" default="0"/>
+    <filter-column column-name="jgid_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="select one xt_zzjg_jg" func-type="select" column-list="jgid_pk,sjjgid_fk,sjjgname,jgbh,jgmc,jgjc,jglx,jgfzr,sfyx,plxh,bz">
+    <filter-column column-name="jgid_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="insert one xt_zzjg_jg" func-type="insert" column-list="jgid_pk,sjjgid_fk,sjjgname,jgbh,jgmc,jgjc,jglx,jgfzr,sfyx,plxh,bz">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one xt_zzjg_jg" func-type="delete">
+    <filter-column column-name="jgid_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one xt_zzjg_jg" func-type="update" column-list="sjjgid_fk,sjjgname, jgbh, jgmc, plxh, bz">
+    <filter-column column-name="jgid_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="offuse one xt_zzjg_jg" func-type="update" column-list="sfyx">
+    <filter-column column-name="jgid_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改有效标志</description>
+  </function>
+
+  <function func-name="select parent xt_zzjg_jg" func-type="select" column-list="jgid_pk,sjjgid_fk,sjjgname,jgbh,jgmc,jgjc,jglx,jgfzr,sfyx">
+    <filter-column column-name="jgid_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select jgmc xt_zzjg_jg list" func-type="rowset" column-list="jgid_pk as codevalue, jgmc as codename" max-record="-1">
+    <filter-column column-name="sfyx" operator="eq" value-from="default" empty-flag="skip" default="0"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="机构代码对照表" func-type="rowset" column-list="jgid_pk as codevalue, jgmc as codename" max-record="-1">
+    <description>多记录查询</description>
+  </function>
+</table>
+

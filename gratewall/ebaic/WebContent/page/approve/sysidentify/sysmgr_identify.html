@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>北京工商登记审批平台</title>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+<style>
+body {
+	overflow-x: hidden;
+}
+.commonBt.mySubmit{
+	margin-left:400px;
+}
+div#identity_msg {
+    margin-top: -20px;
+    margin-left: -10px;
+}
+/*现在认证的身份容器*/
+.wrap {
+	position: relative;
+	border-bottom: 1px dotted #000;
+	width: 1100px;
+	margin: 0 auto;
+	border: 2px solid #f0f8fb
+}
+
+.info-title {
+	color: #327BB9;
+	padding-left: 10px;
+}
+
+/*手机认证模块*/
+.mobileCode {
+	position: relative;
+}
+
+/*手机校验对应是否通过*/
+.tips {
+	height: 18px;
+	position: absolute;
+	top: 158px;
+    left: 710px;
+}
+
+/*显示个人身份证的头像*/
+.pic {
+	width: 116px;
+	height: 131px;
+	position: absolute;
+	right: 33.1rem;
+	top: 16px;
+	overflow: hidden;
+}
+
+/*显示对应身份证的图像结果*/
+.pic img {
+	width: 116px;
+	height: 131px;
+}
+
+/*提交不通过认证的资料信息*/
+.approve_msg {
+	margin-top: 10px;
+}
+
+/*系统通知认证信息相关*/
+.infos {
+	position: relative;
+	background-color:#f0f8fb;
+}
+
+.hasBinding {
+	position: relative;
+	margin-top: 10px;
+	height: 110px;
+}
+
+/*新密码*/
+/* #newPwd {
+	position: absolute;
+	top: 58px;
+	left: 650px;
+} */
+
+/*重置密码*/
+.restPwd {
+	position: absolute;
+	top: 52px;
+	left: 480px;
+}
+
+/*账号绑定*/
+.binding {
+	position: absolute;
+	top: 26px;
+	left: 245px;
+}
+
+.account {
+	display: inline-block;
+	font-weight:bold;
+}
+
+#noneBinding {
+	position: relative;
+	margin-top: -20px;
+	margin-bottom: 10px;
+}
+
+#login_name {
+	position: absolute;
+	left: 10px;
+	top: 31px;
+}
+
+#checkLoginName {
+	position: absolute;
+	left: 436px;
+	top: 31px;
+}
+
+#email {
+	position: absolute;
+	top: 71px;
+	left:9px;
+}
+
+#address {
+	position: absolute;
+	left: 9px;
+	top: 109px;
+}
+
+#creatAndBinding {
+	position: absolute;
+	left: 426px;
+	top: 115px;
+}
+.boxborder,.boxborderbind{
+    width: 600px;
+    height: 200px;
+    box-shadow:0 0 2px #479ae6;
+    margin-left: 170px;
+}
+.boxborderbind{
+	height:260px;
+	margin-left:170px;
+}
+.wrapbox{
+	width: 490px;
+    margin: 0 auto;
+    padding: 20px;
+    font-weight: bold;
+}
+.boxlogin {
+    width: 430px;
+    margin: 0 auto;
+}
+.jazz-panel-border{
+	/* border:none; */
+}
+.approve_msg_Text{
+	margin-left:170px;
+}
+@media screen and (max-width:1024px){
+	.pic {
+	right:33.1rem;
+}
+	.tips{
+	left:710px;
+	}
+	.boxborder, .boxborderbind,.approve_msg_Text{
+		margin-left:170px;
+	}
+	.commonBt.mySubmit {
+		margin-left: 400px;
+}
+}
+</style>
+</head>
+<body>
+	<!-- 构建页面==开始 -->
+	<!-- 数据展现 -->
+	<div class="wrap">
+		<div vtype="formpanel" name="sysmgr_identity" displayrows="1"
+			dataview="false" width="1100" showborder="false" dataurl=""
+			layout="table" layoutconfig="{cols:1, columnwidth: ['100%']}"
+			labelstyleclass="labelstyle" style="margin:0 auto;">
+			<div name="scene_identity" id="scene_identity">
+				<div class="cerCard">
+					<div name="name" id="name" vtype="textfield" label="认证姓名"
+						labelwidth="150" labelalign="right" width="360" rule="must"></div>
+					</br>
+					<div name="cerType" id="cerType" vtype="comboxfield" label="证件类型"
+						labelwidth="150" labelalign="right" width="360" tooltip=""
+						rule="must" dataurl="../../../dictionary/queryData.do?dicId=CB16"></div>
+					</br>
+					<div name="cerNo" id="cerNo" vtype="textfield" label="证件号码"
+						labelwidth="150" labelalign="right" width="360" rule="must"></div>
+					<div name="checkCer" id="checkCer" class="commonBt checkNo"
+						style="margin-top: 6px" text="查验证件">查验证件</div>
+					<div name="saveCer" id="saveCer" class="commonBt"
+						style="margin-top: 6px" text="保存证件信息">保存证件</div>
+				</div>
+
+				<div class="mobileCode">
+					<div name="mobile" id="mobile" vtype="textfield" label="认证移动电话"
+						labelwidth="150" labelalign="right" width="560"
+						rule="must_cellphone"></div>
+					<div name="sendCheckNum" id="sendCheckNum" class="commonBt"
+						style="margin-top: 6px">发送验证码</div>
+					</br>
+					<div name="verCode" id="verCode" vtype="textfield" label="手机验证码"
+						labelwidth="150" width="560" rule="must"></div>
+					<div name="check_mobile" class="commonBt " style="margin-top: 6px" id="check_mobile">验证码检查</div>
+					<div name="checkFlag" id="checkFlag" vtype="hiddenfield" value=""></div>
+				</div>
+				<div class="tips" id="tips"></div>
+
+				<div class="pic">
+					<img name="cerPic" id="cerPic" src="" />
+				</div>
+
+				<div name="cerNo_hide" id="cerNo_hide" vtype="hiddenfield" text="隐藏"></div>
+
+				<!-- 审查询意见提示 -->
+				<div name="identity_type_advice" id="identity_type_advice"
+					vtype="textfield" readonly="true" label="审查意见" labelwidth="150"
+					labelalign="right"></div>
+
+				<div name="identity_type" id="identity_type" vtype="radiofield"
+					style="margin-top: 7px; margin-left: -38px"
+					dataurl="[{value:'1',text:'认证通过'},{value:'0',text:'认证不通过'}]"
+					width="250"></div>
+			</div>
+		</div>
+
+	<div class="approve_msg" id="approve_msg">
+		<!-- <div name="approve_msg_Text" style="margin-left: 250px;" id="approve_msg_Text" vtype="textareafield" label="审查意见" labelwidth="80" labelalign="right" width="500" height="100" maxlength="500"></div> -->
+		<div id="identity_msg">
+			<div name="approve_msg_Text" id="approve_msg_Text" vtype="textareafield" label=""
+				labelwidth="80" labelalign="right" width="500" height="100"maxlength="500" class="approve_msg_Text"></div>
+			<div align="left">
+				<div name="identity_fail" class="commonBt mySubmit">提交</div>
+			</div>
+		</div>
+	</div>
+	<div class='boxborder' id="boxborder">
+	<div class="infos" id="infos">
+		<div class="wrapbox">
+			<p>已经完成认证的申请人系统需将个人身份认证信息和网上登记账户绑定！</p>
+			<p style="color:#479ae6">经检测，当前申请人已经在网上登记系统注册过账户，账户信息如下：</p>
+		</div>
+	</div>
+
+	<div class="hasBinding" id="hasBinding">
+		<div style="padding: 10px;">
+			<div class="boxlogin">
+			<span class="account">网上登记系统账号：</span>
+			<input name="cur_name" id="cur_name" style="color: red; font-size: 18px; font-weight: bold;">
+		    <a href="javascript:void(0)" id="binding" style="display: inline-block; padding-top: 10px;color:#479ae6" name="binding"> 账号绑定</a>
+		    </div>
+			<p class='account' style="margin-top: 4px;margin-left:15px;">请告知申请人账号信息，并提醒其是否忘记密码，若忘记请帮助申请人。</p>
+			<a href="javascript:void(0)" id="reset_password"
+				style="dislay: inline-block; padding-top: 10px;color:#479ae6;font-weight:bold;"
+				name="reset_password"> 重置密码</a></br>
+			<!-- </div> -->	
+		</div>
+		
+	</div>
+	</div>
+	<div name="identity_success" style="margin-left: 40%; margin-top: 10px;" class="commonBt identity_success" id="submit">提交</div>
+	<div>
+	<div class="noneBinding" id="noneBinding">
+		<div name="local_reg" id="local_reg" class="boxborderbind">
+		<div style="background-color:#f0f8fb;">
+			<div class=" wrapbox">
+				<p>已经完成认证的申请人系统需将个人身份认证信息和网上登记账户绑定！</p>
+				<p style="color:#479ae6">申请人还未注册网上登记系统帐号，请进行网上的等级系统帐户绑定：</p>
+			</div>
+		</div>
+			<div vtype="formpanel" name="localRegformpanel" id="localRegformpanel" showborder="false" layout="table" layoutconfig="{cols:1, columnwidth: ['100%']}"
+			labelstyleclass="labelstyle" style="height:160px;">
+				<div name="loginName" id="login_name" vtype="textfield" label="现场申请账号" labelwidth="150" labelalign="right" width="400"></div>
+				<a href="javascript:void(0)" id="checkLoginName" style="display: inline-block; padding-top: 10px;color:#479ae6;" name="checkLoginName"> 检验账号名是否可用</a>
+				<br/>
+				<div name="email" id="email" vtype="textfield" label="邮箱" labelwidth="150" labelalign="right" width="400" rule="email"></div>
+				<br/>
+				<div name="address" id="address" vtype="textfield" label="联系地址" labelwidth="150" labelalign="right" width="400" maxlength="400"></div>
+			
+				<div name="creatAndBinding" id="creatAndBinding" class="commonBt" style="width: 120px">生成账号并绑定</div>
+				<br /> 
+				<br />
+				<br />
+				<br /> 
+				<br />
+				<br />
+			</div>
+		</div>
+	</div>
+	</div>
+		</div>
+	<!-- 构建页面==结束 -->
+</body>
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../../static/js/config.js"></script>
+<script type="text/javascript" data-main="approve/ApproveSysmgrIdentity.js" src="../../../static/lib/require.js"></script>
+</html>

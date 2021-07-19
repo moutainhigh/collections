@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="layout.layout_list.html.layoutlistpage"> 布局列表页面 </title>
+
+	<link href="../css/common.css" rel="stylesheet" type="text/css" />
+	<link href="../css/list.css" rel="stylesheet" type="text/css" />
+	<link href="layout_list.css" rel="stylesheet" type="text/css" />
+	<script src="../../js/easyversion/lightbase.js"></script>
+	<script src="../../js/easyversion/extrender.js"></script>
+	<script src="../../js/easyversion/elementmore.js"></script>
+	<script src="../js/adapter4Top.js"></script>
+	<script src="../js/PageContext.js"></script>
+	<script src="layout_list.js"></script>
+	<style type="text/css" id="dynamicStyle"></style>
+</head>
+
+<body>
+<div class="container">
+	<div class="header">
+		<div class="toolbar" id="toolbar">
+			<li class="add-layout" cmd="add_layout" id="add_layout" rightIndex="21"></li>
+			<li class="delete" cmd="delete" id="delete" rightIndex="23"></li>
+		</div>
+		<div class="search" id="search"></div>
+	</div>
+	<div class="content" id="list-data"></div>
+	<div class="footer">
+		<div class="page-nav" id="list_navigator"></div>
+	</div>
+</div>
+<div class="selectAll"><label for="selectAll" style="font-size:16px;" WCMAnt:param="layout.layout_list.html.selectall">全选</label><input type="checkbox" value="" id="selectAll"></div>
+</body>
+</html>

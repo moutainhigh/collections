@@ -1,0 +1,13 @@
+server:
+  port: 11000
+spring:
+  cloud:
+    zookeeper:
+      connect-string: 139.196.127.34:2181
+  application:
+    name: hystrix-dashboard
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

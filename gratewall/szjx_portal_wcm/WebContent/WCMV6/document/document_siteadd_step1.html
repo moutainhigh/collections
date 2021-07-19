@@ -1,0 +1,63 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc">新建文档到...</title>
+<script src="../js/com.trs.util/Common.js"></script>
+<script>
+	$import('com.trs.wcm.FloatPanel');
+	$import('com.trs.wcm.MessageCenter');
+</script>
+<script>
+	var myActualTop = (top.actualTop||top);
+	FloatPanel.addCloseCommand();
+	FloatPanel.addCommand('okBtn', '确定', 'getSeletedIds', null);
+	var iSiteId = getParameter("SiteId");
+	var sObjectids = getParameter("DocumentIds");
+
+	function getSeletedIds(){
+		try{
+			sSelIds = $('allTreeNav').contentWindow.getCheckValues();
+		}catch(err){
+			sSelIds = '';
+		}
+		if(!sSelIds||sSelIds.length==0) {
+			myActualTop.$alert('请选择要新建文档的所属栏目!');
+			return false;
+		}
+		var oParams = {
+			DocumentId : 0,
+			ChannelId : sSelIds.join(','),
+			SiteId : iSiteId,
+			FromEditor : 1
+		}
+		var iWidth = window.screen.availWidth - 12;
+		var iHeight = window.screen.availHeight - 40;
+		var sFeature = 'location=no,resizable=yes,menubar=no,scrollbars=no,status=no,titlebar=no,toolbar=no,top=0,left=0,border=0,width='+iWidth+',height='+iHeight;
+        setTimeout(function(){
+			var oWin = myActualTop.window.open("../document/document_addedit.jsp?" + $toQueryStr(oParams), "_blank" , sFeature);
+			oWin.focus();
+//			FloatPanel.close(true);
+        }, 10);
+		FloatPanel.close();
+		return false;
+	}
+</SCRIPT>
+<style type="text/css">
+	.iframe_container{
+		width:370px;
+		height:300px;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<DIV id="all_channels_tree" class="iframe_container">
+	<iframe id="allTreeNav" src="../include/blank.html" style="width:100%;height:100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+</DIV>
+<script language="javascript">
+<!--
+	$('allTreeNav').src = "../nav_tree/nav_tree_select.jsp?IsRadio=1&MultiSites=0&ExcludeSelf=0&ExcludeVirtual=1&CurrSiteId="+iSiteId+"&RightIndex=31";
+//-->
+</script>
+</BODY>
+</HTML>

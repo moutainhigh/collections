@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="sys_table_semantic" class-name="com.gwssi.dw.metadata.datadict.dao.SysTableSemantic" check-flag="false" backup-flag="false">
+    <description>业务表语义</description>
+  </table-info>
+
+  <column name="table_no" data-type="varchar" length="32" not-null="true" unique="true" value-from="generate" func-name="getUUID" description="业务表编码"/>
+  <column name="table_name" data-type="varchar" length="60" not-null="true" value-from="input" description="业务表名"/>
+  <column name="table_name_cn" data-type="varchar" length="100" not-null="true" value-from="input" description="业务表中文名"/>
+  <column name="table_order" data-type="integer" length="10" not-null="false" value-from="input" description="检索顺序"/>
+  <column name="demo" data-type="varchar" length="100" not-null="false" value-from="input" description="备注"/>
+  <column name="sys_id" data-type="varchar" length="32" not-null="true" unique="true" value-from="input" description="业务系统ID"/>
+  <column name="downloadflag" data-type="char" length="1" not-null="false" empty-is-null="false" unique="false" value-from="input" description="是否可下载"/>
+  <primary-key name="p_key_1" column-list="table_no"/>
+  <index name="sql080418142102090" index-type="unique" cluster="other" column-list="table_no"/>
+  <index name="idx_ywbyy_xtbm" index-type="other" cluster="other" column-list="table_order"/>
+  <foreign-key foreign-table="sys_system_semantic" foreign-type="many-to-one" on-delete="none" on-update="none" column-names="sys_id" foreign-names="sys_id"/>
+  <function func-name="select one sys_table_semantic" func-type="select" column-list="sys_id,table_name,table_name_cn,table_order,demo,table_no,downloadflag">
+    <filter-column column-name="table_no" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_table_semantic list" func-type="rowset" column-list="table_no,table_name,table_name_cn,table_order,demo,sys_id,sys_system_semantic.sys_no,downloadflag,sys_system_semantic.sys_name" sort-columns="sys_system_semantic.sys_name,table_name_cn" max-record="10">
+    <filter-column column-name="sys_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="table_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="table_name_cn" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_table_semantic" func-type="insert" column-list="sys_id,table_no,table_name,table_name_cn,table_order,demo,downloadflag">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_table_semantic" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_table_semantic" func-type="update" column-list="table_name,table_name_cn,table_order,demo,sys_id,downloadflag">
+    <filter-column column-name="table_no" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="业务系统表代码对照表" func-type="rowset" column-list="table_name_cn as codename, table_no as codevalue" sort-columns="sys_system_semantic.sys_name,table_name_cn" max-record="-1">
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="select sys_table_semantic list by system" func-type="rowset" column-list="sys_id,table_no,table_name,table_name_cn,table_order,demo,downloadflag" max-record="10">
+    <filter-column column-name="sys_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+</table>
+

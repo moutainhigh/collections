@@ -1,0 +1,632 @@
+<HTML xmlns:TRS_UI>
+<HEAD>
+  <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <TITLE>TRS WCM V6 热词替换</TITLE>
+  <link href="../css/common.css" rel="stylesheet" type="text/css" />
+	<style>
+		body {
+			padding-top:0px;
+			background-color: #CCCCCC;
+		}
+		.input_btn{
+			width:60px;
+			margin-right:10px;
+		}
+		.input_text{
+			border:1px solid gray;
+			width:60px;
+		}
+		.simpletab{
+			padding-bottom:23px;
+			border-bottom:1px solid gray;
+			font-size:12px;
+		}
+		div.simpletab_item{
+			float:left;
+			width:50px;
+			height:20px;
+			background:gray;
+			margin-left:4px;
+			border:1px solid gray;
+			padding:4px;
+			text-align:center;
+		}
+		.simpletab_item a,.simpletab_item a:link,.simpletab_item a:visited,.simpletab_item a:hover{
+			text-decoration: none;
+			color:white;
+		}
+		div.simpletab_item_active{
+			float:left;
+			width:50px;
+			height:21px;
+			background:#ffffff;
+			margin-left:4px;
+			border:1px solid gray;
+			border-bottom:0;
+			padding:4px;
+			padding-bottom:5px;
+			text-align:center;
+		}
+		.simpletab_item_active a,.simpletab_item_active a:link,.simpletab_item_active a:visited,.simpletab_item_active a:hover{
+			text-decoration: none;
+			color:black;
+		}
+		.simpletab_item_before{
+			float:left;
+			padding-left:20px;
+		}
+		.message {
+			font-family: "宋体", "Arial", "Courier New";
+			font-size: 12px;
+			float:left;
+			height:18px;
+			line-height:18px;
+		}
+		.input_file{
+			float:left;
+			width:220px;
+			height:20px;
+			border:1px solid black;
+		}
+		.input_text{
+			float:left;
+			width:180px;
+			height:20px;
+			border:1px solid black;
+		}
+		.input_button{
+			float:left;
+			width:60px;
+			height:20px;
+			border:1px solid black;
+		}
+		.ui_editpanel_text_blank{
+			border:0;
+		}
+		.ui_editpanel_text_hover{
+			border:1px solid gray;
+		}
+		.simple_editpanel{
+			margin:1px 1px 0;
+			width:98%;height:23px;line-height:23px;font-size:14px;
+			overflow:hidden;
+			text-overflow:clip;
+		}
+		.row_delete{
+			float:left;
+			width:100%;
+			height:100%;
+			background:url(../images/icon/Delete.png) no-repeat center center;
+			cursor:pointer;
+		}
+		.hotwords_grid{
+			font-size:12px;background:black
+		}
+		.grid_head,
+		.grid_head a,
+		.grid_head a:hover{
+			height:24px;
+			background:gray;
+			color:white;
+			line-height:24px;
+			text-decoration: none;
+		}
+		.grid_row{
+			height:25px;background:#FFFFFF;
+		}
+		.tbody_dragging{
+			background-color:#FFFFDD;
+		}
+		.tbody_drag_icon{
+			width:20px;
+			height:20px;
+			background:url(../images/document_addedit/icon/Accessories.png) no-repeat center center;
+		}
+		.num{
+			padding:0 2px;
+			font-weight:bold;
+			color:red;
+		}
+	</style>
+	<script src="../js/com.trs.util/Common.js"></script>
+	<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+	</script>
+	<script>
+	var myActualTop = (top.actualTop||top);
+	var HotWords = null;
+	var MappingHotWords = null;
+	var CurrDocId = myActualTop.CurrDocId;
+	var ChannelId = myActualTop.DocChannelId;
+	var HitWords = null;
+	var oEditor	= window.parent.InnerDialogLoaded() ;
+	var FCK		= oEditor.FCK ;
+
+	// Gets the document DOM
+	var oDOM = oEditor.FCK.EditorDocument ;
+	var EditorBody = oDOM.body;
+	function GetRegexExpr(hitHotWords){
+		var sExpr = (hitHotWords||HotWords).join('|');
+		return new RegExp(sExpr,'ig');
+	}
+	function GetHitWords(_nType){
+		if(HitWords==null){
+			HitWords = [];
+			var checkboxs = document.getElementsByName("hitwords");
+			for(var i=0;i<checkboxs.length;i++){
+				if(checkboxs[i].checked)HitWords.push(EscapeRegexString(checkboxs[i].value));
+			}
+			HitWords = getSortedHotWords(HitWords,_nType||0);
+		}
+		return HitWords;
+	}
+	function EscapeRegexString( str ){
+		return str.replace( /[\\\^\$\*\+\?\{\}\.\(\)\!\|\[\]\-]/g, '\\$&' ) ;
+	}
+	function ReplaceTextNodes(parentNode,do4Value,do4a,iFlag,hasReplaced){
+		var childNodes = parentNode.childNodes;
+		for ( var i = 0 ; i < childNodes.length ; i++ ){
+			var oNode = childNodes[i] ;
+			if(oNode.nodeType == 3 ){
+				//TODO
+				var eTextAreaTmp = oDOM.createElement('TextArea');
+				eTextAreaTmp.value = oNode.nodeValue;
+				var sTmpNodeValue = eTextAreaTmp.innerHTML;
+				delete eTextAreaTmp;
+				var sValue = do4Value(sTmpNodeValue,iFlag,hasReplaced);
+				if(sValue!=sTmpNodeValue){
+					var eDivTmp = oDOM.createElement('DIV');
+					var sStartSpaces,sEndSpaces;
+					var arrMatches = new RegExp('^(\\s*)((.|\n|\r)*?)(\\s*)$','ig').exec(sValue);
+					sStartSpaces = arrMatches[1];
+					sEndSpaces = arrMatches[4];
+					eDivTmp.innerHTML = arrMatches[2];
+					var eNodeTmp = null;
+					if(sEndSpaces!=''){
+						eNodeTmp = oDOM.createTextNode(sEndSpaces);
+						oNode.parentNode.insertBefore(eNodeTmp,oNode.nextSibling);
+					}
+					for(var i=eDivTmp.childNodes.length-1;i>=0;i--){
+						eNodeTmp = eDivTmp.childNodes[i];
+						if(eNodeTmp.nodeName.toLowerCase()=='a'){
+							eNodeTmp.href = eNodeTmp.getAttribute("_href",2);
+							eNodeTmp.removeAttribute("_href");
+						}
+						oNode.parentNode.insertBefore(eNodeTmp,oNode.nextSibling);
+					}
+					if(sStartSpaces!=''){
+						eNodeTmp = oDOM.createTextNode(sStartSpaces);
+						oNode.parentNode.insertBefore(eNodeTmp,oNode.nextSibling);
+					}
+					oNode.parentNode.removeChild(oNode);
+					delete eDivTmp;
+				}
+			}
+			else if(oNode.nodeName.toLowerCase()=='a'){
+				//exclude contents in link
+				/*
+				if(oNode.name=="AnchorAddByWCM"){
+					var oContentLink = do4a(oNode.innerHTML,iFlag,hasReplaced);
+					oNode.className = '';
+					if(oContentLink!=null){
+						oNode.href = oContentLink.Url;
+						oNode.title = oContentLink.Title;
+					}
+				}
+				*/
+			}
+			else{
+				ReplaceTextNodes( oNode,do4Value,do4a,iFlag,hasReplaced);
+			}
+		}
+	}
+	function do4a(_sContent,iFlag,hasReplaced){
+		var sWord = EscapeRegexString(_sContent.toUpperCase());
+		if(iFlag==0||hasReplaced[_sContent]==null){
+			if(GetHitWords().includeI(sWord)){
+				hasReplaced[sWord] = '';
+				return MappingHotWords[sWord];
+			}
+		}
+	}
+	function GetRegexExpr2(){
+		var sExpr = GetHitWords().join('|');
+		var RegexHitWords = new RegExp(sExpr,'ig');
+		return RegexHitWords;
+	}
+	function CallBack(){
+		var iFlag = this.flag;
+		var hasReplaced = this.hasReplaced;
+		var sWord = arguments[0];
+		var sOrigSource = arguments[arguments.length-1];
+		var nHitIndex = arguments[arguments.length-2];
+		if((sOrigSource.substring(nHitIndex-1,nHitIndex+1).match(/\w{2}/))
+		||(sOrigSource.substring(nHitIndex+sWord.length,nHitIndex+sWord.length+2).match(/\w{2}/))){
+			return sWord;
+		}
+		if(iFlag!=0&&hasReplaced[sWord.toUpperCase()]!=null)return sWord;
+		hasReplaced[sWord.toUpperCase()] = '';
+		var sUrl = '';
+		var sTitle = '';
+		try{
+			sUrl = MappingHotWords[sWord.toUpperCase()].Url;
+			sTitle = MappingHotWords[sWord.toUpperCase()].Title;
+		}catch(err){
+			return sWord;
+		}
+		return '<a name="AnchorAddByWCM" href="'+sUrl+'" _href="'+sUrl+'" title="'+sTitle+'" target="_blank">'+sWord+'</a>';
+	}
+	function do4Value(_sContent,iFlag,hasReplaced){
+		return _sContent.replace(GetRegexExpr2(),CallBack.bind({flag:iFlag,hasReplaced:hasReplaced}));
+	}
+	var Ok = function doReplace(){
+		var sReplacedContent = '';
+		HitWords = null;
+		var radios = document.getElementsByName("replacetype");
+		var hitWords = GetHitWords(getSortType());
+		if(hitWords.length==0){
+			if(confirm('未选中任何热词进行替换,您确认不进行替换?')){
+				return true;
+			}
+			return false;
+		}
+		oEditor.FCKUndo.SaveUndoStep() ;
+		var iFlag = 0;
+		var hasReplaced = {};
+		if(radios[0].checked){
+			iFlag = 0;
+		}
+		else if(radios[1].checked){
+			iFlag = 1;
+		}
+		if(EditorBody){
+			ReplaceTextNodes(EditorBody,do4Value,do4a,iFlag,hasReplaced);
+		}
+		oEditor.TRSContentUnLinkCommandProcessor.ProcessDocument(oDOM);
+		return true;
+	}
+	function ForceSelectAll(_currElement){
+		_currElement.innerHTML = '取消全选';
+		SelectAll();
+		_currElement.setAttribute('all_selected','true');
+	}
+	function ToggleSelectAll(_currElement){
+		if(_currElement.getAttribute('all_selected',2)=='true'){
+			_currElement.innerHTML = '全选';
+			UnSelectAll();
+			_currElement.setAttribute('all_selected','false');
+		}
+		else{
+			_currElement.innerHTML = '取消全选';
+			SelectAll();
+			_currElement.setAttribute('all_selected','true');
+		}
+	}
+	function SelectAll(){
+		//TODO
+		var checkboxs = document.getElementsByName("hitwords");
+		for(var i=0;i<checkboxs.length;i++){
+			checkboxs[i].checked = true;
+		}
+	}
+	function UnSelectAll(){
+		var checkboxs = document.getElementsByName("hitwords");
+		for(var i=0;i<checkboxs.length;i++){
+			checkboxs[i].checked = false;
+		}
+	}
+	function autoLoadHitHotWords(){
+		if(!HotWords){
+/*
+			HotWords = ["皇马","贝克汉姆","菲戈","卡萨诺","巴拉克","劳尔","罗纳尔多","罗马",
+		"托蒂","AC米兰","卡佩罗","马尔蒂尼","阿德里亚诺","国际米兰","穆里尼奥","利物浦",
+		"雷耶斯","瓦伦西亚","意甲","小罗","罗纳尔迪尼奥","舍瓦","亨利","阿森纳","曼联",
+		"切尔西","巴塞罗那","德科","埃托奥","普约尔","齐达内","皇家马德里","尤文图斯",
+		"布冯","切赫","卡西利亚斯","范尼","罗比尼奥","卡纳瓦罗","拉莫斯","卡卡","小小罗","鲁尼",
+		"英格兰","弗格森","兰帕德","C-罗纳尔多","范德萨","德罗巴","普拉蒂尼","意大利","世界杯","多纳多尼",
+		"国际足联","法国","德国","巴西","阿根廷","西班牙","葡萄牙","西甲","英超","法甲",
+		"里昂","埃因霍温","波尔图","董方卓","孙继海","邵佳一","中超","冠军杯","国王杯","意大利杯",
+		"世俱赛","贝利","马拉多纳","巴蒂","因扎吉","内斯塔","鲁伊-科斯塔","佛罗伦萨","巴斯滕","舍甫琴科",
+		"皮尔洛","斯塔姆","乌迪内斯","桑普多利亚","雅典AEK","科特迪瓦","达夫","乔·科尔","小赖特","杰拉德",
+		"索斯克亚","萨哈","阿内尔卡","特雷泽盖","莫伦特斯","比利亚","埃莫森","迪亚拉","古蒂","卡洛斯",
+		"伍德盖特","埃尔格拉","哈维","久利","梅西","马卢达","拉尔森","阿隆索","李铁","郑智",
+		"加戈","里皮","皮耶罗","托尼","伊布","TRS","ABC"];
+			MappingHotWords = {};
+			HotWords.each(function(_s){
+				MappingHotWords[_s] = {"Title":_s,"Url":"#"};
+			});
+			hitHotWords();
+//*/
+			var oPostData = {
+				"ChannelId" : ChannelId,
+				"OrderBy" : "LinkOrder desc"
+			}
+			HotWords = [];
+			MappingHotWords = {};
+			var oHelper = new com.trs.web2frame.BasicDataHelper();
+			oHelper.Call('wcm6_contentLink','query',oPostData,true,
+				function(_transport,_json){
+					var ContentLinks = com.trs.util.JSON.array(_json,"ChannelContentLinks.ChannelContentLink")||[];
+					if(ContentLinks.length==0){
+						var sValue = TempEvaler.evaluateTemplater('template_hotwords', [],{});
+						Element.update($('curr_hotwords'),sValue);
+						$('SelectAll').style.display = 'none';
+						return;
+					}
+					ContentLinks.each(function(_oValue){
+						var sWord = com.trs.util.JSON.value(_oValue,"LINKNAME");
+						var sUrl = com.trs.util.JSON.value(_oValue,"LINKURL");
+						var sTitle = com.trs.util.JSON.value(_oValue,"LINKTITLE");
+						HotWords.push(EscapeRegexString(sWord.toUpperCase()));
+						MappingHotWords[sWord.toUpperCase()] = {"Title":sTitle,"Url":sUrl,"Orig":sWord};
+					});
+					hitHotWords();
+				}
+			);
+//*/
+		}
+		else{
+			hitHotWords();
+		}
+	}
+	function getAllText(parentNode){
+		var sRetVal = '';
+		var childNodes = parentNode.childNodes;
+		for ( var i = 0 ; i < childNodes.length ; i++ ){
+			var oNode = childNodes[i] ;
+			if(oNode.nodeType==3){
+				sRetVal += oNode.nodeValue;
+			}
+			else if(oNode.nodeName.toLowerCase()=='a'){
+				//exclude contents in link
+			}
+			else{
+				//TODO
+				sRetVal += "\t" + getAllText(oNode) + "\t";
+			}
+		}
+		return sRetVal;
+	}
+	var DocContent = getAllText(EditorBody);
+	function isExistInclude(){
+		var bExistInclude = false;
+		for (var i = 0; i < HotWords.length; i++){
+			if(bExistInclude)break;
+			for (var j = 0; j < HotWords.length; j++){
+				if(i!=j&&HotWords[j].indexOf(HotWords[i])!=-1){
+					bExistInclude = true;
+					break;
+				}
+			}
+		}
+		return bExistInclude;
+	}
+	function sortByInclude(a,b){
+		if(a==b)return 0;
+		if(b.indexOf(a)!=-1)return 1;
+		if(a.indexOf(b)!=-1)return -1;
+		return 0;
+	}
+	function sortByLength(a,b){
+		return b.length-a.length;
+	}
+	function getSortedHotWords(_arrHotWords,_nType){
+		var tmpHotWords = [];
+		for(var i=0;i<_arrHotWords.length;i++){
+			tmpHotWords.push(_arrHotWords[i]);
+		}
+		switch(_nType){
+			case 0:
+				break;
+			case 1:
+				tmpHotWords.sort(sortByInclude);
+				break;
+			case 2:
+				tmpHotWords.sort(sortByLength);
+				break;
+		}
+		return tmpHotWords;
+	}
+	function sortUsedWords(_arrUsedWords,_nType){
+		switch(_nType){
+			case 0:
+				break;
+			case 1:
+				_arrUsedWords.sort(function(a,b){
+					if(b.CNT==a.CNT){
+						a = a.VALUE;
+						b = b.VALUE;
+						if(a==b)return 0;
+						if(b.indexOf(a)!=-1)return 1;
+						if(a.indexOf(b)!=-1)return -1;
+						return 0;
+					}
+					return b.CNT-a.CNT;
+				});
+				break;
+			case 2:
+				_arrUsedWords.sort(function(a,b){
+					if(b.CNT==a.CNT){
+						return b.VALUE.length-a.VALUE.length;
+					}
+					return b.CNT-a.CNT;
+				});
+				break;
+		}
+	}
+	function getSortType(){
+		return parseInt($$F('sorttype'));
+	}
+	var lastSortType = -1;
+	function hitHotWords(_bForbidToggle){
+		var nSortType = getSortType();
+		if(_bForbidToggle&&nSortType==lastSortType)return;
+		lastSortType = nSortType;
+		var tmpHotWords = getSortedHotWords(HotWords,nSortType);
+		var reHotWords = GetRegexExpr(tmpHotWords);
+		var arr = null;
+		var usedWordsHash = {};
+		var origWords = {};
+		while((arr=reHotWords.exec(DocContent))!=null){
+			var sWord = arr[0];
+			var nHitIndex = arr.index;
+			if((DocContent.substring(nHitIndex-1,nHitIndex+1).match(/\w{2}/))
+			||(DocContent.substring(nHitIndex+sWord.length-1,nHitIndex+sWord.length+1).match(/\w{2}/))){
+				continue;
+			}
+			sWord = sWord.toUpperCase();
+			usedWordsHash[sWord] = (usedWordsHash[sWord]||0)+1;
+		}
+		var usedWords = [];
+		for(var word in usedWordsHash){
+			usedWords.push({"VALUE":(MappingHotWords[word]||{}).Orig,"CNT":usedWordsHash[word],"TITLE":(MappingHotWords[word]||{}).Title});
+		}
+		sortUsedWords(usedWords,nSortType);
+		Element.update($('curr_hotwords'),'正在自动分析文档中命中的热词...');
+		var bExistInclude = isExistInclude();
+		setTimeout(function(){
+			var sValue = TempEvaler.evaluateTemplater('template_hotwords', usedWords,{});
+			Element.update($('curr_hotwords'),sValue);
+			if(usedWords.length==0){
+				$('SelectAll').style.display = 'none';
+			}
+			else{
+				ForceSelectAll($('SelectAll'));
+			}
+			if(bExistInclude){
+				$('message').style.display = '';
+				$('sort_div').style.display = '';
+				$('curr_hotwords').style.height = '52px';
+				$('replace_type').style.borderTop = 'solid 1px white';
+			}
+			else{
+				$('message').style.display = 'none';
+				$('sort_div').style.display = 'none';
+				$('curr_hotwords').style.height = '106px';
+				$('replace_type').style.borderTop = '0px';
+			}
+		},10);
+	}
+  </SCRIPT>
+<style type="text/css">
+	body {
+		padding-top:0px;
+		background-color: #CCCCCC;
+	}
+	.input_btn{
+		width:60px;
+		margin-right:10px;
+	}
+	.input_text{
+		border:1px solid gray;
+		width:60px;
+	}
+	#replace_type{
+		color:green;
+		font-size:10.5pt;
+	}
+	#sort_div{
+		font-size:9pt;
+	}
+	#message{
+		border-bottom:1px solid gray;
+	}
+</style>
+</HEAD>
+
+<BODY style="margin:0;padding:0;">
+		<table height="100%" width="100%">
+			<tr>
+				<td align="left" valign="top">
+	<TABLE width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+		<TR>
+			<TD valign="top">
+				<DIV id="sort_div" style="display:none;padding:0 4px;height:20px;overflow:hidden;" onclick="hitHotWords(true);">
+					<span>选择热词命中的排序策略:</span>
+					<input type="radio" id="sorttype1" name="sorttype" value="0"><label for="sorttype1">按栏目热词顺序</label>
+					<input type="radio" id="sorttype2" name="sorttype" value="1" checked><label for="sorttype2">包含优先于被包含</label>
+					<input type="radio" id="sorttype3" name="sorttype" value="2"><label for="sorttype3">长优先于短</label>
+				</DIV>
+				<DIV id="message" style="display:none;font-style:italic;color:gray;font-size:9pt;padding:0 4px;height:30px;line-height:15px;padding-bottom:4px">
+					本栏目热词中存在包含关系,不同的排序策略可能会得到不一样的命中结果.<br/>
+					另外在取消选中某个包含词后,命中次数和实际替换次数可能有部分偏差.
+				</DIV>
+				<DIV id="replace_type" class="replace_type" style="padding:0 4px;height:24px;overflow:hidden;">
+					<span>选择热词替换的策略:</span>
+					<input type="radio" id="replacetype1" name="replacetype" value="0"><label for="replacetype1">全部替换</label>
+					<input type="radio" id="replacetype2" name="replacetype" value="1" checked><label for="replacetype2">首词替换</label>
+				</DIV>
+				<DIV style="padding:0 4px;height:24px;overflow:hidden;">
+					<TABLE width="100%" border="0" cellpadding="0" cellspacing="1" class="hotwords_grid">
+						<THEAD align="center" valign="middle" class="grid_head">
+							<TD colspan="3" align="left" style="padding-left:10px">
+							列表中为当前文档命中的所有热词,括号内为命中次数,请选择.
+							</TD>
+							<TD width="68" id="SelectAll" style="cursor:pointer" onclick="ToggleSelectAll(this);">
+								取消全选
+							</TD>
+						</THEAD>
+					</TABLE>
+				</DIV>
+				<DIV id="curr_hotwords" style="padding:0 4px;height:120px;overflow:auto;">
+				</DIV>
+			</TD>
+		</TR>
+	</TABLE>
+				</td>
+				<td width="4%" align="center" valign="top">
+					<div style="width:2px;border-left:1px solid gray;background:white;overflow:hidden;height:160px;"></div></td>
+				<td width="10%" valign="top">
+					<input id="btnOk" class="input_btn" onclick="window.parent.Ok();"
+						type="button" value="Ok" fcklang="DlgBtnOK"/>
+					<div style="height:5px;overflow:hidden"></div>
+					<input name="button2" class="input_btn" type="button" value="Close" onclick="window.parent.Cancel();" fcklang="DlgBtnCancel">
+				</td>
+			</tr>
+		</table>
+	<textarea id="template_hotwords" style="display:none">
+		<TABLE width="100%" border="0" cellpadding="0" cellspacing="1" class="hotwords_grid">
+			<TBODY id="hotwords_tbody">
+		    <for select="." blankRef="noObjectFound">
+			<TR align="center" valign="middle" class="grid_row">
+				<record num="4" blankRef="noObjectFound2">
+				<TD width="25%">
+					<TABLE width="100%" height="100%" BORDER=0 CELLSPACING=0 CELLPADDING=0 style="font-size:12px">
+						<TR>
+							<TD align="right" width="24">
+								<input type="checkbox" name="hitwords" value="{#Value}">
+							</TD>
+							<TD align="left" title="{#Title}">{#Value}(<span class="num" title="命中次数">{#Cnt}</span>)</TD>
+						</TR>
+					</TABLE>
+				</TD>
+				</record>
+			</TR>
+			</for>
+			</TBODY>
+		</TABLE>
+	</textarea>
+	<TABLE style="display:none">
+	<TBODY id="noObjectFound">
+		<TR class="grid_row" style="padding-left:10px">
+			<TD colspan="4">没有命中的热词.</TD>
+		</TR>
+	</TBODY>
+	<TBODY id="noObjectFound">
+		<TR id="noObjectFound2">
+			<TD width="25%">&nbsp;</TD>
+		</TR>
+	</TBODY>
+	</TABLE>
+<script>
+	oEditor.FCKLanguageManager.TranslatePage(document) ;
+	window.parent.SetBtnsRow(false);
+	window.parent.SetAutoSize( true ) ;	
+	autoLoadHitHotWords();
+</script>
+</BODY>
+</HTML>

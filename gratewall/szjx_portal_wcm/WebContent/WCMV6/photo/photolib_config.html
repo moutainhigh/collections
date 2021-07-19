@@ -1,0 +1,120 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS=""  xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>图片库配置</title>
+<link href="../css/add_edit.css" rel="stylesheet" type="text/css" />
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<style type="text/css">		
+	.input_text{
+		width:150px;
+		height:20px;
+		border:1px solid green;
+		margin:0 1px;
+	}
+	.input_editablefalse{
+		color:gray;
+	}
+	label{
+		font-weight:bold;
+		padding-right:5px;
+	}
+	.tablehead{
+		font-size:12px;
+		font-weight:bold;		
+	}
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script label="SysImport">
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.QuickKey');
+	$import('com.trs.validator.Validator');	
+</script>
+<script language=JavaScript src="../js/com.trs.util/Common.js"></script>
+<script language=JavaScript src="photolib_config.js"></script>
+</head>
+<body>
+<script language="javascript">
+<!--	
+	FloatPanel.addCloseCommand();		
+	FloatPanel.addCommand('savebtn', '确定', 'saveConf',null);		
+//-->
+</script>
+<form id="form_edit" name="form_edit" method="post" enctype="multipart/form-data" action="">	
+	<div id="area_holder" style="padding:20px;margin-left:30px;">
+		<center>
+			<img src="../images/loading.gif" border=0 style="padding-top:20px;padding-left:45%">
+		</center>
+	</div>	
+</form>
+<textarea id="template_config" style="display:none">
+	<input type="hidden" name="ScaleSizes" id="ScaleSizes" value="">
+	<input type="hidden" name="ScaleSizeDescs" id="ScaleSizeDescs" value="">
+	<input type="hidden" name="WatermarkSizes" id="WatermarkSizes" value="">
+	<span style="float:left">
+		<label>支持的图片格式</label>
+		<input type="text" name="SupportedExt" id="SupportedExt" value="{#SURPPORTEDEXT}" class="input_text" disabled></input>
+	</span>
+	<span style="padding-left:90px">
+		<label>BMP默认转换格式</label>
+		<select name="DefaultConvertType" id="DefaultConvertType">			
+			<option value="gif" {@isDefaultType(gif,#BMP2TYPE)}>gif</option>
+			<option value="jpg" {@isDefaultType(jpg,#BMP2TYPE)}>jpg</option>
+			<option value="bmp" {@isDefaultType(bmp,#BMP2TYPE)}>不转换</option>
+		</select>
+	</span>
+	<fieldset style="width:220px;margin:15px 20px"><legend style="padding:5px">图片设置</legend>
+	<table id="imagesize_table">
+		<tr>
+			<td class="tablehead">图片尺寸</td>
+			<td class="tablehead">水印尺寸</td>
+			<td class="tablehead">描述</td>
+		</tr>
+		<tr><td colspan="3" width="200px">
+			<div style="overflow-y:auto;height:140px;"><table>
+			<for select="IAMGESIZES">
+				<tr name="imagesize_setter" id="imagesize_setter">
+					<td>
+						<input type="text" name="ImageSize" id="ImageSize" value="{#SIZE}" 
+								class="input_text input_editable{#SIZEEDITABLE}" contentEditable="{#SIZEEDITABLE}"
+								{@isFirstInsall(#SIZEEDITABLE)}
+						>
+						</input>
+					</td>
+					<td>
+						<input type="text" name="WatermarkerSize"  id="WatermarkerSize" value="{#WMSIZE}" class="input_text"
+								validation="type:'int',value_range:'0,{#SIZE}',required:'true',desc:'水印尺寸',showid:'validation_tip'"
+						></input>
+					</td>
+					<td>
+						<input type="text" name="ImageSizeDesc" id="ImageSizeDesc" value="{#DESC}" class="input_text"
+								validation="type:'string',required:'true',max_len:'50',desc:'图片描述',showid:'validation_tip'"
+						></input>
+					</td>
+					<td>
+						<a href="#" onclick="removeImageSize(this)" title="删除这个设置"
+							style="display:{@displayAble($$INDEX,#SIZEEDITABLE)}">
+							<img src="../images/icon/Delete.png" border="0">
+						</a>
+					</td>
+				</tr>
+			</for></table></div>
+		</td></tr>
+	</table>
+	</fieldset>
+	<div style="margin-top:5px">
+		<span>
+		<a href="#" onclick="insertImageSize();" style="display:{@displayAble(2,#FIRSTINSTALL)}">
+			添加设置
+		</a>
+		</span>
+		<span id="validation_tip" style="pading-left:40px"></span>		
+	</div>
+</textarea>
+</body>
+</html>

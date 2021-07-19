@@ -1,0 +1,11 @@
+$(function(){ 
+	//下拉框绑定事件
+	$(".userOperater-title").toggle(function(){
+		$(this).next('div').toggle().end().parent().siblings().children('div').hide();//第一次点击执行
+	},function(){
+		$(this).next('div').toggle().end().parent().siblings().children('div').hide();//第二次点击执行
+	});
+	$("html").click(function(){
+		$(".userOperater-list").hide();//隐藏
+	});
+});

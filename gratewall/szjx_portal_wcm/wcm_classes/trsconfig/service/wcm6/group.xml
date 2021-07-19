@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.GroupServiceProvider">
+
+	<method name="saveGroups" desc="保存用户信息">
+		<parameter name="UserId" desc="获取用户的ID" type="string" required="true"/>
+		<parameter name="CurrGroupIds" desc="获取用户现有组织ID" type="string" required="false"/>
+		<parameter name="OrigGroupIds" desc="获取用户原有组织ID" type="string" required="false"/>
+	</method>		
+</service>

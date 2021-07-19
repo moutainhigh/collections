@@ -1,0 +1,170 @@
+<style type="text/css">
+	.ddd{
+	  text-align: center;
+	  font-size:50pt;
+	  font-family:"Wingdings 2";
+	}
+	@media print{
+		.notprint { display:none;}
+		.PageNext{page-break-after:always;} 
+	}
+	@media screen{
+		.notscreen{ display:none;}
+	}
+	#printButton{
+		position : relative;
+		left : 650px;
+		top:-40px;
+	}
+	#returnButton{
+		position : relative;
+		left : 650px;
+		top:-40px;
+	}
+	
+</style>
+<table border="0" cellspacing="0" cellpadding="0" style="background-color:#ffffff" align="center">
+ 		<tr style="height:5mm;" id = "titleBody"   colspan='5'>
+					<td id = "01" style="font-size:14pt;"></td>
+		</tr>
+		
+		<tr>
+			<td valign="top" align="center" id = "licenseBody">
+				<div style="font-size:16pt;height:10mm"><strong>营业执照领取单</strong></div>
+				<table border="1" bordercolor="#000000" cellspacing="0" cellpadding="0" style="border-collapse:collapse; width:172mm"  bgcolor="#ffffff" >
+					<tr style="height:10mm">
+						<td style="font-size:12pt; width:20%"; align="center">发照人员签字</td>
+						<td style="font-size:12pt; width:30%; padding-left:2mm;WORD-WRAP:break-word;TABLE-LAYOUT:fixed;word-break:break-all;" align="left"></td>
+						<td style="font-size:12pt; width:20%"; align="center">发照日期</td>
+						<td style="font-size:12pt;width:30%;padding-right:2mm" align="right">&nbsp;&nbsp;年&nbsp;&nbsp;月&nbsp;&nbsp;日&nbsp;&nbsp;</td>
+					</tr>
+					<tr style="height:10mm">
+						<td  style="font-size:12pt; width:20%"; align="center">名称</td>
+						<td id = "02" colspan="3" align="left" style="font-size:12pt;width:25%;padding-left:6mm;"></td>
+					</tr>
+					<tr style="height:10mm">
+						<td  style="font-size:12pt; width:20%"; align="center">业务类型</td>
+						<td id = "03" style="font-size:12pt; width:30%;padding-left:5mm;"; align="left"></td>
+						<td style="font-size:12pt; width:20%"; align="center">核准日期</td>
+						<td id = "09" style="font-size:12pt; width:30%;padding-left:6mm;"; align="left"></td>
+					</tr>
+					<tr>
+						<td style="font-size:12pt; height:40mm" align="center">领照详情</td>
+						<td colspan="3">
+							<table width="100%" height="100%">
+								<tr>
+									<td id = "04" align="left" style="font-size:14pt;WORD-WRAP:break-word;TABLE-LAYOUT:fixed;word-break:break-all;" colspan="2" valign="middle"></td>
+								</tr>
+								<tr></tr>
+								<tr></tr>
+								<tr></tr>
+								<tr style="height:10mm" valign="baseline">
+									<td style="font-size:14pt;width:20%;" align="right">&nbsp;&nbsp;签字：</td>
+									<td style="font-size:14pt;width:80%;" align="right">&nbsp;&nbsp;年&nbsp;&nbsp;月&nbsp;&nbsp;日&nbsp;&nbsp;</td>
+					  			</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td style="font-size:12pt; height:30mm" align="center">领照人信息</td>
+						<td colspan="3">
+							<table width="100%" height="100%">
+								<tr>
+									<td align="right" style="font-size:14pt;width:25%">申请人：</td>
+									<td id = "05" align="left" style="font-size:14pt;width:15%"></td>
+									<td align="right" style="font-size:14pt;width:20%">身份证号：</td>
+									<td id = "06" align="left" style="font-size:14pt;width:40%"></td>
+								</tr>
+								<tr style="height:10mm" valign="baseline">
+									<td align="right" style="font-size:14pt;width:25%" >法定代表人：</td>
+									<td id = "07" align="left" style="font-size:14pt;width:15%"></td>
+									<td align="right" style="font-size:14pt;width:20%">身份证号：</td>
+									<td id = "08" align="left" style="font-size:14pt;width:40%"></td>
+					  			</tr>
+							</table>
+						</td>
+					</tr>
+					<tr style="height:30mm">
+						<td align="center" style="width:37mm">
+							<span style="font-size:12pt;">备注</span>
+						</td>
+						<td colspan="3" align="left" style="font-size:14pt;">
+							&nbsp;&nbsp;&nbsp;领照人（法定代表人或申请工商登记注册材料中指定委托书的“指定委托人”）持身份证原件及证照领取编号领取营业执照。
+						</td>
+					</tr>	
+				</table>
+				<br>
+				<table style="border:0;width:152mm">
+					<tr>
+						<td style=""><td>
+					</tr>
+					<tr height="40mm">
+						<td align="center" valign="bottom" style="font-size:16pt"></td>
+					</tr>
+					<tr>
+						<td align="center"></td>
+					</tr>
+				</table>
+				<br>
+			</td>
+	  </tr>
+</table>
+	<!-- <table align="center" class="notprint" border="0" cellspacing="0" cellpadding="0" style="width:212mm;height:19mm;background-color:#ffffff">
+		<tr>
+			<td></td>
+			<td style="width:210mm;background-color:#ffffff" ></td>
+		</tr>
+	</table> -->
+	<input align="center" id = "printButton" value = "打印" type = "button" onclick = "printFuntion()";/>
+	<input align="center" id = "returnButton" value = "返回" type = "button" onclick = "returnFuntion()";/>
+	
+<script type="text/javascript" src = "../../approve/process/jquery-1.8.3.js"></script>
+<script type="text/javascript">
+		/* var entType = "<c:out value="${ent.entType}"/>";
+		if (entType.indexOf("1") == 0 || entType.indexOf("51") == 0
+				|| entType.indexOf("52") == 0 || entType.indexOf("61") == 0
+				|| entType.indexOf("62") == 0) {
+			getElement("entRecCap_0").style.display = "none";
+			getElement("entRecCap_1").style.display = "none";
+			getElement("entRecCap_2").style.display = "none";
+			getElement("entRecCap_3").style.display = "none";
+			getElement("entRecCap_4").style.height = "10mm";
+		} */
+		
+		$(function(){
+			var n = self.location.href.indexOf("?");
+			if(n>0){
+				var param = self.location.href.substr(n+5);
+			}
+			$.ajax({
+				url : "../../../req/getPrintParam.do?gid="+param,
+				async : false,
+				type:"post",
+				dataType:"json",
+				success : function(data){
+					document.getElementById("01").innerHTML = "日期:"+data.licenseot+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+																	"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编号:"+data.certGetSn;
+					document.getElementById("02").innerHTML = data.entName;
+					document.getElementById("03").innerHTML = data.type;
+					document.getElementById("04").innerHTML = "&nbsp;&nbsp; 本人领取了执照正本一份，副本&nbsp;"+data.copyNo+"&nbsp;份"; 
+					document.getElementById("05").innerHTML = data.linkman;
+					document.getElementById("06").innerHTML = data.certNo;
+					document.getElementById("07").innerHTML = data.leRepName;
+					document.getElementById("08").innerHTML = data.leRepCerNo;
+					document.getElementById("09").innerHTML = data.approvedate;
+					//document.getElementById("10").innerHTML = data.licenseot;
+				}
+			});
+		});
+		
+		function printFuntion(){
+			$("#printButton").hide();
+			$("#returnButton").hide();
+			window.print();
+		}
+		function returnFuntion(){
+			
+			window.location.href='getLicense.html?gid='+self.location.href.substr(self.location.href.indexOf("?")+5);
+		}
+</script>
+

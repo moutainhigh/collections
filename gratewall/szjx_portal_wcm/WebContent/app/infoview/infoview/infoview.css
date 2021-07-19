@@ -1,0 +1,39 @@
+div, body{scrollbar-face-color : #EDEDED;scrollbar-darkshadow-color : #EDEDED;}
+/*SPAN.xdDTText{padding-right:60px!important;padding-right:0;}*/
+SPAN.xdTextBox{min-height:14px;max-width:95% !important;}
+SPAN.xdAreaBox{min-height:14px;max-width:98% !important;}
+SPAN.xdRichTextBox{min-height:14px;max-width:98% !important;}
+SPAN.xdRichTextBox p{margin:2px auto;}
+TEXTAREA .xdTextBox{white-space:pre-wrap;}
+.xdLayout{border-collapse:separate !important;border-collapse:collapse;}
+.xdDTButton{width:24px;height:18px;margin-left:-21px;}
+.xdDTButton img{margin:-2px 0 0 -7px!important;margin:-2px 0 0 -1px;}
+.xdDTPicker{padding:1px 0;display:inline;}
+.ext-safari .xdDTPicker{display:inline-block;}
+.xdRepeatingTableContainer{overflow:hidden;}
+body *:focus{outline:0;}
+#bubble-panel:focus{outline:0;}
+#bubble-panel{border:1px solid gray;background:#ECECEC;padding:5px 0;cursor:pointer;width:100px;}
+#bubble-panel .menuitem{padding:4px 5px 4px 15px;font-size:10pt;}
+#bubble-panel .menuitem_active{background:#FFFFEF;font-weight:normal;}
+.must_fill{position:absolute;font-weight:bold;width:8px;padding-left:4px;color:red;}
+@media print { 
+	input,span,div,textarea{border:0px !important;}
+	.MsoTableGrid TD{border-style:none !important;border-bottom:1px solid black !important;border-right:1px solid black !important;}
+	.MsoTableGrid{border-top:1px solid black !important;border-left:1px solid black !important;}
+	.xdRepeatingTable{border-style:none !important;position:relative !important;margin-top:-1px !important; border-left:2px solid #fff !important;}
+	.xdRepeatingTable TD{border-style:none !important;border-top:1px solid black !important;border-left:1px solid black !important; }
+	.xdRichTextBox{height:auto !important;overflow:hidden !important;}
+} 
+
+/*添加使用简易编辑器插入表格的样式，覆盖默认table样式*/
+.newEditorInsertCls{
+	border-style:solid;
+	border-collapse:separate;
+}
+.newEditorInsertCls td{
+	border-bottom:1px solid #ece9d8 !important;/*覆盖默认table样式，因为默认table样式是定义在内部样式中，所以要使用!importan提升优先级*/
+	border-left:1px solid #ece9d8 !important;
+	border-top:1px solid #ece9d8 !important;
+	border-right:1px solid #ece9d8 !important;
+}

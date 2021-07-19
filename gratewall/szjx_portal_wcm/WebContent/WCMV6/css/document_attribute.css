@@ -1,0 +1,386 @@
+body{
+	font-size:12px;
+	padding:0px;
+	margin:0px;
+	margin-left:6px;
+	margin-top:6px;
+	background-repeat:no-repeat;
+}
+/*操作图标通用属性*/
+.operator_img{
+	float:left;
+	width:100%;
+	height:100%;
+	background-repeat:no-repeat;
+	background-position:center center;
+}
+/*更多操作图标*/
+.operator_more_btn{
+	background-image:url(../images/document_attribute/got_down.png);
+	background-repeat:no-repeat;
+	background-position:left top;
+}
+/*更多操作图标*/
+.operator_img_td{
+/*	background-image:url(../images/document_normal_index/ico-bg.png);*/
+}
+/*操作图标ACTIVE时的背景*/
+.operator_img_td_active{
+	background-image:url(../images/document_attribute/icon_bg.png);
+	background-repeat:no-repeat;
+	background-position:1px center;
+}
+/*操作名称*/
+.operator_name_td{
+	padding-left:6px;
+}
+/*操作名称ACTIVE时的背景*/
+.operator_name_td_active{
+	background-image:url(../images/document_attribute/text_120_bg.png);
+	background-repeat:no-repeat;
+	background-position:1px center;
+}
+/*浮动的更多操作的一行*/
+.operator_more_tr{
+	height:24px;
+}
+/*更多操作中的分隔符*/
+.operator_img_seperate{
+	float:left;
+	height:2px;
+	overflow:hidden;
+}
+.operator_td_seperate{
+	background-image:url(../images/document_attribute/got_down_sash_divide.png);
+	background-repeat:no-repeat;
+	background-position:3px center;
+}
+.operator_div_seperate{
+	display:none;
+}
+.operator_tr_seperate{
+	height:2px;
+}
+/*属性栏*/
+.attr_column {
+	width: 177px;
+}
+/*属性栏头*/
+.attr_column_header{
+	width:177px;
+	height:31px;
+	background-image: url(../images/document_attribute/item1_column.png);
+	background-repeat: no-repeat;
+}
+/*属性栏主体*/
+.attr_column_body{
+	float:left;
+	background-image: url(../images/document_attribute/item3_casingmorebg.png);
+	background-repeat: repeat-y;
+	background-color:#ffffff;
+	width: 177px;
+}
+/*属性栏标题文字*/
+.attr_column_title{
+	float:left;
+	height:14px;
+	font-weight:bold;
+	font-size:12px;
+	padding:8px 10px 2px;
+}
+/*属性栏收缩图标*/
+.attr_column_shrink{
+	float:right;
+	width:20px;
+	height:10px;
+	margin:8px 4px 0 0;
+	background-image: url(../images/document_attribute/up.png);
+	background-repeat: no-repeat;
+}
+/*属性栏展开图标*/
+.attr_column_expand{
+	float:right;
+	width:20px;
+	height:10px;
+	margin:8px 4px 0 0;
+	background-image: url(../images/document_attribute/down.png);
+	background-repeat: no-repeat;
+}
+/*属性栏内容区域*/
+.attr_column_content{
+	float:left;
+	width:163px;
+	margin:3px;
+	padding:0px;
+	background-image: url(../images/document_attribute/item1_casing.png);
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	border: 1px solid #5d5d5d;
+	overflow:hidden;
+}
+/*属性栏底部*/
+.attr_column_underside{
+	float:left;
+	background-image: url(../images/document_attribute/item3_casingdown.png);
+	background-repeat: no-repeat;
+	height: 5px;
+	width: 177px;
+	overflow:hidden;
+}
+/*属性栏更多内容框浮动*/
+.operator_more_menu{
+	background-image: url(../images/document_attribute/got_down_sash.png);
+	background-repeat: repeat-y;
+	width: 150px;
+	border:1px solid black;
+	position: absolute;
+}
+.operator_more_menu .operator_name_td_active{
+	background-image:url(../images/document_attribute/text_120_bg.png);
+	background-repeat:no-repeat;
+	background-position:2px center;
+}
+.operator_more_menu .operator_name_td{
+	padding-left:8px;
+}
+/*属性栏之间的分隔*/
+.attr_column_sep{
+	height:8px;
+	width: 177px;
+	overflow:hidden;
+}
+/*栏目属性内部方框背景*/
+.attr_column_flexible_content{
+	float:left;
+	background-image: url(../images/document_attribute/item3_casingmore.png);
+	width: 159px;
+	border: 1px solid #5d5d5d;
+	background-repeat: repeat-y;
+	margin: 3px;
+	padding: 2px 2px;
+	overflow:hidden;
+}
+/*详细信息栏文字*/
+.attr_detail_fonts {
+	font-size: 12px;
+	line-height: 20px;
+	color: #000000;
+	text-decoration: none;
+}
+/**详细信息栏内容表格TD**/
+.attr_column_content_td{
+	height:20px;
+	padding:1px 0;
+	padding-left:6px;
+	overflow:hidden;
+}
+/**详细信息栏内容表格TD之间的分隔**/
+.attr_column_content_td_sep{
+	height:8px;
+	background-image:url(../images/document_attribute/divide_up.png);
+	background-repeat:no-repeat;
+	background-position:center center;
+}
+/*详细信息栏名称*/
+.attr_detail_name{
+	float:left;
+	font-weight:none;
+}
+/*详细信息栏值*/
+.attr_detail_value{
+	text-decoration: none;
+}
+/*只读属性值*/
+.attr_detail_readonly{
+	color:gray;
+	text-decoration: none;
+	cursor:default;
+}
+/*可写属性值*/
+.attr_detail_writable{
+	color:blue;
+}
+a.attr_detail_writable:hover{
+	text-decoration: underline;
+}
+/*详细信息更多属性图标*/
+.attr_detail_more_btn{
+	background-image:url(../images/document_attribute/exclusive.png);
+	background-repeat:no-repeat;
+	background-position:0 center;
+	padding-left:10px;
+	overflow:hidden;
+}
+/*选中多个对象的数量*/
+.attr_detail_objects_num{
+	padding:1px 5px;
+	color:blue;
+	font-weight:bold;
+}
+/*document的各种操作对应的图标*/
+.operator_img_document_edit{
+	background-image:url(../images/icon/Update.png);
+}
+.operator_img_document_preview{
+	background-image:url(../images/icon/Preview.png);
+}
+.operator_img_document_quickpublish,.operator_img_documents_quickpublish{
+	background-image:url(../images/icon/QuickPublish.png);
+}
+.operator_img_document_copy,.operator_img_documents_copy{
+	background-image:url(../images/icon/Copy.png);
+}
+.operator_img_document_move,.operator_img_documents_move{
+	background-image:url(../images/icon/Move.png);
+}
+.operator_img_document_quote,.operator_img_documents_quote{
+	background-image:url(../images/icon/Quote.png);
+}
+.operator_img_document_recycle,.operator_img_documents_recycle{
+	background-image:url(../images/icon/Recycle.png);
+}
+.operator_img_document_delete,.operator_img_documents_delete{
+	background-image:url(../images/icon/Delete.png);
+}
+.operator_img_document_changeStatus,.operator_img_documents_changeStatus{
+	background-image:url(../images/icon/ChangeStatus.png);
+}
+.operator_img_document_setRight,.operator_img_documents_setRight{
+	background-image:url(../images/icon/Accessories.png);
+}
+.operator_img_document_publish,.operator_img_documents_publish{
+	background-image:url(../images/icon/AdvancedPublish.png);
+}
+.operator_img_document_backup,.operator_img_documents_backup{
+	background-image:url(../images/icon/SaveVersion.png);
+}
+.operator_img_document_export,.operator_img_documents_export{
+	background-image:url(../images/icon/Export.png);
+}
+.operator_img_document_new{
+	background-image:url(../images/icon/New.png);
+}
+.operator_img_document_quicknew{
+	background-image:url(../images/icon/CreateArticle.png);
+}
+.operator_img_document_import{
+	background-image:url(../images/icon/Import.png);
+}
+/*channel的各种操作对应的图标*/
+.operator_img_channel_edit{
+	background-image:url(../images/icon/Update.png);
+}
+.operator_img_channel_preview{
+	background-image:url(../images/icon/Preview.png);
+}
+.operator_img_channel_quickpublish,.operator_img_channels_quickpublish{
+	background-image:url(../images/icon/QuickPublish.png);
+}
+.operator_img_channel_likecopy,.operator_img_channels_likecopy{
+	background-image:url(../images/icon/Copy.png);
+}
+.operator_img_channel_move,.operator_img_channels_move{
+	background-image:url(../images/icon/Move.png);
+}
+.operator_img_channel_delete,.operator_img_channels_delete{
+	background-image:url(../images/icon/Delete.png);
+}
+.operator_img_channel_setRight,.operator_img_channels_setRight{
+	background-image:url(../images/icon/Accessories.png);
+}
+.operator_img_channel_publish,.operator_img_channels_publish{
+	background-image:url(../images/icon/AdvancedPublish.png);
+}
+.operator_img_channel_export,.operator_img_channels_export{
+	background-image:url(../images/icon/Export.png);
+}
+/*document in channel的各种操作对应的图标*/
+.operator_img_documentInChannel_new{
+	background-image:url(../images/icon/New.png);
+}
+.operator_img_documentInChannel_quicknew{
+	background-image:url(../images/icon/CreateArticle.png);
+}
+.operator_img_documentInChannel_import{
+	background-image:url(../images/icon/Import.png);
+}
+/*document in site的各种操作对应的图标*/
+.operator_img_documentInSite_new{
+	background-image:url(../images/icon/New.png);
+}
+.operator_img_documentInSite_quicknew{
+	background-image:url(../images/icon/CreateArticle.png);
+}
+.operator_img_documentInSite_import{
+	background-image:url(../images/icon/Import.png);
+}
+/*website的各种操作对应的图标*/
+.operator_img_WebSiteRoot_new{
+	background-image:url(../images/icon/New.png);
+}
+.operator_img_WebSiteRoot_import{
+	background-image:url(../images/icon/Import.png);
+}
+.operator_img_website_edit{
+	background-image:url(../images/icon/Update.png);
+}
+.operator_img_website_preview{
+	background-image:url(../images/icon/Preview.png);
+}
+.operator_img_website_quickpublish,.operator_img_websites_quickpublish{
+	background-image:url(../images/icon/QuickPublish.png);
+}
+.operator_img_website_likecopy,.operator_img_websites_likecopy{
+	background-image:url(../images/icon/Copy.png);
+}
+.operator_img_website_move,.operator_img_websites_move{
+	background-image:url(../images/icon/Move.png);
+}
+.operator_img_website_delete,.operator_img_websites_delete{
+	background-image:url(../images/icon/Delete.png);
+}
+.operator_img_website_setRight,.operator_img_websites_setRight{
+	background-image:url(../images/icon/Accessories.png);
+}
+.operator_img_website_publish,.operator_img_websites_publish{
+	background-image:url(../images/icon/AdvancedPublish.png);
+}
+.operator_img_website_export,.operator_img_websites_export{
+	background-image:url(../images/icon/Export.png);
+}
+.operator_img_website_recycle,.operator_img_websites_recycle{
+	background-image:url(../images/icon/Recycle.png);
+}
+/*其他特殊设置*/
+.document_quote_add{
+	padding:2px;
+}
+.document_quote_remove{
+	padding:2px;
+}
+.document_quote_channels{
+	padding-left:10px;
+	height:20px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+}
+.attr_detail_value_cruser{
+	font-weight:bold;
+}
+.attr_detail_value_docpublishurl{
+	float:left;
+	width:150px;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.attr_detail_value_doctitle{
+	width:140px;
+	font-size:14px;
+	height:20px;
+}
+.attr_detail_value_docstatus,.attr_detail_value_docindextitle,.attr_detail_value_docsectitle,.attr_detail_value_dockeys,.attr_detail_value_docsource{
+	width:80px;
+	font-size:12px;
+	height:17px;
+}

@@ -1,0 +1,107 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="../js/com.trs.util/Common.js"></script>
+	<script type="text/javascript" src="fckeditor.js"></script>
+	<script language="javascript">
+	<!--
+	function ExecuteCommand( commandName ){
+		try{
+		// Get the editor instance that we want to interact with.
+		var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+		switch(commandName.toLowerCase()){
+			case 'source':
+				var oSourceCommand = oEditor.Commands.GetCommand('Source');
+				if(oEditor.EditMode==FCK_EDITMODE_WYSIWYG){
+					oSourceCommand.Execute();
+				}
+				break;
+			case 'design':
+				var oSourceCommand = oEditor.Commands.GetCommand('Source');
+				if(oEditor.EditMode==FCK_EDITMODE_SOURCE){
+					oSourceCommand.Execute();
+				}
+				break;
+			default:
+			// Execute the command.
+			oEditor.Commands.GetCommand( commandName ).Execute() ;
+		}
+		}catch(err){alert(err.message||err.stack)};
+	}
+	function GetEditor(){
+		var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+		return oEditor;
+	}
+	function GetTrueEditor(){
+		return FCKeditorAPI.editorWindow;
+	}
+	function SetHTML(_sHtml){
+		var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+		oEditor.SetHTML(_sHtml);
+	}
+	function FCKeditor_OnComplete(){
+//		window.frameElement.style.visibility = 'visible';
+		if(parent!=window&&parent.FCKeditor_OnComplete){
+//			window.frameElement.style.display = '';
+			parent.FCKeditor_OnComplete();
+		}
+		setTimeout(function(){
+			try{
+				if(oFCKeditor.Value=='')
+					FCKeditorAPI.editorWindow.AutoPaste();
+			}catch(err){
+			}
+			try{
+	//			FCKeditorAPI.editorWindow.AttachAutoPaste();
+			}catch(err){
+			}
+			try{
+				FCKeditorAPI.editorWindow.FCK.AttachSaveUserData();
+			}catch(err){
+			}
+		},100);
+		window.FCKeditor_OnComplete = null;
+	}
+	function GetTitleElement(_sTitle){
+		return parent.document.getElementById('DocTitle');
+	}
+	function ClearAutoPasteData(){
+		var oWindow = FCKeditorAPI.editorWindow ;
+		if(oWindow.ClearAutoPasteData)
+			oWindow.ClearAutoPasteData();
+	}
+	//-->
+	</script>
+	<style type="text/css">
+		body{
+			margin:0;
+			padding:0;
+			background-repeat: repeat-x;
+			background-position:50% 14px;
+			overflow:hidden;
+		}
+	</style>
+</head>
+<body>
+	<script type="text/javascript">
+		<!--
+		var oFCKeditor = new FCKeditor( 'TRS_Editor' ) ;
+		oFCKeditor.BasePath	= './';
+		oFCKeditor.ToolbarSet = 'WCM6';
+		oFCKeditor.Height = '100%' ;
+		oFCKeditor.MoreParams = {
+			'Version' : getParameter('Version')||'1.0.0.1',
+			'ConfigEx' : 'fckconfig_ex.js'
+		};
+		if(parent!=window){
+			oFCKeditor.Value = parent.document.getElementById("_editorValue_").value ;
+		}
+		else{
+			oFCKeditor.Value = '';
+			oFCKeditor.ToolbarLocation = 'In' ;
+		}
+		oFCKeditor.Create();
+		//-->
+	</script>
+</body>
+</html>

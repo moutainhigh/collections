@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> New Document </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Author" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<META NAME="Description" CONTENT="">
+</HEAD>
+
+<script>
+function  filterForJS( _str ){
+	var sRet;
+	sRet = _str.replace(/\\/g, "\\\\");
+	sRet = sRet.replace(/\"/g, "\\\"");
+	sRet = sRet.replace(/\n/g, " ");
+	if(sRet.charCodeAt(sRet.length-1) == 13)
+		return sRet.substring(0, sRet.length-1);
+	else
+		return sRet;	
+}
+
+function convert(){
+	var oSrc = document.all("Src");
+	var oDst = document.all("Dst");
+	
+	var arData	= oSrc.value.split("\n");
+	var sDst	= "var sHTML = \"\"\n";
+	for(var i=0; i<arData.length; i++){
+		var sEnd = arData[i].substring(arData[i].length-1);
+		sDst += "			+\""+filterForJS(arData[i])+"\" \n"
+	}
+	oDst.value = sDst;
+	//CTRSAction_alert("oSrc:"+oSrc.value);
+}
+</script>
+<BODY>
+<table border=0>
+	<tr>
+	 <td align=center>HTMLÔ´Âë</td>
+	 <td align=center>Script´úÂë</td>
+	</tr>
+	<tr>
+	 <td align=center><textarea name="Src" cols=50 rows=20></textarea></td>
+	 <td align=center><textarea name="Dst" cols=50 rows=20></textarea></td>
+	</tr>
+</table>
+
+<P>
+<input type="button" value="×ª»»" onclick="convert();">
+
+</BODY>
+</HTML>

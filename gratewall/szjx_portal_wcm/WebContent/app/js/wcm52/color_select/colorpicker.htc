@@ -1,0 +1,411 @@
+<!--
+  colorpicker.htc
+  Copyright (c) 2002 Ma Bingyao. All rights reserved.
+  Version 2.0.20021209
+-->
+
+<public:component tagName="colorpicker" lightweight="true">
+<public:property name="value" get="getvalue" put="putvalue" id="propvalue" />
+<public:property name="RGB" get="getRGB" put="putRGB" id="propRGB" />
+<public:property name="HSB" get="getHSB" put="putHSB" id="propHSB" />
+<public:property name="red" get="getred" put="putred" id="propred" />
+<public:property name="green" get="getgreen" put="putgreen" id="propgreen" />
+<public:property name="blue" get="getblue" put="putblue" id="propblue" />
+<public:property name="hue" get="gethue" put="puthue" id="prophue" />
+<public:property name="saturation" get="getsaturation" put="putsaturation" id="propsaturation" />
+<public:property name="brightness" get="getbrightness" put="putbrightness" id="propbrightness" />
+<public:method name="RGBtoHEX" />
+<public:method name="HEXtoRGB" />
+<public:method name="RGBtoHSB" />
+<public:method name="HSBtoRGB" />
+<public:event name="onchange" id="eventchange" />
+<public:attach event="oncontentready" onevent="init()" />
+<public:attach event="onpropertychange" onevent="changeProperty()" />
+<script language="JavaScript">
+//<![CDATA[
+
+  var oColorPicker = null;
+  var oContainer = null;
+  var oMainContainer = null;
+  var oSubContainer = null;
+  var oRibbon = null;
+  var oCross = null;
+  var oArraw = null;
+  var _value = "#000000";
+  var _RGB = HEXtoRGB(_value);
+  var _HSB = RGBtoHSB(_RGB);
+  var _isReady = false;
+
+  function parseColor(vValue) {
+    var oColorParser = element.document.createElement("td");
+    oColorParser.bgColor = vValue;
+    return oColorParser.removeNode().bgColor;
+  }
+
+  function getvalue() {
+    return _value;
+  }
+
+  function putvalue(vValue) {
+    vValue = parseColor(vValue);
+    if (_value != vValue) {
+      _value = vValue;
+      _RGB = HEXtoRGB(_value);
+      _HSB = RGBtoHSB(_RGB);
+      propvalue.fireChange();
+    }
+  }
+
+  function getRGB() {
+    return _RGB;
+  }
+
+  function putRGB(aRGB) {
+    if (_RGB != aRGB) {
+      _RGB = aRGB;
+      _HSB = RGBtoHSB(_RGB);
+      _value = RGBtoHEX(_RGB);
+      propRGB.fireChange();
+    }
+  }
+
+  function getHSB() {
+    return _HSB;
+  }
+
+  function putHSB(aHSB) {
+    if (_HSB != aHSB) {
+      _HSB = aHSB;
+      _RGB = HSBtoRGB(_HSB);
+      _value = RGBtoHEX(_RGB);
+      propHSB.fireChange();
+    }
+  }
+
+  function getred() {
+    return _RGB.red;
+  }
+
+  function putred(vRed) {
+    if (_RGB.red != vRed) {
+      _RGB.red = vRed;
+      _HSB = RGBtoHSB(_RGB);
+      _value = RGBtoHEX(_RGB);
+      propred.fireChange();
+    }
+  }
+
+  function getgreen() {
+    return _RGB.green;
+  }
+
+  function putgreen(vGreen) {
+    if (_RGB.green != vGreen) {
+      _RGB.green = vGreen;
+      _HSB = RGBtoHSB(_RGB);
+      _value = RGBtoHEX(_RGB);
+      propgreen.fireChange();
+    }
+  }
+
+  function getblue() {
+    return _RGB.blue;
+  }
+
+  function putblue(vBlue) {
+    if (_RGB.blue != vBlue) {
+      _RGB.blue = vBlue;
+      _HSB = RGBtoHSB(_RGB);
+      _value = RGBtoHEX(_RGB);
+      propblue.fireChange();
+    }
+  }
+
+  function gethue() {
+    return _HSB.hue;
+  }
+
+  function puthue(vHue) {
+    if (_HSB.hue != vHue) {
+      _HSB.hue = vHue;
+      _RGB = HSBtoRGB(_HSB);
+      _value = RGBtoHEX(_RGB);
+      prophue.fireChange();
+    }
+  }
+
+  function getsaturation() {
+    return _HSB.saturation;
+  }
+
+  function putsaturation(vSaturation) {
+    if (_HSB.saturation != vSaturation) {
+      _HSB.saturation = vSaturation;
+      _RGB = HSBtoRGB(_HSB);
+      _value = RGBtoHEX(_RGB);
+      propsaturation.fireChange();
+    }
+  }
+
+  function getbrightness() {
+    return _HSB.brightness;
+  }
+
+  function putbrightness(vBrightness) {
+    if (_HSB.brightness != vBrightness) {
+      _HSB.brightness = vBrightness;
+      _RGB = HSBtoRGB(_HSB);
+      _value = RGBtoHEX(_RGB);
+      propbrightness.fireChange();
+    }
+  }
+
+  function RGBtoHEX(RGB) {
+    return "#" + (0x1000000 | parseInt(RGB.red) << 16 | parseInt(RGB.green) << 8 | parseInt(RGB.blue)).toString(16).substring(1, 7);
+  }
+
+  function HEXtoRGB(HEX) {
+    var RGB = new Array(3);
+    RGB.red = parseInt(HEX.substring(1, 3), 16);
+    RGB.green = parseInt(HEX.substring(3, 5), 16);
+    RGB.blue = parseInt(HEX.substring(5, 7), 16);
+    return RGB;
+  }
+
+  function RGBtoHSB(RGB) {
+    var R = RGB.red;
+    var G = RGB.green;
+    var B = RGB.blue;
+    var largest = Math.max(R, Math.max(G, B));
+    var lowest = Math.min(R, Math.min(G, B));
+    var delta = largest - lowest;
+    var HSB = new Array(3);
+    HSB.hue = 0;
+    HSB.saturation = 0;
+    HSB.brightness = largest / 255;
+    if (largest == 0 || delta == 0) return HSB;
+    HSB.saturation = delta / largest;
+    if (R == largest) HSB.hue = (G - B) / delta;
+    else if (G == largest) HSB.hue = 2 + (B - R) / delta;
+    else HSB.hue = 4 + (R - G) / delta;
+    HSB.hue *= 60;
+    if (HSB.hue < 0) HSB.hue += 360;
+    else if (HSB.hue > 360) HSB.hue -= 360;
+    return HSB;
+  }
+
+  function HSBtoRGB(HSB) {
+    var R, G, B;
+    if (HSB.saturation == 0) R = G = B = HSB.brightness;
+    else {
+      var h = HSB.hue / 60;
+      var i = Math.floor(h);
+      var f = h - i;
+      var a = HSB.brightness * (1 - HSB.saturation);
+      var b = HSB.brightness * (1 - HSB.saturation * f);
+      var c = HSB.brightness * (1 - HSB.saturation * (1 - f));
+      switch(i) {
+        case 0: R = HSB.brightness; G = c; B = a; break;
+        case 1: R = b; G = HSB.brightness; B = a; break;
+        case 2: R = a; G = HSB.brightness; B = c; break;
+        case 3: R = a; G = b; B = HSB.brightness; break;
+        case 4: R = c; G = a; B = HSB.brightness; break;
+        case 5: R = HSB.brightness; G = a; B = b; break;
+      }
+    }
+    var RGB = new Array(3);
+    RGB.red = Math.round(R * 255);
+    RGB.green = Math.round(G * 255);
+    RGB.blue = Math.round(B * 255);
+    return RGB;
+  }
+
+  function setPosition() {
+    oCross.style.pixelLeft = Math.round(_HSB.hue / 1.5 - 12);
+    oCross.style.pixelTop = Math.round((1 - _HSB.saturation) * 239 - 14);
+    oArraw.style.pixelTop = Math.round((1 - _HSB.brightness) * 239 - 12);
+    var HSB = new Array(3);
+    HSB.hue = _HSB.hue;
+    HSB.saturation = _HSB.saturation;
+    HSB.brightness = 1;
+    oRibbon.style.backgroundColor = RGBtoHEX(HSBtoRGB(HSB));
+  }
+
+  function changeProperty() {
+    if (_isReady) {
+      setPosition();
+      eventchange.fire();
+    }
+  }
+
+  function setBaseColor() {
+    x = event.screenX - oMainContainer.style.ScreenLeft - 1;
+    y = event.screenY - oMainContainer.style.ScreenTop - 1;
+    if (x < 0) x = 0;
+    if (x > 239) x = 239;
+    if (y < 0) y = 0;
+    if (y > 239) y = 239;
+    oCross.style.pixelLeft = x - 12;
+    oCross.style.pixelTop = y - 14;
+    var HSB = new Array(3);
+    HSB.hue = _HSB.hue = x * 1.5;
+    HSB.saturation = _HSB.saturation = 1 - y / 239;
+    HSB.brightness = 1;
+    _RGB = HSBtoRGB(_HSB);
+    _value = RGBtoHEX(_RGB);
+    oRibbon.style.backgroundColor = RGBtoHEX(HSBtoRGB(HSB));
+    eventchange.fire();
+  }
+
+  function oMainContainer_domousedown() {
+    oCross.setCapture();
+    oMainContainer.style.ScreenLeft = event.screenX - event.x;
+    oMainContainer.style.ScreenTop = event.screenY - event.y + 7;
+    oCross.style.dragenable = true;
+    setBaseColor();
+  }
+
+  function oCross_domouseup() {
+    oCross.style.dragenable = false;
+    oCross.releaseCapture();
+  }
+
+  function oCross_domousemove() {
+    if (oCross.style.dragenable && event.button == 1) {
+      setBaseColor();
+    }
+  }
+
+  function setColor() {
+    y = event.screenY - oSubContainer.style.ScreenTop - 1;
+    if (y < 0) y = 0;
+    if (y > 239) y = 239;
+    oArraw.style.pixelTop = y - 12;
+    _HSB.brightness = 1 - y / 239;
+    _RGB = HSBtoRGB(_HSB);
+    _value = RGBtoHEX(_RGB);
+    eventchange.fire();
+  }
+
+  function oSubContainer_domousedown() {
+    oArraw.setCapture();
+    oSubContainer.style.ScreenTop = event.screenY - event.y + 7;
+    oArraw.style.dragenable = true;
+    setColor();
+  }
+
+  function oArraw_domouseup() {
+    oArraw.style.dragenable = false;
+    oArraw.releaseCapture();
+  }
+
+  function oArraw_domousemove() {
+    if (oArraw.style.dragenable && event.button == 1) {
+      setColor();
+    }
+  }
+  
+  function docancelevent() {
+    event.returnValue = false;
+  }
+
+  function init() {
+    var aRainBow = new Array("#FF0000", "#FFFF00", "#00FF00", "#00FFFF", "#0000FF", "#FF00FF", "#FF0000");
+    oColorPicker = element.document.createElement("table");
+    oColorPicker.border = 0;
+    oColorPicker.cellPadding = 0;
+    oColorPicker.cellSpacing = 0;
+    oColorPicker.width = 270;
+    oColorPicker.height = 255;
+    oColorPicker.style.position = "relative";
+    oContainer = element.document.createElement("div");
+    oContainer.style.position = "absolute";
+    oContainer.style.pixelLeft = 0;
+    oContainer.style.pixelTop = 0;
+    oContainer.style.width = 270;
+    oContainer.style.height = 255;
+    oContainer.style.overflow = "hidden";
+    oColorPicker.insertRow().insertCell().appendChild(oContainer);
+
+    oMainContainer = element.document.createElement("div");
+    oMainContainer.style.position = "absolute";
+    oMainContainer.style.pixelLeft = 0;
+    oMainContainer.style.pixelTop = 7;
+    oMainContainer.style.width = 242;
+    oMainContainer.style.height = 242;
+    oMainContainer.style.borderWidth = 1;
+    oMainContainer.style.borderStyle = "inset";
+
+    oSubContainer = oMainContainer.cloneNode();
+    oSubContainer.style.pixelLeft = 250;
+    oSubContainer.style.width = 12;
+
+    oRibbon = element.document.createElement("div");
+    oRibbon.style.position = "absolute";
+    oRibbon.style.width = 40;
+    oRibbon.style.height = 240;
+    oRibbon.style.pixelTop = 0;
+    var i = 0;
+    while (i < 6) {
+      oRibbon.style.pixelLeft = i * 40;
+      oRibbon.style.backgroundColor = aRainBow[i];
+      oRibbon.style.filter = null;
+      oMainContainer.appendChild(oRibbon);
+      oRibbon = oRibbon.cloneNode();
+      oRibbon.style.backgroundColor = aRainBow[++i];
+      oRibbon.style.filter = "alpha(opacity = 0, finishOpacity = 100, style = 1)";
+      oMainContainer.appendChild(oRibbon);
+      oRibbon = oRibbon.cloneNode();
+    }
+    oRibbon.style.pixelLeft = 0;
+    oRibbon.style.width = 240;
+    oRibbon.style.backgroundColor = "#FFFFFF";
+    oRibbon.style.filter = "alpha(opacity = 0, finishOpacity = 100, style = 1, starty = 0, finishy = 100, startx = 0, finishx = 0)";
+    oMainContainer.appendChild(oRibbon);
+
+    oRibbon = oRibbon.cloneNode();
+    oRibbon.style.width = 10;
+    oRibbon.style.backgroundColor = "#000000";
+    oSubContainer.appendChild(oRibbon);
+    oRibbon = oRibbon.cloneNode();
+    oRibbon.style.filter = null;
+    oSubContainer.insertBefore(oRibbon, oSubContainer.firstChild);
+
+    oCross = element.document.createElement("div");
+    oCross.style.position = "absolute";
+    oCross.style.fontSize = 28;
+    oCross.style.fontFamily = "Wingdings";
+    oCross.innerHTML = "&#177;";
+    oCross.style.cursor = "default";
+    oCross.style.dragenable = false;
+    oMainContainer.appendChild(oCross);
+    oMainContainer.style.overflow = "hidden";
+    oMainContainer.attachEvent("onmousedown", oMainContainer_domousedown);
+    oCross.attachEvent("onmouseup", oCross_domouseup);
+    oCross.attachEvent("onmousemove", oCross_domousemove);
+
+    oArraw = element.document.createElement("div");
+    oArraw.style.position = "absolute";
+    oArraw.style.pixelLeft = 6;
+    oArraw.style.fontSize = 24;
+    oArraw.style.fontFamily = "Webdings";
+    oArraw.innerHTML = "3";
+    oArraw.style.cursor = "default";
+    oArraw.style.dragenable = false;
+    oSubContainer.appendChild(oArraw);
+    oSubContainer.attachEvent("onmousedown", oSubContainer_domousedown);
+    oArraw.attachEvent("onmouseup", oArraw_domouseup);
+    oArraw.attachEvent("onmousemove", oArraw_domousemove);
+
+    oContainer.appendChild(oMainContainer);
+    oContainer.appendChild(oSubContainer);
+    insertAdjacentElement("AfterEnd", oColorPicker);
+
+    oColorPicker.attachEvent("oncontextmenu", docancelevent);
+    _isReady = true;
+    setPosition();
+  }
+
+//]]>
+</script>
+</public:component>

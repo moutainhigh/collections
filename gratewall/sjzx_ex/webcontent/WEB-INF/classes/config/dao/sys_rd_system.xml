@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="sys_rd_system" class-name="cn.gwssi.dw.rd.metadata.dao.SysRdSystem" check-flag="false" backup-flag="false">
+    <description>主题信息</description>
+  </table-info>
+
+  <column name="sys_rd_system_id" data-type="varchar" length="32" not-null="true" empty-is-null="false" unique="true" value-from="generate" func-name="getUUID" description="主题ID"/>
+  <column name="sys_rd_data_source_id" data-type="varchar" length="32" not-null="true" value-from="input" description="数据源ID"/>
+  <column name="sys_no" data-type="varchar" length="20" not-null="false" value-from="input" description="主题编号"/>
+  <column name="sys_name" data-type="varchar" length="100" not-null="false" value-from="input" description="主题名称"/>
+  <column name="sys_simple" data-type="varchar" length="100" not-null="false" value-from="input" description="业务系统"/>
+  <column name="db_name" data-type="varchar" length="32" not-null="false" value-from="input" description="数据源名称"/>
+  <column name="db_username" data-type="varchar" length="32" not-null="false" value-from="input" description="用户"/>
+  <column name="memo" data-type="varchar" length="2000" not-null="false" value-from="input" description="备注"/>
+  <column name="sort" not-null="false" value-from="input" description="排序"/>
+  <column name="timestamp" data-type="varchar" length="32" not-null="false" value-from="input" description="时间戳"/>
+  <column name="isshow" data-type="char" length="1" not-null="false" value-from="input" description="是否显示"/>
+  <primary-key name="PK_SYS_RD_SYSTEM" column-list="sys_rd_system_id"/>
+  <index name="PK_SYS_RD_SYSTEM" index-type="unique" cluster="other" column-list="sys_rd_system_id"/>
+  <function func-name="select sys_rd_system list" func-type="rowset" column-list="sys_rd_system_id,sys_rd_data_source_id,sys_no,sys_name,sys_simple,db_name,db_username,memo,sort,timestamp,isshow" sort-columns="sys_no" max-record="10">
+    <filter-column column-name="sys_rd_data_source_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="db_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_no" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_simple" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="select one sys_rd_system" func-type="select" column-list="sys_rd_system_id,sys_rd_data_source_id,sys_no,sys_name,sys_simple,db_name,db_username,memo,sort,timestamp,isshow">
+    <filter-column column-name="sys_rd_system_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_rd_system" func-type="insert" column-list="sys_rd_system_id,sys_rd_data_source_id,sys_no,sys_name,sys_simple,db_name,db_username,memo,sort,timestamp,isshow">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_rd_system" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_rd_system" func-type="update" column-list="sys_rd_data_source_id,sys_no,sys_name,sys_simple,db_name,db_username,memo,sort,timestamp,isshow">
+    <filter-column column-name="sys_rd_system_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="selectSysnameList" func-type="rowset" column-list="sys_rd_system_id as codevalue,sys_name as codename" max-record="-1">
+    <description>多记录查询</description>
+  </function>
+</table>
+

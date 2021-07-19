@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.template.tool.TemplateModifyServiceProvder">
+	
+	<method name="queryTemplateFragments" desc="获取符合要求的模板片段信息">
+		<!-- 支持的检索参数 -->
+		<parameter name="channelIDs" desc="模板所属栏目的id" type="string" search="true" search-operator="in" search-type="pint"  search-field="FOLDERID"  required="false"/>
+        <parameter name="siteIds" desc="模板所属站点的id" type="string" search="true" search-operator="in" search-type="pint"  search-field="ROOTID" required="false"/>
+        <parameter name="templateType" desc="模板类型" type="int" search="true" search-operator="=" search-field="TEMPTYPE" required="false" />
+        <parameter name="queryStr"  desc="查询值" type="string" required="true"/>
+        <parameter name="newStr"  desc="替换值" type="string" required="false"/>
+        <parameter name="isCaseSencitive"  desc="是否区分大小写" type="string" required="false"/>
+	</method>
+	
+	<method name="modifyTemplateFragments " desc="执行模板修改修改操作">
+		<!-- 支持的检索参数  -->
+		<parameter name="tempIdAndReplacePos"  desc="模板内需要修改的位置记录和模板id信息" type="string" required="true"/>
+		<parameter name="queryStr"  desc="查询值" type="string" required="true"/>
+		<parameter name="newStr"  desc="替换值" type="string" required="false"/>
+		<parameter name="isCaseSencitive"  desc="是否区分大小写" type="string" required="false"/>
+	</method>
+	
+	<method name="queryTemplateModifiedInfos" desc="查看批量修改的操作记录">
+		<!-- 支持的检索参数  -->
+		<parameter name="startDateTime" desc="查询的起始时间" type="datetime" search="true" search-operator="&gt;=" search-field="updatetime" required="false"/>
+		<parameter name="endDateTime" desc="按还书时间查询借还记录" type="datetime" search="true" search-operator="&lt;=" search-field="updatetime" required="false"/>
+	</method>
+	<method name="rollBackModifiedTemplate " desc="执行模板还原功能">
+		<!-- 支持的检索参数  -->
+		<parameter name="templateModifedInfoId" desc="与还原的模板的操作记录的id" type="string"/>
+	</method>
+</service>

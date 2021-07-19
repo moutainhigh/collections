@@ -1,0 +1,123 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>北京工商登记审批平台</title>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+<style>
+
+
+/*去掉jazz的边框线条*/
+/*jazz grid表格头部*/
+.jazz-grid-headerCell {
+	  border-style: none;
+}
+
+/*单元格*/
+.jazz-grid-cell {
+	border-style: none;
+	text-overflow: ellipsis;
+    overflow: hidden;
+}
+#img{
+	display:none;
+	margin:10px 0 10px 400px;
+}
+.gridtablebox{
+	display:table-cell;
+	vertical-align:middle;
+	text-align:center;
+}
+</style>
+</head>
+<body>
+<!-- 构建页面==开始 -->
+<!-- 查询条件 -->
+<div name="queryGrid_Form" wid="queryAssign" vtype="formpanel" width="100%" layout="auto" labelstyleclass="labelstyle" title="辅助审查分配" 
+	titledisplay="true" showborder="true" toggleable="true">
+	<div name="nameAppId" class="nameAppId" vtype="textfield" label="名称预核文号" labelwidth="200" labelalign="right"
+	 width="36%" tooltip="建议输入核准文号中的7位数字" rule="length;7,30"></div>
+	<div name="entName" class="entName" vtype="textfield" label="企业名称" labelwidth="200" labelalign="right" width="36%" tooltip="请输入企业名称" rule=""></div>
+	<div name="queryType" id="queryType" vtype="radiofield" dataurl="[{value:'1',text:'以...开头',checked:true},{value:'0',text:'模糊'}]"></div>
+	<div name="uniScid" class="uniScid" vtype="textfield" label="统一社会信用代码最后几位" labelwidth="200" labelalign="right" width="36%" tooltip="至少9位" rule="length;9,18"></div>
+	<div name="regNo" vtype="textfield" label="企业注册号最后几位" labelwidth="200" labelalign="right" width="36%" tooltip="至少6位" rule="length;6,15"></div>
+	<div name="regOrg" vtype="hiddenfield" label="注册机关" labelwidth="200" labelalign="right" width="26%" tooltip="" rule=""></div>
+<div name="approve_censor_listToolbar" vtype="toolbar" location="bottom" align="center" class="btnBox" width="100%">
+	<div name="approve_censor_list_query_button" id="applySetupBasic_query_button"  class="commonBt" 
+	onclick="javascript:tf.approve_censor_list.approve_censor_listSure()">查询
+	</div>
+	<div name="approve_censor_list_reset_button" id="applySetupBasic_next_button"  class="commonBt"
+	onclick="javascript:tf.approve_censor_list.approve_censor_listReset()">重置
+	</div>
+</div>
+</div>
+
+<div>
+	<div name="openAssign" class="littleBt" >分配</div>
+	<div name="backAssign" class="littleBt" >退回修改再分配</div>
+</div>
+<!-- 数据展现 -->
+<div vtype="gridpanel" name="queryGrid_Grid" wid="queryAssign" titleDisplay="false" title="查询分配" width="100%" showborder="true"
+	dataurl="../../../torch/service.do?fid=query_assign&wid=queryAssign" style="margin:0 auto">
+	<div vtype="gridcolumn" name="grid_column" width="100%">
+		<div>
+			<!-- <div name="nameAppId" text="名称预核文号"  textalign="center" width="20%" dataurl=""></div> -->
+			<div name="entName" text="企业名称"  textalign="center" width="30%" dataurl=""></div>
+			<!-- <div name="uniScidorregNo" text="企业注册号/统一社会信用代码"  textalign="center" width="20%" dataurl=""></div> -->
+			<div name="appDate" text="申请日期"  textalign="center" width="25%" dataurl=""></div>
+			<div name="operationType" text="业务类型"  textalign="center" width="25%" dataurl="../../../dictionary/queryData.do?dicId=DFCD05"></div>
+			<!-- <div name="appForm" text="数据来源"  textalign="center" width="23%" dataurl="../../../dictionary/queryData.do?dicId=CA90"></div> -->
+			<div name="approveName" text="审查人"  textalign="center" width="20%" dataurl=""></div>
+		</div>		
+	</div>
+	<div vtype="gridtable" name="grid_table" width="100%"></div>
+	<div vtype="paginator" name="grid_paginator" theme="2" pagerows="5" width="100%">
+	</div>
+</div>
+
+<!-- 构建页面==结束 -->
+<script>
+var tf = {};
+tf.approve_censor_list = {};
+
+tf.approve_censor_list.queryGrid_datarender = function (event,obj){
+};
+
+tf.approve_censor_list.query_fromNames = [ 'queryGrid_Form'];
+
+tf.approve_censor_list.approve_censor_listSure = function(){
+	var appDateBegin = $("div[name='appDate']").datefield('getValue');
+	var appDateEnd = $("div[name='appDateTemp']").datefield('getValue');
+	
+	//判断日趋格式
+	/* var regTime = /^([0-9][0-9][0-9][0-9])-([0-1][0-9])-([0-3][0-9])$/;
+	alert(regTime.test(appDateBegin));
+	jazz.info(regTime.test(appDateBegin)); */
+	
+	
+	if(appDateBegin&&appDateEnd){
+		var num = Date.parse(new Date(appDateBegin))-Date.parse(new Date(appDateEnd));
+		if(num&&num>0){
+			jazz.warn("申请日期起始时间不能大于截止时间！");
+			return false;
+		}
+	}
+	if($("div[name='queryGrid_Form']").formpanel('validate')){
+		$("div[name='queryGrid_Grid']").gridpanel("option", "dataurl","../../../torch/service.do?fid=query_assign&wid=queryAssign");
+		$("div[name='queryGrid_Grid']").gridpanel("query", [ "queryGrid_Form"]);
+	}
+};
+tf.approve_censor_list.approve_censor_listReset = function(){
+	for( x in tf.approve_censor_list.query_fromNames){
+		$("div[name='"+tf.approve_censor_list.query_fromNames[x]+"']").formpanel("reset");
+	} 
+};
+
+</script>
+
+
+	<script type="text/javascript" src="../../../static/js/config.js"></script> 
+	<script type="text/javascript" src="../../../static/lib/require.js"  data-main="approve/ApproveCensorAssignList.js"></script>
+</body>
+</html>

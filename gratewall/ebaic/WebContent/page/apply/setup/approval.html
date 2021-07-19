@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8">
+<title>北京工商网上登记申请平台全程电子化</title>
+<link href="../../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/common.css" rel="stylesheet" type="text/css" />
+<link rel="Shortcut Icon" href="../../../static/image/img/verify.png" type="image/x-icon">
+<link rel="stylesheet" href="../../../static/css/businessdetail.css">
+<style>
+.wrapper {
+	margin-top: -20px;
+}
+
+.content {
+	border: 0;
+	clear: both;
+	margin-top:0px;
+}
+
+.categoryPic {
+	float: left;
+	margin-left: 20px;
+	margin-top: 10px;
+	text-align: center;
+}
+.categoryPic span{
+	font-size:14px;
+	font-family: yahei;
+}
+.contentNew {
+	width: 883px;
+	/* height:100%; */
+	border: 1px solid #dae5eb;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-top: 15px;
+}
+
+.contentEnterprise {
+	width: 883px;
+	/* height:100%; */
+	border: 1px solid #dae5eb;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.content-top {
+	width: 100%;
+	height: 35px;
+	background-color: #f0f8fb;
+}
+
+.content-top span {
+	line-height: 35px;
+	color: #666;
+	text-align: center;
+	font-weight: bold;
+    padding-left: 6px;
+}
+
+
+/* .previes-investors tr:hover{
+	background: #DAE5EB;
+} */
+
+
+.previes-investors th {
+	/* text-align: left;
+	padding-left: 20px;
+	font-family:"songti";
+	font-size:14px;
+	font-weight:normal;
+	font-family: yahei; */
+	
+	text-align: center;
+	 padding-left: 20px; 
+	/* font-weight: bold; */
+	font-family:"songit";
+	font-weight: blod;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 100px;
+}
+
+.previes-investors tr {
+	margin-top: 5px;
+	height:40px;
+}
+
+.previes-investors td {
+	padding-left: 20px;
+	vertical-align: middle;
+	font-size:14px;
+	font-family: yahei;
+	vertical-align: middle;
+	font-family:"Microsoft YaHei";
+	padding-top:10px;
+	padding-bottom: 10px;
+	 text-align: center;
+}
+
+.previes-members td {
+	/* padding-left: 40px;
+	font-size:14px;
+	font-family: yahei; */
+	
+	padding-left: 40px;
+	font-family:'Microsoft YaHei';
+	padding-top:10px;
+	padding-bottom: 10px;
+}
+
+.previes-members th {
+	/* text-align: left;
+	padding-left: 40px; */
+	/* font-weight: bold; */
+	/* font-family:"songti";
+	font-size:14px;
+	font-family: yahei;
+	font-weight:normal; */
+	
+	
+	text-align: left;
+	 padding-left: 40px; 
+	font-weight: bold; 
+	font-family:"songti";
+	/* font-weight: normal; */
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.previes-members tr {
+	margin-top: 5px;
+	height:40px;
+}
+.previes-record td {
+	/* padding-left: 40px;
+	font-size:14px;
+	font-family: yahei; */
+	
+	padding-left: 40px;
+	font-family:'Microsoft YaHei';
+	padding-top:10px;
+	padding-bottom: 10px;
+}
+
+.previes-record th {	
+	text-align: left;
+	 padding-left: 40px; 
+	font-weight: bold; 
+	font-family:"songti";
+	/* font-weight: normal; */
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.jazz-gridtable-nodata {
+    margin-left:300px;
+ }
+.previes-record tr {
+	margin-top: 5px;
+	height:40px;
+}
+#showPic{
+	/* width: 650px; */
+ 	height: 550px; 
+	/* margin-top:10px; */
+}
+#showPicDiv {
+	display: none;
+	z-index: 777;
+	position: fixed;
+	top: 10px;
+	left: 300px;
+	/* width: 670px; */
+	height: 550px;
+	border: solid 1px #000;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #fff;
+}
+.jazz-form-text-label{
+	font-family:'Microsoft YaHei';
+}
+.tabtitle p{;
+	margin:0px 0 5px 30px;
+}
+.apply p{
+    font: 16px/1.5em bold Microsoft YaHei;
+    color: #8cc0e7;
+    margin: 20px 0 10px 30px;
+	display:inline-block;
+}
+/*列表样式*/
+.tablistbg:nth-child(2n){
+	background:#f6f6f6;
+}
+    
+</style>
+</head>
+<body>	
+<div class="contentNew" style="width:1000px;border:1px solid #72b0e1;">
+	<div class="content-top" style="background:#72b0e1;">
+		<img src="../../../static/image/img/icon/mbr-white.png">
+		 <span style="color:#fff;">业务详情</span>
+	</div>﻿
+	<article class="wrapper">
+		<div id="list"></div>
+		<div vtype="gridpanel" name="applySetupPreviewApprove_Grid" id="applySetupPreviewApprove_Grid" wid="applySetupPreviewApprove" titleDisplay="false"  width="1000" showborder="false"
+			lineno="false" datarender="" dataurl="" selecttype="0" linestyle="0" style="margin-bottom:10px">
+		<div vtype="gridcolumn" name="grid_column" width="100%" hideheader=true>
+			<div>
+				
+			</div>
+		</div>
+		<div vtype="gridtable" name="grid_table"></div>
+	</div>
+	</article>
+	
+</div>
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" data-main="apply/approval.js"	src="../../../static/lib/require.js"></script>
+
+</body>
+</html>

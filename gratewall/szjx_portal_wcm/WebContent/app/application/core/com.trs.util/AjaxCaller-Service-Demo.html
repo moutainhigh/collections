@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> AjaxCaller service demo </title>	
+	<!-- 组件依赖的代码 BEGIN -->
+	<script language="javascript" src="../core.js" type="text/javascript"></script>
+	<script language="javascript" src="Observable.js" type="text/javascript"></script>
+	<!-- 组件依赖的代码 END -->
+
+	<!--Ajax Framework BEGIN-->
+	<script language="javascript" src="../ajax.js" type="text/javascript"></script>
+	<script language="javascript" src="../wcm-ajax.js" type="text/javascript"></script>
+	<!--Ajax Framework END-->
+
+	<script language="javascript" src="CAjaxCaller.js" type="text/javascript"></script>
+</head>
+
+<body>
+<div class="box" id="data" serviceId="wcm6_website" methodName="save">
+	<div class="row">
+		<div class="label" WCMAnt:param="AjaxCaller-Service-Demo.html.siteid">站点ID:</div>
+		<div class="value">
+			<input type="text" name="objectid" id="objectid" value="76" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="label" WCMAnt:param="AjaxCaller-Service-Demo.html.sitedesc">站点描述:</div>
+		<div class="value">
+			<input type="text" name="sitedesc" id="sitedesc" value="" />
+		</div>
+	</div>
+	<div class="row">
+		<div class="label" WCMAnt:param="AjaxCaller-Service-Demo.html.filepath">存放路径:</div>
+		<div class="value">
+			<input type="text" name="datapath" id="datapath" value="" />
+		</div>
+	</div>
+</div>
+<button onclick="AjaxCaller.save('data');">Save</button>
+<script language="javascript">
+<!--
+	AjaxCaller.valid = function(){	
+		if($('sitedesc').value.trim() == ''){
+			alert(wcm.LANG.AjaxCallerServiceDemo_101 || '站点显示名称不能为空!');
+			return false;
+		}
+	};
+	AjaxCaller.makePostData = function(){	
+		//保存一些额外数据，此处为存放路径
+		this.push('wcm6_publish', 'saveSitePublishConfig', 'data');
+	}
+	AjaxCaller.onSuccess = function(){	
+		alert(wcm.LANG.AjaxCallerServiceDemo_102 || '保存成功');
+	};
+	AjaxCaller.onFailure = function(){	
+		alert(wcm.LANG.AjaxCallerServiceDemo_103 || '保存失败');
+	};
+//-->
+</script>
+</body>
+</html>

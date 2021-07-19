@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="sys_svr_log" class-name="com.gwssi.dw.runmgr.services.dao.SysSvrLog" check-flag="false" backup-flag="false">
+    <description>共享服务日志表</description>
+  </table-info>
+
+  <column name="sys_svr_log_id" data-type="varchar" length="32" not-null="true" value-from="input" description="共享服务日志编号"/>
+  <column name="sys_svr_user_id" data-type="varchar" length="32" not-null="true" value-from="input" description="使用共享服务编号"/>
+  <column name="sys_svr_service_id" data-type="varchar" length="32" not-null="true" value-from="input" description="共享服务编号"/>
+  <column name="sys_svr_user_name" data-type="varchar" length="32" not-null="true" value-from="input" description="使用共享服务对象"/>
+  <column name="sys_svr_service_name" data-type="varchar" length="32" not-null="true" value-from="input" description="共享服务名称"/>
+  <column name="execute_start_time" data-type="varchar" length="32" not-null="true" value-from="input" description="执行开始时间"/>
+  <column name="execute_end_time" data-type="varchar" length="32" not-null="true" value-from="input" description="执行结束时间"/>
+  <column name="state" data-type="varchar" length="32" not-null="true" value-from="input" description="执行结果"/>
+  <column name="records_mount" data-type="long" length="0" not-null="true" value-from="input" description="返回记录数"/>
+  <column name="error_msg" data-type="varchar" length="32" not-null="false" value-from="input" description="错误描述"/>
+  <column name="client_ip" data-type="varchar" length="20" not-null="false" value-from="input" description="客户端IP"/>
+  <primary-key name="pk_sys_svr_log" column-list="sys_svr_log_id"/>
+  <index name="pk_sys_svr_log" index-type="unique" cluster="cluster" column-list="sys_svr_log_id"/>
+  <function func-name="select sys_svr_log list" func-type="rowset" column-list="sys_svr_log_id" max-record="10">
+    <filter-column column-name="sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_svr_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="execute_start_time" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="execute_end_time" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="state" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+</table>
+

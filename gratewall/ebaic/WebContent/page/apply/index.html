@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1">
+<title>北京工商网上登记申请平台全程电子化登录页</title>
+<link rel="stylesheet" type="text/css" href="../../static/css/login.css" />
+<link href="../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link rel="Shortcut Icon" href="../../../static/image/img/verify.png" type="image/x-icon">
+<link href="../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" rel="stylesheet" type="text/css" />	
+<style>
+.jazz-dropdown-list-item a,.jazz-field-comp-input {
+    color:#148ac0;
+    font-size: 16px;
+    font-family: Microsoft YaHei;
+}
+.jazz-state-highlight a, .jazz-widget-content .jazz-state-highlight a, .jazz-widget-header .jazz-state-highlight a{
+	color:#148ac0;
+}
+</style>
+</head>
+<body>
+  <!--遮罩开始-->
+  <div id="bg">
+  </div>
+  <div id="show-notice">
+	    <div class="imgPosition">
+	    	<img src="../../static/image/img/icon/loginWords.png">
+	    </div>
+	  	<div class="close-bg" id="close-bg"></div>
+<!-- 	    <div class="close-bg" id="loginFirst"></div> -->
+  </div>
+  <!-- 遮罩结束-->
+
+<header>
+	<div class="banner">
+		<div class="top">
+		    <div class="logo">
+		    </div>
+		</div>
+	</div>
+	<div class="banner-bg"></div>
+</header>
+
+<article>
+
+<div id="top-line" class="top-line"></div>
+<div>
+	<div class="main">	
+		<div class="center">
+		    <div class="login-main">
+			    <div class="login-panel">
+			       <div class="login-top">账户登录</div>
+			      
+			       <div class="login-content"> 
+			       <div class="user-button">
+				           <span id="person-user" class="flag"><span class="person-left" id="person-left"></span><span class="personCenter" id="personCenter"><span class="person-head"></span>个人用户</span><span class="person-right" id="person-right"></span></span>
+				           <span id="ent-user"><span class="ent-left" id="ent-left"></span><span class="ent-center" id="ent-center"><span class="ent-head"></span>企业用户</span><span class="ent-right" id="ent-right"></span></span>
+			           </div>
+
+			           <div class="user-name">
+			             <input  id="name" type="text" name="loginName" placeholder="用户名/身份证"/>
+			             <span class="name-img"></span> 
+			           </div>
+			           <div class="line"></div> 
+			           <div class="pwd">
+			             <input id="pwd" name="password" type="password"  placeholder="密码"/>
+			             <span class="pwdLock"></span> 
+			           </div>
+			           <div class="line"></div>	
+				           <div class="verify-code" id="person">
+				             <input class="" type="text" id="verifycode" placeholder="验证码">
+							 <div class="img-verifycode"><img id="verify-code" src="../../system/getVerifyCode.do"></div>
+							 <a href="javascript:void(0)" id='change-code' class="change-code" onclick="changeCode()">换一张</a>
+				           </div>
+				           <div class="line"></div> 
+				           	           <!-- 企业帐号登陆界面	 -->  
+				           <div class="choice">
+				           		<span style="margin-bottom:10px;display:block;">请选择登陆方式：</span>
+				           		<div name="combox_name" id="combox_name" vtype="comboxfield" width="270" height="40"
+				           		isshowblankitem="false" defaultvalue="indi" 
+				           		dataurl='[{"text": "使用企业身份认证预留信息登陆","value": "indi"},{"text":"使用北京CA证书","value":"ca"}]'></div>
+				           </div>
+				           <div class="package">
+				           <div class="mobile">
+				           		<input  id="mob" type="text" name="mobile" placeholder="注册号/统一社会信用代码"/> 		
+				           </div>
+				           <div class="codeLine" id=""></div> 
+				           <div class="mobVerify-code">
+				           		<input  id="mobCode" type="text" name="mobVerifyCode" placeholder="企业联系人电话" />
+				           		<input id="sendSmsVercodeBtn" class="sendSmsVercodeBtn" value="发送验证码"/>
+				           </div>
+				           <div class="codeLine" id=""></div> 
+				           <div class="mobVerify-code">
+				           		<input  id="verifyCode" type="text" name="mobVerifyCode" placeholder="输入验证码" />    		
+				           </div>
+				           <div class="codeLine" id=""></div> 
+				           	<!-- 使用北京CA数字证书 -->
+				           </div>
+				           <div class="fold">
+				           		<div name="CA_combox" id="CA_combox" vtype="comboxfield" width="270" height="40" style="margin-top:-10px;"
+				           		isshowblankitem="false" defaultvalue="0" 
+				           		dataurl='[{"text": "使用企业身份认证预留信息登陆","value": "0"},{"text":"使用北京CA证书","value":"1"}]'></div>
+				           		 <div class="line"></div>	
+				           		<div class="password">
+			            		 	<input id="password" name="password" type="password"  placeholder="密码"/>
+			             			<span class="pwdLock"></span> 
+			             			<div class="pwdline"></div>	
+			           			</div>
+			           			 
+				           </div>
+			           <div class="login-bt-first" id="login-bt-first">
+			           	<span class="loginLeft"></span>
+			           	<span class="loginCenter" name='btnLogin' id="btnLogin" tabindex="0" >登录</span>
+			           	<span class="login-right"></span>					           
+			           </div>
+			       </div>
+			       <input type='hidden' name='type' value='1' />
+			       <div class="login-bottom" id="personAccount">
+			        	<span class="forget-pwd" onclick="findPwd()">忘记密码</span>
+			        	<span class="regist-user" onclick="regist()">注册用户</span>
+			       </div>
+			       <!-- <div style="margin-bottom:10px;"></div> -->
+			        <!-- <div class="login-bottom" id="entAccount" hidden="true">
+			        	<span class="forget-pwd" onclick="findEntAccountPwd()">忘记密码</span>
+			       </div> -->
+			       	<!-- <a id="ent-center" href="../../../page/apply/ent_account/entindex.html" class="license">电子营业执照账户登录</a> -->
+			    </div>
+		    </div>
+		</div>
+	</div>
+</div>
+<div id="bottom-line" class="bottom-line"></div>
+
+</article>
+<footer>
+	<div class="tip">
+		<span class="word">北京市工商行政管理局</span>
+		<span class="word">京ICP备13045770号</span>
+		<span class="word">推荐使用360极速浏览器，支持最低分辨率1024*768</span>
+	</div>
+</footer>
+	
+<script language="javascript" type="text/javascript">
+	//换验证码
+	function changeCode() {
+		$("#verify-code").attr("src", "../../system/getVerifyCode.do?" + new Date());
+	}
+	function regist(){
+		window.location.href="security/user_reg_agreement.html";
+	}
+	//个人账户忘记密码
+	function findPwd(){
+		window.location.href="security/find_pwd.html";
+	}
+	//企业账户忘记密码
+	function findEntAccountPwd(){
+		window.location.href="security/findEntAccountPwd.html";
+	}
+	function close(){
+		
+		$('div[name="checkCerNo"]').hide();
+		$('.jazz-window-modal').hide();
+	}
+	function checkCerNo(cerNo){
+		//alert(11);
+		var loginName = $("#name").val();
+		var r = null;
+		$.ajax({
+			url:"../../../security/auth/user/verifyCerNoAgain.do?cerNo="+cerNo+"&loginName="+loginName,
+			type : "post",
+			dataType :"json",
+			async : false,//需要同步
+			success : function(data){
+				if(data.result == '1'){
+					r = true;
+				}else{
+					r = false;
+				}
+			}
+		});
+		return r;
+	}
+	function clickLogin(){
+		$("#btnLogin").click();
+	}
+</script>
+<script >
+
+</script>
+	<script type="text/javascript" src="../../static/js/config.js"></script> 
+	<script type="text/javascript" src="../../static/lib/require.js"  data-main="apply/applyLogin.js"></script>
+</body>
+</html>

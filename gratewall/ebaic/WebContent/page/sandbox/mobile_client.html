@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>北京工商网上登记系统 移动客户端</title>
+	<script src="../static/lib/jquery-1.8.3.js" type="text/javascript"></script>
+	<script src="../static/lib/base64.js"  type="text/javascript"></script>
+<style type="text/css">
+	*{
+		font-family:verdana;
+	}
+	input,textarea{
+		width:700px;
+	}
+	textarea{
+		height:300px;
+	}
+</style>
+<script type="text/javascript">
+
+var rpc = {
+	
+	//url : 'http://160.98.3.175:8080/mobile/rpc.do',
+	url : '../mobile/rpc.do?p=mobile',
+	
+	call : function(service,method,params,callback){
+		$('#request').html('');
+		$('#result').html('');
+		
+		var id = new Date().getTime();
+		service = service||'';
+		method = method||'';
+		params = params||'';
+		
+		var data = {
+			id : id,
+			method : service + '.' + method ,
+			params : JSON.parse(params) 
+		};
+		var reqStr = JSON.stringify(data);
+		var req = {r : reqStr};
+		$('#request').html(reqStr);
+		var b64 = Base64.encode(JSON.stringify(req));
+		$('#request_64').html(b64);
+		$.ajax({
+            type: "post",
+            url: rpc.url,
+            data: b64,
+            contentType:"application/json",
+            beforeSend: function(request) {
+                request.setRequestHeader("invoker_id", "baic_mobile");
+            },
+            success: callback
+        });
+		
+		
+		
+		//$.post(rpc.url,req,callback);
+	}
+};
+
+function onCall(){
+	var service = $('#service').val();
+	var method = $('#method').val();
+	var params = $('#params').val();
+	
+	rpc.call(service,method,params,function(response){
+		$('#result_64').html(response);
+		var ret = Base64.decode(response);
+		$('#result').html(ret);
+	});
+}
+
+
+
+</script>
+
+</head>	
+<body>
+	<table>
+		<tr>
+			<th>服务：</th>
+			<td><input type='text' id='service' value='IdentityService'/></td>
+		</tr>
+		<tr>
+			<th>方法：</th>
+			<td><input type='text' id='method' value='queryByUserId' /></td>
+		</tr>
+		<tr>
+			<th>参数：</th>
+			<td><textarea id='params'>{"userId":"008"}</textarea></td>
+		</tr>
+		<tr>
+			<td colspan='2' style='text-align:center;'>
+				<button style='width:300px;height:50px;' onclick='onCall()'>Call...</button>
+			</td>
+		</tr>
+		<tr>
+			<th>请求：</th>
+			<td><div id='request' style='border:solid 1px green;height:50px;padding:10px;'>&nbsp;</div></td>
+		</tr>
+		<tr>
+			<th>base64请求：</th>
+			<td><div id='request_64' style='border:solid 1px green;height:50px;padding:10px;'>&nbsp;</div></td>
+		</tr>
+		<tr>
+			<th>响应：</th>
+			<td><div id='result' style='border:solid 1px green;height:200px;padding:10px;'>&nbsp;</div></td>
+		</tr>
+		<tr>
+			<th>base64响应：</th>
+			<td><div id='result_64' style='border:solid 1px green;height:200px;padding:10px;'>&nbsp;</div></td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>智能创建文档</TITLE>
+<style>
+	body{
+		font-size:12px;
+	}
+	div{
+		width:100%;
+		display:block;
+		line-height:24px;
+		height:24px;
+	}
+	SPAN{
+		float:left;
+	}
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script>
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.util.FileUploadHelper');
+	$import('com.trs.util.YUIConnection');
+</script>
+<script language="javascript">
+<!--
+FloatPanel.addCloseCommand();
+FloatPanel.addCommand('importBtn', '创建', 'importDocument',null);
+//Event.observe(window,'unload',function(){
+//	FloatPanel.removeCloseCommand();
+//	FloatPanel.removeCommand('importBtn');
+//});
+var sDocHtml = null;
+var oParams = {
+	'ChannelId' : getParameter('ChannelId'),
+	'FromEditor' : 1
+}
+function importDocument(){
+	ProcessBar.init('执行进度，请稍候...');
+	var sDocFileName = $("DocFile").value;
+	if(!FileUploadHelper.validFileExt(sDocFileName, "doc,docx,rtf")){
+		return false;
+	}
+	ProcessBar.addState('正在上传文件:'+sDocFileName);
+	ProcessBar.addState('正在提交数据');
+	ProcessBar.addState('成功执行完成');
+	ProcessBar.start();
+	var isSSL = location.href.indexOf("https://")!=-1;
+	var callBack1 = {
+		"upload":function(_transport){
+			var sResponseText = _transport.responseText;
+			var arrResult = sResponseText.split('<!--##########-->');
+			var sError = (arrResult[arrResult.length - 1] || '').trim();
+			if(sError=="<!--ERROR-->" || sError=="<!--ERROR2-->" || sError=="<!--ERROR1-->"){
+				FaultDialog.show({
+						code		: arrResult[0],
+						message		: arrResult[1],
+						detail		: arrResult[2],
+						suggestion  : arrResult[3] || ''
+				}, '与服务器交互时出现错误');
+				ProcessBar.exit();
+				return;
+			}
+			var bAlert = FileUploadHelper.fileUploadedAlert(sResponseText,function(){
+				oParams['OfficeSid'] = sResponseText;
+				ProcessBar.exit();
+				var oWin = $openMaxWin("document_addedit.jsp?" + $toQueryStr(oParams));
+				FloatPanel.close();
+				setTimeout(function(){
+					oWin.focus();
+//					FloatPanel.close(true);
+				},100);
+			});
+			if(bAlert)return;
+		}
+	}
+	YUIConnect.setForm('frmUploadDocFile',true,isSSL);
+	YUIConnect.asyncRequest('POST','../system/upload_office_doc.jsp?FileParamName=DocFile',callBack1);
+	return false;
+}
+</SCRIPT>
+</HEAD>
+
+<BODY>
+	<DIV>
+		<SPAN>选择您要上传的文件(目前只支持Word格式文件)：</SPAN>
+		<SPAN>
+			<FORM name="frmUploadDocFile" style="margin:0;padding:0;display:" enctype='multipart/form-data'>
+				<input type="file" id="DocFile" name="DocFile">
+			</FORM>
+		</SPAN>
+	</DIV>
+</BODY>
+</HTML>

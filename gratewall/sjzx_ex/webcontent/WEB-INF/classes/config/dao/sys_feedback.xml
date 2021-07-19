@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="sys_feedback" class-name="cn.gwssi.sys.feedback.dao.SysFeedback" check-flag="false" backup-flag="false">
+    <description>意见反馈</description>
+  </table-info>
+
+  <column name="sys_feedback_id" data-type="varchar" length="32" not-null="true" value-from="input" description="意见反馈ID"/>
+  <column name="title" data-type="varchar" length="200" not-null="false" value-from="input" description="意见反馈标题"/>
+  <column name="content" data-type="varchar" length="4000" not-null="false" value-from="input" description="意见反馈内容"/>
+  <column name="publish_date" data-type="varchar" length="10" not-null="false" value-from="input" description="发布日期"/>
+  <column name="publish_time" data-type="varchar" length="20" not-null="false" value-from="input" description="发布时间"/>
+  <column name="author" data-type="varchar" length="100" not-null="false" value-from="input" description="发布人"/>
+  <column name="status" data-type="char" length="1" not-null="false" value-from="input" value-set="有效标志" description="有效标志"/>
+  <column name="description" data-type="varchar" length="200" not-null="false" value-from="input" description="处理结果"/>
+  <column name="title" data-type="varchar" length="100" not-null="false" value-from="input" description="意见反馈标题"/>
+  <column name="ip" data-type="varchar" length="128" not-null="false" value-from="input" description="意见人IP"/>
+  <column name="browser" data-type="varchar" length="100" not-null="false" value-from="input" description="浏览器"/>
+  <column name="yhjg" data-type="varchar" length="100" not-null="false" value-from="input" description="用户机构"/>
+  <primary-key name="pk_sys_feedback" column-list="sys_feedback_id"/>
+  <index name="pk_sys_feedback" index-type="unique" cluster="cluster" column-list="sys_feedback_id"/>
+  <function func-name="select one sys_feedback" func-type="select" column-list="sys_feedback_id,content,publish_date,author,status,description">
+    <filter-column column-name="sys_feedback_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_feedback list" func-type="rowset" column-list="sys_feedback_id,content,publish_date,author,status,description" sort-columns="publish_date" max-record="10">
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_feedback" func-type="insert" column-list="sys_feedback_id,content,publish_date,author,status,description,publish_time,ip,title,browser,yhjg">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_feedback" func-type="delete">
+    <filter-column column-name="sys_feedback_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="status one sys_feedback" func-type="update" column-list="status">
+    <filter-column column-name="sys_feedback_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录的有效标志</description>
+  </function>
+
+  <function func-name="update one sys_feedback" func-type="update">
+    <filter-column column-name="sys_feedback_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

@@ -1,0 +1,187 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>文档细览</title>
+<link href="../css/document_detail.css" rel="stylesheet" type="text/css" />
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+    $import('com.trs.util.UITransformer');
+</script>
+<script label="DataSource">
+//	$import('com.trs.wcm.datasource.document.DocumentDetail');
+</script>
+<script>
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.util.CommonHelper');
+	$import('com.trs.wcm.QuickKey');
+    $import('com.trs.wcm.domain.DocumentMgr');
+    $import('com.trs.wcm.domain.ChnlDocMgr');
+    $import('com.trs.wcm.domain.PublishMgr');
+    $import("com.trs.combox.Combox");
+</script>
+<script src="document_detail.js" label="PageScope"></script>
+<style type="text/css">
+	.subTitle{
+		margin-right: 8px;
+	}
+</style>
+</head>
+
+<body style="margin:0;padding:0">
+<textarea id="document_head_template" style='display:none' blankRef="divNoDocumentFound">
+  <center>
+      <div class="document_detail_title" style="font-size:24px;">
+		<span onclick="PageContext.toggleMoreContent();" style="cursor: pointer">{#DOCTITLE}</span></div>
+      <div class="document_detail_desc">
+		<span class="subTitle">栏目：{#DOCCHANNEL.Name}</span>
+		<span class="subTitle">作者：{#DOCAuthor}</span>
+		<span class="subTitle">撰写时间：{#DOCRELTIME}</span>
+		<span class="subTitle">发布时间：{#DOCPUBTIME}</span>
+	 </div>
+  </center>
+</textarea>
+
+<textarea id="document_body_template" style='display:none' blankRef="divNoDocumentFound">
+  <center>
+    <a name="contentBody"></a>
+    <div class="document_detail_contentOuter" id="divTip">
+		{#DOCHTMLCON;#DOCTYPE.TYPE;#DOCLINK;#DOCFILENAME,,PageContext.showContent}
+	</div>
+  </center>
+  <div style="padding-top:10px;">
+	<div class="document_detail_other_header_down" onclick="toggleMe('abstract');" id="abstractHead"><a name="abstract" class="wcm_pointer">文档摘要</a></div>
+	<center style="display:none;" id="abstractContent">
+        <div class="document_detail_other_body">{#DocAbstract,,PageContext.formatDocAbstract}</div>
+    </center>
+  </div>
+</textarea>
+
+<textarea id="document_extendfields_template" style='display:none' blankRef="divNoDocumentFound">
+  <div style="padding-top:10px;">
+	<div class="document_detail_other_header_down" onclick="toggleMe('extendfields');" id="extendfieldsHead"><a name="extendfields" class="wcm_pointer">扩展字段</a></div>
+	<center style="display:none;" id="extendfieldsContent">
+        <div class="document_detail_other_body">
+            <table border=0 cellspacing=0 cellpadding=0 style="width:100%;font-size:14px;">
+                <for select="ContentExtendValue" blankRef="divNoDocumentFound">
+                    <tr><td align="right" width="10%" style="padding-right:10px;">{#name}:</td><td align="left">{#value}</td></tr>
+                </for>
+            </table>
+        </div>
+    </center>
+  </div>
+</textarea>
+
+<textarea id="document_image_appendixes_template" style='display:none'>   
+    <for select="Appendix" blankRef="divNoDocumentFound">
+        <div style="height:90px; width:120px; float:left; margin-right:5px;">
+            <a href="{#APPFILE.URL}" target="about:blank"><img src="{#APPFILE.URL}" border=0 alt="{#APPLINKALT}" style="height:90px; width:120px;" title="{#APPLINKALT}"></a>
+        </div>
+    </for>            
+</textarea>
+<textarea id="document_doc_appendixes_template" style='display:none'>   
+    <for select="Appendix" blankRef="divNoDocumentFound">
+        <div>
+            <a href="/wcm/file/read_file.jsp?FileName={#APPFILE}" style="color:black;" title="{#APPLINKALT}">{#APPDESC}</a>
+        </div>   
+    </for>
+</textarea>
+<textarea id="document_link_appendixes_template" style='display:none'>   
+    <for select="Appendix" blankRef="divNoDocumentFound">
+        <div>
+            <a href="{#APPDESC}" target="about:blank" style="color:black;" title="{#APPLINKALT}">{#APPDESC}</a>
+        </div>      
+    </for>
+</textarea>
+
+<textarea id="document_relations_template" style='display:none'>
+  <div style="padding-top:10px;">
+	<div class="document_detail_other_header_down" onclick="toggleMe('relations');" id="relationsHead"><a name="relations" class="wcm_pointer">相关文档</a></div>
+    <center style="display:none;" id="relationsContent">
+	<div class="document_detail_other_body">
+        <for select="Relation" blankRef="divNoDocumentFound">
+            <a href="document_detail_show.html?DocumentId={#RELDOC.Id}&ChannelId={#RELDOC.ChannelId}" onclick="return PageContext.doRelation(this);"
+			style="color:black;" target="about:blank" ><div>{$$index}.{#RELDOC.Title}</div></a>
+        </for>
+    </div>
+    </center>
+  </div>
+</textarea>
+
+<table style="width:100%;height:100%;visibility:hidden;" border=0 cellpadding=0 cellspacing=0 id="docDetail">
+    <tr><td style="height:25px;">
+        <div class="document_top_nav" id="document_top_nav">
+            <div style="float:right;padding:1px 15px;cursor:hand;font-size:12px;">
+                <span title="编辑这篇文档" _key="edit" id="editDomId" style="padding-top:2px; visibility:hidden;">
+                    <img src="../images/document_readmode_index/edit.png" border=0>编辑
+                </span>
+                <span title="预览这篇文档" _key="preview" id="previewDomId" style="padding-top:2px; visibility:hidden;">
+                    <img src="../images/icon/Preview.png" border=0>预览
+                </span>
+                <span title="发布这篇文档" _key="basicpublish" id="publishDomId" style="padding-top:2px; visibility:hidden;">
+                    <img src="../images/icon/PublishComplete.gif" border=0>发布
+                </span>
+                <span title="改变这篇文档状态" id="statusDomId">         
+                    <input type="text" name="status" id="status" value="状态" style="width:50px;height:16px;border:1px solid black;">   
+<!--                    <input type="text" name="status" id="status" value="状态" style="width:50px;height:16px;border:1px solid black;" _url="/wcm/center.do?serviceid=wcm6_status&methodname=queryDocumentStatuses" _item="SDISP" _key="STATUSID" _params="SELECTFIELDS='SDISP,STATUSID'">   
+//-->
+                </span>
+                <span title="跳到选中部分" id="skeepToDomId" style="visibility:hidden;">
+                    <input type="text" name="skeepTo" id="skeepTo" value="跳转到..." style="width:70px;height:16px;border:1px solid black;">
+                </span>
+            </div>
+        </div>
+    </td></tr>
+    <tr><td style="margin:0; padding:0px;">
+        <table border=0 cellspacing=0 cellpadding=0 style="width:100%; height:100%;">
+        	<tr style="height:1px;">
+        		<td>
+                     <div id="document_head" class="document_detail_head"></div>               
+                </td>
+        	</tr>
+        	<tr>
+        		<td>
+                    <div id="documentContent" style="overflow:auto;width:100%;height:100%;" class="detailScrollBar">
+                        <div class="document_detail_body" id="document_body"></div>
+                        <div id="document_extendfields"></div>
+                        <div id="document_appendixes">
+                        <div style="padding-top:10px;">
+                            <div class="document_detail_other_header_down" onclick="toggleMe('appendixes');" id="appendixesHead" style="display:none;">
+                                <a name="appendixes" class="wcm_pointer">附 件</a>
+                            </div>
+                            <center style="display:none;" id="appendixesContent">
+                                <table border=0 cellspacing=0 cellpadding=0 style="width:85%;font-size:14px;">
+                                    <tr>
+                                        <td style="width:60px;padding-top:5px;white-space:nowrap" valign="top">图片附件:</td><td style="padding-left:20px;"><div id="document_image_appendixes"></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:60px;padding-top:5px;white-space:nowrap" valign="top">文档附件:</td><td style="padding-left:20px;"><div id="document_doc_appendixes"></div></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:60px;padding-top:5px;white-space:nowrap" valign="top">链接附件:</td><td style="padding-left:20px;"><div id="document_link_appendixes"></div></div></td>
+                                    </tr>
+                                </table>
+                            </center>
+                        </div>
+                        </div>
+                        <div id="document_relations"></div>
+                        <div style="padding-bottom:5px;"></div>
+                    </div>                
+                </td>
+        	</tr>
+        </table>
+    </td></tr>
+</table>
+<div id="divNoDocumentFound" style="display:none;">
+    <div class="no_object_found"></div>
+</div>
+
+<div id="divNoRights" style="display:none; width:100%; height:100%;">
+    <div style="font-size:14px; color:red; padding-left:50px;padding-top:100px;">没有查看此篇文档的权限</div>
+</div>
+</body>
+</html>

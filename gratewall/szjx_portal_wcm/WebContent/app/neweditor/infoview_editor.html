@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title WCMAnt:param="editor3.html.docToPub">快捷文章发表框</title>
+<link rel="StyleSheet" href="base.css">
+</head>
+<body style="overflow:hidden;height:280px;padding-top:2px;">
+<div id="editor_body" style="height:280px;width:100%;overflow:hidden;"></div>
+<script type="text/javascript" src="lang/cn.js" WCMAnt:locale="lang/$locale$.js"></script>
+<script type="text/javascript" src="editor/editor.js?Version=20090314"></script>
+<script type="text/javascript">
+var et;
+var bFromInternet = false;
+function init(params) {
+	if(params.faceUrl){
+		editorUrl = params.faceUrl;
+		bFromInternet = true;
+	}
+	if(sState == "iframe"){
+		EDiaryEditor.initialize("EDiaryEditor", "editor_body", true, "<div>"+ params.html +"</div>");
+		et = EDiaryEditor;
+	}else{
+		EDiaryEditor.initialize("EDiaryEditor", "editor_body", true, "");
+		et = EDiaryEditor;
+	}
+}
+function onOk() {
+	return getHTML();
+}
+var guid = "20090312" ;
+var sState = "iframe";
+var checkEdit;
+var m_oElement = null;
+function $(id){
+	if(typeof id != 'string')return id;
+	return document.getElementById(id);
+}
+function getHTML(){
+	return $('editor_body_area').contentWindow.document.body.innerHTML.replace(window.location+"#", "#");	
+}
+
+function setHTML(_sHTML){
+	return $('editor_body_area').contentWindow.document.body.innerHTML = _sHTML;	
+}
+
+function article_preview(){
+	if (check_editor()){
+	var editor_win = window.open('', "_blank", '');
+		editor_win.document.open('text/html', 'replace');
+		editor_win.opener = null 
+		editor_win.document.writeln($('editor_body_textarea').value);
+		editor_win.document.close();
+	}
+}
+function check_editor(){
+	var err_msg = FCKLang.TEXT1;
+	if ($('editor_body_textarea').value.toLowerCase() =="<div></div>" ||$('editor_body_textarea').value ==""){ 
+		alert(err_msg);
+		return false;
+	}
+	else if($('editor_body_textarea').value.toLowerCase() =="<p>&nbsp;</p>" ||$('editor_body_textarea').value ==""){ 
+		alert(err_msg);
+		return false;
+	}
+	else
+		return true;
+}
+</script>
+<form id="formId" method="post" enctype="multipart/form-data">
+	<input type="file" id="fileNameControl" name="fileNameControl" value=""/>
+</form>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<chart palette='1' piefillAlpha='24' hoverFillColor='EEEEEE'
+	plotborderColor='CCCCCC' showPlotBorder='1' useHoverColor='1'
+	showLabels='1' bgcolor='ebf0f5'  baseFontSize='12'
+	basefontColor='504D55'>
+	<category label='${sys_name}(${total_user}个系统)'
+		toolText='&lt;LI&gt;系统共${total_user}个{BR}服务共${total_share}个'
+		link='page/zwt/MLPie_L1.jsp'>
+		<#list sys as x>
+		<category label='${x.NAME}'  value='${x.TOTAL}'
+			link='${x.LINK3}' toolText='&lt;LI&gt;服务${x.TOTAL}个&lt;/LI&gt;' />
+		</#list>
+	</category>
+	<styles>
+		<definition>
+			<style name='myHTMLFont' type='font' isHTML='1' />
+		</definition>
+		<application>
+			<apply toObject='TOOLTIP' styles='myHTMLFont' />
+		</application>
+	</styles>
+</chart>
+

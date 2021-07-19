@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>FCKeditor</title>
+<meta name="robots" content="noindex, nofollow" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Cache-Control" content="public" />
+<script src="../../js/runtime/myext-debug.js"></script>
+<link rel="stylesheet" type="text/css" href="../../css/wcm-common.css">
+<script>
+	var m_nDocumentId = getParameter("CurrDocId");
+	var m_nChannelId = getParameter("ChannelId");
+	function LoadScript( url, sVersion ){
+		url = url + (sVersion?"?Version="+sVersion:'');
+		document.write( '<scr' + 'ipt src="' + url + '"><\/scr' + 'ipt>' ) ;
+	}
+	function LoadCss( url ){
+		document.write( '<link href="' + url + '" type="text/css" rel="stylesheet"/>' ) ;
+	}
+	// Main editor scripts.
+	var sSuffix = Ext.isIE ? 'ie' : 'gecko' ;
+	LoadScript( 'js/fckeditorcode_' + sSuffix + '.js' ) ;
+	var m_sConfigFile = getParameter('ConfigEx') || '../simple_fckconfig.js';
+	LoadScript(m_sConfigFile, getParameter('Version'));
+</script>
+<script src="lang/cn.js" WCMAnt:locale="lang/$locale$.js"></script>
+<script language="javascript">
+	FCKConfig.ProcessHiddenField() ;
+	FCKConfig_LoadPageConfig() ;
+	FCKConfig_PreProcess() ;
+	LoadScript( '../fckeditor_ex.js', getParameter('Version')) ;
+</script>
+
+<script type="text/javascript">
+	LoadScript( '../simp_extendField.js', getParameter('Version')) ;
+	if ( FCKBrowserInfo.IsIE ){
+		// Create the default cleanup object used by the editor.
+		FCK.IECleanup = new FCKIECleanup( window ) ;
+		FCK.IECleanup.AddItem( FCKTempBin, FCKTempBin.Reset ) ;
+		FCK.IECleanup.AddItem( FCK, FCK_Cleanup ) ;
+	}
+	LoadCss( FCKConfig.SkinPath + 'simple_fck_editor.css') ;
+	if(getParameter('Css')){
+		FCKConfig.EditorAreaCSS = Ext.isArray(FCKConfig.EditorAreaCSS) ? 
+					FCKConfig.EditorAreaCSS : [FCKConfig.EditorAreaCSS];
+		FCKConfig.EditorAreaCSS.push(FCKConfig.BasePath + 'css/' + getParameter('Css'));
+	}	
+	FCK_ContextMenu_Init() ;
+	FCKPlugins.Load() ;
+	window.document.dir = FCKLang.Dir ;
+	if ( FCKConfig.ForcePasteAsPlainText || FCKConfig.AutoDetectPasteFromWord )
+		FCK.Events.AttachEvent( 'OnPaste', FCK.Paste ) ;
+	window.onload = function(){
+		FCKeditorAPI = parent.FCKeditorAPI;
+		FCKeditorAPI.editorWindow = window;
+		FCKeditorAPI.__Instances[ FCK.Name ] = FCK ;
+		if ( FCKBrowserInfo.IsIE )
+			FCK_PreloadImages() ;
+		else
+			LoadToolbarSetup() ;
+	}
+	function LoadToolbarSetup(){
+		FCKeditorAPI._FunctionQueue.Add( LoadToolbar ) ;
+	}
+	function LoadToolbar(){
+		var oToolbarSet = FCK.ToolbarSet 
+			= FCKToolbarSet_Create(FCKURLParams['ToolbarLocation']) ;
+		if ( oToolbarSet.IsLoaded )
+			StartEditor() ;
+		else{
+			oToolbarSet.OnLoad = StartEditor ;
+			oToolbarSet.Load( FCKURLParams['Toolbar'] || 'Default' ) ;
+		}
+	}
+	function StartEditor(){
+		FCK.ToolbarSet.OnLoad = null ;
+		FCKeditorAPI._FunctionQueue.Remove( LoadToolbar ) ;
+		FCK.Events.AttachEvent( 'OnStatusChange', WaitForActive ) ;
+		// Start the editor.
+		FCK.StartEditor() ;
+	}
+	function WaitForActive( editorInstance, newStatus ){
+		if ( newStatus == FCK_STATUS_ACTIVE ){
+			_AttachFormSubmitToAPI() ;
+			FCK.SetStatus( FCK_STATUS_COMPLETE ) ;
+			if ( typeof( window.parent.FCKeditor_OnComplete ) == 'function' )
+				window.parent.FCKeditor_OnComplete( FCK ) ;
+		}
+	}
+	function Window_OnResize(){}
+	window.onunload = function(){
+		window.onload = null;
+		window.onunload = null;
+		window.onresize = null;
+	}
+	window.onresize = function(){}
+	setTimeout(function(){
+		if($('xEditingArea').getElementsByTagName('iframe')[0]){
+			$('xEditingArea').getElementsByTagName('iframe')[0].contentWindow.focus();
+		}
+	}, 1000);
+	if(Ext.isIE && window.OfficeActiveX){
+		OfficeActiveX.Init();
+	}
+</script>
+<script src="fckeditor.js"></script>
+</head>
+<body>
+<div id="container" class="layout_container">
+	<div id="xToolbarRow" class="layout_north editor_toolbar">
+		<table cellpadding="0" cellspacing="0" style="width:100%;background:transparent;">
+			<tr id="xCollapsed" style="display: none">
+				<td id="xExpandHandle" class="TB_Expand" colspan="3"></td>
+			</tr>
+			<tr id="xExpanded" style="display: none">
+				<td id="xTBLeftBorder" class="TB_SideBorder" style="width: 0px; display: none;"></td>
+				<td id="xCollapseHandle" style="display: none" class="TB_Collapse" valign="bottom"></td>
+				<td id="xToolbar" class="TB_ToolbarSet xToolbar" style="width:100%;"></td>
+				<td class="TB_SideBorder" style="width: 0px"></td>
+			</tr>
+		</table>
+	</div>
+	<div id="editor_body" class="layout_center_container">
+		<div class="layout_center">
+			<table border=0 cellspacing=0 cellpadding=0 width="100%" height="100%" style="table-layout:fixed;">
+				<tr class="top_ruler">
+					<td width="13">&nbsp;</td><td>&nbsp;</td>
+				</tr>
+				<tr align="center" valign="top" style="height:100%">
+					<td class="left_ruler" width="13"></td>
+					<td class="editor_body" valign="top">
+						<div id="xEditingArea">
+							
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="layout_south toolbar_btn_basic" id="btn_container">
+		<div id="editor_btn_source" class="toolbar_source" _action="source" WCMAnt:param="editor.html.source">代码</div>
+		<div id="editor_btn_design" class="toolbar_design toolbar_current_btn" _action="design" WCMAnt:param="editor.html.design">设计</div>
+		<div style="margin:0 5px;float:left;">|</div>
+		<div id="btns_ctn">
+		<div class="btn" _action="clearclasses">
+			<div class="btn_inner" WCMAnt:param="editor.html.clearclasses" title="清除样式" WCMAnt:paramattr="title:editor.html.clearclasses">清除样式</div>
+		</div>
+		<div class="btn" _action="clearblank">
+			<div class="btn_inner" WCMAnt:param="editor.html.clearblank" title="去除空行" WCMAnt:paramattr="title:editor.html.clearblank">去除空行</div>
+		</div>
+		<div class="btn" _action="outdentpara">
+			<div class="btn_inner" WCMAnt:param="editor.html.outdentpara" title="首行缩进" WCMAnt:paramattr="title:editor.html.outdentpara">首行缩进</div>
+		</div>
+		<div class="btn" _action="replacenbsps">
+			<div class="btn_inner" WCMAnt:param="editor.html.replacenbsps" title="将两个普通空格转换为一个全角空格" WCMAnt:paramattr="title:editor.html.replacetip" style="width:90px !important">转换全角空格</div>
+		</div>
+		<div class="btn" _action="db2sb">
+			<div class="btn_inner" WCMAnt:param="editor.html.db2sb" title="全角转半角" WCMAnt:paramattr="title:editor.html.db2sb" style="width:75px !important">全角转半角</div>
+		</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

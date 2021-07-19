@@ -1,0 +1,113 @@
+@CHARSET "utf-8";
+
+@IMPORT url("detail.css");
+
+
+.table>tbody>tr.success>td{
+	background:#0378AD;color:#fff;
+}
+
+/*头部样式*/
+.header {
+	height: 154px;
+	background: url("../../statics/images/2013-1.jpg");
+	line-height: 154px;
+}
+
+.header .topWrap {
+	width: 848px;
+	margin: 0 auto;
+}
+
+.header  .topDiv {
+	width: 107px;
+	overflow: hidden;
+}
+.header  .hTitle{font-size: 33px;color: #fff;}
+
+
+.table {
+	margin-top: 10px;
+}
+
+.table>tbody>tr>td {
+	border: none;
+}
+
+
+#inputForms{width: 60%;}
+
+.container .inputTips {
+	position: absolute;
+	left: -91px;
+	top: 7px;
+}
+
+
+
+.container .formBtns {
+	width: 220px;
+	margin: 0 auto;
+}
+
+#validecCode{width: 50%;}
+
+/*列表*/
+.container #itemList {
+	border: 1px solid #ccc;
+}
+
+
+
+
+
+/*明细*/
+.modal-dialog {
+	width: 1000px;
+}
+
+.foodEntList{width: 100%;overflow: auto;}
+
+.foodEntList td{min-width:80px; }
+
+#openDialog{width: 100%;overflow: auto;}
+
+/*列表下面的明细的表格*/
+#openDialog .detailList {
+	border: 1px solid #ccc;
+}
+
+
+#openDialog  .labelTitle{width: 210px;text-align: right;}
+#openDialog .modal-open .modal{overflow: scroll;}
+#openDialog .modal{overflow: scroll;}
+.footer {
+	width: 100%;
+	height: 50px;
+	background: url(../../statics/images/2013-2.jpg);
+	color: #fff;
+	line-height: 24px;
+	overflow: hidden;
+	margin-top: 0px;
+	text-align: center;
+	color: #fff;
+	position: fixed;
+	bottom: 0;
+}
+
+.footer p{padding: 0;margin: 0}
+
+
+
+@media screen and (min-width: 200px) and (max-width: 1200px){
+	body{min-height: 800px;}
+	
+	#inputForms{width: 100%}
+	
+.container .formBtns {
+	width: 37%;
+	margin: 0 auto;
+}
+	#validecCode{width: 40%;}
+   .footer {position: inherit;}
+}

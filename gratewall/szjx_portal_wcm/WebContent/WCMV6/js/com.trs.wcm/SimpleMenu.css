@@ -1,0 +1,40 @@
+.menu_{
+	width:150px;
+	overflow:visible;
+	position:absolute;
+	z-index:999;
+	border:1px solid #ACA899;
+	background:url('menubg.gif') repeat-y;
+	cursor:default;
+	font-size:12px;
+}
+.menuShield_{
+	position:absolute;
+	z-index:998;
+	filter:progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='#ACA899', Positive=true);
+}
+.menu_ div{
+	width:100%;
+	overflow:visible;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	height:22px;
+	line-height:22px;
+	background-position:2px center;
+	background-repeat:no-repeat;
+	padding:1px 1px 1px 26px;
+	margin:1px 2px;
+}
+.menu_ .selectedItem{
+	background-color:#C1D2EE;
+	border:1px solid #316AC5;
+	padding-top:0px;
+	padding:0px 0px 0px 25px;
+	background-position:1px center;
+}
+.menu_ .separator{
+	overflow:hidden;
+	height:1px;
+	background:gray;
+	margin:2px 4px 2px 26px;
+}

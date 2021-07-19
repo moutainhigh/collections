@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<script src="../../app/js/easyversion/lightbase.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/easyversion/extrender.js"></script>
+<script src="../../app/js/easyversion/ajax.js"></script>
+<script src="../../app/js/easyversion/elementmore.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/source/wcmlib/Observable.js"></script>
+<script src="../../app/js/source/wcmlib/dragdrop/dd.js"></script>
+<script src="../../app/js/source/wcmlib/dragdrop/wcm-dd.js"></script>
+<script src="../../app/js/source/wcmlib/Component.js"></script>
+<script src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></script>
+<script src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></script>
+<title id="tlDoc">设置政府信息公开通知文件存放目录</title>
+<script language="javascript">
+var m_cb = null;
+window.m_cbCfg = {
+        btns : [
+            {
+                text : '确定',
+                cmd : function(){
+                    return onOk();
+                }
+            }
+        ]
+	};
+function init(param){
+	m_cb = wcm.CrashBoarder.get(window);
+	var cbSelf = wcm.CrashBoarder.get(window).getCrashBoard();
+	cbSelf.setSize("400px","200px");
+	cbSelf.center();
+}
+function onOk(){
+	var path = document.getElementById('NoticeFilePath').value;
+	if(path.length <= 0){
+		alert("文件目录不能为空");
+		return false;
+	}
+	var param = {
+		NoticeFilePath : path
+	}
+	if(m_cb){
+		m_cb.notify(param);
+		m_cb.hide();
+	}
+	return false;
+}
+</script>
+<style>
+	body{
+		font-size:12px;		
+	}
+	.row{
+		width:100%;
+        margin:10px 0px;
+		display:block;
+		line-height:24px;		
+	}
+	.tip{
+		color:red;
+	}
+</style>
+</HEAD>
+<BODY>
+<DIV class="row">
+	 <span class="tip">完成此步骤，主要输入服务器中的目录（例如：D:/trs/notice）<br>此目录可以是已经存在的，也可以是不存在的（系统会自动创建）</span>
+</DIV>
+<DIV class="row">
+	<SPAN>设置政府信息公开通知文件存放目录：</SPAN>
+	<SPAN style="margin-left:5px;">
+		 <input type="text" name="NoticeFilePath" id="NoticeFilePath" value="" />
+	</SPAN>
+</DIV>
+</BODY>
+</HTML>

@@ -1,0 +1,101 @@
+/*
+
+bright: rgb(234,242,255);
+normal: rgb(120,172,255);
+dark:	rgb(0,66,174);
+
+*/
+
+
+
+
+.dynamic-tab-pane-control.tab-pane {
+	position:	absolute;
+	width:		100%;
+}
+/*----------所有标签页的背景色---------------*/
+.dynamic-tab-pane-control .tab-row .tab {
+	font-family:	Verdana, Helvetica, Arial;
+	font-size:		12px;
+	cursor:			Default;
+	display:		inline;
+	margin:			1px -5px 1px 5px;
+	float:			left;
+	padding:		3px 6px 3px 6px;
+	background:		expression(bgcolor);/*rgb(234,242,255);*/
+	/*background:		expression(skinFaceColor);*/
+	border:			1px solid;
+	border-color:	expression(skinFaceColor);/*rgb(120,172,255);*/
+	border-left:	0;
+	border-bottom:	0;
+	border-top:		0;
+	
+	cursor:			hand;
+	cursor:			pointer;
+	
+	z-index:		1;
+	position:		relative;
+	top:			0;
+ /*   filter:           progid:DXImageTransform.Microsoft.Alpha(style=0,opacity=50); */
+}
+/*---------------选中的标签页的背景色----------------*/
+.dynamic-tab-pane-control .tab-row .tab.selected {
+	border:			1px solid rgb(120,172,255);
+	border-bottom:	0;
+	z-index:		3;
+	padding:		2px 6px 5px 6px;
+	margin:			1px -6px -4px 0px;  /*1px -6px -2px 0px;*/
+	top:			-2px;  
+	background:		expression(skinFaceColor);
+	
+	
+	/*background:      rgb(124,189,255);*/
+}
+
+/*--------------标签页的字体颜色--------------------*/
+.dynamic-tab-pane-control .tab-row .tab a {
+	font-family:		Verdana, Helvetica, Arial;
+	font-size:			13px;
+	color:				black/*rgb(0,66,174)*/;
+	text-decoration:	none;
+	cursor:			hand;
+	cursor:			pointer;	
+}
+
+/*--------------鼠标指定时------------------*/
+.dynamic-tab-pane-control .tab-row .hover a {
+	color:	black/*expression(bgcolor)/*rgb(0,66,174)*/;
+}
+
+/*-------------鼠标移开时-----------------*/
+.dynamic-tab-pane-control .tab-row .tab.selected a {
+	font-weight:	bold;
+	color:    white;
+}
+
+/*--------------提示窗口的字体颜色------------------*/
+.dynamic-tab-pane-control .tab-page {
+	clear:			both;
+	border:			1px solid rgb(120,172,255);
+	background:     expression(bgcolor);/*Red;*/
+	/*background:		White; */
+	z-index:		2;
+	position:		relative;
+	top:			-2px;
+	color:			expression(skinFaceColor);/*black;*/
+	font-family:	Verdana, Helvetica, Arial;
+	font-size:		13px;
+	padding:		10px;
+	filter:			progid:DXImageTransform.Microsoft.Gradient(StartColorStr=#fffcfcfe, EndColorStr=#fff4f3ee, GradientType=1)
+					progid:DXImageTransform.Microsoft.Shadow(Color=#ff919899, Strength=10, Direction=135);
+}
+
+/*--------------标签页框的颜色--------------------*/
+.dynamic-tab-pane-control .tab-row {
+	z-index:		1;
+	white-space:	nowrap;
+	background:		expression(bgcolor);/*rgb(234,242,255);*/
+	height:			1.85em;
+	width:			100%;
+
+}

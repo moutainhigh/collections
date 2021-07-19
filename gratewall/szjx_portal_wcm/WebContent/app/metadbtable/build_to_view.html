@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="x-ua-compatible" content="ie=9" />
+<TITLE WCMAnt:param="build_to_view.html.title">生成视图</TITLE>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/metadbtable.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<!-- CarshBoard Inner Start -->
+<script src="../../app/js/source/wcmlib/Observable.js"></script>
+<script src="../../app/js/source/wcmlib/Component.js"></script>
+<script src="../../app/js/source/wcmlib/dialog/Dialog.js"></script>
+<script src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></script>
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<script src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></script>
+<script src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></script>
+<script src="../../app/js/source/wcmlib/core/LockUtil.js"></script>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Inner End -->
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/TempEvaler.js"></script>
+<script language="javascript" src="build_to_view.js" type="text/javascript"></script>
+<script language="javascript">
+<!--
+	var gCount = 1;
+	function count(bIncrease, returnNone){
+		if(bIncrease == false || bIncrease == "false"){
+			return gCount;
+		}
+		if(returnNone){
+			gCount++;
+			return;
+		}
+		return gCount++;
+	}
+//-->
+</script>
+<link href="build_to_view.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	html,body{width:100%;height:100%;margin:0px;padding:0px;}
+	.view_head{line-height:24px;}
+	.viewfield_box{height:420px;width:100%;position:relative;}
+	.view_box{height:100%;width:200px;position:absolute;top:0px;left:0px;border:1px solid gray;}
+	.field_box{height:100%;position:absolute;top:0px;left:200px;right:300px;bottom:0px;border:1px solid gray;}
+	.fieldprop_box{height:100%;width:300px;position:absolute;top:0px;right:0px;border:1px solid gray;}
+	.FieldCommand{position:absolute;left:200px;bottom:10px;height:30px;}
+	.ViewCommand{position:absolute;bottom:10px;right:200px;height:30px;}
+	.row_box{position:relative;height:98%;}
+	.middle{vertical-align:middle;}
+</style>
+</head>
+
+<body>
+<div class="view_head">
+	<span WCMAnt:param="build_to_view.html.viewName">视图名称:</span>
+    <span><input type="text" tabIndex="1" name="viewName" id="viewName" value="" style="border:1px solid silver;width:200px;"><font color="red">*</font></span>
+	<!--20120521 by CC 将附件管理拆分为文件管理、图片管理和链接管理三部分
+    <span style="margin-left:10px;">
+        <input type="checkbox" class="middle" name="hiddenAppendix" id="hiddenAppendix" value="">
+        <label class="middle" for="hiddenAppendix" WCMAnt:param="build_to_view.html.hiddenAppendix">禁用附件管理</label>
+    </span>
+	-->
+	<span style="margin-left:10px;">
+        <input type="checkbox" class="middle" name="hiddenFileAppendix" id="hiddenFileAppendix" value="">
+        <label class="middle" for="hiddenFileAppendix" WCMAnt:param="build_to_view.html.hiddenFileAppendix">禁用文件管理</label>
+    </span>
+	<span style="margin-left:10px;">
+        <input type="checkbox" class="middle" name="hiddenImgAppendix" id="hiddenImgAppendix" value="">
+        <label class="middle" for="hiddenImgAppendix" WCMAnt:param="build_to_view.html.hiddenImgAppendix">禁用图片管理</label>
+    </span>
+	<span style="margin-left:10px;">
+        <input type="checkbox" class="middle" name="hiddenLinkAppendix" id="hiddenLinkAppendix" value="">
+        <label class="middle" for="hiddenLinkAppendix" WCMAnt:param="build_to_view.html.hiddenLinkAppendix">禁用链接管理</label>
+    </span>
+</div>
+
+<div class="viewfield_box">
+	<div class="view_box">
+		 <div class="row_head_cell" style="float:left;width:40px;" WCMAnt:param="build_to_view.html.mainTable">
+			主表
+		</div>
+		<div class="row_head_cell" WCMAnt:param="build_to_view.html.metaData">元数据</div>
+		<div class="row_box">
+			<div id="TableContainer" class="Container_Table" style="position:absolute;width:100%;height:100%;"></div>
+		</div>
+	</div>
+	<div class="field_box">
+		<div class="row_head_cell" WCMAnt:param="build_to_view.html.fieldName">字段名称</div>
+		<div class="row_box">
+		<div id="FieldContainer" class="Container_content" style="position:absolute;width:100%;height:100%;"></div>
+		</div>
+	</div>
+	<div class="fieldprop_box">
+		<div id="viewHead">
+		<div class="row_head_cell_float" key="SearchField" WCMAnt:param="build_to_view.html.queryField">检索字段</div>
+		<div class="row_head_cell_float" style="cursor:default;" WCMAnt:param="build_to_view.html.headField">标题字段</div>
+		<div class="row_head_cell_float" key="InOutline" WCMAnt:param="build_to_view.html.generalShow">概览显示</div>
+		<div class="row_head_cell" WCMAnt:param="build_to_view.html.fieldDesc">字段描述</div></div>
+		<div class="row_box">
+		<div id="ViewContainer" class="Container_content" style="position:absolute;width:100%;height:100%;"></div>
+		</div>
+	</div>
+</div>
+<div class="FieldCommand" id="FieldCommand">
+	<button type="button" id="fieldSelectAllBtn" WCMAnt:param="build_to_view.html.selAll">选择全部</button>
+	<button type="button" id="fieldDeselectAllBtn" WCMAnt:param="build_to_view.html.deSelAll">取消全部</button>
+</div> 
+<div class="ViewCommand" id="ViewCommand">
+	<button type="button" id="viewUpBtn" WCMAnt:param="build_to_view.html.upper">上移</button>
+	<button type="button" id="viewDownBtn" WCMAnt:param="build_to_view.html.lower">下移</button>
+	<button type="button" id="viewDeleteBtn" WCMAnt:param="build_to_view.html.delete">删除</button>
+</div>
+
+
+
+<!---------------------------------------------内部模板开始---------------------------------------------//-->
+<textarea name="tableTemplate" id="tableTemplate" style="display:none;" select="MetaDBTables">
+    <for select="MetaDBTable" blankRef="divNoObjectFound">
+        <div class="row row_normal" id="table_{#TABLEINFOID}" title="{#TABLENAME}">
+            <span style="float:left;width:45px;"><input type="radio" name="isPrimary" value="{#TABLEINFOID}"></span>                
+            <span class="tableAnotherName" title="{#TABLENAME}" _id="{#TABLEINFOID}" triggerEvent="true">{#ANOTHERNAME}</span>
+        </div>
+    </for>
+</textarea>
+<textarea name="fieldTemplate" id="fieldTemplate" style="display:none;" select="MetaDBFields">
+    <for select="MetaDBField" blankRef="divNoObjectFound">
+        <div class="row row_normal" title="{#FIELDNAME}">
+            <input id="fcb_{#DBFIELDINFOID}" type="checkbox" name="isChecked" value="" _id="{#DBFIELDINFOID}" triggerEvent="true"/>
+            <span title="{#FIELDNAME}" _id="{#DBFIELDINFOID}"><label for='fcb_{#DBFIELDINFOID}'>{#ANOTHERNAME}</label></span>
+        </div>
+    </for>
+</textarea>
+<textarea name="viewTemplate" id="viewTemplate" style="display:none;" select="MetaViewFields">
+    <for select="MetaViewField" blankRef="divNoObjectFound">
+        <div class="row row_normal" id="view_{#DBFIELD}" style="clear:both;" _id="{#VIEWFIELDINFOID}">
+            <span class="row_body_cell_float"><input type="checkbox" name="SearchField" id="SearchField_{@count(false)}"   _id="{@count(false)}" {@isChecked(#SearchField)}></span>
+            <span class="row_body_cell_float"><input type="radio" name="TitleField" id="TitleField_{@count(false)}"  _id="{@count(false)}" onclick="setTitleEvent(this);" {@isChecked(#TitleField)}></span>
+            <span class="row_body_cell_float"><input type="checkbox" name="InOutline" id="InOutline_{@count(false)}"  _id="{@count(false)}" {@isChecked(#InOutline)} {@isDisabled(#TitleField)}></span>
+            <span class="row_body_cell" triggerEvent="true" style="cursor:pointer;" title="{@getViewDesc(#TABLENAME.DESC,#TABLENAME,#DBFIELDNAME.DESC,#DBFIELDNAME,#ANOTHERNAME)}">{@getViewDesc(#TABLENAME.DESC,#TABLENAME,#DBFIELDNAME.DESC,#DBFIELDNAME,#ANOTHERNAME)}</span>{@count(true, true)}
+        </div>
+    </for>
+</textarea>
+<div id="divNoObjectFound" style="display:none;">
+    <div class="no_object_found" WCMAnt:param="build_to_view.html.noRecord">不好意思, 没有找到符合条件的对象..-____-|||</div>
+</div>
+<!---------------------------------------------内部模板结束---------------------------------------------//-->
+</body>
+</html>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>系统日志</menu-name>
+  <menu-path>/page/log/</menu-path>
+  <description>系统日志</description>
+  <form-beans>
+    <form-bean name="FirstPageQueryRowsetForm">
+      <description>多记录查询</description>
+            <form-property prefix="select-key" name="first_page_query_id" type="string" size="30" description="主键"/>
+      <form-property prefix="select-key" name="created_time" type="string" size="30" description="操作时间"/>
+      
+      <form-property prefix="select-key" name="creat_start_time" type="string" size="30" description="操作时间"/>
+      <form-property prefix="select-key" name="creat_end_time" type="string" size="30" description="操作时间"/>
+      <form-property prefix="select-key" name="username" type="string" size="24" description="用户名"/>
+      <form-property prefix="record" name="first_page_query_id" type="string" size="32" cannull="false" description="主键"/>
+      <form-property prefix="record" name="count" type="long" cannull="true" description="数量"/>
+      <form-property prefix="record" name="num" type="long" cannull="true" description="总数"/>
+      <form-property prefix="record" name="query_date" type="string" size="10" cannull="true" description="操作日期"/>
+      <form-property prefix="record" name="query_time" type="string" size="30" cannull="true" description="操作时间"/>
+      <form-property prefix="record" name="username" type="string" size="24" cannull="true" description="用户名"/>
+      <form-property prefix="record" name="opername" type="string" size="24" cannull="true" description="操作名称"/>
+      <form-property prefix="record" name="orgid" type="string" size="32" cannull="true" description="组织ID"/>
+      <form-property prefix="record" name="orgname" type="string" size="64" cannull="true" description="组织名称"/>
+      <form-property prefix="record" name="ipaddress" type="string" size="16" cannull="true" description="ip地址"/>
+      <form-property prefix="record" name="first_cls" type="string" size="100" cannull="true" description="first_cls"/>
+      <form-property prefix="record" name="second_cls" type="string" size="100" cannull="true" description="second_cls"/>
+      <form-property prefix="record" name="operfrom" type="string" size="2" cannull="true" description="operfrom"/>
+    </form-bean>
+
+    <form-bean name="FirstPageQueryUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="first_page_query_id" type="string" size="32" cannull="false" description="主键"/>
+      <form-property prefix="record" name="first_page_query_id" type="string" size="32" cannull="false" description="主键"/>
+      <form-property prefix="record" name="count" type="long" cannull="true" description="数量"/>
+      <form-property prefix="record" name="num" type="long" cannull="true" description="总数"/>
+      <form-property prefix="record" name="query_date" type="string" size="10" cannull="true" description="操作日期"/>
+      <form-property prefix="record" name="query_time" type="string" size="30" cannull="true" description="操作时间"/>
+      <form-property prefix="record" name="username" type="string" size="24" cannull="true" description="用户名"/>
+      <form-property prefix="record" name="opername" type="string" size="24" cannull="true" description="操作名称"/>
+      <form-property prefix="record" name="orgid" type="string" size="32" cannull="true" description="组织ID"/>
+      <form-property prefix="record" name="orgname" type="string" size="64" cannull="true" description="组织名称"/>
+      <form-property prefix="record" name="ipaddress" type="string" size="16" cannull="true" description="ip地址"/>
+      <form-property prefix="record" name="first_cls" type="string" size="100" cannull="true" description="first_cls"/>
+      <form-property prefix="record" name="second_cls" type="string" size="100" cannull="true" description="second_cls"/>
+      <form-property prefix="record" name="operfrom" type="string" size="2" cannull="true" description="operfrom"/>
+    </form-bean>
+
+    <form-bean name="FirstPageQueryDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="first_page_query_id" type="string" size="32" cannull="false" description="主键"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-first_page_query_systemlog.jsp" name="FirstPageQueryRowsetForm" txn-code="601011" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询系统日志列表</description>
+      <step index="10" bean-name="com.gwssi.log.systemlog.txn.TxnFirstPageQuery" func-name="txn601011" input-node="select-key" output-node="record" description="查询系统日志列表"/>
+      <forward error-code="success" path="query-first_page_query_systemlog.jsp"/>
+      <forward error-code="failure" path="query-first_page_query_systemlog.jsp"/>
+    </action>
+
+    <action input="update-first_page_query_systemlog.jsp" name="FirstPageQueryUpdateForm" txn-code="601012" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改系统日志信息</description>
+      <step index="10" bean-name="com.gwssi.log.systemlog.txn.TxnFirstPageQuery" func-name="txn601012" input-node="record" description="修改系统日志信息"/>
+      <forward error-code="success" path="update-first_page_query_systemlog.jsp"/>
+      <forward error-code="failure" path="update-first_page_query_systemlog.jsp"/>
+    </action>
+
+    <action input="insert-first_page_query_systemlog.jsp" name="FirstPageQueryUpdateForm" txn-code="601013" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加系统日志信息</description>
+      <step index="10" bean-name="com.gwssi.log.systemlog.txn.TxnFirstPageQuery" func-name="txn601013" input-node="record" description="增加系统日志信息"/>
+      <forward error-code="success" path="insert-first_page_query_systemlog.jsp"/>
+      <forward error-code="failure" path="insert-first_page_query_systemlog.jsp"/>
+    </action>
+
+    <action input="query-first_page_query_systemlog.jsp" name="FirstPageQueryUpdateForm" txn-code="601014" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询系统日志用于修改</description>
+      <step index="10" bean-name="com.gwssi.log.systemlog.txn.TxnFirstPageQuery" func-name="txn601014" input-node="primary-key" output-node="record" description="查询系统日志用于修改"/>
+      <forward error-code="success" path="update-first_page_query_systemlog.jsp"/>
+      <forward error-code="failure" path="update-first_page_query_systemlog.jsp"/>
+    </action>
+
+    <action input="query-first_page_query_systemlog.jsp" name="FirstPageQueryDeleteForm" txn-code="601015" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除系统日志信息</description>
+      <step index="10" bean-name="com.gwssi.log.systemlog.txn.TxnFirstPageQuery" func-name="txn601015" input-node="primary-key"   output-node="record"  description="删除系统日志信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+     <action input="query-first_page_query_systemlog.jsp" name="FirstPageQueryRowsetForm" txn-code="601016" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>跳转系统日志信息</description>
+      <step index="10" bean-name="com.gwssi.log.systemlog.txn.TxnFirstPageQuery" func-name="txn601016" input-node="select-key"    output-node="record" description="删除系统日志信息"/>
+      <forward error-code="success" path="first_page_query-dataitem.jsp"/>
+      <forward error-code="failure" path="first_page_query-dataitem.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-first_page_query_systemlog.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/log/query-first_page_query_systemlog.jsp" description="查询系统日志列表"/>
+    <resource-file type="jsp" file-name="/page/log/insert-first_page_query_systemlog.jsp" description="增加系统日志信息"/>
+    <resource-file type="jsp" file-name="/page/log/update-first_page_query_systemlog.jsp" description="修改系统日志信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.log.systemlog.vo.FirstPageQuerySystemlogContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.log.systemlog.vo.VoFirstPageQuerySystemlog" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.log.systemlog.vo.VoFirstPageQuerySystemlogSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.log.systemlog.vo.VoFirstPageQuery" description=""/>
+        <resource-file type="vo-bean" file-name="com.gwssi.log.systemlog.vo.VoFirstPageQuery_sl" description=""/>
+    
+    <resource-file type="vo-bean" file-name="com.gwssi.log.systemlog.vo.VoFirstPageQuerySystemlogPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

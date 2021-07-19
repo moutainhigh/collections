@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin name="WCM batch channel create." version="1.0" id="wcm.channel_createfromfile">
+	<beans>
+		<!--Mgr BEGIN-->
+		<bean id="IVChannelParser" 
+			class="com.trs.components.wcm.channel.TxtFileParser" 
+			singleton="true"/>
+		<bean id="VChannelManager" 
+			class="com.trs.components.wcm.channel.VChannelManager" 
+			singleton="true"/>
+	</beans>
+</plugin>

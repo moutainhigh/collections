@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="GB2312"?>
+<parameters>	
+	<parameter name="DocFileName"  desc="导入文件上传后生成的文件名" required="true" type="string"/>
+	<parameter name="XslFileName"  desc="Xsl文件上传后生成的文件名" required="true" type="string"/>
+	<parameter name="XmlFileName"  desc="映射文件名" required="true" type="string"/>
+	<parameter name="ChannelId" desc="文档所导入频道ID" required="false" min-value="1" type="int"/>
+	<parameter name="XmlSource" desc="导入Xml文件来源" required="false" type="int"/>
+	<parameter name="XslSource" desc="导入Xsl文件来源" required="false" type="int"/>
+	<parameter name="ToCurrentChannel" desc="装载至当前频道" required="false" type="int"/>
+	<parameter name="JumpRepeat" desc="跳过重复标题文档" required="false" type="int"/>
+	<parameter name="XslExistFileName" desc="存在的Xsl文件名" required="false" type="string"/>
+</parameters>

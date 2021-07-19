@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="sys_rd_standard" class-name="cn.gwssi.dw.rd.standard.dao.SysRdStandard" check-flag="false" backup-flag="false">
+    <description>数据标准表</description>
+  </table-info>
+
+  <column name="sys_rd_standard_id" data-type="char" length="32" not-null="true" value-from="input" description="案件序列号"/>
+  <column name="standard_name" data-type="varchar" length="100" not-null="false" value-from="input" description="姓名"/>
+  <column name="standard_issued_unit" data-type="varchar" length="3" not-null="false" value-from="input" description="企业注册号"/>
+  <column name="standard_category_no" data-type="varchar" length="30" not-null="false" value-from="input" description="当事人类型"/>
+  <column name="standard_issued_time" data-type="varchar" length="30" not-null="false" value-from="input" description="当事人住所"/>
+  <column name="file_name" data-type="varchar" length="128" not-null="false" value-from="input" description="法定代表人(负责人)"/>
+  <column name="file_path" data-type="varchar" length="512" not-null="false" value-from="input" description="法定代表人(负责人)"/>
+  <column name="standard_range" data-type="varchar" length="4000" not-null="false" value-from="input" description="工作单位"/>
+  <column name="standard_category" data-type="varchar" length="1" not-null="false" value-from="input" description="现地址"/>
+  <column name="memo" data-type="varchar" length="2000" not-null="false" value-from="input" description="联系电话"/>
+  <column name="sort" data-type="varchar" length="10" not-null="false" value-from="input" description="籍贯"/>
+  <column name="timestamp" data-type="varchar" length="32" not-null="false" value-from="input" description="案件登记编号"/>
+  <primary-key name="pk_jc_standard" column-list="sys_rd_standard_id"/>
+  <index name="pk_jc_standard" index-type="unique" cluster="cluster" column-list="sys_rd_standard_id"/>
+  <function func-name="select sys_rd_standard list" func-type="rowset" column-list="sys_rd_standard_id,standard_name,standard_issued_unit,standard_category_no,standard_issued_time,file_name,file_path,standard_range,standard_category,memo,sort,timestamp" sort-columns="sort" max-record="10">
+    <filter-column column-name="standard_name" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="select one sys_rd_standard" func-type="select" column-list="sys_rd_standard_id,standard_name,standard_issued_unit,standard_category_no,standard_issued_time,file_name,file_path,standard_range,standard_category,memo,sort,timestamp" max-record="1">
+    <filter-column column-name="sys_rd_standard_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_rd_standard" func-type="insert" column-list="sys_rd_standard_id,standard_name,standard_issued_unit,standard_category_no,standard_issued_time,file_name,file_path,standard_range,standard_category,memo,sort,timestamp">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="update one sys_rd_standard" func-type="update" column-list="sys_rd_standard_id,standard_name,standard_issued_unit,standard_category_no,standard_issued_time,file_name,file_path,standard_range,standard_category,memo,sort,timestamp">
+    <filter-column column-name="sys_rd_standard_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="delete one sys_rd_standard" func-type="delete">
+    <filter-column column-name="sys_rd_standard_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+</table>
+

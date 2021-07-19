@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="region_csstext.html.setguidestyle"> 设置导读样式 </title>
+	<link href="region.css" rel="stylesheet" type="text/css" />	
+	<script language="javascript" src="../js/core/core.js" type="text/javascript"></script>
+	<style type="text/css">
+		html,body{
+			width:100%;
+			height:100%;
+			overflow:hidden;
+		}
+		*{
+			margin:0px;
+			padding:0px;
+		}
+		.wcm-table{
+			table-layout:fixed;
+			width:100%;
+			height:100%;
+			background:#f1f1f1;
+		}
+		.wcm-table td{
+			padding-left:10px;
+			padding-top:10px;
+			vertical-align:top;
+		}
+	</style>
+	<script language="javascript">
+	<!--
+		var sDefaultValue = "/*示例如下*/\n.trs-region {font-size:14px;}\n.trs-row {height:20px;}\n.trs-cell {width:90px;}";
+		Event.observe(document, 'click', function(){
+			if($('CssText').value == ""){
+				$('CssText').value = sDefaultValue;
+				$('CssText').style.color = 'gray';
+				$('CssText').style.fontStyle = 'italic';
+				$('CssText').setAttribute('bChange', false);
+			}
+		});
+		function SaveCssText(){
+			if((!$('CssText').getAttribute('bChange'))||$('CssText').getAttribute('bChange')=="false"){
+				$('CssText').value = "";
+			}
+			window.returnValue =  $('CssText').value;
+			window.close();
+		}
+		function Cancel(){
+			window.close();
+		}
+		function focusCssValue(){
+			var eCssText = $('CssText');
+			eCssText.style.color = '#414141';
+			eCssText.select();
+		}
+		function keydownCssValue(){
+			$('CssText').style.color = 'black';
+			$('CssText').style.fontStyle = 'normal';
+			$('CssText').setAttribute('bChange', true);
+		}
+
+	//-->
+	</script>
+</head>
+<body>
+	<table border="0" cellspacing="0" cellpadding="0" class="wcm-table">
+	<tbody>
+		<tr>
+			<td style="width:60px;" WCMAnt:param="region_csstext.html.regioncss">导读样式:</td>
+			<td>
+				<textarea name="CssText" id="CssText" rows="20" cols="80"  onfocus="focusCssValue()" onkeydown="keydownCssValue()"></textarea>
+				<script language="javascript">
+				<!--
+					$('CssText').value = dialogArguments||sDefaultValue;
+					if(dialogArguments==""){
+						$('CssText').style.color = 'gray';
+						$('CssText').style.fontStyle = 'italic';
+						$('CssText').setAttribute('bChange', false);
+					}
+				//-->
+				</script>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align:center;padding-top:0px;height:30px;">
+				<button onclick="SaveCssText();" WCMAnt:param="region_csstext.html.sure">确定</button>&nbsp;&nbsp;
+				<button onclick="Cancel();" WCMAnt:param="region_csstext.html.cancel">取消</button>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+</body>
+</html>

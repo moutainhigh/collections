@@ -1,0 +1,288 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title WCMAnt:param="channel_select.html.title" id="tlDoc">栏目选择...</title>
+<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+<link href="../css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	/*.iframe_container{width:310px;height:400px;}*/
+	.iframe_container{
+		width:100%;
+		height:360px;
+		padding:10px 0px;
+	}
+	.ext-ie .treeNav{
+		width:100%;
+		height:100%
+	}
+	.ext-gecko .treeNav{
+		width:96%;
+		height:98%
+	}
+	.ext-safari .treeNav{
+		width:96%;
+		height:98%
+	}
+</style>
+</head>
+
+<body>
+<DIV style="line-height:36px; height:36px;text-align:left;font-size:14px;color:#010101;border-bottom:1px solid gray;">
+	<SPAN WCMAnt:param="channel_select.html.channel">栏目：</SPAN>
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" value="1"><span WCMAnt:param="channel_select.html.clusterChnl">聚合</span>
+	</SPAN>
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" value="2"><span WCMAnt:param="channel_select.html.allChnl">所有</span>
+	</SPAN>
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" value="3"><span WCMAnt:param="channel_select.html.individualChnl">定制</span>
+	</SPAN>
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" value="4"><span WCMAnt:param="channel_select.html.searchChnl">搜索</span>
+	</SPAN>
+</DIV>
+<DIV id="all_channels_tree" class="iframe_container">
+	<DIV style="height:100%;">
+		<iframe name="allTreeNav" id="allTreeNav" src="../include/blank.html" class="treeNav" frameborder="0"  allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<DIV id="cluster_channels_list" class="iframe_container" style="display:none">
+	<DIV style="height:100%;">
+		<iframe name="clusterList" id="clusterList" src="../include/blank.html" class="treeNav" frameborder="0"  allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<DIV id="individual_channels_tree" class="iframe_container" style="display:none">
+	<DIV style="height:100%;">
+		<iframe name="individualNav" id="individualNav" src="../include/blank.html" class="treeNav" frameborder="0"  allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<DIV id="search_channels_tree" class="iframe_container" style="display:none">
+	<DIV style="height:100%;">
+		<iframe name="searchNav" id="searchNav" src="../include/blank.html" class="treeNav" frameborder="0"  allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<script src="../js/easyversion/lightbase.js"></script>
+<script src="../js/easyversion/extrender.js"></script>
+<script src="../js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../js/data/locale/system.js"></script>
+<script src="../js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<script src="../js/easyversion/ajax.js"></script>
+<SCRIPT src="../js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<script>
+	window.m_fpCfg = {
+		m_arrCommands : [{
+			cmd : 'onOk',
+			name : wcm.LANG['SURE'] || '确定'
+		}],
+		size : [320, 400]
+	};
+	var preParams = null;
+	function init(params){
+		preParams = params;
+		params = params || {};
+		var sUrl = '../nav_tree/nav_tree_select.jsp?';
+		sUrl += $toQueryStr2(params);
+		//$('allTreeNav').src = sUrl;
+		//$('clusterList').src = "../document/recommendto_channel.jsp?"+$toQueryStr2(params);
+		//修复链接地址超长的问题
+		var postParams = ['SELECTEDCHANNELIDS', 'SELECTEDSITEIDS'];
+		setIFrameByPost('allTreeNav', sUrl, postParams);
+		setIFrameByPost('clusterList', "../document/recommendto_channel.jsp?"+$toQueryStr2(params), postParams);
+		setIFrameByPost('searchNav', "./show_search_channel.jsp?"+$toQueryStr2(params), postParams);
+		Object.extend(postParams, {forIndividual:1});
+		sUrl+="&forIndividual=" + 1;
+		setIFrameByPost('individualNav', sUrl, postParams);
+		initSelectedMode();
+	}
+	
+    function initSelectedMode(){
+		var modeValue = getCookieValue('selectedChannelMode');
+		modeValue = (modeValue == '' ? '2 ': modeValue);
+		var modes = document.getElementsByName("mode");
+        modes[parseInt(modeValue) - 1].checked = true;
+		changeViewer(modeValue);
+	}
+	function getCookieValue(_cookieKey){
+		var cookieValue = '';
+		var arrStr = parent.parent.document.cookie.split(";");
+        for(var k = 0; k < arrStr.length; k++){
+            var temp = arrStr[k].split("=");
+            if(temp[0].trim() == _cookieKey){
+				cookieValue = temp[1];
+				break;
+			}
+        }
+		return cookieValue;
+	}
+    function setCookieForLatestSelChnlIds(_selIds){
+		if(_selIds.length == 0)return;
+		var currCookieForSelChnlIds = getCookieValue('latestSelChnlIds');
+		var aCurrCookieForSelChnlIds = currCookieForSelChnlIds.split('/');
+		//把重复的内容移除掉
+		for(var t = 0; t < _selIds.length; t++){
+			for(var r = 0; r < aCurrCookieForSelChnlIds.length; r++){
+				if(_selIds[t] == aCurrCookieForSelChnlIds[r]){
+					if(r < (aCurrCookieForSelChnlIds.length - 1)){
+						for(var p = r; p < aCurrCookieForSelChnlIds.length; p++){
+							if(p == aCurrCookieForSelChnlIds.length - 1)continue;
+							aCurrCookieForSelChnlIds[p] = aCurrCookieForSelChnlIds[p+1];
+						}
+					}
+					aCurrCookieForSelChnlIds = aCurrCookieForSelChnlIds.slice(0, (aCurrCookieForSelChnlIds.length-1));
+				}
+			}
+		}
+		currCookieForSelChnlIds = aCurrCookieForSelChnlIds.join('/');
+		//如果目前在cookie中为空，那么存储当前选择中的前5个
+		if(currCookieForSelChnlIds == '' || _selIds.length >=5){
+			for(var m = 0; m < _selIds.length; m++){
+				if(m == 0) 
+					currCookieForSelChnlIds = _selIds[m];
+				else if(m > 4) break;
+				else{
+					currCookieForSelChnlIds += '/' + _selIds[m];
+					continue;
+				}
+			}
+			parent.parent.document.cookie='latestSelChnlIds=' + currCookieForSelChnlIds;
+		}else{
+			if((5 - aCurrCookieForSelChnlIds.length) >= _selIds.length){
+				for(var p = 0; p < _selIds.length; p++){
+					currCookieForSelChnlIds+='/' + _selIds[p];
+				}
+			}else{
+				for(var j = 0; j < _selIds.length; j++){
+					var nKongSize = (5 - aCurrCookieForSelChnlIds.length);
+					//如果当前存储的不足5个，那么往后追加
+					if(nKongSize > 0){
+						aCurrCookieForSelChnlIds[aCurrCookieForSelChnlIds.length] = _selIds[j];
+					}else{
+						//如果存储的已经有5个了，那么直接移动
+						for(var n = 0; n < aCurrCookieForSelChnlIds.length; n++){
+							if(n == 4) continue;
+							aCurrCookieForSelChnlIds[n] = aCurrCookieForSelChnlIds[n+1];
+						}
+						aCurrCookieForSelChnlIds[4] = _selIds[j];
+					}
+				}
+				currCookieForSelChnlIds = aCurrCookieForSelChnlIds.join('/');
+			}
+			parent.parent.document.cookie='latestSelChnlIds=' + currCookieForSelChnlIds;
+		}
+	}
+	function onOk(){
+	    var selectedModeValue = 2;
+		var modes = document.getElementsByName("mode");
+		var sSelIds = null;
+		var sSelNames = null;
+		var sIframeId = 'allTreeNav';
+		if(modes[0].checked){
+			sIframeId = 'clusterList';
+			selectedModeValue = 1;
+		}
+		else if(modes[1].checked){
+			sIframeId = 'allTreeNav';
+			selectedModeValue = 2;
+		}
+		else if(modes[2].checked){
+			sIframeId = 'individualNav';
+			selectedModeValue = 3;
+		}
+		else if(modes[3].checked){
+			sIframeId = 'searchNav';
+			selectedModeValue = 4;
+		}
+		else{
+			Ext.Msg.alert(wcm.LANG['SYS_CHANNELSELECT_NOMODE'] || '没选中任何模式');
+			return false;
+		}
+		parent.parent.document.cookie = "selectedChannelMode=" + selectedModeValue;
+		var win = $(sIframeId).contentWindow;
+		try{
+			sSelIds =  win.getCheckValues();
+		}catch(err){
+			sSelIds = '';
+		}
+		setCookieForLatestSelChnlIds(sSelIds);
+		try{
+			sSelNames = win.getCheckNames();
+		}catch(err){
+			sSelNames = '';
+		}
+		if(!FloatPanel.dialogArguments.canEmpty && sSelIds.length == 0) {
+			Ext.Msg.warn(wcm.LANG['SYS_CHANNELSELECT_NONE'] || '请选择要设置的栏目！');
+			return false;
+		}
+		//包含表单的时候，需要判断当前选中的栏目是不是与被操作的栏目配置有同一个表单
+		if(preParams.ValidInfoViewChannel==1){
+			var sUrl = '../infoview/infoview_employer_filter2.jsp';
+				sUrl += '?FromChannelId=' + preParams.CurrChannelId;
+				sUrl += '&ToChannelIds=' + sSelIds.join(",");
+				/*只有复制和移动走这个页面，不需要判断是不是引用
+				if(preParams.ExcludeSelf != 0) {//非复制
+					sUrl += '&IsRefer=1'
+				}*/
+			new Ajax.Request(sUrl, {'onSuccess' : 
+				function(_trans, _json){
+					var result = _trans.responseText.trim();
+					var sFilterIds = '';
+					if(parseInt(result,10) > 1){
+						alert(wcm.LANG['ALERTUNEQUAL'] || "所选的栏目非表单栏目，或与源栏目使用的表单不一致。");
+						return;
+					}
+					//else 可以执行了
+					notifyFPCallback(sSelIds, sSelNames);
+					return getParameter('close') != 1;
+				}
+			});
+		}
+		else{
+			notifyFPCallback(sSelIds, sSelNames);
+			return getParameter('close') != 1;
+		}
+
+		return false;
+	}
+
+	function changeViewer(_i){
+		switch(parseInt(_i)){
+			case 1:
+				Element.show($('cluster_channels_list'));
+				Element.hide($('all_channels_tree'));
+				Element.hide($('individual_channels_tree'));
+				Element.hide($('search_channels_tree'));
+				break;
+			case 2:
+				Element.hide($('cluster_channels_list'));
+				Element.show($('all_channels_tree'));
+				Element.hide($('individual_channels_tree'));
+				Element.hide($('search_channels_tree'));
+				break;
+			case 3:
+				Element.hide($('cluster_channels_list'));
+				Element.hide($('all_channels_tree'));
+				Element.show($('individual_channels_tree'));
+				Element.hide($('search_channels_tree'));
+				break;
+			case 4:
+				Element.hide($('cluster_channels_list'));
+				Element.hide($('all_channels_tree'));
+				Element.hide($('individual_channels_tree'));
+				Element.show($('search_channels_tree'));
+				break;
+		}
+	}
+</script>
+<script>
+	init(FloatPanel.dialogArguments);
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="sys_rd_claim_view" class-name="cn.gwssi.dw.rd.metadata.dao.SysRdClaimView" check-flag="false" backup-flag="false">
+    <description>主题信息</description>
+  </table-info>
+
+  <column name="sys_rd_claimed_view_id" data-type="varchar" length="32" not-null="true" empty-is-null="false" unique="true" value-from="generate" func-name="getUUID" description="表主键"/>
+  <column name="sys_rd_data_source_id" data-type="varchar" length="32" not-null="false" value-from="input" description="数据源ID"/>
+  <column name="sys_rd_system_id" data-type="varchar" length="32" not-null="false" value-from="input" description="业务主题ID"/>
+  <column name="sys_no" data-type="varchar" length="20" not-null="false" value-from="input" description="业务主题编号"/>
+  <column name="sys_name" data-type="varchar" length="100" not-null="false" value-from="input" description="业务主题名称"/>
+  <column name="view_name" data-type="varchar" length="100" not-null="false" value-from="input" description="视图名称"/>
+  <column name="view_use" data-type="varchar" length="1000" not-null="false" value-from="input" description="视图用途"/>
+  <column name="view_script" data-type="varchar" length="4000" not-null="false" value-from="input" description="视图脚本"/>
+  <column name="object_type" data-type="varchar" length="1" not-null="false" value-from="input" description="类型"/>
+  <column name="changed_status" data-type="varchar" length="1" not-null="false" value-from="input" description="变化状态"/>
+  <column name="object_schema" data-type="varchar" length="36" not-null="false" value-from="input" description="实体对象模式"/>
+  <column name="claim_operator" data-type="varchar" length="32" not-null="false" value-from="input" description="认领人"/>
+  <column name="claim_date" data-type="varchar" length="10" not-null="false" value-from="input" description="认领时间"/>
+  <column name="timestamp" data-type="varchar" length="32" not-null="false" value-from="input" description="时间戳"/>
+  <primary-key name="PK_SYS_RD_CLAIM_VIEW" column-list="sys_rd_claimed_view_id"/>
+  <index name="PK_SYS_RD_CLAIM_VIEW" index-type="unique" cluster="other" column-list="sys_rd_claimed_view_id"/>
+  <function func-name="select sys_rd_claim_view list" func-type="rowset" column-list="sys_rd_claimed_view_id,sys_rd_data_source_id,sys_rd_system_id,sys_no,sys_name,view_name,view_use,view_script,object_type,changed_status,object_schema,claim_operator,claim_date,timestamp" sort-columns="sys_no" max-record="10">
+    <filter-column column-name="sys_rd_claimed_view_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_rd_data_source_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="view_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="object_type" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="select one sys_rd_claim_view" func-type="select" column-list="sys_rd_claimed_view_id,sys_rd_data_source_id,sys_rd_system_id,sys_no,sys_name,view_name,view_use,view_script,object_type,changed_status,object_schema,claim_operator,claim_date,timestamp">
+    <filter-column column-name="sys_rd_claimed_view_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_rd_claim_view" func-type="insert" column-list="sys_rd_claimed_view_id,sys_rd_data_source_id,sys_rd_system_id,sys_no,sys_name,view_name,view_use,view_script,object_type,changed_status,object_schema,claim_operator,claim_date,timestamp">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_rd_claim_view" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_rd_claim_view" func-type="update" column-list="view_use,view_script">
+    <filter-column column-name="sys_rd_claimed_view_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

@@ -1,0 +1,10 @@
+Ext.apply(wcm.LANG,{
+	SELECT_USER_CONFIRM : '确定',
+	SELECT_USER_CANCEL : '取消',
+	SELECT_USER_WUXIAO : '无效的类型传入',
+	SELECT_USER_USERSELECT : '用户选择',
+	SELECT_USER_ORGELECT : '组织选择',
+	SELECT_USER_WUXIAOLEIXING : '无效的对象类型',
+	SELECT_USER_WUXIAOFRAME : '没有找到正确的Frame名称',
+	SELECT_USER_LISTJIAZAI : '页面加载超时，请重新刷新'
+});

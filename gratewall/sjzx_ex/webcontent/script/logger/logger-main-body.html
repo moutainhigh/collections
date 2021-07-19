@@ -1,0 +1,417 @@
+<html lang="zh">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<title>长城软件商业应用--本次操作日志</title>
+</head>
+
+<link href='../css/gwssi.css' rel='stylesheet' type='text/css'>
+
+<script language="javascript">
+// 日志信息
+var logList = top.opener.top.logger;
+
+// 显示内容
+function showRequestPage( flowId )
+{
+	var logData = logList.lookupLogger( flowId );
+	if( logData == null ){
+		return;
+	}
+	
+	// 页面内容
+	var title = logData.txnCode + '--' + logData.txnName;
+	showHtmlPage( title, logData.requestHTML );
+}
+
+
+function showResponsePage( flowId )
+{
+	var logData = logList.lookupLogger( flowId );
+	if( logData == null ){
+		return;
+	}
+	
+	// 页面内容
+	var title = logData.txnCode + '--' + logData.txnName;
+	showHtmlPage( title, logData.responseHTML );
+}
+
+
+	
+function showHtmlPage( title, data )
+{
+	if( data == null || data == '' ){
+		return;
+	}
+	
+	// 取样式
+	var cssList = getCssList( data );
+	
+	// 格式数据
+	data = formatPageData( data );
+	
+	// 显示页面
+	var logWindow = open( );
+	
+	// 输出数据
+	var ptr = data.indexOf( '</HEAD>' );
+	if( ptr > 0 ){
+		// HEAD
+		logWindow.document.write( data.substring(0, ptr+7) );
+		
+		// 输出样式
+		for( var ii=0; ii<cssList.length; ii++ ){
+			var styleName = cssList[ii];
+			var styleData = logList.lookupStyle( styleName );
+			if( styleData != null ){
+				var styleContent = trimSpace(styleData.styleContent, 0);
+				logWindow.document.write( '<style type="text/css">\n' );
+				prepareStyleText( logWindow, styleName, styleContent.substring(5, styleContent.length-1) );
+				logWindow.document.write( '</style>\n' );
+			}
+		}
+		
+		// 内容
+		logWindow.document.write( data.substring(ptr+7) );
+	}
+	else{
+		logWindow.document.write( data );
+	}
+	
+	// 格式化页面内容
+	formatLoggerDocument( logWindow );
+	
+	// 设置标题
+	logWindow.document.title = title;
+	
+	// 设置焦点
+	logWindow.focus();
+}
+
+// 打开窗口
+function formatPageData( data )
+{
+	if( data == null || data == '' ){
+		return '';
+	}
+	
+	var ptr = data.indexOf( '<DIV class=body-div>' );
+	if( ptr > 0 ){
+		var headHTML = data.substring( 0, ptr );
+		var bodyHTML = data.substring( ptr );
+		
+		// 删除多余的数据
+		ptr = headHTML.indexOf( '<BODY' );
+		if( ptr > 0 ){
+			var data1 = headHTML.substring( 0, ptr );
+			var data2 = headHTML.substring( ptr );
+			
+			ptr = data2.indexOf( '>' );
+			if( ptr > 0 ){
+				data2 = data2.substring( 0, ptr+1 );
+			}
+			
+			// 尾巴
+			headHTML = data1 + data2;
+		}
+		
+		data = headHTML + bodyHTML;
+	}
+	
+	// 设置SCRIPT
+	data = deletePageContent( data, "<SCRIPT", "SCRIPT>" );
+	data = deletePageContent( data, "<LINK", ">" );
+	
+	return data;
+}
+
+// 生成JS函数
+function deletePageContent( data, startName, stopName )
+{
+	var result = '';
+	
+	var ptr = data.indexOf( startName );
+	while( ptr >= 0 ){
+		result += data.substring( 0, ptr );
+		data = data.substring( ptr );
+		
+		// 截取内容
+		var ptr1 = data.indexOf( stopName );
+		if( ptr1 < 0 ){
+			break;
+		}
+		
+		// 取下一个
+		data = data.substring( ptr1 + stopName.length );
+		ptr = data.indexOf( startName );
+	}
+	
+	result += data;
+	return result;
+}
+
+// 取样式单列表
+function getCssList( content )
+{
+	var css = new Array();
+	
+	var data = content;
+	var ptr = data.indexOf( '<LINK' );
+	while( ptr >= 0 ){
+		data = data.substring( ptr );
+		
+		// 截取内容
+		var ptr1 = data.indexOf( '>' );
+		if( ptr1 < 0 ){
+			break;
+		}
+		
+		var ss = data.substring( 0, ptr1 + 1 );
+		data = data.substring( ptr1 + 1 );
+		
+		// 增加全路径
+		var ptr1 = ss.indexOf( 'href=' );
+		if( ptr1 < 0 ){
+			break;
+		}
+		
+		ss = trimSpace( ss.substring(ptr1+5), 0 );
+		var c = ss.substring( 0, 1 );
+		ss = ss.substring( 1 );
+		ptr1 = ss.indexOf( c );
+		if( ptr1 < 0 ){
+			break;
+		}
+		
+		ss = trimSpace( ss.substring(0, ptr1), 0 );
+		css[css.length] = ss;
+		
+		// 取下一个
+		ptr = data.indexOf( '<LINK' );
+	}
+	
+	return css;
+}
+
+
+// 输出样式单
+function prepareStyleText( win, styleName, styleContent )
+{
+	var ptr = styleName.lastIndexOf( '/' );
+	if( ptr > 0 ){
+		styleName = styleName.substring(0, ptr+1);
+	}
+	else{
+		win.document.write( styleContent );
+		return;
+	}
+	
+	// 格式化路径
+	ptr = styleContent.indexOf('url(');
+	while( ptr > 0 ){
+		// 输出
+		win.document.write( styleContent.substring(0, ptr+4) );
+		
+		// 文件地址
+		styleContent = styleContent.substring( ptr+4 );
+		ptr = styleContent.indexOf(')');
+		if( ptr < 0 ){
+			break;
+		}
+		
+		// 地址
+		var xurl = trimSpace( styleContent.substring(0, ptr+1), 0 );
+		if( xurl.substring(0,1) != '/' ){
+			win.document.write( styleName );
+		}
+		
+		win.document.write( xurl );
+		
+		// 余下的内容
+		styleContent = styleContent.substring(ptr+1);
+		
+		// 下一个
+		ptr = styleContent.indexOf('url(');
+	}
+	
+	win.document.write( styleContent );
+}
+
+
+// 显示日志
+function showLogger()
+{
+	// 生成列表
+	logList.processLogger( appendLogger );
+	
+	// 生成样式 和 事件
+	var styleName = 'oddrow';
+	var table = document.getElementById('logList');
+	var rows = table.rows;
+	for( var ii=1; ii<rows.length; ii++ ){
+		// 样式
+		rows[ii].className = styleName;
+		if( styleName == 'oddrow' ){
+			styleName = 'evenrow';
+		}
+		else{
+			styleName = 'oddrow';
+		}
+	}
+}
+
+
+// 生成行
+function appendTableRow( table, rowId, data, rowNumber )
+{
+	// 插入的行编号
+	if( rowNumber == null || rowNumber < 0 || rowNumber > table.rows.length ){
+		rowNumber = table.rows.length;
+	}
+	else if( rowNumber == 0 ){
+		rowNumber = 1;
+	}
+	
+	// 插入行
+	var myRow = table.insertRow( rowNumber );
+	myRow.id = rowId;
+	
+	var ii;
+	for( ii=0; ii<data.length; ii++ ){
+		var myCell = myRow.insertCell( myRow.cells.length );
+		myCell.noWrap = true;
+		myCell.innerHTML = data[ii];
+		myCell.vAlign = "center";
+	}
+	
+	return myRow;
+}
+
+// 生成每一条记录
+function appendLogger( logData )
+{
+	// 生成数据
+	var data = new Array();
+	data[0] = logData.date + ' ' + logData.time;
+	data[1] = logData.txnCode;
+	data[2] = logData.txnName;
+	
+	if( logData.stopTime > logData.startTime ){
+		data[3] = logData.stopTime - logData.startTime;
+	}
+	else{
+		data[3] = 'N/A';
+	}
+	
+	data[4] = logData.errCode;
+	
+	if( logData.errDesc == null ){
+		data[5] = 'N/A'
+	}
+	else{
+		var ptr = logData.errDesc.indexOf( '==>' );
+		if( ptr < 0 ){
+			data[5] = logData.errDesc;
+		}
+		else{
+			data[5] = logData.errDesc.substring( ptr+4 );
+		}
+	}
+	
+	// 操作
+	if( logData.requestHTML != null ){
+		data[6] = "<span onclick='showRequestPage(" + logData.flowId + ")' style='cursor:hand'>请求</span>";
+	}
+	else{
+		data[6] = "";
+	}
+	
+	if( logData.responseHTML != null ){
+		data[6] += "&nbsp;<span onclick='showResponsePage(" + logData.flowId + ")' style='cursor:hand'>应答</span>";
+	}
+	
+	// 增加记录
+	var table = document.getElementById('logList');
+	var row = appendTableRow( table, logData.flowId, data, 0 );
+}
+
+
+// 截去空格
+// type = 0 - 去除前后空格; 1 - 去前导空格; 2 - 去尾部空格
+function trimSpace( str, trimType )
+{
+	var i = -1;
+	var tmpStr = ' ';
+	str = '' + str;
+	
+	// 缺省删除前后空格
+	if( trimType != '1' && trimType != '2' ){
+		trimType = '0';
+	}
+	
+	// 前空格
+	if(trimType == 0 || trimType == 1){
+		while( tmpStr == ' ' ){
+			++i;
+			tmpStr = str.substr(i,1);
+		}
+		
+		str = str.substring(i)
+	}
+	
+	// 后空格
+	if(trimType == 0 || trimType == 2){
+		tmpStr = ' '
+		i = str.length
+		while(tmpStr == ' '){
+			--i
+			tmpStr = str.substr(i,1)
+		}
+		
+		str = str.substring(0,i+1)
+	}
+	
+	return str
+}
+
+// 处理页面内容
+function formatLoggerDocument( win )
+{
+	var buttons = win.document.getElementsByTagName( 'button' );
+	for( var ii=0; ii<buttons.length; ii++ ){
+		buttons[ii].onclick = null;
+	}
+	
+	var inputs = win.document.getElementsByTagName( 'input' );
+	for( var ii=0; ii<inputs.length; ii++ ){
+		inputs[ii].onclick = null;
+	}
+	
+	var images = win.document.getElementsByTagName( 'img' );
+	for( var ii=0; ii<images.length; ii++ ){
+		images[ii].onclick = null;
+	}
+	
+	var forms = win.document.getElementsByTagName( 'form' );
+	for( var ii=0; ii<forms.length; ii++ ){
+		forms[ii].action = null;
+	}
+}
+
+</script>
+
+<BODY onload="showLogger()" class="body-main" scroll="no"><DIV class="body-div">
+
+<table border="0" cellpadding="2" cellspacing="0" width="100%" id="logList" style="table-layout:fixed">
+	<tr bgcolor=#0000FF style="color: #CCCCCC;" align="left">
+		<td width="15%">时间</td>
+		<td width="10%">交易码</td>
+		<td width="20%">交易名称</td>
+		<td width="10%">耗时</td>
+		<td width="8%">错误代码</td>
+		<td width="25%">错误描述</td>
+		<td width="12%">操作</td>
+	</tr>
+</table>
+</div></body>
+</html>

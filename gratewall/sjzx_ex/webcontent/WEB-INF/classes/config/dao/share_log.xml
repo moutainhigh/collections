@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>日志查询</sort-name>
+  <table-info name="share_log" class-name="com.gwssi.log.sharelog.dao.ShareLog" check-flag="false" backup-flag="false">
+    <description>共享日志</description>
+  </table-info>
+ 
+  <column name="log_id" data-type="varchar" length="32" not-null="true" empty-is-null="false" unique="false" value-from="UUID" description="主键"/>
+  <column name="service_id" data-type="varchar" length="32" not-null="false" value-from="input" description="服务id"/>
+  <column name="service_no" data-type="varchar" length="20" not-null="true" empty-is-null="false" value-from="input" description="服务编号"/>
+  <column name="service_name" data-type="varchar" length="100" not-null="false" empty-is-null="false" unique="false" value-from="input" description="服务名称"/>
+  <column name="service_targets_id" data-type="varchar" length="32" not-null="false" empty-is-null="false" unique="false" value-from="input" description="服务对象id"/>
+  <column name="service_targets_name" data-type="varchar" length="100" not-null="false" empty-is-null="false" unique="false" value-from="input" description="服务对象名称"/>
+  <column name="targets_type" data-type="varchar" length="20" not-null="false" empty-is-null="false" description="服务对象类型" value-from="input"/>
+  <column name="service_type" data-type="varchar" length="20" not-null="false" empty-is-null="false" unique="false" value-from="input"/>
+  <column name="access_ip" data-type="varchar" length="20" not-null="false" value-from="input" description="访问ip"/>
+  <column name="service_start_time" data-type="varchar" length="25" not-null="false" empty-is-null="false" unique="false" description="访问开始时间" value-from="input"/>
+  <column name="service_end_time" data-type="varchar" length="25" not-null="false" empty-is-null="false" unique="false" description="服务结束时间" value-from="input"/>
+  <column name="consume_time" data-type="varchar" length="10" not-null="false" value-from="input" description="本次访问消耗时间"/>
+  <column name="record_start" data-type="varchar" length="10" not-null="false" value-from="input" description="开始记录数"/>
+  <column name="record_end" data-type="varchar" length="10" not-null="false" value-from="input" description="结束记录数"/>
+  <column name="record_amount" data-type="varchar" length="10" not-null="false" value-from="input" description="本次访问数据量"/>
+  <column name="patameter" data-type="varchar" length="100" not-null="false" value-from="input" description="入口参数值"/>
+  <column name="service_state" data-type="varchar" length="20" not-null="false" value-from="input" description="代码表成功失败"/>
+  <column name="return_codes" data-type="varchar" length="20" not-null="false" value-from="input" description="服务返回码"/>
+  <column name="log_type" data-type="varchar" length="10" not-null="false" empty-is-null="false" description="日志类型" value-from="input"/>
+  
+  <primary-key name="pk_share_log" column-list="log_id"/>
+  <index name="pk_share_log" index-type="unique" cluster="cluster" column-list="log_id"/>
+  <function func-name="select share_log list" func-type="rowset" column-list="service_targets_id,log_id,service_no,service_type,service_start_time,service_end_time,service_name,service_id,access_ip,consume_time,record_start,record_end,record_amount,patameter,service_state,return_codes,targets_type,log_type" max-record="10">
+    <filter-column column-name="service_targets_id" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="service_type" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="service_state" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="targets_type" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="service_start_time" operator="between" value-from="input" value-item="created_time_start" value-item2="created_time_end" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+</table>
+

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="../../static/js/jquery-1.8.3.js"></script>
+<title>管辖区域</title>
+<style>
+body {
+	background: #F8F9FB;
+}
+
+* {
+	margin: 0;
+	padding: 0
+}
+
+ul,li {
+	list-style: none;
+}
+
+.container {
+	width: 980px;
+	margin: 0 auto;
+}
+
+.region {
+	padding-top: 10px;
+	margin-bottom: 14px;height: 35px;line-height: 35px;border: 1px solid #ccc;border-right:none;
+}
+.sideLeft {
+	width: 10%;
+}
+
+.siderRight {
+	width: 90%;
+}
+
+.hideNode {
+	display: none;
+}
+
+.hide li {
+	margin-left: 10px;
+}
+
+.parentNode {
+	
+}
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+.title p {
+	float: left;
+	/* padding-left: 10px; */
+	width: 96px;
+	text-align: center;
+}
+
+.selTitle {
+	text-align: center;
+}
+.border{
+	border: 1px solid #ccc;
+}
+
+.border-l-none{border-left: none;}
+
+</style>
+
+</head>
+<body>
+	<div class="container">
+		<h2 style="text-align: center;">年报情况统计表</h2>
+		<div class="sideLeft fl">
+			<h3 class="region">管辖区域</h3>
+			<ul class="nav" id="region" style="margin-top: -13px;">
+			</ul>
+
+		</div>
+
+
+		<div class="siderRight fr">
+			<div class="titleWrap">
+				<div class="fl title border">
+					<h2 class="selTitle">内资</h2>
+					<div class="subTitle">
+						<p>应年报户数</p>
+						<p>已年报户数</p>
+						<p>年报率</p>
+						<p class="clear"></p>
+					</div>
+				</div>
+				<div class="title fl border border-l-none" >
+					<h2 class="selTitle">外资</h2>
+					<div class="subTitle">
+						<p>应年报户数</p>
+						<p>已年报户数</p>
+						<p>年报率</p>
+						<p class="clear"></p>
+					</div>
+				</div>
+				<div class="title fl border border-l-none" >
+					<h2 class="selTitle">个体</h2>
+					<div class="subTitle">
+						<p>应年报户数</p>
+						<p>已年报户数</p>
+						<p>年报率</p>
+						<p class="clear"></p>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			
+			<style>
+				.subContent p{float: left;width:96px;text-align: center;}
+			</style>
+			
+			<div class="nbDetailList" id="list">
+				<!-- <div class="rows">
+					<div class="subContent" style="margin-top: 13px;">
+						<p></p>
+						<p></p>
+						<p></p>
+					</div>
+					<div class="subContent">
+						<p></p>
+						<p></p>
+						<p></p>
+					</div>
+					<div class="subContent">
+						<p></p>
+						<p></p>
+						<p></p>
+					</div>
+				</div>  -->
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<script type="text/javascript">
+	var parentNode  = 0; //当前所有局数据
+	var dataSet = [];
+		$(function(){
+			$.ajax({
+				url:"../../otherselect/getNbStatisticsInfo.do",
+				type:"post",
+				dataType:"json",
+				success:function(data){
+					var data = data.data[0].data.rows;
+					dataSet = data;
+					var _html = '';
+					var _app = "";
+					/* for (var i = 0; i < data.length; i++) {
+						_html +="<li><a class='parentNode' onclick='openLuoHu(this)'>"+data[i].codename+"</a>"+
+								"<ul class='hideNode hide'>"+
+									"<li><a>"+data[i].codename+"</a></li>"+
+								"</ul></li>";
+								
+								
+						
+						_app +="<div class='rows'><div class='subContent'><p>"+data[i].gtYbnum+"</p><p>"+data[i].gtWbnum+"</p><p>"+data[i].wzNbl+"</p></div><div class='subContent'><p>"+data[i].wzYbnum+"</p><p>"+(data[i].wzYbnum-data[i].wzWbnum)+"</p><p>"+data[i].wzNbl+"</p></div><div class='subContent'><p>"+data[i].gtYbnum+"</p><p>"+(data[i].gtYbnum-data[i].gtWbnum)+"</p><p>"+data[i].gtNbl+"</p></div></div>";
+					}
+					$("#region").append(_html);
+					$("#list").append(_app) */
+					var ft = "";
+					var lh = "";
+					var ns = "";
+					var yt = "";
+					var ba = "";
+					var lg = "";
+					var gm = "";
+					var ps = "";
+					var lh = "";
+					var dp = "";
+					var qt = "";
+					for (var i = 0; i < data.length; i++) {
+						var str = data[i].codename;
+						if((str.indexOf("局")>0&&str.indexOf("科")<0)||str.indexOf("其")!=-1){
+							_html +="<li><a class='parentNode' onclick='openLuoHu(this)'>"+data[i].codename+"</a>"
+							_app +="<div class='rows'><div class='subContent'><p>"+data[i].gtYbnum+"</p><p>"+data[i].gtWbnum+"</p><p>"+data[i].wzNbl+"</p></div><div class='subContent'><p>"+data[i].wzYbnum+"</p><p>"+(data[i].wzYbnum-data[i].wzWbnum)+"</p><p>"+data[i].wzNbl+"</p></div><div class='subContent'><p>"+data[i].gtYbnum+"</p><p>"+(data[i].gtYbnum-data[i].gtWbnum)+"</p><p>"+data[i].gtNbl+"</p></div></div>";
+							parentNode++;
+						}
+						
+						
+						
+						
+						if(data[i].parentcodename=='福田局'){
+							ft +="<ul class='hideNode hide'>"+
+										"<li><a>"+data[i].codename+"</a></li>"+
+										"</ul></li>";
+						}
+						if(data[i].parentcodename=='罗湖局'){
+							lh +="<ul class='hideNode hide'>"+
+							"<li><a>"+data[i].codename+"</a></li>"+
+							"</ul></li>";
+						}
+						if(data[i].parentcodename=='南山局'){
+							ns +="<ul class='hideNode hide'>"+
+							"<li><a>"+data[i].codename+"</a></li>"+
+							"</ul></li>";
+						}
+						if(data[i].parentcodename=='盐田局'){
+							yt +="<ul class='hideNode hide'>"+
+							"<li><a>"+data[i].codename+"</a></li>"+
+							"</ul></li>";
+						}
+						if(data[i].parentcodename=='宝安局'){
+							ba +="<ul class='hideNode hide'>"+
+							"<li><a>"+data[i].codename+"</a></li>"+
+							"</ul></li>";
+						}
+						if(data[i].parentcodename=='龙岗局'){
+							lg +="<ul class='hideNode hide'>"+
+							"<li><a>"+data[i].codename+"</a></li>"+
+							"</ul></li>";
+						}
+						if(data[i].parentcodename=='光明局'){
+							gm +="<ul class='hideNode hide'>"+
+							"<li><a>"+data[i].codename+"</a></li>"+
+							"</ul></li>";
+						}
+						if(data[i].parentcodename=='坪山局'){
+							ps +="<ul class='hideNode hide'>"+
+							"<li><a>"+data[i].codename+"</a></li>"+
+							"</ul></li>";
+						}
+						if(data[i].parentcodename=='龙华局'){
+							lg +="<ul class='hideNode hide'>"+
+							"<li><a>"+data[i].codename+"</a></li>"+
+							"</ul></li>";
+						}
+						if(data[i].parentcodename=='大鹏局'){
+							dp +="<ul class='hideNode hide'>"+
+							"<li><a>"+data[i].codename+"</a></li>"+
+							"</ul></li>";
+						}
+						if(data[i].parentcodename=='其他'){
+							qt +="<ul class='hideNode hide'>"+
+							"<li><a>"+data[i].codename+"</a></li>"+
+							"</ul></li>";
+						}
+					}
+					$("#region").append(_html);
+					$("#list").append(_app);;
+					$(".parentNode").eq(0).append(ft)
+					$(".parentNode").eq(1).append(lh)
+					$(".parentNode").eq(2).append(ns)
+					$(".parentNode").eq(3).append(yt)
+					$(".parentNode").eq(4).append(ba)
+					$(".parentNode").eq(5).append(lg)
+					$(".parentNode").eq(6).append(gm)
+					$(".parentNode").eq(7).append(ps)
+					$(".parentNode").eq(8).append(lh)
+					$(".parentNode").eq(9).append(dp)
+					$(".parentNode").eq(10).append(qt)
+					
+					
+					console.log(parentNode);
+				}
+			});
+		})
+	
+		
+		var toatal = 0;
+		function openLuoHu(obj) {
+			var _this = $(obj);
+			//_this.find(".hide ").toggleClass("hideNode");
+			_this.find(".hideNode").removeClass("hideNode")
+			
+			var dataRowLength = _this.find(".hide");
+			toatal+=dataRowLength.length;
+			
+			console.log(toatal)
+			var data = dataSet;
+			$("#list").html("");
+			
+			var _app = "";
+			for(var i = 0;i<(toatal+ parentNode);i++){
+				_app +="<div class='rows'><div class='subContent'><p>"+data[i].gtYbnum+"</p><p>"+data[i].gtWbnum+"</p><p>"+data[i].wzNbl+"</p></div><div class='subContent'><p>"+data[i].wzYbnum+"</p><p>"+(data[i].wzYbnum-data[i].wzWbnum)+"</p><p>"+data[i].wzNbl+"</p></div><div class='subContent'><p>"+data[i].gtYbnum+"</p><p>"+(data[i].gtYbnum-data[i].gtWbnum)+"</p><p>"+data[i].gtNbl+"</p></div></div>";
+			}
+			$("#list").append(_app)
+			//var length = next.children("li").length;
+			//var list = $("#list");
+			//var _html = '';
+			/* for (var i = 0; i < 10; i++) {
+				 _html +="<div class='rows'><div class='subContent'><p>9</p><p>1</p><p>3</p></div><div class='subContent'><p>9</p><p>1</p><p>3</p></div><div class='subContent'><p>9</p><p>1</p><p>3</p></div></div>";
+			} */
+			
+			//list.append(_html)
+		}
+	</script>
+</body>
+</html>

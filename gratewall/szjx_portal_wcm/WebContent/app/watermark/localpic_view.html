@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title WCMAnt:param="localpic_view.html.title">本地图片预览 </title>  
+ </head>
+ <body>
+  <center>
+	<img src="../images/icon/loadingAnimation.gif" id="pic">
+  </center>
+  <script>
+	var sSearch = window.location.search;	
+	if(sSearch.indexOf("?LocalFile=") == 0){		
+		document.getElementById("pic").src = sSearch.split("=")[1];
+	}	
+  </script>
+ </body>
+</html>

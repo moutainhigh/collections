@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>指标项</menu-name>
+  <menu-path>/page/resource/res/rd/standard/gfgl/xxst/zbx/</menu-path>
+  <description>指标项</description>
+  <form-beans>
+    <form-bean name="SysRdStandardColumnRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="sys_rd_standard_table_id" type="string" size="32" description="信息实体ID"/>
+      <form-property prefix="select-key" name="cn_name" type="string" size="100" description="指标项名称"/>
+      <form-property prefix="select-key" name="column_name" type="string" size="100" description="字段名称"/>
+      <form-property prefix="select-key" name="table_name" type="string" size="100" description="信息实体名称"/>
+      <form-property prefix="record" name="sys_rd_standard_column_id" type="string" size="32" cannull="false" description="指标项ID"/>
+      <form-property prefix="record" name="sys_rd_standard_table_id" type="string" size="32" cannull="true" description="信息实体ID"/>
+      <form-property prefix="record" name="data_element_identifier" type="string" size="10" cannull="true" description="数据元标识符"/>
+      <form-property prefix="record" name="cn_name" type="string" size="100" cannull="true" description="指标项名称"/>
+      <form-property prefix="record" name="column_name" type="string" size="100" cannull="true" description="字段名称"/>
+      <form-property prefix="record" name="column_type" type="string" size="2" cannull="true" description="数据类型"/>
+      <form-property prefix="record" name="column_format" type="string" size="32" cannull="true" description="格式"/>
+      <form-property prefix="record" name="code_identifier" type="string" size="10" cannull="true" description="代码标识符"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="备注"/>
+    </form-bean>
+
+    <form-bean name="SysRdStandardColumnUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_rd_standard_column_id" type="string" size="32" cannull="false" description="指标项ID"/>
+      <form-property prefix="record" name="sys_rd_standard_column_id" type="string" size="32" cannull="false" description="指标项ID"/>
+      <form-property prefix="record" name="sys_rd_standard_table_id" type="string" size="32" cannull="true" description="信息实体ID"/>
+      <form-property prefix="record" name="data_element_identifier" type="string" size="10" cannull="true" description="数据元标识符"/>
+      <form-property prefix="record" name="cn_name" type="string" size="100" cannull="true" description="指标项名称"/>
+      <form-property prefix="record" name="column_name" type="string" size="100" cannull="true" description="字段名称"/>
+      <form-property prefix="record" name="column_type" type="string" size="2" cannull="true" description="数据类型"/>
+      <form-property prefix="record" name="column_format" type="string" size="32" cannull="true" description="格式"/>
+      <form-property prefix="record" name="code_identifier" type="string" size="10" cannull="true" description="代码标识符"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="备注"/>
+    </form-bean>
+    
+     <form-bean name="SysRdStandardColumnViewForm">
+      <description>单记录处理：查询</description>
+      <form-property prefix="primary-key" name="sys_rd_standard_column_id" type="string" size="32" cannull="false" description="指标项ID"/>
+      <form-property prefix="record" name="sys_rd_standard_column_id" type="string" size="32" cannull="false" description="指标项ID"/>
+      <form-property prefix="record" name="sys_rd_standard_table_id" type="string" size="32" cannull="true" description="信息实体ID"/>
+      <form-property prefix="record" name="data_element_identifier" type="string" size="10" cannull="true" description="数据元标识符"/>
+      <form-property prefix="record" name="cn_name" type="string" size="100" cannull="true" description="指标项名称"/>
+      <form-property prefix="record" name="column_name" type="string" size="100" cannull="true" description="字段名称"/>
+      <form-property prefix="record" name="column_type" type="string" size="2" cannull="true" description="数据类型"/>
+      <form-property prefix="record" name="column_format" type="string" size="32" cannull="true" description="格式"/>
+      <form-property prefix="record" name="code_identifier" type="string" size="10" cannull="true" description="代码标识符"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="备注"/>
+    </form-bean>
+
+    <form-bean name="SysRdStandardColumnDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_rd_standard_column_id" type="string" size="32" cannull="false" description="指标项ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_rd_standard_column.jsp" name="SysRdStandardColumnRowsetForm" txn-code="7000221" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询指标项列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardColumn" func-name="txn7000221" input-node="select-key" output-node="record" description="查询指标项列表"/>
+      <forward error-code="success" path="query-sys_rd_standard_column.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_standard_column.jsp"/>
+    </action>
+
+    <action input="update-sys_rd_standard_column.jsp" name="SysRdStandardColumnUpdateForm" txn-code="7000222" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改指标项信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardColumn" func-name="txn7000222" input-node="record" description="修改指标项信息"/>
+      <forward error-code="success" path="update-sys_rd_standard_column.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_standard_column.jsp"/>
+    </action>
+
+    <action input="insert-sys_rd_standard_column.jsp" name="SysRdStandardColumnUpdateForm" txn-code="7000223" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加指标项信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardColumn" func-name="txn7000223" input-node="record" description="增加指标项信息"/>
+      <forward error-code="success" path="insert-sys_rd_standard_column.jsp"/>
+      <forward error-code="failure" path="insert-sys_rd_standard_column.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_standard_column.jsp" name="SysRdStandardColumnUpdateForm" txn-code="7000224" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询指标项用于修改</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardColumn" func-name="txn7000224" input-node="primary-key" output-node="record" description="查询指标项用于修改"/>
+      <forward error-code="success" path="update-sys_rd_standard_column.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_standard_column.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_standard_column.jsp" name="SysRdStandardColumnDeleteForm" txn-code="7000225" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除指标项信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardColumn" func-name="txn7000225" input-node="primary-key" description="删除指标项信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+    <action input="query-sys_rd_standard_column.jsp" name="SysRdStandardColumnViewForm" txn-code="7000226" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询指标项用于视图</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardColumn" func-name="txn7000226" input-node="primary-key" output-node="record" description="查询指标项用于视图"/>
+      <forward error-code="success" path="view-sys_rd_standard_column.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_standard_column.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_rd_standard_column.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/standard/gfgl/xxst/zbx/query-sys_rd_standard_column.jsp" description="查询指标项列表"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/standard/gfgl/xxst/zbx/insert-sys_rd_standard_column.jsp" description="增加指标项信息"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/standard/gfgl/xxst/zbx/update-sys_rd_standard_column.jsp" description="修改指标项信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.SysRdStandardColumnContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardColumn" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardColumnSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardColumnPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

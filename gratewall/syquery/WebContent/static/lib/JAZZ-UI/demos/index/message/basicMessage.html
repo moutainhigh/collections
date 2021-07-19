@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+
+
+</head>
+<script>
+
+$(function($){                
+	
+     $('#btn-info').click(function() {        
+    		jazz.info('info!');
+     });  
+
+	$('#btn-warn').click(function(){
+			jazz.warn('warn!');
+	});
+	$('#btn-error').click(function(){
+			jazz.warn('error!');
+	});
+	
+	//调整父页面iframe高度
+    try{
+        parent.setWinHeight(400);           
+    }catch(e){
+        jazz.log(e);
+    }
+});
+</script>
+<body>
+		<input type="button" id="btn-info" value="info" />
+		<input type="button" id="btn-warn" value="warn" />
+		<input type="button" id="btn-error" value="error" />
+</body>
+</html>

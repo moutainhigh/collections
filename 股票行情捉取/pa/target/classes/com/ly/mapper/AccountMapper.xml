@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ly.dao.AccountDao">
+
+
+	<select id="findGudong" resultMap="findMap">
+		select * from account t
+		<where>
+			<if test="account != null">account = #{account, jdbcType=VARCHAR}</if>
+		</where>
+		
+		
+		
+	</select>
+	<!--column不做限制，可以为任意表的字段，而property须为type 定义的pojo属性 -->
+	<resultMap id="findMap" type="Account">
+		<id column="account" property="account" />
+		<result column="tradeCode" property="tradeCode" />
+		<result column="ps_login_token_id" property="tokenId" />
+		<result column="ps_login_app_name" property="appName" />
+		<result column="updateTime" property="updateTime" />
+		<result column="isWeiTuo" property="isWeiTuo" />
+		<result column="keYongZiJing" property="keYongZiJing" />
+	</resultMap>
+
+
+
+
+	<select id="getGudongList" resultMap="guDongMap">
+		select account,name,keYongZiJing from account t
+
+	</select>
+
+	<resultMap id="guDongMap" type="Account">
+		<id column="account" property="account" />
+		<result column="name" property="name" />
+		<result column="keYongZiJing" property="keYongZiJing" />
+	</resultMap>
+
+
+
+
+
+	<!--resultMap注释 http://www.cnblogs.com/kenhome/p/7764398.html -->
+	<select id="getAccountList" resultMap="accountMap">
+		select * from account t
+	</select>
+	<!--column不做限制，可以为任意表的字段，而property须为type 定义的pojo属性 -->
+	<resultMap id="accountMap" type="Account">
+		<id column="account" property="account" />
+		<result column="tradeCode" property="tradeCode" />
+		<result column="ps_login_token_id" property="tokenId" />
+		<result column="ps_login_app_name" property="appName" />
+		<result column="updateTime" property="updateTime" />
+		<result column="isWeiTuo" property="isWeiTuo" />
+		<result column="keYongZiJing" property="keYongZiJing" />
+	</resultMap>
+
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from account t where t.account = #{account}
+		</selectKey>
+		<if test="count > 0">
+			update account
+			<trim prefix="set" suffixOverrides=",">
+				<if test="account != null">account = #{account, jdbcType=VARCHAR},</if>
+				<if test="name != null">name = #{name, jdbcType=VARCHAR},</if>
+				<if test="tradeCode != null">tradeCode = #{tradeCode, jdbcType=VARCHAR},</if>
+				<if test="tokenId != null">ps_login_token_id = #{tokenId,jdbcType=VARCHAR},</if>
+				<if test="appName != null">ps_login_app_name = #{appName,jdbcType=VARCHAR},</if>
+				<if test="updateTime != null">updateTime = #{updateTime,jdbcType=VARCHAR},</if>
+				<if test="isWeiTuo != null">isWeiTuo = #{isWeiTuo,jdbcType=VARCHAR},</if>
+				<if test="keYongZiJing != null">keYongZiJing = #{keYongZiJing,jdbcType=VARCHAR}</if>
+			</trim>
+			where account = #{account}
+		</if>
+		<if test="count == 0">
+			insert into account
+			(
+			account,
+			name,
+			tradeCode,
+			ps_login_token_id,
+			ps_login_app_name,
+			updateTime,
+			isWeiTuo,
+			keYongZiJing
+			)
+			values
+			(
+			#{account, jdbcType=VARCHAR},
+			#{name, jdbcType=VARCHAR},
+			#{tradeCode, jdbcType=VARCHAR},
+			#{tokenId, jdbcType=VARCHAR},
+			#{appName, jdbcType=VARCHAR},
+			#{updateTime, jdbcType=VARCHAR},
+			#{isWeiTuo, jdbcType=VARCHAR},
+			#{keYongZiJing, jdbcType=VARCHAR}
+			)
+		</if>
+	</insert>
+</mapper>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1">
+<title>全程电子化身份认证页</title>
+<link rel="stylesheet" href="../../../static/css/common.css">
+<link href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" rel="stylesheet" />
+<link rel="Shortcut Icon" href="../../../static/image/img/verify.png" type="image/x-icon">
+<style>
+article {
+	margin-bottom: 10px;
+}
+
+#identity {
+	padding: 10px 10px 15px 50px;
+	color: #71b0e0;
+	font-size: 16px;
+}
+
+.identify .separator {
+	margin: 10px 10px 10px 40px;
+}
+
+.method-one {
+	width: 900px;
+	height: 200px;
+	margin: auto;
+}
+
+.font-blue {
+	margin: 10px;
+}
+
+.method-two {
+	width: 900px;
+	/* height: 250px; */
+	margin: 15px auto;
+}
+
+#indexImg {
+	margin: 15px;
+}
+
+.dotted-line {
+	margin: 10px 0px 5px;
+}
+
+.more {
+	color: #399ad8;
+	margin-left: 360px;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#indexImg {
+	background: url("images/progre_intro.png");
+	width: 831px;
+	height: 134px;
+}
+
+img#twoDimension {
+	margin-top: 15px;
+	margin-left: 50px;
+}
+
+.address {
+	/* width: 950px; */
+	
+}
+
+.address thead th {
+	background: #f1f1f1;
+	height: 28px;
+	line-height: 28px;
+	border-left: 1px solid #f1f1f1;
+	border-right: 1px solid #f1f1f1;
+}
+
+.address  tbody tr:hover {
+	background: #f1f1f2;
+}
+
+.address  tbody td {
+	border: 1px solid #DEDEDE;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	width: 270px;
+}
+</style>
+</head>
+<body>
+	<article>
+		<div class="wrapper">
+			<!-- <div class="identityMain"> -->
+			<div id="identity">个人实名认证</div>
+			<div class="method-one">
+				<span>方式一：</span>
+				<div class="dotted-line"></div>
+				<div class="font-blue">利用手机APP实现身份认证</div>
+				<div id="indexImg">
+					<div style="display: inline-block">
+						<img id="twoDimension" src="images/android.png" style="width: 64px">
+						<p style="padding-left: 55px">Android</p>
+					</div>
+					<div style="display: inline-block">
+						<img id="twoDimension" src="images/appqrcode.png" style="width: 64px">
+						<p style="padding-left: 70px">IOS</p>
+					</div>
+				</div>
+
+
+			</div>
+			<div class="method-two">
+				<span>方式二：</span>
+				<div class="dotted-line"></div>
+				<div class="font-blue">您可以持个人有效身份证件到附近的海淀分局所辖登记大厅、登记注册分中心或工商所办理个人实名认证，地址如下：</div>
+				<!-- <ul class="address">北京市工商所地址如下：
+					<li>1、海淀工商分局登记注册大厅海淀区倒座庙9号二层</li>
+					<li>2、海淀工商分局登记注册大厅海淀区倒座庙9号二层</li>
+					<li>3、海淀工商分局登记注册大厅海淀区倒座庙9号二层</li>
+					<li>4、海淀工商分局登记注册大厅海淀区倒座庙9号二层</li>
+					</ul> -->
+				<table class="address" id="address">
+					<thead>
+						<tr>
+							<th>工商所名称</th>
+							<th>电话</th>
+							<th>地址</th>
+						</tr>
+					</thead>
+					<tbody>
+					    <tr>
+							<td>海淀分局登记大厅</td>
+							<td>82691315</td>
+							<td>海淀区苏州街36号</td>
+						</tr>
+						<tr>
+							<td>中关村工商所</td>
+							<td>62527959</td>
+							<td>海淀区中关村北二街甲2号</td>
+						</tr>
+						<tr>
+							<td>中关村西区工商所</td>
+							<td>62535180</td>
+							<td>海淀区海淀大街27号三层</td>
+						</tr>
+						<tr>
+							<td>万寿路工商所</td>
+							<td>68264815-12</td>
+							<td>海淀区翠微东里小区南门</td>
+						</tr>
+						<tr>
+							<td>青龙桥工商所</td>
+							<td>82795133</td>
+							<td>海淀区农大南路96号万霖广场南侧</td>
+						</tr>
+
+
+						<tr>
+							<td>北太平庄工商所</td>
+							<td>62366829-24</td>
+							<td>海淀区蓟门里小区北门内</td>
+						</tr>
+						<tr>
+							<td>学院路工商所</td>
+							<td>62016306-110</td>
+							<td>海淀区塔院小区西门南侧</td>
+						</tr>
+						<tr>
+							<td>八里庄工商所</td>
+							<td>88229129&nbsp;&nbsp;88229551-33
+							</td>
+							<td>海淀区五棵松路81号永金里小区</td>
+						</tr>
+						<tr>
+							<td>北下关工商所</td>
+							<td>62169699&nbsp;&nbsp;62169858-8008
+							</td>
+							<td>海淀区大钟寺13号</td>
+						</tr>
+						<tr>
+							<td>北清路工商所</td>
+							<td>62471767-17</td>
+							<td>海淀区西北旺镇皇后店村南</td>
+						</tr>
+						<tr>
+							<td>清河工商所</td>
+							<td>62950590-29</td>
+							<td>海淀区清河安宁庄西三条</td>
+						</tr>
+						<tr>
+							<td>海淀工商所</td>
+							<td>62636188-16</td>
+							<td>海淀区芙蓉花里小区西区甲1号</td>
+						</tr>
+						<tr>
+							<td>温泉工商所</td>
+							<td>62404933</td>
+							<td>海淀区温泉镇杨庄村口</td>
+						</tr>
+						<tr>
+							<td>紫竹院工商所</td>
+							<td>68483356</td>
+							<td>海淀区厂洼街23号院西侧</td>
+						</tr>
+						<tr>
+							<td>甘家口工商所</td>
+							<td>68366123-11</td>
+							<td>海淀区甘家口小区25号楼-1</td>
+						</tr>
+						<tr>
+							<td>四季青工商所</td>
+							<td>88440032</td>
+							<td>海淀区四季青镇东冉村449号</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+			<!-- </div> -->
+		</div>
+	</article>
+
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" src="../../../static/lib/require.js" data-main="apply/security/indentity.js"></script>
+</body>
+</html>

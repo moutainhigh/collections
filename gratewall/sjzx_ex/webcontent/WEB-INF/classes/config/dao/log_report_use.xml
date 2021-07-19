@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>日志查询</sort-name>
+  <table-info name="log_report_use" class-name="com.gwssi.log.report.dao.LogReportUse" check-flag="false" backup-flag="false">
+    <description>日志报告使用情况</description>
+  </table-info>
+
+  <column name="log_report_use_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="日志报告操作id"/>
+  <column name="log_report_create_id" data-type="varchar" length="32" not-null="false" value-from="input" description="日志报告生成id"/>
+  <column name="oper_person" data-type="varchar" length="100" not-null="false" value-from="input" description="浏览人"/>
+  <column name="oper_date" data-type="varchar" length="50" not-null="false" value-from="input" description="操作"/>
+  <column name="oper_remark" data-type="varchar" length="1000" not-null="false" value-from="input" description="操作说明"/>
+  <primary-key name="日志使用id" column-list="log_report_use_id"/>
+
+  <function func-name="select log_report_use list" func-type="rowset" column-list="log_report_use_id,log_report_create_id,oper_person,oper_date,oper_remark" sort-columns="oper_date" max-record="10">
+    <filter-column column-name="log_report_use_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="browser_date" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one log_report_use" func-type="insert" column-list="log_report_use_id,log_report_create_id,oper_person,oper_date,oper_remark">
+    <filter-column column-name="log_report_use_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>插入记录</description>
+  </function>
+</table>
+

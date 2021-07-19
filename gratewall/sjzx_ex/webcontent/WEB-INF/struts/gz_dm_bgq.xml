@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>报告期管理</menu-name>
+  <menu-path>/page/ysjgl/jcsjgl/bgqgl/</menu-path>
+  <description>报告期管理</description>
+  <form-beans>
+    <form-bean name="GzDmBgqRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="dclb_dm" type="string" size="1" description="调查类别代码"/>
+      <form-property prefix="select-key" name="bgqb_dm" type="string" size="10" description="报告期别代码"/>
+      <form-property prefix="select-key" name="nf" type="string" size="4" description="年份"/>
+      <form-property prefix="record" name="bgq_dm" type="string" size="10" cannull="false" description="报告期代码"/>
+      <form-property prefix="record" name="dclb_dm" type="string" size="1" cannull="true" description="调查类别代码"/>
+      <form-property prefix="record" name="bgqb_dm" type="string" size="10" cannull="true" description="报告期别代码"/>
+      <form-property prefix="record" name="bgq_cn_mc" type="string" size="32" cannull="true" description="报告期中文名称"/>
+      <form-property prefix="record" name="bgq_en_mc" type="string" size="32" cannull="true" description="报告期英文名称"/>
+      <form-property prefix="record" name="bgq_cn_ms" type="string" size="128" cannull="true" description="报告期中文描述"/>
+      <form-property prefix="record" name="bgq_en_ms" type="string" size="128" cannull="true" description="报告期英文描述"/>
+      <form-property prefix="record" name="sj_lx" type="string" size="1" cannull="true" description="时间类型"/>
+      <form-property prefix="record" name="qs_sj" type="string" size="19" cannull="true" description="起始时间"/>
+      <form-property prefix="record" name="js_sj" type="string" size="19" cannull="true" description="结束时间"/>
+      <form-property prefix="record" name="nf" type="string" size="4" cannull="true" description="年份"/>
+    </form-bean>
+
+    <form-bean name="GzDmBgqUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="bgq_dm" type="string" size="10" cannull="false" description="报告期代码"/>
+      <form-property prefix="record" name="bgq_dm" type="string" size="10" cannull="false" description="报告期代码"/>
+      <form-property prefix="record" name="dclb_dm" type="string" size="1" cannull="true" description="调查类别代码"/>
+      <form-property prefix="record" name="bgqb_dm" type="string" size="10" cannull="true" description="报告期别代码"/>
+      <form-property prefix="record" name="bgq_cn_mc" type="string" size="32" cannull="true" description="报告期中文名称"/>
+      <form-property prefix="record" name="bgq_en_mc" type="string" size="32" cannull="true" description="报告期英文名称"/>
+      <form-property prefix="record" name="bgq_cn_ms" type="string" size="128" cannull="true" description="报告期中文描述"/>
+      <form-property prefix="record" name="bgq_en_ms" type="string" size="128" cannull="true" description="报告期英文描述"/>
+      <form-property prefix="record" name="sj_lx" type="string" size="1" cannull="true" description="时间类型"/>
+      <form-property prefix="record" name="qs_sj" type="string" size="19" cannull="true" description="起始时间"/>
+      <form-property prefix="record" name="js_sj" type="string" size="19" cannull="true" description="结束时间"/>
+      <form-property prefix="record" name="bgq_nf" type="string" size="19" cannull="true" description="报告期年份"/>
+    </form-bean>
+
+    <form-bean name="GzDmBgqDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="bgq_dm" type="string" size="10" cannull="false" description="报告期代码"/>
+    </form-bean>
+  </form-beans>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-gz_dm_bgq.xml" description="模板文件"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.ysjgl.vo.GzDmBgqContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.ysjgl.vo.VoGzDmBgq" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.ysjgl.vo.VoGzDmBgqSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.ysjgl.vo.VoGzDmBgqPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

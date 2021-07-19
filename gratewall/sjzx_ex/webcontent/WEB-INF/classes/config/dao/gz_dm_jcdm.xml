@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="gz_dm_jcdm" class-name="com.gwssi.dw.metadata.basecode.dao.GzDmJcdm" check-flag="false" backup-flag="false">
+    <description>基础代码表</description>
+  </table-info>
+
+  <column name="jc_dm_id" data-type="varchar" length="36" not-null="true" value-from="generate" func-name="getUUID" description="基础代码ID"/>
+  <column name="jc_dm_dm" data-type="varchar" length="36" not-null="false" value-from="input" description="基础代码"/>
+  <column name="jc_dm_mc" data-type="varchar" length="255" not-null="false" value-from="input" description="基础代码名称"/>
+  <column name="jc_dm_bzly" data-type="char" length="1" not-null="false" value-from="input" description="标准来源"/>
+  <column name="jc_dm_ms" data-type="varchar" length="4096" not-null="false" value-from="input" description="基础代码描述"/>
+  <primary-key name="p_jcsj_dm_id" column-list="jc_dm_id"/>
+  <index name="p_jcsj_dm_id" index-type="unique" cluster="other" column-list="jc_dm_id"/>
+  <foreign-key foreign-table="gz_dm_jcdm_fx" foreign-type="one-to-many" on-delete="none" on-update="none" column-names="jc_dm_id" foreign-names="jc_dm_id"/>
+  <function func-name="select one gz_dm_jcdm" func-type="select" column-list="jc_dm_id,jc_dm_mc,jc_dm_bzly,jc_dm_ms,jc_dm_dm" sort-columns="jc_dm_id">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select gz_dm_jcdm list" func-type="rowset" column-list="jc_dm_id,jc_dm_dm,jc_dm_mc,jc_dm_bzly,jc_dm_ms" sort-columns="jc_dm_id" max-record="10">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="jc_dm_dm" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="jc_dm_mc" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="jc_dm_bzly" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one gz_dm_jcdm" func-type="insert" column-list="jc_dm_id,jc_dm_dm,jc_dm_mc,jc_dm_bzly,jc_dm_ms">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one gz_dm_jcdm" func-type="delete">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one gz_dm_jcdm" func-type="update" column-list="jc_dm_mc,jc_dm_dm,jc_dm_bzly,jc_dm_ms">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="rowset_jcdm" func-type="rowset" column-list="jc_dm_id as codevalue,jc_dm_mc as codename" sort-columns="jc_dm_mc" max-record="-1">
+    <description>多记录查询</description>
+  </function>
+</table>
+

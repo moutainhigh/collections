@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0"  id="components.common.job">
+	<beans>
+		<bean id="JobScheduleServer" 
+			class="com.trs.components.common.job.JobScheduleServer" 
+			singleton="true"/>
+		<bean id="ScheduleLCListenerForServer" 
+			class="com.trs.components.common.job.ScheduleLCListenerForServer" 
+			singleton="true"/>
+		<bean id="ScheduleLCListenerForFaieldResult" 
+			class="com.trs.components.common.job.ScheduleLCListenerForFaieldResult" 
+			singleton="true"/>
+		<bean id="JobWorkerForSchedule" 
+			class="com.trs.components.common.job.JobWorkerTypeLCListenerForSchedule" 
+			singleton="true"/>
+	</beans>
+</plugin>

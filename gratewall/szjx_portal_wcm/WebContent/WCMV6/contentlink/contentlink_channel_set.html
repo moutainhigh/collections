@@ -1,0 +1,63 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS=""  xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>add or edit a certain contentextfield</title>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	.attr_head{
+		background-color:#F1F1F1;
+		font-size:14px;		
+		width:480px;
+		margin:20px 0px 0px 20px;		
+	}
+	#current_linktype{
+		color:red;			
+	}	
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+</script>
+<script label="SysImport">
+	$import('com.trs.wcm.MessageCenter');		
+</script>
+<script language=JavaScript src="./contentlink_channel_set.js"></script>
+</head>
+<body>
+<script language="javascript">
+<!--	
+	FloatPanel.addCloseCommand();		
+	FloatPanel.addCommand('savebtn', '确定', setLinkType,null);	
+//-->
+</script>
+<div id="temp">
+	<div class="attr_head">
+		系统热词分类		
+	</div>
+	<div id="type_select" style="margin:0px 20px 20px 20px;">
+		<center><div style="padding-top:25%;boder:none"><img src="../images/loading.gif" border=0></div></center>
+	</div>
+	<textarea id="type_select_template" style="display:none">		
+	    <div style="border:1px solid #000;height:230px">
+		<div style="heigth:5px">&nbsp;</div>
+		<for select="ContentLinkTypes.ContentLinkType">			
+			<span style="padding:5px;font-size:12px;width:125px;overflow:hidden;white-space:nowrap">				
+				<label for="{#TypeName}_{#ContentLinkTypeId}" style="cursor:hand" title="{#TypeDesc}">
+					<input type="checkbox" name="LinkType" id="{#TypeName}_{#ContentLinkTypeId}" value="{#ContentLinkTypeId}" onclick="recordValue(this);">
+					{#TypeName}
+				</label>
+			</span>			
+		</for>		
+		</div>
+		<div class="list_navigator" style="padding-top:5px">			
+			<div>
+				<div id="list_navigator" class="list_navigator_div"></div>
+			</div>			
+		</div>
+	</textarea>
+</div>
+</body>
+</html>

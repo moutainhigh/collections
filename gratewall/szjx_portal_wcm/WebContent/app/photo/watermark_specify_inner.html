@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+<head>
+	<title  WCMAnt:param="watermark_specify_inner.html.specifywatermarkposition">指定水印位置</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+	<script type="text/javascript" src="js/mootools-for-crop.js"> </script>
+	<script type="text/javascript" src="js/UvumiCrop_watermark.js"> </script>
+	<script type="text/javascript" src="watermark_specify.js"> </script>
+	<link rel="stylesheet" type="text/css" media="screen" href="css/uvumi-crop.css" />
+	<style type="text/css">
+		*{
+			padding:0px;
+			margin:0px;
+		}
+		body,html{
+			background:url('css/bg.png');
+			margin:0;
+			padding:0;
+			font-size:12px;
+		}
+		
+		hr{
+			margin:20px 0;
+		}
+		
+		#main{
+			margin:5%;
+			position:relative;
+			overflow:auto;
+			color:#aaa;
+			padding:20px;
+			border:1px solid #888;
+			background-color:#000;
+		}
+
+		#resize_coords{
+			width:300px;
+		}
+		
+		#previewExample3{
+			margin:10px;
+		}
+
+		.yellowSelection{
+			border: 2px dotted #FFB82F;
+		}
+
+		.blueMask{
+			background-color:#00f;
+			cursor:pointer;
+		}
+		#imgDiv{
+			border:1px solid gray;
+			width:600px;
+			height:480px;
+			margin-left:10px;
+			margin-right:10px;
+			overflow:hidden;
+			float:left;
+			text-align:center;
+		}
+		#imgDiv div{
+			margin:auto;
+		}
+		#preview{
+			width:200px;
+			height:200px;
+			position:relative;
+			margin:auto;
+		}
+		#imgCut{
+			padding:20px;
+			overflow:hidden;
+		}
+		#cropImgInfo{
+			float:left;
+			padding:0px 5px;
+			border:1px solid gray;
+			height:480px;
+			background:url('css/bg.png');
+		}
+		#imgInfo{
+			background:url('css/bg.png');
+			border:1px solid gray;
+			padding:5px;
+			width:190px;
+		}
+		#buttons input{
+			width:100px;
+		}
+	</style>
+	<script type="text/javascript">
+		
+	//sImgUrl="big1.jpg"
+	window.onload = function(){
+		init();
+
+	}
+	</script>
+</head>
+<body>
+	<div id = "imgCut">
+		<div id="imgDiv">
+			<img id="img" src="../images/loading.gif" alt="正在加载图片.." WCMAnt:paramattr="alt:watermark_specify_inner.html.uploadingpic"/>
+		</div>
+		<div id ="cropImgInfo">
+			<div style="padding-top:10px;" WCMAnt:param="watermark_specify_inner.html.watermarkpic">
+				水印图片:
+			</div>
+			<div style="width:200px;height:200px;border:1px solid gray;vertical-align:middle;line-height:200px;text-align:center;" id="container">
+				<!-- <div id="inner" > -->
+				<img src="#" id="watermarkpic">
+				<!-- </div> -->
+			</div>
+			<div style="padding-top:10px;"  WCMAnt:param="watermark_specify_inner.html.picinfo">
+				图片信息:
+			</div>
+			<div id="imgInfo" >
+				<span WCMAnt:param="watermark_specify_inner.html.originalwidth">原始宽度：</span><span id="orignwidth"></span>px<br/>
+				<span WCMAnt:param="watermark_specify_inner.html.originalheight">原始高度：</span><span id="orignheight"></span>p<br/><br/>
+				<span WCMAnt:param="watermark_specify_inner.html.watermarkwidth">水印宽度：</span><span id="watermarkwidth"></span>px<br/>
+				<span WCMAnt:param="watermark_specify_inner.html.watermarkheight">水印高度：</span><span id="watermarkheight"></span>px<br/>
+			</div>
+			<div style="padding-top:10px;" WCMAnt:param="watermark_specify_inner.html.relatedparameter">
+				相关参数(单位：像素):
+			</div>
+			<div id="toolBox">
+			</div>
+		</div>
+	</div>
+	<div id="buttons" style="text-align:center;">
+		<div style="width:100%;height:10px;"></div>
+		<input type="button" value="确定" onclick="onOK()"  WCMAnt:paramattr="value:watermark_specify_inner.html.sure"/>
+		<input type="button" value="取消" onclick="parent.close()" WCMAnt:paramattr="value:watermark_specify_inner.html.cancel"/>
+	</div>
+</body>
+</html>

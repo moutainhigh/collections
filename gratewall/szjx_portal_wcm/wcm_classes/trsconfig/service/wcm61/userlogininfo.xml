@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.stat.UserLoginInfoServiceProvider" objclass="com.trs.components.stat.UserLoginInfo">
+	
+	<method name="query" desc="查询用户登录信息">
+		<!-- 业务参数 -->
+		<parameter name="userName" desc="用户名称" type="string" required="false"/>		
+		<parameter name="groupName" desc="部门名称" type="string" required="false"/>		
+		<parameter name="selectStartTime" desc="选择开始时间" type="string" required="false"/>		
+		<parameter name="selectEndTime" desc="选择结束时间" type="string" required="false"/>	
+					
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="登录时间降序排列" type="string" default="LoginTime desc" required="false"/>	
+				
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="StartTime" desc="开始时间" type="datetime" required="false"
+			search="true" search-operator="&gt;=" search-field="LoginTime"/>		
+		<parameter name="EndTime" desc="结束时间" type="datetime" required="false"
+			search="true" search-operator="&lt;=" search-field="LoginTime"/>
+		<parameter name="IpAddress" desc="IP地址" type="string" required="false"
+			search="true" search-operator="like"  search-field="IpAddress"/>
+		<!-- 检索相关配置 END -->	
+		
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="yyyy-MM-dd HH:mm"/>			
+	</method>
+	<method name="save" desc="保存用户登录信息"/>
+
+</service>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chart caption="近7天开业变更情况"  showBorder="0"
+bgColor="F7F7F7, E9E9E9" numVDivLines="7" divLineAlpha="30" 
+captionPadding="1" chartTopMargin="1" chartBottomMargin="5" chartLeftMargin="5" showLabels="0"
+labelPadding ="7" yAxisValuesPadding ="10" showValues="0" 
+rotateValues="0" valuePosition="" rotateLabels="1" slantLabels="1"  >
+<categories >
+	
+		<category label="${day1!}日" /> 
+		<category label="${day2!}日" /> 
+		<category label="${day3!}日" /> 
+		<category label="${day4!}日" /> 
+		<category label="${day5!}日" /> 
+		<category label="${day6!}日" /> 
+		<category label="${day7!}日" /> 
+	</categories>
+	<dataset seriesName="开业总数"  >
+		<set value="${ky1!}" /> 
+		<set value="${ky2!}" /> 
+		<set value="${ky3!}" /> 
+		<set value="${ky4!}" /> 
+		<set value="${ky5!}" /> 
+		<set value="${ky6!}" /> 
+		<set value="${ky7!}" /> 
+	</dataset>
+	<dataset seriesName="变更总数" >
+		<set value="${bg1!}" /> 
+		<set value="${bg2!}" /> 
+		<set value="${bg3!}" /> 
+		<set value="${bg4!}" /> 
+		<set value="${bg5!}" /> 
+		<set value="${bg6!}" /> 
+		<set value="${bg7!}" /> 
+	</dataset>
+</chart>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>FTP任务表</menu-name>
+  <menu-path>/page/collect/config/ftp/</menu-path>
+  <description>FTP任务表</description>
+  <form-beans>
+    <form-bean name="CollectFtpTaskRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="record" name="ftp_task_id" type="string" size="32" cannull="false" description="FTP任务ID"/>
+      <form-property prefix="record" name="collect_task_id" type="string" size="32" cannull="true" description="采集任务ID"/>
+      <form-property prefix="record" name="service_no" type="string" size="20" cannull="true" description="任务编号"/>
+      <form-property prefix="record" name="file_name_en" type="string" size="100" cannull="true" description="文件名称"/>
+      <form-property prefix="record" name="file_name_cn" type="string" size="100" cannull="true" description="文件中文名称"/>
+      <form-property prefix="record" name="collect_mode" type="string" size="20" cannull="true" description="采集方式"/>
+      <form-property prefix="record" name="collect_table" type="string" size="32" cannull="true" description="对应采集表"/>
+      <form-property prefix="record" name="file_status" type="string" size="20" cannull="true" description="文件状态"/>
+      <form-property prefix="record" name="file_description" type="string" size="2000" cannull="true" description="文件描述"/>
+      <form-property prefix="record" name="fj_path" type="string" size="200" cannull="true" description="附件路径"/>
+      <form-property prefix="record" name="file_title_type" type="string" size="10" cannull="false" description="文件标题类型"/>
+      <form-property prefix="record" name="file_sepeator" type="string" size="10" cannull="false" description="文件分隔符"/>
+      <form-property prefix="record" name="month" type="string" size="5" cannull="false" description="取文件规则的月份"/>
+      <form-property prefix="record" name="day_month" type="string" size="5" cannull="false" description="具体日期"/>
+      <form-property prefix="record" name="name_type" type="string" size="2" cannull="false" description="文件名后缀日期生成类型"/>
+      <form-property prefix="record" name="day_num" type="string" size="5" cannull="false" description="按日规则"/>
+    
+    </form-bean>
+
+    <form-bean name="CollectFtpTaskUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="ftp_task_id" type="string" size="32" cannull="false" description="FTP任务ID"/>
+      <form-property prefix="primary-key" name="service_targets_id" type="string" size="32" cannull="true" description="服务对象ID"/>
+      <form-property prefix="record" name="ftp_task_id" type="string" size="32" cannull="false" description="FTP任务ID"/>
+      <form-property prefix="record" name="collect_task_id" type="string" size="32" cannull="true" description="采集任务ID"/>
+      <form-property prefix="record" name="service_targets_id" type="string" size="32" cannull="true" description="服务对象ID"/>
+      <form-property prefix="record" name="service_no" type="string" size="20" cannull="true" description="任务编号"/>
+      <form-property prefix="record" name="file_name_en" type="string" size="100" cannull="true" description="文件名称"/>
+      <form-property prefix="record" name="file_name_cn" type="string" size="100" cannull="true" description="文件中文名称"/>
+      <form-property prefix="record" name="collect_mode" type="string" size="20" cannull="true" description="采集方式"/>
+      <form-property prefix="record" name="collect_table" type="string" size="32" cannull="true" description="对应采集表"/>
+      <form-property prefix="record" name="file_status" type="string" size="20" cannull="true" description="文件状态"/>
+      <form-property prefix="record" name="file_description" type="string" size="2000" cannull="true" description="文件描述"/>
+      <form-property prefix="record" name="fj_path" type="string" size="200" cannull="true" description="附件路径"/>
+      <form-property prefix="record" name="file_title_type" type="string" size="10" cannull="false" description="文件标题类型"/>
+      <form-property prefix="record" name="file_sepeator" type="string" size="10" cannull="false" description="文件分隔符"/>
+      <form-property prefix="record" name="month" type="string" size="5" cannull="false" description="取文件规则的月份"/>
+      <form-property prefix="record" name="day_month" type="string" size="5" cannull="false" description="具体日期"/>
+    
+    </form-bean>
+
+    <form-bean name="CollectFtpTaskDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="ftp_task_id" type="string" size="32" cannull="false" description="FTP任务ID"/>
+      <form-property prefix="primary-key" name="collect_task_id" type="string" size="32" cannull="true" description="采集任务ID"/>
+      <form-property prefix="primary-key" name="service_targets_id" type="string" size="32" cannull="false" description="所属服务对象ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-collect_ftp_task.jsp" name="CollectFtpTaskRowsetForm" txn-code="30201001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询ftp任务列表</description>
+      <step index="10" bean-name="com.gwssi.collect.ftp.txn.TxnCollectFtpTask" func-name="txn30201001" input-node="select-key" output-node="record" description="查询ftp任务列表"/>
+      <forward error-code="success" path="query-collect_ftp_task.jsp"/>
+      <forward error-code="failure" path="query-collect_ftp_task.jsp"/>
+    </action>
+
+    <action input="update-collect_ftp_task.jsp" name="CollectFtpTaskUpdateForm" txn-code="30201002" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改ftp文件信息</description>
+      <step index="10" bean-name="com.gwssi.collect.ftp.txn.TxnCollectFtpTask" func-name="txn30201002" input-node="record" description="修改ftp任务信息"/>
+      <forward error-code="success" path="update-collect_ftp_task.jsp"/>
+      <forward error-code="failure" path="update-collect_ftp_task.jsp"/>
+    </action>
+
+    <action input="insert-collect_ftp_task.jsp" name="CollectFtpTaskUpdateForm" txn-code="30201003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加ftp任务信息</description>
+      <step index="10" bean-name="com.gwssi.collect.ftp.txn.TxnCollectFtpTask" func-name="txn30201003" input-node="record" description="增加ftp任务信息"/>
+      <forward error-code="success" path="insert-collect_ftp_task.jsp"/>
+      <forward error-code="failure" path="insert-collect_ftp_task.jsp"/>
+    </action>
+
+    <action input="query-collect_ftp_task.jsp" name="CollectFtpTaskUpdateForm" txn-code="30201004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询ftp任务用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.ftp.txn.TxnCollectFtpTask" func-name="txn30201004" input-node="primary-key" output-node="record" description="查询ftp任务用于修改"/>
+      <forward error-code="success" path="update-collect_ftp_task.jsp"/>
+      <forward error-code="failure" path="update-collect_ftp_task.jsp"/>
+    </action>
+
+    <action input="query-collect_ftp_task.jsp" name="CollectFtpTaskDeleteForm" txn-code="30201005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除ftp文件信息</description>
+      <step index="10" bean-name="com.gwssi.collect.ftp.txn.TxnCollectFtpTask" func-name="txn30201005" input-node="primary-key" description="删除ftp任务信息"/>
+      <forward error-code="success" path="update-collect_task_ftp.jsp"/>
+      <forward error-code="failure" path="update-collect_task_ftp.jsp"/>
+    </action>
+     <action input="query-collect_ftp_task.jsp" name="CollectFtpTaskUpdateForm" txn-code="30201006" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查看ftp文件信息</description>
+      <step index="10" bean-name="com.gwssi.collect.ftp.txn.TxnCollectFtpTask" func-name="txn30201006" input-node="primary-key" output-node="record" description="查询ftp任务用于查看"/>
+      <forward error-code="success" path="show-collect_ftp_task.jsp"/>
+      <forward error-code="failure" path="show-collect_ftp_task.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-collect_ftp_task.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/collect/config/ftp/query-collect_ftp_task.jsp" description="查询ftp任务列表"/>
+    <resource-file type="jsp" file-name="/page/collect/config/ftp/insert-collect_ftp_task.jsp" description="增加ftp任务信息"/>
+    <resource-file type="jsp" file-name="/page/collect/config/ftp/update-collect_ftp_task.jsp" description="修改ftp任务信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.ftp.vo.CollectFtpTaskContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.ftp.vo.VoCollectFtpTask" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.ftp.vo.VoCollectFtpTaskSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.ftp.vo.VoCollectFtpTaskPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

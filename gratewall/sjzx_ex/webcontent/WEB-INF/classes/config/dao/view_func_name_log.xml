@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>日志查询</sort-name>
+  <table-info name="view_func_name_log" class-name="cn.gwssi.dw.rd.log.dao.ViewFuncNameLog" check-flag="false" backup-flag="false">
+    <description>功能大小类对应表</description>
+  </table-info>
+
+  <column name="first_func_name" data-type="varchar" length="8" not-null="false" value-from="input" description="功能大类"/>
+  <column name="second_func_name" data-type="varchar" length="200" not-null="false" value-from="input" description="功能小类"/>
+  <primary-key name="pk" column-list="second_func_name"/>
+  <function func-name="select view_func_name_log list" func-type="rowset" column-list="first_func_name,second_func_name" max-record="10">
+    <description>多记录查询</description>
+  </function>
+</table>
+

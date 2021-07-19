@@ -1,0 +1,270 @@
+<!doctype html>
+<html>
+<head>
+<meta content="ie=5.0000" http-equiv="x-ua-compatible">
+<title>公司法人营业执照---正本</title>
+<!-- 暂时不用到的 -->
+<style type=text/css>
+html {
+	font-size: 62.5%;
+}
+body{
+	overflow-x:hidden; 
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+
+</style>
+
+<script>
+	/* txtfields[0] = {
+		"id" : "zch",
+		"label" : "110108021575034",
+		"style" : "left:166.0mm;top:108.0mm;width:70.0mm;font-family:宋体;font-size:0.8em;z-index:5;"
+	};
+
+	//统一社会信用代码打印
+
+	txtfields[0] = {
+		"id" : "uniscid",
+		"label" : "91110108ma006npm13",
+		"style" : "left:187.0mm;top:104.0mm;width:70.0mm;font-family:宋体;font-size:3.2em;z-index:5;"
+	};
+
+	txtfields[1] = {
+		"id" : "mc",
+		"label" : "北京风铃达兴科技有限公司",
+		"style" : "left:92.5mm;top:128.5mm;width:140.0mm;font-family:宋体;font-size:0.8em;z-index:5;"
+	};
+	txtfields[2] = {
+		"id" : "dz",
+		"label" : "北京市海淀区中关村东路23号",
+		"style" : "left:92.5mm;top:160.5mm;width:140.0mm;font-family:宋体;font-size:0.8em;z-index:5;"
+	};
+	txtfields[3] = {
+		"id" : "fr",
+		"label" : "贺长和",
+		"style" : "left:92.5mm;top:176.5mm;width:140.0mm;font-family:宋体;font-size:0.8em;z-index:5;"
+	};
+	txtfields[4] = {
+		"id" : "qylx",
+		"label" : "有限责任公司(自然人投资或控股)",
+		"style" : "left:92.5mm;top:144.5mm;width:140.0mm;font-family:宋体;font-size:0.8em;z-index:5;"
+	};
+	txtfields[5] = {
+		"id" : "jyfw",
+		"label" : "技术开发；国际船舶运输；国际船舶管理；技术咨询、技术服务；供应链管理；企业征信服务；版权经纪；企业管理；会议服务；手动录入经营范围；手动录入经营范围；经营范围录入；会尽快了。（企业依法自主选择经营项目，开展经营活动；国际船舶运输、国际船舶管理以及依法须经批准的项目，经相关部门批准后依批准的内容开展经营活动；不得从事本市产业政策禁止和限制类项目的经营活动。）",
+		"style" : "left:92.5mm;top:240.5mm;width:140.0mm;font-family:宋体;font-size:14pt;z-index:5;"
+	};
+	txtfields[6] = {
+		"id" : "zczb",
+		"label" : "500万元",
+		"style" : "left:92.5mm;top:192.5mm;width:140.0mm;font-family:宋体;font-size:0.8em;z-index:5;"
+	};
+	txtfields[7] = {
+		"id" : "clrq",
+		"label" : "2016年08月02日",
+		"style" : "left:92.5mm;top:208.5mm;width:140.0mm;font-family:宋体;font-size:0.8em;z-index:5;"
+	};
+	txtfields[8] = {
+		"id" : "yynx",
+		"label" : "2016年08月02日 至 2046年08月01日",
+		"style" : "left:92.5mm;top:224.5mm;width:140.0mm;font-family:宋体;font-size:0.8em;z-index:5;"
+	};
+	txtfields[9] = {
+		"id" : "fzrq_n",
+		"label" : "2016",
+		"style" : "left:168.0mm;top:345.0mm;width:28.0mm;font-family:宋体;font-size:0.8em;z-index:5;"
+	};
+	txtfields[10] = {
+		"id" : "fzrq_y",
+		"label" : "08",
+		"style" : "left:195.0mm;top:345.0mm;width:28.0mm;font-family:宋体;font-size:0.8em;z-index:5;"
+	};
+	txtfields[11] = {
+		"id" : "fzrq_r",
+		"label" : "02",
+		"style" : "left:214.0mm;top:345.0mm;width:28.0mm;font-family:宋体;font-size:0.8em;z-index:5;"
+	};
+	txtfields[12] = {
+		"id" : "xy_address",
+		"label" : "qyxy.baic.gov.cn",
+		"style" : "left:54.0mm;top:372.0mm;width:80.0mm;font-family:方正书宋简体;font-size:12pt;z-index:5;"
+	};
+	txtfields[22] = {
+		"id" : "qr_prompt",
+		"label" : "在线扫码获取详细信息",
+		"style" : "left:41.0mm;top:324.5mm;width:100.0mm;font-family:宋体;font-size:10pt;z-index:5;"
+	};
+	txtfields[23] = {
+		"id" : "year_report",
+		"label" : "&nbsp;&nbsp;&nbsp;&nbsp;提示：每年1月1日至6月30日通过企业信用信息公示系统<br>报送上一年度年度报告并公示。",
+		"style" : "left:19.0mm;top:345.0mm;width:130.0mm;font-family:宋体;font-size:12pt;z-index:5;"
+	};
+
+	//以下为营业执照上打印的项目名称
+
+	txtfields[13] = {
+		"id" : "zch_name",
+		"label" : "注册号",
+		"style" : "left:135.0mm;top:108.0mm;width:29.0mm;text-align:justify;text-justify:distribute-all-lines;text-align-last:justify;font-family:汉鼎简中黑;font-size:23pt;z-index:5;"
+	};
+
+	//统一社会信用代码打印
+
+	txtfields[13] = {
+		"id" : "uniscid_name",
+		"label" : "统一社会信用代码",
+		"style" : "left:132.0mm;top:104.0mm;width:52.5mm;text-align:justify;text-justify:distribute-all-lines;text-align-last:justify;font-family:汉鼎简中黑;font-size:17pt;z-index:5;"
+	};
+
+	txtfields[14] = {
+		"id" : "mc_name",
+		"label" : "名称",
+		"style" : "left:25.5mm;top:127.5mm;width:59.0mm;text-align:justify;text-justify:distribute-all-lines;text-align-last:justify;font-family:汉鼎简中黑;font-size:27pt;z-index:5;"
+	};
+	txtfields[15] = {
+		"id" : "qylx_name",
+		"label" : "类型",
+		"style" : "left:25.5mm;top:143.5mm;width:59.0mm;text-align:justify;text-justify:distribute-all-lines;text-align-last:justify;font-family:汉鼎简中黑;font-size:27pt;z-index:5;"
+	};
+	txtfields[16] = {
+		"id" : "fr_name",
+		"label" : "法定代表人",
+		"style" : "left:25.5mm;top:175.5mm;width:59.0mm;text-align:justify;text-justify:distribute-all-lines;text-align-last:justify;font-family:汉鼎简中黑;font-size:27pt;z-index:5;"
+	};
+	txtfields[17] = {
+		"id" : "zczb_name",
+		"label" : "注册资本",
+		"style" : "left:25.5mm;top:191.5mm;width:59.0mm;text-align:justify;text-justify:distribute-all-lines;text-align-last:justify;font-family:汉鼎简中黑;font-size:27pt;z-index:5;"
+	};
+	txtfields[18] = {
+		"id" : "dz_name",
+		"label" : "住所",
+		"style" : "left:25.5mm;top:159.5mm;width:59.0mm;text-align:justify;text-justify:distribute-all-lines;text-align-last:justify;font-family:汉鼎简中黑;font-size:27pt;z-index:5;"
+	};
+	txtfields[19] = {
+		"id" : "clrq_name",
+		"label" : "成立日期",
+		"style" : "left:25.5mm;top:207.5mm;width:59.0mm;text-align:justify;text-justify:distribute-all-lines;text-align-last:justify;font-family:汉鼎简中黑;font-size:27pt;z-index:5;"
+	};
+	txtfields[20] = {
+		"id" : "yynx_name",
+		"label" : "营业期限",
+		"style" : "left:25.5mm;top:223.5mm;width:59.0mm;text-align:justify;text-justify:distribute-all-lines;text-align-last:justify;font-family:汉鼎简中黑;font-size:27pt;z-index:5;"
+	};
+	txtfields[21] = { 
+		"id" : "jyfw_name",
+		"label" : "经营范围",
+		"style" : "left:25.5mm;top:239.5mm;width:59.0mm;text-align:justify;text-justify:distribute-all-lines;text-align-last:justify;font-family:汉鼎简中黑;font-size:27pt;z-index:5;"
+	}; */
+</script>
+
+</head>
+<body>
+	<style>
+.bg_table {
+	/* background: url(/page/approve/testzz/AA_1.jpg) no-repeat;
+	background-size: cover; */
+	background:url(/page/approve/testzz/AA_1.jpg);  
+	filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')";  
+	-moz-background-size:100% 100%;  
+    background-size:100% 100%;  
+    background-position: -90px -88px;
+	
+	height: 1500px;
+	position: absolute;
+	width: 1000px;
+	min-width:800px;
+}
+
+.printTips {
+	position: absolute;
+	left: 25.5mm;
+	font-size: 2em;
+}
+
+/* 统一社会信用码 */
+.uniscid_name {
+	left: 132.5mm;
+	top: 103.5mm;
+}
+/* 名称 */
+.mc_name {
+	top: 115mm;
+}
+/* 类型 */
+.qylx_name {
+	top: 122.5mm;
+}
+
+/* 法定代表人 */
+.fr_name {
+	top: 129.5mm;
+}
+/* 住所 */
+.dz_name {
+	top: 136.5mm;
+}
+
+/* 注册资本 */
+.zczb_name {
+	top: 142.5mm;
+}
+/* 成立日期 */
+.clrq_name {
+	top: 149.5mm;
+}
+/* 营业期限 */
+.yynx_name {
+	top: 156.5mm;
+}
+/* 经营范围 */
+.jyfw_name {
+	top: 163.5mm;
+}
+</style>
+
+	<table  cellspacing="0" cellpadding="0"  border="0" class="bg_table" align="center">
+		<tbody>
+			<tr>
+				<td>
+					<table style="height: 420mm; width: 297mm" cellspacing="0" cellpadding="0" border="0">
+						<tbody>
+							<tr>
+								<td name="uniscid_name" class="printTips uniscid_name">统一社会信用代码</td>
+							</tr>
+							<tr>
+								<td name="mc_name" class="printTips mc_name">名称</td>
+							</tr>
+							<tr>
+								<td name="qylx_name" class="printTips qylx_name">类型</td>
+							</tr>
+							<tr>
+								<td name="" class="printTips dz_name">住所</td>
+							</tr>
+							<tr>
+								<td name="" class="printTips fr_name">法定代表人</td>
+							</tr>
+							<tr>
+								<td name="" class="printTips zczb_name">注册资本</td>
+							</tr>
+							<tr>
+								<td name="" class="printTips clrq_name">成立日期</td>
+							</tr>
+							<tr>
+								<td name="" class="printTips yynx_name">营业期限</td>
+							</tr>
+							<tr>
+								<td name="" class="printTips jyfw_name">经营范围</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

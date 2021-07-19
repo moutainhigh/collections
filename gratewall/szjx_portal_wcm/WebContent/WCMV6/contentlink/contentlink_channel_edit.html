@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS=""  xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>add or edit a certain contentextfield</title>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	.input_text{
+		width:280px;
+		height:20px;
+		border:1px solid black;		
+		font-size:14px;
+	}
+	.attrname{		
+		text-align:right;
+		font-size:12px;
+	}
+	.input_textarea{
+		width:280px;
+		border:1px solid black;			
+	}
+	td{
+		padding:2px;
+	}
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+</script>
+<script label="SysImport">
+	$import('com.trs.wcm.MessageCenter');	
+	$import('com.trs.validator.Validator');
+	$import('com.trs.combox.Combox');
+	$import('com.trs.wcm.util.LockedUtil');	
+</script>
+<script language=JavaScript src="./contentlink_channel_edit.js"></script>
+</head>
+<body>
+<script language="javascript">
+<!--	
+	FloatPanel.addCloseCommand();		
+	FloatPanel.addCommand('savebtn', '确定', editContentLink,null);	
+//-->
+</script>
+<div style="width:380px;margin-top:10px;margin-left:10px;">
+<form id="addEditForm">
+<div id="link">
+</div>
+<div style="float:right;">
+<span id="validation_tip" style="magin-right:10px;"></span>
+<span style="width:20px;"></span>
+</div>
+</form>
+<textarea style="display:none" id="template_link" select="ChannelContentLink">
+	<input type="hidden" id="ChannelId" name="ChannelId" value="{#CHANNELID}">
+	<input type="hidden" id="LinkId" name="LinkId" value="{#LINKID}">
+	<input type="hidden" id="LinkOrder" name="LinkOrder" value="{#LINKORDER}">
+	<table border="0" cellspacing="0" cellpadding="0">
+	<tbody>
+		<tr>
+			<td class="attrname" valign="top">名称：</td>
+			<td class="attrvalue" valign="top">
+				<input id="linkname" name="linkname" type="text" class="input_text" validation="type:'string',desc:'名称',required:'true',max_len:'30',rpc:'exitsSimilar',showid:'validation_tip',message:'名称最大长度为30,不区分大小写'" value="{#LINKNAME}">
+			</td>
+		</tr>
+		<tr>
+			<td class="attrname"  valign="top">描述：</td>
+			<td class="attrvalue" valign="top">
+				{@drawArea(#LINKTITLE)}				
+			</td>
+		</tr>
+		<tr>
+			<td class="attrname"  valign="top">链接：</td>
+			<td class="attrvalue" valign="top">
+				<input type="text" id="linkurl" name="linkurl" class="input_text" validation="type:'uri',desc:'链接',required:'true',max_len:'200',showid:'validation_tip',message:'链接格式：protocol://host:port/path',warning:'链接格式：protocol://host:port/path'" value="{#LINKURL}">
+			</td>
+		</tr>
+		<tr>
+		<td class="attrname" valign="top">前一个：</td>
+		<td class="attrvalue" valign="top">
+			<span id="linkorderholder"></span>			
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</textarea>
+<textarea id="template_linkorder" style="display:none">
+	<select id="sellinkorder" onchange="resetLinkOrder(this)">
+		<option value="-1">最前面</option>
+		<for select="ChannelContentLinks.ChannelContentLink">
+			<option value="{#LinkOrder}">{#LinkName}</option>
+		</for>
+	</select>
+</textarea>
+</div>
+</body>
+</html>

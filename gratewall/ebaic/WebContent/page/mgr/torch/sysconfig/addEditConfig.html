@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+
+<title>编辑配置</title>
+<link rel="stylesheet" href="../../../../static/css/common.css">
+<link href="../../../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<body style="overflow:hidden">
+  		<div  name="sysEditConfigPanel" vtype="formpanel" id="sysEditConfigPanel" displayrows="1"
+			titleDisplay="false" width="100%" layout="auto" showborder=false  style="text-align: center;"
+			labelStyleClass="labelstyle" title="sys_edit_config ">
+			
+			<div name='configId' id='configIndex' vtype="hiddenfield" label="主键" labelAlign="center"
+				width="300" labelwidth='100'></div>
+			<div name='functionId' id='functionId' vtype="hiddenfield" label="上级功能ID" labelAlign="center"
+				width="300" labelwidth='100'  ></div>
+			<div name='configIndex' id='configIndex' vtype="textfield" label="功能序号" rule="must" tooltip="必须依次填写：1,2,3。。。" labelAlign="center"
+				width="300" labelwidth='100'  ></div>
+			<div name='configTitle' id='configTitle' vtype="textfield" label="功能标题" rule="must" tooltip="最好是中文。。。" labelAlign="center"
+				width="300" labelwidth='100'  ></div>
+			<div name='configName' id='configName' vtype="textfield" label="功能名称" rule="must" tooltip="最好是英文。。。" labelAlign="center"
+				width="300" labelwidth='100'  ></div>
+			<div name='configDesc' id='configDesc' vtype="textfield" label="功能描述" rule="must" tooltip="最好是中文。。。" labelAlign="center"
+				width='300' labelwidth='100'></div>
+			<div name='tplPath' id='tplPath' vtype="comboxfield" label="模板路径" labelAlign="center"
+				rule="must" valuetip="请选择..." 
+				dataurl="[{'value':'ebaicInsertForm.ftl','text':'增加模板'},
+				{'value':'ebaicUpdateForm.ftl','text':'修改模板'},
+				{'value':'','text':'删除模板'}]"
+				width='300' labelwidth='100'></div>
+			<div name='adapterType' id='adapterType' vtype="comboxfield" label="适配类型" labelAlign="center"
+				rule="must" valuetip="请选择..." dataurl="[{'value':'jazz','text':'jazz'}]"
+				width='300' labelwidth='100'></div>
+			<div name='tableName' id='tableName' vtype="textfield" label="操作表表名" rule="must" tooltip="请输入操作的表名，如：test_demo" labelAlign="center"
+				width='300' labelwidth='100'></div>
+			<div name='primaryKey' id='primaryKey' vtype="textfield" label="操作表主键" rule="must" tooltip="输入操作表的主键名称，如：id" labelAlign='center'
+				width='300' labelwidth='100'></div>
+			<div name='beforeExecute' id='beforeExecute' vtype="textfield" label="执行前方法" labelAlign="center"
+				width='300' labelwidth='100'></div>
+			<div name='afterExecute' id='afterExecute' vtype="textfield" label="执行后方法" labelAlign="center"
+				width='300' labelwidth='100'></div>
+			<div name='editType' id='editType' vtype="comboxfield" label="编辑类型" labelAlign="center" rule="must" valuetip="请选择..." dataurl="[{'value':'insert','text':'增加'},{'value':'update','text':'修改'},{'value':'delete','text':'删除'}]"
+				width='300' labelwidth='100'></div>
+			<div name='model' id='model' vtype="comboxfield" label="配置模式" labelAlign="center" rule="must" valuetip="请选择..." dataurl="[{value:'high',text:'高级',checked:true}]"
+				width='300' labelwidth='100'></div>
+			<div name='configSql' id='configSql' vtype="textareafield" label="手写sql" rule="must" labelAlign="center"
+				width="800" labelwidth='100' height="150"></div>
+			
+			<div id="toolbar" name="toolbar" vtype="toolbar" location="bottom"
+				align="center" width="100%">
+				<div name="save_button" id="save_button" vtype="button" text="保存"
+					icon="../query/queryssuo.png"  ></div>
+				<div name="reset_button" id="reset_button" vtype="button" text="重置"></div>
+					<!-- <div name="back_button" id="back_button" vtype="button" text="返回"
+						icon="../query/queryssuo.png" ></div> -->
+			</div>
+		</div>
+		
+		<script type="text/javascript" src="../../../../static/js/config.js"></script> 
+	<script type="text/javascript" src="../../../../static/lib/require.js"  data-main="sysconfig/editConfig.js"></script> 
+</body>
+</html>

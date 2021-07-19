@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>webservice任务表</menu-name>
+  <menu-path>/page/collect/config/webService/</menu-path>
+  <description>webservice任务表</description>
+  <form-beans>
+    <form-bean name="CollectWebserviceTaskRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="collect_task_id" type="string" size="32" cannull="true" description="采集任务ID"/>
+      <form-property prefix="select-key" name="webservice_task_id" type="string" size="32" cannull="true" description="采集任务ID"/>
+      <form-property prefix="select-key" name="service_no" type="string" size="20" cannull="true" description="任务编号"/>
+      <form-property prefix="record" name="webservice_task_id" type="string" size="32" cannull="false" description="WEBSERVICE任务ID"/>
+      <form-property prefix="record" name="collect_task_id" type="string" size="32" cannull="true" description="采集任务ID"/>
+      <form-property prefix="record" name="service_no" type="string" size="20" cannull="true" description="任务编号"/>
+      <form-property prefix="record" name="method_name_en" type="string" size="100" cannull="true" description="方法名称"/>
+      <form-property prefix="record" name="method_name_cn" type="string" size="100" cannull="true" description="方法中文名称"/>
+      <form-property prefix="record" name="collect_table" type="string" size="32" cannull="true" description="对应采集表"/>
+      <form-property prefix="record" name="collect_mode" type="string" size="20" cannull="true" description="采集方式"/>
+      <form-property prefix="record" name="is_encryption" type="string" size="20" cannull="true" description="是否加密"/>
+      <form-property prefix="record" name="encrypt_mode" type="string" size="20" cannull="true" description="加密方式"/>
+      <form-property prefix="record" name="method_description" type="string" size="2000" cannull="true" description="方法描述"/>
+      <form-property prefix="record" name="method_status" type="string" size="20" cannull="true" description="方法状态"/>
+      <form-property prefix="record" name="web_name_space" type="string" size="500" cannull="true" description="命名空间"/>
+    </form-bean>
+
+    <form-bean name="CollectWebserviceTaskUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="select-key" name="collect_task_id" type="string" size="32" cannull="true" description="采集任务ID"/>
+      <form-property prefix="select-key" name="webservice_task_id" type="string" size="32" cannull="true" description="采集任务ID"/>
+      <form-property prefix="select-key" name="service_no" type="string" size="20" cannull="true" description="任务编号"/>
+      <form-property prefix="primary-key" name="webservice_task_id" type="string" size="32" cannull="false" description="WEBSERVICE任务ID"/>
+      <form-property prefix="primary-key" name="service_targets_id" type="string" size="32" cannull="false" description="所属服务对象ID"/>
+       <form-property prefix="primary-key" name="collect_task_id" type="string" size="32" cannull="false" description="采集任务ID"/>
+      <form-property prefix="record" name="webservice_task_id" type="string" size="32" cannull="false" description="WEBSERVICE任务ID"/>
+      <form-property prefix="record" name="collect_task_id" type="string" size="32" cannull="true" description="采集任务ID"/>
+      <form-property prefix="record" name="service_targets_id" type="string" size="32" cannull="false" description="所属服务对象ID"/>
+      <form-property prefix="record" name="service_no" type="string" size="20" cannull="true" description="任务编号"/>
+      <form-property prefix="record" name="method_name_en" type="string" size="100" cannull="true" description="方法名称"/>
+      <form-property prefix="record" name="method_name_cn" type="string" size="100" cannull="true" description="方法中文名称"/>
+      <form-property prefix="record" name="collect_table" type="string" size="32" cannull="true" description="对应采集表"/>
+      <form-property prefix="record" name="table_name_cn" type="string" size="32" cannull="true" description="对应采集表"/>
+      <form-property prefix="record" name="collect_mode" type="string" size="20" cannull="true" description="采集方式"/>
+      <form-property prefix="record" name="is_encryption" type="string" size="20" cannull="true" description="是否加密"/>
+      <form-property prefix="record" name="encrypt_mode" type="string" size="20" cannull="true" description="加密方式"/>
+      <form-property prefix="record" name="method_description" type="string" size="2000" cannull="true" description="方法描述"/>
+      <form-property prefix="record" name="method_status" type="string" size="20" cannull="true" description="方法状态"/>
+      <form-property prefix="record" name="web_name_space" type="string" size="500" cannull="true" description="命名空间"/>
+    </form-bean>
+
+    <form-bean name="CollectWebserviceTaskDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="webservice_task_id" type="string" size="32" cannull="false" description="WEBSERVICE任务ID"/>
+      <form-property prefix="primary-key" name="collect_task_id" type="string" size="32" cannull="true" description="采集任务ID"/>
+      <form-property prefix="primary-key" name="service_targets_id" type="string" size="32" cannull="false" description="所属服务对象ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+  	<action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102111" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询方法详细信息和参数</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102111" input-node="select-key" output-node="record" description="查询webservice任务列表"/>
+      <forward error-code="success" path="query-collect_ws_info.jsp"/>
+      <forward error-code="failure" path="query-collect_ws_info.jsp"/>
+    </action>
+    
+  	<action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102112" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询并跳转到新增方法页面</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102112" input-node="select-key" output-node="record" description="查询并跳转到新增方法页面"/>
+      <forward error-code="success" path="insert-collect_ws.jsp"/>
+      <forward error-code="failure" path="insert-collect_ws.jsp"/>
+    </action>
+    
+    <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102113" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>新增方法</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102113" input-node="record" description="新增方法"/>
+      <forward error-code="success" path="insert-collect_ws.jsp"/>
+      <forward error-code="failure" path="insert-collect_ws.jsp"/>
+    </action>
+    
+    <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102114" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>跳转到修改方法页面</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102114" input-node="select-key" output-node="record" description="跳转到修改方法页面"/>
+      <forward error-code="success" path="update-collect_ws.jsp"/>
+      <forward error-code="failure" path="update-collect_ws.jsp"/>
+    </action>
+  
+    <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskRowsetForm" txn-code="30102001" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询webservice任务列表</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102001" input-node="select-key" output-node="record" description="查询webservice任务列表"/>
+      <forward error-code="success" path="query-collect_webservice_task.jsp"/>
+      <forward error-code="failure" path="query-collect_webservice_task.jsp"/>
+    </action>
+
+    <action input="update-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102002" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改webservice方法信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102002" input-node="record" description="修改webservice任务信息"/>
+      <forward error-code="success" path="update-collect_webservice_task.jsp"/>
+      <forward error-code="failure" path="update-collect_webservice_task.jsp"/>
+    </action>
+
+    <action input="insert-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102003" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加webservice方法信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102003" input-node="record" description="增加webservice任务信息"/>
+      <forward error-code="success" path="/page/collect/config/socket/insert-collect_socket_task.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/socket/insert-collect_socket_task.jsp"/>
+    </action>
+
+    <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102004" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询webservice任务用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102004" input-node="primary-key" output-node="record" description="查询webservice任务用于修改"/>
+      <forward error-code="success" path="update-collect_webservice_task.jsp"/>
+      <forward error-code="failure" path="update-collect_webservice_task.jsp"/>
+    </action>
+
+    <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskDeleteForm" txn-code="30102005" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除webservice方法信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102005" input-node="primary-key" description="删除webservice任务信息"/>
+      <forward error-code="success" path="update-collect_task.jsp"/>
+      <forward error-code="failure" path="update-collect_task.jsp"/>
+    </action>
+    
+    <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskDeleteForm" txn-code="30102025" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除webservice方法信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102025" input-node="primary-key" description="删除webservice任务信息"/>
+      <forward error-code="success" path="update-collect_task.jsp"/>
+      <forward error-code="failure" path="update-collect_task.jsp"/>
+    </action>
+    
+   <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102006" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查看webservice方法信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102006" input-node="primary-key" output-node="record" description="查询webservice任务用于查看"/>
+      <forward error-code="success" path="show-collect_webservice_task.jsp"/>
+      <forward error-code="failure" path="show-collect_webservice_task.jsp"/>
+    </action>
+     <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102016" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查看socket/jms方法信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102016" input-node="primary-key" output-node="record" description="查询socket/jms任务用于查看"/>
+      <forward error-code="success" path="/page/collect/config/socket/show-collect_socket_task.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/socket/show-collect_socket_task.jsp"/>
+    </action>
+     <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102007" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询socket任务用于新增</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102007" input-node="primary-key" output-node="record" description="查询socket任务用于新增"/>
+      <forward error-code="success" path="/page/collect/config/socket/insert-collect_socket_task.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/socket/insert-collect_socket_task.jsp"/>
+    </action>
+     <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102008" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询socket任务用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102008" input-node="primary-key" output-node="record" description="查询socket任务用于修改"/>
+      <forward error-code="success" path="/page/collect/config/socket/update-collect_socket_task.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/socket/update-collect_socket_task.jsp"/>
+    </action>
+    <action input="update-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102009" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改socket方法信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102009" input-node="record" description="修改socket任务信息"/>
+      <forward error-code="success" path="/page/collect/config/socket/update-collect_socket_task.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/socket/update-collect_socket_task.jsp"/>
+    </action>
+    <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102010" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查看socket方法信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102010" input-node="primary-key" output-node="record" description="查询socket任务用于查看"/>
+      <forward error-code="success" path="/page/collect/config/socket/show-collect_socket_task.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/socket/show-collect_socket_task.jsp"/>
+    </action>
+     <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskDeleteForm" txn-code="30102011" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除socket方法信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102011" input-node="primary-key" description="删除socket任务信息"/>
+      <forward error-code="success" path="/page/collect/config/socket/update-collect_task_socket.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/socket/update-collect_task_socket.jsp"/>
+    </action>
+    
+      <action input="insert-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102013" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加JMS方法信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102013" input-node="record" description="增加JMS任务信息"/>
+      <forward error-code="success" path="/page/collect/config/jms/insert-collect_jms_task.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/jms/insert-collect_jms_task.jsp"/>
+    </action>
+    
+    <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102017" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询jms任务用于新增</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102017" input-node="primary-key" output-node="record" description="查询jms任务用于新增"/>
+      <forward error-code="success" path="/page/collect/config/jms/insert-collect_jms_task.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/jms/insert-collect_jms_task.jsp"/>
+    </action>
+    
+     <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102018" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询jms任务用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102018" input-node="primary-key" output-node="record" description="查询jms任务用于修改"/>
+      <forward error-code="success" path="/page/collect/config/jms/update-collect_jms_task.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/jms/update-collect_jms_task.jsp"/>
+    </action>
+    
+     <action input="update-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102019" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改jms方法信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102019" input-node="record" description="修改jms任务信息"/>
+      <forward error-code="success" path="/page/collect/config/jms/update-collect_jms_task.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/jms/update-collect_jms_task.jsp"/>
+    </action>
+    <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskUpdateForm" txn-code="30102020" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查看jms方法信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102020" input-node="primary-key" output-node="record" description="查询jms任务用于查看"/>
+      <forward error-code="success" path="/page/collect/config/jms/show-collect_jms_task.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/jms/show-collect_jms_task.jsp"/>
+    </action>
+     <action input="query-collect_webservice_task.jsp" name="CollectWebserviceTaskDeleteForm" txn-code="30102021" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除jms方法信息</description>
+      <step index="10" bean-name="com.gwssi.collect.webservice.txn.TxnCollectWebserviceTask" func-name="txn30102021" input-node="primary-key" description="删除jms任务信息"/>
+      <forward error-code="success" path="/page/collect/config/jms/update-collect_task_jms.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/jms/update-collect_task_jms.jsp"/>
+    </action>
+    
+    
+    
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-collect_webservice_task.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/collect/config/webservice/query-collect_webservice_task.jsp" description="查询webservice任务列表"/>
+    <resource-file type="jsp" file-name="/page/collect/config/webservice/insert-collect_webservice_task.jsp" description="增加webservice任务信息"/>
+    <resource-file type="jsp" file-name="/page/collect/config/webservice/update-collect_webservice_task.jsp" description="修改webservice任务信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.vo.CollectWebserviceTaskContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.vo.VoCollectWebserviceTask" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.vo.VoCollectWebserviceTaskSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.webservice.vo.VoCollectWebserviceTaskPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

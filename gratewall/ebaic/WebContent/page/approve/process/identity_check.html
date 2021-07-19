@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<!-- <link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" /> -->
+<link href="../../../static/lib/JAZZ-UI/demos/classic/imageview/clsc/jazz-all/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+<style>
+
+*{margin: 0;padding: 0;}
+
+.mainBox{width:1110px;height:535px;background: #fff;}
+.leftBox{width:215px;height:530px;background: #fff;margin:5px 5px 0 0;float:left;overflow-y: scroll;overflow-x: hidden;}
+.centerBox{width:550px;height:530px;background: #e7edf1;margin:5px 10px 0 0;float:left;}
+.rightBox{width:330px;height:530px;background: #e7edf1;margin:5px 0 0 0;float:left;}
+#checkUserList li{width:200px; /* height:26px;line-height:26px; */cursor: pointer;text-align:left;background-color:#edf7ff;margin-left:4px;margin-bottom: 4px;list-style: none;float:left;background-position-x: 175px;background-position-y: 4px;}
+#checkUserList li span{padding-left: 15px;word-wrap: break-word;width: 155px;display: inline-block;}
+.zoompic{background-color: #f2f2f2;height:385px;}
+.sliderbox{height:140px;}
+#bigimage img{display:block;padding:0;margin-left:24px;}
+
+#imgList{margin:20px auto;display:inline-block;padding-top:5px;}
+#imgList li{float:left;list-style:none;margin-left:8px;padding-top:10px;cursor:pointer;}
+#imgList li img{border:1px solid #2E9EE4;}
+/*将当前选中的图片向上移动一小步*/
+#imgList li.selected{padding-top:0;}
+.suggest-top span{padding:0 4px;}
+.suggestTop{background: #fff;margin:6px auto 6px auto;border:1px solid #B8D1EE;height:195px;}
+.suggestBottom{background: #fff;margin:6px auto 6px auto;border:1px solid #B8D1EE;height:176px;}
+.suggest-top{width:100%;height:28px;line-height:28px;background:#B8D1EE;}
+textarea{border:none;font: 12px/1.5em simsun;height: 140px;width: 97%;padding: 4px;}
+textarea:focus{border:none;outline:0;}
+#btn-box{width:100%;text-align: center;margin-top:10px;}
+.personInfo{float:left;margin:15px;}
+.personInfo p span{height:30px;line-height: 30px;}
+.entInfo p span{height:25px;line-height: 25px;}
+.entInfo{float:left;margin:10px;}
+.slide_content{overflow-x:hidden;width:350px;padding: 10px 0;margin: -23px auto 10px;}
+.approvePass{background-image:url("../../../static/image/approve/approvePass.jpg");background-repeat: no-repeat;}
+.approveNotPass{background-image:url("../../../static/image/approve/approveNotPass.jpg");background-repeat: no-repeat;}
+.personInfo,.entInfo{display: none;}
+</style>
+
+</head>
+<body>
+<div class="mainBox">
+<div class="leftBox">
+	<ul id='checkUserList'></ul>
+</div>
+<div class="centerBox">
+   	<div class="zoompic">
+         <div id="bigimage" vtype="imageviewer" imagesrc="" name="imgviewer" watermarkurl=""
+            isshowtoolbar="true" ismovetocenter="true" iszoom="true" isrotate="true" width="500" height="385">
+       	 </div> 
+         <input type="hidden" id="fileId" value="">   
+         <input type="hidden" id="bizId" value="">  
+    </div>
+    <div class="sliderbox">
+        <div class="slide_content">
+            <ul id='imgList'></ul>
+        </div>
+    </div>
+</div>
+<div class="rightBox">
+	<div class="suggestTop">
+		 <div class="suggest-top">
+                <span id="userTitleType">申请人</span>
+         </div>
+         <div class="personInfo">
+                <p><span>姓名：</span><span id="name"></span></p>
+                <p><span>证件号码：</span><span id="codeId"></span></p>
+        </div>
+        <div class="entInfo">
+                <p>名称：<span id="entName"></span></p>
+            	<p>注册号/统一社会信用代码：<span id="uniScid"></span></p>
+            	<p></p>
+            	<p>企业联系人：<span id="contactName"></span></p>
+            	<p>证件号码：<span id="contactCerno"></span></p>
+            	<p>移动电话：<span id="mobile"></span></p>
+        </div>
+	</div>
+	<div class="suggestBottom">
+		<div class="suggest">
+              	<div class="suggest-top">
+                    <span>审查意见</span>
+                </div>
+                <textarea id="suggestion" rows="4" cols="50"></textarea> 
+        </div>
+        <div class="btn-box" id="btn-box">
+                <div class="middleBt" id="pass">通过</div>
+                <div class="middleBt" id="nopass">不通过</div>
+        </div>
+	
+	</div>
+</div>
+
+</div>
+<script type="text/javascript" src="../../../static/lib/jquery-1.8.3.js"></script> 
+<script type="text/javascript" src="../../../static/lib/jquery-ui-1.9.2.custom.js"></script>
+<script type="text/javascript" src="../../../static/lib/JAZZ-UI/demos/classic/imageview/clsc/jazz-all/jazz-all.js"></script>
+<script type="text/javascript" src="../../../static/js/approve/identityCheckTorch.js"></script> 
+</body>
+</html>

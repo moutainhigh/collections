@@ -1,0 +1,252 @@
+﻿*{
+	margin:0px;
+	padding:0px;
+}
+body{
+	font-size:12px;
+	overflow:hidden;
+}
+.container{
+	position:relative;
+	width:100%;
+	height:100%;
+	padding:62px 0px 30px;
+	cursor:default;
+}
+.header{
+	position:absolute;
+	width:100%;
+	height:62px;
+	left:0px;
+	top:0px;
+	background:url('../images/logo.jpg') center center repeat-x;
+}
+.main{
+	position:relative;
+	width:100%;
+	height:100%;
+	padding-top:31px;
+	background:#EBF3F9;
+}
+.footer{
+	position:absolute;
+	width:100%;
+	height:30px;
+	line-height:30px;
+	left:0px;
+	bottom:0px;
+	background-color:#0F5399;
+	color:#B0D5FF;
+	text-align:right;
+	padding-right:8px;
+	white-space:nowrap;
+}
+.headerLeft{
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:380px;
+	height:62px;
+	background:url('../images/logo_left.jpg') left center no-repeat;
+	z-index:2;
+}
+.headerRight{
+	position:absolute;
+	right:0px;
+	top:0px;
+	width:459px;
+	height:62px;
+	background:url('../images/logo_right.jpg') right center no-repeat;
+	z-index:1;
+}
+.topNav{
+	position:absolute;
+	width:100%;
+	height:31px;
+	left:0px;
+	top:0px;
+	background:url('../images/daohang_bg.jpg') center center repeat-x;
+	overflow:hidden;
+}
+.userInfo{
+	float:right;
+	margin:0px 10px;
+	height:31px;
+	line-height:31px;
+	color:#CEF4FD;
+}
+.dateInfo{
+	float:right;
+	margin:0px 25px;
+	height:31px;
+	line-height:31px;
+	color:#CEF4FD;
+}
+.exitSystem{
+	cursor:pointer;
+	text-decoration:underline;
+}
+.tabContainer{
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:565px;
+	height:31px;
+	padding-left:54px;
+	background:url('../images/tab_container.gif') left center no-repeat;
+}
+.tab{
+	float:left;
+	width:100px;
+	height:30px;
+	line-height:30px;
+	color:white;
+	font-weight:bold;
+	text-align:center;
+	cursor:pointer;
+}
+.activeTab{
+	color:black;
+	background:url('../images/tab_active.gif') center bottom no-repeat;
+}
+.content{
+	position:relative;
+	width:100%;
+	height:100%;
+	padding:20px 5px 20px;
+}
+.contentTop{
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:20px;
+}
+.headInfo{
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:23px;
+	padding-left:8px;
+	line-height:23px;
+	text-align:left;
+	font-weight:bold;
+	background:url('../images/biaotilan.gif') center center repeat;
+}
+.operatorContainer{
+	position:absolute;
+	left:0px;
+	top:23px;
+	width:100%;
+	height:40px;
+}
+.operator{
+	float:left;
+	width:67px;
+	height:25px;
+	line-height:25px;
+	margin:7px 3px;
+	background:url('../images/anniu.gif') center center no-repeat;
+	text-align:center;
+	cursor:pointer;
+}
+.refreshButton{
+	height:20px;
+	padding-left:20px;
+	background:url('../images/button_refresh.gif') left center no-repeat;
+}
+.deleteButton{
+	height:20px;
+	padding-left:20px;
+	background:url('../images/button_delete.gif') left center no-repeat;
+}
+.frmSearch{
+	float:right;
+	margin:7px 3px;
+}
+.queryTxt{
+	width:150px;
+	height:20px;
+	border:1px solid silver;
+	margin:5px 3px;
+}
+.frmSearch select{
+	height:20px;
+	margin:5px 3px;
+}
+.listHead{
+	position:absolute;
+	left:0px;
+	top:65px;
+	width:100%;
+	background:#EEEEEE;
+	border-top:1px solid silver;
+}
+.listData{
+	width:100%;
+	height:100%;
+	overflow-y:auto;
+}
+.row{
+	border-bottom:1px solid silver;
+	clear:both;
+}
+.activeRow{
+	background-color:#FFFFCC;
+}
+.row li{
+	list-style-type:none;
+	margin:0px;
+	padding:0px;
+	height:22px;
+	line-height:22px;
+	text-align:center;
+}
+.listHead li{
+	font-weight:bold;
+}
+.autoColumn{
+	display:block;
+}
+.listData li{
+	border-right:1px solid silver;
+}
+.listData .lastColumn{
+	border-right:0px;
+}
+.listData .autoColumn{
+	text-align:left;
+	text-align: center;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.listData a:link, .listData a:visited{
+	color:#0343FE;
+	text-decoration:none;
+}
+.listData a:hover, .listData a:active{
+	color:red;
+	text-decoration:underline;
+}
+.listNavigator{
+	position:absolute;
+	left:0px;
+	bottom:0px;
+	width:100%;
+	height:30px;
+	padding-right:18px;
+	text-align:right;
+}
+.listNavigator input{
+	border:0px;
+	border-bottom:1px solid gray;
+}
+.mailConfigForm{
+	width:600px;
+	font-size:12px;
+	text-align:left;
+}
+.mailConfigForm td{
+	vertical-align:top;
+}

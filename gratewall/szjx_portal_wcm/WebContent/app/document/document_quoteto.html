@@ -1,0 +1,386 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="document_quoteto.html.docquotedto">文档引用到...</title>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../app/js/data/locale/document.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/components/ProcessBar.js"></script>
+<script WCMAnt:combine="1" src="../js/data/combine.jsp?s=locale"></script>
+
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/js/resource/widget.css" rel="stylesheet" type="text/css" />
+
+<script language="javascript">
+window.m_fpCfg = {
+	m_arrCommands : [{
+		cmd : 'getSeletedIds',
+		name : wcm.LANG.DOCUMENT_PROCESS_31 || '确定'
+	}],
+	size : [440, 455]
+};
+</script>
+<script>
+	var sChannelIds = getParameter("channelids");
+	var sObjectids = getParameter("objectids");
+	var channelType = getParameter("channelType");
+	var onlySelect = getParameter("onlySelect");
+	var selectedChannelIds = getParameter("SelectedChannelIds");
+
+	function getSeletedIds(){
+		
+		var selectedModeValue = 2;
+		var modes = document.getElementsByName("mode");
+		var sSelIds = null;
+		var sSelNames = null;
+		var sIframeId = 'allTreeNav';
+		if(modes[0].checked){
+			sIframeId = 'clusterList';
+			selectedModeValue = 1;
+		}
+		else if(modes[1].checked){
+			sIframeId = 'allTreeNav';
+			selectedModeValue = 2;
+		}
+		else if(modes[2].checked){
+			sIframeId = 'individualNav';
+			selectedModeValue = 3;
+		}
+		else if(modes[3].checked){
+			sIframeId = 'searchNav';
+			selectedModeValue = 4;
+		}
+		else{
+			Ext.Msg.alert(wcm.LANG.METAVIEWDATA_2 || '没选中任何模式');
+			return false;
+		}
+		parent.parent.document.cookie = "selectedChannelMode=" + selectedModeValue;
+		var win = $(sIframeId).contentWindow;
+		try{
+			sSelIds =  win.getCheckValues();
+		}catch(err){
+			sSelIds = '';
+		}
+		setCookieForLatestSelChnlIds(sSelIds);
+		try{
+			sSelNames = win.getCheckNames();
+		}catch(err){
+			sSelNames = '';
+		}
+		if(!sSelIds||sSelIds.length==0) {
+			Ext.Msg.$alert(wcm.LANG.DOCUMENT_PROCESS_40 || '请选择当前文档要引用到的目标栏目!');
+			return false;
+		}
+		//else
+		//ProcessBar.init(wcm.LANG.DOCUMENT_PROCESS_33 || '执行进度，请稍候...');
+		//ProcessBar.addState(wcm.LANG.DOCUMENT_PROCESS_34 || '正在提交数据');
+		//ProcessBar.addState(wcm.LANG.DOCUMENT_PROCESS_35 || '成功执行完成');
+		var sQuoteType = getQuoteType();
+		if(onlySelect == 1) {
+			/*
+			 *当在编辑页面时进行文档引用，该窗口仅仅实现选择要引用到的栏目，点击保存时才完成引用
+			 *"onlySelect==1"
+			*/
+			notifyFPCallback(sSelIds, sSelNames, sQuoteType);
+			return false;
+		}
+
+		ProcessBar.start(wcm.LANG.DOCUMENT_PROCESS_228 || "引用文档");
+		var oPostData = {
+			"ObjectIds" : sObjectids,
+			"channelids" : sChannelIds,
+			"ToChannelIds" : sSelIds.join(',')
+		}
+		var func =  null;
+		/*
+		if(false&&sSelIds.include(sChannelIds)){
+			var sFunc = "$MessageCenter.refresh('main','channelid="+sChannelIds+"');";
+			func = new (top.actualTop||top).Function(sFunc);
+		}
+		*/
+		func = function(){
+			//$MessageCenter.sendMessage('main','PageContext.RefreshSearchList', 'PageContext');
+			FloatPanel.close();
+		};
+		/*
+				//包含表单的时候，需要判断当前选中的栏目是不是与被操作的栏目配置有同一个表单
+		if(channelType.indexOf('13')>=0){
+			var sUrl = '../infoview/infoview_employer_filter2.jsp';
+				sUrl += '?FromChannelId=' + sChannelIds;
+				sUrl += '&ToChannelIds=' + sSelIds.join(",");
+				sUrl += '&IsRefer=1'; //非复制
+			new Ajax.Request(sUrl, {'onSuccess' : 
+				function(_trans, _json){
+					var result = _trans.responseText.trim();
+					var sFilterIds = '';
+					if(parseInt(result,10) > 1){
+						alert("所选的栏目中有与源栏目使用的表单不一致！");
+						return false;
+					}
+					var oHelper = new com.trs.web2frame.BasicDataHelper();
+					oHelper.Call('wcm6_viewdocument',sQuoteType,oPostData,true,
+						function(_transport,_json){
+							//ProcessBar.exit();
+							Ext.Msg.report(_json,wcm.LANG.DOCUMENT_PROCESS_47 || '文档引用结果',func);
+							FloatPanel.hide();
+						},
+						function(_transport,_json){
+							$render500Err(_transport,_json);
+							FloatPanel.close();
+					});
+					return false;
+				}
+			});
+			return false;
+		}*/
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+		oHelper.Call('wcm6_viewdocument',sQuoteType,oPostData,true,
+			function(_transport,_json){
+				ProcessBar.close();
+				Ext.Msg.report(_json,wcm.LANG.DOCUMENT_PROCESS_47 || '文档引用结果',func);
+				setTimeout(function(){CMSObj.createFrom({objType:WCMConstants.OBJ_TYPE_CHNLDOC}, null).afterdelete();},1000);
+				FloatPanel.hide();
+			},
+			function(_transport,_json){
+				ProcessBar.close();
+				$render500Err(_transport,_json);
+				FloatPanel.close();
+			}
+		);
+		return false;
+	}
+
+	function changeViewer(_i){
+		switch(parseInt(_i)){
+			case 1:
+				Element.show($('cluster_channels_list'));
+				Element.hide($('all_channels_tree'));
+				Element.hide($('individual_channels_tree'));
+				Element.hide($('search_channels_tree'));
+				break;
+			case 2:
+				Element.hide($('cluster_channels_list'));
+				Element.show($('all_channels_tree'));
+				Element.hide($('individual_channels_tree'));
+				Element.hide($('search_channels_tree'));
+				break;
+			case 3:
+				Element.hide($('cluster_channels_list'));
+				Element.hide($('all_channels_tree'));
+				Element.show($('individual_channels_tree'));
+				Element.hide($('search_channels_tree'));
+				break;
+			case 4:
+				Element.hide($('cluster_channels_list'));
+				Element.hide($('all_channels_tree'));
+				Element.hide($('individual_channels_tree'));
+				Element.show($('search_channels_tree'));
+				break;
+		}
+	}
+
+	function getQuoteType(){
+		var eQuoteTypes = document.getElementsByName("QuoteType");
+		for(var i=0;i<eQuoteTypes.length;i++){
+			if(eQuoteTypes[i].checked){
+				//将当前取值存储到cookie中作为下次的默认值使用
+				setCookie("selectedQuoteType",eQuoteTypes[i].getAttribute("id"));
+				return eQuoteTypes[i].value;
+			}
+		}
+		return 'quote';
+	}
+	 function initSelectedMode(){
+		var modeValue = getCookieValue('selectedChannelMode');
+		modeValue = (modeValue == '' ? '2 ': modeValue);
+		var modes = document.getElementsByName("mode");
+        modes[parseInt(modeValue) - 1].checked = true;
+		changeViewer(modeValue);
+	}
+	function getCookieValue(_cookieKey){
+		var cookieValue = '';
+		var arrStr = parent.parent.document.cookie.split(";");
+        for(var k = 0; k < arrStr.length; k++){
+            var temp = arrStr[k].split("=");
+            if(temp[0].trim() == _cookieKey){
+				cookieValue = temp[1];
+				break;
+			}
+        }
+		return cookieValue;
+	}
+	function setCookie(key,value)
+	{	
+		parent.parent.document.cookie = key+ "=" +value;
+	}
+    function setCookieForLatestSelChnlIds(_selIds){
+		if(_selIds.length == 0)return;
+		var currCookieForSelChnlIds = getCookieValue('latestSelChnlIds');
+		var aCurrCookieForSelChnlIds = currCookieForSelChnlIds.split('/');
+		//把重复的内容移除掉
+		for(var t = 0; t < _selIds.length; t++){
+			for(var r = 0; r < aCurrCookieForSelChnlIds.length; r++){
+				if(_selIds[t] == aCurrCookieForSelChnlIds[r]){
+					if(r < (aCurrCookieForSelChnlIds.length - 1)){
+						for(var p = r; p < aCurrCookieForSelChnlIds.length; p++){
+							if(p == aCurrCookieForSelChnlIds.length - 1)continue;
+							aCurrCookieForSelChnlIds[p] = aCurrCookieForSelChnlIds[p+1];
+						}
+					}
+					aCurrCookieForSelChnlIds = aCurrCookieForSelChnlIds.slice(0, (aCurrCookieForSelChnlIds.length-1));
+				}
+			}
+		}
+		currCookieForSelChnlIds = aCurrCookieForSelChnlIds.join('/');
+
+		//如果目前在cookie中为空，那么存储当前选择中的前5个
+		if(currCookieForSelChnlIds == '' || _selIds.length >=5){
+			for(var m = 0; m < _selIds.length; m++){
+				if(m == 0) 
+					currCookieForSelChnlIds = _selIds[m];
+				else if(m > 4) break;
+				else{
+					currCookieForSelChnlIds += '/' + _selIds[m];
+					continue;
+				}
+			}
+			parent.parent.document.cookie='latestSelChnlIds=' + currCookieForSelChnlIds;
+		}else{
+			if((5 - aCurrCookieForSelChnlIds.length) >= _selIds.length){
+				for(var p = 0; p < _selIds.length; p++){
+					currCookieForSelChnlIds+='/' + _selIds[p];
+				}
+			}else{
+				for(var j = 0; j < _selIds.length; j++){
+					
+					var nKongSize = (5 - aCurrCookieForSelChnlIds.length);
+					//如果当前存储的不足5个，那么往后追加
+					if(nKongSize > 0){
+						aCurrCookieForSelChnlIds[aCurrCookieForSelChnlIds.length] = _selIds[j];
+					}else{
+						//如果存储的已经有5个了，那么直接移动
+						for(var n = 0; n < aCurrCookieForSelChnlIds.length; n++){
+							if(n == 4) continue;
+							aCurrCookieForSelChnlIds[n] = aCurrCookieForSelChnlIds[n+1];
+						}
+						aCurrCookieForSelChnlIds[4] = _selIds[j];
+					}
+				}
+				currCookieForSelChnlIds = aCurrCookieForSelChnlIds.join('/');
+			}
+			parent.parent.document.cookie='latestSelChnlIds=' + currCookieForSelChnlIds;
+		}
+	}
+
+</SCRIPT>
+<link rel="stylesheet" type="text/css" WCMAnt:locale="./document_quoteto_$locale$.css"  href="./document_quoteto_cn.css" />
+<style type="text/css">
+	.font_red{
+		color:red;
+	}
+</style>
+</HEAD>
+
+<BODY style="overflow:hidden">
+<DIV style="line-height:36px; height:auto;text-align:left;font-size:14px;color:#010101;border-bottom:1px solid gray;">
+	<SPAN WCMAnt:param="channel_select.html.channel">栏目：</SPAN>
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" value="1"><span WCMAnt:param="document_quoteto.html.cluster">聚合</span>
+	</SPAN>
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" value="2"><span WCMAnt:param="document_quoteto.html.all">所有</span>
+	</SPAN>
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" value="3"><span WCMAnt:param="channel_select.html.individualChnl">定制</span>
+	</SPAN>
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" value="4"><span WCMAnt:param="channel_select.html.searchChnl">搜索</span>
+	</SPAN>
+</DIV>
+<DIV id="all_channels_tree" class="iframe_container">
+	<DIV style="height:100%;">
+		<iframe id="allTreeNav" src="../include/blank.html" style="width:100%;height:100%" frameborder="0"  allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<DIV id="cluster_channels_list" class="iframe_container" style="display:none">
+	<DIV style="height:100%;">
+		<iframe id="clusterList" src="../include/blank.html" style="width:100%;height:100%" frameborder="0"  allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<DIV id="individual_channels_tree" class="iframe_container" style="display:none">
+	<DIV style="height:100%;">
+		<iframe id="individualNav" src="../include/blank.html" style="width:100%;height:100%" frameborder="0"  allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<DIV id="search_channels_tree" class="iframe_container" style="display:none">
+	<DIV style="height:100%;">
+		<iframe id="searchNav" src="../include/blank.html" frameborder="0"  style="width:100%;height:100%"  allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<DIV style="font-size:12px;">
+	<INPUT TYPE="radio" id="QuoteType1" NAME="QuoteType" checked value="quote"><label for="QuoteType1" WCMAnt:param="document_quoteto.html.doclinktypeQuoteonlygenerateonlink">1.链接型引用（仅仅产生一个链接，文档表现形式保持完全一致）</label><BR>
+	<INPUT TYPE="radio" id="QuoteType2" NAME="QuoteType" value="mirror"><label for="QuoteType2" WCMAnt:param="document_quoteto.html.mirrQuotedoctargetchnl">2.镜像型引用（在目标栏目产生文档的镜像）</label>
+	<BR>
+	<SPAN class="font_red" WCMAnt:param="document_quoteto.html.alertMessage">
+	&nbsp;&nbsp;注意：如果选择镜像型引用时的目标栏目类型为头条新闻或图片新闻，则处理逻辑同链接型引用。
+	</SPAN>
+</DIV>
+<script language="javascript">
+<!--
+	//var sURL = "?IsRadio=0&MultiSites=1&ExcludeSelf=1&ExcludeOnlySearch=1&RightIndex=31&ShowOneType=1";
+	//当栏目是表单栏目的时候
+	var nExcludeInfoView = 1;
+	if(channelType.indexOf("13")>=0) nExcludeInfoView = 0;
+	var sURL = "?IsRadio=0&MultiSites=1&ExcludeSelf=1&ExcludeOnlySearch=1&RightIndex=31&SiteTypes=0,4&MultiSiteType=0&ExcludeInfoView=" + nExcludeInfoView;
+	//gfc 来自于不同栏目
+	if(sChannelIds != null && sChannelIds != ''){
+		var arChnlIds = sChannelIds.split(',');
+		if(arChnlIds.length == 1) {
+			sURL += "&CurrChannelId=" + arChnlIds[0];
+		}else if(arChnlIds.length > 1) {
+			sURL  += "&NotSelect=1&SelectedChannelIds="+sChannelIds; //TODO
+		}
+	}
+
+	var sExpandSiteId = getParameter("siteids");
+	if(sExpandSiteId != null && sExpandSiteId.length>0 && sExpandSiteId != "0"){
+		sURL += "&ExpandSiteId="+sExpandSiteId;
+	}
+
+	$('allTreeNav').src = "../nav_tree/nav_tree_select.jsp"+sURL;
+	if(onlySelect) {
+		$('allTreeNav').src = "../nav_tree/nav_tree_select.jsp"+sURL+ "&SelectedChannelIds=" + selectedChannelIds;
+	}
+	//$('customizeTreeNav').src = "../nav_tree/nav_tree_select_individual.jsp"+sURL;
+	$('clusterList').src = "../document/recommendto_channel.jsp"+sURL;
+	$('individualNav').src = "../nav_tree/nav_tree_select.jsp"+sURL + "&forIndividual=" + 1;
+	$('searchNav').src = "../include/show_search_channel.jsp"+sURL;
+	initSelectedMode();
+//-->
+</script>
+<script language="javascript">
+<!--
+	//根据初始化默认选中的引用类型
+	window.onload = function(){
+		var doms = document.getElementsByName("QuoteType");
+		var selecteQuoteTypeId = getCookieValue("selectedQuoteType");
+		for (var i = 0;i<doms.length;i++){
+			var dom = doms[i];
+			if(dom.getAttribute("id")==selecteQuoteTypeId){
+				dom.checked = true;
+			}
+		}
+	}
+//-->
+</script>
+</BODY>
+</HTML>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="operrole_new" class-name="com.gwssi.sysmgr.role.dao.Operrole" check-flag="false">
+    <description>系统角色表</description>
+  </table-info>
+
+  <column name="roleid" data-type="long" length="12" not-null="false" empty-is-null="false" unique="false" value-from="sequence" value-set="flowid" description="业务角色的编号，保留"/>
+  <column name="rolename" data-type="varchar" length="32" not-null="true" empty-is-null="false" unique="false" value-from="input" description="角色名称"/>
+  <column name="description" data-type="varchar" length="256" not-null="false" empty-is-null="false" unique="false" value-from="input" description="角色描述"/>
+  <column name="funclist" data-type="varchar" length="1024" not-null="false" empty-is-null="false" unique="false" value-from="input" description="功能列表"/>
+  <column name="rolescope" data-type="varchar" length="3" not-null="false" empty-is-null="false" unique="false" value-from="input" description="角色使用范围"/>
+  <column name="groupname" data-type="varchar" length="32" not-null="false" empty-is-null="false" unique="false" value-from="input" description="角色所属的功能组"/>
+  <column name="homepage" data-type="varchar" length="128" not-null="false" empty-is-null="false" unique="false" value-from="input" description="主页面"/>
+  <column name="layout" data-type="varchar" length="64" not-null="false" empty-is-null="false" unique="false" value-from="input" description="页面布局"/>
+  <column name="roletype" data-type="varchar" length="3" not-null="false" empty-is-null="false" unique="false" value-from="input" description="角色类型：保留"/>
+  <column name="roletype2" data-type="varchar" length="3" not-null="false" empty-is-null="false" unique="false" value-from="input" description="角色类型：保留"/>
+  <column name="status" data-type="char" length="1" not-null="false" empty-is-null="false" default="1" unique="false" value-from="input" description="有效标志"/>
+  <column name="memo" data-type="varchar" length="256" not-null="false" empty-is-null="false" unique="false" value-from="input" description="备注"/>
+  <column name="regname" data-type="varchar" length="24" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="operName" description="注册用户"/>
+  <column name="regdate" data-type="char" length="8" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="currentDate" description="注册日期"/>
+  <column name="modname" data-type="varchar" length="24" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="operName" description="修改用户"/>
+  <column name="moddate" data-type="char" length="8" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="currentDate" description="修改日期"/>
+  <column name="maxcount" data-type="long" length="22" not-null="false" empty-is-null="false" unique="false" value-from="input" description="最大查询记录数"/>
+  <primary-key name="operrole_pk" column-list="rolename"/>
+  <function func-name="select one operrole" func-type="select" column-list="roleid,rolename,description,funclist,rolescope,groupname,homepage,layout,roletype,roletype2,status,memo,regname,regdate,modname,moddate,maxcount">
+    <filter-column column-name="rolename" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>业务角色信息查询</description>
+  </function>
+
+  <function func-name="select operrole list" func-type="rowset" column-list="roleid,rolename,description,funclist,rolescope,groupname,homepage,layout,roletype,roletype2,status,memo,regname,regdate,modname,moddate,maxcount" sort-columns="regdate " max-record="10">
+    <filter-column column-name="rolename" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="description" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="funclist" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="groupname" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="rolescope" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="rolename" operator="ne" value-from="default" empty-flag="skip" default="user"/>
+    <description>业务角色列表查询</description>
+  </function>
+
+  <function func-name="insert one operrole" func-type="insert" column-list="roleid,rolename,description,rolescope,groupname,homepage,layout,roletype,roletype2,status,memo,regname,regdate,maxcount">
+    <description>插入业务角色信息</description>
+  </function>
+
+  <function func-name="delete one operrole" func-type="delete">
+    <filter-column column-name="rolename" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除业务角色信息</description>
+  </function>
+
+  <function func-name="update one operrole" func-type="update" column-list="rolename,description,rolescope,groupname,homepage,layout,roletype,roletype2,status,memo,modname,moddate,maxcount">
+    <filter-column column-name="rolename" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改业务角色信息</description>
+  </function>
+
+  <function func-name="update status" func-type="update" column-list="status,memo,modname,moddate,description,maxcount">
+    <filter-column column-name="rolename" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改角色的有效标志</description>
+  </function>
+
+  <function func-name="set funclist" func-type="update" column-list="funclist,modname,moddate">
+    <filter-column column-name="rolename" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>设置角色的权限信息</description>
+  </function>
+
+  <function func-name="select operrole parameter list" func-type="rowset" column-list="rolename as codevalue,description as codename" sort-columns="rolename" max-record="-1">
+    <filter-column column-name="rolename" operator="ne" value-from="default" empty-flag="skip" default="user"/>
+    <description>取角色的对照表</description>
+  </function>
+</table>
+

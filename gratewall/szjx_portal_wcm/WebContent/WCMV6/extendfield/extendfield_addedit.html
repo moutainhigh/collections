@@ -1,0 +1,184 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS=""  xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>add or edit a certain contentextfield</title>
+<link href="../css/add_edit.css" rel="stylesheet" type="text/css" />
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<style type="text/css">	
+	.spAttrClue{
+		width:70px; 
+		height:35px; 
+		line-height:35px; 
+		margin-right:5px; 
+		padding-left:10px; 
+		white-space:nowrap;
+	}
+
+	button{
+		height: 18px;
+		background: #eeeeee;
+		border: solid 1px silver;
+		font-size: 12px;
+		margin-left: 5px;
+		padding-right: 3px;
+		cursor:hand;
+	}
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script language="javascript" label="DataSource">
+//	$import('com.trs.wcm.datasource.extendfield.SupportedDataTypes');
+//	$import('com.trs.wcm.datasource.extendfield.ExtendFieldAttribute');
+//	$import('com.trs.wcm.datasource.extendfield.ExistsFields');
+</script>
+<script label="SysImport">
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.QuickKey');
+	$import('com.trs.validator.Validator');
+	$import('com.trs.combox.Combox');
+	$import('com.trs.wcm.util.LockedUtil');
+</script>
+<SCRIPT language=JavaScript src="../js/com.trs.util/Common.js"></SCRIPT>
+<script label="PageScope" src="extendfield_addedit.js"></script>
+</head>
+<body>
+<script language="javascript">
+<!--	
+	//FloatPanel.setAfterClose('main','$ExtendFieldMgr.unlock','$ExtendFieldMgr',PageContext.params);	
+	FloatPanel.addCloseCommand();		
+	FloatPanel.addCommand('savebtn', '确定', 'saveExtField',null);	
+	//FloatPanel.addCommand('resetbtn', '重填', 'resetForm',null);
+//-->
+</script>
+<form id="addEditForm" name="addEditForm" method="post" action="">
+	<input type="hidden" name="ContainsChildren" id="ContainsChildren" value="false">
+	<div id="area_holder"><center><img src="../images/loading.gif" border=0 style="padding-top:20px;padding-left:45%"></center></div>
+</form>
+<textarea id="create_area" name="create_area" style="display:none;padding-top:20px">
+	<div id="createContainer" name="createContainer" style="padding-top:20px">
+		<input type="hidden" name="ObjectId" id="ContentExtFieldId" value="0">
+		<input type="hidden" name="HostId" id="HostId" value="">
+		<input type="hidden" name="HostType" id="HostType" value="">
+		<input type="hidden" name="ExtFieldId" id="ExtFieldId" value="0">
+		<div style="padding-left:2px">
+			<div class="middle_register" justReplace="true">			
+				<div class="middle_sash_register_right"></div>
+				<div class="forme_arrowhead_down"></div>
+				<div class="middle_sash_register_left"></div>
+				<div class="middle_register_title_text">字段属性</div>			
+			</div>
+		</div>
+		<div class="full_register">
+			<div class="middle_register_text1" justReplace="true">				
+				<div>
+					<span class="spAttrClue">
+						字段名称：
+					</span>
+					<span class="text_txt">
+						<input name="FieldName" id="FieldName" type="text" class="kuang_as" value="" validation="type:'common_char2',required:'',max_len:'25',desc:'字段名称',rpc:'checkFieldName'"></input>						
+					</span>
+					<button style="display:none" id="cancelFieldSelected" title="取消使用已有字段的选择">取消选择</button>
+				</div>
+				<div>
+					<span class="spAttrClue">
+						显示名称：
+					</span>
+					<span class="text_txt">
+						<input name="FieldDesc" type="text" class="kuang_as" value="" validation="type:'string',required:'',max_len:'50',desc:'显示名称'" ></input>						
+					</span>
+				</div>
+				<div>					
+					<span class="spAttrClue">
+						字段类型：
+					</span>					
+					<select name="FieldType" id="selFieldType" class="kuang_as" validation="type:'select',required:'',desc:'字段类型'">
+						<option value="-1">--请选择--</option>
+						<for select="MultiResult.DataType">
+							<option value="{#Name}" _type="{#Type}" _maxLength="{#MaxLength}">{#Desc}</option>
+						</for>
+					</select>										
+				</div>
+				<div id="attr_fieldlength" style="display:none">
+					<span class="spAttrClue">
+						字段长度：
+					</span>
+					<span class="text_txt">
+						<input name="FieldMaxLen" type="text" class="kuang_as" id="attr_fieldlength_in" style="display:none" validation="type:'int',required:'true',min:'1',desc:'字段长度'"></input>
+					</span>
+				</div>
+				<div>
+					<span style="padding-left:20px;padding-bottom:5px;cursor:hand;">
+						<input type="checkbox" id="syncchildren" ><label for="syncchildren">同步创建到子对象</label>
+					</span>
+				</div>
+			</div>		
+		</div>
+	</div>
+</textarea>
+<textarea id="edit_area" name="edit_area" style="display:none;padding-top:20px">
+	<div id="editContainer" name="editContainer" style="padding-top:20px">
+		<div style="padding-left:2px">
+			<div class="middle_register" justReplace="true">			
+				<div class="middle_sash_register_right"></div>
+				<div class="forme_arrowhead_down"></div>
+				<div class="middle_sash_register_left"></div>
+				<div class="middle_register_title_text">字段属性</div>			
+			</div>
+		</div>
+		<div class="full_register">
+			<div class="middle_register_text1" justReplace="true">			
+				<input type="hidden" name="HostId" id="HostId" value="{#HOST.Id}">
+				<input type="hidden" name="HostType" id="HostType" value="{#HOST.Type}">
+				<input type="hidden" name="ObjectId" id="ContentExtFieldId" value="{#ContentExtFieldId}">
+				<input type="hidden" name="ExtFieldId" value="{#DBFIELD.Id}">
+				<div>
+					<span class="spAttrClue">
+						字段名称：
+					</span>
+					<span class="text_txt">
+						<input name="FieldName" type="text" class="kuang_as" value="{#DBFIELD.FieldName}" disabled="true"></input>						
+					</span>								
+				</div>
+				<div>
+					<span class="spAttrClue">
+						显示名称：
+					</span>
+					<span class="text_txt">
+						<input name="FieldDesc" type="text" class="kuang_as" value="{#LogicFieldDesc}" validation="type:'string',required:'',max_len:'50',desc:'显示名称'">
+					</span>
+				</div>
+				<div>					
+					<span class="spAttrClue">
+						字段类型：
+					</span>
+					<span class="text_txt">
+						{#DBFIELD.FieldTypeDesc}
+					</span>
+				</div>
+				<TRS:if test="'{#DBFIELD.FieldTypeId}'=='12'">
+				<div>
+					<span class="spAttrClue">
+						字段长度：
+					</span>
+					<span class="text_txt">
+						<input name="FieldMaxLen" type="text" class="kuang_as" disabled="true" value="{#DBFIELD.MaxLength}"></input>
+					</span>
+				</div>
+				</TRS:if>
+				<div>
+					<span style="padding-left:20px;padding-bottom:5px;cursor:hand;">
+						<input type="checkbox" name="syncchildren" id="syncchildren" /><label for="syncchildren">同步创建到子对象</label>
+					</span>
+				</div>
+			</div>			
+		</div>
+	</div>
+</textarea>
+</body>
+</html>

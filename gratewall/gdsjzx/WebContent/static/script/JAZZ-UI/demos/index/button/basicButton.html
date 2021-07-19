@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+</head>
+<body>
+  
+<script>  
+    function btn1click(){
+    	//jazz.info(" defaultview=2 (text and icon).");
+    }
+    function btn2click(){
+    	//jazz.info(" defaultview=0 (only icon).");
+    }
+    function btn3click(){
+    	//jazz.info(" defaultview=1 (only text).");
+    }
+    
+</script>
+<div id="btn-01"  vtype="button" name="btn01" text="basicButton" width=null
+	 iconurl="../../../themes/default/toolbar/images/print.png" 
+	 click="btn1click()"></div>
+<div id="btn-02"  vtype="button" name="btn02" text="Only icon" defaultview=0 width=null
+	 iconurl="../../../themes/default/toolbar/images/print.png" 
+	 click="btn2click()"></div>
+<div id="btn-03"  vtype="button" name="btn03" text="Only Text" defaultview=1 width=null
+	 iconurl="../../../themes/default/toolbar/images/print.png" 
+	 click="btn3click()"></div>
+<script type="text/javascript">
+/* $(function(){
+    //调整父页面iframe高度
+    try{
+        parent.setWinHeight(200);           
+    }catch(e){
+        jazz.log(e);
+    }
+}); */
+</script>   
+</body>
+</html>

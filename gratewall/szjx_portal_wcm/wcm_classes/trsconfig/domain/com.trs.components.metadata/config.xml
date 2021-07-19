@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin name="元数据组件配置" version="1.0" id="metadata">
+	<!-- Cached-Object Config For ICachePOMgr BEGIN -->
+	<extension element-class="com.trs.infra.persistent.cache.CachedObjectConfig" id="CachedObjs">
+		<cached-object Name="分类法" 
+		ClassName="com.trs.components.metadata.definition.ClassInfo"/>
+		<cached-object Name="视图" 
+		ClassName="com.trs.components.metadata.definition.MetaView"/>		
+	</extension>
+	<!-- Cached-Object Config For ICachePOMgr END -->
+	
+
+	<!-- CacheMgrs Config For CacheServer BEGIN -->
+	<extension
+		element-class="com.trs.infra.support.cache.CacheMgrConfig"
+		id="CacheMgrs">
+		<cache-manager beanId="IMetaDataDefCacheMgr" name="元数据定义缓冲管理器" />
+		<cache-manager beanId="IClassInfoCacheMgr" name="分类法缓冲管理器" />
+	</extension>
+	<!-- CacheMgrs Config For CacheServer END -->
+
+	<!--Config For ObjectLCMonitor BEGIN-->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		-1：新增前
+		1：新增
+		2：修改后
+		3：删除前
+		4、删除后
+		5：修改前
+		多个以逗号隔开
+	-->
+	<extension
+		element-class="com.trs.infra.persistent.listener.MonitorHostConfig"
+		id="ObjectLCMonitor">
+		<!--视图字段-->
+		<monitor-host name="视图字段"
+			class-name="com.trs.components.metadata.definition.MetaViewField">
+			<listener bean-id="IMetaDataDefCacheMgr" />
+		</monitor-host>
+		<monitor-host name="视图字段"
+			class-name="com.trs.components.metadata.definition.MetaViewField">
+			<listener bean-id="MetaViewFieldListenerForFieldGroup" event-type="-1,5"/>
+		</monitor-host>
+		<!--视图-->
+		<monitor-host name="视图"
+			class-name="com.trs.components.metadata.definition.MetaView">
+			<listener bean-id="IMetaDataDefCacheMgr" event-type="3" />
+		</monitor-host>
+		<!--栏目文档-->
+		<monitor-host name="栏目文档"
+			class-name="com.trs.components.wcm.content.persistent.ChnlDoc">
+			<listener bean-id="ChnlDocLCListenerForSynToMetaData"
+				event-type="2" desc="监听文档移动操作，以便同步栏目信息" />
+		</monitor-host>
+		<!--栏目文档-->
+		<monitor-host name="栏目文档"
+			class-name="com.trs.components.wcm.content.persistent.Document">
+			<listener bean-id="DocumentListenerForMetaViewData"
+				event-type="4" desc="监听文档删除操作，以便删除元数据信息" />				
+		</monitor-host>
+		<!--分类法-->
+		<monitor-host name="分类法"
+			class-name="com.trs.components.metadata.definition.ClassInfo">
+			<listener bean-id="ClassInfoListenerForViewData"
+				event-type="3" desc="监听分类法删除操作，以便删除元数据的分类信息" />
+			<listener bean-id="IClassInfoCacheMgr" desc="监听分类法的变化，以便同步Cache"/>
+		</monitor-host>
+		<!--元数据字段-->
+		<monitor-host name="元数据字段"
+			class-name="com.trs.components.metadata.definition.MetaDBField">
+			<listener bean-id="MetaDBFieldListenerForChannelSynRule"
+				event-type="2" desc="监听元数据字段操作，以便同步栏目信息" />
+		</monitor-host>
+	</extension>
+
+
+	<extension
+		element-class="com.trs.components.common.publish.config.persistent.PublishServerConfig"
+		id="MetaDataPublishServer">
+		<publish-server>
+			<!-- to define the publish folder types -->
+			<folder-types>
+				<folder name="classInfo"
+					class-name="com.trs.components.metadata.publish.PublishFolderClassImpl" />
+			</folder-types>
+			<!-- to define the publish content types -->
+			<content-types>
+				<content name="view"
+					class-name="com.trs.components.metadata.publish.PublishContentViewImpl" />
+				<content name="viewField"
+					class-name="com.trs.components.metadata.publish.PublishContentViewFieldImpl" />
+				<content name="viewData"
+					class-name="com.trs.components.metadata.publish.PublishContentViewDataImpl" />
+				<content name="viewFieldGroup"
+					class-name="com.trs.components.metadata.publish.PublishContentViewFieldGroupImpl" />
+			</content-types>
+		</publish-server>
+	</extension>
+</plugin>

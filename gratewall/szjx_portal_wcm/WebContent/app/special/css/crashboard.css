@@ -1,0 +1,38 @@
+.wcm-cbd{position:absolute;left:0px;right:0px;width:600px;z-index:999999;}
+.wcm-cbd *{margin:0px;padding:0px;}
+.wcm-cbd .l{padding-left:6px;}
+.wcm-cbd .r{padding-right:5px;}
+.wcm-cbd .c{}
+/*header layout*/
+.wcm-cbd .header{background:url(../images/crashboardheader_left.gif) left bottom no-repeat;cursor:move;}
+.wcm-cbd .header .r{background:url(../images/crashboardheader_right.gif) right bottom no-repeat;}
+.wcm-cbd .header .c{height:33px;background:url(../images/crashboardheader_center.gif) center bottom repeat-x;}
+/*body layout*/
+.wcm-cbd .body{background:url(../images/crashboardbody_left.gif) left center repeat-y;}
+.wcm-cbd .body .r{background:url(../images/crashboardbody_right.gif) right center repeat-y;}
+.wcm-cbd .body .c{zoom:1;background:url(../images/crashboardbody_center.gif) center center repeat-x;}
+/*footer layout*/
+.wcm-cbd .footer{background:url(../images/crashboardfooter_left.gif) left bottom no-repeat;}
+.wcm-cbd .footer .r{background:url(../images/crashboardfooter_right.gif) right bottom no-repeat;}
+.wcm-cbd .footer .c{height:19px;background:url(../images/crashboardfooter_center.gif) center bottom repeat-x;}
+/*header content*/
+.wcm-cbd .header .spt{float:left;width:6px;height:100%;background:url(../images/crashboardheader_spt.gif) left bottom repeat-x;}
+.wcm-cbd .header .title{float:left;width:80%;padding-left:5px;line-height:33px;font-size:12px;font-weight:bold;white-space:nowrap;overflow:hidden;color:white;}
+.wcm-cbd .header .tools{float:right;height:100%;margin-right:5px;}
+.wcm-cbd .header .close{float:right;width:17px;height:100%;cursor:default;}
+.wcm-cbd .header .close:link, .header .close:visited{background:url(../images/crashboardclose.gif) bottom center no-repeat;}
+.wcm-cbd .header .close:hover, .header .close:active{background:url(../images/crashboardclose_active.gif) bottom center no-repeat;}
+/*body content*/
+.wcm-cbd .body .cb-table{width:100%;height:100%;table-layout:fixed;font-size:12px;}
+.wcm-cbd .body .buttons{height:35px;padding-top:5px;overflow:hidden;text-align:center;}
+
+.wcm-cbd .body{padding-left:2px;}
+.wcm-cbd .body .r{padding-right:2px;}
+.wcm-cbd .body .c{background-color:#FAFEFF;padding:3px 14px;}
+.wcm-cbd .body iframe{border:0px solid #ACDDFE;background:white;}
+.wcm-disabled{
+	filter:gray;
+	-moz-opacity:.5;
+	opacity:0.5;
+	cursor:default!important;
+}

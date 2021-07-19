@@ -1,0 +1,95 @@
+*{
+	margin:0px;
+	padding:0px;
+	font-size:12px;
+}
+html,body{
+	width:100%;
+	height:100%;
+}
+.flow_start{
+	margin-left:10px;
+	padding-left:20px;
+	background:url(../images/workflow/option_start.gif) no-repeat 0 center;
+}
+.flow_cease{
+	margin-left:10px;
+	padding-left:20px;
+	background:url(../images/workflow/option_cease.gif) no-repeat 0 center;
+	cursor:pointer;
+}
+.flow_reflow{
+	margin-left:10px;
+	padding-left:20px;
+	background:url(../images/workflow/option_reflow.gif) no-repeat 0 center;
+	cursor:pointer;
+}
+
+.box{
+	width:100%;
+}
+.row{	
+	margin:2px;
+	clear:both;
+	overflow:hidden;
+	min-height:22px;
+}
+.label{
+	float:left;
+	width:130px;
+	text-align:right;
+	white-space:normal;
+	overflow:hidden;
+}
+.sep{
+	float:left;
+	width:10px;
+	text-align:left;
+	white-space:normal;
+	overflow:hidden;
+	margin-left:5px;
+}
+.value{
+	margin-left:145px;
+	text-align:left;
+}
+.appendix{
+	width:20px;
+	height:16px;
+	cursor:pointer;
+	background:center center no-repeat;
+	text-decoration:none;
+}
+.ext-strict .appendix{
+	padding:9px 10px;
+}
+.ext-ie8 .value li, .ext-gecko .value li{
+	margin-left:15px;
+}
+.type{
+	cursor:pointer;
+	padding:8px;
+	background:center center no-repeat;
+}
+fieldset{padding:5px 0 5px 0px;margin-bottom:5px;border:1px dashed #f7b64a;}
+legend{font-weight:bold;font-family:arial;border:0px;background-color:#eeeeee;}
+.XProcessBox{
+	width:98%;
+	height:470px !important;
+	height:100%;
+	overflow:hidden;
+}
+.buttonBox{
+	height:53px;
+	width:100%;
+	overflow:hidden;
+	vertical-align:middle;
+	text-align:center;
+}
+.buttonBox button{
+	margin-top:10px;
+	width:100px;
+}
+fieldset .row{
+	margin-left:0px;
+}

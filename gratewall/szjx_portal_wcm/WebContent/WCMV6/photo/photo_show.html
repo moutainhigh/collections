@@ -1,0 +1,209 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>图片查看</title>
+	<link href="../css/common.css" rel="stylesheet" type="text/css" />	
+	<link href="photo_show.css" rel="stylesheet" type="text/css" />		
+	<script src="../js/com.trs.util/Common.js"></script>	
+	<script label="TagParser">
+		$import('com.trs.web2frame.DataHelper');
+		$import('com.trs.web2frame.TempEvaler');
+		$import('com.trs.wcm.Web2frameDefault');
+		$import('com.trs.dialog.Dialog');		
+		$import('com.trs.crashboard.CrashBoard');
+	</script>
+	<script label="SysImport">
+		$import('com.trs.wcm.MessageCenter');
+	</script>
+	<script src="../workflow/domain/WorkProcessor.js"></script>
+	<script src="photo_show.js"></script>
+</head>
+<body style="overflow:auto">
+<div style="margin:20px">
+	<center>
+	<div id="div_loading"><img src="../images/loading.gif"></div>
+	<div id="main" style="width:1005px;display:none">		
+		<div id="scaledimagnav" style="width:660px;float:left"></div>
+		<textarea id="template_scaledimagnav" class="template">
+			<div id='nav_title'>
+				<div id="divDoctitle">{#DOCTITLE}</div>
+				<div style="text-align:left;" id="flowaction">
+					<span id="spReflow" style="display:none;">
+						<a _flag="workflow" href="#" title="重新流转" _function="reflow" class="function flow_reflow">重新流转</a>
+					</span>
+					<span id="spStartFlow" style="display:none">
+						<a _flag="workflow" href="#" title="开始流转" _function="startFlow" class="function func_btn flow_start">开始流转</a>
+					</span>
+					<span id="spCease" style="display:none" >
+						<a _flag="workflow" href="#" class="function func_btn flow_cease" title="结束流转" _function="ceaseFlow">结束流转</a>
+					</span>
+					<div id="divGunter" style="font-family: georgia; margin-top: 3px; margin-left:5px; padding: 3px; color: gray; display: none; overflow: auto">&nbsp;</div>
+				</div>							
+			</div>
+			<div id='nav_size' style='text-align:center'>
+				<for select="SCALEIMAGES">
+					<span class='nav'>
+						<span class='navdesc' onmouseover='highlightNav(this)' onmouseout='normalizeNav(this)'
+								onclick='showScaledImage(this)' _file='{#FILE}'>
+								{#DESC}
+						</span>
+						<span style="margin-top:10px">({#WIDTH}X{#HEIGHT})</span>
+						<span class='space'></span>
+					</span>
+				</for>
+				<div style='margin-top:20px'>
+					<img id='currImage' src=''>
+				</div>
+			</div>
+		</textarea>
+		<div style="position:relative">
+		<div id="sidebar" style="float:right;width:265px;margin-top:30px;position:absolute">
+			<div style="height:95px;padding-top:5px">				
+				<div id="imageroller"></div>
+				<textarea class="template" id="template_imageroller">				
+				<for select="ViewDocument">					
+					<img  id="rollimg{$$INDEX}" style="cursor:hand;width:75px;height:75px;" src="{@mapRollImage(#DOCRELWORDS)}" onclick="showPhoto({#DOCID},{#ChnlId},{#RecId});">					
+				</for>
+				</textarea>				
+				<div style="padding-top:2px;">
+					<span style="float:left;padding-left:10px">
+						<a href="#" onclick="onPrevious();" title="上一页" >&lt;&lt;</a>
+					</span>				
+					<span style="float:right;padding-right:10px">
+						<a href="#" onclick="onNext();" title="下一页">&gt;&gt;</a>
+					</span>
+						<span id="tiptext"></span>
+				</div>				
+			</div>
+			<table><tr><td>			
+			<div id="imageprops" style="margin-top:20px"></div>
+			<textarea id="template_imageprops" class="template" select=".">
+				<table border="0" cellspacing="1px" cellpadding="1px" style="border-collapse:collapse;">
+				<tbody>					
+					<tr>
+						<td colspan="2" height="5">&nbsp;</td>
+					</tr>
+					<tr>
+						<td class="attr_name" align="left">图片类型</td>
+						<td class="attr_value" align="left">{@getFileType(#DOCRELWORDS)}</td>
+					</tr>
+					<tr>
+						<td class="attr_name" align="left">图片状态</td>
+						<td class="attr_value" align="left">{#DOCSTATUS.NAME}</td>
+					</tr>
+					<tr>
+						<td class="attr_name" align="left">作者</td>
+						<td class="attr_value" align="left">{#DOCAUTHOR}</td>
+					</tr>
+					<tr>
+						<td class="attr_name" align="left">人物</td>
+						<td class="attr_value" align="left">{#DOCPEOPLE}</td>
+					</tr>
+					<tr>
+						<td class="attr_name" align="left">地点</td>
+						<td class="attr_value" align="left">{#DOCPLACE}</td>
+					</tr>
+					<tr>
+						<td class="attr_name" align="left">时间</td>
+						<td class="attr_value" align="left">{#DOCRELTIME}</td>
+					</tr>
+					<tr>
+						<td class="attr_name" align="left">关键词</td>
+						<td class="attr_value" align="left">{#DOCKEYWORDS}</td>
+					</tr>
+					<tr>
+						<td class="attr_name" align="left">创建人</td>
+						<td class="attr_value" align="left">{#CRUSER}</td>
+					</tr>
+					<tr>
+						<td class="attr_name" align="left">创建时间</td>
+						<td class="attr_value" align="left">{#CRTIME}&nbsp;</td>
+					</tr>
+				</tbody>
+				</table>
+			</textarea>	</td></tr><tr><td>
+			<div id="imageextprops" style="border-top:1px solid gray;padding-top:10px;"></div>
+			<textarea id="template_imageextprops" class="template">
+				<table border="0" cellspacing="1px" cellpadding="1px" style="border-collapse:collapse;table-layout:fixed">
+				<tbody>															
+					<for select="ExtendedProps">
+					<tr>
+						<td class="attr_name" align="left" valign="top" style="width:100px;break-word:break-all;word-wrap:break-word">{#DESC}</td>
+						<td class="attr_value" align="left" valign="top" style="width:180px;break-word:break-all;word-wrap:break-word">{#VALUE}</td>
+					</tr>										
+					</for>
+				</tbody>
+				</table>				
+			</textarea></td></tr></table>
+		</div>
+		</div>
+		<div style="width:660px;float:left;border-bottom:1px solid gray;margin-top:20px;text-align:left">
+			<label>描述：</label>
+			<span id="photodesc" style="font-size:14px;"></span>
+		</div>
+		<div style="width:660px;float:left;margin-top:20px;text-align:left">	
+			<table border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+				<tr>
+					<td id="kinds"></td>
+				</tr>
+				<tr>
+					<td id="quotes"></td>
+				</tr>
+			</tbody>
+			</table>		
+			<textarea class="template" id="template_kinds">
+				<table>
+				<tr>
+					<td class="attr_name" style="border:0px;" align="right">当前位置：</td>
+					<td class="attr_value" style="border:0px;color:green" >{#CURRENTPATH}</td>
+				</tr>
+				<tr>
+					<td class="attr_name" style="border:0px;" align="right">隶属分类：</td>
+					<td class="attr_value" style="border:0px;" >{#MAINKIND}</td>
+				</tr>
+				<tr>
+					<td class="attr_name"  style="border:0px;" align="right">被以下分类引用：</td>
+					<td>&nbsp;</td>
+				</tr>				
+				<for select="OTHERKINDS">
+				<tr>
+					<td class="attr_name"  style="border:0px;" >&nbsp;</td>
+					<td class="attr_value" style="border:0px;" >[{$$INDEX}].&nbsp;&nbsp;{#.}</td>
+				</tr>						
+				</for>
+				</table>
+			</textarea>			
+			<textarea class="template" id="template_quotes">
+				<table>
+				<tr>
+					<td class="attr_name"  style="border:0px;" align="right">被以下文档引用：</td>
+					<td>&nbsp;</td>
+				</tr>	
+				<for select="Documents">
+				<tr>
+					<td class="attr_name" style="border:0px;" >&nbsp;</td>
+					<td class="attr_value status_{#DOCSTATUS}" style="border:0px;">[{$$INDEX}].&nbsp;&nbsp;{#DOCTITLE}&nbsp;&nbsp;[{#CHNLPATH}]</td>
+				</tr>					
+				</for>
+				<tr height="10">
+					<td>&nbsp;</td>
+				</tr>
+				</table>
+			</textarea>
+		</div>
+	</div>
+	</center>
+</div>
+<!-- 工作流相关 -->
+<textarea id="gunter_template" select="FLOWDOCS.FLOWDOC" style='display:none'>
+	<for select=".">
+		<span class="gunter_node_common" id="gunter_node_{#FlowDocId}" _flag="{#Flag.Id}">
+			<div class="gunter_node_title" title="操作:{#Flag.Name}&#13;操作人:{#PostUser} &#13;时间:{#POSTTIME} &#13;意见:{#PostDesc}">
+				{#Flag.Name}
+			</div>
+		</span>	
+	</for>
+</textarea>
+</body>
+</html>

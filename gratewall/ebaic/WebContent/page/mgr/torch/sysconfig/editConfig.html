@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+
+<title>编辑配置</title>
+<link rel="stylesheet" href="../../../../static/css/common.css">
+<link href="../../../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<body style="overflow:hidden">
+  		<!-- <div  name="sysEditConfigPanel" vtype="formpanel" id="sysEditConfigPanel" displayrows="1"
+			titleDisplay="true" width="100%" layout="auto" showborder=false  
+			labelStyleClass="labelstyle" title="sys_edit_config ">
+			
+			<div name='configId' id='configIndex' vtype="hiddenfield" label="主键" labelAlign="right"
+				width="300" labelwidth='100'></div>
+			<div name='functionId' id='functionId' vtype="hiddenfield" label="上级功能ID" labelAlign="right"
+				width="300" labelwidth='100'  ></div>
+			<div name='configIndex' id='configIndex' vtype="textfield" label="功能序号" labelAlign="right"
+				width="300" labelwidth='100'  ></div>
+			<div name='configTitle' id='configTitle' vtype="textfield" label="功能标题" labelAlign="right"
+				width="300" labelwidth='100'  ></div>
+			<div name='configName' id='configName' vtype="textfield" label="功能名称" labelAlign="right"
+				width="300" labelwidth='100'  ></div>
+			<div name='configDesc' id='configDesc' vtype="textfield" label="功能描述" labelAlign="right"
+				width='300' labelwidth='100'></div>
+			<div name='tplPath' id='tplPath' vtype="textfield" label="模板路径" labelAlign="right"
+				width='300' labelwidth='100'></div>
+			<div name='adapterType' id='adapterType' vtype="textfield" label="适配类型" labelAlign="right"
+				width='300' labelwidth='100'></div>
+			<div name='tableName' id='tableName' vtype="textfield" label="操作表表名" labelAlign="right"
+				width='300' labelwidth='100'></div>
+			<div name='primaryKey' id='primaryKey' vtype="textfield" label="操作表主键名称" labelAlign='right'
+				width='300' labelwidth='100'></div>
+			<div name='beforeExecute' id='beforeExecute' vtype="textfield" label="执行前执行方法" labelAlign="right"
+				width='300' labelwidth='100'></div>
+			<div name='afterExecute' id='afterExecute' vtype="textfield" label="执行后执行方法" labelAlign="right"
+				width='300' labelwidth='100'></div>
+			<div name='editType' id='editType' vtype="comboxfield" label="编辑类型" labelAlign="right" rule="must" valuetip="请选择..." dataurl="[{'value':'update','text':'修改'},{'value':'insert','text':'增加'},{'value':'delete','text':'删除'}]"
+				width='300' labelwidth='100'></div>
+			<div name='model' id='model' vtype="comboxfield" label="配置模式" labelAlign="right" rule="must" valuetip="请选择..." dataurl="[{value:'high',text:'高级',checked:true}]"
+				width='300' labelwidth='100'></div>
+			<div name='configSql' id='configSql' vtype="textareafield" label="手写sql" rule="must" labelAlign="right"
+				width="800" labelwidth='100' height="150"></div>
+			
+			<div id="toolbar" name="toolbar" vtype="toolbar" location="bottom"
+				align="center" width="100%">
+				<div name="save_button" id="save_button" vtype="button" text="保存"
+					icon="../query/queryssuo.png"  ></div>
+				<div name="reset_button" id="reset_button" vtype="button" text="重置"></div>
+					<div name="back_button" id="back_button" vtype="button" text="返回"
+						icon="../query/queryssuo.png" ></div>
+			</div>
+		</div> -->
+		<div vtype="gridpanel" name="editColumnGrid"  width="100%" id="editColumnGrid"
+			 titleDisplay=true title="编辑列组件信息" lineno=true 
+			 datarender="editColumnGridRender()"
+			layout="auto" showborder=true>
+			
+			<div name="add_edit_column_detail_button" id="add_edit_column_detail_button" vtype='button' text='新增编辑列信息' ></div>
+			<div name="back_button" id="back_button" vtype='button' text='上一步' ></div>
+			
+			<div vtype="gridcolumn" name="grid_column">
+				<div>
+ 					<!-- <div name='configId' text="配置ID"  textalign="center" width='200'></div> 
+					<div name='columnId' text="列ID" textalign="center" width='200'></div>  -->
+<!-- 					<div name='columnIndex' text="查询列序号" textalign="center" width='80'></div> -->
+					<div name='columnTitle' text="查询列标题" textalign="center" width='143'></div>
+					<div name='columnName' text="查询列名称" textalign="center" width='143'></div>
+					<div name='columnField' text="列对应数据库字段名" textalign="center" width='200'></div>
+					<div name='columnFieldType' text="查询组件类型" textalign="center" width='100'></div>
+					<!-- <div name='columnDict' text="查询列代码集" textalign="center" width='100'></div> -->
+				<!-- 	<div name='columnFormat' text="查询列数据格式" textalign="center" width='100'></div> -->
+				 	<div name='columnWidth' text="查询列组件宽度" textalign="center" width='130'></div> 
+<!-- 					<div name='columnGenerate' text="列值生成方式uuid,systemTime,timeStamp" textalign="center" width='80'></div> -->
+<!-- 					<div name='columnEditable' text="0-不可编辑 1-可编辑" textalign="center" width='80'></div> -->
+<!-- 					<div name='columnTips' text="列提示信息" textalign="center" width='80'></div> -->
+					<div name='columnRule' text="列规则" textalign="center" width='120'></div>
+					<!-- <div name='columnValueFrom' text="列值来源" textalign="center" width='80'></div> -->
+					<div name='columnIndex' text="查询列序号" textalign="center" width='80'></div>
+					<div name='opt' text="操作" textalign="center" width='190'></div>
+				</div>
+			</div>
+			<div vtype="gridtable" name="grid_table"></div>
+			<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10"></div>
+			<div class="nodata" style="display: none;"></div>
+		</div>
+		<script type="text/javascript" src="../../../../static/js/config.js"></script> 
+	<script type="text/javascript" src="../../../../static/lib/require.js"  data-main="sysconfig/editConfig.js"></script> 
+</body>
+</html>

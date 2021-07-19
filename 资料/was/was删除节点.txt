@@ -1,0 +1,107 @@
+WAS用命令创建节点
+
+参考事例
+利用命令的方式在服务器节点1查看当前已经创建的DM和Node，然后删除DM和节点，再重新创建DM、Node；
+如下图所示
+cd d:\IBM\WebSphere\AppServer\bin
+
+查看当前的ＤＭ、Node
+manageprofiles.bat -listProfiles 
+删除profile
+manageprofiles.bat -delete -profileName AppSrv01
+manageprofiles.bat -delete -profileName Dmgr01
+
+创建新profile前，需要删除文件夹！！！
+
+
+利用模板创建profile dmgr
+manageprofiles.bat -create -templatePath d:\IBM\WebSphere\AppServer\profileTemplates\dmgr -profileName Dmgr01 -profilePath d:\IBM\WebSphere\AppServer\profiles\Dmgr01 -enableAdminSecurity true -adminUserName admin -adminPassword 111111
+
+
+利用模板创建profile server
+manageprofiles.bat -create -templatePath d:\IBM\WebSphere\AppServer\profileTemplates\default -profileName AppSrv01 -profilePath d:\IBM\WebSphere\AppServer\profiles\AppSrv01 -enableAdminSecurity true -adminUserName admin –adminPassword 111111
+ 
+
+在服务器节点2和3上查看、删除原有的Profiles，然后创建新的Profiles（这两个节点只创建应用服务器）；
+查看当前的Node
+manageprofiles.bat -listProfiles 
+删除profile
+manageprofiles.bat -delete -profileName AppSrv01
+利用模板创建profile server
+d:\IBM\WebSphere\AppServer\profiles\AppSrv01\bin
+manageprofiles.bat -create -templatePath d:\IBM\WebSphere\AppServer\profileTemplates\default -profileName AppSrv01 -profilePath d:\IBM\WebSphere\AppServer\profiles\AppSrv01
+同理进入管理控制台删除默认的server
+
+ 
+
+manageprofiles 此命令在 websphere Application Server Network Deployment v6.1之上才有，之前的版本采用的命令为wasprofile.sh,这个需要特别注意。。
+在Unix的机器上（包括AIX、HPUX）安装websphere64位的话，想要建立Profile是没有图形化界面的，需要使用manageprofiles命令，下面就详细描述一下如何使用这个命令。
+1、建立DM的profile,使用的模版在{install_root}/profileTemplates/dmgr下 
+句法为： 
+manageprofile.sh -create –templatePath {install_root}/profileTemplates/dmgr
+调用参数为： 
+-create 建立一个profile. (必选) 
+-templatePath 指定使用模版的路径. (必选) 建立DM的路径为{install_root}/profileTemplates/dmgr 
+-profileName 指定profile的名字. (可选) 
+-profilePath 指定proflile需要建立的路径. (可选) 
+-hostName 指定profile对应的主机名称. (可选) 
+-nodeName 指定profile对应的node的名称. 此名称必须在同一cell中唯一. (可选) 
+-cellName 指定profile对应的cell的名称. 每一个profile的cell名称必须唯一. (可选) 
+-isDefault 讲此profile指定为缺省的profile,在运行命令期间不需要使用profileName的参数. (可选) 
+-omitAction 附加条件. (可选) 
+-adminUserName 在指定administrative security选项后的管理员名称. (可选) 
+-adminPassword 在指定administrative security选项后的管理员密码. (可选) 
+-portsFile 指定profile的端口设定文件. 此参数和-startingPort或-defaultPorts参数冲突. (可选) 
+-startingPort 制度建立profile是的所有的端口的起始的端口号. 同-portsFile或者-defaultPorts参数冲突. (可选) 
+-defaultPorts 对新建立的profile使用缺省的端口号. 同-portsFile 或 -startingPort 参数冲突. (可选) 
+-validatePorts 进行端口号验证，保证使用的端口号没有已经被用或者被保留. (可选) 
+-enableAdminSecurity 新建立的profile使用用户密码方式认证,使用此参数后面跟 true. (可选) 
+-enableService 作为linux的service使用,使用此参数后面跟 true. (可选) 
+-serviceUserName 指定作为service使用时的用户. (可选)
+-webServerType 指定Web server的类型. (可选) 
+-webServerOS 指定Web server的操作系统的类型. (可选)
+例子： 
+export WAS_HOME=d:\IBM
+export PRO_HOME=d:\IBM\WebSphere\AppServer\profiles
+以上指定websphere的安装路径和profile的路径，或者输入命令时替换
+manageprofiles.sh -create \ 
+-templatePath $WAS_HOME/profileTemplates/dmgr \ 
+-profilePath $PRO_HOME/Dmgr01 \ 
+-nodeName "nodename" \ 
+-cellName "cell name" \ 
+-enableAdminSecurity true \ 
+-adminUserName wasadmin \ 
+-adminPassword password \ 
+-profileName Dmgr01 \ 
+-hostName `hostname` \
+2、建立custom的profile,使用的模版为{install_root}/profileTemplates/managed 
+句法为： 
+manageprofile.sh -create -templatePath {install_root}/profileTemplates/managed 
+调用参数同上：
+要联合到DM的例子 
+manageprofiles.sh -create \ 
+-templatePath $WAS_HOME/profileTemplates/managed \
+-profileName AppSrv01 \
+-profilePath $PRO_HOME/AppSrv01 \ 
+-nodeName test01 \
+-hostName `hostname` \ 
+-cellName test1 \ 
+-dmgrHost 192.168.1.100 \ 
+-dmgrPort 8879 \ 
+-dmgrAdminPassword password \ 
+-dmgrAdminUserName wasadmin
+
+不用联合到DM，而后用addNode.sh联合的例子 
+manageprofiles.sh -create \ 
+-templatePath $WAS_HOME/profileTemplates/managed \ 
+-profilePath $PRO_HOME/AppSrv02 \ 
+-nodeName test02 \ 
+-cellName test2 \ 
+-profileName AppSrv02 \ 
+-hostName `hostname`
+addNode.sh 192.168.1.100:8879 -username wasadmin -password password
+3、建立appsrv的profile,使用的模版在install_root/profileTemplates/default 
+句法为： 
+manageprofile.sh -create -templatePath install_root/profileTemplates/default 
+调用参数同上：例子么也就那样
+4、对于集群来说，建立DM profile，然后建立多个custom的profile，addNode进去即可。或者把现有的app profile addNode到DM的概要文件中，然后通过克隆建立集群。

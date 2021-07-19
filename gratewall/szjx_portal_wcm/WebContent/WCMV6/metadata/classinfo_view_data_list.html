@@ -1,0 +1,123 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>资源库分类法检索页面</title>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+</script>
+<script label="TagParser">
+	$import('com.trs.tree.TreeNav');
+</script>
+<script language="javascript" src="classinfo_view_data_list.js" type="text/javascript"></script>
+<link href="classinfo_view_data_list.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body style="display:none;">
+<div class="container">
+    <div class="header">
+        <div class="logo_search"></div>
+        <div style="float:right;margin-right:20px;margin-top:10px;height:21px;font-size:12px;">
+            <span>标题：</span>
+            <input type="text" name="docTitle" id="docTitle" value="" style="width:200px;">
+            <span style="background:url('../images/metadata/search.gif') center center no-repeat;width:64px;height:21px;cursor:pointer;" id="searchBtn"></span>
+        </div>
+    </div>
+    <div id="leftNavTree" class="leftNavTree">
+        <b class="xtop">
+            <b class="xb1" style="background:#4163AA;"></b>
+            <b class="xb2" style="background:#4163AA;"></b>
+            <b class="xb3" style="background:#4163AA;"></b>
+            <b class="xb4" style="background:#4163AA;"></b>
+        </b>
+        <div style="background:#4163AA;color:white;text-align:center;font-size:14px;">
+            分类结果导航            
+        </div>
+        <div id="treeContainer" class="TreeView"></div>
+        <b class="xbottom">
+            <b class="xb4"></b>
+            <b class="xb3"></b>
+            <b class="xb2"></b>
+            <b class="xb1"></b>
+        </b>
+    </div>
+    <div id="mainContent" class="mainContent">
+        <div class="info0" id="queryType">
+            <span>
+                <input type="checkbox" name="isSortByView" id="isSortByView">
+                <label for="isSortByView" >检索结果按视图分类</label>
+            </span>
+            <span>
+                <input type="checkbox" name="isContainChild" id="isContainChild" checked="true">
+                <label for="isContainChild" >检索结果包含子分类</label>
+            </span>
+        </div>
+        <div id="documentContainer" class="documentContainer"></div>
+        <div id="list_navigator" class="list_navigator"></div>
+    </div>
+</div>
+
+<!--------------------------------------内部模板开始---------------------------------------->
+<textarea id="treeTemplate" style="display:none;">
+    <div style="height:5px;border-right:1px solid #9EB0D4;"></div>
+    <div id="node_0" objectId=0><a href="">所有结果</a></div>
+	<for select="ClassInfos.ClassInfo" blankRef="divNoObjectFound">
+	    <div id="node_{#CLASSINFOID}" objectId={#CLASSINFOID} isRoot="true"><a href="">{#CNAME}</a></div><ul></ul>
+	</for>
+</textarea>
+
+<textarea id="viewTemplate" style="display:none;">
+	<for select="MetaViews.MetaView" blankRef="divNoObjectFound">
+        <div id="{#viewinfoid}" class="viewItem">
+            <div id="viewDataMore_{#viewinfoid}" class="documentMore" style="display:none;" onclick="PageContext.toMore('{#viewinfoid}','{#viewdesc}');">
+                更多...
+            </div>
+            <div style="backgroud:#eaeaea;font-weight:bold;">{$$INDEX}.&nbsp;{#viewdesc}</div>
+            <div id="viewDataContainer_{#viewinfoid}" class="viewDataContainer" style="clear:right;"></div>
+        </div>
+	</for>
+</textarea>
+
+<textarea id="viewDataTemplate" style="display:none;">
+	<for select="Document" blankRef="divNoObjectFound">
+        <div class="item" id="{#DOCID}">
+            <span class="itemIndex">{$$Index}.</span>
+            <div class="itemContent">
+                <div>
+                    <div class="info1">
+                       所属视图：<span objectId="{#docKind}">{#ViewDesc}</span>
+                       所属栏目：<span objectId="{#DOCCHANNEL.ID}">{#DOCCHANNEL.NAME}</span>
+                    </div>    
+                    <span class="itemTitle" >
+                        <a href="classinfo_view_data_detail.jsp?objectId={#DOCID}&viewId={#DOCKIND}&channelId={#DOCCHANNEL.ID}" target="_blank" title="{#DOCTITLE}">{#DOCTITLE}</a>
+                    </span>
+                </div>
+                <div class="info2">
+                    <span>作者：{#CrUser}</span>
+                    <span>发表时间：{#CrTime}</span>
+                    <span>状态：{#DOCSTATUS.NAME}</span>
+                </div>
+                <div class="info3">
+                    <span style="cursor:default;">所属分类：</span>
+                    <div id="classinfoContainer_{#DOCID}" style="display:inline;"></div>
+                </div>
+            </div>
+        </div>
+	</for>    
+</textarea>
+
+<textarea id="classInfoTemplate" style="display:none;">
+	<for select="ClassInfo" blankRef="divNoObjectFound">
+	    <span objectId={#CLASSINFOID} isClassInfo='true'>{#CNAME}</span>
+	</for>
+</textarea>
+
+<div id="divNoObjectFound" style="display:none;">
+    <div class="no_object_found">不好意思, 没有找到符合条件的记录..-____-|||</div>
+</div>
+<!--------------------------------------内部模板结束---------------------------------------->
+
+</body>
+</html>

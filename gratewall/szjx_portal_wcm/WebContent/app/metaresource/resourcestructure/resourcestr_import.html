@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="resourcestr_import.html.import_exportresourcestr">导入/导出资源结构</title>
+	<script src="../js/jquery.js"></script>
+	<script src="../js/jquery-ui.js"></script>
+	<script src="../js/jquery-wcm-extend.js"></script>
+	<script src="../js/jquery-wcm-ui-extend.js"></script>
+	<link href="resourcestr_import.css" rel="stylesheet" type="text/css" />
+	<script language="javascript">
+	<!--
+		var cbWin;
+		var m_cbCfg = {
+			btns : [
+				{
+					text: '确  定',
+					cmd : function(){
+						cbWin = this;
+
+						var winUpload = $('#frmUploadFile')[0].contentWindow;
+						var frm = winUpload.document.getElementById("frmPost");
+						frm.submit();
+						return false;
+					}
+				}, {
+					text: '取  消',
+					cmd : function(){}
+				}
+			]
+		};
+	//-->
+	</script>
+	<script language="javascript">
+	<!--
+		function notifyOnUploadFileError(sErrMsg){
+			alert(sErrMsg);
+		}
+
+		function addFile(sFileName, sShowName, sInputName){
+			$("#importFile").attr('value',  sFileName);
+			$.wcmAjax('wcm61_resourcestructure', 'importResourceStructure', '#frm-data', function(){
+				cbWin.close();
+			});
+		}
+	//-->
+	</script>
+</head>
+
+<body>
+	<div class="">
+		<div class="row">
+			<span WCMAnt:param="resourcestr_import.html.selectuploadfile">1. 选择您要装载的文件(支持xml格式文件)：</span>
+			<div class="file">
+				<IFRAME name="frmUploadFile" id="frmUploadFile" style="height:40px; width:350px" frameborder="0" vspace="0" src="../../file/file_upload.jsp?SelfControl=0&AllowExt=XML,ZIP" scrolling="no" noresize></IFRAME>
+			</div>
+		</div>
+		<div class="row">
+			<span WCMAnt:param="resourcestr_import.html.appearrepeatenname">2. 出现重复视图英文名称时</span>
+			<span class="repeat-wrap" id="frm-data">
+					<input type="hidden" name="importFile" id="importFile" value="" />
+					<input type="radio" id="skip" name="importType" value="0" checked /><label for="skip" WCMAnt:param="resourcestr_import.html.skip">跳过</label>
+					<input type="radio" id="update" name="importType" value="1" /><label for="update" WCMAnt:param="resourcestr_import.html.update">更新</label>
+					<input type="radio" id="newCr" name="importType" value="2" /><label for="newCr" WCMAnt:param="resourcestr_import.html.newcreate">新建</label>
+			</span>
+		</div>
+		<div class="row">
+			<span class="statement" WCMAnt:param="resourcestr_import.html.statement">说明：</span>
+			<span class="info"  WCMAnt:param="resourcestr_import.html.summaryinfo">当视图的英文名称重名时，选择“更新”将添加原视图和元数据中没有的字段，而已有字段不会变化。</span>
+		</div>
+	</div>
+</body>
+</html>

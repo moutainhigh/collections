@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.CategoryServiceProvider">	
+	<method name="findById">		
+		<parameter name="ObjectId" desc="分类ID" type="int" required="true"/>
+	</method>	
+	<method name="query" desc="获取指定的分类">		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="ParentId" desc="父分类ID" type="int" required="false"
+			search="true" search-operator="=" search-field="ParentId"/>
+		<parameter name="CName" desc="分类法名称" type="string" required="false"
+			search="true" search-operator="like" search-field="CName"/>			
+		<parameter name="CDesc" desc="分类法描述" type="string" required="false"
+			search="true" search-operator="like" search-field="CDesc"/>			
+		<parameter name="hostType" desc="分类管理的宿主对象" type="int" required="false"
+			search="true" search-operator="=" search-field="hostType"/>
+		<parameter name="categoryId" desc="分类法ID" type="int" required="false"
+			search="true" search-operator="=" search-field="categoryId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>				
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="yyyy-MM-dd HH:mm"/>		
+		<!-- 检索相关配置 END -->
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="COrder desc" required="false"/>
+	</method>
+	<method name="save">		
+		<parameter name="ObjectId" desc="分类ID" type="int" required="true"/>
+		<parameter name="ParentId" desc="父分类ID" type="int" required="false"/>		
+		<!--0表示在最后 -1表示在最前面 >0表示指定的分类-->
+		<parameter name="PreviousId" desc="同级前一个分类ID" type="int" required="false"/>		
+		<parameter name="CName" desc="分类名称" type="string" required="false" max-length="200"/>		
+		<parameter name="CDesc" desc="分类描述"	type="string" required="false" max-length="200"/>				 
+	</method>
+	<method name="saveCategory">		
+		<parameter name="ObjectId" desc="分类ID" type="int" required="true"/>
+		<parameter name="ParentId" desc="父分类ID" type="int" required="false"/>		
+		<!--0表示在最后 -1表示在最前面 >0表示指定的分类-->
+		<parameter name="PreviousId" desc="同级前一个分类ID" type="int" required="false"/>		
+		<parameter name="CName" desc="分类名称" type="string" required="false" max-length="200"/>		
+		<parameter name="CDesc" desc="分类描述"	type="string" required="false" max-length="200"/>				 
+	</method>
+
+	<method name="createCategoryTreeHTML">		
+		<parameter name="ParentId" desc="父分类ID" type="int" required="false" default="0"/>					 
+	</method>
+
+	<method name="delete">		
+		<parameter name="ObjectId" desc="待删除的分类ID" type="int" required="false"/>
+		<parameter name="ObjectIds" desc="待删除的分类ID序列" type="string" required="false"/>
+	</method>	
+	
+	<method name="createCategoryTreeHTMLOfIds">		
+		<parameter name="objectIds" desc="父分类ID序列" type="string" required="true"/>					 
+	</method>
+
+	<method name="getPath">		
+		<parameter name="ObjectId" desc="分类ID" type="int" required="true"/>
+	</method>		
+	
+</service>

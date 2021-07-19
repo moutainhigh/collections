@@ -1,0 +1,183 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+function $() {
+  var elements = new Array();
+
+  for (var i = 0; i < arguments.length; i++) {
+    var element = arguments[i];
+    if (typeof element == 'string')
+      element = document.getElementById(element);
+
+    if (arguments.length == 1)
+      return element;
+
+    elements.push(element);
+  }
+
+  return elements;
+}
+
+if(!String.prototype.parseQuery){
+    String.prototype.parseQuery = String.prototype.toQueryParams = function(){
+        var pairs = this.match(/^\??(.*)$/)[1].split('&');
+        var oResult = {};
+        for (var i = 0, length = pairs.length; i < length; i++){
+            var pair = pairs.split('=');
+            oResult[pair[0]] = pair[1];
+        }
+        return oResult;
+    }
+}
+
+function getParameter(_sName,_sQuery){
+	if(_sName ==null ||_sName=='undefined') 
+		return '';
+	var query = _sQuery ||location.search;
+	var aParams=query.replace(/\?/,'').parseQuery();
+	
+	for(var sParam in aParams){
+		if(_sName.toUpperCase()==sParam.toUpperCase()){
+			return aParams[sParam];
+		}
+	}
+	return '';
+}
+//-->
+</SCRIPT>
+<script language="javascript">
+<!--
+	var states = [];
+	var startTime = null;
+	var interval = null;
+	var processIndex = -1;
+	var barWidth = 0;
+	var maxWidth = 0;
+	var processing = false;
+	var ProcessBar = (top.actualTop||top).ProcessBar;
+	function init(_sTitle){
+		processing = false;
+		setTitle(_sTitle);
+	}
+	function addState(_sState){
+		states.push(_sState);
+	}
+	function closeMe(){
+		exit();
+		var iframe = window.frameElement;
+		if(!iframe){
+			window.opener = null;
+			window.close();
+		}
+		else{
+			iframe.style.display = 'none';
+		}
+	}
+	function setTitle(_sTitle){
+		$('pb_title').innerHTML = _sTitle;
+	}
+	function autorun(){
+		if(interval)window.clearInterval(interval);
+		interval = window.setInterval(funcInterval,10);
+	}
+	function funcInterval(){
+		var lastTime = new Date().getTime()-startTime;
+		$('pb_time_done').innerHTML = parseInt(lastTime/1000)+'.'+(lastTime%1000);
+		var eBar = $('pb_bar_fore');
+		if(eBar.offsetWidth<maxWidth){
+			eBar.style.width = eBar.offsetWidth+1;
+		}
+	}
+	function start(){
+		processing = true;
+		startTime = new Date().getTime();
+		processIndex = -1;
+		var eBarContainer = $('pb_bar');
+		barWidth = eBarContainer.offsetWidth;
+		$('pb_time_done').innerHTML = '0';
+		$('pb_bar_fore').style.width = 0;
+		next();
+		autorun();
+	}
+	function next(_fClose){
+		if(!processing)return;
+		if(processIndex>-1){
+			var eBar = $('pb_bar_fore');
+			eBar.style.width = maxWidth;
+		}
+		processIndex++;
+		if(processIndex>=states.length){
+			(_fClose||closeMe)();
+			return;
+		}
+		maxWidth = parseInt(barWidth*(processIndex+1)/states.length)-8;
+		if(maxWidth<0)maxWidth=0;
+		var msg = states[processIndex];
+		var eState = $('pb_state');
+		eState.innerHTML = msg;
+	}
+	function exit(){
+		clearInterval(interval);
+		processing = false;
+		maxWidth = 0;
+		barWidth = 0;
+		states = [];
+		processIndex = -1;
+	}
+	if(!ProcessBar){
+		ProcessBar = {
+			close : closeMe
+		}
+	}
+//-->
+</script>
+</head>
+<body style="margin:0;padding:0;">
+	<div class="coverall_iframe" style="background:#FFFFFF"></div>
+	<div class="processbar_container_outer">
+		<div class="processbar_container_inner">
+			<div class="processbar_container_header">
+				<div class="processbar_container_header_left"></div>
+				<div class="processbar_container_header_right"></div>
+				<div class="processbar_title" id="pb_title"></div>
+			</div>
+			<div class="processbar_container_body">
+			<div class="processbar_state" id="pb_state"></div>
+			<div class="processbar_bar" id="pb_bar">
+				<div class="processbar_stepbar" id="pb_bar_fore"></div>
+			</div>
+			<div class="processbar_timer" id="pb_timer">
+			任务已执行<span id="pb_time_done" style="font-weight:bold;padding:0 3px;color:blue">0</span>s
+			</div>
+			<div class="processbar_backer" id="pb_backer">
+			如果系统长时间无法响应,请<a href="#" id="pb_closer" onclick="ProcessBar.close();return false;">点击这里</a>返回主页面</div>
+			</div>
+			<div class="processbar_container_footer">
+			<div class="processbar_container_footer_left"></div>
+			<div class="processbar_container_footer_right"></div>
+			</div>
+		</div>
+	</div>
+	<script language="javascript">
+	<!--
+		/*var isDebug = getParameter("IsDebug");
+		if(isDebug){
+			init('进度执行中,请稍候...');
+			addState('aaaaaaaaaaaaaa1');
+			addState('bbbbbbbbbbbbbbbb2');
+			start();
+			setTimeout(function(){
+				next();
+				if(processing){
+					setTimeout(arguments.callee,4000);
+				}
+			},5000);
+		}*/
+	//-->
+	</script>
+</body>
+</html>

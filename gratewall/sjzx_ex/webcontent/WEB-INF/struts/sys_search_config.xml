@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>全文检索</menu-name>
+  <menu-path>/search/</menu-path>
+  <description>全文检索</description>
+  <form-beans>
+    <form-bean name="SysSearchConfigRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="sys_search_config_id" type="string" size="32" description="搜索配置ID"/>
+      <form-property prefix="select-key" name="sys_svr_user_id" type="string" size="32" description="用户ID"/>
+      <form-property prefix="record" name="sys_search_config_id" type="string" size="32" cannull="false" description="搜索配置ID"/>
+      <form-property prefix="record" name="sys_svr_user_id" type="string" size="32" cannull="false" description="用户ID"/>
+      <form-property prefix="record" name="sys_search_code" type="string" size="32" cannull="true" description="服务代码"/>
+      <form-property prefix="record" name="create_by" type="string" size="10" cannull="false" description="创建人"/>
+      <form-property prefix="record" name="create_date" type="string" size="32" cannull="false" description="创建日期"/>
+      <form-property prefix="record" name="config_order" type="long" cannull="false" description="配置顺序"/>
+      <form-property prefix="record" name="is_pause" type="string" size="2" cannull="false" description="是否暂停"/>
+      <form-property prefix="record" name="limit_day_count" type="string" size="2" cannull="true" description="是否限制每日访问次数"/>
+      <form-property prefix="record" name="max_day_count" type="long" size="32" cannull="true" description="当日最大访问次数"/>
+    </form-bean>
+
+    <form-bean name="SysSearchConfigUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_search_config_id" type="string" size="32" cannull="false" description="搜索配置ID"/>
+      <form-property prefix="record" name="sys_search_config_id" type="string" size="32" cannull="false" description="搜索配置ID"/>
+      <form-property prefix="record" name="sys_svr_user_id" type="string" size="32" cannull="false" description="用户ID"/>
+      <form-property prefix="record" name="sys_search_code" type="string" size="32" cannull="true" description="服务代码"/>
+      <form-property prefix="record" name="create_by" type="string" size="10" cannull="false" description="创建人"/>
+      <form-property prefix="record" name="create_date" type="string" size="32" cannull="false" description="创建日期"/>
+      <form-property prefix="record" name="config_order" type="long" cannull="false" description="配置顺序"/>
+      <form-property prefix="record" name="is_pause" type="string" size="2" cannull="false" description="是否暂停"/>
+      
+      <form-property prefix="record" name="limit_day_count" type="string" size="2" cannull="true" description="是否限制每日访问次数"/>
+      <form-property prefix="record" name="max_day_count" type="long" size="32" cannull="true" description="当日最大访问次数"/>
+    </form-bean>
+
+    <form-bean name="SysSearchConfigDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_search_config_id" type="string" size="32" cannull="false" description="搜索配置ID"/>
+    </form-bean>
+    
+    <form-bean name="SearchForm">
+    <description>全文检索查询表单</description>
+    <!-- trs 检索输入信息 -->
+    <form-property prefix="select-key" name="queryStr" type="string" size="4000" description="查询字符串"/>
+    <form-property prefix="select-key" name="queryStrFront" type="string" size="4000" description="从首页的查询字符串"/>
+    <form-property prefix="select-key" name="oldQueryStr" type="string" size="4000" description="上次查询字符串"/><!--暂时不用  -->
+    <form-property prefix="select-key" name="columns" type="string" size="4000" description="检索字段"/>
+      <form-property prefix="select-key" name="queryPrefix" type="string" size="4000" description="查询前缀"/>
+    <!-- trs 检索开始分页配置信息 -->
+    <form-property prefix="select-key" name="countPerPage"  type="int" size="20" description="每页显示条数"  init-value="10"/>
+   
+   <!-- trs 查询方法参数信息 -->
+   <form-property prefix="select-key" name="strSources"  type="string" size="4000" description="检索目标库"/><!--暂时不用  -->
+   <form-property prefix="select-key" name="strWhere"  type="string" size="4000" description="检索条件表达式" /><!--在分类过滤时使用  -->
+   <form-property prefix="select-key" name="filterWhere"  type="string" size="4000" description="需要排除的检索条件" /><!--需要排除的检索条件 -->
+   <form-property prefix="select-key" name="strSortMethod"  type="string" size="4000" description="排序字段" cannull="true"/><!--暂时不用  -->
+   <form-property prefix="select-key" name="bContinue"  type="string" size="20" description="是否二次检索" cannull="true"/><!--暂时不用  -->
+   <form-property prefix="select-key" name="iHitPointType"  type="string" size="20" description="命中点击类型" cannull="true"/><!--暂时不用  -->
+   
+   <!-- trs 分类统计信息 -->
+   <form-property prefix="select-key" name="strColumn"  type="string" size="4000" description="指定按值分类的字段 DATE、NUMBER、CHAR类型" cannull="true"/><!--暂时不用  -->
+   <form-property prefix="select-key" name="strValues"  type="string" size="1000" description="指定分类时只需关注的字段值" cannull="true"/><!--暂时不用  -->
+   <form-property prefix="select-key" name="iPruneStore"  type="string" size="20" description="每个类中保留结果记录的个数" cannull="true"/><!--暂时不用  -->
+   <form-property prefix="select-key" name="strSortMethod"  type="string" size="200" description="结果记录的排序方式，为空表示不改变原来的排序方式" cannull="true"/><!--暂时不用  -->
+   <form-property prefix="select-key" name="bMixEnable"  type="string" size="20" description="true表示在检索结果所涉及的所有数据库上进行混合排序，否则将在每个视图或物理数据中进行独立排序" cannull="true"/><!--暂时不用  -->
+   <form-property prefix="select-key" name="bAscentSort"  type="string" size="20" description="true表示返回结果时类别名按升序排列" cannull="true"/><!--暂时不用  -->
+   <form-property prefix="select-key" name="iOption"  type="int" size="6" description="当PruneStore为0有效,TCM_CLASSASCENT,TCM_CLASSCASEN,TCM_CLASSREGEXP,TCM_OUT_BY_COUNT" cannull="true"/><!--暂时不用  -->
+   
+   <!-- 查询返回信息 -->
+   <form-property prefix="record" name="title" type="string" size="4000" description="标题" cannull="true"/>
+   <form-property prefix="record" name="totalCount" type="long" size="32" description="总条数" cannull="true"/>
+   <form-property prefix="record" name="resultStr" type="string" size="1048576" description="返回结果内容" cannull="true"/>
+    
+   <!-- 分页信息 -->
+   <form-property prefix="page" name="currentPage" init-value="1"  type="int" size="32" description="当前页数"/>
+   <form-property prefix="page" name="countPerPage"  type="int" size="20" description="每页显示条数" />
+   <form-property prefix="page" name="totalPage"  type="int" size="32" description="总页数"/>
+   <form-property prefix="page" name="totalCount"  type="long" size="32" description="总记录数"/> 
+         
+    <!-- 分类统计信息 -->
+   <form-property prefix="stats" name="str"  type="string" size="4000" description="分类信息"/> 
+   
+   <error prefix="error" name="code"  type="string" size="100" description="错误信息代码"/> 
+   <error prefix="error" name="codeStr"  type="string" size="4000" description="错误信息描述"/> 
+ 
+  </form-bean>
+  
+  <form-bean name="TrsForm">
+   <description>TRS检索接口配置form</description>
+   <form-property prefix="select-key" name="trsDb" type="string" size="200" description="trs数据库"/>
+   <form-property prefix="record" name="column_name" type="string" size="200" description="字段名称" cannull="true"/>
+   <form-property prefix="record" name="column_type" type="long" size="200" description="字段类型" cannull="true"/>
+   <form-property prefix="record" name="db_name" type="long" size="200" description="TRS库名称" cannull="true"/>
+   <form-property prefix="record" name="db_name_str" type="string" size="4000" description="TRS库名称串" cannull="true"/>
+  </form-bean>
+  
+  <form-bean name="TrsInterfaceForm">
+	  <description>TRS检索接口配置form</description>
+	  <form-property prefix="select-key" name="svr_name" type="string" size="400" description="接口服务名称" cannull="true"/>
+	  <form-property prefix="select-key" name="queryStr" type="string" size="400" description="查询内容" cannull="true"/>
+	  <form-property prefix="record" name="svr_db" type="string" size="100" description="接口数据源" cannull="true"/>
+	  <form-property prefix="record" name="svr_query" type="string" size="4000" description="查询内容" cannull="true"/>
+	  <form-property prefix="record" name="svr_temeplate" type="string" size="4000" description="返回内容模版" cannull="true"/>
+	  <form-property prefix="record" name="columns" type="string" size="4000" description="" cannull="true"/>
+  </form-bean>
+
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_search_config.jsp" name="SysSearchConfigRowsetForm" txn-code="50030101" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询全文检索列表</description>
+      <step index="10" bean-name="cn.gwssi.search.txn.TxnSysSearchConfig" func-name="txn50030101" input-node="select-key" output-node="record" description="查询全文检索列表"/>
+      <forward error-code="success" path="query-sys_search_config.jsp"/>
+      <forward error-code="failure" path="query-sys_search_config.jsp"/>
+    </action>
+
+    <action input="update-sys_search_config.jsp" name="SysSearchConfigUpdateForm" txn-code="50030102" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改全文检索信息</description>
+      <step index="10" bean-name="cn.gwssi.search.txn.TxnSysSearchConfig" func-name="txn50030102" input-node="record" description="修改全文检索信息"/>
+      <forward error-code="success" path="update-sys_search_config.jsp"/>
+      <forward error-code="failure" path="update-sys_search_config.jsp"/>
+    </action>
+
+    <action input="insert-sys_search_config.jsp" name="SysSearchConfigUpdateForm" txn-code="50030103" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加全文检索信息</description>
+      <step index="10" bean-name="cn.gwssi.search.txn.TxnSysSearchConfig" func-name="txn50030103" input-node="record" description="增加全文检索信息"/>
+      <forward error-code="success" path="insert-sys_search_config.jsp"/>
+      <forward error-code="failure" path="insert-sys_search_config.jsp"/>
+    </action>
+
+    <action input="query-sys_search_config.jsp" name="SysSearchConfigUpdateForm" txn-code="50030104" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询全文检索用于修改</description>
+      <step index="10" bean-name="cn.gwssi.search.txn.TxnSysSearchConfig" func-name="txn50030104" input-node="primary-key" output-node="record" description="查询全文检索用于修改"/>
+      <forward error-code="success" path="update-sys_search_config.jsp"/>
+      <forward error-code="failure" path="update-sys_search_config.jsp"/>
+    </action>
+
+    <action input="query-sys_search_config.jsp" name="SysSearchConfigDeleteForm" txn-code="50030105" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除全文检索信息</description>
+      <step index="10" bean-name="cn.gwssi.search.txn.TxnSysSearchConfig" func-name="txn50030105" input-node="primary-key" description="删除全文检索信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+    <action input="trs/index.jsp" name="SearchForm" txn-code="50030120" check-type="login" re-entry="true"  container="default" log-flag="true">
+	    <description>全文检索控制交易</description>
+	      <forward error-code="success" path="trs/index.jsp"/>
+	      <forward error-code="failure" path="trs/index.jsp"/>
+	</action>
+    
+    <action input="trs/index.jsp" name="SearchForm" txn-code="50030121" check-type="login" re-entry="true"  container="default" log-flag="true">
+	    <description>全文检索检索交易</description>
+	      <step index="10" bean-name="cn.gwssi.search.txn.TxnSysSearchConfig" func-name="txn50030121" input-node="select-key" output-node="record">
+	      </step>
+	      <forward error-code="success" path="trs/result.jsp"/>
+	      <forward error-code="failure" path="trs/result.jsp"/>
+	</action>
+	
+	 <action input="trs/index.jsp" name="SearchForm" txn-code="50030122" check-type="login" re-entry="true"  container="default" log-flag="true">
+	    <description>全文检索检索交易</description>
+	      <step index="10" bean-name="cn.gwssi.search.txn.TxnSysSearchConfig" func-name="txn50030122" input-node="select-key" output-node="record">
+	      </step>
+	      <forward error-code="success" path="trs/result.jsp"/>
+	      <forward error-code="error" path="trs/search-error.jsp"/>    
+	</action>
+	
+	 <action input="trs/index.jsp" name="TrsForm" txn-code="50030131" check-type="public" re-entry="true"  container="default" log-flag="true">
+	    <description>全文检索检索交易</description>
+	      <step index="10" bean-name="cn.gwssi.search.txn.TxnSysSearchConfig" func-name="txn50030131" input-node="select-key" output-node="record">
+	      </step>
+	      <forward error-code="success" path="trs/result.jsp"/>
+	      <forward error-code="error" path="trs/search-error.jsp"/>    
+	</action>
+    <action input="trs/index.jsp" name="TrsForm" txn-code="50030132" check-type="public" re-entry="true"  container="default" log-flag="true">
+	    <description>全文检索检索交易</description>
+	      <step index="10" bean-name="cn.gwssi.search.txn.TxnSysSearchConfig" func-name="txn50030132" input-node="select-key" output-node="record">
+	      </step>
+	      <forward error-code="success" path="trs/result.jsp"/>
+	      <forward error-code="error" path="trs/search-error.jsp"/>    
+	</action>
+	 <action input="trs/index.jsp" name="TrsInterfaceForm" txn-code="50030130" check-type="public" re-entry="true"  container="default" log-flag="true">
+	    <description>全文检索检索接口交易</description>
+	      <step index="10" bean-name="cn.gwssi.search.txn.TxnSysSearchConfig" 
+	         func-name="txn50030130" input-node="select-key" output-node="record">
+	      </step>
+	      <forward error-code="success" path=""/>
+	      <forward error-code="error" path=""/>    
+	</action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_search_config.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/search/query-sys_search_config.jsp" description="查询全文检索列表"/>
+    <resource-file type="jsp" file-name="/search/insert-sys_search_config.jsp" description="增加全文检索信息"/>
+    <resource-file type="jsp" file-name="/search/update-sys_search_config.jsp" description="修改全文检索信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.search.vo.SysSearchConfigContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.search.vo.VoSysSearchConfig" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.search.vo.VoSysSearchConfigSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.search.vo.VoSysSearchConfigPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

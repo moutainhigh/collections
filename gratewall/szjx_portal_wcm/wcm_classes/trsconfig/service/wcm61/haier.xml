@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.haier.destroytask.DestroyTaskServiceProvider">
+
+	<method name="applyDestoryTask" desc="申请撤销选中的文档" >		
+		<parameter name="ObjectTitles" desc="待撤销对象的标题序列，以~分隔" type="string" required="true"/>
+		<parameter name="ObjectIds" desc="待撤销对象ID序列，以,分隔" type="string" required="true"/>
+		<parameter name="ObjectType" desc="待撤销对象类型" type="int" required="trues"/>
+		<parameter name="Desc" desc="撤销理由" type="string" required="trues" min-length="1"/>		
+	</method>
+	
+	
+</service>

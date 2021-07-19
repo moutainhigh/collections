@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="主从表[主表通过导航按钮，维护子表信息]" page="master-detail-table-2.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="multi-table-2.gif"/>
+  <struts name="mon_ach_ent_res.xml" app-path="/dw/aic/bj/reg/mon/" app-name="mon_ach_ent_res" description="企业监管" template="master-detail-table-2.xml"/>
+  <table name="mon_ach_ent_res.xml" app-name="mon_ach_ent_res" app-desc="年检" delete-action="delete" description="企业监管" class-name="com.gwssi.dw.aic.bj.mon.txn.TxnMonAchEntRes" template="master-detail-table-2.master.java" dao-class-template="single-table.java" type="master">
+	  <jsp page-name="query-mon_ach_ent_res.jsp" txn-code="60112001" description="查询年检列表" template="master-detail-2/master-table-query.jsp">
+	    <button type="button" name="增加年检" path="insert-mon_ach_ent_res.jsp" description="增加年检" func-name="addRecord"/>
+	    <button type="button" name="修改年检" path="/txn60112004.do" description="修改年检" func-name="updateRecord"/>
+	    <button type="button" name="删除年检" path="/txn60112005.do" description="删除年检" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60112001.do" description="查询年检信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-mon_ach_ent_res.jsp" txn-code="60112003" description="增加年检信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60112003.do" description="保存年检信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60112003.do" description="保存年检信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60112001.do" description="保存年检信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60112001.do" description="返回到年检明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-mon_ach_ent_res.jsp" txn-code="60112002" description="修改年检信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60112001.do" description="修改年检信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60112001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-mon_ach_ent_res.jsp" txn-code="60112001" description="查询年检列表">
+	    <forward error-code="success" path="query-mon_ach_ent_res.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-mon_ach_ent_res.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-mon_ach_ent_res.jsp" txn-code="60112002" description="修改年检信息">
+	    <forward error-code="success" path="update-mon_ach_ent_res.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-mon_ach_ent_res.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-mon_ach_ent_res.jsp" txn-code="60112003" description="增加年检信息">
+	    <forward error-code="success" path="insert-mon_ach_ent_res.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-mon_ach_ent_res.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-mon_ach_ent_res.jsp" txn-code="60112004" description="查询年检用于修改">
+	    <forward error-code="success" path="update-mon_ach_ent_res.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-mon_ach_ent_res.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-mon_ach_ent_res.jsp" txn-code="60112005" description="删除年检信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.MonAchEntResContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.VoMonAchEntRes" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.VoMonAchEntResSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.VoMonAchEntResPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="mon_ach_cp_ent.xml" app-name="mon_ach_cp_ent" app-desc="内资" delete-action="delete" description="内资年检情况表" class-name="com.gwssi.dw.aic.bj.mon.txn.TxnMonAchCpEnt" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60112011">
+	  <jsp page-name="mon_ach_cp_ent/query-mon_ach_cp_ent.jsp" txn-code="60112011" description="查询内资列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加内资" path="mon_ach_cp_ent/insert-mon_ach_cp_ent.jsp" description="增加内资" func-name="addRecord"/>
+	    <button type="button" name="修改内资" path="/txn60112014.do" description="修改内资" func-name="updateRecord"/>
+	    <button type="button" name="删除内资" path="/txn60112015.do" description="删除内资" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60112001.do" description="返回到年检明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60112011.do" description="查询内资信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="mon_ach_cp_ent/insert-mon_ach_cp_ent.jsp" txn-code="60112013" description="增加内资信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60112013.do" description="保存内资信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60112013.do" description="保存内资信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60112011.do" description="保存内资信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60112011.do" description="返回到内资明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="mon_ach_cp_ent/update-mon_ach_cp_ent.jsp" txn-code="60112012" description="修改内资信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60112011.do" description="修改内资信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60112011.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="mon_ach_cp_ent/query-mon_ach_cp_ent.jsp" txn-code="60112011" description="查询内资列表">
+	    <forward error-code="success" path="mon_ach_cp_ent/query-mon_ach_cp_ent.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="mon_ach_cp_ent/query-mon_ach_cp_ent.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="mon_ach_cp_ent/update-mon_ach_cp_ent.jsp" txn-code="60112012" description="修改内资信息">
+	    <forward error-code="success" path="mon_ach_cp_ent/update-mon_ach_cp_ent.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="mon_ach_cp_ent/update-mon_ach_cp_ent.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="mon_ach_cp_ent/insert-mon_ach_cp_ent.jsp" txn-code="60112013" description="增加内资信息">
+	    <forward error-code="success" path="mon_ach_cp_ent/insert-mon_ach_cp_ent.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="mon_ach_cp_ent/insert-mon_ach_cp_ent.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="mon_ach_cp_ent/query-mon_ach_cp_ent.jsp" txn-code="60112014" description="查询内资用于修改">
+	    <forward error-code="success" path="mon_ach_cp_ent/update-mon_ach_cp_ent.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="mon_ach_cp_ent/update-mon_ach_cp_ent.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="mon_ach_cp_ent/query-mon_ach_cp_ent.jsp" txn-code="60112015" description="删除内资信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.MonAchCpEntContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.VoMonAchCpEnt" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.VoMonAchCpEntSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.VoMonAchCpEntPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="mon_ach_fp_ent.xml" app-name="mon_ach_fp_ent" app-desc="外资" delete-action="delete" description="外资年检情况" class-name="com.gwssi.dw.aic.bj.mon.txn.TxnMonAchFpEnt" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60112021">
+	  <jsp page-name="mon_ach_fp_ent/query-mon_ach_fp_ent.jsp" txn-code="60112021" description="查询外资列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加外资" path="mon_ach_fp_ent/insert-mon_ach_fp_ent.jsp" description="增加外资" func-name="addRecord"/>
+	    <button type="button" name="修改外资" path="/txn60112024.do" description="修改外资" func-name="updateRecord"/>
+	    <button type="button" name="删除外资" path="/txn60112025.do" description="删除外资" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60112001.do" description="返回到年检明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60112021.do" description="查询外资信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="mon_ach_fp_ent/insert-mon_ach_fp_ent.jsp" txn-code="60112023" description="增加外资信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60112023.do" description="保存外资信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60112023.do" description="保存外资信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60112021.do" description="保存外资信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60112021.do" description="返回到外资明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="mon_ach_fp_ent/update-mon_ach_fp_ent.jsp" txn-code="60112022" description="修改外资信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60112021.do" description="修改外资信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60112021.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="mon_ach_fp_ent/query-mon_ach_fp_ent.jsp" txn-code="60112021" description="查询外资列表">
+	    <forward error-code="success" path="mon_ach_fp_ent/query-mon_ach_fp_ent.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="mon_ach_fp_ent/query-mon_ach_fp_ent.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="mon_ach_fp_ent/update-mon_ach_fp_ent.jsp" txn-code="60112022" description="修改外资信息">
+	    <forward error-code="success" path="mon_ach_fp_ent/update-mon_ach_fp_ent.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="mon_ach_fp_ent/update-mon_ach_fp_ent.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="mon_ach_fp_ent/insert-mon_ach_fp_ent.jsp" txn-code="60112023" description="增加外资信息">
+	    <forward error-code="success" path="mon_ach_fp_ent/insert-mon_ach_fp_ent.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="mon_ach_fp_ent/insert-mon_ach_fp_ent.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="mon_ach_fp_ent/query-mon_ach_fp_ent.jsp" txn-code="60112024" description="查询外资用于修改">
+	    <forward error-code="success" path="mon_ach_fp_ent/update-mon_ach_fp_ent.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="mon_ach_fp_ent/update-mon_ach_fp_ent.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="mon_ach_fp_ent/query-mon_ach_fp_ent.jsp" txn-code="60112025" description="删除外资信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.MonAchFpEntContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.VoMonAchFpEnt" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.VoMonAchFpEntSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.VoMonAchFpEntPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="mon_ach_priva_ent.xml" app-name="mon_ach_priva_ent" app-desc="私企" delete-action="delete" description="私企年检情况" class-name="com.gwssi.dw.aic.bj.mon.txn.TxnMonAchPrivaEnt" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60112031">
+	  <jsp page-name="mon_ach_priva_ent/query-mon_ach_priva_ent.jsp" txn-code="60112031" description="查询私企列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加私企" path="mon_ach_priva_ent/insert-mon_ach_priva_ent.jsp" description="增加私企" func-name="addRecord"/>
+	    <button type="button" name="修改私企" path="/txn60112034.do" description="修改私企" func-name="updateRecord"/>
+	    <button type="button" name="删除私企" path="/txn60112035.do" description="删除私企" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60112001.do" description="返回到年检明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60112031.do" description="查询私企信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="mon_ach_priva_ent/insert-mon_ach_priva_ent.jsp" txn-code="60112033" description="增加私企信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60112033.do" description="保存私企信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60112033.do" description="保存私企信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60112031.do" description="保存私企信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60112031.do" description="返回到私企明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="mon_ach_priva_ent/update-mon_ach_priva_ent.jsp" txn-code="60112032" description="修改私企信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60112031.do" description="修改私企信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60112031.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="mon_ach_priva_ent/query-mon_ach_priva_ent.jsp" txn-code="60112031" description="查询私企列表">
+	    <forward error-code="success" path="mon_ach_priva_ent/query-mon_ach_priva_ent.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="mon_ach_priva_ent/query-mon_ach_priva_ent.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="mon_ach_priva_ent/update-mon_ach_priva_ent.jsp" txn-code="60112032" description="修改私企信息">
+	    <forward error-code="success" path="mon_ach_priva_ent/update-mon_ach_priva_ent.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="mon_ach_priva_ent/update-mon_ach_priva_ent.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="mon_ach_priva_ent/insert-mon_ach_priva_ent.jsp" txn-code="60112033" description="增加私企信息">
+	    <forward error-code="success" path="mon_ach_priva_ent/insert-mon_ach_priva_ent.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="mon_ach_priva_ent/insert-mon_ach_priva_ent.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="mon_ach_priva_ent/query-mon_ach_priva_ent.jsp" txn-code="60112034" description="查询私企用于修改">
+	    <forward error-code="success" path="mon_ach_priva_ent/update-mon_ach_priva_ent.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="mon_ach_priva_ent/update-mon_ach_priva_ent.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="mon_ach_priva_ent/query-mon_ach_priva_ent.jsp" txn-code="60112035" description="删除私企信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.MonAchPrivaEntContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.VoMonAchPrivaEnt" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.VoMonAchPrivaEntSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.VoMonAchPrivaEntPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="mon_ach_priva_inver.xml" app-name="mon_ach_priva_inver" app-desc="私营投资人" delete-action="delete" description="私营企业投资人年检情况" class-name="com.gwssi.dw.aic.bj.mon.txn.TxnMonAchPrivaInver" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60112041">
+	  <jsp page-name="mon_ach_priva_inver/query-mon_ach_priva_inver.jsp" txn-code="60112041" description="查询私营投资人列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加私营投资人" path="mon_ach_priva_inver/insert-mon_ach_priva_inver.jsp" description="增加私营投资人" func-name="addRecord"/>
+	    <button type="button" name="修改私营投资人" path="/txn60112044.do" description="修改私营投资人" func-name="updateRecord"/>
+	    <button type="button" name="删除私营投资人" path="/txn60112045.do" description="删除私营投资人" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60112001.do" description="返回到年检明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60112041.do" description="查询私营投资人信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="mon_ach_priva_inver/insert-mon_ach_priva_inver.jsp" txn-code="60112043" description="增加私营投资人信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60112043.do" description="保存私营投资人信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60112043.do" description="保存私营投资人信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60112041.do" description="保存私营投资人信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60112041.do" description="返回到私营投资人明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="mon_ach_priva_inver/update-mon_ach_priva_inver.jsp" txn-code="60112042" description="修改私营投资人信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60112041.do" description="修改私营投资人信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60112041.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="mon_ach_priva_inver/query-mon_ach_priva_inver.jsp" txn-code="60112041" description="查询私营投资人列表">
+	    <forward error-code="success" path="mon_ach_priva_inver/query-mon_ach_priva_inver.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="mon_ach_priva_inver/query-mon_ach_priva_inver.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="mon_ach_priva_inver/update-mon_ach_priva_inver.jsp" txn-code="60112042" description="修改私营投资人信息">
+	    <forward error-code="success" path="mon_ach_priva_inver/update-mon_ach_priva_inver.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="mon_ach_priva_inver/update-mon_ach_priva_inver.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="mon_ach_priva_inver/insert-mon_ach_priva_inver.jsp" txn-code="60112043" description="增加私营投资人信息">
+	    <forward error-code="success" path="mon_ach_priva_inver/insert-mon_ach_priva_inver.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="mon_ach_priva_inver/insert-mon_ach_priva_inver.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="mon_ach_priva_inver/query-mon_ach_priva_inver.jsp" txn-code="60112044" description="查询私营投资人用于修改">
+	    <forward error-code="success" path="mon_ach_priva_inver/update-mon_ach_priva_inver.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="mon_ach_priva_inver/update-mon_ach_priva_inver.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="mon_ach_priva_inver/query-mon_ach_priva_inver.jsp" txn-code="60112045" description="删除私营投资人信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.MonAchPrivaInverContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.VoMonAchPrivaInver" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.VoMonAchPrivaInverSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.vo.VoMonAchPrivaInverPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+</resource>

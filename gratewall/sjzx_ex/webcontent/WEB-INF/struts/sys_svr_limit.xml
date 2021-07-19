@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>用户服务限制</menu-name>
+  <menu-path>/page/share/svrlimit/</menu-path>
+  <description>用户服务限制</description>
+  <form-beans>
+    <form-bean name="SysSvrLimitRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="sys_svr_user_id" type="string" size="32" description="用户ID"/>
+      <form-property prefix="select-key" name="sys_svr_service_id" type="string" size="32" description="服务ID"/>
+      <form-property prefix="record" name="sys_svr_limit_id" type="string" size="32" cannull="false" description="用户服务限制主键"/>
+      <form-property prefix="record" name="sys_svr_user_id" type="string" size="32" cannull="false" description="用户ID"/>
+      <form-property prefix="record" name="sys_svr_service_id" type="string" size="32" cannull="false" description="服务ID"/>
+      <form-property prefix="record" name="is_limit_week_flag" type="string" size="2" cannull="true" description="是否限制本日期"/>
+      <form-property prefix="record" name="is_limit_week" type="string" size="2" cannull="true" description="是否限制本日期"/>
+      <form-property prefix="record" name="is_limit_time" type="string" size="2" cannull="true" description="是否限制时间"/>
+      <form-property prefix="record" name="is_limit_number" type="string" size="2" cannull="true" description="是否限制次数"/>
+      <form-property prefix="record" name="is_limit_total" type="string" size="2" cannull="true" description="是否限制总条数"/>
+      <form-property prefix="record" name="limit_week" type="string" size="2" cannull="true" description="限制星期"/>
+      <form-property prefix="record" name="limit_time" type="string" size="32" cannull="true" description="限制时间"/>
+      <form-property prefix="record" name="limit_start_time" type="string" size="32" cannull="true" description="起止限制时间"/>
+      <form-property prefix="record" name="limit_end_time" type="string" size="32" cannull="true" description="结束限制时间"/>
+      <form-property prefix="record" name="limit_number" type="string" size="32" cannull="true" description="限制次数"/>
+      <form-property prefix="record" name="limit_total" type="string" size="32" cannull="true" description="限制总条数"/>
+      <form-property prefix="record" name="limit_desp" type="string" size="200" cannull="true" description="限制描述"/>
+      <form-property prefix="record" name="visit_weeks" type="string" size="100" cannull="true" description="可访问的星期串"/>
+    </form-bean>
+
+    <form-bean name="SysSvrLimitUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_svr_limit_id" type="string" size="32" cannull="false" description="用户服务限制主键"/>
+      <form-property prefix="record" name="sys_svr_limit_id" type="string" size="32" cannull="false" description="用户服务限制主键"/>
+      <form-property prefix="record" name="sys_svr_user_id" type="string" size="32" cannull="false" description="用户ID"/>
+      <form-property prefix="record" name="sys_svr_service_id" type="string" size="32" cannull="false" description="服务ID"/>
+      <form-property prefix="record" name="is_limit_week" type="string" size="2" cannull="true" description="是否限制本日期"/>
+      <form-property prefix="record" name="is_limit_time" type="string" size="2" cannull="true" description="是否限制时间"/>
+      <form-property prefix="record" name="is_limit_number" type="string" size="2" cannull="true" description="是否限制次数"/>
+      <form-property prefix="record" name="is_limit_total" type="string" size="2" cannull="true" description="是否限制总条数"/>
+      <form-property prefix="record" name="limit_week" type="string" size="2" cannull="true" description="限制星期"/>
+      <form-property prefix="record" name="limit_time" type="string" size="32" cannull="true" description="限制时间"/>
+      <form-property prefix="record" name="limit_start_time" type="string" size="32" cannull="true" description="起止限制时间"/>
+      <form-property prefix="record" name="limit_end_time" type="string" size="32" cannull="true" description="结束限制时间"/>
+      <form-property prefix="record" name="limit_number" type="string" size="32" cannull="true" description="限制次数"/>
+      <form-property prefix="record" name="limit_total" type="string" size="32" cannull="true" description="限制总条数"/>
+      <form-property prefix="record" name="limit_desp" type="string" size="200" cannull="true" description="限制描述"/>
+    </form-bean>
+
+    <form-bean name="SysSvrLimitDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_svr_limit_id" type="string" size="32" cannull="false" description="用户服务限制主键"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_svr_limit.jsp" name="SysSvrLimitRowsetForm" txn-code="50011701" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询用户服务限制列表</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrLimit" func-name="txn50011701" input-node="select-key" output-node="record" description="查询用户服务限制列表"/>
+      <forward error-code="success" path="query-sys_svr_limit.jsp"/>
+      <forward error-code="failure" path="query-sys_svr_limit.jsp"/>
+    </action>
+
+    <action input="update-sys_svr_limit.jsp" name="SysSvrLimitUpdateForm" txn-code="50011702" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改用户服务限制信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrLimit" func-name="txn50011702" input-node="record" description="修改用户服务限制信息"/>
+      <forward error-code="success" path="update-sys_svr_limit.jsp"/>
+      <forward error-code="failure" path="update-sys_svr_limit.jsp"/>
+    </action>
+
+    <action input="insert-sys_svr_limit.jsp" name="SysSvrLimitUpdateForm" txn-code="50011703" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加用户服务限制信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrLimit" func-name="txn50011703" input-node="record" description="增加用户服务限制信息"/>
+      <forward error-code="success" path="insert-sys_svr_limit.jsp"/>
+      <forward error-code="failure" path="insert-sys_svr_limit.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_limit.jsp" name="SysSvrLimitUpdateForm" txn-code="50011704" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询用户服务限制用于修改</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrLimit" func-name="txn50011704" input-node="primary-key" output-node="record" description="查询用户服务限制用于修改"/>
+      <forward error-code="success" path="update-sys_svr_limit.jsp"/>
+      <forward error-code="failure" path="update-sys_svr_limit.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_limit.jsp" name="SysSvrLimitDeleteForm" txn-code="50011705" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除用户服务限制信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrLimit" func-name="txn50011705" input-node="primary-key" description="删除用户服务限制信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+     <action input="insert-sys_svr_limit.jsp" name="SysSvrLimitRowsetForm" txn-code="50011706" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>配置用户服务限制信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrLimit" func-name="txn50011706" input-node="record" description="配置用户服务限制信息"/>
+      <forward error-code="success" path="insert-sys_svr_limit.jsp"/>
+      <forward error-code="failure" path="insert-sys_svr_limit.jsp"/>
+    </action>
+    
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_svr_limit.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/share/svrlimit/query-sys_svr_limit.jsp" description="查询用户服务限制列表"/>
+    <resource-file type="jsp" file-name="/page/share/svrlimit/insert-sys_svr_limit.jsp" description="增加用户服务限制信息"/>
+    <resource-file type="jsp" file-name="/page/share/svrlimit/update-sys_svr_limit.jsp" description="修改用户服务限制信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.SysSvrLimitContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrLimit" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrLimitSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrLimitPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

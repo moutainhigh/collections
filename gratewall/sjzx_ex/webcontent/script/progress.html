@@ -1,0 +1,57 @@
+<html> 
+<head> 
+<SCRIPT type=text/javascript> 
+function _fakeProgress( el, v )
+{
+	if( v == null ){
+		v = 0;
+	}
+	
+	if (v >= 100) {
+		el.children[1].style.width = v + "%"; 
+		el.children[0].innerText = '加载页面成功：' + v + "%"; 
+	}
+	else {
+		el.children[1].style.width = v + "%"; 
+		el.children[0].innerText = '正在加载页面：' + v + "%"; 
+		
+		if( v < 50 ){
+			var ti = 200;
+		}
+		else if( v < 70 ){
+			var ti = 140;
+		}
+		else if( v < 80 ){
+			var ti = 100;
+		}
+		else if( v < 90 ){
+			var ti = 70;
+		}
+		else if( v < 95 ){
+			var ti = 50;
+		}
+		else{
+			var ti = 100;
+		}
+		
+		var t = (6000 * ti) / ((100 - v) * (100 - v));
+		window.setTimeout(function(){_fakeProgress(el, v+1)}, t); 
+	} 
+}
+
+</SCRIPT> 
+
+</head> 
+<body onload="_fakeProgress(progress)" topmargin="0" leftmargin="0">
+<p>&nbsp;</p>
+<div id="progress" name="progress" style="BORDER: #CCCCCC 1px inset; WIDTH: 100%; HEIGHT: 26px;">
+<div style="FONT-SIZE: 16px; WIDTH: 100%; COLOR: red; TEXT-ALIGN: center; POSITION: absolute; line-height:150%;">0%</div>
+<DIV style="BACKGROUND: #EEEEFF; WIDTH: 0%; HEIGHT: 24px">
+<DIV style="FILTER: Alpha(Opacity=0, FinishOpacity=80, Style=1, StartX=0, StartY=0, FinishX=100, FinishY=0); BACKGROUND:#7777FF; WIDTH: 100%; HEIGHT: 100%"></DIV></DIV>
+</div>
+
+</body> 
+</html>
+
+
+

@@ -1,0 +1,84 @@
+<!--
+  colorshower.htc
+  Copyright (c) 2002 Ma Bingyao. All rights reserved.
+  Version 2.0.20021209
+-->
+
+<public:component tagName="colorshower" lightweight="true">
+<public:property name="value" get="getvalue" put="putvalue" />
+<public:property name="safecolor" get="getsafecolor" />
+<public:property name="height" put="putheight" />
+<public:property name="width" put="putwidth" />
+<public:attach event="oncontentready" onevent="init()" />
+<script language="JavaScript">
+//<![CDATA[
+
+  var oExactColor = null;
+  var oSafeColor = null;
+  var _value = "";
+  var _height = 50;
+  var _width = 50;
+  var _isReady = false;
+
+  function parseColor(vValue) {
+    var oColorParser = element.document.createElement("td");
+    oColorParser.bgColor = vValue;
+    return oColorParser.removeNode().bgColor;
+  }
+
+  function getvalue() {
+    return _value;
+  }
+
+  function putvalue(vValue) {
+    vValue = parseColor(vValue);
+    if (_value != vValue) {
+      _value = vValue;
+      setvalue();
+    }
+  }
+
+  function setvalue() {
+    if (_isReady) {
+      oExactColor.title = oExactColor.style.backgroundColor = _value;
+      oSafeColor.style.backgroundColor = parseColor((_value.substr(0, 1) == "#") ? "rgb(" +
+        (Math.round(parseInt(_value.substr(1, 2), 16) / 0x33) * 0x33) + ", " +
+        (Math.round(parseInt(_value.substr(3, 2), 16) / 0x33) * 0x33) + ", " +
+        (Math.round(parseInt(_value.substr(5, 2), 16) / 0x33) * 0x33) + ")" : _value);
+      oSafeColor.title = oSafeColor.style.backgroundColor;
+    }
+  }
+
+  function getsafecolor() {
+    return oSafeColor.style.backgroundColor;
+  }
+
+  function putheight(vHeight) {
+    if (!_isReady) _height = parseInt(vHeight, 10);
+  }
+
+  function putwidth(vWidth) {
+    if (!_isReady) _width = parseInt(vWidth, 10);
+  }
+
+  function init() {
+    var oColorShower = element.document.createElement("span");
+    oColorShower.style.fontSize = 0;
+    oColorShower.style.pixelWidth = _width;
+    oColorShower.style.pixelHeight = _height;
+    oColorShower.style.borderWidth = "1px";
+    oColorShower.style.borderStyle = "inset";
+    oExactColor = element.document.createElement("span");
+    oExactColor.style.width = "100%";
+    oExactColor.style.height = "50%";
+    oSafeColor = oExactColor.cloneNode();
+    oColorShower.appendChild(oExactColor);
+    oColorShower.appendChild(oSafeColor);
+    insertAdjacentElement("AfterEnd", oColorShower);
+    _isReady = true;
+    setvalue();
+  }
+
+//]]>
+</script>
+</public:component>

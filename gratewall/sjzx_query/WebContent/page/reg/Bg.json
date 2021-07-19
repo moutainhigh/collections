@@ -1,0 +1,24 @@
+{
+	title:"变更业务各种类型对应sql以及显示字段",
+	data:[
+		{
+			tableFlag:"1",
+			code:"3",
+			desc:"人员表-DC_RA_MER_PERSONS_EXT",
+			sql:"select * from DC_RA_MER_PERSONS_EXT where main_tb_id = ?",
+			column:['ADDR','CERNO','CERTYPE']
+		},{
+			tableFlag:"3",
+			code:"46",
+			desc:"主要人员表-DC_RA_MER_MEMBER_EXT",
+			sql:"select * from DC_RA_MER_MEMBER_EXT t where main_tb_id = ?",
+			column:['PERSONID','POST']
+		},{
+			tableFlag:"3",
+			code:"A3",
+			desc:"主要人员表-DC_RA_MER_MEMBER_EXT",
+			sql:"select * from DC_RA_MER_MEMBER_EXT t where main_tb_id = ?",
+			column:['PERSONID','POST']
+		}
+	]
+}

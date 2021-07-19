@@ -1,0 +1,19 @@
+<!--分类法-->
+<%
+	String my${DBFieldName} = getValue(obj, "${FieldName}", "<TRS_ViewField field="DefaultValue" filterForJava="true" />");
+	String sParentOptional${DBFieldName} = getClassInfoSelectType("${FieldName}");
+%>
+<script language="javascript">
+<!--
+	new com.trs.ui.XClassInfo({
+		disabled : ${NOTEDIT},
+		name : '<TRS_ViewField field="DBFieldName" filterForJs="true" />',
+		value : '<%=CMyString.filterForJs(my${DBFieldName})%>', 
+		desc : '<%=CMyString.filterForJs(getClassInfoDesc(obj, "${FieldName}", "<TRS_ViewField field="DefaultValue" filterForJava="true" />"))%>', 
+		rootId : '${ClassId}', 
+		selectType : '<%=CMyString.filterForJs(sParentOptional${DBFieldName})%>',
+		treeType : '${Radorchk}',
+		validation:"type:'string',required:'${NotNull}',max_len:'${DBLength}',desc:'<TRS_ViewField field="AnotherName" filterForJs="true" doubleFilter="true" />'"
+	}).render();
+//-->
+</script>

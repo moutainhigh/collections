@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="GB2312"?>
+<mapping>
+	<description>***-components config mapping</description>
+	<!--Example-->
+	<!--<class name="com.trs.infra.config.persistent.BeanConfig" identity="id">
+		<map-to xml="bean"/>
+		<field name="id">
+			<bind-xml name="id" node="attribute"/>
+		</field>
+		<field name="className">
+			<bind-xml name="class" node="attribute"/>
+		</field>
+		<field name="singleton" type="boolean">
+			<bind-xml name="singleton" node="attribute"/>
+		</field>
+	</class>		
+	-->	
+	<!--Mapping for Message Sending Style Config-->
+	<class name="com.trs.components.common.message.MessageSendingConfig" identity="name">
+		<map-to xml="msg-sender"/>
+		<field name="name">
+			<bind-xml name="name" node="element"/>
+		</field>
+		<field name="description">
+			<bind-xml name="description" node="element"/>
+		</field>
+		<field name="worker" required="true">
+			<bind-xml name="worker" node="element"/>
+		</field>
+	</class>
+	<!--Mapping for Message Notification Scheme Config-->
+	<class name="com.trs.components.common.message.notify.NotificationSchemeConfig" identity="event">
+		<map-to xml="scheme"/>
+		<field name="event">
+			<bind-xml name="event" node="attribute"/>
+		</field>
+		<field name="enabled" type="boolean">
+			<bind-xml name="enabled" node="attribute"/>
+		</field>				
+		<field name="title" required="true">
+			<bind-xml name="title" node="element"/>
+		</field>
+		<field name="msgBody">
+			<bind-xml name="msg-body" node="element"/>
+		</field>
+		<field name="notifications" collection="collection" 
+			type="com.trs.components.common.message.notify.NotificationConfig">
+			<bind-xml name="notification" reference="true"/>
+		</field>
+	</class>	
+	<!--Mapping for Message Notification Config-->
+	<class name="com.trs.components.common.message.notify.NotificationConfig" 
+		identity="sendType">
+		<map-to xml="notification"/>
+		<field name="sendType" required="true">
+			<bind-xml name="send-type" node="element"/>
+		</field>
+		<field name="userNames" required="true">
+			<bind-xml name="users" node="element"/>
+		</field>
+		<field name="groupIds" required="true">
+			<bind-xml name="groups" node="element"/>
+		</field>
+		<field name="roleIds" required="true">
+			<bind-xml name="roles" node="element"/>
+		</field>
+	</class>
+</mapping>

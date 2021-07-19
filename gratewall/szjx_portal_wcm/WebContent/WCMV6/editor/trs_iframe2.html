@@ -1,0 +1,140 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="../js/com.trs.util/Common.js"></script>
+	<script type="text/javascript" src="fckeditor.js"></script>
+	<script language="javascript">
+	<!--
+	function ExecuteCommand( commandName ){
+		try{
+		// Get the editor instance that we want to interact with.
+		var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+		switch(commandName.toLowerCase()){
+			case 'source':
+				var oSourceCommand = oEditor.Commands.GetCommand('Source');
+				if(oEditor.EditMode==FCK_EDITMODE_WYSIWYG){
+					oSourceCommand.Execute();
+				}
+				break;
+			case 'design':
+				var oSourceCommand = oEditor.Commands.GetCommand('Source');
+				if(oEditor.EditMode==FCK_EDITMODE_SOURCE){
+					oSourceCommand.Execute();
+				}
+				break;
+			default:
+			// Execute the command.
+			oEditor.Commands.GetCommand( commandName ).Execute() ;
+		}
+		}catch(err){alert(err.message||err.stack)};
+	}
+	function GetEditor(){
+		var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+		return oEditor;
+	}
+	function GetTrueEditor(){
+		if(FCKeditorAPI)
+			return FCKeditorAPI.editorWindow;
+		return null;
+	}
+	function SetHTML(_sHtml){
+		var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+		oEditor.SetHTML(_sHtml);
+	}
+	function FCKEditor_Resize(){
+		var nWidth = 800;
+		if(nWidth>0){
+			try{
+				var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+				var window_onresize = function(){
+					//alert("onresize");
+					var oBody = oEditor.EditorDocument.body;
+					var oStyle = oBody.style;
+					oStyle.paddingLeft = oStyle.paddingRight = Math.abs(oBody.offsetWidth - nWidth)/2;
+				}
+				oEditor.EditorDocument.body.onresize = window_onresize;
+				window_onresize();
+			}catch(ex){
+			}
+		}
+	}
+	function FCKeditor_OnComplete(){
+//		window.frameElement.style.visibility = 'visible';
+		if(parent!=window&&parent.FCKeditor_OnComplete){
+//			window.frameElement.style.display = '';
+			parent.FCKeditor_OnComplete();
+		}
+		//FCKEditor_Resize();
+		setTimeout(function(){
+			try{
+				if(oFCKeditor.Value=='')
+					FCKeditorAPI.editorWindow.AutoPaste();
+			}catch(err){
+			}
+			try{
+	//			FCKeditorAPI.editorWindow.AttachAutoPaste();
+			}catch(err){
+			}
+			try{
+				FCKeditorAPI.editorWindow.FCK.AttachSaveUserData();
+			}catch(err){
+			}
+		},100);
+		window.FCKeditor_OnComplete = null;
+	}
+	function GetTitleElement(_sTitle){
+		return parent.document.getElementById('Title');
+	}
+	function SetTitle(_sTitle){
+		var eTitle = GetTitleElement();
+		if(eTitle)
+			eTitle.value = _sTitle;
+	}
+
+	function FCKeditor_getHTML(){		
+		if(parent!=window && parent.FCKeditor_getHTML){
+			return parent.FCKeditor_getHTML();
+		}
+		
+		if(parent!=window&&parent.document.getElementById&&parent.document.getElementById("DocHTMLCon")){
+			return parent.document.getElementById("DocHTMLCon").value ;
+		}
+
+		return '';
+	}
+	var enableAutoSave = true;
+	function showAutoSaveMessage(){
+	}
+	//-->
+	</script>
+	<style type="text/css">
+		body{
+			margin:0;
+			padding:0;
+			background:transparent;
+		}
+	</style>
+</head>
+<body style="overflow:hidden;">
+	<script type="text/javascript">
+		<!--
+		var oFCKeditor = new FCKeditor( 'TRS_Editor' ) ;
+		oFCKeditor.BasePath	= './';
+		oFCKeditor.ToolbarSet = 'WCM6';
+		oFCKeditor.Height = '100%' ;
+		oFCKeditor.MoreParams = {
+			'Version' : getParameter('Version')||'1.0.0.1',
+			'ConfigEx' : 'fckconfig_ex2.js',
+			'Css' : 'detail.css'
+		};
+		var sHTML = FCKeditor_getHTML();
+		oFCKeditor.Value = sHTML;
+		
+		if(sHTML.length == 0){
+			oFCKeditor.ToolbarLocation = 'In' ;
+		}
+		oFCKeditor.Create();
+		//-->
+	</script>
+</body>
+</html>

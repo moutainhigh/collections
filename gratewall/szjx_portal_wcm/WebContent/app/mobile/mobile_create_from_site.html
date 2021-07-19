@@ -1,0 +1,153 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title> 智能创建移动站点 </title>
+	<link href="../js/source/wcmlib/com.trs.tree/resource/TreeNav.css" rel="stylesheet" type="text/css" />
+	<link href="../js/source/wcmlib/com.trs.tree/resource/TreeManager.css" rel="stylesheet" type="text/css">
+	<link href="../nav_tree/nav_tree.css" rel="stylesheet" type="text/css" />
+	<link href="../../app/js/easyversion/resource/calendar.css" rel="stylesheet" type="text/css" />
+	<script src="../../app/js/easyversion/lightbase.js"></script>
+	<script src="../js/easyversion/lightbase.js"></script>
+	<script src="../js/easyversion/extrender.js"></script>
+	<script src="../js/easyversion/elementmore.js"></script>
+	<script src="../js/source/wcmlib/WCMConstants.js"></script>
+	<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+	<script src="../js/source/wcmlib/core/CMSObj.js"></script>
+	<script src="../js/source/wcmlib/com.trs.tree/TreeNav.js"></script>
+	<script src="../js/source/wcmlib/com.trs.tree/TreeManager.js"></script>
+	<script src="../js/easyversion/calendar.js"></script>
+	<!--AJAX-->
+	<script src="../js/easyversion/ajax.js"></script>
+	<script src="../js/easyversion/basicdatahelper.js"></script>
+	<script src="../js/easyversion/web2frameadapter.js"></script>
+	<script src="mobile_create_from_site.js"></script>
+	<style type="text/css">
+		
+		.box{
+			position:relative;
+			width:600px;
+			padding:10px;
+		}
+
+		#TreeView{
+			position:static;
+			width:400px;
+			height:300px;
+			border:1px solid red;
+			overflow:auto;
+		}
+		.steps-tips{
+			font-weight:bold;
+			font-size:2;
+		}
+		.title{
+			font-size:2em;
+			display:block;
+		}
+		.detail{
+			font-size:1em;
+			color:blue;
+			font-style:italic;
+			color:gray;
+			line-height:2;
+		}
+		.special{
+			color:blue;
+		}
+
+		.btns{
+			text-align:center;
+		}
+
+		.step{
+			margin-left:20px;
+		}
+		#progress{
+			position:absolute;
+			right:10px;
+			top:10px;
+			width:300px;
+			overflow:hidden;
+		}
+		#progress-loading{
+			background:orangered;
+			color:white;
+		}
+	</style>
+</head>
+<body>
+<script language="javascript">
+	initExtCss();
+</script>
+<div class="box">
+	<div class="TreeViewContainer">
+		<b class="title">1.设置移动门户站点需要包含的栏目</b>
+		<div class="detail">
+			说明：请将移动门户不需要的栏目进行删除，不用担心没有包含某些栏目，因为在移动门户创建完成之后，<span class="special">您还可以调整移动门户站点的栏目结构，如：添加新的栏目、修改或删除已有的栏目</span>
+		</div>
+		<div class="TreeView" id="TreeView">
+			<div><a href="#">加载中...</a></div><ul></ul>
+		</div>
+	</div>
+
+	<div class="MobileSettingContainer" style="margin-top:20px;">
+		<b class="title">2.设置移动门户站点属性</b>
+		<li style="margin:20px 0px 0px 20px;">选择模板类型
+		<select name="TemplateFlag" id="TemplateFlag">
+			<option value=" ">手机端模板</option>
+			<option value="--iPad4zbb">TRS阅读iPad端模板</option>
+			<option value="--iPad4wjb">TRS新闻iPad端模板</option>
+		</select>
+		</li>
+		<div class="detail">
+			说明：系统会根据选择的类型自动配置系统内置的模板
+		</div>
+		<li style="margin:20px 0px 0px 20px;">同步
+		<input type="text" name="DOCSDATE" id="DOCSDATE" elname="文档创建时间"><button id="DOCSDATEBTN" type="button"><IMG alt="" src="../images/icon/TRSCalendar.gif" border=0 class="img"></button>
+		之后创建的文档
+		</li>
+		<div class="detail">
+			说明：创建移动站点后，会按照指定的时间自动同步PC站点上的文档到移动站点，<span style="color:red;">如果不设置，则同步所有文档</span>
+		</div>
+		<li style="margin:20px 0px 0px 20px;">集成官方微博</li>
+		<div class="detail">
+			说明：集成官方微博可以向所有安装本移动应用客户端的用户展示官方微博的内容
+		</div>
+		<div style="margin-left:20px;">
+			<input type="radio" name="WeiboEnable" id="WeiboEnable-Yes" value="1" checked="checked" /><label for="WeiboEnable-Yes">是</label>
+			<input type="radio" name="WeiboEnable" id="WeiboEnable-No" value="0" style="margin-left:30px;" /><label for="WeiboEnable-No">否</label>
+		</div>
+
+		<li style="margin:20px 0px 0px 20px;">集成消息推送</li>
+		<div class="detail">
+			说明：集成消息推送可以向所有安装本移动应用客户端的用户发送即时消息提醒
+		</div>
+		<div style="margin-left:20px;">
+			<input type="radio" name="NotificationEnable" id="NotificationEnable-Yes" value="1" checked="checked" /><label for="NotificationEnable-Yes">是</label>
+			<input type="radio" name="NotificationEnable" id="NotificationEnable-No" value="0" style="margin-left:30px;" /><label for="NotificationEnable-No">否</label>
+		</div>
+	</div>
+
+</div>
+
+<div id="progress">
+	<div class="steps-tips">创建移动门户站点的步骤如下：</div>
+	<li class="step">创建移动门户站点</li>
+	<li class="step">导入模板</li>
+	<li class="step">创建栏目</li>
+	<li class="step">配置模板</li>
+	<li class="step">设定PC站点到移动站点的同步规则</li>
+	<li class="step">同步数据</li>
+	<li class="step">移动门户站点完全发布</li>
+	<div id="progress-loading" style="display:none;"></div>
+	<div id="progress-current" style="display:none;"></div>
+</div>
+
+<div class="btns">
+	<button id="btnOk" style="padding:3px 35px;">开始创建移门户站点</button>
+	<button id="btnClose" style="padding:3px 15px;margin-left:20px;">关闭</button>
+</div>
+
+</body>
+</html>

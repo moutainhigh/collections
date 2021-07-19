@@ -1,0 +1,148 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<TITLE></TITLE>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/contentextfield.js"></script>
+<!--wcm-dialog start-->
+<script src="../../app/js/source/wcmlib/Observable.js"></script>
+<script src="../../app/js/source/wcmlib/Component.js"></script>
+<script src="../../app/js/source/wcmlib/dialog/Dialog.js"></script>
+<script src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></script>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog end-->
+<!--AJAX-->
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/data/locale/publishdistribution.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<!-- Validator-->
+<script src="../../app/js/source/wcmlib/com.trs.validator/lang/cn.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<link href="../../app/js/source/wcmlib/com.trs.validator/css/validator.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Inner Start -->
+<script src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></script>
+<script src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Inner End -->
+<script language="javascript">
+<!--
+    window.m_cbCfg = {
+        btns : [
+            {
+                text : wcm.LANG.CONTENTEXTFIELD_CONFIRM_10 || '确定',
+                cmd : function(){
+					if(!ValidationHelper.doValid('addEditForm')){
+						return false;
+					}
+					var crash = this;
+					BasicDataHelper.JspRequest(
+						WCMConstants.WCM6_PATH + "search/gateway_add.jsp",
+						"addEditForm",  true,
+						function(transport, json){
+							var _args = {id:transport.responseText,name:$("sName").value,server:$("TargetServer").value,port:$("TargetPort").value,user:$("LoginUser").value,password:$("LoginPassword").value};
+							var cbr = crash;
+							cbr.hide();
+							cbr.notify(_args);
+						});
+					return false;
+				}
+            },
+			{
+                text : wcm.LANG.CONTENTEXTFIELD_CONFIRM_23 || '取消',
+                cmd : function(){
+				}
+            }
+        ]
+    };
+
+	Event.observe(window,"load",function(){
+		if($("sName")) $("sName").focus();
+	});
+//-->
+</script>
+<style type="text/css">
+    .row_title{
+        width:80px;
+        padding-left:10px;
+    }
+	.ext-safari .row_title{
+		display:inline-block;
+	}
+	.ext-gecko .row_title{
+		display:-moz-inline-stack;
+	}
+    .row_content{
+        width:200px;
+        padding:0px;
+    }
+    .check_row{
+        padding-left:10px;
+    }
+    .input_class{
+        width:150px;
+    }
+	.body{
+		font-size:12px;
+	}
+	.divPadding{
+		padding-top:5px;
+		margin:10px;
+	}
+	.ext-safari .divPadding{
+		padding-top:1px;
+	}
+</style>
+</head>
+<body class="body">
+<form id="addEditForm">
+<div id="distributionId">
+    <div id="forFtp">
+		<div class="divPadding">
+            <span class="row_title" WCMAnt:param="publishdistribution_add_edit.jsp.name">名称:</span>
+            <span class="row_content">
+                <input type="text" name="sName" id="sName" value="" class="input_class" validation="type:'string',required:'',max_len:'50',desc:'名称',showid:'ValidatorMsg'" validation_desc="名称" WCMAnt:paramattr="validation_desc:trsserver_config.jsp.name"/>
+                <span style="color:red">*</span>
+            </span>
+        </div>
+        <div class="divPadding">
+            <span class="row_title" WCMAnt:param="publishdistribution_add_edit.jsp.address">服务器地址:</span>
+            <span class="row_content">
+                <input type="text" name="TargetServer" id="TargetServer" value="127.0.0.1" class="input_class" validation="type:'string',required:'',max_len:'25',desc:'服务器地址',showid:'ValidatorMsg'" validation_desc="服务器地址" WCMAnt:paramattr="validation_desc:trsserver_config.jsp.address"/>
+                <span style="color:red">*</span>
+            </span>
+        </div>
+        <div class="divPadding">
+            <span class="row_title" WCMAnt:param="publishdistribution_add_edit.jsp.port">服务器端口:</span>
+            <span class="row_content">
+                <input type="text" name="TargetPort" id="TargetPort" value="8004" class="input_class" validation="type:'int',required:'true',value_range:'1,20000',showid:'ValidatorMsg'" validation_desc="服务器端口" WCMAnt:paramattr="validation_desc:trsserver_config.jsp.port">
+                <span style="color:red">*</span>
+            </span>
+        </div>
+        <div id="userInfo">
+            <div class="divPadding">
+                <span class="row_title" WCMAnt:param="publishdistribution_add_edit.jsp.username">用户名:</span>
+                <span class="row_content">
+                    <input type="text" name="LoginUser" id="LoginUser" value="wcm" class="input_class" validation="type:'string',required:'',max_len:'25',desc:'用户名',showid:'ValidatorMsg'" validation_desc="用户名" WCMAnt:paramattr="validation_desc:trsserver_config.jsp.username"/>
+                    <span style="color:red" id="userRed">*</span>
+                </span>
+            </div>
+            <div class="divPadding">
+                <span class="row_title" WCMAnt:param="publishdistribution_add_edit.jsp.password">密码：</span>
+                <span class="row_content">
+                    <input type="password" name="LoginPassword" id="LoginPassword" value="12345678" class="input_class" validation="type:'string',required:'',max_len:'25',desc:'密码',showid:'ValidatorMsg'" validation_desc="密码" WCMAnt:paramattr="validation_desc:trsserver_config.jsp.pwd"/>
+                    <span style="color:red" id="passwordRed">*</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+</body>
+</html>

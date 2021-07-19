@@ -1,0 +1,588 @@
+@charset "utf-8";
+
+/* 
+	@名称: base
+	@功能: 重设浏览器默认样式
+*/
+
+/* 防止用户自定义背景颜色对网页的影响，添加让用户可以自定义字体 */
+html{
+	color:#000;
+	background:#fff;
+	-webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    font-size:12px;
+    font-family:'Microsoft YaHei',"微软雅黑", Verdana, Arial, Helvetica, sans-serif; 
+    word-break:break-all;
+}
+body{
+	font: 12px/1.5 tahoma,arial,宋体;
+}
+/* 内外边距通常让各个浏览器样式的表现位置不同 */
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td,hr,button,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section {
+	margin:0;padding:0;
+}
+.tooltip{
+	display:block;
+	line-height:30px;
+	border:1px dotted #ffcc00;
+	margin-bottom:10px;
+	background:#ffffcc;
+	width:100%;
+}
+/* 重设 HTML5 标签, IE 需要在 js 中 createElement(TAG) */
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section { 
+    display:block;
+}
+
+/* HTML5 媒体文件跟 img 保持一致 */
+audio,canvas,video {
+    display: inline-block;*display: inline;*zoom: 1;
+}
+
+/* 要注意表单元素并不继承父级 font 的问题 */
+body,button,input,select,textarea{
+	font:12px/1.5 tahoma,arial,\5b8b\4f53;
+}
+input,select,textarea{
+	font-size:100%;
+}
+
+/* 去掉各Table  cell 的边距并让其边重合 */
+table { /*border-collapse: collapse; border-spacing: 0; */}
+
+/* IE bug fixed: th 不继承 text-align*/
+th{
+	text-align:inherit;
+}
+
+/* 去除默认边框 */
+fieldset,img{
+	border:0;
+}
+
+/* ie6 7 8(q) bug 显示为行内表现 */
+iframe{
+	display:block;
+}
+
+/* 去掉 firefox 下此元素的边框 */
+abbr,acronym{
+	border:0;font-variant:normal;
+}
+
+/* 一致的 del 样式 */
+del {
+	text-decoration:line-through;
+}
+
+address,caption,cite,code,dfn,em,th,var {
+	font-style:normal;
+	font-weight:500;
+}
+
+/* 去掉列表前的标识, li 会继承 */
+ol,ul {
+	list-style:none;
+}
+
+/* 对齐是排版最重要的因素, 别让什么都居中 */
+caption,th {
+	text-align:left;
+}
+
+/* 来自yahoo, 让标题都自定义, 适应多个系统应用 */
+h1,h2,h3,h4,h5,h6 {
+	font-size:100%;
+	font-weight:500;
+}
+
+q:before,q:after {
+	content:'';
+}
+
+/* 统一上标和下标 */
+sub, sup {
+    font-size: 75%; line-height: 0; position: relative; vertical-align: baseline;
+}
+sup {top: -0.5em;}
+sub {bottom: -0.25em;}
+
+
+
+/* 让链接在 hover 状态下显示下划线 */
+a:hover {
+	text-decoration:underline;
+}
+
+/* 默认不显示下划线，保持页面简洁 */
+ins,a {
+	text-decoration:none;
+}
+
+/* 清理浮动 */
+.fn-clear:after {
+	visibility:hidden;
+	display:block;
+	font-size:0;
+	content:" ";
+	clear:both;
+	height:0;
+}
+.fn-clear {
+	zoom:1; /* for IE6 IE7 */
+}
+
+/* 隐藏, 通常用来与 JS 配合 */
+body .fn-hide {
+	display:none;
+}
+
+/* 设置内联, 减少浮动带来的bug */
+.fn-left,.fn-right {
+	display:inline;
+}
+.fn-left {
+	float:left;
+}
+.fn-right {
+	float:right;
+}
+
+/* Menus */
+
+.menu-right li {
+	list-style-type: none;
+	display: inline;	
+	margin: 0 0 0 15px;
+}
+
+/* Forms */
+
+form fieldset {
+	border: 2px solid #e5e5e5;
+	clear: both;
+	margin-bottom: 9px;
+	overflow: hidden;
+	padding: 9px 18px;
+}
+
+form legend {
+	background: #e5e5e5;
+	color: #262626;
+	margin-bottom: 9px;
+	padding: 2px 11px;
+}
+
+form label {
+	font-weight: bold;
+	margin-right: 6px;
+	text-align: right;
+	width: 50px;
+}
+
+textarea, input, select {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	vertical-align: middle;
+	border: 1px solid #848484;
+    padding: 2px 0 2px 3px;		
+}
+
+.input {
+    background: url("../images/input.png") repeat-x scroll 0 0 #FFFFFF;
+    border: 1px solid #848484;
+    border-radius: 3px 3px 3px 3px;
+    padding: 5px;
+}
+
+form button {
+	vertical-align: middle;	
+}
+
+.button {
+	height: 24px;
+	margin: 0;
+	padding: 3px 6px;
+	background: #f1f1f1 url(../images/bg-panel-header.gif) left bottom repeat-x;
+	font-size: 12px;
+	font-weight: bold;
+	cursor: pointer;
+	vertical-align: middle;
+	border: 1px solid #808080;
+	-moz-border-radius: 3px;
+		
+}
+
+* html .button {
+	padding: 3px 1px;		
+}
+
+.searchField {
+	width: 150px;
+	overflow: hidden;
+	line-height: 15px; 
+	margin: 0;
+	padding: 4px 0 3px 5px;
+	border: 1px solid #808080;	
+	border-right: 0;
+	vertical-align: middle;
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-bottomleft: 3px;				
+}
+
+.searchButton {
+	-moz-border-radius-topleft: 0;
+	-moz-border-radius-bottomleft: 0;		
+}	
+
+* html .toolbox .searchField, * html .toolbox .searchButton { /* IE6 Hack */
+	margin-top: -1px;		
+}
+
+* html .toolbox .button { /* IE6 Hack */
+	vertical-align: top;
+	margin-top: 0;			
+}
+
+*:first-child+html .toolbox .searchField, *:first-child+html .toolbox .searchButton { /* IE7 Hack */
+	margin-top: -1px;	
+}
+
+*:first-child+html .toolbox .button { /* IE7 Hack */
+	vertical-align: top;
+	margin-top: 0;	
+}
+
+.formRow {
+	margin: 0 0 8px 0;
+}
+
+.buttonRow {
+	margin-bottom: 10px;	
+}
+
+/* Code */
+
+pre {
+	background-color: #f2f2f2;
+	color: #070;
+	display: block;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 11px;
+	overflow: auto;
+	margin: 0 0 10px 0;
+	padding: 10px;
+	border: 1px solid #ddd;	
+}
+
+/* Status Messages */
+.error,
+.notice, 
+.success    { padding: 8px; margin-bottom: 10px; border: 2px solid #ddd; }
+.error      { background: #FBE3E4; color: #D12F19; border-color: #FBC2C4; }
+.notice     { background: #FFF6BF; color: #817134; border-color: #FFD324; }
+.success    { background: #E6EFC2; color: #529214; border-color: #C6D880; }
+.error a    { color: #D12F19; }
+.notice a   { color: #817134; }
+.success a  { color: #529214; }
+
+/* Dividers */
+
+hr {
+	background-color: #d3d3d3;
+	color: #ccc;
+	height: 1px;
+	border: 0px;
+}
+
+/* Misc */
+
+.nobr {
+	white-space: nowrap;
+}
+
+
+.clearfix:after{
+	content:'';
+	display:block;
+	height:0;
+	clear:both
+}
+.clearfix{
+	zoom:1
+}
+.transparent{
+    filter:alpha(opacity=50); 
+    -moz-opacity:0.5;/** Firefox 3.5即将原生支持opacity属性，所以本条属性只在Firefox3以下版本有效 ***/ 
+    -khtml-opacity: 0.5; opacity: 0.5; 
+}
+
+/*google chrome滚动条样式*/
+::-webkit-scrollbar-track-piece{
+	background-color:#fff;
+	-webkit-border-radius:0;
+}
+::-webkit-scrollbar{
+	width:8px;
+	height:8px;
+}
+::-webkit-scrollbar-thumb{
+	height:50px;
+	background-color:#999;
+	-webkit-border-radius:4px;
+	outline:2px solid #fff;
+	outline-offset:-2px;
+	border: 2px solid #fff;
+}
+::-webkit-scrollbar-thumb:hover{
+	height:50px;
+	background-color:#9f9f9f;
+	-webkit-border-radius:4px;
+}
+
+.explain-col{font-size:12px; border:1px solid #ffbe7a;zoom:1; background: #fffced; padding:8px 10px; line-height:20px}
+
+/************************Header & Footer *******************************/
+ol,ul{list-style:none;}
+
+.menu{
+	display:block;
+	width:110px;
+	height:37px;
+	background:url('../images/menu.png') no-repeat;
+}
+
+.pageMain{width: 1000px;margin:0 auto;/*background: #F8F8F8*/}
+
+#header{
+	display:block;
+	margin:0 auto;
+	width:1000px;
+	height:188px;
+	margin-bottom:20px;
+}
+#header .head{
+	height:37px;
+	background:url('../images/header.jpg') repeat-x;
+}
+#header .head a:hover{
+	text-decoration: none;
+}
+#header .home{
+	float:left;
+	height:37px;
+	width:200px;
+	margin-left:5px;
+	line-height:37px;
+	background:url('../images/home.png') no-repeat left center;
+}
+#header .hall{
+	float:right;
+	height:37px;
+	width:110px;
+	margin-left:15px;
+	line-height:37px;
+	color:#7acbf4;
+	font-size:11pt;
+	font-weight:bold;
+	text-indent:27px;
+	font-family: "微软雅黑";
+	background:url('../images/whall.png') no-repeat left center;
+}
+#header .login{
+	float:right;
+	height:37px;
+	width:110px;
+	margin-left:15px;
+	line-height:37px;
+	color:#7acbf4;
+	font-size:11pt;
+	font-weight:bold;
+	text-indent:25px;
+	font-family: "微软雅黑";
+	background:url('../images/login.png') no-repeat left center;
+}
+#header .logout{
+	float:right;
+	display:block;
+	height:30px;
+	font-size:11pt;
+	font-weight:normal;
+	margin-left:5px;
+	font-family: "微软雅黑";
+	line-height:30px;
+	text-indent:15px;
+	text-align:left;
+	color:blue;
+	text-decoration:none;
+	background:url('../images/logout.png') no-repeat left center;
+}
+#header .home_text{
+	color:#7acbf4;
+	font-size:11pt;
+	line-height:37px;
+    font-weight: bold;
+	margin-left:37px;
+	font-family: "微软雅黑";
+    text-decoration: none;
+}
+#header .menu_list {
+	float:left;
+    font-family: "微软雅黑";
+    font-size: 11px;
+    text-align: center;
+    width: 600px;
+}
+#header .menu_list li {
+    float: left;
+    height: 37px;
+    line-height: 37px;
+    vertical-align: middle;
+}
+
+#header .menu_list li.on {
+   	background: url("../images/menu.jpg");
+}
+
+#header .menu_list li.on span{
+   	border-right: 0px;
+}
+
+
+#header .menu_list li span{
+	display:block;
+	border-right: 2px solid #FFFFFF;
+    cursor: pointer;
+    margin-top:4px;
+    line-height: 20px;
+    width:99px;
+}
+#header .menu_list li a {
+    color: #FFFFFF;
+    display: block;
+    font-family: "微软雅黑";
+    font-size: 12pt;
+    font-weight: bold;
+    line-height: 36px;
+    padding-top: 4px;
+    text-decoration: none;
+    vertical-align: middle;
+    width: 99px;
+    text-align:center;
+}
+#header .banner{
+	height:158px;
+	width:100%;
+	/**background:url('../images/banner.jpg') no-repeat;**/
+}
+#header .banner-bottom{
+	float:right;
+	width:1000px;
+	padding-top: 80px;
+}
+#header .banner-path{
+	float:left;
+	height:33px;
+	line-height:33px;
+	width:670px;
+	margin-top:2px;
+	padding-left:12px;
+	font-size:14px;
+	font-family: "微软雅黑";
+	/*border:1px solid #f6f6f6;*/
+}
+#header .banner-path a{
+	font-family: "微软雅黑";
+	text-decoration:none;
+	padding-right:5px;
+	padding-left:5px;
+	color: #666;
+}
+#header .banner-path a:hover{color:#FFA500; border-bottom: 2px solid #FFA500}
+#header .banner-path .atext{
+	text-decoration:none;
+	line-height:35px;
+	padding-left:0px;
+}
+#header .searchinput{
+	border: 1px solid #448FF4;
+    box-shadow: 1px 1px 2px #CCCCCC inset;
+    font: 20px 'Microsoft YaHei','Verdana';
+    height: 25px;
+    padding: 1px 8px;
+    vertical-align: middle;
+    width: 200px;
+}
+#header .searchbtn{
+	width:80px;
+	height:29px;
+	border:none;
+	cursor:pointer;
+	margin-top:1px;
+	margin-left:-10px;
+ 	background:url('../images/search.png') no-repeat #448FF4 center;
+}
+
+#footer{
+	display:block;
+	margin:0 auto;
+	width:1000px;
+	height:63px;
+	font-family:'Microsoft YaHei',"微软雅黑";
+	color:#FFFFFF;
+	margin-bottom:-1px;
+	background:url('../images/footer.jpg') no-repeat;
+}
+
+#footer .footer_copy{
+	padding-top:7px;
+	margin-left:30px;
+	margin-bottom:-1px;
+}
+#footer .logo{
+	float:left;
+	width:30px;
+	margin-top:3px;
+	height:30px;
+	background:url('../images/sz_logo.png') no-repeat;
+}
+#footer .logo_line{
+	float:left;
+	display:block;
+	width:0px;
+	height:40px;
+	margin-left:15px;
+	border:1px solid white;
+}
+#footer .navigator{
+	float:right;
+
+	font-weight:bold;
+	color:#82F3FF;
+	width:300px;
+	margin-right:15px;
+}
+#footer .navigator a{color:#82F3FF;margin-right:5px;}
+#footer .navigator .bottom{width:100%;height:25px;font-weight:normal;}
+
+
+
+/*----------------------------------------
+Name: global.css
+Developed by: James Li 
+Date Created: 2013-03-25
+Last Updated: 2013-03-26
+----------------------------------------*/
+@charset "utf-8";
+html{font-family:"微软雅黑", 'Microsoft YaHei',"Times New Roman",Georgia,Serif;text-align:center;}
+body{margin:0;font:12px "微软雅黑", 'Microsoft YaHei',Verdana, Arial, Helvetica, sans-serif; color:#42515A;word-break:break-all;}
+.fl{float:left;}
+.fr{float:right;}
+
+.body_sz{
+	background: url('../images/bg.png') repeat-y center;
+	text-align:left;
+}
+
+

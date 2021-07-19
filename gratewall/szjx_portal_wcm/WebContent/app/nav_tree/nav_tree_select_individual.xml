@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="GB2312"?>
+<parameters>	
+	<parameter name="SiteTypes"  desc="站点类别序列"  type="string" required="false"/>
+	<parameter name="ShowOneType"  desc="是否只显示一个站点类别"  type="int" required="false"/>
+	<parameter name="MultiSiteType"  desc="是否显示多个站点类别"  type="int" required="false"/>
+	<parameter name="MultiSites"  desc="跨站点"  type="int" required="false" default="1"/>
+	
+	
+	<parameter name="ExpandSiteId"  desc="默认展开的站点"  type="int" required="false" default="0"/>
+	<parameter name="FromSelect"  desc="来源于选择树"  type="int" required="false" default="0"/>
+	
+	<parameter name="ExcludeSelf"  desc="排除自己"  type="int" required="false" default="0"/>
+	<parameter name="ExcludeTop"  desc="排除头条和图片"  type="int" required="false" default="0"/>
+	<parameter name="ExcludeParent"  desc="排除父"  type="int" required="false" default="0"/>
+	<parameter name="ExcludeChildren"  desc="排除当前栏目所有的子"  type="int" required="false" default="0"/>
+	<parameter name="ExcludeParentIds"  desc="排除指定栏目列表所有的子"  type="string" required="false"/>
+	<parameter name="ExcludeVirtual"  desc="排除虚栏目"  type="int" required="false" default="0"/>
+	
+	<parameter name="CurrChannelId"  desc="当前的栏目Id"  type="int" required="false" default="0"/>
+	<parameter name="CurrSiteId"  desc="当前的站点Id"  type="int" required="false" default="0"/>
+	<parameter name="CurrSiteType"  desc="当前的站点类型"  type="int" required="false" default="-1"/>
+	<parameter name="RightIndex"  desc="权限值"  type="int" required="false" default="-1"/>
+
+
+	<parameter name="SelectedChannelIds"  desc="当前选中的栏目Id序列"  type="string" required="false"/>
+	<parameter name="SelectedSiteIds"  desc="当前选中的站点Id序列"  type="string" required="false"/>
+	<parameter name="SelectedSiteTypes"  desc="当前选中的站点类别"  type="string" required="false"/>
+</parameters>

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict/dtd">
+<html>
+ <head>
+  <title WCMAnt:param="photo_compress.html.photoedit"> 图片编辑 </title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="Author" content="CH">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/photo.js"></script>
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+  <!-- Validator-->
+<script src="../../app/js/source/wcmlib/com.trs.validator/lang/cn.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<link href="../../app/js/source/wcmlib/com.trs.validator/css/validator.css" rel="stylesheet" type="text/css" />
+<!--AJAX-->
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script type="text/javascript" src="photo_compress.js"></script>
+  <style>
+	*{
+		padding:0;
+		margin:0;
+	 }
+	body{
+		padding:20px;
+		font-size:12px;
+	}
+	.show_photo_outter{
+		width:600px;
+		height:500px;
+		border:1px solid gray;
+		padding:10px;
+		margin-top:10px;
+		float:left
+	}
+	.show_photo{
+		width:100%;
+		height:100%;
+		overflow:auto;
+	}
+	.property_photo{
+		width:180px;
+		height:110px;
+	}
+	.compress_photo{
+		width:180px;
+		height:280px;
+	}
+	.photo_properties{
+		float:left;
+		margin:10px 0px 0px 10px;
+		padding:10px;
+		border:1px solid gray;
+		height:500px;
+	}
+	fieldset div{
+		margin:8px 10px;
+	}
+	fieldset input[type='text']{
+		width:100px;
+		border:1px solid black;
+	}
+	.crop_photo{
+		width:180px;
+		height:65px;
+	}
+  </style>
+  <script>
+	window.onload=function(){
+		window.pageLoaded = true;
+		if(window.imgLoaded){
+			setTimeout(init, 0);
+		}
+		//resizePhoto(img);
+	}
+  </script>
+ </head>
+
+ <body scroll=no>
+ <span class="edit_photo_text"  WCMAnt:param="photo_compress.html.editphoto">编辑图片</span>
+ <hr/>
+ <div style="overflow:hidden">
+	<div class="show_photo_outter" id="show_photo_outter">
+		<div id="show_photo" class="show_photo" >
+			<img id="show_photo_img" src="../images/loading.gif"/>
+		</div>
+	</div>
+	 <div class="photo_properties">
+		<fieldset class="property_photo" style="border:1px solid #d0d0bf"><legend style="padding:4px;" WCMAnt:param="photo_compress.html.photoattr">图片属性</legend>
+			<div style="margin:10px"><input type="radio" id="suitablesize" name="photo_show_size" value="0" onclick="resizePhoto()"/><span  WCMAnt:param="photo_compress.html.suitablesize">适合大小&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="radio" id="orignsize" name="photo_show_size" value="1" checked onclick="resizePhoto()"/><span WCMAnt:param="photo_compress.html.originalsize">原始大小</span></div>
+			<div><span WCMAnt:param="photo_compress.html.originalwidth">原始宽度：</span><span id="orignWidth"></span></div>
+			<div><span WCMAnt:param="photo_compress.html.originalheight">原始高度：</span><span id="orignHeight"></span></div>
+		</fieldset>
+		<fieldset class="compress_photo" style="margin-top:10px;border:1px solid #d0d0bf"><legend style="padding:4px;" WCMAnt:param="photo_compress.html.compressphoto">缩放图片</legend>
+			<div><input id="scaletype_pixel" type="radio" name="compress_type" checked onclick="changeScaleType()"/><span WCMAnt:param="photo_compress.html.compressaspixel">按像素进行缩放</span></div>
+			<div><span WCMAnt:param="photo_compress.html.width_a">宽度：</span><input forceValid="true" id="newWidth" type="text" style="width:100px;"onkeyup="changeScaleValue('newWidth')" validation="type:'int',required:'true',min:1,desc:'宽度',showid:'validate_tip'" validation_desc="宽度"  WCMAnt:paramattr="validation_desc:photo_compress.html.width"/></div>
+			<div><span WCMAnt:param="photo_compress.html.height_a">高度：</span><input forceValid="true" id="newHeight" type="text" style="width:100px;"onkeyup="changeScaleValue('newHeight')" validation="type:'int',required:'true',min:1,desc:'高度',showid:'validate_tip'" validation_desc="高度" WCMAnt:paramattr="validation_desc:photo_compress.html.height"/></div>
+			<div><input type="radio" name="compress_type" onclick="changeScaleType()"/><span WCMAnt:param="photo_compress.html.compressaspercent">按百分比进行缩放</span></div>
+			<div><span WCMAnt:param="photo_compress.html.width_a">宽度：</span><input validation="type:'int',required:'true',min:1,desc:'宽度',showid:'validate_tip'" id="widthRatio" type="text"style="width:100px;"onkeyup="changeScaleValue('widthRatio')" validation_desc="宽度" WCMAnt:paramattr="validation_desc:photo_compress.html.width"/></div>
+			<div><span WCMAnt:param="photo_compress.html.height_a">高度：</span><input validation="type:'int',required:'true',min:1,desc:'高度',showid:'validate_tip'" id="heightRatio"  type="text"style="width:100px;"onkeyup="changeScaleValue('heightRatio')" validation_desc="高度" WCMAnt:paramattr="validation_desc:photo_compress.html.height"/></div>
+			<div><input type="checkbox" name="keep_scale_ratio" id="keep_scale_ratio" checked/><span WCMAnt:param="photo_compress.html.keepscale">保持宽高比</span></div>
+			<div style="float:right"><input style="width:50px" type="button" value="重置" onclick="resetAll()" WCMAnt:paramattr="value:photo_compress.html.reset"/><input type="button" style="width:50px" value="应用" onclick="applyAction()"  WCMAnt:paramattr="value:photo_compress.html.application"/></div>
+			<div id="validate_tip" >&nbsp;</div>
+		</fieldset>
+		<fieldset class="crop_photo" style="margin-top:10px;border:1px solid #d0d0bf"><legend style="padding:4px;" WCMAnt:param="photo_compress.html.cropphoto">裁剪图片</legend>
+			<div><a href="#" onclick="crop()" WCMAnt:param="photo_compress.html.cropphoto">裁剪图片</a></div>
+		</fieldset>
+	</div>
+  </div>
+  <div style="text-align:center;margin:5px">
+	<input type="button" value="确定" style="width:100px" onclick="onOK()" WCMAnt:paramattr="value:photo_compress.html.sure"/>&nbsp;&nbsp;&nbsp;&nbsp;
+	<input type="button" value="取消" style="width:100px" onclick="window.close()" WCMAnt:paramattr="value:photo_compress.html.cancel"/>
+  </div>
+ </body>
+</html>

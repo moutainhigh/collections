@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>数据来源管理</menu-name>
+  <menu-path>/page/resource/res/runmgr/etl/datasrc/</menu-path>
+  <description>数据来源管理</description>
+  <form-beans>
+    <form-bean name="SysEtlDbsourceRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="dbsource_lb" type="string" size="1" description="数据来源类别"/>
+      <form-property prefix="select-key" name="db_name" type="string" size="32" description="数据库名称"/>
+      <form-property prefix="record" name="sys_etl_dbsource_id" type="string" size="32" cannull="false" description="ID"/>
+      <form-property prefix="record" name="dbsource_name" type="string" size="32" cannull="true" description="数据来源名称"/>
+      <form-property prefix="record" name="dbsource_lb" type="string" size="1" cannull="true" description="数据来源类别"/>
+      <form-property prefix="record" name="db_name" type="string" size="32" cannull="true" description="数据库名称"/>
+      <form-property prefix="record" name="db_ms" type="string" size="100" cannull="true" description="数据库描述"/>
+      <form-property prefix="record" name="db_user" type="string" size="32" cannull="true" description="数据库用户"/>
+      <form-property prefix="record" name="db_password" type="string" size="32" cannull="true" description="数据库密码"/>
+      <form-property prefix="record" name="db_constr" type="string" size="32" cannull="true" description="数据库连接串"/>
+      <form-property prefix="record" name="db_lb" type="string" size="32" cannull="true" description="db_lb"/>
+    </form-bean>
+
+    <form-bean name="SysEtlDbsourceUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_etl_dbsource_id" type="string" size="32" cannull="false" description="ID"/>
+      <form-property prefix="record" name="sys_etl_dbsource_id" type="string" size="32" cannull="false" description="ID"/>
+      <form-property prefix="record" name="dbsource_name" type="string" size="32" cannull="true" description="数据来源名称"/>
+      <form-property prefix="record" name="dbsource_lb" type="string" size="1" cannull="true" description="数据来源类别"/>
+      <form-property prefix="record" name="db_name" type="string" size="32" cannull="true" description="数据库名称"/>
+      <form-property prefix="record" name="db_ms" type="string" size="100" cannull="true" description="数据库描述"/>
+      <form-property prefix="record" name="db_user" type="string" size="32" cannull="true" description="数据库用户"/>
+      <form-property prefix="record" name="db_password" type="string" size="32" cannull="true" description="数据库密码"/>
+      <form-property prefix="record" name="db_constr" type="string" size="32" cannull="true" description="数据库连接串"/>
+      <form-property prefix="record" name="db_lb" type="string" size="32" cannull="true" description="db_lb"/>
+    </form-bean>
+
+    <form-bean name="SysEtlDbsourceDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_etl_dbsource_id" type="string" size="32" cannull="false" description="ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_etl_dbsource.jsp" name="SysEtlDbsourceRowsetForm" txn-code="501020001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据来源管理列表</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysEtlDbsource" func-name="txn501020001" input-node="select-key" output-node="record" description="查询数据来源管理列表"/>
+      <forward error-code="success" path="query-sys_etl_dbsource.jsp"/>
+      <forward error-code="failure" path="query-sys_etl_dbsource.jsp"/>
+    </action>
+
+    <action input="query-sys_etl_dbsource.jsp" name="SysEtlDbsourceDeleteForm" txn-code="501020005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除数据来源管理信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnSysEtlDbsource" func-name="txn501020005" input-node="primary-key" description="删除数据来源管理信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_etl_dbsource.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/resource/res/runmgr/etl/datasrc/query-sys_etl_dbsource.jsp" description="查询数据来源管理列表"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.SysEtlDbsourceContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoSysEtlDbsource" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoSysEtlDbsourceSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoSysEtlDbsourcePrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

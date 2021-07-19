@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="../../static/js/jquery-1.8.3.js"></script>
+<title>管辖区域</title>
+<style>
+body {
+	background: #e5e5e5;
+}
+
+* {
+	margin: 0;
+	padding: 0
+}
+
+ul,li {
+	list-style: none;
+}
+
+.container {
+	width: 980px;
+}
+
+.region {
+	padding-top: 10px
+}
+
+.sideLeft {
+	width: 10%;
+}
+
+.siderRight {
+	width: 90%;
+	height: 450px;
+	background: #ccc
+}
+
+.hideNode {
+	display: none;
+}
+
+.hide li {
+	margin-left: 10px;
+}
+
+.parentNode {
+	
+}
+
+.fl {
+	float: left;
+}
+
+.fr {
+	float: right;
+}
+
+.clear {
+	clear: both;
+}
+
+.title p {
+	float: left;
+	/* padding-left: 10px; */
+	border: 1px solid red;
+	width: 96px;
+	text-align: center;
+}
+
+.selTitle {
+	text-align: center;
+}
+</style>
+
+</head>
+<body>
+	<div class="container">
+		<h2 style="text-align: center;">年报情况统计表</h2>
+		<div class="sideLeft fl">
+			<h3 class="region" style="margin-bottom: 14px;">管辖区域</h3>
+			<ul class="nav">
+				<li><a class="parentNode" onclick="openLuoHu(this)">罗湖区</a>
+					<ul class="hideNode hide">
+						<li><a>黄贝所</a></li>
+						<li><a>南湖所</a></li>
+						<li><a>东门所</a></li>
+						<li><a>桂园所</a></li>
+						<li><a>笋岗所</a></li>
+						<li><a>翠竹所</a></li>
+						<li><a>莲塘所</a></li>
+						<li><a>东湖所</a></li>
+						<li><a>东晓所</a></li>
+						<li><a>清水河所</a></li>
+					</ul></li>
+				<li><a class="parentNode" onclick="openLuoHu(this)">福田区</a>
+					<ul class="hideNode hide">
+						<li><a>华强北所</a></li>
+						<li><a>园岭所</a></li>
+						<li><a>华富所</a></li>
+						<li><a>福保所</a></li>
+						<li><a>梅林所</a></li>
+						<li><a>莲花所</a></li>
+						<li><a>福田所</a></li>
+						<li><a>南园所</a></li>
+						<li><a>沙头所</a></li>
+						<li><a>香蜜湖所</a></li>
+					</ul></li>
+				<li><a class="parentNode" onclick="openLuoHu(this)">南山区</a>
+					<ul class="hideNode hide">
+						<li><a>南头所</a></li>
+						<li><a>南山所</a></li>
+						<li><a>粤海所</a></li>
+						<li><a>招商所</a></li>
+						<li><a>沙河所</a></li>
+						<li><a>蛇口所</a></li>
+						<li><a>西丽所</a></li>
+						<li><a>桃源所</a></li>
+					</ul></li>
+				<li><a class="parentNode" onclick="openLuoHu()">宝安区</a>
+					<ul class="hideNode hide">
+						<li><a>新安所</a></li>
+						<li><a>西乡所</a></li>
+						<li><a>黄田所</a></li>
+						<li><a>福永所</a></li>
+						<li><a>沙井所</a></li>
+						<li><a>新桥所</a></li>
+						<li><a>松岗所</a></li>
+						<li><a>沙溪所</a></li>
+						<li><a>石岩所</a></li>
+					</ul></li>
+				<li><a class="parentNode" onclick="openLuoHu()">龙岗区</a>
+					<ul class="hideNode hide">
+						<li><a>横岗所</a></li>
+						<li><a>布吉所</a></li>
+						<li><a>平湖所</a></li>
+						<li><a>平南所</a></li>
+						<li><a>龙城所</a></li>
+						<li><a>坂田所</a></li>
+						<li><a>南湾所</a></li>
+						<li><a>坪地所</a></li>
+						<li><a>龙岗所</a></li>
+					</ul></li>
+				<li><a class="parentNode" onclick="openLuoHu(this)">盐田区</a>
+					<ul class="hideNode hide">
+						<li><a>盐田局综合监管一科</a></li>
+					</ul></li>
+				<li><a class="parentNode" onclick="openLuoHu(this)">光明新区</a>
+					<ul class="hideNode hide">
+						<li><a>光明所</a></li>
+						<li><a>公明所</a></li>
+					</ul></li>
+
+
+				<li><a class="parentNode" onclick="openLuoHu(this)">坪山新区</a>
+					<ul class="hideNode hide">
+						<li><a>坪山局综合业务科</a></li>
+						<li><a>坪山局监督管理科</a></li>
+						<li><a>坪山所</a></li>
+						<li><a>坑梓所</a></li>
+					</ul></li>
+				<li><a class="parentNode" onclick="openLuoHu(this)">龙华新区</a>
+					<ul class="hideNode hide">
+						<li><a>大浪所</a></li>
+						<li><a>观澜所</a></li>
+						<li><a>龙华所</a></li>
+						<li><a>民治所</a></li>
+					</ul></li>
+				<li><a class="parentNode" onclick="openLuoHu(this)">大鹏新区</a>
+					<ul class="hideNode hide">
+						<li><a>大鹏所</a></li>
+						<li><a>葵涌所</a></li>
+						<li><a>南澳所</a></li>
+					</ul></li>
+				<li><a class="parentNode" onclick="openLuoHu(this)">其他</a>
+					<ul class="hideNode hide">
+					</ul></li>
+			</ul>
+
+		</div>
+
+
+		<div class="siderRight fr">
+			<div class="titleWrap">
+				<div class="fl title">
+					<h2 class="selTitle">内资</h2>
+					<div class="subTitle">
+						<p>应年报户数</p>
+						<p>已年报户数</p>
+						<p>年报率</p>
+					</div>
+				</div>
+				<div class="title fl">
+					<h2 class="selTitle">外资</h2>
+					<div class="subTitle">
+						<p>应年报户数</p>
+						<p>已年报户数</p>
+						<p>年报率</p>
+					</div>
+				</div>
+				<div class="title fl">
+					<h2 class="selTitle">个体</h2>
+					<div class="subTitle">
+						<p>应年报户数</p>
+						<p>已年报户数</p>
+						<p>年报率</p>
+					</div>
+				</div>
+				<div class="clear"></div>
+			</div>
+			
+			<style>
+				.subContent p{float: left;width:96px;text-align: center;border: 1px solid red;}
+			</style>
+			
+			<div class="nbDetailList" id="list">
+				<!-- <div class="rows">
+					<div class="subContent">
+						<p>9</p>
+						<p>1</p>
+						<p>3</p>
+					</div>
+					<div class="subContent">
+						<p>9</p>
+						<p>1</p>
+						<p>3</p>
+					</div>
+					<div class="subContent">
+						<p>9</p>
+						<p>1</p>
+						<p>3</p>
+					</div>
+				</div> -->
+			</div>
+		</div>
+		<div class="clear"></div>
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			$.ajax({
+				url:"../../otherselect/getNbStatisticsInfo.do",
+				type:"post",
+				dataType:"json",
+				success:function(data){
+					var data = data.data[0].data.rows;
+					var _html = '';
+					for (var i = 0; i < data.length; i++) {
+						console.log(data[i])
+						 _html +="<div class='rows'><div class='subContent'>"+
+						" <p>"+data[i]+"</p><p>1</p><p>3</p></div>"+
+						"<div class='subContent'><p>9</p><p>1</p><p>3</p></div>"+
+						"<div class='subContent'><p>9</p><p>1</p><p>3</p></div></div>";
+					}
+					$("#list").append(_html)
+				}
+			});
+		})
+	
+	
+		function openLuoHu(obj) {
+			var _this = $(obj);
+			var next = _this.next();
+			next.removeClass("hideNode");
+			var length = next.children("li").length;
+			var list = $("#list");
+			var _html = '';
+			/* for (var i = 0; i < 10; i++) {
+				 _html +="<div class='rows'><div class='subContent'><p>9</p><p>1</p><p>3</p></div><div class='subContent'><p>9</p><p>1</p><p>3</p></div><div class='subContent'><p>9</p><p>1</p><p>3</p></div></div>";
+			} */
+			
+			list.append(_html)
+		}
+	</script>
+</body>
+</html>

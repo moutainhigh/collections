@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ly.dao.WeekLineUpByAutoDataDao">
+
+
+	<select id="getAll" resultType="StockWeekLineByAutoDataList">
+		select * from stock_week_line_up_by_auto_datalist t
+		<where>
+			<if test="stocks.code != null">code = #{stocks.code, jdbcType=VARCHAR}</if>
+		</where>
+		 ORDER BY t.`date` DESC
+		 limit 0,5
+	</select>
+
+
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from stock_week_line_up_by_auto_datalist t where t.code = #{code}
+		</selectKey>
+		<if test="count > 0">
+			update stock_week_line_info
+			<trim prefix="set" suffixOverrides=",">
+				<if test="code != null">code = #{code, jdbcType=VARCHAR},</if>
+				<if test="name != null">name = #{name,jdbcType=VARCHAR},</if>
+				<if test="closePrice != null">closePrice = #{closePrice, jdbcType=VARCHAR},</if>
+				<if test="openPrice != null">openPrice = #{openPrice, jdbcType=VARCHAR},</if>
+				<if test="minPrice != null">minPrice = #{minPrice, jdbcType=VARCHAR},</if>
+				<if test="maxPrice != null">maxPrice = #{maxPrice, jdbcType=VARCHAR},</if>
+				<if test="ma5 != null">ma5 = #{ma5, jdbcType=VARCHAR},</if>
+				<if test="ma10 != null">ma10 = #{ma10, jdbcType=VARCHAR},</if>
+				<if test="ma20 != null">ma20 = #{ma20, jdbcType=VARCHAR},</if>
+				<if test="ma30 != null">ma30 = #{ma30, jdbcType=VARCHAR},</if>
+				<if test="ma60 != null">ma60 = #{ma60, jdbcType=VARCHAR},</if>
+				<if test="date != null">date = #{date, jdbcType=VARCHAR},</if>
+			</trim>
+			where code = #{code}
+		</if>
+		<if test="count == 0">
+			insert into stock_week_line_up_by_auto_datalist
+			(
+			code,
+			name,
+			closePrice,
+			openPrice,
+			minPrice,
+			maxPrice,
+			ma5,
+			ma10,
+			ma20,
+			ma30,
+			ma60,
+			date
+			)
+			values
+			(
+			#{code, jdbcType=VARCHAR},
+			#{name, jdbcType=VARCHAR},
+			#{closePrice, jdbcType=VARCHAR},
+			#{openPrice, jdbcType=VARCHAR},
+			#{minPrice, jdbcType=VARCHAR},
+			#{maxPrice, jdbcType=VARCHAR},
+			#{ma5, jdbcType=VARCHAR},
+			#{ma10, jdbcType=VARCHAR},
+			#{ma20, jdbcType=VARCHAR},
+			#{ma30, jdbcType=VARCHAR},
+			#{ma60, jdbcType=VARCHAR},
+			#{date, jdbcType=VARCHAR}
+			)
+		</if>
+	</insert>
+
+
+
+	<insert id="insertBatch">
+		INSERT INTO stock_week_line_up_by_auto_datalist
+		(
+		code,
+		name,
+		closePrice,
+		openPrice,
+		minPrice,
+		maxPrice,
+		ma5,
+		ma10,
+		ma30,
+		date
+		)
+		VALUES
+		<foreach collection="list" item="stockWeekInfo" separator=",">
+			(#{stockWeekInfo.code, jdbcType=VARCHAR},
+			#{stockWeekInfo.name, jdbcType=VARCHAR},
+			#{stockWeekInfo.closePrice, jdbcType=VARCHAR},
+			#{stockWeekInfo.openPrice, jdbcType=VARCHAR},
+			#{stockWeekInfo.minPrice, jdbcType=VARCHAR},
+			#{stockWeekInfo.maxPrice, jdbcType=VARCHAR},
+			#{stockWeekInfo.ma5, jdbcType=VARCHAR},
+			#{stockWeekInfo.ma10, jdbcType=VARCHAR},
+			#{stockWeekInfo.ma30, jdbcType=VARCHAR},
+			#{stockWeekInfo.date, jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+
+	<delete id="deleteByBatch" parameterType="StockWeekLineByAutoDataList">
+		delete from stock_week_line_up_by_auto_datalist
+		where code IN
+		<foreach collection="list" item="stockWeekInfo" open="(" separator="," close=")">
+			#{stockWeekInfo.code, jdbcType=VARCHAR}
+		</foreach>
+	</delete>
+
+
+<update id="truncateTableData">
+	truncate table stock_week_line_up_by_auto_datalist
+
+</update>
+</mapper>

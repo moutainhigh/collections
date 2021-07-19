@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>数据源表</menu-name>
+  <menu-path>/page/resource/svrobj/datasource/</menu-path>
+  <description>数据源表</description>
+  <form-beans>
+    <form-bean name="ResDataSourceRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="data_source_name" type="string" size="100" description="数据源名称"/>
+      <form-property prefix="select-key" name="data_source_id" type="string" size="100" description="数据源ID"/>
+      <form-property prefix="select-key" name="data_source_type" type="string" size="20" description="数据源类型"/>
+      <form-property prefix="select-key" name="service_targets_id" type="string" size="32" description="服务对象ID"/>
+      <form-property prefix="select-key" name="service_targets_type" type="string" size="32" description="服务对象类型"/>
+      <form-property prefix="select-key" name="created_time" type="string" size="19" description="创建时间"/>
+      <form-property prefix="select-key" name="created_time_start" type="string" size="19" description="查询创建起始时间"/>
+      <form-property prefix="select-key" name="created_time_end" type="string" size="19" description="查询创建结束时间"/>
+      <form-property prefix="record" name="data_source_id" type="string" size="32" cannull="false" description="数据源ID"/>
+      <form-property prefix="record" name="service_targets_id" type="string" size="32" cannull="true" description="服务对象ID"/>
+      <form-property prefix="record" name="data_source_type" type="string" size="20" cannull="true" description="数据源类型"/>
+      <form-property prefix="record" name="data_source_name" type="string" size="100" cannull="true" description="数据源名称"/>
+      <form-property prefix="record" name="data_source_ip" type="string" size="50" cannull="true" description="数据源IP"/>
+      <form-property prefix="record" name="access_port" type="string" size="8" cannull="true" description="访问端口"/>
+      <form-property prefix="record" name="access_url" type="string" size="255" cannull="true" description="访问URL"/>
+      <form-property prefix="record" name="db_type" type="string" size="20" cannull="true" description="数据库类型"/>
+      <form-property prefix="record" name="db_instance" type="string" size="30" cannull="true" description="数据源实例"/>
+      <form-property prefix="record" name="db_username" type="string" size="50" cannull="true" description="数据源用户名"/>
+      <form-property prefix="record" name="db_password" type="string" size="50" cannull="true" description="数据源密码"/>
+      <form-property prefix="record" name="db_desc" type="string" size="2000" cannull="true" description="数据源描述"/>
+      <form-property prefix="record" name="db_status" type="string" size="20" cannull="true" description="数据源状态"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="有效标记"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人ID"/>
+      <form-property prefix="record" name="created_time" type="string" size="19" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="19" cannull="true" description="最后修改时间"/>
+      <form-property prefix="record" name="operate" type="string" size="10" cannull="true" description="操作"/>
+      <form-property prefix="record" name="created_time_start" type="string" size="19" cannull="true" description="创建起始时间"/>
+      <form-property prefix="record" name="created_time_end" type="string" size="19" cannull="true" description="创建结束时间"/>
+      <form-property prefix="record" name="url" type="string" size="2000" cannull="true" description="数据源url"/>
+      <form-property prefix="record" name="result" type="string" size="2" cannull="true" description="连接测试结果"/>
+      <form-property prefix="record" name="url" type="string" size="2000" cannull="true" description="数据源url"/>
+      <form-property prefix="record" name="req_que_name" type="string" size="100" cannull="true" description="请求队列名称"/>
+      <form-property prefix="record" name="res_que_name" type="string" size="100" cannull="true" description="接收队列名称"/>
+      <form-property  name="dsType" type="string" size="4000" cannull="true" description="json数据源类型"/>
+      <form-property  name="svrTarget" type="string" size="4000" cannull="true" description="json服务对象"/>
+    </form-bean>
+
+    <form-bean name="ResDataSourceUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="data_source_id" type="string" size="32" cannull="false" description="数据源ID"/>
+      <form-property prefix="primary-key" name="is_markup" type="string" size="1" cannull="false" description="有效标记"/>
+      <form-property prefix="record" name="data_source_id" type="string" size="32" cannull="false" description="数据源ID"/>
+      <form-property prefix="record" name="service_targets_id" type="string" size="32" cannull="true" description="服务对象ID"/>
+      <form-property prefix="record" name="data_source_type" type="string" size="20" cannull="true" description="数据源类型"/>
+      <form-property prefix="record" name="data_source_name" type="string" size="100" cannull="true" description="数据源名称"/>
+      <form-property prefix="record" name="data_source_ip" type="string" size="50" cannull="true" description="数据源IP"/>
+      <form-property prefix="record" name="access_port" type="string" size="8" cannull="true" description="访问端口"/>
+      <form-property prefix="record" name="access_url" type="string" size="255" cannull="true" description="访问URL"/>
+      <form-property prefix="record" name="db_type" type="string" size="20" cannull="true" description="数据库类型"/>
+      <form-property prefix="record" name="db_instance" type="string" size="30" cannull="true" description="数据源实例"/>
+      <form-property prefix="record" name="db_username" type="string" size="50" cannull="true" description="数据源用户名"/>
+      <form-property prefix="record" name="db_password" type="string" size="50" cannull="true" description="数据源密码"/>
+      <form-property prefix="record" name="db_desc" type="string" size="2000" cannull="true" description="数据源描述"/>
+      <form-property prefix="record" name="db_status" type="string" size="20" cannull="true" description="数据源状态"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="有效标记"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人ID"/>
+      <form-property prefix="record" name="created_time" type="string" size="19" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="19" cannull="true" description="最后修改时间"/>
+      
+      <form-property prefix="record" name="url" type="string" size="2000" cannull="true" description="数据源url"/>
+      <form-property prefix="record" name="result" type="string" size="2" cannull="true" description="连接测试结果"/>
+      
+      <form-property prefix="primary-key" name="service_targets_id" type="string" size="32" cannull="false" description="服务对象ID"/>
+	  <form-property prefix="primary-key" name="service_status" type="string" size="20" cannull="false" description="服务状态"/>      
+      <form-property prefix="record" name="service_targets_no" type="string" size="50" cannull="true" description="服务对象代码"/>
+      <form-property prefix="record" name="service_targets_name" type="string" size="100" cannull="true" description="服务对象名称"/>
+      <form-property prefix="record" name="service_targets_type" type="string" size="20" cannull="true" description="服务对象类型"/>
+      <form-property prefix="record" name="is_bind_ip" type="string" size="1" cannull="true" description="是否绑定IP"/>
+      <form-property prefix="record" name="ip" type="string" size="50" cannull="true" description="IP"/>
+      <form-property prefix="record" name="service_password" type="string" size="50" cannull="true" description="服务口令"/>
+      <form-property prefix="record" name="service_status" type="string" size="20" cannull="true" description="服务状态"/>
+      <form-property prefix="record" name="service_desc" type="string" size="2000" cannull="true" description="服务对象描述"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="有效标记"/>
+      <form-property prefix="record" name="req_que_name" type="string" size="100" cannull="true" description="请求队列名称"/>
+      <form-property prefix="record" name="res_que_name" type="string" size="100" cannull="true" description="接收队列名称"/>
+      
+    </form-bean>
+
+    <form-bean name="ResDataSourceDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="data_source_id" type="string" size="32" cannull="false" description="数据源ID"/>
+      <form-property prefix="primary-key" name="is_markup" type="string" size="1" cannull="true" description="有效标记"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-res_data_source.jsp" name="ResDataSourceRowsetForm" txn-code="20102020" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据源表列表</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102001" input-node="select-key" output-node="record" description="查询数据源表列表"/>
+      <forward error-code="success" path="query-res_data_source.jsp"/>
+      <forward error-code="failure" path="query-res_data_source.jsp"/>
+    </action>
+    
+    <action input="query-res_data_source.jsp" name="ResDataSourceRowsetForm" txn-code="20102001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据源表列表-框架页</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102020" input-node="select-key" output-node="record" description="查询数据源表列表"/>
+      <forward error-code="success" path="list-res_data_source.jsp"/>
+      <forward error-code="failure" path="list-res_data_source.jsp"/>
+    </action>
+
+    <action input="update-res_data_source_webservice.jsp" name="ResDataSourceUpdateForm" txn-code="20102002" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改数据源表信息</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102002" input-node="record" description="修改数据源表信息"/>
+      <forward error-code="success" path="update-res_data_source_webservice.jsp"/>
+      <forward error-code="failure" path="update-res_data_source_webservice.jsp"/>
+    </action>
+
+    <action input="insert-res_data_source_webservice.jsp" name="ResDataSourceUpdateForm" txn-code="20102003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加webService数据源表信息</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102003" input-node="record" description="增加数据源表信息"/>
+      <forward error-code="success" path="/script/insertsuccess.jsp?nextPage=txn20102020.do" redirect="true"/>
+      <forward error-code="failure" path="insert-res_data_source_webservice.jsp"/>
+    </action>
+    
+    <action input="insert-res_data_source_ftp.jsp" name="ResDataSourceUpdateForm" txn-code="20102007" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加FTP数据源表信息</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102003" input-node="record" description="增加数据源表信息"/>
+      <forward error-code="success" path="insert-res_data_source_ftp.jsp"/>
+      <forward error-code="failure" path="insert-res_data_source_ftp.jsp"/>
+    </action>
+    
+    <action input="insert-res_data_source_database.jsp" name="ResDataSourceUpdateForm" txn-code="20102008" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加数据库数据源表信息</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102003" input-node="record" description="增加数据源表信息"/>
+      <forward error-code="success" path="insert-res_data_source_database.jsp"/>
+      <forward error-code="failure" path="insert-res_data_source_database.jsp"/>
+    </action>
+
+    <action input="query-res_data_source.jsp" name="ResDataSourceUpdateForm" txn-code="20102004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据源表用于修改</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102004" input-node="primary-key" output-node="record" description="查询数据源表用于修改"/>
+      <forward error-code="success" path="update-res_data_source_webservice.jsp"/>
+      <forward error-code="failure" path="update-res_data_source_webservice.jsp"/>
+    </action>
+
+    <action input="query-res_data_source.jsp" name="ResDataSourceDeleteForm" txn-code="20102005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除数据源表信息</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102005" input-node="primary-key" description="删除数据源表信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+    <action input="query-res_data_source.jsp" name="ResDataSourceUpdateForm" txn-code="20102006" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查看webservice数据源</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102004" input-node="primary-key" output-node="record" description="查询数据源表用于修改"/>
+      <forward error-code="success" path="view-res_data_source_webservice.jsp"/>
+      <forward error-code="failure" path="view-res_data_source_webservice.jsp"/>
+    </action>
+    
+    <action input="query-res_data_source.jsp" name="ResDataSourceUpdateForm" txn-code="20102010" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查看ftp数据源</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102004" input-node="primary-key" output-node="record" description="查询数据源表用于修改"/>
+      <forward error-code="success" path="view-res_data_source_ftp.jsp"/>
+      <forward error-code="failure" path="view-res_data_source_ftp.jsp"/>
+    </action>
+    
+    <action input="query-res_data_source.jsp" name="ResDataSourceUpdateForm" txn-code="20102011" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查看数据库数据源</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102004" input-node="primary-key" output-node="record" description="查询数据源表用于修改"/>
+      <forward error-code="success" path="view-res_data_source_database.jsp"/>
+      <forward error-code="failure" path="view-res_data_source_database.jsp"/>
+    </action>
+    
+    <action input="insert-res_data_source_ftp.jsp" name="ResDataSourceUpdateForm" txn-code="20102009" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>测试FTP数据源连接</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102009" input-node="record" description="测试FTP数据源连接"/>
+      <forward error-code="success" path="insert-res_data_source_ftp.jsp"/>
+      <forward error-code="failure" path="insert-res_data_source_ftp.jsp"/>
+    </action>
+    
+    <action input="insert-res_data_source_database.jsp" name="ResDataSourceUpdateForm" txn-code="20102016" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>测试数据库数据源连接</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102016" input-node="record" description="测试数据库数据源连接"/>
+      <forward error-code="success" path="insert-res_data_source_database.jsp"/>
+      <forward error-code="failure" path="insert-res_data_source_database.jsp"/>
+    </action>
+    
+    <action input="insert-res_data_source_webservice.jsp" name="ResDataSourceUpdateForm" txn-code="20102017" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>测试webservice连接</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102017" input-node="record" description="测试webservice连接"/>
+      <forward error-code="success" path="insert-res_data_source_webservice.jsp"/>
+      <forward error-code="failure" path="insert-res_data_source_webservice.jsp"/>
+    </action>
+    
+    <action input="update-res_data_source_ftp.jsp" name="ResDataSourceUpdateForm" txn-code="20102012" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改ftp数据源表信息</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102002" input-node="record" description="修改数据源表信息"/>
+      <forward error-code="success" path="update-res_data_source_ftp.jsp"/>
+      <forward error-code="failure" path="update-res_data_source_ftp.jsp"/>
+    </action>
+    
+    <action input="update-res_data_source_databse.jsp" name="ResDataSourceUpdateForm" txn-code="20102013" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改database数据源表信息</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102002" input-node="record" description="修改数据源表信息"/>
+      <forward error-code="success" path="update-res_data_source_database.jsp"/>
+      <forward error-code="failure" path="update-res_data_source_database.jsp"/>
+    </action>
+    
+    <action input="query-res_data_source.jsp" name="ResDataSourceUpdateForm" txn-code="20102014" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询ftp数据源表用于修改</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102004" input-node="primary-key" output-node="record" description="查询数据源表用于修改"/>
+      <forward error-code="success" path="update-res_data_source_ftp.jsp"/>
+      <forward error-code="failure" path="update-res_data_source_ftp.jsp"/>
+    </action>
+    
+    <action input="query-res_data_source.jsp" name="ResDataSourceUpdateForm" txn-code="20102015" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询database数据源表用于修改</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102004" input-node="primary-key" output-node="record" description="查询数据源表用于修改"/>
+      <forward error-code="success" path="update-res_data_source_database.jsp"/>
+      <forward error-code="failure" path="update-res_data_source_database.jsp"/>
+    </action>
+    
+    <action input="query-res_data_source.jsp" name="ResDataSourceUpdateForm" txn-code="20102018" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查看数据库数据源</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102018" input-node="primary-key" output-node="record" description="查询数据源表用于修改"/>
+      <forward error-code="success" path="show-res_service_targets.jsp"/>
+      <forward error-code="failure" path="show-res_service_targets.jsp"/>
+    </action>
+    
+    <action input="query-res_data_source.jsp" name="ResDataSourceUpdateForm" txn-code="20102019" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>校验数据源是否已经被引用</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102019" input-node="primary-key" output-node="record" description="查询数据源表用于修改"/>
+      <forward error-code="success" path="show-res_service_targets.jsp"/>
+      <forward error-code="failure" path="show-res_service_targets.jsp"/>
+    </action>
+    
+    <action input="insert-res_data_source_socket.jsp" name="ResDataSourceUpdateForm" txn-code="20102021" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加webService数据源表信息</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102003" input-node="record" description="增加数据源表信息"/>
+      <forward error-code="success" path="insert-res_data_source_socket.jsp"/>
+      <forward error-code="failure" path="insert-res_data_source_socket.jsp"/>
+    </action>
+    
+    <action input="update-res_data_source_socket.jsp" name="ResDataSourceUpdateForm" txn-code="20102022" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改数据源表信息</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102002" input-node="record" description="修改数据源表信息"/>
+      <forward error-code="success" path="update-res_data_source_socket.jsp"/>
+      <forward error-code="failure" path="update-res_data_source_socket.jsp"/>
+    </action>
+    
+    <action input="insert-res_data_source_socket.jsp" name="ResDataSourceUpdateForm" txn-code="20102023" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>测试socket连接</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102023" input-node="record" description="测试socket连接"/>
+      <forward error-code="success" path="insert-res_data_source_socket.jsp"/>
+      <forward error-code="failure" path="insert-res_data_source_socket.jsp"/>
+    </action>
+    
+    <action input="query-res_data_source.jsp" name="ResDataSourceUpdateForm" txn-code="20102024" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据源表用于修改</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102004" input-node="primary-key" output-node="record" description="查询数据源表用于修改"/>
+      <forward error-code="success" path="update-res_data_source_socket.jsp"/>
+      <forward error-code="failure" path="update-res_data_source_socket.jsp"/>
+    </action>
+    
+    <action input="query-res_data_source.jsp" name="ResDataSourceUpdateForm" txn-code="20102026" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查看socket数据源</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102004" input-node="primary-key" output-node="record" description="查询数据源表用于修改"/>
+      <forward error-code="success" path="view-res_data_source_socket.jsp"/>
+      <forward error-code="failure" path="view-res_data_source_socket.jsp"/>
+    </action>
+    
+    <action input="insert-res_data_source_jms.jsp" name="ResDataSourceUpdateForm" txn-code="20102027" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加webService数据源表信息</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102003" input-node="record" description="增加数据源表信息"/>
+      <forward error-code="success" path="insert-res_data_source_jms.jsp"/>
+      <forward error-code="failure" path="insert-res_data_source_jms.jsp"/>
+    </action>
+    
+    <action input="update-res_data_source_jms.jsp" name="ResDataSourceUpdateForm" txn-code="20102028" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改数据源表信息</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102002" input-node="record" description="修改数据源表信息"/>
+      <forward error-code="success" path="update-res_data_source_jms.jsp"/>
+      <forward error-code="failure" path="update-res_data_source_jms.jsp"/>
+    </action>
+    <action input="query-res_data_source.jsp" name="ResDataSourceUpdateForm" txn-code="20102029" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查看JMS数据源</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102004" input-node="primary-key" output-node="record" description="查询数据源表用于修改"/>
+      <forward error-code="success" path="view-res_data_source_jms.jsp"/>
+      <forward error-code="failure" path="view-res_data_source_jms.jsp"/>
+    </action>
+    <action input="insert-res_data_source_jms.jsp" name="ResDataSourceUpdateForm" txn-code="20102030" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>测试JMS连接</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102030" input-node="record" description="测试socket连接"/>
+      <forward error-code="success" path="insert-res_data_source_jms.jsp"/>
+      <forward error-code="failure" path="insert-res_data_source_jms.jsp"/>
+    </action>
+    <action input="query-res_data_source.jsp" name="ResDataSourceUpdateForm" txn-code="20102031" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据源表用于修改</description>
+      <step index="10" bean-name="com.gwssi.resource.svrobj.txn.TxnResDataSource" func-name="txn20102004" input-node="primary-key" output-node="record" description="查询数据源表用于修改"/>
+      <forward error-code="success" path="update-res_data_source_jms.jsp"/>
+      <forward error-code="failure" path="update-res_data_source_jms.jsp"/>
+    </action>
+    
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-res_data_source.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/resource/svrobj/datasource/query-res_data_source.jsp" description="查询数据源表列表"/>
+    <resource-file type="jsp" file-name="/page/resource/svrobj/datasource/insert-res_data_source.jsp" description="增加数据源表信息"/>
+    <resource-file type="jsp" file-name="/page/resource/svrobj/datasource/update-res_data_source.jsp" description="修改数据源表信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.svrobj.vo.ResDataSourceContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.svrobj.vo.VoResDataSource" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.svrobj.vo.VoResDataSourceSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.svrobj.vo.VoResDataSourcePrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

@@ -1,0 +1,150 @@
+--视图
+
+dbo.connactcernoinv(a.pripid,a.sourceflag) inv,
+dbo.connactbgxx(a.pripid,a.sourceflag) bgsx,
+dbo.connactfrxx(a.pripid,a.sourceflag) frxx,
+dbo.connactgjrxx(a.pripid,a.sourceflag) gjrxx
+dbo.connacttimestamp(a.pripid,a.sourceflag)
+=====connactgjrxx
+create function connactgjrxx(@id varchar(36),@sourceflag varchar(6)) 
+returns varchar(16384) 
+as
+begin    
+declare @t varchar(8000)
+declare @t1 varchar(8000)
+declare @r1 varchar(16384) 
+declare @r2 varchar(16384) 
+declare @countsum int 
+select @countsum=count(1) from (select c.personid,c.sourceflag from t_sczt_gjcyxx c where c.sourceflag=@sourceflag and c.PriPID=@id) c left join t_sczt_ryjbxx b on c.personid=b.ryjbxxid and c.sourceflag=b.sourceflag
+if (@countsum>0)
+begin
+    declare mycurs cursor 
+    for (select b.cerno,b.name from (select c.personid,c.sourceflag from t_sczt_gjcyxx c where c.sourceflag=@sourceflag and c.PriPID=@id) c left join t_sczt_ryjbxx b on c.personid=b.ryjbxxid and c.sourceflag=b.sourceflag)
+    open mycurs
+    fetch mycurs into @t,@t1
+    while @@sqlstatus=0
+       begin
+        if (isnull(@t,'') <>'' or isnull(@t1,'') <>'')
+            begin
+                select @r1 = @r1+ @t1+'('+@t+')' +';'
+            end
+        fetch mycurs into @t,@t1
+       end
+    close mycurs
+    deallocate mycurs
+    select @r2 = substring(@r1,1,len(@r1)-1)
+end
+   return @r2
+end
+==============connactfrxx
+create function connactfrxx(@id varchar(36),@sourceflag varchar(6)) 
+returns varchar(16384) 
+as
+begin    
+declare @t varchar(8000)
+declare @t1 varchar(8000)
+declare @r1 varchar(16384) 
+declare @r2 varchar(16384) 
+declare @countsum int 
+select @countsum=count(1) from (select c.personid,c.sourceflag from t_sczt_fddbr c where c.sourceflag=@sourceflag and c.PriPID=@id) c left join t_sczt_ryjbxx b on c.personid=b.ryjbxxid and c.sourceflag=b.sourceflag
+if (@countsum>0)
+begin
+    declare mycurs cursor 
+    for (select b.cerno,b.name from (select c.personid,c.sourceflag from t_sczt_fddbr c where c.sourceflag=@sourceflag and c.PriPID=@id) c left join t_sczt_ryjbxx b on c.personid=b.ryjbxxid and c.sourceflag=b.sourceflag)
+    open mycurs
+    fetch mycurs into @t,@t1
+    while @@sqlstatus=0
+       begin
+        if (isnull(@t,'') <>'' or isnull(@t1,'') <>'')
+            begin
+                select @r1 = @r1+ @t1+'('+@t+')' +';'
+            end
+        fetch mycurs into @t,@t1
+       end
+    close mycurs
+    deallocate mycurs
+    select @r2 = substring(@r1,1,len(@r1)-1)
+end
+   return @r2
+end
+--函数 ====connactcernoinv
+create function connactcernoinv(@id varchar(36),@sourceflag varchar(6)) 
+returns varchar(16384) 
+as
+begin    
+declare @t varchar(8000)
+declare @t1 varchar(8000)
+declare @r1 varchar(16384) 
+declare @r2 varchar(16384) 
+declare @countsum int 
+select @countsum=count(1) from (select TZRJCZXXID,SOURCEFLAG from t_sczt_frtzrjczxx where sourceflag=@sourceflag and pripid=@id union all select TZRJCZXXID,SOURCEFLAG from t_sczt_zrrtzrjczxx where sourceflag=@sourceflag and pripid=@id) a
+if (@countsum>0)
+begin
+    declare mycurs cursor 
+    for (select cerno,inv from (select cerno,inv from t_sczt_frtzrjczxx where sourceflag=@sourceflag and pripid=@id union all select cerno,inv from t_sczt_zrrtzrjczxx where sourceflag=@sourceflag and pripid=@id) a)
+    open mycurs
+    fetch mycurs into @t,@t1
+    while @@sqlstatus=0
+       begin
+        --if (isnull(@r,'') <>'')
+         --   begin
+                select @r1 = @r1+ @t1+'('+@t+')' +';'
+         --   end
+        fetch mycurs into @t,@t1
+       end
+    close mycurs
+    deallocate mycurs
+    select @r2 = substring(@r1,1,len(@r1)-1)
+end
+   return @r2
+end
+--connacttimestamp
+create function connacttimestamp(@id varchar(36),@sourceflag varchar(6)) 
+returns datetime 
+as
+begin    
+declare @r datetime
+declare @countsum int 
+select @countsum=count(1) from (select tzrjczxxid,sourceflag from t_sczt_frtzrjczxx where sourceflag=@sourceflag and pripid=@id union all select tzrjczxxid,sourceflag from t_sczt_zrrtzrjczxx where sourceflag=@sourceflag and pripid=@id) a
+if (@countsum>0)
+begin
+    select @r=max(convert(datetime,timestamp)) from (select timestamp from t_sczt_frtzrjczxx where sourceflag=@sourceflag and pripid=@id union all select timestamp from t_sczt_zrrtzrjczxx where sourceflag=@sourceflag and pripid=@id) a
+end
+if @r=null
+begin
+    select @r=convert(datetime,'1900-01-01 00:00:00')
+end
+   return @r
+end
+-- ======connactbgxx
+create function connactbgxx(@id varchar(36),@sourceflag varchar(6)) 
+returns varchar(16384)  
+as
+begin   
+declare @t varchar(8192)
+declare @t1 varchar(8192)
+declare @t2 varchar(8192) 
+declare @r1 varchar(16384)  
+declare @r2 varchar(16384)  
+declare @countsum int 
+select @countsum=count(*) from t_sczt_bgxx where sourceflag=@sourceflag and entityno=@id
+if (@countsum>0)
+begin
+    declare mycurs cursor 
+    for select (select value from t_dm_bgbasx where code = a.altitem),altbe,altaf from t_sczt_bgxx a where sourceflag=@sourceflag and entityno=@id order by altdate
+    open mycurs
+    fetch mycurs into @t,@t1,@t2
+    while @@sqlstatus=0
+       begin
+        --if (isnull(@r,'') <>'')
+        --    begin
+                select @r1 = @r1 + @t+'：'+@t1 +'-->>'+ @t2+ '||'
+         --   end
+        fetch mycurs into @t,@t1,@t2
+       end
+    close mycurs
+    deallocate mycurs
+    select @r2 = substring(@r1,1,len(@r1)-1)
+end
+   return @r2
+end

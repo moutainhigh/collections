@@ -1,0 +1,319 @@
+<!--
+Copyright (c) 2002 Ma Bingyao. All rights reserved.
+Version 2.1.20021209
+-->
+
+<public:component tagName="customcolor" lightweight="true">
+<public:property name="count" get="getcount" put="putcount" />
+<public:property name="size" get="getsize" put="putsize" />
+<public:property name="value" get="getvalue" put="putvalue" />
+<public:method name="add" />
+<public:method name="remove" />
+<public:method name="sort" />
+<public:method name="reverse" />
+<public:event name="onchange" id="eventchange" />
+<public:attach event="oncontentready" onevent="init()" />
+<script language="JavaScript">
+//<![CDATA[
+
+  var aPalette = new Array();
+  var oPalette = null;
+  var oSelColor = null;
+  var _value = "";
+  var _count = 32;
+  var _size = 16;
+  var _isReady = false;
+
+/*@cc_on @*/
+/*@if (@_jscript_version < 5.5) @*/
+
+  Array.prototype.push = function () {
+    var currentLength = this.length;
+    for (i = 0; i < arguments.length; i++) {
+      this[currentLength + i] = arguments[i];
+    }
+    return this.length;
+  }
+
+  Array.prototype.shift = function () {
+    var returnValue = this[0];
+    for (i = 1; i < this.length; i++) {
+      this[i - 1] = this[i];
+    }
+    this.length--;
+    return returnValue;
+  }
+
+  Array.prototype.splice = function () {
+    var start = arguments[0];
+    var deleteCount = arguments[1];
+    var items = Array(arguments).slice(2);
+    var returnValue = this.slice(start);
+    for (i = 0; i < items.length; i++) {
+      this[start + i] = items[i];
+    }
+    for (i = 0; i < returnValue.length - deleteCount; i++) {
+      this[start + items.length + i] = returnValue[deleteCount + i];
+    }
+    this.length = start + items.length + returnValue.length - deleteCount;
+    returnValue.length = deleteCount;
+    return returnValue;
+  }
+
+/*@end @*/
+
+  function parseColor(vValue) {
+    var oColorParser = element.document.createElement("td");
+    oColorParser.bgColor = vValue;
+    return oColorParser.removeNode().bgColor;
+  }
+
+  function getCookieVal(offset) {
+    var endstr = element.document.cookie.indexOf (";", offset);
+    if (endstr == -1) endstr = element.document.cookie.length;
+    return unescape(element.document.cookie.substring(offset, endstr));
+  }
+
+  function getCookie(name) {
+    var arg = name + "=";
+    var alen = arg.length;
+    var clen = element.document.cookie.length;
+    var i = 0;
+    while (i < clen) {
+      var j = i + alen;
+      if (element.document.cookie.substring(i, j) == arg) return getCookieVal(j);
+      i = element.document.cookie.indexOf(" ", i) + 1;
+      if (i == 0) break;
+    }
+    return null;
+  }
+
+  function setCookie(name, value) {
+    var exp = new Date();
+    exp.setTime(exp.getTime() + 31536000000);
+    element.document.cookie = name + "=" + escape (value) + "; expires=" + exp.toGMTString()+";";
+  }
+
+  function getcount() {
+    return _count;
+  }
+
+  function putcount(vCount) {
+    if (!_isReady) _count = parseInt(vCount);
+  }
+
+  function getsize() {
+    return _size;
+  }
+
+  function putsize(vSize) {
+    if (!_isReady) _size = parseInt(vSize);
+  }
+
+  function getvalue() {
+    return _value;
+  }
+
+  function putvalue(vValue) {
+    vValue = parseColor(vValue);
+    if ((vValue) && _value != vValue) {
+      _value = vValue;
+      setvalue();
+    }
+  }
+
+  function setvalue() {
+    if (_isReady) {
+      if (oSelColor) {
+        upout(oSelColor);
+        oSelColor = null;
+      }
+      for (var i = 0; i < aPalette.length; i++) {
+        if (aPalette[i] == _value) {
+          if (oSelColor != null) upout(oSelColor);
+          oSelColor = oPalette.childNodes[i];
+          downout(oSelColor);
+          _value = oSelColor.firstChild.style.backgroundColor;
+        }
+      }
+      eventchange.fire();
+    }
+  }
+
+  function add(vValue) {
+    vValue = parseColor(vValue);
+    if (aPalette.join().indexOf(vValue) == -1) {
+      while (aPalette.length >= _count) aPalette.shift();
+      aPalette.push(vValue);
+      setCookie("customPalette", aPalette.join());
+      refresh();
+    }
+  }
+
+  function remove() {
+    if (aPalette.length > 0) {
+      if (oSelColor != null) {
+        var delcolor = oSelColor.firstChild.style.backgroundColor;
+        for (i = 0; i < aPalette.length; i++) {
+          if (delcolor == aPalette[i]) {
+            aPalette.splice(i, 1);
+            break;
+          }
+        }
+      }
+      else aPalette.shift();
+      setCookie("customPalette", aPalette.join());
+      refresh();
+    }
+  }
+
+  function sort() {
+    aPalette.sort();
+    setCookie("customPalette", aPalette.join());
+    refresh();
+  }
+
+  function reverse() {
+    aPalette.reverse();
+    setCookie("customPalette", aPalette.join());
+    refresh();
+  }
+
+  function setcolor(Button, Color) {
+    with(Button.style) {
+        padding = "1px";
+        backgroundColor = borderColor = "buttonface";
+    }
+    with(Button.firstChild.style) {
+      pixelWidth = pixelHeight = 10;
+      borderColor = "buttonshadow";
+      backgroundColor = Color;
+    }
+    with(Button) {
+      onmousemove = domousemove;
+      onmouseout = domouseout;
+      onmousedown = domousedown;
+      onmouseup = domouseup;
+    }
+    if (Color == _value) {
+      oSelColor = Button;
+      downout(Button);
+    }
+  }
+
+  function clearcolor(Button) {
+    with(Button.style) {
+      padding = "0";
+      backgroundColor = "buttonface";
+      borderBottomColor = borderRightColor = "buttonhighlight";
+      borderTopColor = borderLeftColor = "buttonshadow";
+    }
+    with(Button.firstChild.style) {
+      pixelWidth = pixelHeight = 12;
+      backgroundColor = "buttonface";
+      borderBottomColor = borderRightColor = "buttonshadow";
+      borderTopColor = borderLeftColor = "buttonhighlight";
+    }
+    with(Button) {
+      onmousemove = onmouseout = onmousedown = onmouseup = null;
+    }
+  }
+
+  function refresh() {
+    oSelColor = null;
+    for (i = 0; i < _count; i++) {
+      var Button = oPalette.childNodes[i];
+      if (i < aPalette.length) setcolor(Button, aPalette[i]);
+      else clearcolor(Button);
+    }
+  }
+
+  function uphover(Button) {
+    with(Button.style) {
+      borderTopColor = borderLeftColor = "buttonhighlight";
+      borderBottomColor = borderRightColor = "buttonshadow";
+      backgroundColor = "buttonface";
+    }
+  }
+
+  function downhover(Button) {
+    with(Button.style) {
+      borderTopColor = borderLeftColor = "buttonshadow";
+      borderBottomColor = borderRightColor = "buttonhighlight";
+      backgroundColor = "buttonface";
+    }
+  }
+
+  function upout(Button) {
+    with(Button.style) borderColor = backgroundColor = "buttonface";
+  }
+
+  function downout(Button) {
+    with(Button.style) {
+      borderTopColor = borderLeftColor = "buttonshadow";
+      borderBottomColor = borderRightColor = "buttonhighlight";
+      backgroundColor = "whitesmoke";
+    }
+  }
+
+  function domousemove() {
+    if (oSelColor != this && event.button == 0) uphover(this);
+    else downhover(this);
+  }
+
+  function domouseout() {
+    if (oSelColor != this) upout(this);
+    else downout(this);
+  }
+
+  function domousedown() {
+    if (oSelColor != this) downhover(this);
+  }
+
+  function domouseup() {
+    if (oSelColor != this) {
+      if (oSelColor != null) upout(oSelColor);
+      oSelColor = this;
+      _value = oSelColor.firstChild.style.backgroundColor;
+      _name = oSelColor.firstChild.title;
+      eventchange.fire();
+    }
+  }
+
+  function docancelevent() {
+    event.returnValue = false;
+  }
+
+  function init() {
+    oPalette = element.document.createElement("span");
+    with(oPalette.style) {
+      fontSize = 0;
+      pixelWidth = _size * 14;
+      pixelHeight = Math.ceil(_count / _size) * 14;
+      textAlign = "left";
+    }
+    oPalette.attachEvent("oncontextmenu", docancelevent);
+    oPalette.attachEvent("ondragstart", docancelevent);
+    insertAdjacentElement("AfterEnd", oPalette);
+    var oColorBox = element.document.createElement("span");
+    with(oColorBox.style) {
+      fontSize = 0;
+      borderWidth = "1px";
+      borderStyle = "solid";
+    }
+    var oColorButton = oColorBox.cloneNode();
+    with(oColorButton.style) pixelWidth = pixelHeight = 14;
+    for(i = 0; i < _count; i++) {
+      oColorButton.appendChild(oColorBox);
+      oPalette.appendChild(oColorButton);
+      oColorButton = oColorButton.cloneNode();
+      oColorBox = oColorBox.cloneNode();
+    }
+    if (getCookie("customPalette") != null) aPalette = getCookie("customPalette").split(",", _count);
+    refresh();
+    _isReady = true;
+  }
+
+//]]>
+</script>
+</public:component>

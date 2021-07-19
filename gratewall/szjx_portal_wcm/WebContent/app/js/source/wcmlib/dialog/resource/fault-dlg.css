@@ -1,0 +1,39 @@
+.dlg{position:absolute;z-index:99999;}
+.dlg *{margin:0px;padding:0px;}
+/*header layout*/
+.dlg .header{background:url(d1.gif) left -68px no-repeat;cursor:move;*margin-right:-3px;}
+.dlg .header .r{background:url(d1.gif) right 0px no-repeat;}
+.dlg .header .c{height:30px;background:url(d1.gif) left -38px repeat-x;margin:0 6px;}
+.dlg .header .spt{float:left;width:0px;height:100%;background:url(d1.gif) left -193px repeat-x;}
+.dlg .header .title{float:left;width:80%;padding:8px;font-size:12px;font-weight:bold;white-space:nowrap;overflow:hidden;color:white;}
+.dlg .header .tools{float:right;height:100%;}
+.dlg .header .close{float:right;width:20px;height:100%;cursor:default;}
+.dlg .header .close:link, .dlg .header .close:visited{background:url(d1.gif) left -104px no-repeat;}
+
+/*body layout*/
+
+.dlg .body {padding:15px 0px;background-color:#F1F1F1;border:1px solid #8D8D8D;}
+.dlg .body .dlg-table{width:100%;height:100%;table-layout:fixed;font-size:12px;line-height:16px;}
+.dlg .body .dlg-table td {background-color:white;}
+.dlg .body .dlg-table .buttons {background-color:#F1F1F1;}
+.dlg .body .msg{text-align:left;}
+.dlg .body .msg-wrapper{height:100px;overflow:auto;background-color:white;margin:0px;}
+.dlg .body .icon{width:60px;height:100px;background:white center center no-repeat;}
+
+.dlg .body .buttons{height:36px;text-align:center;vertical-align:bottom;}
+
+/*footer layout*/
+.dlg .footer{display:none;}
+
+
+/*wcm-fault-dlg*/
+.wcm-fault-dlg{width:450px;}
+.wcm-fault-dlg .body .c{height:240px;}
+.wcm-fault-dlg .body .icon{width:120px;background:transparent center 30px no-repeat;}
+.wcm-fault-dlg .body .icon{position:relative;border-right:10px solid gray;background-image:url(fault.gif);}
+.wcm-fault-dlg .body .msg{word-wrap:break-word;word-break:keep-all;font-family:Arial;font-weight:bold;font-size:14px}
+.wcm-fault-dlg .body .icon{text-align:center;vertical-align:bottom;background-image:url(fault.gif);border-right:1px solid gray;}
+.wcm-fault-dlg .body .icon .detail{margin-top:8px;line-height:22px;background:url(info2.gif) left top no-repeat;cursor:pointer;*margin-top:138px;}
+.wcm-fault-dlg .body .icon .copy{margin-top:8px;line-height:22px;background:url(info1.gif) center center no-repeat;cursor:pointer;}
+.wcm-fault-dlg .body .icon .close{margin-top:8px;line-height:22px;background:url(info1.gif) center center no-repeat;cursor:pointer;}
+.wcm-fault-dlg .body textarea{width:100%;height: 150px;font-family:Courier New;font-size:12px;background:white;border:0px;}

@@ -1,0 +1,193 @@
+.moreDetail{  
+    width:88px;
+    height:27px;
+    line-height:27px;
+    text-align: center;
+    position: absolute;
+    margin-left:707px;
+   	top:215px;  
+    font-size:12px;
+    font-family:"Microsoft YaHei,Songti TC,sans-serif";
+    color:#71b0e0;
+    border:1px solid #74A7D9;
+
+}
+ .moreDetailHover{
+    width:88px;
+    height:27px;
+    line-height:27px;
+    background:#71b0e0; 
+    background-position:5px;
+    text-align: center;
+    position: absolute;
+    margin-left:707px;
+   	top:215px;  
+    font-size:12px;
+    font-family:"";
+    color:#fff;
+    border:1px solid #74A7D9;
+}
+.moreDetailHover:after {
+	content:"";
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid #74A7D9;
+    position: absolute;
+    margin-top: 27px;
+    margin-left: -50px;
+}
+.moreDetail:hover{
+    cursor: pointer;
+} 
+.checkdetail{
+	display:inline-block;
+    width:80px;
+    height: 27px;
+	background: url("../image/img/icon/check-detail-blue.png") no-repeat;
+	background-position: 5px;
+}
+.checkdetailHover{
+	display:inline-block;
+    width:80px;
+    height: 27px;
+	background: url("../image/img/icon/check-detail-w.png") no-repeat;
+	background-position: 5px;
+}
+
+.hidden{
+    width:329px;
+    height:210px;
+    border:1px solid #74A7D9;
+    background: #F7F8FC;
+    position: absolute;
+    margin-left: 500px;
+    display: none;
+    z-index: 10000;
+    margin-top:75px;
+    left:700px;
+}
+
+textarea {
+	font-size:12px;
+}
+/* 退回修改意见样式 */
+/* .modifyBack {
+	float: right;
+    width: 40px;
+    height: 164px;
+    background: #2488C7;
+    border-radius: 5px;
+    display: table;
+    cursor: pointer;
+    display:none;
+} */
+
+.modifyBack img {
+	display: table-cell;
+	text-align: center;
+	margin: 15px auto 5px auto;
+}
+
+.modifyBack p {
+	color: #fff;
+	width: 15px;
+	margin: 0 auto;
+}
+
+.main {
+	clear: both;
+}
+
+/* .wrapAdvice {
+	position: fixed;
+    width: 288px;
+    height: auto;
+    left: 890px;
+    top: 260px;
+} */
+
+.advice {
+	width: 288px;
+	min-height: 219px;
+	border: 2px solid #2488C7;
+	border-radius: 2px;
+	background: #f4f4f4;
+	display: block;
+	z-index: 100002;
+}
+
+.adviceTop {
+	height: 29px;
+	background: #2488C7;
+	color: #fff;
+	margin: 1px;
+}
+
+.adviceTop span {
+	height: 29px;
+	line-height: 29px;
+	padding-left: 10px;
+}
+.adviceTop img{
+	float:right;
+	margin:10px 10px 0 0;
+	cursor:pointer;
+}
+.tips {
+	width: 240px;
+	font-size: 12px;
+	font-family: "Songti SC";
+	color: #666;
+	margin: 0 auto;
+}
+.content{
+	margin-left:20px;
+}
+
+/* //后置许可弹出框按钮 */
+
+.jazz-button{
+	/* float:right; */
+	/* margin-right:235px; */
+	margin-top:17px;
+	margin-left:25px;
+}
+.jazz-grid-headerCell-outer{
+	text-align:center;
+}
+.adviceTitle{
+	font-weight:bold;
+	font:bold 12px/2em Microsoft YaHei,Songti TC,sans-serif;
+}
+
+.scope-tips {
+    float: right;
+    margin-right: 6px;
+}
+.suggest_tips dd{
+	border:1px solid #c5d6e0;
+	margin-bottom:8px;
+	text-indent:2em;
+}
+.apply_content{
+	margin: 0 0 20px 224px;
+    width: 550px;
+}
+.content{
+	border:none;
+}
+
+.jazz-field-comp-suffix,.jazz-field-comp-prefix,h5{
+	font-family:"songti";
+}
+.blue_info_box{
+	font-family:"songti";
+}
+/* 1024分辨率下的样式 */
+ @media screen and (max-width:1024px){
+	.hidden{
+		left:500px;
+	}
+} 

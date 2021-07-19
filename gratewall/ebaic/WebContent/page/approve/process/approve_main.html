@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+<style>
+.jazz-panel-move-titlebar {
+	height: 30px;
+}
+
+.jazz-formpanel-content {
+	background-color: #fff;
+}
+
+.jazz-panel-border {
+	/* border:none; */
+	margin: 0 auto;
+}
+
+body {
+	overflow-x: hidden;
+	/* height: 1000px; */
+}
+
+.jazz-field-comp-label {
+	font-weight: bold;
+}
+
+.name-title {
+	background-color: #F6FBFF;
+	border-top: 1px solid #ced3de;
+	height: 50px;
+	line-height: 30px;
+}
+
+.ent-name label {
+	color: #3d91d8;
+	font-weight: bold;
+	font-size: 20px;
+	/*     overflow: hidden; */
+	display: block;
+	/* 	text-overflow: ellipsis; */
+	white-space: nowrap;
+	/* 	width:280px; */
+}
+
+.linkman label {
+	font-size: 14px;
+	font-weight: normal;
+	font-family: "Microsoft YaHei";
+}
+
+/*申请人详细*/
+#findLinkManDetail {
+	color: #9BC7E8;
+	display: inline-block;
+	margin-top: 10px;
+	margin-left: -10px;
+}
+
+#findLinkManDetail a {
+	color: #6EADE3;
+}
+
+a {
+	text-decoration: underline;
+}
+
+/*  .censor-new{
+ 	position: absolute;
+    z-index: 99999;
+ }
+  */
+.modify {
+	display: inline-block;
+	line-height: 55px;
+}
+
+/*审查意见*/
+#censor-notice {
+	width: 0;
+	position: fixed;
+	top: 50px;
+	z-index: 9999;
+	right: 0;
+}
+
+.censor {
+	width: 34px;
+	background: #2488C6;
+	color: #fff;
+	position: absolute;
+	padding: 10px 0;
+	cursor: pointer;
+	top: 0;
+	left: -29px;
+	text-align: center;
+}
+
+@media screen and (max-width:1024px) {
+	#linkman {
+		margin-left: 100px;
+	}
+}
+
+.relatedMaterial>div {
+	float: left;
+}
+
+.jazz-field-comp-input {
+	font: 12px/1.5em songti;
+}
+
+.opl-book a {
+	cursor: pointer;
+	color: #93C3E7;
+	margin-left: 0px;
+}
+
+.stuff a {
+	cursor: pointer;
+	color: #93C3E7;
+}
+
+#mbrIdentify a, #signature a {
+	margin-left: 20px;
+}
+
+#personInv a, #cpInv a, #accommondation a, #other a {
+	margin-left: 50px;
+}
+
+.opl {
+	width: 800px;
+}
+
+.opl-all>div {
+	display: inline-block;
+}
+
+.relatedMaterial {
+	margin-left: 50px;
+	margin-top: 20px;
+}
+
+.uploadfile {
+	width: 120px;
+	text-align: center;
+}
+
+.linkman {
+	margin-left: 420px;
+}
+
+table th, td {
+	border: solid 0px blue;
+}
+
+.jazz-field-readonly {
+	background: none repeat scroll 0 0 #f6f6f6;
+}
+
+.edit {
+	background: url("../../../static/image/approve/edit.png") no-repeat;
+	width: 25px;
+	height: 36px;
+}
+
+.requied-star {
+	color: red;
+	font-weight: bold;
+}
+
+#approve-main-layout-table th {
+	text-align: right;
+	width: 150px;
+}
+
+#approve-main-layout-table td {
+	padding-bottom: 10px;
+}
+
+.jazz-panel-content {
+	background-color: #FFF;
+	margin-top: -10px;
+}
+
+.scope-type-icon {
+	display: inline-block;
+	vertical-align: middle;
+	width: 12px;
+	height: 12px;
+}
+
+.opScope textarea {
+	color: #FF9900;
+	padding: 5px;
+}
+
+.ptBusScope textarea {
+	color: #33CC66;
+	padding: 5px;
+}
+
+.opCustomScope textarea {
+	color: red;
+}
+
+.jazz-textarea-resize {
+	padding: 5px;
+}
+/* .jazz-form-text-label{
+	font-size:14px;
+} */
+.mainScope_green textarea {
+	color: #33CC66;
+	padding: 5px;
+}
+
+.mainScope_red textarea {
+	color: red;
+}
+
+.jazz-textfield-comp input.jazz-field-comp-input {
+	padding-left: 5px;
+	/* background-color:#f6f6f6; */
+}
+
+.blue_info_box {
+	margin-top: -20px;
+}
+
+.jazz-field-comp-in2 {
+	border: 1px solid #d5d5d5;
+}
+
+.stuff {
+	margin-left: 90px;
+}
+/*编辑保存，取消几个按钮样式*/
+.btnEdit {
+	outline: none;
+	border: 0;
+	border: none;
+	margin-top: 6px;
+	padding: 8px 10px 4px;
+	text-align: center;
+	color: #fff;
+	cursor: pointer;
+}
+
+.save {
+	background: url("../../../static/image/approve/save.png") no-repeat;
+	width: 25px;
+	height: 36px;
+	/* background-position-y: 8px; */
+}
+
+.cancel {
+	background: url("../../../static/image/approve/delete.png") no-repeat;
+	width: 25px;
+	height: 36px;
+	/* 	background-position-y: 8px; */
+}
+
+.revocation {
+	background: url("../../../static/image/approve/revocation.png")
+		no-repeat;
+	width: 25px;
+	height: 36px;
+	/* 	background-position-y: 8px; */
+}
+
+.uploadtitle {
+	color: #4092d6;
+	font-size: 12px;
+	overflow: hidden;
+	text-align: center;
+	text-decoration: underline;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	width: 120px;
+	word-break: keep-all;
+	word-wrap: normal;
+	cursor: pointer;
+}
+
+.relatedMaterial img {
+	height: 100px;
+}
+
+.uploadfile {
+	position: relative;
+}
+
+.relatedMaterial .caption {
+	position: absolute;
+	bottom: 34px;
+	right: 28px;
+	height: 24px;
+}
+
+.relatedMaterial .fileTips {
+	/* width: 65px;
+    bottom: 30px;
+    z-index: 3;
+    background:url(../../../static/image/approve/27.png) no-repeat; */
+	width: 58px;
+	height: 15px;
+	bottom: 38px;
+	right: 30px;
+	z-index: 3;
+}
+
+.relatedMaterial .fileWrap {
+	width: 76px;
+	z-index: 2;
+	right: 22px;
+	background: #fff;
+}
+
+.image-category-todo {
+	cursor: pointer;
+	/*未审批样式 */
+	/* border : solid 2px blue; */
+}
+
+.image-category-unPass {
+	cursor: pointer;
+	/* 未通过 */
+	/* border : solid 2px red; */
+}
+
+.image-category-pass {
+	/* 已通过 */
+	cursor: pointer;
+	/* border : solid 2px green; */
+}
+
+/*己修改按钮样式公用*/
+.appUserEditFlag {
+	background: url("../../../static/image/approve/appUserEditFlag.jpg")
+		no-repeat;
+	width: 50px;
+	height: 20px;
+	position: absolute;
+	top: 21px;
+	left: 20px;
+	z-index: 999;
+}
+
+.btn_locRemar {
+	top: 70px;
+	left:50px;
+	display: block;
+}
+
+
+.btn_domOwner {
+	top: 117px;
+	left: 8px;
+}
+
+.btn_domAcreage {
+	top: 165px;
+	left: 20px;
+}
+
+.btn_mainScope {
+	top: 234px;
+	left: 1px;
+}
+
+.btn_opScope {
+	top: 317px;
+	left: 1px;
+}
+
+.btn_ptBusScope {
+	top: 396px;
+	left: 1px;
+}
+
+.btn_opCustomScope {
+	top: 477px;
+	left: -5px;
+}
+
+.btn_opSuffix {
+	top: 556px;
+	left: 8px;
+}
+
+
+/*pdf预览*/
+.pdfView{
+	width: 95px;
+	height: 115px;
+}
+</style>
+</head>
+<body id="body" style='background-color: #FFF; overflow-x: hidden'>
+	<!-- 构建页面==开始 -->
+	<!-- 数据展现 -->
+	<div vtype="formpanel" wid="349386E3DA5F7262E055000000000001" name="linkMan_Form" dataview="false" style="margin: 0 auto" titleDisplay="false" title="审核内容" width="1205px" showborder="false" dataurl="" layout="auto">
+		<div class="name-title">
+			<div name="gid" vtype="hiddenfield" label="主键" labelwidth="200" labelalign="right" width="0"></div>
+			<div name="commonEntName" id="commonEntName" class="ent-name" vtype="textfield" labelwidth="200" labelalign="right" width="350" readonly="true" style="margin-left: 100px;"></div>
+			<div name="linkman" class="linkman" id="linkman" vtype="textfield" label="申请人" labelwidth="100" labelalign="right" width="180" tooltip="" rule="" readonly="true"></div>
+			<div id="findLinkManDetail">
+				<a href="javascript:void(0);">详情</a>
+			</div>
+		</div>
+	</div>
+	﻿
+	<!-- 数据展现 -->
+	<div vtype="formpanel" wid="34370D1AD90533CEE055000000000001" name="exceptionApprove_Form" id="exceptionApprove_Form" titleDisplay="false" title="审核内容" showborder="false" dataurl="" layout="auto" width="700px" style='background-color: #FFF; margin: 0 auto;'>
+		<div name="gid" vtype="hiddenfield" label="主键"></div>
+		<div name="isMainScopeStandard" vtype="hiddenfield" labelalign="right"></div>
+		<div name="entName" vtype="hiddenfield" label="企业名称" labelwidth="600" labelalign="right" width="900" tooltip="" rule="must_length;0,100"></div>
+
+
+		<div name="regCap" class="zczb" vtype="textfield" label="注册资本" labelwidth="140" labelalign="right" width="700" tooltip="" rule="must_number(18,6)_contrast;>0" editable='false' suffix='万元'></div>
+		<button name="btnEdit_regCap" class="btnEdit edit"></button>
+		<button name="btnRevocation_regCap" class="btnEdit revocation"></button>
+		<button name="btnSave_regCap" class="btnEdit save"></button>
+		<button name="btnCancel_regCap" class="btnEdit cancel"></button>
+		<div class="appUserEditFlag" name="appUserEdit_regCap"></div>
+		<div>
+			<!--住所 -->
+			<div name="opLoc" vtype="hiddenfield" labelalign="right"></div>
+			<div name="locRemark" vtype="textfield" label="住所" labelwidth="140" labelalign="right" width="230" width="700" tooltip="" editable='false' prefix='北京市海淀区' editable='false'></div>
+			<div name="domDetail" vtype="textfield" labelalign="right" labelwidth="0" width="434" tooltip="" rule="length;0,100" editable='false'></div>
+			<button name="btnEdit_locRemark" class="btnEdit edit"></button>
+			<button name="btnRevocation_locRemark" class="btnEdit revocation"></button>
+			<button name="btnSave_locRemark" class="btnEdit save"></button>
+			<button name="btnCancel_locRemark" class="btnEdit cancel"></button>
+
+			<div class="appUserEditFlag btn_locRemar" name="appUserEdit_locRemark"></div>
+			<br />
+
+
+
+			<div name="domOwner" vtype="textfield" label="住所产权人" labelwidth="140" labelalign="right" width="700" tooltip="" rule="must_length;0,100" editable='false'></div>
+			<button name="btnEdit_domOwner" class="btnEdit edit"></button>
+			<button name="btnRevocation_domOwner" class="btnEdit revocation"></button>
+			<button name="btnSave_domOwner" class="btnEdit save"></button>
+			<button name="btnCancel_domOwner" class="btnEdit cancel"></button>
+			<div class="appUserEditFlag btn_domOwner" name="appUserEdit_domOwner"></div>
+			<br />
+			<div name="domAcreage" vtype="textfield" label="营业面积" labelwidth="140" labelalign="right" width="700" tooltip="" rule="must_number(11,2)_contrast;>0" suffix='平方米' editable='false'></div>
+
+			<button name="btnEdit_domAcreage" class="btnEdit edit"></button>
+			<button name="btnRevocation_domAcreage" class="btnEdit revocation"></button>
+			<button name="btnSave_domAcreage" class="btnEdit save"></button>
+			<button name="btnCancel_domAcreage" class="btnEdit cancel"></button>
+			<div class="appUserEditFlag btn_domAcreage" name="appUserEdit_domAcreage"></div>
+		</div>
+		<br />
+
+		<div style="margin-top: -20px;">
+			<div style="margin-left: 260px">
+				<span style='display: inline-block; width: 130px;'>&nbsp;</span>
+				<span class="scope-type-icon" style='background-color: #33CC66;'>&nbsp;</span>
+				<font color="#33CC66">规范经营用语</font>
+				<span class="scope-type-icon" style='background-color: #FF9900;'>&nbsp;</span>
+				<font color="#FF9900">许可经营用语</font>
+				<span class="scope-type-icon" style='background-color: red;'>&nbsp;</span>
+				<font color="red">申请人手写</font>
+			</div>
+
+			<div name="mainScope" id="mainScope" class="mainScope" vtype="textareafield" label="主要经营项目" labelwidth="140" labelalign="right" width="700" height="80" tooltip="" rule="length;0,1000" editable='false'></div>
+			<button name="btnEdit_opScope" class="btnEdit edit"></button>
+			<button name="btnSave_opScope" class="btnEdit save"></button>
+			<button name="btnCancel_opScope" class="btnEdit cancel"></button>
+			<div class="appUserEditFlag btn_mainScope" name="appUserEdit_mainScope"></div>
+			<br />
+
+			<div name="opScope" id="opScope" class='opScope' vtype="textareafield" label="许可经营项目" labelwidth="140" labelalign="right" width="700" height="80" tooltip="" rule="length;0,3000" editable='false'>
+				<div class="appUserEditFlag btn_opScope" name="appUserEdit_opScope"></div>
+			</div>
+			<br />
+			<div name="ptBusScope" id="ptBusScope" class='ptBusScope' vtype="textareafield" label="其他经营项目" labelwidth="140" labelalign="right" width="700" height="80" tooltip="" rule="length;0,3000" editable='false'>
+				<div class="appUserEditFlag btn_ptBusScope" name="appUserEdit_ptBusScope"></div>
+			</div>
+
+			<!-- 		   <input type="checkbox" name="scopeSign" id="scopeSign" disabled='disabled' /> -->
+			<!-- 		   <label for="scopeSign">是否包含主营</label> -->
+
+			<br />
+
+			<div name="opCustomScope" id="opCustomScope" class='opCustomScope' vtype="textareafield" label="申请人手写" labelwidth="140" labelalign="right" width="700" height="80" tooltip="" rule="length;0,3000" editable='false'>
+				<div class="appUserEditFlag btn_opCustomScope" name="appUserEdit_opCustomScope"></div>
+			</div>
+			<br />
+			<div name="opSuffix" id="opSuffix" vtype="textareafield" label="项下标注" labelwidth="140" labelalign="right" width="700" height="80" tooltip="" rule="length;0,3000" editable='false'>
+				<div class="appUserEditFlag btn_opSuffix" name="appUserEdit_opSuffix"></div>
+			</div>
+			<br />
+			<!-- <div name="businessScope" id="businessScope" vtype="textareafield" label="经营范围" labelwidth="120" labelalign="right" 
+						width="700" height="80" tooltip="" rule="length;0,3000" editable='false'></div>	 -->
+
+			<!-- 经营范围：<div name="businessScope" id="businessScope" class="" style="width: 537px; height: 55px; display: block;"></div> -->
+			<br />
+			<div class="blue_info_box" style="width: 536px; margin-left: 156px;">
+				<div class="title">经营范围</div>
+				<span id="businessScope"></span>
+			</div>
+
+
+		</div>
+
+
+
+		<!-- 对应图片审查状态显示，
+		根据企业的类别查询对应需要提供的证明材料，
+		如是自然人股东，则不会显示非自然人股东相对应的信息
+		状态 0-忽略 1-新上传 2-删除 3-审查通过 4审查未通过，分别对应于不同的状态显示对应的证明财料的名称。
+	 -->
+		<div class="stuff">
+			<div id="files" class="relatedMaterial clearfix"></div>
+		</div>
+
+		<!-- 得到用户上传的PDF -->
+		<div class="pdfView">
+			<div id="pdf" class="pdfViewMaterial clearfix"></div>
+		</div>
+
+		<!-- 审查意见 start-->
+		<div id="censor-notice" style="position: fixed; top: 50px; right: 0px;">
+			<div class="censor" id="censor">
+				<span>
+					<img src="../../../static/image/img/icon/plusign.png">
+					</br>审</br>查</br>意</br>见
+				</span>
+			</div>
+			<!-- height="320px" -->
+			<iframe id="frameExampleApprovecontent" src="" width="700px" height="455px" scrolling="no" frameborder="0"></iframe>
+		</div>
+		<!-- 审查意见 end-->
+	</div>
+
+	<!-- 构建页面==结束 -->
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" src="../../../static/lib/require.js" data-main="approve/approveMainTorch.js"></script>
+
+</body>
+</html>

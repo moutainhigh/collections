@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<chart  caption='[${serviceTypeName}]共享服务数量统计TOP10'  bgColor='#F2F2F2' showBorder='0'  baseFontSize='12' formatNumberScale='0'
+	 canvasBorderThickness='1' canvasBorderColor='999999' plotFillAngle='330' plotBorderColor='999999' showAlternateVGridColor='1' divLineAlpha='0'>
+<#list list as t><set label='${t.typename}' value='${t.sernum}' /></#list>
+</chart>

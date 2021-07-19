@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> New Document </TITLE>
+<base target="_self">
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</HEAD>
+
+<BODY>
+<SCRIPT LANGUAGE="JavaScript">
+function init(){
+	if(window.dialogArguments){
+		document.frmAction.Content.value = window.dialogArguments.value;
+		document.frmAction.RootType.value = window.dialogArguments.RootType;
+		document.frmAction.RootId.value = window.dialogArguments.RootId;
+		document.frmAction.submit();
+	}else{
+		CTRSAction_alert("参数传入有误！");
+		window.close();
+	}
+}
+
+window.onload = init;
+</SCRIPT>
+<FORM  name="frmAction" ACTION="../tools/template_check.jsp" method="post">
+	<INPUT TYPE="hidden" name="Content">
+	<INPUT TYPE="hidden" name="RootType">
+	<INPUT TYPE="hidden" name="RootId">
+</FORM>
+</BODY>
+</HTML>

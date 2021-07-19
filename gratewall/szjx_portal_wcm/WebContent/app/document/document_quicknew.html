@@ -1,0 +1,113 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE WCMAnt:param="document_quicknew.html.title">智能创建文档</TITLE>
+<script src="../js/runtime/myext-debug.js"></script>
+<script src="../js/locale/cn.js" WCMAnt:locale="../js/locale/$locale$.js"></script>
+<script src="../js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<script src="../js/source/wcmlib/util/YUIConnection.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog end-->
+<script language="javascript">
+window.m_fpCfg = {
+	m_arrCommands : [{
+		cmd : 'importDocument',
+		name : wcm.LANG.DOCUMENT_PROCESS_39 || '创建'
+	}],
+	size : [380, 80]
+};
+</script>
+
+<style>
+	body{
+		font-size:12px;
+	}
+	div{
+		width:100%;
+		display:block;
+		line-height:24px;
+		height:24px;
+	}
+	SPAN{
+		float:left;
+	}
+</style>
+<script language="javascript">
+var sDocHtml = null;
+var oParams = {
+	'ChannelId' : getParameter('ChannelId'),
+	'objectId' : 0,
+	'FromEditor' : 1
+}
+function importDocument(){
+	//$MsgCenter.$main().afteredit();
+	//return;
+	var sDocFileName = $("DocFile").value;
+	try{
+		FileUploadHelper.validFileExt(sDocFileName, "doc,docx,rtf,wps,wpt,xls,xlsx");
+	}catch(err){
+		Ext.Msg.$alert(err.message, function(){
+			$("DocFile").focus();
+		});
+		return false;
+	}
+	var isSSL = location.href.indexOf("https://")!=-1;
+	var callBack1 = {
+		"upload":function(_transport){
+			var sResponseText = _transport.responseText;
+			var arrResult = sResponseText.split('<!--##########-->');
+			var sError = (arrResult[arrResult.length - 1] || '').trim();
+			if(sError=="<!--ERROR-->" || sError=="<!--ERROR2-->" || sError=="<!--ERROR1-->"){
+				var faultInfo = {
+					code		: arrResult[0],
+					message		: arrResult[1],
+					detail		: arrResult[2],
+					suggestion  : arrResult[3] || ''
+				}
+				Ext.Msg.fault(faultInfo, wcm.LANG.DOCUMENT_PROCESS_51 || '与服务器交互时出现错误');
+				return;
+			}
+			var bAlert = FileUploadHelper.fileUploadedAlert(sResponseText,{
+				succ:function(){
+					oParams['OfficeSid'] = sResponseText;
+					oParams['openerTopAsMsgSrc'] = 1;
+					var oWin = $openMaxWin("document_addedit.jsp?" + $toQueryStr(oParams));
+					setTimeout(function(){
+						closeWindow();
+					},100);
+				}
+			});
+			if(bAlert)return;
+		}
+	}
+	YUIConnect.setForm('frmUploadDocFile',true ,isSSL);
+	YUIConnect.asyncRequest('POST',
+		'../system/upload_office_doc.jsp?FileParamName=DocFile', callBack1);
+	return false;
+}
+</SCRIPT>
+</HEAD>
+
+<BODY>
+	<DIV>
+		<SPAN WCMAnt:param="document_quicknew.html.selectUploadFile">选择您要上传的文件(支持Word和excel格式文件)：</SPAN>
+		<SPAN>
+			<FORM name="frmUploadDocFile" style="margin:0;padding:0;display:" enctype='multipart/form-data'>
+				<input type="file" id="DocFile" name="DocFile">
+			</FORM>
+		</SPAN>
+	</DIV>
+</BODY>
+</HTML>

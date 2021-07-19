@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>业务主题表</menu-name>
+  <menu-path>/page/resource/share/</menu-path>
+  <description>业务主题表</description>
+  <form-beans>
+    <form-bean name="ResBusinessTopicsRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="record" name="business_topics_id" type="string" size="32" cannull="false" description="业务主题ID"/>
+      <form-property prefix="record" name="service_targets_id" type="string" size="32" cannull="true" description="服务对象ID"/>
+      <form-property prefix="record" name="topics_name" type="string" size="100" cannull="true" description="主题名称"/>
+      <form-property prefix="record" name="topics_no" type="string" size="10" cannull="true" description="主题编号"/>
+      <form-property prefix="record" name="topics_desc" type="string" size="2000" cannull="true" description="主题描述"/>
+      <form-property prefix="record" name="show_order" type="long" cannull="true" description="显示顺序"/>
+    </form-bean>
+
+    <form-bean name="ResBusinessTopicsUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="business_topics_id" type="string" size="32" cannull="false" description="业务主题ID"/>
+      <form-property prefix="record" name="business_topics_id" type="string" size="32" cannull="false" description="业务主题ID"/>
+      <form-property prefix="record" name="service_targets_id" type="string" size="32" cannull="true" description="服务对象ID"/>
+      <form-property prefix="record" name="topics_name" type="string" size="100" cannull="true" description="主题名称"/>
+      <form-property prefix="record" name="topics_no" type="string" size="10" cannull="true" description="主题编号"/>
+      <form-property prefix="record" name="topics_desc" type="string" size="2000" cannull="true" description="主题描述"/>
+      <form-property prefix="record" name="show_order" type="long" cannull="true" description="显示顺序"/>
+    </form-bean>
+
+    <form-bean name="ResBusinessTopicsDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="business_topics_id" type="string" size="32" cannull="false" description="业务主题ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-res_business_topics.jsp" name="ResBusinessTopicsRowsetForm" txn-code="203011" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询共享主题列表</description>
+      <step index="10" bean-name="com.gwssi.resource.share.txn.TxnResBusinessTopics" func-name="txn203011" input-node="select-key" output-node="record" description="查询共享主题列表"/>
+      <forward error-code="success" path="query-res_business_topics.jsp"/>
+      <forward error-code="failure" path="query-res_business_topics.jsp"/>
+    </action>
+
+    <action input="update-res_business_topics.jsp" name="ResBusinessTopicsUpdateForm" txn-code="203012" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改共享主题信息</description>
+      <step index="10" bean-name="com.gwssi.resource.share.txn.TxnResBusinessTopics" func-name="txn203012" input-node="record" description="修改共享主题信息"/>
+      <forward error-code="success" path="update-res_business_topics.jsp"/>
+      <forward error-code="failure" path="update-res_business_topics.jsp"/>
+    </action>
+
+    <action input="insert-res_business_topics.jsp" name="ResBusinessTopicsUpdateForm" txn-code="203013" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加共享主题信息</description>
+      <step index="10" bean-name="com.gwssi.resource.share.txn.TxnResBusinessTopics" func-name="txn203013" input-node="record" description="增加共享主题信息"/>
+      <forward error-code="success" path="insert-res_business_topics.jsp"/>
+      <forward error-code="failure" path="insert-res_business_topics.jsp"/>
+    </action>
+
+    <action input="query-res_business_topics.jsp" name="ResBusinessTopicsUpdateForm" txn-code="203014" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询共享主题用于修改</description>
+      <step index="10" bean-name="com.gwssi.resource.share.txn.TxnResBusinessTopics" func-name="txn203014" input-node="primary-key" output-node="record" description="查询共享主题用于修改"/>
+      <forward error-code="success" path="update-res_business_topics.jsp"/>
+      <forward error-code="failure" path="update-res_business_topics.jsp"/>
+    </action>
+
+    <action input="query-res_business_topics.jsp" name="ResBusinessTopicsDeleteForm" txn-code="203015" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除共享主题信息</description>
+      <step index="10" bean-name="com.gwssi.resource.share.txn.TxnResBusinessTopics" func-name="txn203015" input-node="primary-key" description="删除共享主题信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-res_business_topics.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/resource/share/query-res_business_topics.jsp" description="查询共享主题列表"/>
+    <resource-file type="jsp" file-name="/page/resource/share/insert-res_business_topics.jsp" description="增加共享主题信息"/>
+    <resource-file type="jsp" file-name="/page/resource/share/update-res_business_topics.jsp" description="修改共享主题信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.share.vo.ResBusinessTopicsContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.share.vo.VoResBusinessTopics" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.share.vo.VoResBusinessTopicsSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.share.vo.VoResBusinessTopicsPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

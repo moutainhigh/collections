@@ -1,0 +1,231 @@
+<HTML>
+<HEAD>
+  <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <TITLE>TRS WCM 5.2 Preview</TITLE>
+  <LINK href="../style/style.css" rel="stylesheet" type="text/css">
+  
+  
+  <script src="../js/CTRSHTMLElement.js"></script>
+  <script src="../js/CTRSHTMLTr.js"></script>  
+
+  <script src="../js/CTRSSimpleTab.js"></script>
+
+  <script src="../js/CTRSArray.js"></script>
+
+  <SCRIPT LANGUAGE="JavaScript" src="../js/CWCMObj.js"></SCRIPT>
+  <SCRIPT LANGUAGE="JavaScript" src="../js/CWCMObjHelper.js"></SCRIPT>
+
+  <SCRIPT LANGUAGE="JavaScript" src="../js/CTRSButton.js"></script>  
+
+  <script src="../js/CTRSHashtable.js"></script>
+	<script src="../js/CTRSRequestParam.js"></script>
+	<script src="../js/CTRSAction.js"></script>
+
+
+  
+
+<script src="../js/CWCMRightHelper.js"></script>  
+
+<script>
+	WCMRightHelper.addRightDef(0, "新建频道", "456");
+	WCMRightHelper.addRightDef(1, "修改频道", "456");
+	WCMRightHelper.addRightDef(2, "删除频道", "456");
+	WCMRightHelper.addRightDef(3, "预览频道", "456");
+	WCMRightHelper.addRightDef(5, "增量发布频道", "456");
+	WCMRightHelper.addRightDef(6, "完全发布频道", "456");
+	WCMRightHelper.addRightDef(7, "频道回收站", "456");
+	WCMRightHelper.addRightDef(8, "频道扩展字段", "456");
+
+	WCMRightHelper.addRightDef(10, "新建模板", "456");
+	WCMRightHelper.addRightDef(11, "修改模板", "456");
+	WCMRightHelper.addRightDef(12, "删除模板", "456");
+	
+	
+	WCMRightHelper.addRightDef(20, "新建文档", "456");
+	WCMRightHelper.addRightDef(21, "修改文档", "456");
+	WCMRightHelper.addRightDef(22, "删除文档", "456");
+	WCMRightHelper.addRightDef(23, "预览文档", "456");
+	WCMRightHelper.addRightDef(24, "发布文档", "456");
+	WCMRightHelper.addRightDef(25, "文档回收站", "456");
+	
+
+
+	WCMRightHelper.addRight(TYPE_WCMOBJ_USER, 2, "admin", "10101");
+	WCMRightHelper.addRight(TYPE_WCMOBJ_USER, 3, "rain", "0");
+
+	function init(){
+		WCMRightHelper.draw(0, 9, document.all("id_TRSSimpleTab0"));
+		WCMRightHelper.draw(10, 19, document.all("id_TRSSimpleTab1"));
+		WCMRightHelper.draw(20, 29, document.all("id_TRSSimpleTab2"));
+	}
+
+	window.onload = init;
+</script>
+<script>
+//覆盖删除的通知函数，以便刷新页面
+function CWCMRightHelper_notifyRemove(_elEvent){
+	init();
+}
+
+function addOperator(_nType){
+//获取用户ID
+	var nWidth = 700, nHeight = 500, oArgs = [WCMRightHelper.getIdArray(_nType), WCMRightHelper.getNameArray(_nType)];
+	var oTRSAction = new CTRSAction(getOperatorSelectURL(_nType));
+	oTRSAction.setParameter("TransferName", 1);
+	var sReturnValue = oTRSAction.doDialogAction(nWidth, nHeight, oArgs);
+	if(sReturnValue == null)return;
+
+//判断是否全部删除
+	if(sReturnValue.length == 0){
+		WCMRightHelper.removeAll();
+		return;
+	}	
+
+//遍历添加
+	var arSelectId = sReturnValue[0];
+	var arSelectName = sReturnValue[1];
+	for(var i=0; i<arSelectId.length; i++){
+		WCMRightHelper.putOperator(_nType, arSelectId[i], arSelectName[i]);
+	}
+	if(!WCMRightHelper.bUpdate)return;
+
+//刷新页面	
+	init();		
+}
+
+function getOperatorSelectURL(_nType){
+	switch(_nType){
+		case TYPE_WCMOBJ_USER:
+			return "../auth/user_select_index.jsp";
+		case TYPE_WCMOBJ_GROUP:
+			return "../auth/group_select_index.jsp";
+		case TYPE_WCMOBJ_ROLE:
+			return "../auth/role_select_index.jsp";
+		default:
+			return "../auth/user_select_index.jsp";
+	}
+}
+
+function onOK(){
+	var frmAction = document.frmAction;
+	if(frmAction == null){
+		CTRSAction_alert("没有定义");
+	}
+	frmAction.RightsXML.value = WCMRightHelper.toXMLInfo();
+	
+	frmAction.submit();
+}
+
+</script>
+</HEAD>
+
+<BODY>
+<form name="frmAction" method="post" action="right_set_dowith.jsp">
+	<INPUT TYPE="hidden" name="ObjType" value="">
+	<INPUT TYPE="hidden" name="ObjId" value="">
+	<INPUT TYPE="hidden" name="RightsXML" value="">
+</form>
+<!--~== Dialog Head TABLE ==~-->
+	<script src="../js/CWCMDialogHead.js"></script>
+	<script>WCMDialogHead.draw("设置权限");</script>
+<!--~- END Dialog Head TABLE -~-->
+
+<TABLE width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+<!--~--- ROW5 ---~-->
+<TR>
+  <TD align="center" valign="top" class="tanchu_content_td">
+  <!--~== TABLE4 ==~-->
+  <TABLE width="100%" border="0" cellspacing="0" cellpadding="0">
+  <!--~--- ROW6 ---~-->
+  <TR>
+    <TD>
+		
+    </TD>
+  </TR>
+  <!--~- END ROW6 -~-->
+  <!--~-- ROW10 --~-->
+  <TR>
+    <TD>
+		<!--~== TABLE1 ==~-->
+		<TABLE width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+		<!--~--- ROW1 ---~-->
+		<TR>
+		  <TD height="25">
+				<!--开始标签列表-->
+				<script>					
+					TRSSimpleTab.nCurrIndex = 0;
+
+					TRSSimpleTab.addItem("频道操作权限");
+					TRSSimpleTab.addItem("模板操作权限");
+					TRSSimpleTab.addItem("文档操作权限");					
+
+					TRSSimpleTab.draw();
+				</script>
+				<!--结束标签列表-->	
+		  </TD>
+		</TR>
+		<!--~- END ROW1 -~-->
+		<TR>
+		  <TD  bgcolor="#FFFFFF" style="BORDER-left: #a6a6a6 1px solid; BORDER-right: #a6a6a6 1px solid; BORDER-bottom: #a6a6a6 1px solid" align=left valign="middle">
+			<script>
+				var oButtons = new CTRSButtons("bt_table_noborder");
+
+				oButtons.addTRSButton("添加用户", "addOperator(TYPE_WCMOBJ_USER);", "../images/button_default.gif","添加用户");
+				oButtons.addTRSButton("添加用户组", "addOperator(TYPE_WCMOBJ_GROUP);", "../images/button_default.gif","添加用户组");
+				oButtons.addTRSButton("添加角色", "addOperator(TYPE_WCMOBJ_ROLE);", "../images/button_default.gif","添加角色");
+
+				oButtons.addTRSButton("全部删除", "WCMRightHelper.removeAll();", "../images/button_default.gif","删除全部设置");
+
+				//oButtons.addTRSButton("测试Put", "WCMRightHelper.putOperator(TYPE_WCMOBJ_USER, 23);init();", "../images/button_default.gif","测试Put");
+				//oButtons.addTRSButton("测试GetIdArray", "CTRSAction_alert(WCMRightHelper.getIdArray(TYPE_WCMOBJ_USER));", "../images/button_default.gif","测试GetIdArray");
+				//oButtons.addTRSButton("测试GetNameArray", "CTRSAction_alert(WCMRightHelper.getNameArray(TYPE_WCMOBJ_USER));", "../images/button_default.gif","测试GetNameArray");
+				//oButtons.addTRSButton("测试ToXML", "CTRSAction_alert(WCMRightHelper.toXMLInfo());", "../images/button_default.gif","测试ToXML");
+
+	
+				oButtons.draw();
+			
+			</script>
+			</TD>
+		</TR>
+		<!--~-- ROW10 --~-->
+		<TR>
+		  <TD  bgcolor="#FFFFFF" style="BORDER-left: #a6a6a6 1px solid; BORDER-right: #a6a6a6 1px solid; BORDER-bottom: #a6a6a6 1px solid" align=center valign="top">
+			
+			<BR>		  
+				<div id="id_TRSSimpleTab0" style="display:inline;">
+					
+				</div>				
+				<div id="id_TRSSimpleTab1" style="display:none">
+					
+				</div>
+				<div id="id_TRSSimpleTab2" style="display:none">
+					
+				</div>			
+						
+				<BR>
+		  </TD>
+		</TR>
+		<!--~ END ROW10 ~-->
+		</TABLE>
+		<!--~ END TABLE1 ~-->
+		
+    </TD>
+  </TR>
+  <!--~ END ROW10 ~-->
+  <!--~-- ROW18 --~-->
+  <TR>
+    <TD align=center><BR>
+		<INPUT type="submit" name="Submit" value="确认" onclick="onOK();">&nbsp;
+		<INPUT type="reset" name="Submit2" value="取消" onclick="window.close();">
+    </TD>
+  </TR>
+  <!--~ END ROW18 ~-->
+  </TABLE>
+  <!--~ END TABLE4 ~-->
+  </TD>
+</TR>
+<!--~- END ROW5 -~-->
+</TABLE>
+<!--~ END TABLE1 ~-->
+</BODY>
+</HTML>

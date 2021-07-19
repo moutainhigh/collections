@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<chart showBorder='0' bgColor='111111' canvasBorderThickness='0' vDivLineColor='000000' vDivLineThickness='2' vDivLineIsDashed='1' vDivLineDashLen='5' divLineColor='000000' divLineThickness='2' divLineDashLen='3' divLineIsDashed='1' canvasBgColor='555555' showLabels='1' caption='' subCaption='' numdivlines='5' lineThickness='0' showValues='0' numVDivLines='10'  labelDisplay='WRAP'  anchorRadius='3'   showAlternateVGridColor='0' showAlternateHGridColor='0'  yAxisValuesStep='1' yAxisMinValue='0' yAxisMaxValue='120' divLineDashGap='3'  animation='1'  >
+<categories><#list list as x><category label='${x.datey}' /></#list></categories>
+    <dataset renderAs='Line' parentYAxis='P'  seriesName='采集数据量' color='FFF68F' anchorBgColor='FFF68F' anchorBorderColor='FFF68F'>
+        <#list list as x><set value='${x.record_amount}' /></#list>
+    </dataset>
+    <dataset renderAs='Line' parentYAxis='S' seriesName='采集总次数' color='009ACD' anchorBgColor='009ACD' anchorBorderColor='009ACD'>
+        <#list list as x><set value='${x.total_times}' /></#list>
+    </dataset>
+</chart>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../easyversion/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<script language="javascript" src="../easyversion/lightbase.js" type="text/javascript"></script>
+<script language="javascript" src="../easyversion/crashboard.js" type="text/javascript"></script>
+<script language="javascript">
+<!--
+    function show(){
+        var cb = wcm.CrashBoard.get({
+            width:'500px',
+            height:'350px',
+            title : wcm.LANG.crashboard_1031 || '系统弹出窗口',
+            url : 'inner.html',
+			callback : function(p){
+				alert(p.a);
+			},
+			cancel : wcm.LANG.crashboard_1041 || '关闭'
+        });
+        cb.show();
+    }
+//-->
+</script>
+</head>
+<body>
+<button type="button" onclick="show();">show crashboard</button>
+<div id="box" style="display:none;">
+    <textarea name="txtarea" rows="" cols=""></textarea>
+    <input type="text" name="userName" value="">
+    <input type="password" name="passWord" value="">
+</div>
+</body>
+</html>

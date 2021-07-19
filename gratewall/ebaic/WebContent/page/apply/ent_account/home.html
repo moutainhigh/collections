@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>企业登录信息</title>
+<link rel="stylesheet" href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" type="text/css" />
+<link rel="stylesheet" href="../../../static/css/common.css" />
+<link rel="stylesheet" href="../../../static/css/entIndex.css" />
+<link rel="Shortcut Icon" href="../../../static/image/img/verify.png" type="image/x-icon">
+
+<style>
+.top-bar, .person-bar {
+	height: 45px;
+	line-height: 45px;
+	background: #82BBE6; /* #F9F9F9 */
+	-webkit-border-radius: 10px 10px 0 0;
+	-moz-border-radius: 10px 10px 0 0;
+	border-radius: 10px 10px 0 0;
+}
+
+.jazz-paginator .jazz-paginator-content {
+	margin: 6px 0px;
+}
+
+.jazz-grid-cell {
+	border-left: 5px solid #fff;
+}
+
+.jazz-gridtable-even {
+	background: #fff;
+}
+
+
+.wrapper-top a:hover{
+    background: #fff;
+}
+
+.query {
+	background: #eff7fd;
+	width: 750px;
+	/* height: 96px; */
+	border: 1px solid #bfe0f9;
+}
+
+.query-panel {
+	display: none;
+	/* position: absolute; */
+	/* z-index: 3000; */
+	left: 450px;
+}
+
+.query-condition {
+	height: 30px;
+	line-height: 30px;
+}
+
+#filtrate img {
+	vertical-align: middle;
+	transform: rotate(180deg);
+}
+
+#filtrate {
+	float: right;
+	padding-right: 85px;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+.createOpr, .detailOpr, .submitOpr, .authOpr, .leSubmit, .deleteOpr,
+	.stopOpr {
+	background: url("../../../static/image/img/icon/24.png") no-repeat;
+	color: #fff;
+	padding: 0px 8px;
+	background-position-y: 1px;
+	font-size: 12px;
+	margin: 2px 2px;
+}
+
+.editOpr {
+	background: url("../../../static/image/img/icon/25.png") no-repeat;
+	color: #fff;
+	padding: 0px 10px;
+	font-size: 12px;
+}
+
+#conditionEntName {
+	border-left: 1px solid #bfe0f9;
+	border-right: 1px solid #bfe0f9;
+	width: 750px;
+	padding: 10px 0px;
+}
+
+.condition-title {
+	padding-left: 10px;
+}
+
+#newestEntName {
+	cursor: default;
+}
+
+.time {
+	margin: 0 auto;
+	width: 750px;
+}
+
+#messages {
+	margin-top: -12px;
+}
+
+.company-establishright-click {
+	background: #FFFFFF;
+	border: 1px solid #85c2e7;
+	width: 117px;
+	z-index: 1000;
+	position: relative;
+	border-width: 1px 0px 1px 1px;
+	border-radius: 5px 0 0 5px;
+}
+
+.stylebtn {
+	width: 200px;
+	margin: 0 auto;
+}
+
+.floatTip:hover{
+	border: 1px solid #86C2E6;
+}
+
+.floatTip:hover .codeWrap{
+	display: block;
+}
+
+.codeWrap {
+  	display:none;
+	position: absolute;
+	height: 21px;
+	width: 10px;
+	background:#fff;
+	top: -1px;
+	left: 107px;
+	z-index: 99999;
+	border-top: 1px solid #86C2E6;
+	/* border-bottom: 1px solid #86C2E6; */
+}
+
+
+
+.codebox {
+	display:none; 
+	height: auto;
+	width: 350px;
+	/* border: 1px solid #71b0e0; */
+	border: 1px solid #86C2E6;
+	/*  margin-left: 233px; */
+	position: absolute;
+	top: -1px;
+	left: 116px;;
+	z-index: 10000;
+	/* margin-top: 124px; */
+	background-color: #fff;
+}
+
+
+.codebox em{
+	background-color: #f5f9fc; display: block; text-decoration: underline; color: #71b0e0;
+}
+.codebox em i{
+	float: right; 
+	margin-right: 14px;
+	font-style: normal;
+}
+.codebox td {
+	height: 35px;
+	line-height: 35px;
+	width: 150px;
+	padding-left: 40px;
+}
+
+.codebox table tr:nth-child(2n) {
+	background-color: #f5f9fc;
+}
+
+.checkall {
+	margin-left: 200px;
+	color: #71b0e0;
+	height: 35px;
+	line-height: 35px;
+}
+</style>
+</head>
+
+<body>
+	<div id="top-line"></div>
+	<article class="enterprise-wrapper">
+		<section class="wrapper-top">
+			<section class="business">
+				<section class="business-top">
+					<span>常办业务</span>
+				</section>
+				<section class="business-items">
+					<section style="width: 235px; display: block">
+						<a href="javascript:void(0);" class="items-card" id="1">
+							<section class="circle1">
+								<img src="../../../static/image/img/icon/GSBG.png">
+							</section>
+							公司变更
+						</a>
+						<a href="javascript:void(0);" class="items-card" id="2">
+							<section class="circle1">
+								<img src="../../../static/image/img/icon/GSBA.png">
+							</section>
+							公司备案
+						</a>
+					</section>
+					<section style="width: 235px;">
+						<a href="../ent_account/entPrintLincenseCer.html" class="items-card" id="12">
+							<section class="circle">
+								<img src="../../../static/image/img/icon/GQZY.png">
+							</section>
+							电子营业执照
+						</a>
+						<a href="javascript:void(0);" class="items-card floatTip" id="6" style="position: relative; z-index: 10000;">
+							<section class="circle">
+								<img src="../../../static/image/img/icon/GSBG.png">
+								<div id="circle3" class="circle3">
+									<p id="messages">0</p>
+								</div>
+							</section>
+							企业认证服务
+							<div class="codeWrap"></div>
+							<div class="codebox">
+								<table class='auth-person-content'>
+								</table>
+								<em class="clearfix"> 
+								<i >查看全部企业认证记录</i>
+								</em>
+							</div>
+						</a>
+						<!-- 企业认证服务码列表显示 -->
+					</section>
+
+				</section>
+
+			</section>
+
+			<!--  -->
+			<section class="maintain">
+				<section class="maintain-top">
+					<span>企业信息维护</span>
+				</section>
+				<section class="maintain-items">
+					<section style="width: 235px; display: block">
+						<a href="../ent_account/queryEntAccountManagerList.html" class="items-card" id="8">
+							<section class="circle">
+								<img src="../../../static/image/img/icon/QYZHGLY.png">
+							</section>
+							企业账号管理员
+						</a>
+						<a href="javascript:void(0);" class="items-card" id="9">
+							<section class="circle">
+								<img src="../../../static/image/img/icon/PHONE.png">
+							</section>
+							法定代表人电话
+						</a>
+					</section>
+					<section style="width: 235px">
+						<a href="../ent_account/cp_rs_entSnd.html" class="items-card" id="10">
+							<section class="circle">
+								<img src="../../../static/image/img/icon/QYBCXX.png">
+							</section>
+							企业补充信息
+						</a>
+						<a href="../ent_account/cp_rs_entcontact.html" class="items-card" id="11">
+							<section class="circle">
+								<img src="../../../static/image/img/icon/QYBCXX.png">
+							</section>
+							企业联系人
+						</a>
+					</section>
+				</section>
+			</section>
+
+		</section>
+
+		<!--  -->
+		<section class="wrapper-content">
+			<div class="top-bar person-bar" style='width: 751px;'>
+				<span id="my-business">我的业务</span>
+				<span id="filtrate">
+					按条件筛选&nbsp;&nbsp;
+					<img src="../../../static/image/img/icon/19.png">
+				</span>
+				<span id="triangle-up" style="display: none;"></span>
+
+			</div>
+			<!-- 查询条件 comboxfield-->
+			<div class="query-panel">
+				<div id="conditionEntName" style="background: #f9f9f9;">
+					<div id="queryEntName">
+						<div style="border: 1px solid #ccccce; width: 665px; margin-left: 40px; background: #fff; margin-bottom: 10px">
+							<input id="linkman" vtype="text" placeholder="经办人" style="border: 0 none; height: 18px; width: 600px; padding: 5px;" />
+							<!-- <img id="query-img" src="../../../static/image/img/icon/94.png" style="vertical-align: middle;margin-left:25px;" /> -->
+						</div>
+					</div>
+					<div class="time">
+						<div id="appBeginDate" name="appBeginDate" vtype="datefield" editable="false" isshowdatelist="true" isShowWeek="true" label="开始日期" labelwidth="112" width="338" style="float: left; margin-right: 32px;"></div>
+						<div id="appEndDate" name="appEndDate" vtype="datefield" editable="false" label="截止日期" labelwidth="112" width="338"></div>
+						<div class="stylebtn">
+							<div name="queryEntAccountManagerList_reset_button" class="commonBt reset">重&nbsp;置</div>
+							<div name="queryEntAccountManagerList_query_button" class="commonBt check">查&nbsp;询</div>
+						</div>
+					</div>
+				</div>
+				<div name="gid" vtype="hiddenfield" label="编号" labelwidth="200" labelalign="right" width="500" tooltip="批次号" rule="must"></div>
+				<div class="query">
+					<div id="busiState" class="query-condition">
+						<label class="condition-title">业务状态：</label>
+						<span id="00" class="condition-item selected">全部</span>
+						<span id="1" class="condition-item"  >未提交</span>
+						<span id="17" class="condition-item" >待法人确认</span>
+						<span id="2" class="condition-item" >等待审查</span>
+						<span id="15" class="condition-item" >审查中</span>
+						<!-- <span id="3" class="condition-item" >通过</span> -->
+						<span id="4" class="condition-item" >未通过</span>
+						<span id="8" class="condition-item" >已核准</span>
+						<span id="9" class="condition-item" >已驳回</span>
+						<span id="12" class="condition-item" >已终止</span>
+					</div>
+					<div class="dotted-line"></div>
+					<div id="operType" class="query-condition">
+						<label class="condition-title">业务类型：</label>
+						<span id="00" class="condition-item selected" >全部</span>
+						<span id="10" class="condition-item" >设立</span>
+						<span id="20" class="condition-item" >变更</span>
+						<span id="40" class="condition-item" >备案</span>
+						<span id="50" class="condition-item" >注销</span>
+						<span id="65" class="condition-item" >增减补换证照</span>
+						<span id="92" class="condition-item" >股权出质</span>
+					</div>
+				</div>
+			</div>
+			<!-- 数据展现 myOperationGrid -->
+			<div name="myOperationGrid" id="myOperationGrid" hideheader="true" vtype="gridpanel" width="100%" height="505" isshowselecthelper="false" showborder="false" lineno=false linenowidth="0" titledisplay=false selecttype="0" style="font-family: 微软雅黑;">
+				<div vtype="gridcolumn" name="grid_column" width="100%" height="100%" hideheader=true>
+					<div>
+						<div name="custom" text="自定义"></div>
+					</div>
+				</div>
+				<div vtype="gridtable" name="grid_table" width="100%"></div>
+				<div vtype="paginator" name="grid_paginator" theme="2" pagerows="5" width="100%"></div>
+				<div vtype="paginator" name="grid_paginator" theme="1" pagerows="5" classname='jazz-paginator-grid' align="left"></div>
+
+			</div>
+		</section>
+	</article>
+
+	<section id="bottom-line"></section>
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" data-main="torch/homeTorch.js" src="../../../static/lib/require.js"></script>
+</body>
+</html>

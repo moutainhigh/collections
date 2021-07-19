@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.scm.service.SCMMicroContentServiceProvider">
+	<method name="delete" desc="删除SCM中保存的微博">			
+		<parameter name="ObjectIds" desc="要删除的SCM的微博Id序列" type="string" required="true" />
+	</method>
+	
+	<method name="queryFirstYear" desc="获取SCM系统发布第一条微博的微博时间"></method>
+	
+	<method name="query" desc="获取SCM中发布的微博列表">
+		<parameter name="SCMGroupId" desc="分组ID" type="int" required="true" />	
+		<parameter name="CONTENT" desc="微博内容" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="OrderBy" desc="排序" type="string" required="false" default="Crtime desc"/>
+	</method>
+	
+	<method name="save" desc="发布微博">			
+		<parameter name="AccountIds" desc="发布到的微博账号Id序列" type="string" required="true" />
+		<parameter name="ObjectId" desc="微博Id" type="int" required="false" />
+		<parameter name="Content" desc="微博内容" type="string" required="true" />
+		<parameter name="SCMGroupId" desc="分组ID" type="int" required="true" />	
+		<parameter name="Source" desc="微博来源" type="string" required="false" />	
+	</method>
+	
+	<method name="repost" desc="补发微博到指定账号">
+		<parameter name="SCMMicroContentId" desc="要补发的SCM微博的Id" type="int" required="true" />
+		<parameter name="AccountId" desc="补发到的账号Id" type="int" required="true"/>
+	</method>
+	
+	<method name="findById" desc="通过微博Id获取微博">			
+		<parameter name="ObjectId" desc="SCM中保存的微博ID" type="int" required="true" />
+	</method> 
+	
+	<method name="findByIds" desc="通过微博Id序列获取微博列表">
+		<parameter name="ObjectIds" desc="SCM中保存的微博ID串" type="string" required="true" />
+	</method>
+	
+	<method name="findByMicroContentId" desc="通过平台微博ID和平台帐号ID获取平台微博对象">
+		<parameter name="AccountId" desc="帐号Id" type="int" required="true" />
+		<parameter name="MicroContentId" desc="微博Id" type="string" required="true" />
+	</method>
+	
+	<method name="findPostedAccounts" desc="获取指定微博发布到的账号">
+		<parameter name="SCMMicroContentId" desc="SCM中保存的微博ID" type="int" required="true" />
+	</method>
+	
+	<method name="findPostedMicroContents" desc="获取指定SCM微博对应的已发布到各平台的微博对象">
+		<parameter name="SCMMicroContentId" desc="SCM中保存的微博ID" type="int" required="true" />
+	</method>	
+	
+	<method name="destroyMicroContent" desc="删除微博">
+		<parameter name="MicroContentId" desc="要删除的微博Id" type="string" required="true" />
+		<parameter name="AccountId" desc="账号id" type="int" required="true" />
+	</method>
+	
+	<method name="forwardMicroContent" desc="转发一条微博">	
+		<parameter name="AccountIds" desc="待发布平台微博账号Ids" type="string" required="true" />
+		<parameter name="Content" desc="微博内容" type="string" required="false" />
+		<parameter name="MicroContentId" desc="要转发的微博Id" type="string" required="true" />
+		<parameter name="SCMGroupId" desc="分组ID" type="int" required="true" />
+	</method>
+	
+	<method name="queryUserTimeline" desc="获取当前登录账号发布全部类型微博">
+		<parameter name="AccountId" desc="账号id" type="int" required="true" />
+		<parameter name="PageIndex" desc="当前的码" type="int" required="false" />
+		<parameter name="PageSize" desc="页面大小" type="int" required="false" />
+	</method>
+	
+	<method name="queryUserTimelineByType" desc="获取当前登录账号发布的指定类型的微博">
+		<parameter name="AccountId" desc="账号id" type="int" required="true" />
+		<parameter name="PageIndex" desc="当前页码" type="int" required="false" />
+		<parameter name="PageSize" desc="页面大小" type="int" required="false" />
+		<parameter name="Type" desc="微博类型" type="int" required="true" />
+	</method>
+	
+	<method name="queryHomeTimeline" desc="获取主页的微博（即关注的微博）">
+		<parameter name="AccountId" desc="账号id" type="int" required="true" />
+		<parameter name="PageIndex" desc="当前页码" type="int" required="false" />
+		<parameter name="PageSize" desc="页面大小" type="int" required="false" />
+	</method>
+	
+	<method name="queryMentions" desc="获取@我的微博">
+		<parameter name="AccountId" desc="账号id" type="int" required="true" />
+		<parameter name="PageIndex" desc="当前页码" type="int" required="false" />
+		<parameter name="PageSize" desc="页面大小" type="int" required="false" />
+	</method>
+	
+	<method name="setDocumentPublishFieldsForWCM" desc="设置从WCM发微博时使用的文档字段">
+		<parameter name="SiteIds" desc="配置的栏目ID序列" type="string" required="true"/>
+		<parameter name="DocumentFields" desc="设置的文档字段名序列" type="string" required="true"/>
+	</method>
+</service>

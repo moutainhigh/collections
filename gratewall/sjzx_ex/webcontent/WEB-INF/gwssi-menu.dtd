@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT gwssi-menu (title?, menu-text?, root-icon?, icon*, expend*, menu*)>
+<!ELEMENT menu (menu*)>
+<!-- name 菜单序号，仅仅是用来唯一标识一条记录，在XML文件中不需要，但是在数据库中必须，而且用来排序 !-->
+<!ATTLIST menu
+	id CDATA #REQUIRED
+>
+<!-- name 菜单名称 !-->
+<!ATTLIST menu
+	name CDATA #REQUIRED
+>
+<!-- path 对应服务器端的路径，相对于父节点的路径 !-->
+<!ATTLIST menu
+	path CDATA #REQUIRED
+>
+<!-- href 导航的页面名称，可以是空，说明是导航节点 !-->
+<!ATTLIST menu
+	href CDATA #IMPLIED
+>
+<!-- 菜单对应的交易码，用于权限控制 !-->
+<!ATTLIST menu
+	txncode CDATA #IMPLIED
+>
+<!-- target 目标窗口 !-->
+<!ATTLIST menu
+	target CDATA #IMPLIED
+>
+<!-- tooltip 提示信息 !-->
+<!ATTLIST menu
+	tooltip CDATA #IMPLIED
+>
+<!-- icon 正常图标 !-->
+<!ATTLIST menu
+	icon CDATA #IMPLIED
+>
+<!-- openicon 活动时的图标 !-->
+<!ATTLIST menu
+	openicon CDATA #IMPLIED
+>
+<!-- visible 是否可见 !-->
+<!ATTLIST menu
+	visible (true | false | yes | no | 1 | 0) "true"
+>
+<!-- priv 权限信息，目前保留 !-->
+<!ATTLIST menu
+	priv CDATA #IMPLIED
+>
+<!-- 图标信息 !-->
+<!ELEMENT icon EMPTY>
+<!-- 图标文件 !-->
+<!ATTLIST icon
+	filename CDATA #REQUIRED
+>
+<!-- 匹配条件 !-->
+<!ATTLIST icon
+	match CDATA #REQUIRED
+>
+<!-- 匹配方式 !-->
+<!ATTLIST icon
+	type (any | pre | post) "any"
+>
+
+<!-- 需要扩展的菜单 !-->
+<!ELEMENT expend EMPTY>
+<!ATTLIST expend
+	id  CDATA #REQUIRED
+>
+<!ATTLIST expend
+	class-name  CDATA #REQUIRED
+>
+<!ATTLIST expend
+	method-name  CDATA #REQUIRED
+>
+
+
+<!ELEMENT title EMPTY>
+<!ELEMENT menu-text EMPTY>
+<!ELEMENT root-icon EMPTY>

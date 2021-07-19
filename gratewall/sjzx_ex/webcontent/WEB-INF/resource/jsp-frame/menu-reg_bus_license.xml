@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="reg_bus_license.xml" app-path="/dw/aic/bj/reg/license/" app-name="reg_bus_license" description="企业许可证" template="single-table.xml"/>
+  <table name="reg_bus_license.xml" app-name="reg_bus_license" app-desc="企业许可证" delete-action="delete" description="企业许可证" class-name="com.gwssi.dw.aic.bj.reg.txn.TxnRegBusLicense" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-reg_bus_license.jsp" txn-code="60140001" description="查询企业许可证列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加企业许可证" path="insert-reg_bus_license.jsp" description="增加企业许可证" func-name="addRecord"/>
+	    <button type="button" name="修改企业许可证" path="/txn60140004.do" description="修改企业许可证" func-name="updateRecord"/>
+	    <button type="button" name="删除企业许可证" path="/txn60140005.do" description="删除企业许可证" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60140001.do" description="查询企业许可证信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-reg_bus_license.jsp" txn-code="60140003" description="增加企业许可证信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60140003.do" description="保存企业许可证信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60140003.do" description="保存企业许可证信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60140001.do" description="保存企业许可证信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60140001.do" description="返回到企业许可证明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-reg_bus_license.jsp" txn-code="60140002" description="修改企业许可证信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60140001.do" description="修改企业许可证信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60140001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-reg_bus_license.jsp" txn-code="60140001" description="查询企业许可证列表">
+	    <forward error-code="success" path="query-reg_bus_license.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-reg_bus_license.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-reg_bus_license.jsp" txn-code="60140002" description="修改企业许可证信息">
+	    <forward error-code="success" path="update-reg_bus_license.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-reg_bus_license.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-reg_bus_license.jsp" txn-code="60140003" description="增加企业许可证信息">
+	    <forward error-code="success" path="insert-reg_bus_license.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-reg_bus_license.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-reg_bus_license.jsp" txn-code="60140004" description="查询企业许可证用于修改">
+	    <forward error-code="success" path="update-reg_bus_license.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-reg_bus_license.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-reg_bus_license.jsp" txn-code="60140005" description="删除企业许可证信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.vo.RegBusLicenseContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.vo.VoRegBusLicense" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.vo.VoRegBusLicenseSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.vo.VoRegBusLicensePrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

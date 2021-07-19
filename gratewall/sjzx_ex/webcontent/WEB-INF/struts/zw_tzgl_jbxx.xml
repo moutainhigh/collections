@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>通知管理</menu-name>
+  <menu-path>/testfile/demo/</menu-path>
+  <description>通知管理</description>
+  <form-beans>
+    <form-bean name="ZwTzglJbxxRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="tzmc" type="string" size="255" description="通知名称"/>
+      <form-property prefix="select-key" name="fbsj" type="string" size="32" description="发布时间"/>
+      <form-property prefix="select-key" name="tzzt" type="string" size="2" description="通知状态"/>
+      <form-property prefix="record" name="jbxx_pk" type="string" size="32" cannull="false" description="通知编号-主键"/>
+      <form-property prefix="record" name="tzmc" type="string" size="255" cannull="true" description="通知名称"/>
+      <form-property prefix="record" name="fbrid" type="string" size="32" cannull="true" description="发布人ID"/>
+      <form-property prefix="record" name="fbrmc" type="string" size="20" cannull="true" description="发布人名称"/>
+      <form-property prefix="record" name="fbksid" type="string" size="32" cannull="true" description="发布科室"/>
+      <form-property prefix="record" name="fbksmc" type="string" size="60" cannull="true" description="发布名称"/>
+      <form-property prefix="record" name="fbsj" type="string" size="32" cannull="true" description="发布时间"/>
+      <form-property prefix="record" name="tznr" type="string" size="2000" cannull="true" description="通知内容"/>
+      <form-property prefix="record" name="tzzt" type="string" size="2" cannull="true" description="通知状态"/>
+      <form-property prefix="record" name="jsrids" type="string" size="4000" cannull="true" description="接收人ids"/>
+      <form-property prefix="record" name="jsrmcs" type="string" size="2000" cannull="true" description="接收人名称"/>
+      <form-property prefix="record" name="fj_fk" type="string" size="2000" cannull="true" description="附件id"/>
+      <form-property prefix="record" name="fjmc" type="string" size="2000" cannull="true" description="附件名称"/>
+    </form-bean>
+
+    <form-bean name="ZwTzglJbxxUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="jbxx_pk" type="string" size="32" cannull="false" description="通知编号-主键"/>
+      <form-property prefix="record" name="jbxx_pk" type="string" size="32" cannull="false" description="通知编号-主键"/>
+      <form-property prefix="record" name="tzmc" type="string" size="255" cannull="true" description="通知名称"/>
+      <form-property prefix="record" name="fbrid" type="string" size="32" cannull="true" description="发布人ID"/>
+      <form-property prefix="record" name="fbrmc" type="string" size="20" cannull="true" description="发布人名称"/>
+      <form-property prefix="record" name="fbksid" type="string" size="32" cannull="true" description="发布科室"/>
+      <form-property prefix="record" name="fbksmc" type="string" size="60" cannull="true" description="发布名称"/>
+      <form-property prefix="record" name="fbsj" type="string" size="32" cannull="true" description="发布时间"/>
+      <form-property prefix="record" name="tznr" type="string" size="2000" cannull="true" description="通知内容"/>
+      <form-property prefix="record" name="tzzt" type="string" size="2" cannull="true" description="通知状态"/>
+      <form-property prefix="record" name="jsrids" type="string" size="4000" cannull="true" description="接收人ids"/>
+      <form-property prefix="record" name="jsrmcs" type="string" size="2000" cannull="true" description="接收人名称"/>
+      <form-property prefix="record" name="fj_fk" type="string" size="2000" cannull="true" description="附件id"/>
+      <form-property prefix="record" name="fjmc" type="string" size="2000" cannull="true" description="附件名称"/>
+      
+      <form-property prefix="record" name="delIDs" type="string" size="1000" cannull="true" description="删除附件ids"/>
+      <form-property prefix="record" name="delNAMEs" type="string" size="2000" cannull="true" description="删除附件的名称"/>
+      <form-property prefix="record" name="delID1" type="string" size="1000" cannull="true" description="删除附件id"/>
+      <form-property prefix="record" name="delNAME1" type="string" size="2000" cannull="true" description="删除附件的名称"/>
+    </form-bean>
+
+    <form-bean name="ZwTzglJbxxDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="jbxx_pk" type="string" size="32" cannull="false" description="通知编号-主键"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-zw_tzgl_jbxx.jsp" name="ZwTzglJbxxRowsetForm" txn-code="315001001" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询通知管理列表</description>
+      <step index="10" bean-name="com.gwssi.file.demo.txn.TxnZwTzglJbxx" func-name="txn315001001" input-node="select-key" output-node="record" description="查询通知管理列表"/>
+      <forward error-code="success" path="query-zw_tzgl_jbxx.jsp"/>
+      <forward error-code="failure" path="query-zw_tzgl_jbxx.jsp"/>
+    </action>
+
+    <action input="update-zw_tzgl_jbxx.jsp" name="ZwTzglJbxxUpdateForm" txn-code="315001002" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>修改通知管理信息</description>
+      <step index="10" bean-name="com.gwssi.file.demo.txn.TxnZwTzglJbxx" func-name="txn315001002" input-node="record" description="修改通知管理信息"/>
+      <forward error-code="success" path="update-zw_tzgl_jbxx.jsp"/>
+      <forward error-code="failure" path="update-zw_tzgl_jbxx.jsp"/>
+    </action>
+
+    <action input="insert-zw_tzgl_jbxx.jsp" name="ZwTzglJbxxUpdateForm" txn-code="315001003" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加通知管理信息</description>
+      <step index="10" bean-name="com.gwssi.file.demo.txn.TxnZwTzglJbxx" func-name="txn315001003" input-node="record" description="增加通知管理信息"/>
+      <forward error-code="success" path="insert-zw_tzgl_jbxx.jsp"/>
+      <forward error-code="failure" path="insert-zw_tzgl_jbxx.jsp"/>
+    </action>
+
+    <action input="query-zw_tzgl_jbxx.jsp" name="ZwTzglJbxxUpdateForm" txn-code="315001004" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询通知管理用于修改</description>
+      <step index="10" bean-name="com.gwssi.file.demo.txn.TxnZwTzglJbxx" func-name="txn315001004" input-node="primary-key" output-node="record" description="查询通知管理用于修改"/>
+      <forward error-code="success" path="update-zw_tzgl_jbxx.jsp"/>
+      <forward error-code="failure" path="update-zw_tzgl_jbxx.jsp"/>
+    </action>
+
+    <action input="query-zw_tzgl_jbxx.jsp" name="ZwTzglJbxxDeleteForm" txn-code="315001005" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除通知管理信息</description>
+      <step index="10" bean-name="com.gwssi.file.demo.txn.TxnZwTzglJbxx" func-name="txn315001005" input-node="primary-key" description="删除通知管理信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+    <action input="query-zw_tzgl_jbxx.jsp" name="ZwTzglJbxxUpdateForm" txn-code="315001006" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查看明细</description>
+      <step index="10" bean-name="com.gwssi.file.demo.txn.TxnZwTzglJbxx" func-name="txn315001006" input-node="primary-key" output-node="record"/>
+      <forward error-code="success" path="view-zw_tzgl_jbxx.jsp" redirect="false"/>
+      <forward error-code="failure" path="view-zw_tzgl_jbxx.jsp" redirect="false"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-zw_tzgl_jbxx.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/testfile/demo/query-zw_tzgl_jbxx.jsp" description="查询通知管理列表"/>
+    <resource-file type="jsp" file-name="/testfile/demo/insert-zw_tzgl_jbxx.jsp" description="增加通知管理信息"/>
+    <resource-file type="jsp" file-name="/testfile/demo/update-zw_tzgl_jbxx.jsp" description="修改通知管理信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.file.demo.vo.ZwTzglJbxxContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.file.demo.vo.VoZwTzglJbxx" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.file.demo.vo.VoZwTzglJbxxSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.file.demo.vo.VoZwTzglJbxxPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

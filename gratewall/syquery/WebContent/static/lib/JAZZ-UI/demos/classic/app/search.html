@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="../../index/common.js"></script>
+<style type="text/css">
+	[name="panel_1"].jazz-panel-border{
+		border-bottom:none;
+	}
+</style>
+</head>
+<script type="text/javascript">
+
+	$(function(){
+
+	});
+	//数据加载完成回调
+	function dataload(data){
+		alert(jazz.jsonToString(data));
+	}
+	//数据渲染函数
+	function renderdata(data){
+		for(var i=0;i<data.length;i++){
+			data[i]["@toolsopration"] = '<div class="jazz-grid-cell-inner"><a href="javascript:void(0);" onclick="callcustom()">'+data[i]["name"]+'</a></div>';
+			data[i]["custom"] = '<div class="jazz-grid-cell-inner"><a href="javascript:void(0);" onclick="callcustom()">'+data[i]["name"]+'</a></div>';
+		}
+		return data;
+	}
+	function add(){
+		var data = [{"id":"8888888888888888","birthday":"2014-08-30","resume":"aaa","sex":"1","age":"30","name":"shane flin","hobby":"球","origin":"","org":"1","photo":"","password":"ssss"},
+		            {"id":"9999999999999999","birthday":"2014-08-30","resume":"aaa","sex":"1","age":"30","name":"joe","hobby":"球","origin":"","org":"1","photo":"","password":"ssss"}];
+		$('div[name="gridpanel"]').gridpanel('addRow', data);
+	}
+	function update(){
+		var data = $('div[name="gridpanel"]').gridpanel('getSelection');
+		if(data.length==1){
+			var id = data[0]["id"];
+			var newdata = {"sex":"2","age":"28","name":"Emily","hobby":"swimming"};
+			$('div[name="gridpanel"]').gridpanel('updateRowById',newdata,id);
+		}else{
+			alert("请选择一条要删除的表格数据。");
+		}
+	}
+	function remove(){
+		var data = $('div[name="gridpanel"]').gridpanel('getSelection');
+		if(data.length>0){
+	    	for(var i=0;i<data.length;i++){
+	    		var id = data[i]["id"];
+	    		$('div[name="gridpanel"]').gridpanel('removeRowById',id);
+	    	}
+		}else{
+			alert("请选择要删除的表格数据。");
+		}
+	}
+</script>
+<body>
+<!-- 整体的框架 -->
+<div vtype="panel" name="panel_1" title="查询页面" titledisplay="true" titleicon="images/title_image.png" width="100%" >
+	<!-- 查询区域 -->
+	<div name="formpanel_1" vtype="formpanel" titledisplay="false" showborder="false" width="100%" layout="auto">
+		 <div name='textfield_name' vtype="textfield" label="姓名" labelalign="right" width="40%"></div>
+		 <div name='number_name' vtype="numberfield" label="年龄" labelalign="right" width="40%"></div>
+		 <div name='date_name' vtype="datefield" label="出生日期" labelalign="right" width="40%"></div>
+		 <div name='combox_name' vtype="comboxfield" label="下拉框" labelalign="right" width="40%" dataurl="combox.json"></div>
+		 
+		 <div name="toolbar_1" vtype="toolbar"> 
+		    <div name="btn1" vtype="button" text="查询" align="center" click=""></div> 
+		    <div name="btn2" vtype="button" text="重置" align="center" click=""></div> 
+		</div> 
+	</div> 
+	<div>
+		
+	</div>
+</div>
+<div vtype="gridpanel" name="gridpanel" width="100%" defaultview="table"  dataloadcomplete="" datarender="renderdata()" 
+titledisplay="true" title="查询结果" dataurl="gridData.json" isshowselecthelper="false" selecttype="2">
+	<div name="toolbar" vtype="toolbar">
+		<div name="add_button" vtype="button" text="新增" click="add()"></div>
+		<div name="update_button" vtype="button" text="修改"  click="update()"></div>
+    	<div name="delete_button" vtype="button" text="删除" click="remove()"></div>
+    </div>
+	<div vtype="gridcolumn" name="grid_column" >
+		<div> <!-- 单行表头 -->
+			<div name="id" key="true" visible="false"></div>
+			<div name="name"  text="姓名" textalign="center" sort="true" width="140px"></div>
+			<div name="sex" text="性别" textalign="center" sort="true" dataurl='[{"text":"男","value":"1"},{"text":"女","value":"2"}]' width="50px"></div>
+			<div name="age" text="年龄" textalign="center" sort="true" width="50px"></div>
+			<div name="org" text="所属机构" textalign="center" dataurl="/JAZZ/dictionary/queryData.do?dicId=org" width="100px"></div>
+			<div name="birthday" text="出生日期" textalign="center" datatype="date" dataformat="YYYY-MM-DD" width="150px"></div>
+			<div name="custom" text="自定义" textalign="center" width="140px"></div>
+		</div>
+	</div>
+	<!-- 表格 -->
+	<div vtype="gridtable" name="grid_table"></div>
+	<!-- 分页 -->
+	<div vtype="paginator" name="grid_paginator"></div>
+</div>
+
+<!-- 	<div id="formpanel" name="formpanel" vtype="formpanel" titleDisplay="true" width="660" layout="table" 
+	    layoutconfig="{cols:2, columnwidth: ['300px','*']}"
+		height="400" labelStyleClass="labelstyle" title="人员信息" >
+		<div name='textfield_name' vtype="textfield" label="姓名"
+			labelAlign="right" rule="must" width="300" editable="false"></div>
+		<div name='textfield_name2' vtype="textfield" label="姓名2"
+			labelAlign="right" rule="must" width="300" editable="false"></div>	
+		<div name='number_name' vtype="numberfield" label="年龄"
+			labelAlign="right" width="300"></div>
+		<div name='wdatepicker_name' vtype="datefield"
+			label="生日" labelAlign="right" width="300"
+			isShowWeek="true" ></div>
+		<div name="checkboxfield_name" vtype="checkboxfield"
+			label="爱好" labelAlign="right" width="200"
+			dataurl="[{checked: true,value: '1',text: '旅游'},{value: '2',text: '足球'},{value: '3',text: '篮球'}]"></div>
+		<div name="radiofield_name" vtype="radiofield"
+			label="性别" labelAlign="right" width="300"
+			dataurl="[{checked: true,value: '1',text: '男'},{value: '2',text: '女'}]"></div>
+		<div name='password_name' vtype="passwordfield" label="密码"
+			labelAlign="right" width="300"></div>
+		<div name='textarea_name'  
+			vtype="textareafield" label="简历" labelAlign="right" width="300"></div>
+		<div name='combox_name'  rowspan="1"
+			vtype="comboxfield" label="下拉框" labelAlign="right" width="300" dataurl="combox.json"></div>
+		<div id='combox_tree' name='comboxtree_name' vtype="comboxtreefield" 
+			label="下拉树" labelAlign="right" width="300" multiple="true"  onCheck="chktree"  dataurl="comboxtree.json"></div>	
+		<div id="attach1" colspan="2" name="attach_name" vtype="attachment" fileuploadlimit="5"></div>	 
+        <div name="id" vtype="hiddenfield" value="2333"></div>
+        
+		<div id="toolbar" name="toolbar" vtype="toolbar" >
+			<div id="btn1" name="btn1" vtype="button" text="重新加载数据"  click="reloadData()"></div>
+			<div id="btn2" name="btn2" vtype="button" text="切换编辑状态"  click="toggleEditable()"></div>
+	    	<div id="btn3" name="btn3" vtype="button" text="保存"  click="save()"></div>
+	    	<div id="btn4" name="btn4" vtype="button" text="重置"  click="reset()"></div>
+	    </div>
+		
+	</div> -->
+
+<script type="text/javascript">
+$(function(){
+    //调整父页面iframe高度
+    try{
+        parent.setWinHeight(500);           
+    }catch(e){
+        jazz.log(e);
+    }
+});
+</script>
+</body>
+</html>

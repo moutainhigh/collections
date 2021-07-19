@@ -1,0 +1,37 @@
+<chart palette="3" caption="近30天区县分局接口调用次数TOP5" PYAxisName="" SYAxisName="" 
+animation="1" showValues="0" formatNumberScale="0" numberPrefix=""
+captionPadding="1" chartTopMargin="1" chartBottomMargin="5" chartLeftMargin="5" 
+ seriesNameInToolTip="0">
+<categories>
+	<category label="${depart1!}" />
+	<category label="${depart2!}" />
+	<category label="${depart3!}" />
+	<category label="${depart4!}" />
+	<category label="${depart5!}" />
+</categories>
+<dataset seriesname="返回数量" >
+	<set value="${return1!}"  />
+	<set value="${return2!}"  />
+	<set value="${return3!}"  />
+	<set value="${return4!}"  />
+	<set value="${return5!}"  />
+</dataset>
+<dataset seriesName="调用次数" parentYAxis="S">
+	<set value="${call1!}" />
+	<set value="${call2!}" />
+	<set value="${call3!}" />
+	<set value="${call4!}" />
+	<set value="${call5!}" />
+</dataset>
+
+
+<styles>
+<definition>
+<style type="font" name="CaptionFont" size="12" color="666666" />
+<style type="font" name="SubCaptionFont" bold="0" />
+</definition>
+<application>
+<apply toObject="caption" styles="CaptionFont" />
+<apply toObject="SubCaption" styles="SubCaptionFont" />
+</application>
+</styles></chart>

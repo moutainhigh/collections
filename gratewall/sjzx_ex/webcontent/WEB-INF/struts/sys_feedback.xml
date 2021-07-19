@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>意见反馈</menu-name>
+  <menu-path>/page/homepage/feedback/</menu-path>
+  <description>意见反馈</description>
+  <form-beans>
+    <form-bean name="SysFeedbackRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="record" name="sys_feedback_id" type="string" size="32" cannull="false" description="意见反馈ID"/>
+      <form-property prefix="record" name="content" type="string" size="4000" cannull="true" description="意见反馈内容"/>
+      <form-property prefix="record" name="publish_date" type="string" size="10" cannull="true" description="发布时间"/>
+      <form-property prefix="record" name="author" type="string" size="100" cannull="true" description="发布人"/>
+      <form-property prefix="record" name="status" type="string" size="1" cannull="true" description="有效标志"/>
+      <form-property prefix="record" name="description" type="string" size="200" cannull="true" description="处理结果"/>
+    </form-bean>
+
+    <form-bean name="SysFeedbackUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_feedback_id" type="string" size="32" cannull="false" description="意见反馈ID"/>
+      <form-property prefix="record" name="sys_feedback_id" type="string" size="32" cannull="false" description="意见反馈ID"/>
+      <form-property prefix="record" name="content" type="string" size="4000" cannull="true" description="意见反馈内容"/>
+      <form-property prefix="record" name="publish_date" type="string" size="10" cannull="true" description="发布日期"/>
+      <form-property prefix="record" name="author" type="string" size="100" cannull="true" description="发布人"/>
+      <form-property prefix="record" name="status" type="string" size="1" cannull="true" description="有效标志"/>
+      <form-property prefix="record" name="description" type="string" size="200" cannull="true" description="处理结果"/>
+      <form-property prefix="record" name="publish_time" type="string" size="20" cannull="true" description="发布时间"/>
+      <form-property prefix="record" name="title" type="string" size="100" cannull="true" description="标题"/>
+      <form-property prefix="record" name="ip" type="string" size="128" cannull="true" description="IP地址"/>
+      <form-property prefix="record" name="browser" type="string" size="100" cannull="true" description="浏览器"/>
+      <form-property prefix="record" name="yhjg" type="string" size="100" cannull="true" description="用户机构"/>
+    </form-bean>
+
+    <form-bean name="SysFeedbackDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_feedback_id" type="string" size="32" cannull="false" description="意见反馈ID"/>
+    </form-bean>
+
+    <form-bean name="SysFeedbackHistoryLogForm">
+      <description>的历史修改日志</description>
+      <form-property prefix="primary-key" name="sys_feedback_id" type="string" size="32" cannull="false" description="意见反馈ID"/>
+      <form-property prefix="record" name="h_record_id_" type="string" size="24" cannull="true" description="流水号"/>
+      <form-property prefix="record" name="h_back_time_" type="string" size="14" cannull="true" description="修改时间"/>
+      <form-property prefix="record" name="h_back_user_" type="string" size="24" cannull="true" description="修改人"/>
+      <form-property prefix="record" name="sys_feedback_id" type="string" size="32" cannull="false" description="意见反馈ID"/>
+      <form-property prefix="record" name="content" type="string" size="4000" cannull="true" description="意见反馈内容"/>
+      <form-property prefix="record" name="publish_date" type="string" size="10" cannull="true" description="发布时间"/>
+      <form-property prefix="record" name="author" type="string" size="100" cannull="true" description="发布人"/>
+      <form-property prefix="record" name="status" type="string" size="1" cannull="true" description="有效标志"/>
+      <form-property prefix="record" name="description" type="string" size="200" cannull="true" description="处理结果"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_feedback.jsp" name="SysFeedbackRowsetForm" txn-code="711001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询意见反馈列表</description>
+      <step index="10" bean-name="cn.gwssi.sys.feedback.txn.TxnSysFeedback" func-name="txn711001" input-node="select-key" output-node="record" description="查询意见反馈列表"/>
+      <forward error-code="success" path="query-sys_feedback.jsp"/>
+      <forward error-code="failure" path="query-sys_feedback.jsp"/>
+      <forward name="print" error-code="success" path="print-sys_feedback.jsp"/>
+      <forward name="print" error-code="failure" path="print-sys_feedback.jsp"/>
+    </action>
+
+    <action input="update-sys_feedback.jsp" name="SysFeedbackUpdateForm" txn-code="711002" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改意见反馈信息</description>
+      <step index="10" bean-name="cn.gwssi.sys.feedback.txn.TxnSysFeedback" func-name="txn711002" input-node="record" description="修改意见反馈信息"/>
+      <forward error-code="success" path="update-sys_feedback.jsp"/>
+      <forward error-code="failure" path="update-sys_feedback.jsp"/>
+    </action>
+
+    <action input="insert-sys_feedback.jsp" name="SysFeedbackUpdateForm" txn-code="711003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加意见反馈信息</description>
+      <step index="10" bean-name="cn.gwssi.sys.feedback.txn.TxnSysFeedback" func-name="txn711003" input-node="record" description="增加意见反馈信息"/>
+      <forward error-code="success" path="insert-sys_feedback.jsp"/>
+      <forward error-code="failure" path="insert-sys_feedback.jsp"/>
+    </action>
+
+    <action input="query-sys_feedback.jsp" name="SysFeedbackUpdateForm" txn-code="711004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询意见反馈用于修改</description>
+      <step index="10" bean-name="cn.gwssi.sys.feedback.txn.TxnSysFeedback" func-name="txn711004" input-node="primary-key" output-node="record" description="查询意见反馈用于修改"/>
+      <forward error-code="success" path="update-sys_feedback.jsp"/>
+      <forward error-code="failure" path="update-sys_feedback.jsp"/>
+    </action>
+
+    <action input="query-sys_feedback.jsp" name="SysFeedbackDeleteForm" txn-code="711005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除意见反馈信息</description>
+      <step index="10" bean-name="cn.gwssi.sys.feedback.txn.TxnSysFeedback" func-name="txn711005" input-node="primary-key" description="删除意见反馈信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+
+    <action input="query-sys_feedback.jsp" name="SysFeedbackUpdateForm" txn-code="711006" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>意见反馈的记录信息</description>
+      <step index="10" bean-name="cn.gwssi.sys.feedback.txn.TxnSysFeedback" func-name="txn711006" input-node="primary-key" output-node="record" description="意见反馈的记录信息"/>
+      <forward error-code="success" path="view-sys_feedback.jsp"/>
+      <forward error-code="failure" path="view-sys_feedback.jsp"/>
+    </action>
+
+    <action input="historylog-sys_feedback.jsp" name="SysFeedbackHistoryLogForm" txn-code="711007" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>意见反馈的修改日志</description>
+      <step index="10" bean-name="cn.gwssi.sys.feedback.txn.TxnSysFeedback" func-name="txn711007" input-node="primary-key" output-node="record" description="意见反馈的修改日志"/>
+      <forward error-code="success" path="historylog-sys_feedback.jsp"/>
+      <forward error-code="failure" path="historylog-sys_feedback.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_feedback.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/sys/feedback/query-sys_feedback.jsp" description="查询意见反馈列表"/>
+    <resource-file type="jsp" file-name="/sys/feedback/insert-sys_feedback.jsp" description="增加意见反馈信息"/>
+    <resource-file type="jsp" file-name="/sys/feedback/update-sys_feedback.jsp" description="修改意见反馈信息"/>
+    <resource-file type="jsp" file-name="/sys/feedback/print-sys_feedback.jsp" description="打印意见反馈信息"/>
+    <resource-file type="jsp" file-name="/sys/feedback/view-sys_feedback.jsp" description="查看意见反馈信息"/>
+    <resource-file type="jsp" file-name="/sys/feedback/historylog-sys_feedback.jsp" description="意见反馈的修改日志"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.sys.feedback.vo.SysFeedbackContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.sys.feedback.vo.VoSysFeedback" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.sys.feedback.vo.VoSysFeedbackSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.sys.feedback.vo.VoSysFeedbackPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

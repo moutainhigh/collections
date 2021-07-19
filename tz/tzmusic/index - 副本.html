@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+	*{padding:0px;margin:0px;}
+	body{font-size:14px;font-family:"微软雅黑";background:#141414;padding:50px;}
+	.box{width:100px;height:100px;border-radius:50px;color:#fff;text-align:center;line-height:100px;margin-top:20px;transition: all 0.3s linear;font-size:18px;}
+	.box:hover{background:yellow;color:#111;transform:scale(0.5) }
+	.red{background:red}
+	.green{background:green;}
+	.blue{background:pink}
+	/*
+		css3:过渡和变形，动画(关键帧)
+		border-radius
+
+	
+
+		transition:过渡
+		transform :
+			translate(x,y)位移 
+			scale(index)缩小放到
+			rotate(角度(30deg))旋转
+			skew(x,y)变形
+		linear-graident(方向,颜色1，颜色2)
+		raidal-graident()
+	*/
+	
+	@keyframes keke{
+		from{background:yellow;transform:rotate(0deg)}
+		to{background:green;transform:rotate(360deg)}
+	}
+
+	/*@keyframes keke{
+		0%{background:yellow}
+		100%{background:green;}
+	}*/
+
+	.kk{animation:keke 1s infinite linear;}
+
+	/*动画:随着时间的位移.时间有关
+
+	@keyframes 动画名称{
+		from{样式列表}
+		10%{样式列表}
+		20%{样式列表}
+		30%{样式列表}
+		40%{样式列表}
+		40%{样式列表}
+		to{样式列表}
+	};
+	调用方式：animation:动画名称 时间(秒) 循环次数(infinite,默认一次) 动画的效果(linear,ease ease-in ease-out ease-in-out Marxtix) 动画延时(一般不需要)
+	*/
+
+
+
+
+
+
+	
+
+  </style>
+ </head>
+ <body>
+	
+	<div class="box red kk">
+		01
+	</div>
+	<div class="box green">
+		02
+	</div>
+	<div class="box blue">
+		03
+	</div>
+ </body>
+</html>

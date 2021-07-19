@@ -1,0 +1,85 @@
+.wcm-hide-display{display:none;}
+.wcm-hide-visibility{visibility:hidden;}
+
+.dlg{position:absolute;z-index:99999;}
+.dlg *{margin:0px;padding:0px;}
+
+/*header layout*/
+
+.dlg .header{background:url(d1.gif) left -68px no-repeat;cursor:move;*margin-right:-3px;}
+.dlg .header .r{background:url(d1.gif) right 0px no-repeat;}
+.dlg .header .c{height:30px;background:url(d1.gif) left -38px repeat-x;margin:0 6px;}
+.dlg .header .spt{float:left;width:0px;height:100%;background:url(d1.gif) left -193px repeat-x;}
+.dlg .header .title{float:left;width:80%;padding:8px;font-size:12px;font-weight:bold;white-space:nowrap;overflow:hidden;color:white;}
+.dlg .header .tools{float:right;height:100%;}
+.dlg .header .close{float:right;width:20px;height:100%;cursor:default;}
+.dlg .header .close:link, .dlg .header .close:visited{background:url(d1.gif) left -104px no-repeat;}
+
+ /*body layout*/
+
+.dlg .body {padding:15px 0px;background-color:#F1F1F1;border:1px solid #8D8D8D;}
+.dlg .body .dlg-table{width:100%;height:100%;table-layout:fixed;font-size:12px;line-height:16px;}
+.dlg .body .dlg-table td {background-color:white;}
+.dlg .body .dlg-table .buttons {background-color:#F1F1F1;}
+.dlg .body .msg{text-align:left;}
+.dlg .body .msg-wrapper{height:100px;overflow:auto;background-color:white;margin:0px;}
+.dlg .body .icon{width:60px;height:100px;background:white center center no-repeat;}
+
+.dlg .body .buttons{height:36px;text-align:center;vertical-align:bottom;}
+
+
+ /*footer layout*/
+
+.dlg .footer{display:none;}
+
+
+.wcm-mb-dlg .body .icon-error{background-image:url(icon-error.gif);}
+.wcm-mb-dlg .body .icon-info{background-image:url(icon-info.gif);}
+.wcm-mb-dlg .body .icon-question{background-image:url(icon-question.gif);}
+.wcm-mb-dlg .body .icon-warning{background-image:url(icon-warning.gif);}
+.wcm-mb-dlg .body .icon-success{background-image:url(2.gif);}
+.wcm-mb-dlg .body .icon-fail{background-image:url(fail.gif);}
+.wcm-mb-dlg .body .dlg-table {*height:auto;}
+.wcm-mb-dlg .body .dlg-table .dlg-table{*height:100%;}
+
+ 
+ /*wcm-fault-dlg*/
+.wcm-fault-dlg{width:450px;}
+.wcm-fault-dlg .body .c{height:240px;}
+.wcm-fault-dlg .body .icon{width:120px;background:transparent center 30px no-repeat;}
+.wcm-fault-dlg .body .icon{position:relative;border-right:10px solid gray;background-image:url(fault.gif);}
+.wcm-fault-dlg .body .msg{word-wrap:break-word;word-break:break-all;font-family:Arial;font-weight:bold;font-size:14px}
+.wcm-fault-dlg .body .icon{text-align:center;vertical-align:bottom;background-image:url(fault.gif);border-right:1px solid gray;}
+.wcm-fault-dlg .body .icon .detail{margin-top:8px;line-height:22px;background:url(info2.gif) left top no-repeat;cursor:pointer;}
+.wcm-fault-dlg .body .icon .copy{margin-top:8px;line-height:22px;background:url(info1.gif) center center no-repeat;cursor:pointer;}
+.wcm-fault-dlg .body .icon .close{margin-top:8px;line-height:22px;background:url(info1.gif) center center no-repeat;cursor:pointer;}
+.wcm-fault-dlg .body textarea{width:100%;height: 150px;font-family:Courier New;font-size:12px;background:#f6f6f6;border:0px;}
+/*wcm-fault-dlg*/
+.wcm-report-dlg{width:550px;}
+.wcm-report-dlg .body .c{height:240px;}
+.wcm-report-dlg .body .icon{width:120px;background:transparent center 30px no-repeat;}
+.wcm-report-dlg .body .icon{position:relative;border-right:10px solid gray;background-image:url(fault.gif);}
+.wcm-report-dlg .body .msg{word-wrap:break-word;word-break:break-all;font-family:Arial;font-weight:bold;font-size:14px}
+.wcm-report-dlg .body .icon{text-align:center;vertical-align:bottom;padding-bottom:20px;border-right:1px solid gray;}
+.wcm-report-dlg .body .success{background-image:url(success.gif);}
+.wcm-report-dlg .body .error{background-image:url(error.gif);}
+.wcm-report-dlg .body .icon .copy{margin-top:8px;line-height:22px;background:url(info1.gif) center center no-repeat;cursor:pointer;}
+.wcm-report-dlg .body .icon .close{margin-top:8px;line-height:22px;background:url(info1.gif) center center no-repeat;cursor:pointer;}
+.wcm-report-dlg .body .content{padding:5px 10px;height:150px;overflow:auto;text-align:left;}
+.ext-ie6 .wcm-report-dlg .body .content{width:100%;}
+.wcm-report-dlg .body .innerTitle, .wcm-report-dlg .body .innerTitle_withTip{width:100%;font-size: 12px;font-weight: normal;color: navy;float: none;word-break:break-all;word-wrap:break-word;}
+.wcm-report-dlg .body .innerTitle_withTip{width: 360px;}
+.wcm-report-dlg .body .tip{width: 100%;text-align: right;float: none;padding-right:20px;padding-right:0px!important;}
+.wcm-report-dlg .body .sep{height: 5px;width: 100%;}
+.wcm-report-dlg .body .commentbox{background-color: #ececec;width: 370px;padding: 10px;font-size: 12px;border: 0;overflow:visible;margin-top: -5px;}
+.wcm-report-dlg .body .commentHeader{width: 370px;overflow: hidden;background: url(arrow.gif) 20px 0 no-repeat;background-position-x: 90%;padding-left: 5px;padding-top: 1px;font-size: 90%;color: #4A4A4A;margin-top: 15px;}
+.wcm-report-dlg .body .imgLogo{}
+.wcm-report-dlg .body .options{height: 30px;text-align: right;padding-right: 5px;padding-top: 5px;}
+.wcm-report-dlg .body .option_edit{zoom:1;background: url(edit.png);background-repeat:no-repeat;background-position:center center;cursor: pointer;width: 16px;margin-left: 2px;}
+.wcm-report-dlg .rpdlg-type5{overflow:hidden;background:url(d1.gif) left -315px;width:16px;height:16px;margin-right:2px;}
+.wcm-report-dlg .rpdlg-type1{overflow:hidden;background:url(d1.gif) left -331px;width:16px;height:16px;margin-right:2px;}
+.wcm-report-dlg .rpdlg-type3{overflow:hidden;background:url(d1.gif) left -347px;width:16px;height:16px;margin-right:2px;}
+.wcm-report-dlg .rpdlg-type4{overflow:hidden;background:url(d1.gif) left -363px;width:16px;height:16px;margin-right:2px;}
+.ext-ie8 .rpdlg-type5,.ext-ie8 .rpdlg-type1,.ext-ie8 .rpdlg-type3,.ext-ie8 .rpdlg-type4,.ext-ie8 .option_edit{display:inline-block;}
+.ext-gecko .rpdlg-type5,.ext-gecko .rpdlg-type1,.ext-gecko .rpdlg-type3,.ext-gecko .rpdlg-type4,.ext-gecko .option_edit{display:inline-block;}
+.ext-safari .rpdlg-type5,.ext-safari .rpdlg-type1,.ext-safari .rpdlg-type3,.ext-safari .rpdlg-type4,.ext-safari .option_edit{display:inline-block;}

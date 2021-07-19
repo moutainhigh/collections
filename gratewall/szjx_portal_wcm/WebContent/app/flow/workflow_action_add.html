@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<TITLE>action addedit</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!--my import-->
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<link rel="stylesheet" type="text/css" href="../../app/css/wcm-common.css">
+<script src="../../app/js/data/locale/flow.js"></script>
+<!--page scrop-->
+<script src="../../app/js/source/wcmlib/com.trs.workflow/WorkFlow.js"></script>
+<script src="./domain/Configurator.js"></script>
+<script src="./workflow_action_add.js"></script>
+<link href="../css/workflow.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Inner Start -->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<link href="./workflow_action_add.css" WCMAnt:locale="./workflow_action_add_$locale$.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Inner End -->
+<script language="javascript">
+<!--
+    window.m_cbCfg = {
+        btns : [
+            {
+                text :  wcm.LANG['FLOW_CONFIRM'] || '确定',
+                cmd : function(){
+					submitData();
+					return false;
+				}
+            },
+            {
+                text :  wcm.LANG['FLOW_CANCEL'] || '取消'
+            }
+        ]
+    };
+    
+//-->
+</script>
+</head>
+<body>
+<center>
+	<div class="block_box">
+		<table border="0" cellspacing="0" cellpadding="3" width="100%">
+		<tbody>
+			<tr>
+				<td align="left"><span WCMAnt:param="workflow_action_add.html.type">类型:</span>&nbsp;
+					<select id="selHandlers" class="single_text">
+					</select>		
+				</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+</center>
+</body>
+</html>

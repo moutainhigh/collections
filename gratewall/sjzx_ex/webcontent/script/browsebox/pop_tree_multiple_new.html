@@ -1,0 +1,388 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<meta http-equiv="Content-Language" content="gb2312">
+<script language="javascript" src="../public-func.js"></script>
+<script language="javascript" src="../mtmcode.js"></script>
+<head>
+<title>请选择参数-关联到browsebox域的下拉框</title>
+</head>
+
+<style type="text/css">
+.menu-body {
+	OVERFLOW : hidden;
+	margin-left : 0;
+	margin-bottom : 0;
+	margin-right : 0;
+	border: 1px solid #0000FF;
+	width : 100%;
+}
+
+.body-div {
+	scrollbar-face-color : #88BBFF;
+	scrollbar-highlight-color : #99CCFF;
+	scrollbar-3dlight-color : #4477ff;
+	scrollbar-darkshadow-color : #4477ff;
+	scrollbar-track-color : #B0E0E6;
+	scrollbar-arrow-color : #0000FF;
+	scrollbar-shadow-color : #88BBFF;
+	background-color : #F7F7F7;
+	OVERFLOW-Y : auto;
+	OVERFLOW-X : auto;
+	width : 100%;
+	height : 100%;
+}
+
+.menu-front{
+	width : 100%;
+	table-layout : fixed;
+	color : blue;
+	font-family : 宋体,sans-serif;
+	FONT-SIZE : 9pt;
+	background-color : #F7F7F7;
+}
+
+.button-front
+{
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    border-bottom: 1px solid #2f475f;
+    border-right: 1px solid #2f475f;
+    background-color: #6371B5;
+    background-repeat: repeat-x;
+    background-position: top;
+    padding: 0em 0.2em 0em 0.2em;
+    line-height:18px;
+    height:21px;
+    cursor : hand
+}
+
+</style>
+
+<script language="javascript">
+function SourceDefine()
+{
+	this.window = null;
+	this.show = null;
+	this.showName = false;
+	this.selectList = null;
+	this.codebox = null;
+	this.namebox = null;
+	this.mixbox  = null;
+	this.getElement = _browse_getElement;
+}
+
+// 在源文档中取输入域对象
+function _browse_getElement( name )
+{
+	var index = 0;
+	var ptr = name.lastIndexOf( '@' );
+	if( ptr > 0 ){
+		index = name.substring( ptr+1 );
+		name = name.substring( 0, ptr );
+	}
+	
+	var objs = this.window.document.getElementsByName( name );
+	if( objs.length <= index ){
+		return null;
+	}
+	
+	return objs[index];
+}
+
+
+var	sourceDefine = new SourceDefine();
+
+// 初始化页面
+/*******************************
+输入参数：
+1、window
+2、显示内容:name、code、mix
+3、所有可以选择的参数
+4、保存代码的域名称
+5、保存名称的域名称
+6、保存混合数据的域名称
+************************************************/
+function initPage()
+{
+	// 生成列表
+	var param = window.parent._browseParameter;
+	sourceDefine.window = window.parent;
+	sourceDefine.show = param.show;
+	sourceDefine.showName = false;
+	sourceDefine.selectList = param.selectList;
+	sourceDefine.codebox = param.codebox;
+	sourceDefine.namebox = param.namebox;
+	sourceDefine.mixbox = param.mixbox;
+	
+	// 名称和代码一致时不显示名称
+	var selectList = param.selectList;
+	for( var ii=0; ii<selectList.length; ii++ ){
+		selectList[ii][1] = selectList[ii][1].replace(/[;]/g, '.' );
+		if( selectList[ii][0] != selectList[ii][1] ){
+			sourceDefine.showName = true;
+		}
+	}
+	
+	// 设置菜单的高度
+	var t = document.getElementById( 'main' );
+	var r = t.rows[0];
+	t.style.height = document.body.clientHeight;
+	r.style.height = t.clientHeight - 27;
+	
+	// 显示菜单
+	initMenu();
+}
+
+// 取显示域的名称
+function _getShowSelectBoxName()
+{
+
+	var name;
+	if( sourceDefine.show == 'name' ){
+		name = sourceDefine.namebox;
+	}
+	else if ( sourceDefine.show == 'mix' ){
+		name = sourceDefine.mixbox;
+	}
+	else{
+		name = sourceDefine.codebox;
+	}
+	
+	if( name == null || name == '' ){
+		return null;
+	}
+	
+	return sourceDefine.getElement(name);
+}
+
+// 关闭窗口
+function hideWindow()
+{
+	sourceDefine.window.hiddenBrowse();
+	
+	var	obj = _getShowSelectBoxName();
+	if( obj != null ){
+		obj.focus();
+	}
+}
+
+function getSelectedCode()
+{
+	var name;
+	if( sourceDefine.show == 'name' ){
+		name = sourceDefine.namebox;
+	}
+	else if ( sourceDefine.show == 'mix' ){
+		name = sourceDefine.mixbox;
+	}
+	else{
+		name = sourceDefine.codebox;
+	}
+	
+	if( name == null || name == '' ){
+		return '';
+	}
+	
+	var obj = sourceDefine.getElement(name);
+	if( obj == null ){
+		return '';
+	}
+	
+  return obj.value;
+}
+
+
+// 设置返回值
+function setCode( val ){
+	var name = sourceDefine.codebox;
+	if( name == null || name == '' ){
+		return;
+	}
+	
+	var obj = sourceDefine.getElement(name);
+	if( obj == null ){
+		return;
+	}
+	
+	obj.value = val;
+}
+
+function setName( val ){
+	var name = sourceDefine.namebox;
+	if( name == null || name == '' ){
+		return;
+	}
+	
+	var obj = sourceDefine.getElement(name);
+	if( obj == null ){
+		return;
+	}
+	
+	obj.value = val;
+}
+
+function setMix( val ){
+	var name = sourceDefine.mixbox;
+	if( name == null || name == '' ){
+		return;
+	}
+	
+	var obj = sourceDefine.getElement(name);
+	if( obj == null ){
+		return;
+	}
+	
+	obj.value = val;
+}
+
+// 内容修改后调用
+function fireBrowseChange( )
+{
+	var	obj = _getShowSelectBoxName();
+	if( obj == null ){
+		return;
+	}
+	
+	obj.focus();
+	obj.fireEvent( "onchange" );
+}
+
+
+// 生成目录
+var menu = new MTMenu('menu', 'check');
+
+function initMenu()
+{
+	// 显示的内容
+	var showType = sourceDefine.show;
+	
+	// 判断是否按mix方式显示
+	if( sourceDefine.window._browse_showMixData ){
+		if( sourceDefine.showName ){
+			showType = "mix";
+		}
+		else{
+			showType = "name";
+		}
+	}
+	else{
+		// 在这里判断是否只显示名称
+		if( sourceDefine.showName == false ){
+			if( showType == 'mix' ){
+				showType = 'name';
+			}
+		}
+	}
+	
+	var text;
+	var selectList = sourceDefine.selectList;
+	var len = selectList.length - 1;
+	for( var ii=0; ii<len; ii++ ){
+		var n = selectList[ii];
+		if( showType == 'mix' ){
+			text = n[0] + '--' + n[1];
+		}
+		else if( showType == 'name' ){
+			text = n[1];
+		}
+		else{
+			text = n[0];
+		}
+		
+		menu.addItem( n[3], text, null, null, null, null, null, n[0] );
+	}
+	
+	// 设置已经选中的记录
+	var	selectedCode = getSelectedCode();
+	var show = sourceDefine.show;
+	if( show != 'code' && selectedCode != '' ){
+		var SArray = selectedCode.split(',');
+		var slen = SArray.length-1;
+		selectedCode = '';
+		
+		for( var ii=0; ii<len; ii++ ){
+			var n = selectList[ii];
+			if( show == 'name' ){
+				for( var k=slen; k>=0; k-- ){
+					if( n[1] == SArray[k] ){
+						selectedCode = (selectedCode != '') ? selectedCode + ',' + n[0] : n[0];
+						break;
+					}
+				}
+			}
+			else if( show == 'mix' ){
+				for( var k=slen; k>=0; k-- ){
+					if( n[0] + '--' + n[1] == SArray[k] ){
+						selectedCode = (selectedCode != '') ? selectedCode + ',' + n[0] : n[0];
+						break;
+					}
+				}
+			}
+		}
+	}
+	
+	// 设置选中的内容
+	if( selectedCode != '' ) menu.setCheckValue( selectedCode );
+	
+	menu.menuIcons.menuText = '';
+	menu.startMenu( true );
+}
+
+
+function submitPress()
+{
+	var s = menu.getCheckValue();
+	s = s.split( ';' );
+	
+	var	num = 0;
+	var	nameList = '';
+	var	codeList = '';
+	var	mixList = '';
+	var selectList = sourceDefine.selectList;
+	for (var i=0; i<s.length; i++) {
+		if( num > 0 ){
+			nameList = nameList + ',';
+			codeList = codeList + ',';
+			mixList = mixList + ',';
+		}
+		
+		var idx;
+		for( idx=0; idx<selectList.length; idx++ ){
+			if( selectList[idx][0] == s[i] ) break;
+		}
+		
+		nameList = nameList + selectList[idx][1];
+		codeList = codeList + selectList[idx][0];
+		mixList = mixList + selectList[idx][0] + '--' + selectList[idx][1];
+		
+		num = num + 1;
+	}
+	
+	setCode( codeList );
+	setMix( mixList );
+	setName( nameList );
+	
+	hideWindow();
+	
+	// 调用修改后的事件
+	fireBrowseChange( );
+}
+</script>
+
+<body class='menu-body' onload="initPage()">
+
+<table id="main" width="100%" height="100%" cellSpacing=0 cellPadding=0 border=0 style="position:absolute; left:0; top:0;">
+<tr><td>
+<div class='body-div'>
+<table id='menu' name='menu' class='menu-front'></table>
+</div>
+</td></tr>
+<tr><td height="1px" bgcolor="blue"></td></tr>
+<tr height="26px"><td align="center" valign =center bgcolor="#E2EEF8">
+<input type="button" id="ok" value="&nbsp;确认&nbsp;" class="button-front" onclick="submitPress();">&nbsp;&nbsp;<input type="reset" id="close" value="&nbsp;关闭&nbsp;" class="button-front" onclick="hideWindow();">
+</td></tr>
+</table>
+
+</body>
+</html>
+

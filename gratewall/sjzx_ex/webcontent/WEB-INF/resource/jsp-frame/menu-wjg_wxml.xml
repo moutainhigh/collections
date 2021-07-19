@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作(带目录结构)" page="single-table-catalog.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table-catalog.gif"/>
+  <parameter id-node="dm_wxml" pid-node="dm_fwxml" text-node="wxml_mc" sortcode-node=""/>
+  <struts name="wjg_wxml.xml" app-path="/wjg/mlgl/wxml/" app-name="wjg_wxml" description="文献目录" template="single-table-catalog.xml"/>
+  <table name="wjg_wxml.xml" app-name="wjg_wxml" app-desc="文献目录" description="文献目录" class-name="cn.gwssi.csdb.wjg.txn.TxnWjgWxml" template="single-table-catalog.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-wjg_wxml.jsp" txn-code="2010211" description="查询文献目录列表" template="single-catalog/single-table-query.jsp">
+	    <button type="button" name="增加文献目录" path="insert-wjg_wxml.jsp" description="增加文献目录" func-name="addRecord"/>
+	    <button type="button" name="修改文献目录" path="/txn2010214.do" description="修改文献目录" func-name="updateRecord"/>
+	    <button type="button" name="删除文献目录" path="/txn2010215.do" description="删除文献目录" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn2010211.do" description="查询文献目录信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-wjg_wxml.jsp" txn-code="2010213" description="增加文献目录信息" template="single-catalog/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn2010213.do" description="保存文献目录信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn2010213.do" description="保存文献目录信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn2010211.do" description="保存文献目录信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn2010211.do" description="返回到文献目录明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-wjg_wxml.jsp" txn-code="2010212" description="修改文献目录信息" template="single-catalog/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn2010211.do" description="修改文献目录信息" func-name="saveRecord"/>
+	    <button type="button" name="保 存" path="/txn2010211.do" description="修改文献目录信息" func-name="saveAndExit"/>
+	    <button type="button" name="修改分类代码" path="sortcode-wjg_wxml.jsp" description="修改文献目录的分类代码信息" func-name="updateSortCode"/>
+	    <button type="button" name="返 回" path="/txn2010211.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="catalog-wjg_wxml.jsp" txn-code="2010218" description="文献目录的目录结构" template="single-catalog/single-table-catalog.jsp">
+	    <button type="button" name="增加子文献目录" path="insert-wjg_wxml.jsp" description="增加文献目录" func-name="addRecord"/>
+	    <button type="button" name="删除文献目录" path="/txn2010215.do" description="删除文献目录" func-name="deleteRecord"/>
+	    <button type="button" name="调整文献目录关系" path="/txn2010219.do" description="调整文献目录关系" func-name="moveNode"/>
+	  </jsp>
+	  <jsp page-name="sortcode-wjg_wxml.jsp" txn-code="201021a" description="修改文献目录的分类代码信息" template="single-catalog/single-table-update-sortcode.jsp">
+	    <button type="button" name="保 存" path="/txn2010214.do" description="修改分类代码信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn2010214.do" description="返回到修改窗口" func-name="goBackNoUpdate"/>
+	  </jsp>
+	  <txn input="query-wjg_wxml.jsp" txn-code="2010211" description="查询文献目录列表">
+	    <forward error-code="success" path="query-wjg_wxml.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-wjg_wxml.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-wjg_wxml.jsp" txn-code="2010212" description="修改文献目录信息">
+	    <forward error-code="success" path="update-wjg_wxml.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-wjg_wxml.jsp" description="错误时返回页面"/>
+	    <forward name="catalog" error-code="success" path="update-wjg_wxml.jsp" description="成功时返回修改页面"/>
+	    <forward name="catalog" error-code="failure" path="update-wjg_wxml.jsp" description="错误时返回修改页面"/>
+	  </txn>
+	  <txn input="insert-wjg_wxml.jsp" txn-code="2010213" description="增加文献目录信息">
+	    <forward error-code="success" path="insert-wjg_wxml.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-wjg_wxml.jsp" description="错误时返回页面"/>
+	    <forward name="catalog" error-code="success" path="insert-wjg_wxml.jsp" description="成功时返回页面"/>
+	    <forward name="catalog" error-code="failure" path="insert-wjg_wxml.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-wjg_wxml.jsp" txn-code="2010214" description="查询文献目录用于修改">
+	    <forward error-code="success" path="update-wjg_wxml.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-wjg_wxml.jsp" description="错误时返回页面"/>
+	    <forward name="catalog" error-code="success" path="update-wjg_wxml.jsp" description="成功时返回修改页面"/>
+	    <forward name="catalog" error-code="failure" path="update-wjg_wxml.jsp" description="错误时返回修改页面"/>
+	  </txn>
+	  <txn input="query-wjg_wxml.jsp" txn-code="2010215" description="删除文献目录信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <txn input="catalog-wjg_wxml.jsp" txn-code="2010218" description="文献目录的目录结构">
+	    <forward error-code="success" path="catalog-wjg_wxml.jsp" description="成功时返回目录结构"/>
+	    <forward error-code="failure" path="catalog-wjg_wxml.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="catalog-wjg_wxml.jsp" txn-code="2010219" description="修改文献目录的目录结构"/>
+	  <txn input="sortcode-wjg_wxml.jsp" txn-code="201021a" description="修改文献目录的分类代码信息">
+	    <forward error-code="success" path="sortcode-wjg_wxml.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="sortcode-wjg_wxml.jsp" description="错误时返回页面"/>
+	  </txn>
+
+	  <vo clazz-name="cn.gwssi.csdb.wjg.vo.WjgWxmlContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.wjg.vo.VoWjgWxml" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.wjg.vo.VoWjgWxmlSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="cn.gwssi.csdb.wjg.vo.VoWjgWxmlPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

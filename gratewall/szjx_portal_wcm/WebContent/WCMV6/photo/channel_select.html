@@ -1,0 +1,97 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc">频道选择...</title>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script>	
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.ProcessBar');	
+</script>
+<script>	
+	var m_sSelectMode = "multi";
+	function init(_args){
+		var _sUrl = "../nav_tree/nav_tree_select.jsp?ExcludeTop=1&ExcludeVirtual=1&RightIndex=31&ShowOneType=1&SiteTypes=1&MultiSites=1";
+		if(_args.mode == "radio"){
+			m_sSelectMode = "radio";
+			_sUrl += "&IsRadio=1&ExcludeSelf=0";
+		}else{
+			m_sSelectMode = "multi";
+		}
+		
+		var t = _args.SelectedIds;
+		if(t){
+			_sUrl += "&SelectedChannelIds="+t;
+		}
+		t = _args.CurrId || 0;
+		if(t > 0){
+			_sUrl += "&CurrChannelId="+t;
+			if(m_sSelectMode == "multi"){
+				_sUrl += "&ExcludeSelf=1";
+			}
+		}
+		t = _args.SiteId;
+		if(t){
+			_sUrl += "&ExpandSiteId="+t;	
+		}
+		
+		_sUrl += "&CurrSiteType=1";
+
+		$('allTreeNav').src = _sUrl;
+	}
+
+	function getSeletedIds(){		
+		var sSelIds = $('allTreeNav').contentWindow.getCheckValues();		
+		if(!sSelIds || sSelIds.length == 0){
+			$alert("没有选择有效的分类!");
+			return false;
+		}
+		window.parent.notifyParent2CloseMe(document.FRAME_NAME);
+		window.parent.notifyParentOnFinished(document.FRAME_NAME, {mode:m_sSelectMode,ids:sSelIds});		
+	}
+
+	function closeframe(){
+		if (window.parent){
+			window.parent.notifyParent2CloseMe(document.FRAME_NAME);
+		}		
+	}
+
+	function hideLoading(){
+		Element.hide($("img_loading"));
+	}
+</script>
+<style type="text/css">
+	.iframe_container{
+		width:250px;
+		height:220px;
+		padding:10px;
+	}
+	button{
+		height: 22px;
+		background: #eeeeee;
+		border: solid 1px silver;
+		font-size: 12px;
+		padding-left: 3px;
+		padding-right: 3px;
+	}
+</style>
+</head>
+
+<body style="margin:0px;padding:0px;background-color:#fff">
+<div id="all_channels_tree" class="iframe_container">
+	<div style="height:100%;">
+		<center><img src="../images/loading.gif" id="img_loading"></center>
+		<iframe id="allTreeNav" src="../include/blank.html" style="width:100%;height:100%" frameborder="0" scrolling="no" allowtransparency="true" onload="hideLoading()"></iframe>
+	</div>
+</div>
+<div style="font-size:14px;text-align:center;">
+	<button onclick="getSeletedIds(); return false;">确定</button>&nbsp;&nbsp;
+	<button onclick="closeframe(); return false;">取消</button>
+</div>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=GBK" />
+	<title> combox demo </title>
+	<link href="resource/XCombox.css" rel="stylesheet" type="text/css" />	
+	<link href="../checkbox/resource/XCheckbox.css" rel="stylesheet" type="text/css" />	
+<style type="text/css">
+*{
+	font-size:12px;
+}
+.row{	
+	margin:2px;
+	clear:both;
+	overflow:hidden;
+}
+.label{
+	float:left;
+	width:80px;
+	text-align:right;
+	white-space:nowrap;
+	overflow:hidden;
+}
+.value{
+	margin-left:85px;
+	text-align:left;
+}
+
+.topset_row{display:inline;}
+.topset_up,.topset_down{cursor:pointer;width:16px;height:16px;line-height:16px;margin-left:3px;float:left;padding:0;zoom:1;background-image: url(../../images/icon/icons2.gif);background-repeat: no-repeat; }
+.topset_up{background-position: 0 -400px;}
+.topset_down{background-position: 0 -384px;}
+.topset_row{padding-left:10px;}
+#pri_set_deadline{position:absolute;margin-left:4px;}
+.ext-ie7 .imgDate{margin:0;padding:0;zoom:1.0;cursor:pointer;}
+#topset_order{overflow:visible;height:auto;}	
+</style>
+</head>
+
+<body class="ext-strict">
+
+<DIV class=row><DIV class=label WCMAnt:param="test.html.checkbox">下拉列表：</DIV>
+<DIV class=value><!--Combox-->
+<DIV class="XCombox "><INPUT id=selectName type=hidden value=222 name=selectName><INPUT id=selectName-text value=111 name=selectName-text><SPAN><SELECT id=selectName-sel name=selectName-sel><OPTION value=iiii selected _value="iiii">iiii</OPTION><OPTION value=a666 _value="a666">a666</OPTION><OPTION value=ggg _value="ggg">ggg</OPTION><OPTION value=qqq _value="qqq">qqq</OPTION><OPTION value=yyyy _value="yyyy">yyyy</OPTION><OPTION value=111 _value="222">111</OPTION><OPTION value=sss _value="333">sss</OPTION><OPTION value=rrr _value="xxx">rrr</OPTION></SELECT></SPAN></DIV></DIV></DIV>
+
+
+<DIV class=row><DIV class=label  WCMAnt:param="test.html.multi">多选：</DIV>
+<DIV class=value><!--多选-->
+<DIV class="XCheckbox ">
+<DIV class=checkbox-item><INPUT id=checkboxName_0 type=checkbox value=1 name=checkboxName><LABEL for=checkboxName_0  WCMAnt:param="test.html.usa">美国</LABEL></DIV>
+<DIV class=checkbox-item><INPUT id=checkboxName_1 type=checkbox value=2 name=checkboxName><LABEL for=checkboxName_1  WCMAnt:param="test.html.chn">中国</LABEL></DIV>
+<DIV class=checkbox-item><INPUT id=checkboxName_2 type=checkbox value=3 name=checkboxName><LABEL for=checkboxName_2  WCMAnt:param="test.html.fra">法国</LABEL></DIV>
+<DIV class=checkbox-item><INPUT id=checkboxName_3 type=checkbox value=4 name=checkboxName><LABEL for=checkboxName_3  WCMAnt:param="test.html.eng">英国</LABEL></DIV></DIV></DIV></DIV></body>
+</html>

@@ -1,0 +1,292 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<meta http-equiv="Content-Language" content="gb2312">
+<link href="browse.css" rel="stylesheet" type="text/css">
+<head>
+<title>请选择参数-没有关联到browsebox域的下拉框</title>
+<script language="javascript">
+function SourceDefine()
+{
+	this.window = null;
+	this.showType = "mix";
+	this.selectList = null;
+	this.selectedValue = null;
+	this.showColumn = null;
+	this.selectFunction = null;
+}
+
+var	sourceDefine = new SourceDefine();
+
+// 初始化
+
+/*******************************
+输入参数：
+1、所有可以选择的参数
+2、已经选择的参数
+3、需要显示的列
+4、选中后的执行函数
+************************************************/
+function init( selectList, selectedValue, showColumn, selectFunction )
+{
+	sourceDefine.window = window.parent;
+	sourceDefine.selectList = selectList;
+	sourceDefine.selectedValue = selectedValue;
+	sourceDefine.showColumn = showColumn;
+	sourceDefine.selectFunction = selectFunction;
+	
+	// 格式化
+	var	ii;
+	for( ii=0; ii<selectList.length; ii++ ){
+		selectList[ii][1] = selectList[ii][1].replace(/[;]/g, '.' );
+	}
+	
+	// 删除列表
+	obj=document.getElementById('s1');
+	for (x=obj.options.length-1;x>=0;x--) {
+		obj.remove(x);
+	}
+	
+	// 生成列表
+	createSelectItem( );
+}
+
+function getAllCode(){
+  return sourceDefine.selectList;
+}
+
+function getFunction(){
+	return 'sourceDefine.window.' + sourceDefine.selectFunction;
+}
+
+function getShowColunm(){
+	return sourceDefine.showColumn;
+}
+
+function getSelectedCode(){
+	return sourceDefine.selectedValue;
+}
+
+// 关闭窗口
+function hideWindow()
+{
+	sourceDefine.window.hiddenBrowse();
+}
+
+// 增加选项
+function addOptionValue( objName, selectList, showColumn )
+{
+	var	i;
+	if( showColumn == null || showColumn == '' ){
+		return;
+	}
+	
+	// 显示的列
+	var	showList = showColumn.split( ';' );
+	
+	// 计算每列的最大长度
+	var	maxWidth = new Array();
+	for( i=0; i<showList.length; i++ ){
+		maxWidth[i] = getMaxWidth( selectList, showList[i] );
+	}
+	
+	var obj = document.getElementById( objName );
+	var newOptionItem;
+	
+	for (i=0; i<selectList.length; i++) {
+		newOptionItem = new Option(getShowValue(selectList[i], showList, maxWidth), i);		
+		obj.add( newOptionItem );
+	}
+	
+	// 选中的行
+	var	idx = showList[0];
+	var	str = getSelectedCode();
+	if( str != null && str != '' ){
+		for( i = 0; i < obj.options.length; i++ ){
+			if( selectList[i][idx] == str ){
+				obj.options[i].selected = true;
+				break;
+			}
+		}
+	}
+}
+
+// 取显示的信息
+function getShowValue( selectData, showList, maxWidth )
+{
+	var	i;
+	var	idx;
+	var	len;
+	var	str = '';
+	for( i=0; i<showList.length; i++ ){
+		idx = showList[i];
+		if( i == 0 ){
+			str = selectData[idx];
+		}
+		else{
+			str = str + '--' + selectData[idx];
+		}
+	}
+	
+	return str;
+}
+
+// 取列的最大长度
+function getMaxWidth( selectList, idx )
+{
+	var	ii;
+	var	maxWidth = 0;
+	for( ii=0; ii<selectList.length; ii++ ){
+		if( maxWidth < selectList[ii][idx].length ){
+			maxWidth = selectList[ii][idx].length;
+		}
+	}
+	
+	return maxWidth;
+}
+
+	
+// 保存已经选中的数据
+function saveSelectedValue( objName )
+{
+	var	i;
+	var	idx = -1;
+	
+	var	allCode = getAllCode();
+	var	obj = document.getElementById( objName );
+	for (i=0; i<obj.options.length; i++) {
+		// 判断是否选中
+		if( obj.options[i].selected == true ){
+			idx = obj.options[i].value;
+			break;
+		}
+	}
+	
+	// 执行函数
+	if( idx < 0 ){
+		return;
+	}
+	
+	var	selectedData = allCode[idx];
+	var	func = getFunction() + '( selectedData )';
+	eval( func );
+}
+
+
+// 热键
+document.onkeydown = defaultKeydown;
+
+function defaultKeydown()
+{
+	var	keyCode = window.event.keyCode;
+	if( keyCode == 27 ){
+		hideWindow();
+	}
+	else if( window.event.ctrlKey && keyCode == 83 ){
+		submitPress();
+	}
+	else if( keyCode == 9 ){
+		// 设置焦点
+		_nextField();
+	}
+}
+
+// 导航到下一个域
+function _nextField( )
+{
+	var	obj = window.event.srcElement;
+	if( obj == null ){
+		return;
+	}
+	
+	var	id = obj.id;
+	if( id == null ){
+		return;
+	}
+	
+	// 查找当前域
+	var	ii;
+	var	fieldList = ['close', 's1', 'ok', 'close'];
+	
+	for( ii=0; ii<fieldList.length; ii++ ){
+		if( fieldList[ii] == id ){
+			break;
+		}
+	}
+	
+	if( ii >= fieldList.length ){
+		ii = 0;
+	}
+	
+	// 设置焦点
+	var	obj = document.getElementById( fieldList[ii+1] );
+	if( obj != null ){
+		obj.focus();
+	}
+	
+	window.event.keyCode = 0;
+	window.event.returnValue = false;
+}
+
+
+
+	
+/***************把字符串转成select的option项****************
+函数：生成列表
+createSelectItem()
+************************************************/
+function createSelectItem( ){
+	// 生成列表
+	var	allCode = getAllCode();
+	var	showColumn = getShowColunm();
+	addOptionValue( "s1", allCode, showColumn );
+}
+
+// 返回选中的记录
+function submitPress()
+{
+	saveSelectedValue( 's1', false );
+	hideWindow();
+}
+
+function selectItem()
+{
+	if( event.keyCode == 13 ){
+		submitPress();
+	}
+}
+
+
+// 初始化页面
+function initPage()
+{
+	// 调整宽度
+	var w = document.getElementById( 'blist' );
+	var rows = w.rows;
+	var sp = rows[1].cells[0].childNodes[0];
+	sp.style.width = w.clientWidth - 8;
+	
+	var sl = sp.childNodes[0];
+	sl.style.width = w.clientWidth - 4;
+	
+	var param = window.parent._browseParameter;
+	init( param.selectList, param.selectedValue, param.showColumn, param.selectFunction );
+	
+	// 设置焦点：如果点击比较快，关闭窗口时域可能还没有显示，会出错
+	try{
+		document.getElementById('s1').focus();
+	} catch( e ){ }
+}
+</script>
+</head>
+
+<body leftmargin="0" topmargin="0" onload="initPage()">
+	<table id='blist' class='td_color' width="100%" bgcolor='#efefef' border="0" cellspacing="0" cellpadding="0">
+	<tr><td colspan="2" width="100%" class='td_title'>请选择记录</td></tr>
+	<tr><td class='td_input' colspan="2" height="203px" align="center">
+		<span style="width:242px; height:198px; bgcolor:white; border:1px solid #6371B5; overflow:hidden">
+		<select name="s1" id="s1" size="8" style="width:246px; height:202px; cursor:hand; margin-left:-3px; margin-right:-2px; margin-top:-3px; margin-bottom:-2px" onkeydown="selectItem();" ondblclick="submitPress();" onclick="submitPress();" class="option"></select>
+		</span>
+	</td></tr>
+	</table>
+</body>
+</html>

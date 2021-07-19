@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="watermark_classic_thumb.html.title">WCM通用列表页面-水印</title>
+	<link href="../css/common_thumb.css" rel="stylesheet" type="text/css">
+	<link href="../js/resource/all_widgets.css" rel="stylesheet" type="text/css">
+	<style type="text/css">
+		.thumb_grid_data{padding-bottom:30px;}
+		.ext-ie6 .thumb_grid_data{padding-bottom:30px;}
+		.list-navigator{padding-right:20px;}
+		.ext-ie8 .list-navigator{margin-right:20px;}
+		.ext-ie8 .thumb_grid_data{margin-bottom:30px;}
+	</style>
+<link href="../css/wcm-list-classic.css" rel="stylesheet" type="text/css">
+<link href="../watermark/watermark_classic_thumb.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script src="../../app/js/easyversion/cssrender.js"></script>
+<div class="layout-container">
+    <div class="layout-left">
+        <div class="layout-top" id="classic_cnt"></div>
+        <div class="layout-center thumb_grid">
+            <div class="layout_north thumb_grid_head">
+                <div id="list-order-box" style="float:right;"></div>        
+            </div>
+            <div id='wcm_table_grid' class="layout_center_container thumb_grid_data"><!--query页面ajax填充区域--></div>
+            <div id="list_navigator" class="list-navigator"></div>
+        </div>
+        <div class="layout-bottom" id="south_tabs"></div>
+    </div>
+    <div class="layout-right" id="east_opers"></div>
+</div>
+<div id="thumb_template" style="display:none">
+	<div class="opers">
+		<span class="preview" cmd="preview"></span>
+		<span class="edit" cmd="edit"></span>
+		<span class="increasepublish" cmd="increasepublish"></span>   
+	</div>
+</div>
+<div id="thumb_edit_template" style="display:none">
+	<input type="text" name="SiteDesc"/>
+</div>
+<div id="thumb_NoObjectFound" style="display:none;">
+	<div class="no_object_found" WCMAnt:param="list.NoObjectFound">不好意思, 没有找到符合条件的对象!</div>
+</div>
+<div style="position:absolute;left:15px;bottom:42px;"><span WCMAnt:param="watermark_classic_thumb.html.selectAll">全选</span><input type="checkbox" value="" id="selectAll"></div>
+<script src="../js/runtime/lightlib.js"></script>
+<script src="../js/runtime/core_main.js"></script>
+<script src="../js/runtime/abs_thumb.js"></script>
+<script src="../js/runtime/data/list.js"></script>
+<script src="../js/runtime/data/oper_channelwebsite.js"></script>
+<script src="../js/runtime/data/oper_cmsobj_watermark.js"></script>
+<script src="watermark_classic_thumb.html.compress.js"></script>
+<script src="watermark_classic_thumb.js"></script>
+</body>
+</html>

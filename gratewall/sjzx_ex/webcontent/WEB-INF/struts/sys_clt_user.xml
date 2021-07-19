@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>采集策略</menu-name>
+  <menu-path>/page/share/clt/</menu-path>
+  <description>采集策略</description>
+  <form-beans>
+    <form-bean name="SysCltUserForm">
+      <description>采集策略列表</description>
+      <form-property prefix="record" name="sys_clt_user_id" type="string" size="32" cannull="false" description="采集策略id"/>
+      <form-property prefix="record" name="jobname" type="string" size="10" cannull="false" description="调度名称"/>
+      <form-property prefix="record" name="groupname" type="string" size="20" cannull="false" description="调度组名称"/>
+      <form-property prefix="record" name="classname" type="string" size="100" cannull="false" description="调度类全路径"/>
+      <form-property prefix="record" name="name" type="string" size="50" cannull="false" description="采集策略名称"/>
+      <form-property prefix="record" name="state" type="string" size="1" cannull="false" description="采集策略状态"/>
+      <form-property prefix="record" name="oldstate" type="string" size="1" cannull="false" description="采集策略状态修改前"/>
+      <form-property prefix="record" name="strategy" type="string" size="2" cannull="false" description="采集周期"/>
+      <form-property prefix="record" name="strategydesc" type="string" size="100" description="采集策略详细"/>
+      <form-property prefix="record" name="hours" type="string" size="5" cannull="false" description="小时"/>
+      <form-property prefix="record" name="minutes" type="string" size="5" cannull="false" description="分钟"/>
+      <form-property prefix="record" name="seconds" type="string" size="5" cannull="false" description="秒"/>
+      <form-property prefix="record" name="strategytime" type="string" size="100" description="采集时间"/>
+      <form-property prefix="record" name="startdate" type="string" size="10" description="开始时间"/>
+      <form-property prefix="record" name="enddate" type="string" size="10" description="结束日期"/>
+      <form-property prefix="record" name="user_type" type="string" size="10" description="用户类型"/>
+    </form-bean>
+  </form-beans>
+  <action-mappings>
+    <action input="query-sys_clt_user.jsp" name="SysCltUserForm" txn-code="50211001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>采集策略列表</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysCltUser" func-name="txn50211001" output-node="record" description="查询策略对象列表"/>
+      <forward error-code="success" path="query-sys_clt_user.jsp"/>
+      <forward error-code="failure" path="query-sys_clt_user.jsp"/>
+    </action>
+    <action input="query-sys_clt_user.jsp" name="SysCltUserForm" txn-code="50211002" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查看采集策略</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysCltUser" func-name="txn50211002" input-node="record" output-node="record" description="查看策略对象"/>
+      <forward error-code="success" path="update-sys_clt_user.jsp"/>
+      <forward error-code="failure" path="update-sys_clt_user.jsp"/>
+    </action>
+    <action input="update-sys_clt_user.jsp" name="SysCltUserForm" txn-code="50211003" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>更新采集策略</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysCltUser" func-name="txn50211003" input-node="record" output-node="record" description="更新采集策略"/>
+      <forward error-code="success" path="update-sys_clt_user.jsp"/>
+      <forward error-code="failure" path="update-sys_clt_user.jsp"/>
+    </action>
+  </action-mappings>
+</struts-config>
+

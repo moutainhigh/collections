@@ -1,0 +1,36 @@
+<div class="attr_row" style="height:24px;line-height:24px;">
+	<span class="attr_name" style="width:200px;font-weight:bold;font-size:12px">${PUBCONFIG-Desc}:</span>
+</div>
+<div class="attr_row">
+	<span class="attr_name" WCMAnt:param="document_props.jsp.selectTemp" style="white-space:nowrap;width:85px;">选择模板:</span>
+	<span class="attr_name" style="width:16px;padding-top:0;float:left; margin-top: 5px;"><span id="template_setting" _action="selectTemplate"></span></span>
+	<span id="spDetailTemp" _origTempId="${DocTemplateId}" _tempid="${DocTemplateId}" _tempname="${TEMPLATE-HTMLVALUE}" title="${TEMPLATE-HTMLVALUE}" style="color:green;font-weight:bold;width:90px;white-space:nowrap; text-overflow:ellipsis; overflow:hidden;display:inline-block;">
+		${TRUNCATE-HTML}
+	</span>
+</div>
+<div style="display:${MYISCANPUB};">
+	<div class="attr_row" style="height:50px;">
+		<span class="attr_name" style="width:130px;white-space:nowrap;" _action="defineSchedule">
+			<input type="checkbox" id="ip_DefineSchedule" name="DefineSchedule" IsBoolean="1" ${SCHEDULE-CHECKBOX}>
+			<label for="ip_DefineSchedule" WCMAnt:param="document_props.jsp.pubTimeVal_a">定时发布:</label>
+		</span>
+		<span id="sp_PublishOnTime" style="float:left;width:200px;padding-left:25px;overflow:hidden;display:${DEFINESCHEDULE-YES}">
+			<span>
+				<input class="calendarText" type="text" name="ScheduleTime" id="ScheduleTime" value="${EXECTIME}" elname="定时发布" WCMAnt:paramattr="elname:document_props.jsp.pubTimeVal">
+				<button type="button" class="DTImg" id="btnScheduleTime"><img src="../images/icon/TRSCalendar.gif" border=0 alt="" class="img"></button>
+			</span>
+		</span>
+		<span id="sp_NoPublish" style="width:50px;display:${DEFINESCHEDULE-NO}" WCMAnt:param="document_props.jsp.no">无</span>
+	</div>
+	<div class="attr_row" style="height:50px;">
+		<span class="attr_name" style="width:130px;white-space:nowrap;">
+			<input type="checkbox" name="unpubjob" id="unpubjob" value="" onclick="onPubjobset();" ${UNPUBJOB-CHECKBOX}>
+			<label for="unpubjob" WCMAnt:param="document_props.jsp.unpubschedule_a">定时撤稿:</label>												
+		</span>
+		<span id="unpubjobdatetime" style="float:left;width:200px;overflow:hidden;padding-left:25px;display:${UNPUBJOB-DATETIME}">
+			<input type="hidden" name="UnpubSchId" id="UnpubSchId" value="${UNPUBJOB-ID}">
+			<input type="text" name="UNPUBTIME" id="UNPUBTIME" value='${UNPUBJOB-EXECTIME}' class="calendarText" elname="定时撤稿" WCMAnt:paramattr="elname:document_props.jsp.unpubschedule">
+			<button id="btnCalunpubtime" type="button" class="DTImg"><IMG alt="" src="../images/icon/TRSCalendar.gif" border=0 class="img"></button>
+		</span>									
+	</div>
+</div>

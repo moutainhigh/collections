@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<chart caption=''  bgColor='F7F7F7, E9E9E9'
+numVDivLines='11' divLineAlpha='30' baseFontSize='12' showLabels='0'
+labelPadding ='12' yAxisValuesPadding ='13' showValues='0' rotateValues='1' valuePosition='' formatNumberScale='0' 
+labelStep='${(list?size/7)?int}'  slantLabels='1'>
+<categories><#list list as x><category label='${x.month}' /></#list></categories>
+<#if query_index?index_of("调用次数") gte 0 >
+	<dataset seriesName='调用次数' renderAs='Line' color='5b9bd5' ><#list list as x><set value='${x.times}' /></#list></dataset>
+</#if>
+<#if query_index?index_of("共享数据量") gte 0 >
+	<dataset seriesName='共享数量' renderAs='Line' color='ed7d31' parentYAxis='S'><#list list as x><set value='${x.num}' /></#list></dataset>
+</#if>
+<#if query_index?index_of("平均响应时间") gte 0 >
+	<dataset seriesName='平均响应时间' renderAs='Line'><#list list as x><set value='${x.AVG_CONSUME_TIME}' /></#list></dataset>
+</#if>
+</chart>

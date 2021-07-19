@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script>
+<script type="text/javascript">
+	function _btn1(){
+		$("#border_id").panel("layoutSwitch", "west", 50);
+	}
+	function _btn2(){
+		$("#border_id").panel("layoutSwitch", "east", 40);
+	}
+	function _btn3(){
+		$("#border_id").panel("layoutSwitch", "north", 50);
+	}
+	function _btn4(){
+		$("#border_id").panel("layoutSwitch", "south", 30);
+	}
+</script>
+</head>
+<body>
+	<div id="border_id" vtype="panel" title="border布局" titledisplay="false" showborder="false"
+		layout="border" layoutconfig=""
+		westdragstart="_westdragstart()">
+		<div region="south" height="100">
+
+		</div>
+		<div region="north" height="100">
+
+		</div>
+		<div region="east" width="100">
+
+		</div>
+		<div region="west" width="120">
+
+		</div>
+		<div region="center">
+
+			<input type="button" value="west" onclick="_btn1()"/>
+			<input type="button" value="east" onclick="_btn2()"/>
+			<input type="button" value="north" onclick="_btn3()"/>
+			<input type="button" value="south" onclick="_btn4()"/>			
+		</div>
+	</div>
+</body>
+</html>

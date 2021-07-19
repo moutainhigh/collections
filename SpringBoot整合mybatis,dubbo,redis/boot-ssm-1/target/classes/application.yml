@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql:///testdb?useSSL=true
+    username: root
+    password: 123
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true # book_id => bookId,book_name=> bookName
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.example.bootssm1.domain # �����������

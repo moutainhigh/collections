@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="download_status.xml" app-path="/dw/aic/download/" app-name="download_status" description="下载申请" template="single-table.xml"/>
+  <table name="download_status.xml" app-name="download_status" app-desc="下载申请" delete-action="delete" description="下载申请" class-name="com.gwssi.dw.aic.download.txn.TxnDownloadStatus" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-download_status.jsp" txn-code="60300001" description="查询下载申请列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加下载申请" path="insert-download_status.jsp" description="增加下载申请" func-name="addRecord"/>
+	    <button type="button" name="修改下载申请" path="/txn60300004.do" description="修改下载申请" func-name="updateRecord"/>
+	    <button type="button" name="删除下载申请" path="/txn60300005.do" description="删除下载申请" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60300001.do" description="查询下载申请信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-download_status.jsp" txn-code="60300003" description="增加下载申请信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60300003.do" description="保存下载申请信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60300003.do" description="保存下载申请信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60300001.do" description="保存下载申请信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60300001.do" description="返回到下载申请明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-download_status.jsp" txn-code="60300002" description="修改下载申请信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60300001.do" description="修改下载申请信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60300001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-download_status.jsp" txn-code="60300001" description="查询下载申请列表">
+	    <forward error-code="success" path="query-download_status.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-download_status.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-download_status.jsp" txn-code="60300002" description="修改下载申请信息">
+	    <forward error-code="success" path="update-download_status.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-download_status.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-download_status.jsp" txn-code="60300003" description="增加下载申请信息">
+	    <forward error-code="success" path="insert-download_status.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-download_status.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-download_status.jsp" txn-code="60300004" description="查询下载申请用于修改">
+	    <forward error-code="success" path="update-download_status.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-download_status.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-download_status.jsp" txn-code="60300005" description="删除下载申请信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.download.vo.DownloadStatusContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.download.vo.VoDownloadStatus" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.download.vo.VoDownloadStatusSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.download.vo.VoDownloadStatusPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

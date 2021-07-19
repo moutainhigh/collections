@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>JAZZ Demos</title>
+    
+
+<link rel="stylesheet" type="text/css" media="screen" href="api/framework/page.css" />
+<link type="text/css" rel="stylesheet" href="api/dp.SyntaxHighlighter/Styles/SyntaxHighlighter.css"/>
+
+<script
+	src="../../static/script/jquery-1.8.3.js"
+	type="text/javascript"></script>
+	
+<style type="text/css"> 
+
+	
+*{margin:0;padding:0;border:0;vertical-align:middle;} 
+html,body { 
+font-family: arial, 宋体, serif; 
+font-size:12px; 
+height: 100%;
+} 
+#nav { 
+line-height: 30px; list-style-type: none; font-size:13px;height: 20%;
+} 
+#nav a { 
+display: block; width: 70px; text-align:center; font-weight:blod;
+} 
+#nav a:link { 
+color:#666; text-decoration: underline;font-weight:blod; 
+} 
+#nav a:visited { 
+color:#666;text-decoration:underline; 
+} 
+#nav a:hover { 
+color:#FFF;text-decoration:none;font-weight:bold; 
+} 
+#nav li { 
+float: left; width: 25%; background:#ffffff;  font-size:15px;
+} 
+#nav li a:hover{ 
+background:#38f; 
+} 
+#nav li ul { 
+line-height: 27px; list-style-type: none;text-align:left; 
+left: -999em; width: 100px; position: absolute; border: 1px solid #EBEBEB;font-size:15px;
+} 
+#nav li ul li{ 
+float: left; width: 100px; 
+background: #ffffff; font-size:14px; 
+} 
+#nav li ul a{ 
+display: block; width: 100px;text-align:left;padding-left:24px; 
+} 
+#nav li ul a:link { 
+color:#666; text-decoration:none; 
+} 
+#nav li ul a:visited { 
+color:#666;text-decoration:none; 
+} 
+
+ li ul a:hover { 
+color:#F3F3F3;text-decoration:none;font-weight:normal; 
+background:#38f; font-size:16px;
+} 
+#nav li:hover ul { 
+left: auto; 
+} 
+#nav li.sfhover ul { 
+left: auto; 
+} 
+#content { 
+clear: left; 
+} 
+
+.s_btn{width:100px;height:44px;color:white;font-size:15px;letter-spacing:1px;background:#3385ff;border-bottom:1px solid #2d78f4;outline:medium;*border-bottom:0;-webkit-appearance:none;-webkit-border-radius:0}
+.s_btn:hover{
+cursor:pointer;
+
+}
+
+
+
+.gzclass:link {
+		font-family: arial, 宋体, serif; 
+		font-size:12px; 
+    text-decoration: none;
+    color:#000000;
+}
+.gzclass:visited {
+		font-family: arial, 宋体, serif; 
+		font-size:12px; 
+	    text-decoration: none;
+	    color:#000000;
+}
+.gzclass:hover {
+		font-family: arial, 宋体, serif; 
+		font-size:12px; 
+	    text-decoration: none;
+	    color:#38f;
+}
+.gzclass:active {
+		font-family: arial, 宋体, serif; 
+		font-size:12px; 
+    text-decoration: none;
+    color:#000000;
+}
+.apple {border-style:solid;border-width:1px;border-color:#999;width: 60%;height: 37px;}
+.mytable{border:1px solid #999;width:50%} 
+ #q {
+  margin-left: 0px;
+  width: 100%;
+  height: 37px;
+  border: 0px solid #999;
+  border-left:none;
+  border:none;
+  border-style:none;
+　　background:none;
+  font-size: 2em;
+  padding: 0.1em;
+}
+
+input:focus {
+    outline:none;
+}
+.sel{
+width:80px;
+}
+select:focus {
+    outline:none;
+	
+}
+
+
+.select { width:80px; height:24px; background:none; border:none; }    
+#sleHid { display:block; width:60px; overflow:hidden; }    
+#sleBG  { width:60px; height:24px; border:#61AC36 0px solid; border-right:none;  background:url("selArr.png") #fff no-repeat 42px 1px;  display:block;}
+
+
+
+	
+	.float_right{
+	    float:right;
+		background-color:#f0f0f0;
+		height:100%;
+	    width:100px;
+	    position:absolute;
+	    left:1250px;
+	}
+	
+	.float_left{
+		float:left;
+		width: 1240px;
+		height:100%;
+	}
+	
+	.div_line{
+		margin-top:15%; width:95%;height:1px;background-color:#676767;overflow:hidden;
+	}
+	
+	.div_moredata{
+		margin:20%;
+		padding:0%;
+	}
+	
+	.none_decoration{
+		text-decoration:none;
+	}
+	
+	 .text_padding{
+		margin-right:2%;
+	}
+	
+	
+	
+	  .MenuLevel4{
+		 display:block;
+		 font-size:12px ;
+		 color:#333333 ; 
+		 background-color:#fff;
+		 height:20px ;
+		 line-height:20px ;
+		 padding:3px 0 0 18px;
+		 border-bottom:1px #efefef solid;
+		}	
+		
+			
+		.SubMenuLayer{
+				 display:inline ;
+				 cursor:hand ;
+				}
+				
+		.SubMenuLayerHidden{
+				 display:none ;
+				 cursor:hand ;
+				}
+	
+	#nav li a {
+	display:inline;
+	width:20px;
+	margin:15px;
+	border-radius:3px 3px 3px 3px;
+}
+
+	#nav li ul li a:hover{
+		margin:0px;
+		 background-size:2px;
+		 padding-left:20px;
+		border-radius:4px 4px 4px 4px;
+	}
+	#nav li ul li a{
+		margin:0px;
+		padding-left:20px;
+		border-radius:4px 4px 4px 4px;
+	}
+	
+	#nav li ul{
+		margin-top:-6px;
+		padding:1px;
+		margin-left:-10px;
+		width:120px;
+		border-radius:8px 8px 8px 8px;
+	}
+	#search a{
+	font-size:16px;margin:10px;font-weight:bold;
+	}
+</style> 
+<script type=text/javascript><!--//--><![CDATA[//><!-- 
+
+var datajson=[{	
+	'bbgl':'报表管理1',
+	'data':[{'rcbb':'日常报表1','sanji':[{'java':'java书本1'},{'asp':'asp书本1'}]}
+	,{'rcbb':'自定义报表1','sanji':[{'java':'java书本2'},{'asp':'asp书本2'}]}
+	,{'rcbb':'啊啊啊啊1','sanji':[{'java':'java书本3'},{'asp':'asp书本3'}]}]
+},{	
+	'bbgl':'报表管理2',
+	'data':[{'rcbb':'日常报表2','sanji':[{'java':'java书本4'},{'asp':'asp书本4'}]}
+	,{'rcbb':'自定义报表2','sanji':[{'java':'java书本5'},{'asp':'asp书本5'}]}
+	,{'rcbb':'啊啊啊啊2','sanji':[{'java':'java书本6'},{'asp':'asp书本6'}]}]
+},{	
+	'bbgl':'报表管理3',
+	'data':[{'rcbb':'日常报表3','sanji':[{'java':'java书本7'},{'asp':'asp书本7'}]}
+	,{'rcbb':'自定义报表3','sanji':[{'java':'java书本8'},{'asp':'asp书本8'}]}
+	,{'rcbb':'啊啊啊啊3','sanji':[{'java':'java书本9'},{'asp':'asp书本9'}]}]
+},{	
+	'bbgl':'报表管理4',
+	'data':[{'rcbb':'日常报表4','sanji':[{'java':'java书本10'},{'asp':'asp书本10'}]}
+	,{'rcbb':'自定义报表4','sanji':[{'java':'java书本111'},{'asp':'asp书本11'}]}
+	,{'rcbb':'啊啊啊啊4','sanji':[{'java':'java书本12'},{'asp':'asp书本12'}]}]
+}];
+
+var jsonleft=[
+	{'dataleft':'搜索1'},{'dataleft':'搜索2'},{'dataleft':'搜索3'},{'dataleft':'搜索4'}
+];
+
+
+
+	//应用
+	$(function datajsright(){	
+				 $.each(datajson, function(i, n){
+						$('<li><a href="#"><b>'+n.bbgl+'</b></a><ul></ul></li>').appendTo($('#nav')).end(); 
+					$.each(n.data,function(j,m){
+						$('<li><a href="#"  onclick="javascript:spreadMenu('+i+','+j+')">'+m.rcbb+'</a><div id="SubSubMenu'+i+j+'" class="SubMenuLayerHidden" style="overflow-y:block;"></div></li>').appendTo($('#nav li:last-child ul ')).end();
+					$.each(m.sanji,function(jj,mm){
+						for(var key in mm){
+							$('<a href="#" class="MenuLevel4">'+mm[key]+'</a></li>').appendTo($('#nav li:last-child ul  li:last-child div')).end();
+							}
+						});	
+					});
+				 	
+				}
+			);
+	}
+	)
+	//搜索
+	$(function datajsleft(){
+				$.each(jsonleft,function(i,n){
+					$('<a href="#" >'+n.dataleft+'</a>').appendTo($('#search')).end(); 
+				});
+		}
+	)
+
+
+
+	
+function getXMLHttpRequest() {   
+    var xhr;   
+    try {   
+        xhr = new XMLHttpRequest();   
+  
+    } catch (err1) {   
+        try {   
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");   
+        } catch (err2) {   
+            alert("您的浏览器版本不支持Ajax....");   
+        }   
+    }   
+    return xhr;   
+}   	
+			
+function spreadMenu(k,n){
+					 var szSubMenuClassName = document.getElementById('SubSubMenu'+k+n).className;
+					   if (szSubMenuClassName == 'SubMenuLayerHidden'){
+					    document.getElementById('SubSubMenu'+k+n).className = 'SubMenuLayer' ;
+					   }
+					   else{
+					    document.getElementById('SubSubMenu'+k+n).className = 'SubMenuLayerHidden' ;
+					   }
+					//-----------
+					$('#nav').bind("mouseleave",handlerInOut);
+					function handlerInOut(){
+							$('#nav li ul li div').removeClass('SubMenuLayer');
+							$('#nav li ul li div').addClass('SubMenuLayerHidden');
+						}	
+					}
+						
+//--><!]]></script> 
+
+</head> 
+<body>
+<div style="width:100%; height:100%;position:relative;" > 
+
+<div  class="float_left" >
+<div id="search" style="float:left;margin:0.5%;margin-left:1%;"></div>	
+
+
+<div style="width:100%;" >
+	<ul id="nav" style="float:right;"> 
+</ul> 
+
+
+</div >
+
+	
+	<div align="center" style="margin-top:15%;margin-left:8%">
+		<img alt="广东省工商局" src="img/bdlogo.png" style="background:#ffffff;margin-left:0%;border-radius:5px 5px 5px 5px;"  width=30%/>
+	</div>
+	
+	<div style="margin-top:2%;margin-left:38%;">
+						<input type="text" value="输入内容" style="padding-right:0;height:40px;width:40%;border: 1px solid #ACACAC;border-radius:5px 5px;">
+						<input type="button" value="查询" class="s_btn"   onclick="allaction(44);" style="padding-left:0;height:42px;width:12%;margin-left:-1%;border-radius:0px 5px 5px 0px;">
+					</div>
+</div>
+
+
+
+
+
+
+
+		
+</div>
+
+  
+  
+</body> 
+</html>

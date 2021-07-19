@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sys-function SYSTEM "sys-function.dtd">
+<sys-function>
+  <func-info func-code="901001" func-name="应用程序管理">
+    <txn-info txn-code="901031" txn-name="组件和插件列表"/>
+    <txn-info txn-code="901032" txn-name="查看初始化数据"/>
+    <txn-info txn-code="901033" txn-name="查看初始化数据"/>
+    <txn-info txn-code="901034" txn-name="查看系统表"/>
+    <txn-info txn-code="901035" txn-name="生成系统表"/>
+    <txn-info txn-code="901001" txn-name="应用程序列表"/>
+    <txn-info txn-code="901002" txn-name="修改应用程序信息"/>
+    <txn-info txn-code="901003" txn-name="增加应用程序信息"/>
+    <txn-info txn-code="901004" txn-name="选择一个应用程序"/>
+    <txn-info txn-code="901005" txn-name="删除应用程序信息"/>
+    <txn-info txn-code="901007" txn-name="创建工程"/>
+  </func-info>
+
+  <func-info func-code="902600" func-name="系统参数维护">
+    <txn-info txn-code="902602" txn-name="修改系统配置信息"/>
+    <txn-info txn-code="902604" txn-name="查询系统配置信息"/>
+    <txn-info txn-code="902611" txn-name="查询JDBC配置信息"/>
+    <txn-info txn-code="902612" txn-name="修改JDBC配置信息"/>
+    <txn-info txn-code="902613" txn-name="增加JDBC配置信息"/>
+    <txn-info txn-code="902614" txn-name="定位JDBC配置信息"/>
+    <txn-info txn-code="902615" txn-name="删除JDBC配置信息"/>
+    <txn-info txn-code="902617" txn-name="查询JTA配置信息"/>
+    <txn-info txn-code="902618" txn-name="修改JTA配置信息"/>
+    <txn-info txn-code="902621" txn-name="查询交易容器配置信息"/>
+    <txn-info txn-code="902622" txn-name="修改交易容器配置信息"/>
+    <txn-info txn-code="902623" txn-name="增加交易容器配置信息"/>
+    <txn-info txn-code="902624" txn-name="定位交易容器配置信息"/>
+    <txn-info txn-code="902625" txn-name="删除交易容器配置信息"/>
+    <txn-info txn-code="902641" txn-name="查询用户自定义配置信息"/>
+    <txn-info txn-code="902642" txn-name="修改用户自定义配置信息"/>
+    <txn-info txn-code="902643" txn-name="增加用户自定义配置信息"/>
+    <txn-info txn-code="902644" txn-name="查询用户自定义配置信息"/>
+    <txn-info txn-code="902645" txn-name="删除用户自定义配置信息"/>
+    <txn-info txn-code="902661" txn-name="查询资源配置文件信息"/>
+    <txn-info txn-code="902662" txn-name="修改资源配置文件信息"/>
+    <txn-info txn-code="902663" txn-name="增加资源配置文件信息"/>
+    <txn-info txn-code="902664" txn-name="定位资源配置文件信息"/>
+    <txn-info txn-code="902665" txn-name="删除资源配置文件信息"/>
+  </func-info>
+
+  <func-info func-code="902700" func-name="错误代码维护">
+    <txn-info txn-code="902701" txn-name="错误代码列表"/>
+    <txn-info txn-code="902702" txn-name="修改错误代码"/>
+    <txn-info txn-code="902703" txn-name="增加错误代码"/>
+    <txn-info txn-code="902704" txn-name="选择一个错误代码"/>
+    <txn-info txn-code="902705" txn-name="删除错误代码"/>
+  </func-info>
+
+  <func-info func-code="902400" func-name="页面框架开发">
+    <txn-info txn-code="902431" txn-name="JSP文件列表"/>
+    <txn-info txn-code="902432" txn-name="修改JSP文件信息"/>
+    <txn-info txn-code="902433" txn-name="增加JSP文件信息"/>
+    <txn-info txn-code="902434" txn-name="查询JSP文件信息"/>
+    <txn-info txn-code="902435" txn-name="删除JSP文件信息"/>
+    <txn-info txn-code="902441" txn-name="TXN文件列表"/>
+    <txn-info txn-code="902442" txn-name="修改TXN文件信息"/>
+    <txn-info txn-code="902443" txn-name="增加TXN文件信息"/>
+    <txn-info txn-code="902444" txn-name="查询TXN文件信息"/>
+    <txn-info txn-code="902445" txn-name="删除TXN文件信息"/>
+    <txn-info txn-code="902451" txn-name="JSP文件的按钮列表"/>
+    <txn-info txn-code="902452" txn-name="修改JSP文件的按钮信息"/>
+    <txn-info txn-code="902453" txn-name="增加JSP文件的按钮信息"/>
+    <txn-info txn-code="902454" txn-name="查询JSP文件的按钮信息"/>
+    <txn-info txn-code="902455" txn-name="删除JSP文件的按钮信息"/>
+    <txn-info txn-code="902461" txn-name="TXN文件的FORWARD列表"/>
+    <txn-info txn-code="902462" txn-name="修改TXN文件的FORWARD信息"/>
+    <txn-info txn-code="902463" txn-name="增加TXN文件的FORWARD信息"/>
+    <txn-info txn-code="902464" txn-name="查询TXN文件的FORWARD信息"/>
+    <txn-info txn-code="902465" txn-name="删除TXN文件的FORWARD信息"/>
+    <txn-info txn-code="902501" txn-name="取JSP框架的模板列表"/>
+    <txn-info txn-code="902502" txn-name="生成JSP页面框架"/>
+    <txn-info txn-code="902504" txn-name="显示JSP页面框架"/>
+    <txn-info txn-code="902505" txn-name="JSP框架设计功能列表"/>
+    <txn-info txn-code="902402" txn-name="保存菜单文件信息"/>
+    <txn-info txn-code="902404" txn-name="取菜单文件信息"/>
+    <txn-info txn-code="902412" txn-name="保存菜单节点信息"/>
+    <txn-info txn-code="902413" txn-name="保存菜单节点信息"/>
+    <txn-info txn-code="902414" txn-name="取菜单节点信息"/>
+    <txn-info txn-code="902415" txn-name="删除菜单节点信息"/>
+    <txn-info txn-code="902416" txn-name="增加根菜单节点信息"/>
+    <txn-info txn-code="902417" txn-name="插入菜单节点信息"/>
+  </func-info>
+
+  <func-info func-code="902100" func-name="DAO配置文件管理">
+    <txn-info txn-code="902101" txn-name="配置文件列表"/>
+    <txn-info txn-code="902102" txn-name="修改配置文件"/>
+    <txn-info txn-code="902103" txn-name="增加配置文件"/>
+    <txn-info txn-code="902104" txn-name="查询配置文件"/>
+    <txn-info txn-code="902105" txn-name="删除配置文件"/>
+    <txn-info txn-code="902111" txn-name="配置文件的COLUMN、INDEX、FOREIGN-KEY和FUNCTION查询"/>
+    <txn-info txn-code="902112" txn-name="修改Column配置信息"/>
+    <txn-info txn-code="902113" txn-name="增加Column配置信息"/>
+    <txn-info txn-code="902114" txn-name="选择Column配置信息"/>
+    <txn-info txn-code="902115" txn-name="删除Column配置信息"/>
+    <txn-info txn-code="902116" txn-name="查询未添加的字段信息"/>
+    <txn-info txn-code="902117" txn-name="批量增加字段信息"/>
+    <txn-info txn-code="902121" txn-name="配置文件的COLUMN、INDEX、FOREIGN-KEY和FUNCTION查询"/>
+    <txn-info txn-code="902122" txn-name="修改Index配置信息"/>
+    <txn-info txn-code="902123" txn-name="增加Index配置信息"/>
+    <txn-info txn-code="902124" txn-name="选择Index配置信息"/>
+    <txn-info txn-code="902125" txn-name="删除Index配置信息"/>
+    <txn-info txn-code="902131" txn-name="配置文件的COLUMN、INDEX、FOREIGN-KEY和FUNCTION查询"/>
+    <txn-info txn-code="902132" txn-name="修改FK配置信息"/>
+    <txn-info txn-code="902133" txn-name="修改FK配置信息"/>
+    <txn-info txn-code="902134" txn-name="选择FK配置信息"/>
+    <txn-info txn-code="902135" txn-name="删除FK配置信息"/>
+    <txn-info txn-code="902151" txn-name="配置文件的COLUMN、INDEX、FOREIGN-KEY和FUNCTION查询"/>
+    <txn-info txn-code="902152" txn-name="修改Function配置信息"/>
+    <txn-info txn-code="902153" txn-name="增加Function配置信息"/>
+    <txn-info txn-code="902154" txn-name="选择Function配置信息"/>
+    <txn-info txn-code="902155" txn-name="删除Function配置信息"/>
+    <txn-info txn-code="902162" txn-name="修改Filter配置信息"/>
+    <txn-info txn-code="902163" txn-name="修改Filter配置信息"/>
+    <txn-info txn-code="902164" txn-name="选择Filter配置信息"/>
+    <txn-info txn-code="902165" txn-name="删除Filter配置信息"/>
+    <txn-info txn-code="902172" txn-name="保存组件的源代码"/>
+    <txn-info txn-code="902174" txn-name="加载组件的源代码"/>
+    <txn-info txn-code="902176" txn-name="保存VO对象的源代码"/>
+    <txn-info txn-code="902177" txn-name="加载VO对象的源代码"/>
+    <txn-info txn-code="902182" txn-name="生成建表语句"/>
+  </func-info>
+
+  <func-info func-code="902200" func-name="交易配置文件管理">
+    <txn-info txn-code="902371" txn-name="生成资源文件的维护界面"/>
+    <txn-info txn-code="902372" txn-name="修改功能的相关文件"/>
+    <txn-info txn-code="902373" txn-name="增加功能的相关文件"/>
+    <txn-info txn-code="902374" txn-name="查询功能的相关文件"/>
+    <txn-info txn-code="902375" txn-name="删除功能的相关文件"/>
+    <txn-info txn-code="902393" txn-name="生成资源文件的目录结构"/>
+    <txn-info txn-code="902356" txn-name="保存组件的源代码"/>
+    <txn-info txn-code="902357" txn-name="加载组件的源代码"/>
+    <txn-info txn-code="901501" txn-name="取向导列表"/>
+    <txn-info txn-code="901511" txn-name="生成功能的向导程序"/>
+    <txn-info txn-code="901512" txn-name="重新生成功能"/>
+    <txn-info txn-code="901513" txn-name="功能重构"/>
+    <txn-info txn-code="901514" txn-name="功能重构"/>
+    <txn-info txn-code="901521" txn-name="查看模板文件的内容"/>
+    <txn-info txn-code="901522" txn-name="创建空的JSP文件"/>
+    <txn-info txn-code="902201" txn-name="配置文件列表"/>
+    <txn-info txn-code="902202" txn-name="修改配置文件"/>
+    <txn-info txn-code="902203" txn-name="增加配置文件"/>
+    <txn-info txn-code="902204" txn-name="查询配置文件的基本信息"/>
+    <txn-info txn-code="902205" txn-name="删除配置文件"/>
+    <txn-info txn-code="902391" txn-name="所有Struts的Form列表"/>
+    <txn-info txn-code="902392" txn-name="所有Struts的Action列表"/>
+    <txn-info txn-code="902221" txn-name="配置文件的FORM和ACTION查询"/>
+    <txn-info txn-code="902222" txn-name="修改FORM配置信息"/>
+    <txn-info txn-code="902223" txn-name="增加FORM配置信息"/>
+    <txn-info txn-code="902224" txn-name="查询FORM配置信息"/>
+    <txn-info txn-code="902225" txn-name="删除FORM配置信息"/>
+    <txn-info txn-code="902231" txn-name="查询FORM的PROPERTY配置信息"/>
+    <txn-info txn-code="902232" txn-name="修改FORM的属性配置信息"/>
+    <txn-info txn-code="902233" txn-name="增加FORM的属性配置信息"/>
+    <txn-info txn-code="902234" txn-name="查询FORM的属性配置信息"/>
+    <txn-info txn-code="902235" txn-name="删除FORM的属性配置信息"/>
+    <txn-info txn-code="902236" txn-name="从数据表中选择字段用于批量增加"/>
+    <txn-info txn-code="902237" txn-name="批量增加从数据表中选中的字段"/>
+    <txn-info txn-code="902241" txn-name="配置文件的FORM和ACTION查询"/>
+    <txn-info txn-code="902242" txn-name="修改ACTION配置信息"/>
+    <txn-info txn-code="902243" txn-name="增加ACTION配置信息"/>
+    <txn-info txn-code="902244" txn-name="查询ACTION配置信息"/>
+    <txn-info txn-code="902245" txn-name="删除ACTION配置信息"/>
+    <txn-info txn-code="902251" txn-name="查询ACTION的FORWARD配置信息"/>
+    <txn-info txn-code="902252" txn-name="修改FORWARD配置信息"/>
+    <txn-info txn-code="902253" txn-name="增加FORWARD配置信息"/>
+    <txn-info txn-code="902254" txn-name="查询FORWARD配置信息"/>
+    <txn-info txn-code="902255" txn-name="删除ACTION配置信息"/>
+    <txn-info txn-code="902261" txn-name="查询ACTION的STEP配置信息"/>
+    <txn-info txn-code="902262" txn-name="修改ACTION的STEP配置信息"/>
+    <txn-info txn-code="902263" txn-name="增加ACTION的STEP配置信息"/>
+    <txn-info txn-code="902264" txn-name="查询ACTION的STEP配置信息"/>
+    <txn-info txn-code="902265" txn-name="删除ACTION的STEP配置信息"/>
+    <txn-info txn-code="902272" txn-name="修改ACTION的STEP配置信息"/>
+    <txn-info txn-code="902273" txn-name="增加ACTION的STEP配置信息"/>
+    <txn-info txn-code="902274" txn-name="查询ACTION的STEP配置信息"/>
+    <txn-info txn-code="902275" txn-name="删除ACTION的STEP配置信息"/>
+    <txn-info txn-code="902282" txn-name="修改ACTION的STEP配置信息"/>
+    <txn-info txn-code="902283" txn-name="增加ACTION的STEP配置信息"/>
+    <txn-info txn-code="902284" txn-name="查询ACTION的STEP配置信息"/>
+    <txn-info txn-code="902285" txn-name="删除ACTION的STEP配置信息"/>
+    <txn-info txn-code="902292" txn-name="保存组件的源代码"/>
+    <txn-info txn-code="902294" txn-name="加载组件的源代码"/>
+    <txn-info txn-code="902352" txn-name="保存JSP文件"/>
+    <txn-info txn-code="902354" txn-name="加载JSP文件"/>
+    <txn-info txn-code="902361" txn-name="检查所有JSP文件的有效性"/>
+    <txn-info txn-code="902362" txn-name="生成配置文件的目录结构"/>
+    <txn-info txn-code="902381" txn-name="ACTION页面向导:取配置信息"/>
+    <txn-info txn-code="902382" txn-name="ACTION页面向导:生成页面"/>
+  </func-info>
+
+  <func-info func-code="903101" func-name="系统功能维护">
+    <txn-info txn-code="903101" txn-name="系统功能列表"/>
+    <txn-info txn-code="903102" txn-name="修改系统功能"/>
+    <txn-info txn-code="903103" txn-name="增加系统功能"/>
+    <txn-info txn-code="903104" txn-name="查询系统功能"/>
+    <txn-info txn-code="903105" txn-name="删除系统功能"/>
+    <txn-info txn-code="903111" txn-name="查询功能的交易列表"/>
+    <txn-info txn-code="903113" txn-name="增加功能的交易信息"/>
+    <txn-info txn-code="903115" txn-name="删除功能的交易信息"/>
+    <txn-info txn-code="903116" txn-name="批量查询交易列表"/>
+    <txn-info txn-code="903117" txn-name="批量增加交易列表"/>
+  </func-info>
+
+  <func-info func-code="903121" func-name="系统用户维护">
+    <txn-info txn-code="903121" txn-name="系统用户列表"/>
+    <txn-info txn-code="903122" txn-name="修改系统用户"/>
+    <txn-info txn-code="903123" txn-name="增加系统用户"/>
+    <txn-info txn-code="903124" txn-name="查询系统用户"/>
+    <txn-info txn-code="903125" txn-name="删除系统用户"/>
+    <txn-info txn-code="903126" txn-name="修改系统用户密码"/>
+    <txn-info txn-code="903131" txn-name="查询用户的功能列表"/>
+    <txn-info txn-code="903135" txn-name="删除用户的功能信息"/>
+    <txn-info txn-code="903136" txn-name="批量查询功能列表"/>
+    <txn-info txn-code="903137" txn-name="批量增加功能列表"/>
+  </func-info>
+
+  <func-info func-code="980300" func-name="功能权限维护">
+    <txn-info txn-code="980301" txn-name="查询功能信息列表"/>
+    <txn-info txn-code="980302" txn-name="修改功能信息资料"/>
+    <txn-info txn-code="980303" txn-name="增加功能信息资料"/>
+    <txn-info txn-code="980304" txn-name="查询功能信息用于修改"/>
+    <txn-info txn-code="980305" txn-name="删除功能信息"/>
+    <txn-info txn-code="980307" txn-name="移动功能节点/修改上级节点的功能代码"/>
+    <txn-info txn-code="980308" txn-name="生成功能的交易列表文档"/>
+    <txn-info txn-code="980309" txn-name="导出功能信息"/>
+    <txn-info txn-code="980311" txn-name="查询功能交易列表"/>
+    <txn-info txn-code="980313" txn-name="增加功能交易资料"/>
+    <txn-info txn-code="980315" txn-name="删除功能交易信息"/>
+    <txn-info txn-code="980316" txn-name="批量查询交易列表"/>
+    <txn-info txn-code="980317" txn-name="批量增加交易列表"/>
+  </func-info>
+
+  <func-info func-code="980320" func-name="业务角色维护">
+    <txn-info txn-code="980321" txn-name="查询业务角色列表"/>
+    <txn-info txn-code="980322" txn-name="修改业务角色资料"/>
+    <txn-info txn-code="980323" txn-name="增加业务角色资料"/>
+    <txn-info txn-code="980324" txn-name="查询业务角色用于修改"/>
+    <txn-info txn-code="980325" txn-name="删除业务角色信息"/>
+    <txn-info txn-code="980326" txn-name="设置角色的状态"/>
+    <txn-info txn-code="980327" txn-name="设置角色的权限信息"/>
+  </func-info>
+
+  <func-info func-code="980001" func-name="代码表维护">
+    <txn-info txn-code="980001" txn-name="代码索引列表查询"/>
+    <txn-info txn-code="980002" txn-name="增加代码索引信息"/>
+    <txn-info txn-code="980003" txn-name="查询代码索引信息"/>
+    <txn-info txn-code="980004" txn-name="禁止代码索引信息"/>
+    <txn-info txn-code="980005" txn-name="修改代码索引信息"/>
+    <txn-info txn-code="980006" txn-name="导出代码信息"/>
+    <txn-info txn-code="980011" txn-name="获取代码信息的列表"/>
+    <txn-info txn-code="980012" txn-name="增加代码信息"/>
+    <txn-info txn-code="980013" txn-name="查询一个代码的信息"/>
+    <txn-info txn-code="980014" txn-name="禁止代码信息"/>
+    <txn-info txn-code="980015" txn-name="修改代码信息"/>
+    <txn-info txn-code="980017" txn-name="批量增加代码信息"/>
+  </func-info>
+
+  <func-info func-code="980100" func-name="业务参数维护">
+    <txn-info txn-code="980101" txn-name="查询业务参数列表"/>
+    <txn-info txn-code="980102" txn-name="修改业务参数资料"/>
+    <txn-info txn-code="980103" txn-name="增加业务参数资料"/>
+    <txn-info txn-code="980104" txn-name="查询业务参数用于修改"/>
+    <txn-info txn-code="980105" txn-name="删除业务参数信息"/>
+  </func-info>
+
+  <func-info func-code="991000" func-name="知识库维护">
+    <txn-info txn-code="991002" txn-name="修改知识节点"/>
+    <txn-info txn-code="991003" txn-name="增加新知识"/>
+    <txn-info txn-code="991004" txn-name="删除知识节点"/>
+    <txn-info txn-code="991005" txn-name="查询知识节点"/>
+    <txn-info txn-code="991006" txn-name="插入新知识"/>
+    <txn-info txn-code="991007" txn-name="移动节点"/>
+  </func-info>
+
+  <func-info func-code="992000" func-name="知识库检索">
+    <txn-info txn-code="992001" txn-name="检索内容"/>
+  </func-info>
+
+  <func-info func-code="993100" func-name="BUG信息登记">
+    <txn-info txn-code="993101" txn-name="未处理错误查询"/>
+    <txn-info txn-code="993104" txn-name="定位错误信息"/>
+    <txn-info txn-code="993102" txn-name="修改错误信息"/>
+    <txn-info txn-code="993103" txn-name="增加错误信息"/>
+    <txn-info txn-code="993121" txn-name="错误分类列表"/>
+    <txn-info txn-code="993122" txn-name="修改错误分类信息"/>
+    <txn-info txn-code="993123" txn-name="增加错误分类信息"/>
+    <txn-info txn-code="993124" txn-name="选择一个错误分类"/>
+    <txn-info txn-code="993125" txn-name="删除错误分类信息"/>
+  </func-info>
+
+  <func-info func-code="993110" func-name="已处理BUG信息">
+    <txn-info txn-code="993111" txn-name="已处理错误查询"/>
+    <txn-info txn-code="993104" txn-name="定位错误信息"/>
+    <txn-info txn-code="993106" txn-name="回退错误信息"/>
+  </func-info>
+
+  <func-info func-code="902800" func-name="设计文档维护">
+    <txn-info txn-code="902891" txn-name="生成设计文档"/>
+    <txn-info txn-code="902892" txn-name="生成设计文档"/>
+    <txn-info txn-code="902893" txn-name="生成交易列表文档"/>
+    <txn-info txn-code="902894" txn-name="生成数据库设计文档"/>
+    <txn-info txn-code="902895" txn-name="生成数据字典文档"/>
+    <txn-info txn-code="902896" txn-name="生成功能权限配置文档"/>
+    <txn-info txn-code="902801" txn-name="业务类列表"/>
+    <txn-info txn-code="902802" txn-name="修改业务类信息"/>
+    <txn-info txn-code="902803" txn-name="增加业务类信息"/>
+    <txn-info txn-code="902804" txn-name="查询一个业务类信息"/>
+    <txn-info txn-code="902805" txn-name="删除业务类信息"/>
+    <txn-info txn-code="902811" txn-name="业务类的方法列表"/>
+    <txn-info txn-code="902812" txn-name="修改业务类的方法信息"/>
+    <txn-info txn-code="902813" txn-name="增加业务类的方法信息"/>
+    <txn-info txn-code="902814" txn-name="查询一个业务类的方法信息"/>
+    <txn-info txn-code="902815" txn-name="删除业务类的方法信息"/>
+  </func-info>
+
+  <func-info func-code="980401" func-name="流程配置管理">
+    <txn-info txn-code="980411" txn-name="查询流程动作列表"/>
+    <txn-info txn-code="980412" txn-name="修改流程的处理步骤"/>
+    <txn-info txn-code="980413" txn-name="增加流程的处理步骤"/>
+    <txn-info txn-code="980414" txn-name="查询流程动作用于修改"/>
+    <txn-info txn-code="980415" txn-name="删除流程的的处理步骤"/>
+    <txn-info txn-code="980401" txn-name="查询复核流程列表"/>
+    <txn-info txn-code="980402" txn-name="修改复核流程资料"/>
+    <txn-info txn-code="980403" txn-name="增加复核流程资料"/>
+    <txn-info txn-code="980404" txn-name="查询复核流程用于修改"/>
+    <txn-info txn-code="980405" txn-name="删除复核流程信息"/>
+    <txn-info txn-code="980407" txn-name="修改流程的上级节点"/>
+  </func-info>
+
+  <func-info func-code="980501" func-name="用户管理">
+    <txn-info txn-code="980501" txn-name="查询内部机构管理列表"/>
+    <txn-info txn-code="980502" txn-name="修改内部机构管理资料"/>
+    <txn-info txn-code="980503" txn-name="增加内部机构管理资料"/>
+    <txn-info txn-code="980504" txn-name="查询内部机构管理用于修改"/>
+    <txn-info txn-code="980505" txn-name="删除内部机构管理信息"/>
+    <txn-info txn-code="980506" txn-name="查询机构目录"/>
+    <txn-info txn-code="980507" txn-name="调整上级机构"/>
+  </func-info>
+
+  <func-info func-code="970201" func-name="工作流监控">
+    <txn-info txn-code="970201" txn-name="查询所有任务列表"/>
+    <txn-info txn-code="970204" txn-name="查看任务的处理日志"/>
+  </func-info>
+
+  <func-info func-code="981101" func-name="通知信息维护">
+    <txn-info txn-code="981101" txn-name="查询通知列表"/>
+    <txn-info txn-code="981102" txn-name="修改通知资料"/>
+    <txn-info txn-code="981103" txn-name="增加通知资料"/>
+    <txn-info txn-code="981104" txn-name="查询通知用于修改"/>
+    <txn-info txn-code="981105" txn-name="删除通知信息"/>
+    <txn-info txn-code="981115" txn-name="查看通知信息,不修改状态,不检查用户"/>
+  </func-info>
+
+  <func-info func-code="980120" func-name="业务序号管理">
+    <txn-info txn-code="980121" txn-name="查询业务序号列表"/>
+    <txn-info txn-code="980122" txn-name="修改业务序号资料"/>
+    <txn-info txn-code="980123" txn-name="增加业务序号资料"/>
+    <txn-info txn-code="980124" txn-name="查询业务序号用于修改"/>
+    <txn-info txn-code="980125" txn-name="删除业务序号信息"/>
+  </func-info>
+
+  <func-info func-code="981130" func-name="电子邮件管理">
+    <txn-info txn-code="981131" txn-name="查询发送的电子邮件"/>
+    <txn-info txn-code="981133" txn-name="发送电子邮件"/>
+    <txn-info txn-code="981134" txn-name="查看电子邮件"/>
+    <txn-info txn-code="981135" txn-name="删除电子邮件"/>
+    <txn-info txn-code="981136" txn-name="再次发送电子邮件"/>
+    <txn-info txn-code="981141" txn-name="查询已经删除的电子邮件"/>
+    <txn-info txn-code="981142" txn-name="设置电子邮件的标志"/>
+    <txn-info txn-code="981143" txn-name="恢复电子邮件的删除标志"/>
+    <txn-info txn-code="981151" txn-name="查询结束的电子邮件"/>
+    <txn-info txn-code="981152" txn-name="接收邮件"/>
+    <txn-info txn-code="981153" txn-name="邮件分类"/>
+    <txn-info txn-code="981154" txn-name="下载邮件的附件"/>
+    <txn-info txn-code="981161" txn-name="后台自动发送邮件"/>
+    <txn-info txn-code="981171" txn-name="查询邮件分类列表"/>
+    <txn-info txn-code="981172" txn-name="修改邮件分类资料"/>
+    <txn-info txn-code="981173" txn-name="增加邮件分类资料"/>
+    <txn-info txn-code="981174" txn-name="查询邮件分类用于修改"/>
+    <txn-info txn-code="981175" txn-name="删除邮件分类信息"/>
+  </func-info>
+
+  <func-info func-code="980160" func-name="任务表维护">
+    <txn-info txn-code="980161" txn-name="查询任务列表"/>
+    <txn-info txn-code="980162" txn-name="修改任务资料"/>
+    <txn-info txn-code="980163" txn-name="增加任务资料"/>
+    <txn-info txn-code="980164" txn-name="查询任务用于修改"/>
+    <txn-info txn-code="980165" txn-name="删除任务信息"/>
+  </func-info>
+
+  <func-info func-code="981210" func-name="业务日志查询">
+    <txn-info txn-code="981211" txn-name="查询业务日志列表"/>
+    <txn-info txn-code="981214" txn-name="查询业务日志"/>
+  </func-info>
+
+  <func-info func-code="901010" func-name="协议管理">
+    <txn-info txn-code="901011" txn-name="生成证书"/>
+    <txn-info txn-code="901021" txn-name="协议列表查询"/>
+    <txn-info txn-code="901025" txn-name="删除协议文件"/>
+    <txn-info txn-code="901024" txn-name="查看协议内容"/>
+    <txn-info txn-code="901023" txn-name="生成协议"/>
+  </func-info>
+
+  <func-info func-code="902671" func-name="服务器证书管理">
+    <txn-info txn-code="902671" txn-name="签发的证书列表"/>
+    <txn-info txn-code="902673" txn-name="签发新的证书"/>
+    <txn-info txn-code="902675" txn-name="删除证书信息"/>
+    <txn-info txn-code="902676" txn-name="从主域服务器下载证书"/>
+    <txn-info txn-code="902677" txn-name="查看证书信息"/>
+  </func-info>
+
+  <func-info func-code="902950" func-name="数据库管理">
+    <txn-info txn-code="902951" txn-name="数据表列表"/>
+    <txn-info txn-code="902953" txn-name="数据表列表"/>
+    <txn-info txn-code="902954" txn-name="数据表列表"/>
+    <txn-info txn-code="902956" txn-name="增加字段"/>
+    <txn-info txn-code="902957" txn-name="修改字段"/>
+  </func-info>
+
+  <func-info func-code="980500" func-name="机构用户管理">
+    <txn-info txn-code="980501" txn-name="查询机构列表"/>
+    <txn-info txn-code="980502" txn-name="修改机构信息"/>
+    <txn-info txn-code="980503" txn-name="增加机构信息"/>
+    <txn-info txn-code="980504" txn-name="查询机构用于修改"/>
+    <txn-info txn-code="980505" txn-name="删除机构信息"/>
+    <txn-info txn-code="980508" txn-name="机构的目录结构"/>
+    <txn-info txn-code="980509" txn-name="修改机构的目录结构"/>
+    <txn-info txn-code="98050a" txn-name="修改机构的分类代码信息"/>
+    <txn-info txn-code="980511" txn-name="查询用户列表"/>
+    <txn-info txn-code="980512" txn-name="修改用户信息"/>
+    <txn-info txn-code="980513" txn-name="增加用户信息"/>
+    <txn-info txn-code="980514" txn-name="查询用户用于修改"/>
+    <txn-info txn-code="980515" txn-name="删除用户信息"/>
+    <txn-info txn-code="98051b" txn-name="修改记录的状态"/>
+    <txn-info txn-code="980591" txn-name="查询分区列表"/>
+    <txn-info txn-code="980592" txn-name="修改分区信息"/>
+    <txn-info txn-code="980593" txn-name="增加分区信息"/>
+    <txn-info txn-code="980594" txn-name="查询分区用于修改"/>
+    <txn-info txn-code="980595" txn-name="删除分区信息"/>
+    <txn-info txn-code="980598" txn-name="分区的目录结构"/>
+    <txn-info txn-code="980599" txn-name="修改分区的目录结构"/>
+  </func-info>
+
+  <signature>YlyVXf7f3ukwYUKI0DnCuWoc2X8sUFW5</signature>
+</sys-function>
+

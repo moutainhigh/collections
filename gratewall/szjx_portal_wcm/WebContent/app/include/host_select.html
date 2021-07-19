@@ -1,0 +1,349 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<TITLE WCMAnt:param="host_select.html.title">检索栏目选择</TITLE>
+<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+<style type="text/css">
+	.selection_row{line-height:25px;height:25px;text-align:center;font-size:12px;color:#010101;}
+	.page_desc{font-size:12px;width:100%;hegith:100%;height:25px;line-height:25px;font-weight:normal;font-size:14px;width:300px;}
+	.page_desc_wicon{width:100%;height:100%;background-image:url(../images/include/pagedesc_bg.png);padding-left:5px;border-bottom:1px solid silver;}
+	#divSiteType{height: 310px; width: 300px;padding-top:10px;padding-left:10px;font-size:12px;}
+</style>
+</HEAD>
+
+<BODY>
+<div class="page_desc">
+	<div class="page_desc_wicon" WCMAnt:param="host_select.html.select">
+		选择库、站点或栏目导航
+	</div>
+</div>
+<div id="divOptions" style="border-bottom:1px solid #efefef; padding-top: 3px; padding-bottom: 3px;">
+	<span class="selection_row"><input id="rdSiteType" type="radio" name="Position" value="" onclick="switch2SiteType()" disabled>&nbsp;<span WCMAnt:param="host_select.html.warehouse">库节点</span></span>
+	<span class="selection_row"><input id="rdSiteChnl" type="radio" name="Position" value="" onclick="switch2SiteList(true)" disabled>&nbsp;<span WCMAnt:param="host_select.html.siteNavigation">站点导航</span></span>
+	<span class="selection_row"><input id="rdChnlChild" type="radio" name="Position" value="" onclick="switch2SiteList(false)" disabled>&nbsp;<span WCMAnt:param="host_select.html.chnlNavigation">栏目导航</span></span>
+</div>
+<div id="divSiteType">
+    <div id="r_0" style="height:25px;line-height:25px;">
+        <input type="radio" name="siteType" id="siteType0" value="0"> <label for="siteType0" WCMAnt:param="host_select.html.textWarehouse">文字库</label>
+    </div>
+    <div id="r_1" style="height:25px;line-height:25px;" id="photoWare">
+        <input type="radio" name="siteType" id="siteType1" value="1"> <label for="siteType1" WCMAnt:param="host_select.html.PicWarehouse">图片库</label>
+    </div>
+	    <div id="r_2" style="height:25px;line-height:25px;" id="radioWare">
+        <input type="radio" name="siteType" id="siteType2" value="2"> <label for="siteType2" WCMAnt:param="host_select.html.RadioWarehouse">视频库</label>
+    </div>
+    <div id="r_4" style="height:25px;line-height:25px;">
+        <input type="radio" name="siteType" id="siteType4" value="4"> <label for="siteType4" WCMAnt:param="host_select.html.resourceWarehouse">资源库</label>
+    </div>
+</div>
+<div id="divTreeNavChnl" style="display: none; height: 310px; width: 100%;">
+</div>
+<div id="divTreeNavSite" style="display: none; height: 310px; width: 100%;">
+</div>
+<script src="../js/easyversion/lightbase.js"></script>
+<script src="../js/easyversion/extrender.js"></script>
+<script src="../js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../js/data/locale/include.js"></script>
+<script src="../js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog end-->
+<script language="javascript">
+window.m_fpCfg = {
+	m_arrCommands : [{
+		cmd : 'getSeletedIds',
+		name : wcm.LANG.INCLUDE_BUTTON_1 || '确定'
+	}],
+	size : [320, 400]
+};
+</script>
+<script>
+	function getSiteType(){
+		try{
+			return getParameter('sitetype') || top.$('nav_tree').contentWindow.findFocusNodeSiteType();
+		}catch(error){
+			//just skip it.
+		}
+		return 0;
+	}
+	function getSiteId(){
+		try{
+			return getParameter('siteids') || top.$('nav_tree').contentWindow.findFocusNodeSiteId();
+		}catch(error){
+			//just skip it.
+		}
+		return 0;
+	}
+	function getChannelId(){
+		try{
+			return getParameter('channelids') || top.$('nav_tree').contentWindow.findFocusNodeChannelId();
+		}catch(error){
+			//just skip it.
+		}
+		return 0;
+	}
+	var PageContext = {};
+	Object.extend(PageContext, {
+		channelids : getParameter('channelids'),
+		siteids : getParameter('siteids'),
+		sitetype : getParameter('sitetype'),
+		hidechannel : getParameter('hidechannel') == 1,
+		hidesite : getParameter('hidesite') == 1,
+		hidesitetype : getParameter('hidesitetype') == 1,
+		siteTypes : getParameter('SiteTypes') || '0,1,2,4'
+	});
+	var m_sTreeChnlParams = $toQueryStr2({
+		isRadio : getParameter('IsRadio') || 0,
+		excludeTop : getParameter('ExcludeTop') || 0,
+		excludeVirtual : getParameter('ExcludeVirtual') || 0,
+		excludeLink : getParameter('ExcludeLink') || 0,
+		excludeChildren : getParameter('ExcludeChildren') || 0,
+		excludeSelf : getParameter('ExcludeSelf') || 0,
+		siteTypes : getParameter('SiteTypes') || '0,1,2,4',
+		showOneType : getParameter('showOneType') || (getParameter('MultiSiteType') ? 0 : 1) ,
+		rightIndex : getParameter('rightIndex') || 0,
+		sitetype : getParameter('sitetype') || 0,
+		selectedChannelIds : getParameter('channelids') || '',
+		CurrSiteId : getParameter('CurrSiteId') || 0,
+		MultiSiteType : getParameter('MultiSiteType') || 0,     //(getParameter('showOneType') ? 0 : 1),
+		unSelectDisabledNoRight : getParameter('unSelectDisabledNoRight') || 1,
+		ExcludeInfoView : getParameter('ExcludeInfoView') || 1
+	});
+	var m_sTreeSiteParams = $toQueryStr({
+		isRadio : getParameter('IsRadio') || 0,
+		excludeSelf : getParameter('ExcludeSelf') || 0,
+		siteTypes : getParameter('SiteTypes') || '0,1,2,4',
+		rightIndex : getParameter('rightIndex') || 0,
+		sitetype : getSiteType() || 0,
+		CurrSiteType : getSiteType() || 0,
+		unSelectDisabledNoRight : getParameter('unSelectDisabledNoRight') || 1,
+		SelectedSiteIds : getSiteId() || ''
+	});
+	function getSeletedIds(){
+		var result = {};
+		if($('rdSiteType').checked) {
+            var selectedSiteTypeId = 0;
+            var selectedSiteTypeDesc = wcm.LANG.INCLUDE_TEXTWAREHOUSE || '文字库';
+            var aSiteType = document.getElementsByName("siteType");
+            for (var i = 0; i < aSiteType.length; i++){
+                if(aSiteType[i].checked){
+                    selectedSiteTypeId = aSiteType[i].value;
+					selectedSiteTypeDesc = aSiteType[i].parentNode.innerText || aSiteType[i].parentNode.textContent || "";
+                    break;
+                }
+            }
+			result['sitetype'] = [{id: selectedSiteTypeId, name: selectedSiteTypeDesc}];
+			result.hostType = 1;
+			result.hostIds = selectedSiteTypeId;
+		}else{
+			if($('rdChnlChild').checked) {//栏目
+				Object.extend(result, __getSelectedNavIds('frmTreeNavChnl', 'channels'));
+				result.hostType = 101;
+				result.hostIds = getIds('frmTreeNavChnl');
+				result.hostNames = getNames('frmTreeNavChnl');
+			}else{//站点
+				Object.extend(result, __getSelectedNavIds('frmTreeNavSite', 'sites'));
+				result.hostType = 103;
+				result.hostIds = getIds('frmTreeNavSite');
+			}
+		}
+		if(result.hostIds.trim() == ""){
+			Ext.Msg.alert(wcm.LANG.INCLUDE_TITLE_12 || "未选择任何节点！");
+			return false;
+		}
+		notifyFPCallback(result);
+		if(getParameter('closebyme') === '1') return false;
+		return true;
+	}
+	function getIds(_sNavId){
+		return $(_sNavId).contentWindow.getCheckValues().join(',');
+	}
+	function getNames(_sNavId){
+		return $(_sNavId).contentWindow.getCheckNames().join(',');
+	}
+	function __getSelectedNavIds(_sNavId, _sFieldName){
+		var arrSelIds = $(_sNavId).contentWindow.getCheckValues();
+		var arrSelNames = $(_sNavId).contentWindow.getCheckNames();
+		var result = {};
+		if(arrSelIds.length != 0) {
+			var arrIds = [];
+			for (var i = 0; i < arrSelIds.length; i++){
+				arrIds.push({id: arrSelIds[i], name: arrSelNames[i]});
+			}
+			if(arrIds.length != 0) {
+				result[_sFieldName] = arrIds;
+			}
+		}
+		return result;
+	}
+	var m_bFirstShowSite = true, m_bFirstShowChnl = true;
+	function switch2SiteList(_bFlag){
+		Element.hide('divSiteType');
+		if(_bFlag === true) {// 站点
+			//TODO
+			if(m_bFirstShowSite) {
+				loadSiteNav();
+				m_bFirstShowSite = false;
+			}
+			Element.hide('divTreeNavChnl');
+			Element.show('divTreeNavSite');
+		}else{//栏目
+			if(m_bFirstShowChnl) {
+				loadChnlNav();
+				m_bFirstShowChnl = false;
+			}
+			Element.hide('divTreeNavSite');
+			Element.show('divTreeNavChnl');
+		}
+	}
+	function switch2SiteType(){
+		Element.hide('divTreeNavChnl');
+		Element.hide('divTreeNavSite');
+		Element.show('divSiteType');
+		var rdType = $('siteType'+PageContext.sitetype);
+		if(rdType)rdType.checked = true;
+		else{
+			//如果没有找到合适的节点，则默认选中文字库
+			rdType=$('siteType0');
+			if(rdType)rdType.checked = true;
+		}
+	}
+	function loadChnlNav(){
+		var arrUrl = [
+			WCMConstants.WCM6_PATH,
+			'nav_tree/nav_tree_select.jsp?',
+			m_sTreeChnlParams
+		];
+		var html = [
+			'<iframe id="frmTreeNavChnl" src="',
+			arrUrl.join(''),
+			'" frameborder="0" scrolling="no" allowtransparency="true">',
+			'</iframe>'
+		];
+		Element.update('divTreeNavChnl', html.join(''));
+		m_bFirstShowChnl = false;
+	}
+	function loadSiteNav(){
+		var arrUrl = [
+			WCMConstants.WCM6_PATH,
+			'nav_tree/nav_tree_select_site.jsp?',
+			m_sTreeSiteParams
+		];
+		var html = [
+			'<iframe id="frmTreeNavSite" src="',
+			arrUrl.join(''),
+			'" frameborder="0" scrolling="no" allowtransparency="true">',
+			'</iframe>'
+		];
+		Element.update('divTreeNavSite', html.join(''));
+		m_bFirstShowSite = false;
+	}
+</SCRIPT>
+<script language="javascript">
+Event.observe(window,'load',function(){
+	if(PageContext.siteTypes.indexOf('1')==-1){
+		Element.hide('photoWare');
+	};
+	if(PageContext.siteTypes.indexOf('2')==-1){
+		Element.hide('radioWare');
+	}
+});
+(function(){
+	$('rdSiteType').disabled = false;
+	$('rdSiteChnl').disabled = false;
+	$('rdChnlChild').disabled = false;
+	if(PageContext.hidesitetype){
+		$('rdSiteType').disabled = true;
+		Element.hide('divSiteType');
+	}
+	if(PageContext.hidechannel){
+		$('rdChnlChild').disabled = true;
+		Element.hide('divTreeNavChnl');
+	}
+	if(PageContext.hidesite){
+		$('rdSiteChnl').disabled = true;
+		Element.hide('divTreeNavSite');
+	}
+	if(PageContext.siteids != '' && !PageContext.hidesite) {
+		$('rdSiteChnl').checked = true;
+		switch2SiteList(true);
+		return;
+	}
+	if(PageContext.channelids != '' && !PageContext.hidechannel) {
+		$('rdChnlChild').checked = true;
+		switch2SiteList(false);
+		return;
+	}
+	//PageContext.sitetype != ''
+	if(!PageContext.hidesitetype){
+		$('rdSiteType').checked = true;
+		switch2SiteType();	
+	}
+	var arr = document.getElementsByName('Position');
+	for(var i=0,n=arr.length;i<n;i++){
+		if(arr[i].disabled)continue;
+		if(arr[i].checked)break;
+		arr[i].checked = true;
+		switch2SiteList(i==1);
+		return;
+	}
+})();
+</script>
+<!--WCM-1763 | 提供一个系统工具，可以对WCM导航树中的某些节点设置为显示或不显示-->
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script language="javascript">
+<!--
+	Event.observe(window, 'load', function(){
+		var CustomizeInfo = window.top.m_CustomizeInfo;	//获得父页面关于是否显示导航树的相关值		
+		if(!CustomizeInfo){
+			var oHelper = new com.trs.web2frame.BasicDataHelper();
+			oHelper.JspRequest("../individuation/systemindividuation_get.jsp",{},false, 
+				function(transport,json){				
+					if(!json){
+						return;
+					}
+					var adiv=document.getElementsByTagName("div");
+					for(var i=0;i<adiv.length;i++){
+						if(adiv[i].id=="r_0" && json["TEXTLIB"]=="false"){
+							document.getElementById("r_0").style.display = "none"; 
+						}else if(adiv[i].id=="r_1" && json["PICTURELIB"]=="false"){
+							document.getElementById("r_1").style.display = "none";
+						}else if(adiv[i].id=="r_2" && json["VIDEOLIB"]=="false"){
+							document.getElementById("r_2").style.display = "none";
+						}else if(adiv[i].id=="r_4" && json["RESOURCESLIB"]=="false"){
+							document.getElementById("r_4").style.display = "none";
+						}
+					}
+				}
+			);
+		}else{
+			var adiv=document.getElementsByTagName("div");
+			if(!CustomizeInfo["textLib"]){
+				return;
+			}
+			for(var i=0;i<adiv.length;i++){
+				if(adiv[i].id=="r_0" && CustomizeInfo["textLib"].paramValue=="false"){
+					document.getElementById("r_0").style.display = "none";
+				}else if(adiv[i].id=="r_1" && CustomizeInfo["pictureLib"].paramValue=="false"){
+					document.getElementById("r_1").style.display = "none";
+				}else if(adiv[i].id=="r_2" && CustomizeInfo["videoLib"].paramValue=="false"){
+					document.getElementById("r_2").style.display = "none";
+				}else if(adiv[i].id=="r_4" && CustomizeInfo["resourcesLib"].paramValue=="false"){
+					document.getElementById("r_4").style.display = "none";
+				}
+			}
+		}
+	});
+
+//-->
+</script>
+</BODY>
+</HTML>

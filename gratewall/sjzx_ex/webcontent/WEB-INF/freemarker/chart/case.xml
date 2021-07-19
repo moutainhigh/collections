@@ -1,0 +1,23 @@
+<chart palette="3" caption="近四个月各类案件办结情况" PYAxisName="" SYAxisName="" 
+animation="1" showValues="0" formatNumberScale="0" numberPrefix=""
+captionPadding="1" chartTopMargin="1" chartBottomMargin="5" chartLeftMargin="5" showLabels="0"
+ seriesNameInToolTip="0"><categories>
+<category label="${day1!}月" />
+<category label="${day2!}月" />
+<category label="${day3!}月" />
+<category label="${day4!}月" />
+</categories>
+<dataset seriesName="简易" parentYAxis="S">
+<set value="${jy1!}"  /><set value="${jy2!}"  />
+<set value="${jy3!}"  /><set value="${jy4!}"  />
+
+</dataset>
+<dataset seriesname="成批吊销">
+<set value="${cp1!}"  /><set value="${cp2!}"  />
+<set value="${cp3!}"  /><set value="${cp4!}"  />
+</dataset>
+<dataset seriesname="一般程序">
+<set value="${yb1!}" /><set value="${yb2!}" />
+<set value="${yb3!}" /><set value="${yb4!}" />
+</dataset>
+</chart>

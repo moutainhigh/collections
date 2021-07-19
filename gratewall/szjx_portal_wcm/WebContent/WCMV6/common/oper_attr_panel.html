@@ -1,0 +1,657 @@
+<html xmlns:TRS xmlns:TRS_UI>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>无标题文档</title>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/oper_attr_panel.css" rel="stylesheet" type="text/css" />
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="UITransformer">
+	$import('com.trs.util.UITransformer');
+</script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.logger.Logger');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script label="Imports">
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.domain.DocumentMgr');
+	$import('com.trs.wcm.domain.ChnlDocMgr');
+	$import('com.trs.wcm.domain.ChannelMgr');
+	$import('com.trs.wcm.domain.WebSiteMgr');
+	$import('com.trs.wcm.domain.PublishMgr');
+	$import('com.trs.wcm.domain.TemplateMgr');
+	$import('com.trs.wcm.domain.ExtendFieldMgr');
+	$import('com.trs.wcm.OperAttrPanel');
+	$import('com.trs.wcm.BubblePanel');
+    $import('com.trs.validator.Validator');
+	$import('com.trs.crashboard.CrashBoarder');
+    $import('wcm52.calendar.Calendar');
+	$import('com.trs.wcm.domain.PhotoMgr');
+	$import('com.trs.wcm.domain.WatermarkMgr');
+	$import('com.trs.wcm.domain.WorkflowMgr');
+	$import('com.trs.wcm.domain.ClassInfoMgr');
+	$import('com.trs.wcm.domain.TableInfoMgr');
+	$import('com.trs.wcm.domain.ViewInfoMgr');
+	$import('com.trs.wcm.domain.FieldInfoMgr');
+</script>
+<script src="oper_attr_js/DocsynMaster.js"></script>
+<script src="../operators/operators_create.jsp"></script>
+<script src="../system/source_create.jsp"></script>
+<script src="../system/status_create.jsp"></script>
+<script src="oper_attr_panel.js" label="PageScope"></script>
+<script language="javascript">
+<!--
+	var sType = getParameter("type");
+	//TODO
+	function determineTypeName(_type){
+		if(_type.toLowerCase() == 'channel') 
+			return '栏目';
+		return '站点';
+	}
+	function updateDesc(_sNewDesc){
+		UIEditPanel.setValue('txt_chnl_desc', _sNewDesc);
+	}
+
+    //=========================日期控件的处理===============================//
+    TRSCalendar.needInput = false;//不要日期控件的输入框
+    Calendar.displayType = 'lb';/*hv*///日期控件的显示位置
+    Calendar.extraDealOnDblClick = function(id, value){//双击日期之后的额外处理
+        var needDealArray = ['docsyndis', 'docsyncol', 'photo'];
+        if(!needDealArray.include(PageContext.params["type"].toLowerCase())){
+            return;
+        }
+        var editId = id.substr(0, id.length-3);
+        var $postData = {fieldName:editId,fieldValue:value};
+        $postData[editId] = value;
+        PageContext.updateAttribute($postData, $(editId));
+    }
+ 	function setTransmitType(oPostData){//更新分发/汇总模式
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+        oHelper.Call('wcm6_documentSyn', 'save', {
+            channelId : PageContext.params["channelid"],
+            objectId : PageContext.params["objectids"],
+            attribute : 'TransmitType=' + oPostData["TransmitType"]
+        }, true, function(){
+            $MessageCenter.sendMessage('main', 'PageContext.RefreshList', 'PageContext', [PageContext.params["objectids"]]);
+        });
+ 	}
+//-->
+</script>
+<!-- Example 属性面板的相关资源 BEGIN -->
+<script src="../example/js/ExampleMgr.js" desc="Example业务对象"></script>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	//==========设置当前页面所涉及面板的类型描述==================================================//
+	//=================面板序号==操作类型==============面板标题==================显示的操作数目===//
+	OperAttrPanel.setConst(2,	'example',			'Example文档操作任务',		6);
+	OperAttrPanel.setConst(2,	'examples',			'多篇Example文档操作任务',	6);
+
+	OperAttrPanel.setConst(3,	'example',			'Example文档详细信息');
+	OperAttrPanel.setConst(3,	'examples',			'多篇Example文档详细信息');
+	//==========设置远程服务ID============================//
+	//==========================对象类型====ServiceId ====//
+	OperAttrPanel.setServiceId('example','wcm6_document');
+//-->
+</SCRIPT>
+<!-- Example 属性面板的相关资源 END -->
+
+<!-- Video 属性面板的相关资源 BEGIN -->
+<script src="../video/js/VideoMgr.js" desc="Video业务对象"></script>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	//==========设置当前页面所涉及面板的类型描述==================================================//
+	//=================面板序号==操作类型==============面板标题==================显示的操作数目===//
+	OperAttrPanel.setConst(1,	'videoInChannel',	'栏目视频操作任务',		3);
+	OperAttrPanel.setConst(1,	'videoInSite',		'站点视频操作任务',		3);
+	
+	OperAttrPanel.setConst(2,	'video',			'视频操作任务',			5);
+	OperAttrPanel.setConst(2,	'videos',			'多个视频操作任务',		5);
+
+	OperAttrPanel.setConst(3,	'video',			'视频详细信息');
+	OperAttrPanel.setConst(3,	'videos',			'多个视频详细信息');
+	//==========设置远程服务ID============================//
+	//==========================对象类型====ServiceId ====//
+//	OperAttrPanel.setServiceId('video','wcm6_document');
+	OperAttrPanel.setServiceId('video','wcm6_viewdocument');
+//-->
+</SCRIPT>
+<!-- Video 属性面板的相关资源 END -->
+
+<!-- fjh@2008-8-15 视频废稿箱独立-->
+<!-- VideoRecycle begin-->
+<script src="../video/js/VideoRecycleMgr.js" desc="视频废稿箱业务对象"></script>
+<SCRIPT LANGUAGE="JavaScript">
+	OperAttrPanel.setConst(1, 'videorecycleInChnl', '废稿箱操作任务', 2);
+	OperAttrPanel.setConst(1, 'videorecycleInSite', '废稿箱操作任务', 2);
+	OperAttrPanel.setConst(2, 'videorecycle', '视频操作任务', 6);
+	OperAttrPanel.setConst(2, 'videorecycles', '视频操作任务', 6);
+	OperAttrPanel.setConst(3, 'videorecycle', '视频详细信息');
+	OperAttrPanel.setConst(3, 'videorecycles', '视频详细信息');
+	OperAttrPanel.setServiceId('videorecycle', 'wcm6_videodocument');
+</SCRIPT>
+<!-- VideoRecycle end-->
+
+<!-- Document 属性面板的相关资源 BEGIN -->
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+/*
+	OperAttrPanel.setConst(1,'documentInChannel','栏目文档操作任务',5);
+	OperAttrPanel.setConst(1,'documentInSite','站点文档操作任务',5);
+	OperAttrPanel.setConst(2,'document','文档操作任务',5);
+	OperAttrPanel.setConst(2,'documents','文档操作任务',5);
+	OperAttrPanel.setConst(3,'document','文档详细信息');
+	OperAttrPanel.setConst(3,'documents','文档详细信息');
+	OperAttrPanel.setServiceId('document','wcm6_document');//*/
+//-->
+</SCRIPT>
+<!-- Document 属性面板的相关资源 END -->
+<!-- Channel 属性面板的相关资源 BEGIN -->
+<SCRIPT LANGUAGE="JavaScript">
+	OperAttrPanel.setConst(2,'channel','栏目操作任务',6);
+	OperAttrPanel.setConst(3,'channel','栏目详细信息');
+	OperAttrPanel.setServiceId('channel','wcm6_channel');
+//-->
+</SCRIPT>
+<!-- Channel 属性面板的相关资源 END -->
+<!-- WebSite 属性面板的相关资源 BEGIN -->
+<SCRIPT LANGUAGE="JavaScript">
+	OperAttrPanel.setConst(2,'website','站点操作任务',6);
+	OperAttrPanel.setConst(3,'website','站点详细信息');
+	OperAttrPanel.setServiceId('website','wcm6_website');
+//-->
+</SCRIPT>
+<!-- WebSite 属性面板的相关资源 END -->
+
+<!-- Distribution 属性面板的相关资源 BEGIN -->
+<script src="../distribution/js/DistributionMgr.js" desc="Distribution业务对象"></script>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	//==========设置当前页面所涉及面板的类型描述==================================================//
+	//=================面板序号==操作类型==============面板标题==================显示的操作数目===//
+	OperAttrPanel.setConst(1,	'distributionInSite',			'站点上分发点操作任务',		5);
+	
+	OperAttrPanel.setConst(2,	'distribution',			'单个分发点操作任务',		6);
+	OperAttrPanel.setConst(2,	'distributions',			'多个分发点操作任务',	6);
+
+	OperAttrPanel.setConst(3,	'distribution',			'单个分发点详细信息');
+	OperAttrPanel.setConst(3,	'distributions',			'多个分发点详细信息');
+	//==========设置远程服务ID============================//
+	//==========================对象类型====ServiceId ====//
+	OperAttrPanel.setServiceId('distribution','wcm6_distribution');
+//-->
+</SCRIPT>
+<!-- Distribution 属性面板的相关资源 END -->
+
+<!-- Replace 属性面板的相关资源 BEGIN -->
+<script src="../replace/js/ReplaceMgr.js" desc="替换内容业务对象"></script>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	//==========设置当前页面所涉及面板的类型描述==================================================//
+	//=================面板序号==操作类型==============面板标题==================显示的操作数目===//
+    OperAttrPanel.setConst(1,	'replaceInChannel',	'栏目替换内容操作任务',		5);
+	OperAttrPanel.setConst(2,	'replace',			'单个替换内容操作任务',		6);
+	OperAttrPanel.setConst(2,	'replaces',			'多个替换内容操作任务',	6);
+
+	OperAttrPanel.setConst(3,	'replace',			'单个替换内容详细信息');
+	OperAttrPanel.setConst(3,	'replaces',			'多个替换内容详细信息');
+	//==========设置远程服务ID============================//
+	//==========================对象类型====ServiceId ====//
+	OperAttrPanel.setServiceId('replace','wcm6_replace');
+//-->
+</SCRIPT>
+<!-- Replace 属性面板的相关资源 END -->
+
+<!-- DocSyn 属性面板的相关资源 BEGIN -->
+<script src="../documentsyn/js/DocSynDisMgr.js" desc="文档同步(分发)业务对象"></script>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	//==========设置当前页面所涉及面板的类型描述==================================================//
+	//=================面板序号==操作类型==============面板标题==================显示的操作数目===//
+    OperAttrPanel.setConst(1,	'docSynDisInChannel',	    '栏目上栏目分发操作',		5);
+	OperAttrPanel.setConst(2,	'docSynDis',			'单个栏目分发操作任务',	6);
+	OperAttrPanel.setConst(2,	'docSynDiss',			'多个栏目分发操作任务',	6);
+
+	OperAttrPanel.setConst(3,	'docSynDis',			'单个栏目分发详细信息');
+	OperAttrPanel.setConst(3,	'docSynDiss',			'多个栏目分发详细信息');
+	//==========设置远程服务ID============================//
+	//==========================对象类型====ServiceId ====//
+	OperAttrPanel.setServiceId('docSynDis','wcm6_documentSyn');
+//-->
+</SCRIPT>
+<script src="../documentsyn/js/DocSynColMgr.js" desc="文档同步(汇总)业务对象"></script>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	//==========设置当前页面所涉及面板的类型描述==================================================//
+	//=================面板序号==操作类型==============面板标题==================显示的操作数目===//
+    OperAttrPanel.setConst(1,	'docSynColInChannel',	    '栏目上栏目汇总操作',		5);
+	OperAttrPanel.setConst(2,	'docSynCol',			'单个栏目汇总操作任务',	6);
+	OperAttrPanel.setConst(2,	'docSynCols',			'多个栏目汇总操作任务',	6);
+
+	OperAttrPanel.setConst(3,	'docSynCol',			'单个栏目汇总详细信息');
+	OperAttrPanel.setConst(3,	'docSynCols',			'多个栏目汇总详细信息');
+	//==========设置远程服务ID============================//
+	//==========================对象类型====ServiceId ====//
+	OperAttrPanel.setServiceId('docSynCol','wcm6_documentSyn');
+//-->
+</SCRIPT>
+<!-- DocSyn 属性面板的相关资源 END -->
+
+<!-- SiteRecycle begin-->
+<script src="../siterecycle/domain/SiteRecycleMgr.js" desc="站点回收站业务对象"></script>
+<SCRIPT LANGUAGE="JavaScript">
+	OperAttrPanel.setConst(1, 'siterecycleHost', '站点回收站操作任务', 2);
+	OperAttrPanel.setConst(2, 'siterecycle', '站点操作任务', 6);
+	OperAttrPanel.setConst(2, 'siterecycles', '站点操作任务', 6);
+	OperAttrPanel.setConst(3, 'siterecycle', '站点详细信息');
+	OperAttrPanel.setConst(3, 'siterecycles', '站点详细信息');
+	OperAttrPanel.setServiceId('siterecycle', 'wcm6_website');
+</SCRIPT>
+<!-- SiteRecycle end-->
+<!-- ChnlRecycle begin-->
+<script src="../chnlrecycle/domain/ChnlRecycleMgr.js" desc="栏目回收站业务对象"></script>
+<SCRIPT LANGUAGE="JavaScript">
+	OperAttrPanel.setConst(1, 'chnlrecycleInChannel', '栏目回收站操作任务', 2);
+	OperAttrPanel.setConst(1, 'chnlrecycleInSite', '栏目回收站操作任务', 2);
+	OperAttrPanel.setConst(2, 'chnlrecycle', '栏目操作任务', 6);
+	OperAttrPanel.setConst(2, 'chnlrecycles', '栏目操作任务', 6);
+	OperAttrPanel.setConst(3, 'chnlrecycle', '栏目详细信息');
+	OperAttrPanel.setConst(3, 'chnlrecycles', '栏目详细信息');
+	OperAttrPanel.setServiceId('chnlrecycle', 'wcm6_channel');
+</SCRIPT>
+<!-- ChnlRecycle end-->
+<!-- DocRecycle begin-->
+<script src="../docrecycle/domain/DocRecycleMgr.js" desc="废稿箱业务对象"></script>
+<SCRIPT LANGUAGE="JavaScript">
+	OperAttrPanel.setConst(1, 'docrecycleInChannel', '废稿箱操作任务', 2);
+	OperAttrPanel.setConst(1, 'docrecycleInSite', '废稿箱操作任务', 2);
+	OperAttrPanel.setConst(2, 'docrecycle', '文档操作任务', 6);
+	OperAttrPanel.setConst(2, 'docrecycles', '文档操作任务', 6);
+	OperAttrPanel.setConst(3, 'docrecycle', '文档详细信息');
+	OperAttrPanel.setConst(3, 'docrecycles', '文档详细信息');
+	OperAttrPanel.setServiceId('docrecycle', 'wcm6_viewdocument');
+</SCRIPT>
+<!-- DocRecycle end-->
+
+<!-- DocSearchResult begin-->
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	OperAttrPanel.setServiceId('chnldoc', 'wcm6_viewdocument');
+	OperAttrPanel.setConst(2, 'chnldoc', '文档操作任务', 6);
+	OperAttrPanel.setConst(2, 'chnldocs', '文档操作任务', 6);
+	OperAttrPanel.setConst(3, 'chnldoc', '文档详细信息');
+	OperAttrPanel.setConst(3, 'chnldocs', '文档详细信息');
+	OperAttrPanel.setConst(3,'docsearchinfo','文档检索条件');
+
+	OperAttrPanel.setConst(1,'documentInChannel','栏目文档操作任务',5);
+	OperAttrPanel.setConst(1,'documentInSite','站点文档操作任务',5);
+
+//-->
+</SCRIPT>
+<!-- DocSearchResult end-->
+
+
+
+<!-- Template begin-->
+<SCRIPT LANGUAGE="JavaScript">
+	OperAttrPanel.setConst(1, 'templateInChannel', '栏目模板操作任务', 3);
+	OperAttrPanel.setConst(1, 'templateInSite', '站点模板操作任务', 3);
+	OperAttrPanel.setConst(2, 'template', '模板操作任务', 6);
+	OperAttrPanel.setConst(2, 'templates', '模板操作任务', 6);
+	OperAttrPanel.setConst(3, 'template', '模板详细信息');
+	OperAttrPanel.setConst(3, 'templates', '模板详细信息');
+	OperAttrPanel.setServiceId('template', 'wcm6_template');
+</SCRIPT>
+<!-- Template end-->
+
+<!-- ContentLink begin-->
+<SCRIPT LANGUAGE="JavaScript">
+	OperAttrPanel.setConst(2, 'contentlink', '热词操作任务', 3);
+	OperAttrPanel.setConst(2, 'contentlinks', '热词操作任务', 3);
+	OperAttrPanel.setConst(3, 'contentlink', '热词详细信息');
+	OperAttrPanel.setConst(3, 'contentlinks', '热词详细信息');
+	OperAttrPanel.setServiceId('contentlink', 'wcm6_contentlink');
+</SCRIPT>
+<!-- ContentLink end-->
+
+<script language="javascript" src="../metadata/key_words.js" type="text/javascript"></script>
+<!-- ClassInfo begin-->
+<SCRIPT LANGUAGE="JavaScript">
+	OperAttrPanel.setConst(1, 'ClassInfoRoot', '系统分类法操作任务', 2);
+	OperAttrPanel.setConst(2, 'ClassInfo', '单个分类法操作任务', 6);
+	OperAttrPanel.setConst(2, 'ClassInfos', '多个分类法操作任务', 6);
+	OperAttrPanel.setConst(3, 'ClassInfo', '单个分类法详细信息');
+	OperAttrPanel.setConst(3, 'ClassInfos', '多个分类法详细信息');
+	OperAttrPanel.setServiceId('ClassInfo', 'wcm6_ClassInfo');
+</SCRIPT>
+<!-- ClassInfo end-->
+<!-- TableInfo begin-->
+<SCRIPT LANGUAGE="JavaScript">
+	OperAttrPanel.setConst(1, 'TableInfoRoot', '系统元数据操作任务', 2);
+	OperAttrPanel.setConst(2, 'TableInfo', '单个元数据操作任务', 6);
+	OperAttrPanel.setConst(2, 'TableInfos', '多个元数据操作任务', 6);
+	OperAttrPanel.setConst(3, 'TableInfo', '单个元数据详细信息');
+	OperAttrPanel.setConst(3, 'TableInfos', '多个元数据详细信息');
+	OperAttrPanel.setServiceId('TableInfo', 'wcm6_MetaDataDef');
+</SCRIPT>
+<!-- TableInfo end-->
+<!-- ViewInfo begin-->
+<SCRIPT LANGUAGE="JavaScript">
+	OperAttrPanel.setConst(1, 'ViewInfoRoot', '系统视图操作任务', 2);
+	OperAttrPanel.setConst(2, 'ViewInfo', '单个视图操作任务', 6);
+	OperAttrPanel.setConst(2, 'ViewInfos', '多个视图操作任务', 6);
+	OperAttrPanel.setConst(3, 'ViewInfo', '单个视图详细信息');
+	OperAttrPanel.setConst(3, 'ViewInfos', '多个视图详细信息');
+	OperAttrPanel.setServiceId('ViewInfo', 'wcm6_MetaDataDef');
+</SCRIPT>
+<!-- ViewInfo end-->
+<!-- FieldInfo begin-->
+<SCRIPT LANGUAGE="JavaScript">
+	OperAttrPanel.setConst(1, 'FieldInfoRoot', '系统字段操作任务', 2);
+	OperAttrPanel.setConst(2, 'FieldInfo', '单个字段操作任务', 6);
+	OperAttrPanel.setConst(2, 'FieldInfos', '多个字段操作任务', 6);
+	OperAttrPanel.setConst(3, 'FieldInfo', '单个字段详细信息');
+	OperAttrPanel.setConst(3, 'FieldInfos', '多个字段详细信息');
+	OperAttrPanel.setServiceId('FieldInfo', 'wcm6_MetaDataDef');
+</SCRIPT>
+<!-- FieldInfo end-->
+<!-- ViewTemplate begin-->
+<script src="../metadata/application/js/ViewTemplateMgr.js" desc="ViewTemplate业务对象"></script>
+<SCRIPT LANGUAGE="JavaScript">
+	OperAttrPanel.setConst(1, 'ViewTemplateRoot', '系统记录操作任务', 5);
+	OperAttrPanel.setConst(2, 'ViewTemplate', '单条记录操作任务', 6);
+	OperAttrPanel.setConst(2, 'ViewTemplates', '多条记录操作任务', 6);
+	OperAttrPanel.setConst(3, 'ViewTemplate', '单条记录详细信息');
+	OperAttrPanel.setConst(3, 'ViewTemplates', '多条记录详细信息');
+	OperAttrPanel.setServiceId('ViewTemplate', 'wcm6_MetaDataCenter');
+</SCRIPT>
+<!-- ViewTemplate end-->
+<!-- ViewClsTemplate begin-->
+<script src="../metadata/application/js/ViewClsTemplateMgr.js" desc="ViewClsTemplate业务对象"></script>
+<SCRIPT LANGUAGE="JavaScript">
+	OperAttrPanel.setConst(1, 'ViewClsTemplateRoot', '系统记录操作任务', 4);
+	OperAttrPanel.setConst(2, 'ViewClsTemplate', '单条记录操作任务', 6);
+	OperAttrPanel.setConst(2, 'ViewClsTemplates', '多条记录操作任务', 6);
+	OperAttrPanel.setConst(3, 'ViewClsTemplate', '单条记录详细信息');
+	OperAttrPanel.setConst(3, 'ViewClsTemplates', '多条记录详细信息');
+	OperAttrPanel.setServiceId('ViewClsTemplate', 'wcm6_MetaDataCenter');
+</SCRIPT>
+<!-- ClassInfoClsMgr begin-->
+<script src="../metadata/application/js/ClassInfoClsMgr.js" desc="ClassInfoCls业务对象"></script>
+<SCRIPT LANGUAGE="JavaScript">
+	OperAttrPanel.setConst(2, 'ClassInfoCls', '单个分类法操作任务', 6);
+	OperAttrPanel.setConst(3, 'ClassInfoCls', '单个分类法详细信息');
+	OperAttrPanel.setServiceId('ClassInfoCls', 'wcm6_ClassInfo');
+</SCRIPT>
+<!-- ClassInfoClsMgr end-->
+
+</head>
+
+<body>
+<div class="oper_attr_panel" id='host_operators' style='display:none'>
+	<div class="oper_attr_panel_header">
+		<div class="oper_attr_panel_title" id='host_operators_title'>正在加载...</div>
+		<div id='host_operators_toggle' class="oper_attr_panel_collapse"></div>
+	</div>
+	<div class="oper_attr_panel_body" id='host_operators_body'>
+		<div class="oper_attr_panel_content" id='host_operators_content'></div>
+		<div id='host_operators_more_btn' click_fun="moreclick" class="wcm_pointer operator_more_btn" title="更多操作"></div>
+	</div>
+	<div class="oper_attr_panel_underside"></div>
+	<div class="oper_attr_panel_sep"></div>
+</div>
+<div class="oper_attr_panel" id='object_operators' style='display:none'>
+	<div class="oper_attr_panel_header">
+		<div class="oper_attr_panel_title" id='object_operators_title'>正在加载...</div>
+		<div id='object_operators_toggle' class="oper_attr_panel_collapse"></div>
+	</div>
+	<div class="oper_attr_panel_body" id='object_operators_body'>
+		<div class="oper_attr_panel_content" id='object_operators_content'></div>
+		<div id='object_operators_more_btn' click_fun="moreclick" class="wcm_pointer operator_more_btn" title="更多操作"></div>
+	</div>
+	<div class="oper_attr_panel_underside"></div>
+	<div class="oper_attr_panel_sep"></div>
+</div>
+<div class="oper_attr_panel" id='object_attribute' style='display:none'>
+	<div class="oper_attr_panel_header">
+		<div class="oper_attr_panel_title" id='object_attribute_title'>正在加载...</div>
+		<div id='object_attribute_toggle' class="oper_attr_panel_collapse"></div>
+	</div>
+	<div class="oper_attr_panel_body" id='object_attribute_body'>
+		<div class="oper_attr_panel_content oper_attr_panel_flexible_content" id='object_attribute_content'></div>
+		<div id='object_attribute_more_btn' click_fun="moreattrclick" class="wcm_pointer object_attribute_more_btn">更多属性</div>
+	</div>
+	<div class="oper_attr_panel_underside"></div>
+</div>
+<!--统一的模板处理-->
+<div id='object_attribute_templates' style='display:none'>	 
+	 <!---~~~~~~~~~~channel begin~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--->
+	 <textarea id="template_channelHost">
+		<div class="attribute_row">
+			{#.}
+		</div>
+	 </textarea>
+	 <!--===============channel attr begin=============================-->
+	 <textarea id="template_channel" select="MultiResult">
+		<div class="attribute_row" style="padding-top: 3px;">
+             <TRS_UI:editPanel id="txt_chnl_desc" value="{#Channel.ChnlDesc}" class="attr_detail_value_doctitle" inputClass="attr_detail_value_doctitle" _fieldName="chnldesc" validation="type:'string',required:'',max_len:'200',desc:'栏目显示名称'" rightIndex="13">
+            </TRS_UI:editPanel>
+		</div>
+        <div class="attribute_row_sep"></div>
+		<div class="attribute_row wcm_desc_info_row">
+			<span title="栏目编号:{#Channel.ChannelId}&#13;创建者:{#Channel.CrUser}&#13;创建时间:{#Channel.CrTime} " style="white-space:nowrap;overflow:hidden;">
+				<span style="">用户</span><span class="desc_info_value">{#Channel.CrUser}</span><span>创建于</span><span class="desc_info_value">{#Channel.CrTime,,getPrettyTime}</span>
+			</span>
+		</div>
+		<div class="attribute_row_sep"></div>
+		<div class="attribute_row">
+			<span class="attribute_name">唯一标识:</span>
+			<span class="attribute_value">
+				<TRS_UI:editPanel value="{#Channel.ChnlName}" class="attr_detail_4words_editor" inputClass="" _fieldName="ChnlName" validation="type:'string',required:'',max_len:'50',desc:'唯一标识'"  rightIndex="13">
+				</TRS_UI:editPanel>
+			</span>
+		</div>
+		<div class="attribute_row">
+			<span class="attribute_name">栏目类型:</span>
+			<span class="attribute_value wcm_readonly">
+				<input type="hidden" id="hdChnlType" value="{#Channel.ChnlType.Id}">
+				<input type="hidden" id="hdChnlOnlySearch" value="{#Channel.CHNLPROP.OnlySearch}">
+				<a href="#" onclick="return false;" class="wcm_readonly">{#Channel.ChnlType.Name}</a>
+			</span>
+		</div>
+		<div class="attribute_row">
+			<span class="attribute_name">栏目位置:</span>
+			<span class="attr_value_short wcm_readonly" title="{#Channel.Parent.Name}">{#Channel.Parent.Name}</span>
+		</div>
+<div id="divLinkUrl" style="width: 100%; height: 100%; display: none">
+        <div class="attribute_row_sep"></div>
+		<div class="attribute_row">
+			<span class="attribute_name">链接地址:</span>
+			<span class="attribute_value">
+            <TRS_UI:editPanel value="{#Channel.LinkUrl}" class="attr_detail_4words_editor" inputClass="" _fieldName="LinkUrl" validation="type:'url',required:'',desc:'链接地址',max_len:'200'" rightIndex="13">
+			</TRS_UI:editPanel>
+            </span>
+		</div>	
+</div>
+<div id="divPublishAttrs" style="width: 100%; height: 100%; display: ">
+        <div class="attribute_row_sep"></div>
+		<div class="attribute_row">
+			<span class="attribute_name">首页模板:</span>
+			<span class="attribute_value">
+				<span class="selected_template">
+					<a href="#" onclick="PageContext.editTemplate({#PublishConfig.OutlineTemplate.Id}, 1, {#Channel.ChannelId}, 101); return false;" class="document_attribute_value document_attribute_value_doctype attribute_readonly" name="channel_editTemplate" rightIndex="23" title="{#PublishConfig.OutlineTemplate, 无}[ID-{#PublishConfig.OutlineTemplate.Id, 0}]&#13;提示:点击进入模板新建/修改页面" rightValue="{#PublishConfig.OutlineTemplate.Right}" templateId="{#PublishConfig.OutlineTemplate.Id}">{#PublishConfig.OutlineTemplate, 无}</a>
+				</span>
+				<span class="template_selector">
+					&nbsp;<a href="#" onclick="PageContext.selectTemplate({#PublishConfig.OutlineTemplate.Id}, 1, {#Channel.ChannelId}, 101); return false;" class="temp_sel_icon" title="选择模板" name="channel_selectTemplate" rightIndex="13"></a>
+				</span>
+            </span>
+		</div>
+		<div class="attribute_row">
+			<span class="attribute_name">细览模板:</span>
+			<span class="attribute_value">
+				<span class="selected_template">
+					<a href="#" onclick="PageContext.editTemplate({#PublishConfig.DetailTemplate.Id}, 2, {#Channel.ChannelId}, 101); return false;" class="document_attribute_value document_attribute_value_doctype attribute_readonly" title="{#PublishConfig.DetailTemplate, 无}[ID-{#PublishConfig.DetailTemplate.Id, 0}]&#13;提示:点击进入模板新建/修改页面" name="channel_editTemplate" rightIndex="23" rightValue="{#PublishConfig.DetailTemplate.Right}" templateId="{#PublishConfig.DetailTemplate.Id}">{#PublishConfig.DetailTemplate, 无}</a>
+				</span>
+				<span class="template_selector">
+					&nbsp;<a href="#" onclick="PageContext.selectTemplate({#PublishConfig.DetailTemplate.Id}, 2, {#Channel.ChannelId}, 101); return false;" class="temp_sel_icon" title="选择模板" name="channel_selectTemplate" rightIndex="13"></a>
+				</span>
+            </span>
+		</div>
+        <div class="attribute_row_sep"></div>
+		<div class="attribute_row">
+			<span class="attribute_name">存放位置:</span>
+			<span class="attribute_value">
+            <TRS_UI:editPanel __type="publish" value="{#PublishConfig.DataPath}" class="attr_detail_4words_editor" inputClass="" _fieldName="datapath" validation="type:'common_char',required:'',desc:'存放位置',max_len:'50'"  rightIndex="13">
+			</TRS_UI:editPanel>
+            </span>
+		</div>
+</div>
+<div id="divPubUrl" style="width: 100%; height: 100%; display: " rightIndex="17">
+		<div class="attribute_row_sep"></div>
+		<div class="attribute_row">
+			<a href="{#PublishConfig.Url}" title="{#PublishConfig.Url}" class="attr_detail_value_docpublishurl" target="_blank">{#PublishConfig.Url}</a>
+		</div>
+</div>
+	 </textarea>
+	 <!--===============channel attr end=============================-->
+	 <textarea id="template_channels">
+		<div class="attribute_row">
+			当前共选中<span class="objects_num">{#Num}</span>个栏目.
+		</div>
+	 </textarea>
+	 <textarea id="template_channelMaster" ref="template_channel"></textarea>
+	 <!---~~~~~~~~~~channel end~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~--->
+
+	 <!--website-->
+	 <textarea id="template_website" select="MultiResult">
+		<div class="attribute_row">
+             <TRS_UI:editPanel value="{#WebSite.SiteDesc}" class="attr_detail_value_doctitle" inputClass="attr_detail_value_doctitle" _fieldName="sitedesc" id="SiteDesc" validation="type:'string',required:'',max_len:'200',desc:'站点显示名称'" rightIndex="1">
+            </TRS_UI:editPanel>
+		</div>
+        <div class="attribute_row_sep"></div>
+		<div class="attribute_row wcm_desc_info_row">
+			<span title="站点编号:{#WebSite.SiteId}&#13;创建者:{#WebSite.CRUser}&#13;创建时间:{#WebSite.CrTime} " style="white-space:nowrap;overflow:hidden;">
+				<span style="">用户</span><span class="desc_info_value">{#WebSite.CrUser}</span><span>创建于</span><span class="desc_info_value">{#WebSite.CrTime,,getPrettyTime}</span>
+			</span>
+		</div>
+		<div class="attribute_row">
+			<span class="attribute_name">唯一标识:</span>
+			<span class="attribute_value"><TRS_UI:editPanel value="{#WebSite.SiteName}" class="attr_detail_4words_editor" inputClass="" _fieldName="sitename" validation="type:'string',required:'',max_len:'50',desc:'站点名称'" rightIndex="1">
+			</TRS_UI:editPanel></span>
+		</div>
+        <div class="attribute_row_sep"></div>
+		<div class="attribute_row">
+			<span class="attribute_name">首页模板:</span>
+			<span class="attribute_value">
+				<span class="selected_template">
+					<a href="#" onclick="PageContext.editTemplate({#PublishConfig.OutlineTemplate.Id}, 1, {#WebSite.SiteId}, 103); return false;" class="document_attribute_value document_attribute_value_doctype attribute_readonly" name="website_editTemplate" rightIndex="23" title="{#PublishConfig.OutlineTemplate, 无}[ID-{#PublishConfig.OutlineTemplate.Id, 0}]&#13;提示:点击进入模板新建/修改页面" rightValue="{#PublishConfig.OutlineTemplate.Right}" templateId="{#PublishConfig.OutlineTemplate.Id}">{#PublishConfig.OutlineTemplate, 无}</a>
+				</span>
+				<span class="template_selector">
+					&nbsp;<a href="#" onclick="PageContext.selectTemplate({#PublishConfig.OutlineTemplate.Id}, 1, {#WebSite.SiteId}, 103); return false;" class="temp_sel_icon" title="选择模板" name="website_selectTemplate" rightIndex="1"></a>
+				</span>
+            </span>
+		</div>
+		<div class="attribute_row">
+			<span class="attribute_name">细览模板:</span>
+			<span class="attribute_value">
+				<span class="selected_template">
+					<a href="#" onclick="PageContext.editTemplate({#PublishConfig.DetailTemplate.Id}, 2, {#WebSite.SiteId}, 103); return false;" class="document_attribute_value document_attribute_value_doctype attribute_readonly" title="{#PublishConfig.DetailTemplate, 无}[ID-{#PublishConfig.DetailTemplate.Id, 0}]&#13;提示:点击进入模板新建/修改页面" name="website_editTemplate" rightIndex="23" rightValue="{#PublishConfig.DetailTemplate.Right}" templateId="{#PublishConfig.DetailTemplate.Id}">{#PublishConfig.DetailTemplate, 无}</a>
+				</span>
+				<span class="template_selector">
+					&nbsp;<a href="#" onclick="PageContext.selectTemplate({#PublishConfig.DetailTemplate.Id}, 2, {#WebSite.SiteId}, 103); return false;" class="temp_sel_icon" title="选择模板" name="website_selectTemplate" rightIndex="1"></a>
+				</span>
+			</span>
+		</div>
+        <div class="attribute_row_sep"></div>
+		<div class="attribute_row">
+			<span class="attribute_name">存放位置:</span>
+			<span class="attribute_value">
+            <TRS_UI:editPanel value="{#PublishConfig.DataPath}" class="attr_detail_4words_editor" inputClass="" _fieldName="datapath" validation="type:'common_char',required:'',desc:'存放位置',max_len:'50'" rightIndex="1">
+			</TRS_UI:editPanel>
+            </span>
+		</div>
+		<div class="attribute_row">
+			<div class="attribute_name" style="width:100%">站点HTTP(S):</div></div>
+		<div class="attribute_row">
+			<div class="attribute_value">
+            <TRS_UI:editPanel value="{#PublishConfig.ROOTDOMAIN}" class="attr_detail_value_docpublishurl" inputClass="attr_detail_value_docpublishurl" _fieldName="rootdomain" validation="type:'url', required:'',desc:'站点HTTP',max_len:'200'" rightIndex="1">
+			</TRS_UI:editPanel>
+            </div>
+		</div>
+	 </textarea>
+	 <textarea id="template_websites">
+		<div class="attribute_row">
+			当前共选中<span class="objects_num">{#Num}</span>个站点.
+		</div>
+	 </textarea>
+	 <textarea id="template_WebSiteRoot">
+		<div class="attribute_row">
+			{#WebSiteRoot.desc}
+		</div>
+	 </textarea>
+	 <!-- extendfield template begin -->
+	 <textarea id="template_extendfield" select="ContentExtfield">
+		<div class="attribute_row">			
+			<TRS_UI:editPanel value="{#LOGICFIELDDESC}" class="attr_detail_value_doctitle" inputClass="attr_detail_value_doctitle" _fieldName="FieldDesc" validation="type:'string',required:'',max_len:'50',desc:'显示名称'">
+			</TRS_UI:editPanel>
+		</div>
+		<div class="attribute_row_sep"></div>
+		<div class="attribute_row wcm_readonly">
+			<span class="attribute_padding"></span>
+			<a href="#" onclick="return false;" class="attr_detail_value attr_detail_value_cruser attr_detail_readonly">{#CRUSER}</a>,
+			<a href="#" onclick="return false;" class="attr_detail_value attr_detail_value_crtime attr_detail_readonly">{#CRTIME}</a>,
+			<a href="#" onclick="return false;" class="attr_detail_value attr_detail_value_docid attr_detail_readonly">{#CONTENTEXTFIELDID}</a>
+		</div>
+		<div class="attribute_row">
+			<span class="attribute_name">字段名称:</span>
+			<span class="attribute_value  wcm_readonly">
+				<a href="#" onclick="return false;" class="attr_detail_readonly" style="width:140px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden" title="{#DBFIELD.FieldName}" alt="{#DBFIELD.FieldName}">{#DBFIELD.FieldName}</a>
+			</span>
+		</div>
+		<div class="attribute_row">
+			<span class="attribute_name">字段类型:</span>
+			<span class="attribute_value wcm_readonly">
+				<a href="#" onclick="return false;" class="attr_detail_readonly">{#DBFIELD.FieldTypeDesc}</a>
+			</span>
+		</div>
+		<div class="attribute_row">
+			<span class="attribute_name">字段长度:</span>
+			<span class="attribute_value wcm_readonly">
+				<a href="#" onclick="return false;" class="attr_detail_readonly">{#DBFIELD.MaxLength}</a>
+			</span>
+		</div>
+		<div class="attribute_row_sep"></div>
+		<div>
+			<span class="attribute_name">所属对象:</span>
+			<span class="attribute_value wcm_readonly">
+				<a href="#" onclick="return false;" class="attr_detail_readonly">{#HOST.Name}</a>
+			</span>
+		</div>
+	 </textarea>
+	 <textarea id="template_extendfields">
+		<div class="attribute_row">
+			当前共选中<span class="objects_num">{#Num}</span>个扩展字段.
+		</div>
+	 </textarea>
+	 <!-- extendfield template end -->
+<script language="javascript">
+<!--
+	var IS_DEBUG = getParameter("isDebug");
+	if(IS_DEBUG){
+		
+		var oPostData = Object.extend(getAllParameters(),
+			{
+				"objecttype":getParameter("ObjectType"),
+				"objectids":getParameter("ObjectIds"),
+				"objectrights":getParameter("ObjectRights")
+			}
+		);
+		PageContext.response(oPostData);
+	}
+//-->
+</script>
+</body>
+</html>

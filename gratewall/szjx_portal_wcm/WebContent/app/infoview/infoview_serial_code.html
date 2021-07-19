@@ -1,0 +1,206 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../../app/js/easyversion/lightbase.js"></script>
+<script src="../../app/js/easyversion/position.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/data/locale/infoview.js"></script>
+<link rel="StyleSheet" href="xmltree.css" type="text/css" />
+<script type="text/javascript" src="xmltree.js"></script>
+<script>
+function onOk(cb){
+	var rusult =  prepare();
+	if(rusult == false) return false;
+	return rusult || true;
+}
+var oTree;
+function init(_args, cb) {
+	if(_args.HasDocSerial == 1) {
+		$("HasDocSerial").checked = true;
+	}
+	setSerialCodeAble(_args.HasDocSerial == 1);
+	$("SerialCode").value = _args.SerialPattern || "";
+	var sTimePattern = "", sNumPattern = "";
+	if(_args.SerialPattern) {
+		var sValue = _args.SerialPattern;
+		if(sValue.match(/{0,date,([^{}]+)}/g)) {
+			sTimePattern = sValue.replace(/.*({0,date,[^{}]+}).*/g, '$1');
+		}
+		if(sValue.match(/{1,number,(\w+)}/g)) {
+			sNumPattern = sValue.replace(/.*{1,number,(\w+)}.*/g, '$1');
+			sNumPattern = sNumPattern.length;
+		}
+	}
+	$("TimePattern").value = sTimePattern;
+	$("NumPattern").value = sNumPattern;
+	$("SerialPeriod").value = _args.SerialPeriod || "-1";
+	var sXMLString = _args.XMLString;
+	var sDefaultValue = _args.SerialField;
+	oTree = XMLTree.createInstance(sXMLString, "radio", sDefaultValue);
+	$("FieldsTree").innerHTML = oTree.toString();
+}
+function prepare() {
+	var bHasDocSerial = $("HasDocSerial").checked ? 1 : 0;
+	var sSerialPattern = $("SerialCode").value;
+	var sSerialPeriod = $("SerialPeriod").value;
+	var sSerialField = XMLTree.getValue();
+	if(bHasDocSerial && sSerialPattern.match(/^\s*$/g)){
+		$(wcm.LANG['INFOVIEW_DOC_146'] || '未指定编号模式!');
+		return false;
+	}
+	var oNumPattern =  $("NumPattern");
+	oNumPattern = validNumPattern(oNumPattern);
+	if(!oNumPattern)return false;
+	if(!bHasDocSerial){
+		sSerialPattern = sSerialPeriod = sSerialField = '';
+	}
+	var oSerial = {
+		HasDocSerial  : bHasDocSerial,
+		SerialPattern : sSerialPattern,
+		SerialPeriod  : sSerialPeriod,
+		SerialField   : sSerialField
+	}
+	return oSerial;
+}
+function validNumPattern(oNumPattern){
+	if(oNumPattern.value == "" || isNaN(oNumPattern.value)) {
+		oNumPattern.value = 3;
+	}
+	var nNumPattern = parseInt(oNumPattern.value);
+	if(nNumPattern > 70){
+		alert(wcm.LANG.INFOVIEW_DOC_178 || "串号设置不允许大于70!");
+		$("NumPattern").focus();
+		$("NumPattern").select();
+		return false;
+	}
+	return nNumPattern;
+}
+function createSerialCode() {
+	//TimePattern
+	var oTimePattern = $("TimePattern");
+	var sTimePattern = oTimePattern.value;
+	//NumPattern
+	var oNumPattern = $("NumPattern");
+	oNumPattern = validNumPattern(oNumPattern);
+	if(!oNumPattern)return false;
+	var sNumPattern = "";
+	for(var i=0; i<oNumPattern; i++) {
+		sNumPattern += "0";
+	}
+	sNumPattern = '{1,number,' + sNumPattern + '}';
+	//replace SerialCode
+	var oSerialCode = $("SerialCode");
+	var reTime = /{0,date,[^{}]+}/g;
+	if(reTime.test(oSerialCode.value)) {
+		oSerialCode.value = oSerialCode.value.replace(reTime, sTimePattern);
+	} else {
+		oSerialCode.value += sTimePattern;
+	}
+	var reNum = /{1,number,\w+}/g;
+	if(reNum.test(oSerialCode.value)) {
+		oSerialCode.value = oSerialCode.value.replace(reNum, sNumPattern);
+	} else {
+		oSerialCode.value += sNumPattern;
+	}
+}
+function setSerialCodeAble(_bEnable){
+	var arr = ['SerialCode', 'TimePattern', 'NumPattern', 'btnEnableOK', 'SerialPeriod'];
+	for(var i=0;i<arr.length;i++){
+		$(arr[i]).disabled = !_bEnable;
+	}
+	$('FieldsTree').style.visibility = _bEnable?'visible':'hidden';
+	$('unselectFields').style.visibility = _bEnable?'visible':'hidden';
+}
+var m_bFirstShowMask = true;
+function unselectFields(_bFlag){
+	if(_bFlag === false) {
+		$('unselectFieldsOption').checked = false;
+		Element.hide('divMask');
+		$('FieldsTree').style.visibility = 'visible';
+	}else{
+		var arrEles = $('FieldsTree').document.getElementsByTagName('input');
+		for(var i=0,n=arrEles.length;i<n;i++){
+			if(arrEles[i].id == 'HasDocSerial')continue;
+			arrEles[i].checked = false;
+		}
+		if(m_bFirstShowMask) {
+			Position.clone($('FieldsTree'), $('divMask'));
+			m_bFirstShowMask = false;
+		}
+		$('unselectFieldsOption').checked = true;
+		$('FieldsTree').style.visibility = 'hidden';
+		Element.show('divMask');
+	}
+}
+</script>
+<style type="text/css">
+	.input_text,.input_btn{
+		border: 1px solid gray;
+	}
+	body{font-size:9pt;}
+</style>
+</head>
+<body>
+<DIV>
+	<DIV>
+		<input type="checkbox" name="HasDocSerial" id="HasDocSerial" onclick="setSerialCodeAble(this.checked);"> <label for="HasDocSerial"><b><span WCMAnt:param="infoview_serial_code.html.HasDocSerial">是否使用编号</span></b></label>
+	</DIV>
+	<DIV style="width: 400px; margin-top:10px;float:left;">
+		<fieldset style="margin-top:5px;padding:10px; width:360px;">
+		<legend><b><span WCMAnt:param="infoview_serial_code.html.autoSerial">自动编号设置</span></b></legend>
+		<br>
+		<span WCMAnt:param="infoview_serial_code.html.time">时间:</span><select id="TimePattern" name="TimePattern">
+			<option value="" WCMAnt:param="infoview_serial_code.html.none">无</option>
+			<option value="{0,date,yyyy-MM-dd}">yyyy-MM-dd
+			<option value="{0,date,yyyy/MM/dd}">yyyy/MM/dd
+			<option value="{0,date,yyyyMMdd}">yyyyMMdd
+			<option value="{0,date,yyyy-MM}">yyyy-MM
+			<option value="{0,date,yyyy/MM}">yyyy/MM
+			<option value="{0,date,yyyyMM}">yyyyMM
+			<option value="{0,date,yyyy}">yyyy
+		</select>
+		&nbsp;&nbsp<span WCMAnt:param="infoview_serial_code.html.NumPattern">串号:</span><input type="text"  class="input_text" id="NumPattern" name="NumPattern" size="1" style="width:20px"><span WCMAnt:param="infoview_serial_code.html.bit">位</span>
+		&nbsp;&nbsp;<input id="btnEnableOK" class="input_btn" type="button" value="加入模式" onclick="createSerialCode()" WCMAnt:paramattr="value:infoview_serial_code.html.input_btn" /><br><br>
+		<span WCMAnt:param="infoview_serial_code.html.SerialPeriod">编号跳变的周期:</span>
+		<select id="SerialPeriod">
+			<option value="-1"><span WCMAnt:param="infoview_serial_code.html.congbu">从不跳变</span>
+			<option value="0"><span WCMAnt:param="infoview_serial_code.html.day">每天</span>
+			<option value="1"><span WCMAnt:param="infoview_serial_code.html.month">每月</span>
+			<option value="2"><span WCMAnt:param="infoview_serial_code.html.year">每年</span>
+		</select>
+		<br><br>
+		<b><span WCMAnt:param="infoview_serial_code.html.SerialCode">编号模式：</b><input type="text" class="input_text" name="SerialCode" id="SerialCode" style="width:250px"></span>
+		</fieldset><br>
+		<fieldset style="margin-top:5px;padding:10px; width:360px;">
+		<legend><b><span WCMAnt:param="infoview_serial_code.html.FieldsTree">编号关联的数据项:</span></b></legend>
+		<div id="FieldsTree" style="height:200px; overflow:auto">
+		</div>
+		</fieldset>
+		<div id="unselectFields">
+			<input type="checkbox" id="unselectFieldsOption" onclick='unselectFields(this.checked)'/> <label><b><span id="unselect" WCMAnt:param="infoview_serial_code.html.unselectFields">取消所选择的数据项</span></b></label>
+		</div>
+	</DIV>
+	<DIV style="width: 220px;margin-top:10px;float:left;">
+		<fieldset style="padding:5px;">
+		<legend><b><span WCMAnt:param="infoview_serial_code.html.serialrelation">编号设置说明</span></b></legend>
+			<div style="font-size:9pt;color:gray;padding:5px;float:left;" WCMAnt:param="infoview_serial_code.html.paddenralation">选择时间样式，或者选择不包括时间项，通过串号确定序列号的位数。然后单击"加入模式"按钮完成编号模式的设置。<br>编号跳变的周期是指序列号部分以什么周期重新从1开始计数。<br>最后编号关联的数据项是指自动生成的编号保存在表单的哪一个数据项中，编号可以不关联数据项，只作为文档的一部分。<br>例：编号模式"司{0,date,yyyy-MM}第{1,number,0000}号"自动生成的编号表现为："司2006-06第0005号"。<br>注意：如果需要调整编号里日期和序列号的位置，注意需要连同两端的花括号“{}”一起拷贝。
+			</div>
+		</fieldset>
+	</DIV>
+</DIV>
+<div id="divMask" style="position: absolute; z-index: 999; background: whitesmoke; display: none; margin-bottom: 5px;  border: 1px solid #C7C7C7;"><div class="no_object_found" style="font-style:normal;" WCMAnt:param="inforview_serial_code.html.cancelselect">点击"取消所选择的数据项"才可以选择</div></div>
+</body>
+<script language="javascript">
+<!--
+	Event.observe('unselect', 'click', function(event){
+	if($('unselectFieldsOption').checked){
+		$('unselectFieldsOption').checked = false;
+		unselectFields(false);
+	}else{
+		$('unselectFieldsOption').checked = true;
+		unselectFields(true);
+	}
+});
+//-->
+</script>
+</html>

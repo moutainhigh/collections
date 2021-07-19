@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>csdb</sort-name>
+  <table-info name="dataaccdisp" class-name="com.gwssi.sysmgr.priv.datapriv.dao.Dataaccdisp" check-flag="false" backup-flag="false">
+    <description>数据权限分配</description>
+  </table-info>
+
+  <column name="objectid" data-type="long" length="19" not-null="true" value-from="input" description="对象内码"/>
+  <column name="dataaccgrpid" data-type="long" length="19" not-null="true" value-from="input" description="数据权限分组内码"/>
+  <column name="dataaccdispobj" data-type="char" length="1" not-null="true" value-from="input" description="分配对象"/>
+  <primary-key name="sql070828124117600" column-list="objectid,dataaccgrpid"/>
+  <index name="sql070828124117370" index-type="unique" cluster="other" column-list="objectid,dataaccgrpid"/>
+  <function func-name="insert one dataaccdisp" func-type="insert" column-list="objectid,dataaccgrpid,dataaccdispobj">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one dataaccdisp" func-type="delete">
+    <filter-column column-name="objectid" operator="eq" value-from="input" empty-flag="null"/>
+    <filter-column column-name="dataaccgrpid" operator="eq" value-from="input" empty-flag="null"/>
+    <filter-column column-name="dataaccdispobj" operator="eq" value-from="input" empty-flag="null"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="delete many" func-type="delete">
+    <filter-column column-name="dataaccgrpid" operator="in" value-from="input" empty-flag="null"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="select dataaccdisp list" func-type="rowset" column-list="objectid,dataaccdispobj,dataaccgrpid" max-record="-1">
+    <filter-column column-name="objectid" operator="eq" value-from="input" empty-flag="null"/>
+    <description>多记录查询</description>
+  </function>
+</table>
+

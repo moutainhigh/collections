@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../common.js" type="text/javascript"></script> 
+<script>
+  	//数据加载完成回调
+    function dataload(data){
+    	alert(jazz.jsonToString(data));
+    }
+  	function callcustom(data){
+  		alert(jazz.jsonToString(data));
+  	}
+  	//数据渲染函数
+    function renderdata(data){
+		for(var i=0;i<data.length;i++){
+			var a = data[i]["name"];
+			data[i]["custom"] = '<div class="jazz-grid-cell-inner"><a href="javascript:void(0);" onclick="callcustom()">'+data[i]["name"]+'</a></div>';
+		}
+		return data;
+    }
+  	
+    /* $(function(){
+    	
+    	$(".jazz-gridcolumn input:checkbox").on("click", function(e) {
+			var checked =  $(this).attr("checked");
+			var data = $('div[name="gridpanel"]').gridpanel('getAllData');
+			if(checked=="checked"){
+				//全选中
+				alert(data.length);
+			}else{
+				//取消全部选中
+				alert(data.length);
+			}
+			alert(checked=="checked");
+        });
+    	
+    }); */
+
+    function rowclick(event,data){
+    	alert("row selected!!!! ");
+    }
+  	function unrowclick(){
+  		alert("row unselected### ");
+  	}
+	
+	$(function(){
+	    //调整父页面iframe高度
+	    try{
+	        parent.setWinHeight(365);           
+	    }catch(e){
+	        jazz.log(e);
+	    }
+	});
+</script>
+</head>
+<body>
+
+<div vtype="gridpanel" name="gridpanel" height="360" width="680" datarender="renderdata()" 
+	 titledisplay="true" title="查询结果" dataurl="reg.json" isshowselecthelper="true" selecttype="2">
+	<div vtype="gridcolumn" name="grid_column" >
+		<div> <!-- 单行表头 -->
+			<div name="id" key="true" visible="false"></div>
+			<div name="name"  text="姓名" textalign="center" sort="true" width="150px"></div>
+			<div name="sex" text="性别" textalign="center" sort="true" dataurl='[{"text":"男","value":"1"},{"text":"女","value":"2"}]' width="50px"></div>
+			<div name="age" text="年龄" textalign="center" sort="true" width="100px"></div>
+			<div name="org" text="所属机构" textalign="center" sort="true" dataurl="/JAZZ/dictionary/queryData.do?dicId=org" width="50px"></div>
+			<div name="birthday" text="出生日期" textalign="center" sort="true" datatype="date" dataformat="" width="150px"></div>
+			<div name="custom" text="自定义" textalign="center" width="100px"></div>
+		</div>
+	</div>
+	<!-- 表格 -->
+	<div vtype="gridtable" name="grid_table" rowselect="rowclick()" rowunselect="unrowclick()"></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,106 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc">记录复制到...</title>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script>
+	$import('com.trs.wcm.FloatPanel');
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.ProcessBar');
+</script>
+<style type="text/css">
+    *{
+        margin:0px;
+        padding:0px;
+    }
+    body{
+        margin:0px;
+        padding-left:20px;
+    }
+    .box{
+        position:absolute;
+        width:100%;
+        height:100%;
+        padding-top:28px;
+    }
+    .tip{
+        position:absolute;
+        left:-10px;
+        top:0px;
+        height:28px;
+        line-height:28px;
+        white-space:nowrap;
+        overflow:hidden;
+        color:red;
+        font-weight:bold;
+    }
+</style>
+<script language="javascript">
+<!--
+    var nSrcClassInfoId = getParameter("classInfoId") || 0;
+    var sDocIds = getParameter("objectids") || 0;
+
+	var myActualTop = (top.actualTop||top);
+	FloatPanel.addCloseCommand();
+	FloatPanel.addCommand('okBtn', '确定', 'onOk', null);
+
+	function onOk(){
+		try{
+			oResult = $("selectTree").contentWindow.getCheckedValues();
+		}catch(err){
+			oResult = {ids:0, names:""};
+		}
+        var sSelIds = oResult["ids"];
+		if(!sSelIds||sSelIds.length==0) {
+			$alert('请选择要当前记录要复制到的目标分类!');
+			return false;
+		}
+        
+        ProcessBar.init('执行进度，请稍候...');
+        ProcessBar.addState('正在提交数据');
+        ProcessBar.addState('成功执行完成');
+        ProcessBar.start();
+        var oPostData = {
+            "ObjectIds" : sDocIds,
+            "DestClassInfoIds" : sSelIds
+        }
+        var func = function(){
+            $MessageCenter.sendMessage('main', 'PageContext.RefreshList', 'PageContext', []);
+            FloatPanel.close(true);
+        };
+        var oHelper = new com.trs.web2frame.BasicDataHelper();
+        oHelper.Call('wcm6_MetaDataCenter','copyViewDatas',oPostData, true,
+            function(_transport,_json){
+                ProcessBar.exit();
+                func();
+                FloatPanel.close();
+            },
+            function(_transport,_json){
+                $render500Err(_transport,_json);
+                FloatPanel.close(true);
+            }
+        );
+        return false;
+	}
+//-->
+</script>
+</HEAD>
+
+<BODY>
+    <div id="destContainer" class="box">
+        <div class="tip">请选择当前记录要复制到的目标分类：</div>
+        <script language="javascript">
+        <!--
+            var sURL = "classinfo_select_tree2.html?objectId=" + nSrcClassInfoId + "&treeType=1";
+            document.write("<iframe width='100%' height='100%' src='" + sURL + "' id='selectTree'></iframe>");
+        //-->
+        </script>
+    </div>        
+</BODY>
+</HTML>

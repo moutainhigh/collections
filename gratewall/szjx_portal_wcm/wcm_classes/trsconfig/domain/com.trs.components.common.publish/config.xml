@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0" id="components.common.publish">
+	<!-- Cached-Object Config For ICachePOMgr BEGIN -->
+	<extension
+		element-class="com.trs.infra.persistent.cache.CachedObjectConfig"
+		id="CachedObjs">
+		<cached-object Name="模板"
+			ClassName="com.trs.components.common.publish.persistent.template.Template" />
+		<cached-object Name="文件夹发布配置"
+			ClassName="com.trs.components.common.publish.persistent.publisher.FolderPublishConfig" />
+	</extension>
+	<!-- Cached-Object Config For ICachePOMgr END -->
+	
+	<!-- Update-Commander Config For UpdateServer BEGIN -->
+	<!--extension element-class="com.trs.infra.update.UpdateCommanderConfig" id="WCMContentUpdateCommander">
+		<update-commander Name="模板标准化升级程序" 
+			ClassName="com.trs.components.common.publish.PublishUpdateCommderImpl"/>
+	</extension-->
+	<!-- Update-Commander Config For UpdateServer END -->	
+	
+	<!--Object Types BEGIN-->
+	<extension element-class="com.trs.infra.persistent.ObjectTypeConfig" id="ObjectTypes">
+		<object-type ObjectType="102" name="模板" ObjectClassName="com.trs.components.common.publish.persistent.template.Template"/>		
+	</extension>
+	<!--Object Types END-->
+	
+	<!-- Right Objects BEGIN -->
+	<extension element-class="com.trs.cms.auth.config.RightObjectConfig"
+		id="RightObjects">
+		<right-object name="模板权限判断对象"
+			ClassName="com.trs.components.common.publish.domain.auth.TemplateRightObjImpl" />
+	</extension>
+	<!-- Right Objects END -->
+	
+	<!--Config For Server BEGIN-->
+	<extension element-class="com.trs.infra.ServerConfig" id="Server">
+		<server bean-id="PublishServer" name="发布服务器" />
+	</extension>
+	<!--Config For Server END-->
+	<!-- Config For ObjectLCMonitor BEGIN -->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		1：新增
+		2：修改
+		3：删除前
+		4、删除后
+		多个以逗号隔开
+	-->
+	<extension
+		element-class="com.trs.infra.persistent.listener.MonitorHostConfig"
+		id="ObjectLCMonitor">
+		<!-- 发布模块 -->
+		<monitor-host name="TagBean"
+			class-name="com.trs.components.common.publish.persistent.template.TagBean">
+			<listener bean-id="TagBeanLCListener" />
+		</monitor-host>
+		<!-- 分发模块 -->
+		<monitor-host name="FileDistribute"
+			class-name="com.trs.components.common.publish.persistent.distribute.PublishDistribution">
+			<listener bean-id="PublishDistributionCacheMgr" />
+		</monitor-host>
+		<!-- 模板修改 -->
+		<monitor-host name="TemplateChanged" 
+			class-name="com.trs.components.common.publish.persistent.template.Template">
+			<listener bean-id="TemplateLCListenerForNestedRename" event-type="2"/>
+			<listener bean-id="TemplateCacheMgr" event-type="2,4"/>
+			<listener bean-id="TemplateLCListenerForTypeChanged" event-type="2"/>
+		</monitor-host>
+		<!-- 发布元素和模板关系的变化修改 -->
+		<monitor-host name="TemplateEmployChanged" 
+			class-name="com.trs.components.common.publish.persistent.template.TemplateEmploy">
+			<listener bean-id="ITemplateEmployCacheMgr"/>
+			<listener bean-id="TemplateArgumentLCListenerForEmployChanged" event-type="2,4"/>			
+		</monitor-host>
+		<!-- 模板中定义的参数的实际值发生变化(增删改) -->
+		<monitor-host name="TemplateArgumentChanged" 
+			class-name="com.trs.components.common.publish.persistent.template.TemplateArgument">
+			<listener bean-id="TemplateArgumentCacheMgr"/>
+		</monitor-host>
+		
+		<!-- 站点分发的监听 -->
+		<monitor-host name="PublishDistributionLCListener" 
+			class-name="com.trs.components.common.publish.persistent.distribute.PublishDistribution">
+			<listener bean-id="PublishDistributionLCListener" event-type="1,2" />
+		</monitor-host>
+	</extension>
+	<!-- Config For ObjectLCMonitor END -->
+	<!--Publish Server Config BEGIN-->
+	<extension
+		element-class="com.trs.components.common.publish.config.persistent.PublishServerConfig"
+		id="CommonPublishServer">
+		<publish-server>
+			<detail-page-seperate-to-51style>false</detail-page-seperate-to-51style>
+			<publish-in-root-path>false</publish-in-root-path>
+			<dir-divided-by-date>true</dir-divided-by-date>
+			<dir-divided-by-date-format>
+				yyyyMM
+			</dir-divided-by-date-format>
+			<!-- 
+				完全发布时候集合的PageSize
+			-->
+			<load-batch-contents-pagesize>
+				30
+			</load-batch-contents-pagesize>
+			<!-- if to send warnings when an attached file is not found -->
+			<send-warning-if-file-not-found>
+				false
+			</send-warning-if-file-not-found>
+			<!-- if to ignore the error if a tag item host is not found -->
+			<ignore-if-host-not-found>true</ignore-if-host-not-found>
+			<!-- if to publish automatically the document who has not been 
+				published in its home folder when to publish the link of it -->
+			<auto-publish-doc-in-home-when-needed>
+				true
+			</auto-publish-doc-in-home-when-needed>
+			<!-- default file encoding for published pages -->
+			<default-encoding>GBK</default-encoding>
+			<!-- labor resource config -->
+			<labor-resource>
+				<high-priority-labors-max>30</high-priority-labors-max>
+				<low-priority-labors-max>30</low-priority-labors-max>
+				<each-task-labors-max>10</each-task-labors-max>
+<!-- retry-interval 的时间单位是分钟 -->
+				<retry-time-limit>60</retry-time-limit>
+				<retry-interval>2</retry-interval>
+			</labor-resource>
+			<template-parse>
+				<tags-having-src>
+					BODY,TABLE,TD,IMG,INPUT,LINK,SCRIPT,EMBED
+				</tags-having-src>
+				<!-- Notice:  TagSrcAttributeNames must be relative with tags-having-src each other -->
+				<tag-src-attribute-names>
+					BACKGROUND,BACKGROUND,BACKGROUND,SRC,SRC,HREF,SRC,SRC
+				</tag-src-attribute-names>
+				<supported-exts>HTM,HTML,SHTML,XML,JSP,ASP</supported-exts>
+				<supported-apd-exts>
+					BMP,GIF,JPG,JPEG,PNG,CSS,SWF,WAV,WMV,RM,EXE,COM,BAT,PDF,RAR,ZIP,JS
+				</supported-apd-exts>
+				<name-cache-max-size>1000</name-cache-max-size>
+				<dom-cache-max-size>200</dom-cache-max-size>
+				<!-- BEGIN: parse configuration during publishing -->
+				<wcm-outline-contents-max-num>
+					0
+				</wcm-outline-contents-max-num>
+			</template-parse>
+			<publish-distribution>
+				<max-targets-each-folder>3</max-targets-each-folder>
+				<target-types>
+					<target-type>
+						<name>FILE</name>
+						<desc>文件系统</desc>
+						<distributor>
+							com.trs.components.common.publish.domain.distribute.FileDistributorImpFileLocal
+						</distributor>
+						<parameters>DATAPATH=存放路径</parameters>
+					</target-type>
+					<target-type>
+						<name>FTP</name>
+						<desc>FTP服务</desc>
+						<distributor>
+							com.trs.components.common.publish.domain.distribute.FileDistributorImpFtpByTRS
+						</distributor>
+						<parameters>
+							TARGETSERVER=服务器地址&amp;TARGETPORT=服务器端口&amp;ANONYMFTP=匿名登录&amp;LOGINUSER=用户名&amp;LOGINPASSWORD=密码&amp;DATAPATH=存放目录
+						</parameters>
+					</target-type>
+					<target-type>
+						<name>SFTP</name>
+						<desc>SFTP服务</desc>
+						<distributor>
+							com.trs.components.common.publish.domain.distribute.FileDistributorImpFtpByTRS
+						</distributor>
+						<parameters>
+							TARGETSERVER=服务器地址&amp;TARGETPORT=服务器端口&amp;LOGINUSER=用户名&amp;LOGINPASSWORD=密码&amp;DATAPATH=存放目录
+						</parameters>
+					</target-type>
+				</target-types>
+			</publish-distribution>
+			<!-- publish task notification scheme is defined in config.xml which part is for 'Notification Scheme' -->
+			
+			<!-- to define the publish content types -->
+			<content-types>
+				<content name="DefaultObject" 
+					class-name="com.trs.components.common.publish.persistent.element.PublishContentDefaultObjImpl" 
+					/>
+			</content-types>
+		</publish-server>
+	</extension>
+	<!--Publish Server Config END-->
+
+	<!--Publish File Naming Style Config BEGIN. 默认的命名方式-->
+	<extension
+		element-class="com.trs.components.common.publish.config.persistent.FileNamedStyle"
+		id="CommonFileNamedStyle">
+		<file-naming>
+			<pattern>t{1,date,yyyyMMdd}_{0,number,0}</pattern>
+			<!--
+				整个模式的说明参见java.text.MessageFormat的javadoc，其中参数只有三个，分别是
+				0.文档的ID（整数）
+				1.文档的日期和时间（java.util.Date）
+				3.模板的类型（整数）
+			-->
+			<prefix>t</prefix>
+			<!-- 
+				1: the id of the publish content added; 
+				2: the publish time	of the publish content added; 
+				3: the multiple template type of the publish content added
+			-->
+			<adden>1</adden>
+		</file-naming>
+	</extension>
+	<!--Publish File Naming Style Config END-->
+</plugin>

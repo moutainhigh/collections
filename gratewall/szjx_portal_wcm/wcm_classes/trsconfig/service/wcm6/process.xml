@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.ProcessService" desc="工作流相关服务提供者" objclass="com.trs.cms.process.definition.Flow">
+	<method name="save"  desc="保存工作流" >		
+		<parameter name="ObjectId" desc="工作流ID" type="int" required="true"/>
+		
+		<parameter name="OwnerId" desc="工作流所属对象ID" type="int" required="false"/>
+		<parameter name="OwnerType" desc="工作流所属对象类型" type="int" required="false"/>
+	</method>
+	
+	<method name="query">
+		<parameter name="OwnerId" desc="工作流所属对象ID" type="int" required="true"/>
+		<parameter name="OwnerType" desc="工作流所属对象类型" type="int" required="true"/>	
+		<parameter name="ContainsChildren" desc="是否包含所属子对象的工作流" type="boolean" required="false" default="0"/>
+
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" required="false" default="CrTime desc"/>		
+		<!-- 查询的表 -->		
+		<parameter name="FromTable" desc="查询的表" type="string" required="false" default="WCMFlow"/>	
+					
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="yyyy-MM-dd HH:mm"/>	
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="FlowId" desc="工作流ID" type="int" required="false" search="true"/>
+		<parameter name="FlowName" desc="工作流名称" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="FlowDesc" desc="工作流描述" type="string" required="false" search="true"
+			search-operator="like"/>			
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>			
+		<!-- 检索相关配置 END -->
+
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false" default="FlowId,FlowName,FlowDesc,OwnerType,OwnerId,CrUser,CrTime,InfoviewId"/>		
+	</method>
+
+	<method name="queryOptionalFlows">
+		<parameter name="OwnerId" desc="工作流所属对象ID" type="int" required="true"/>
+		<parameter name="OwnerType" desc="工作流所属对象类型" type="int" required="true"/>	
+		
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" required="false" default="CrTime desc"/>		
+		<!-- 查询的表 -->		
+		<parameter name="FromTable" desc="查询的表" type="string" required="false" default="WCMFlow"/>	
+					
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="yyyy-MM-dd HH:mm"/>	
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="FlowId" desc="工作流ID" type="int" required="false" search="true"/>
+		<parameter name="FlowName" desc="工作流名称" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="FlowDesc" desc="工作流描述" type="string" required="false" search="true"
+			search-operator="like"/>
+		<!-- 检索相关配置 END -->
+
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false" default="FlowId,FlowName,FlowDesc,OwnerType,OwnerId,CrTime,CrUser"/>		
+	</method>
+	
+	<method name="findByIds" >
+		<!--默认的参数，可以不写-->
+		<parameter name="ObjectIds" desc="工作流ID序列" type="string" required="true"/>
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false" default="FlowId,FlowName,FlowDesc,OwnerType,OwnerId,CrUser,CrTime"/>		
+	</method>	
+	
+	<method name="findById">
+		<!--默认的参数，可以不写-->
+		<parameter name="ObjectId" desc="工作流ID" type="int" required="true"/>
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false" default="FlowId,FlowName,FlowDesc,OwnerType,OwnerId,CrUser,CrTime"/>		
+		
+	</method>
+	
+	<method name="delete" desc="删除工作流">	
+		<parameter name="ObjectIds" desc="待删除的工作流ID序列" type="string" required="true"/>
+	</method>
+	
+	<method name="toXML">
+		<parameter name="ObjectId" desc="工作流ID" type="int" required="false"/>
+		<parameter name="ContentType" desc="流转内容类型" type="int" required="false"/>		
+		<parameter name="ContentId" desc="流转内容ID" type="int" required="false"/>				
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false" default="FlowId,FlowName,FlowDesc,OwnerType,OwnerId,CrUser,CrTime,InfoviewId"/>		
+	</method>
+	
+	<method name="fromXML" desc="保存工作流" logger="com.trs.ajaxservice.logger.FlowSaveLogger">		
+		<parameter name="ObjectId" desc="工作流ID" type="int" required="true"/>
+		
+		<parameter name="OwnerId" desc="工作流所属对象ID" type="int" required="false"/>
+		<parameter name="OwnerType" desc="工作流所属对象类型" type="int" required="false"/>	
+		
+		<parameter name="FlowXML" desc="工作流数据" type="string" required="true"/>
+		<parameter name="UpdateOptMarkEnum" desc="决定要不要更新/保存工作流文档操作标签枚举值" type="boolean" required="false" default="0"/>		
+	</method>	
+	
+	<method name="getConfigContent" desc="获取工作流配置的内容" params-required="false"/>
+	
+	<method name="getFlowUsedByChannel">		
+		<parameter name="ObjectId" desc="栏目ID" type="int" required="true"/>
+		<parameter name="SelectFields" desc="工作六信息字段列表" type="string" required="false" default="FlowId,FlowName"/>				
+	</method>	
+
+	<method name="getChannelsUseingFlow">		
+		<parameter name="ObjectId" desc="工作流ID" type="int" required="true"/>
+		<parameter name="SelectFields" desc="栏目信息字段列表" type="string" required="false" default="ChannelId,CHNLTYPE,ChnlName,ChnlDesc"/>		
+	</method>
+	
+	<method name="getContentsInFlow">		
+		<parameter name="ObjectId" desc="工作流ID" type="int" required="true"/>
+	</method>
+	
+	<method name="enableFlowToChannel">		
+		<parameter name="FlowId" desc="工作流ID" type="int" required="true"/>
+		<parameter name="ObjectId" desc="栏目ID" type="int" required="true"/>
+	</method>
+	
+	<method name="disableFlowToChannel">		
+		<parameter name="FlowId" desc="工作流ID" type="int" required="true"/>
+		<parameter name="ObjectId" desc="栏目ID" type="int" required="true"/>
+	</method>
+	
+	<method name="setChannelEmployersOfFlow" desc="给指定栏目启用相同的工作流" logger="com.trs.ajaxservice.logger.FlowSetLogger">		
+		<parameter name="FlowId" desc="工作流ID" type="int" required="true"/>
+		<parameter name="ObjectIds" desc="栏目ID序列" type="string" required="true"/>
+	</method>
+	
+	<method name="removeChannelEmployersOfFlow" desc="删除指定栏目启用的相同工作流">		
+		<parameter name="FlowId" desc="工作流ID" type="int" required="true"/>
+		<parameter name="ObjectIds" desc="栏目ID序列" type="string" required="true"/>
+	</method>
+
+	<method name="getContentsOfUser" desc="获取当前登录用户与工作流相关的内容">			
+		<parameter name="ViewType" desc="视图类型（需要处理、已处理、发起）" type="int" required="true" default="1"/>
+	</method>	
+	
+	<method name="doReceive" desc="发出已经收到工作流处理请求">		
+		<parameter name="ObjectIds" desc="工作流轨迹ID序列" type="string" required="true"/>
+	</method>
+	
+	<method name="doAccept" desc="确认处理已经收到工作流处理请求">		
+		<parameter name="ObjectIds" desc="工作流轨迹ID序列" type="string" required="true"/>
+	</method>
+
+	<method name="backTo" desc="将需要处理的内容打回">		
+		<parameter name="ObjectIds" desc="待处理的内容工作流轨迹ID序列" type="string" required="true"/>
+		<parameter name="PostDesc" desc="打回的意见或者理由" type="string" required="false"/>
+		<parameter name="NotifyTypes" desc="自定义的通知方式" type="string" required="false"/>
+	</method>
+	
+	<method name="submitTo" desc="将需要处理的内容交给下一个环节处理">		
+		<parameter name="ObjectIds" desc="待处理的内容工作流轨迹ID序列" type="string" required="true"/>
+		<parameter name="PostDesc" desc="处理意见" type="string" required="false"/>
+		<parameter name="NextNodeId" desc="下一个环节的节点ID" type="int" required="false"/>
+		<parameter name="ToUserIds" desc="下一个环节的处理用户" type="string" required="false"/>
+		<parameter name="NotifyTypes" desc="自定义的通知方式" type="string" required="false"/>
+	</method>
+
+	<method name="reSubmitTo" desc="将需要处理的内容交给下一个环节处理">		
+		<parameter name="ObjectIds" desc="待处理的内容工作流轨迹ID序列" type="string" required="true"/>
+		<parameter name="PostDesc" desc="处理意见" type="string" required="false"/>
+		<parameter name="NextNodeId" desc="下一个环节的节点ID" type="int" required="false"/>
+		<parameter name="ToUserIds" desc="下一个环节的处理用户" type="string" required="false"/>
+		<parameter name="NotifyTypes" desc="自定义的通知方式" type="string" required="false"/>
+	</method>
+
+	<method name="refuse" desc="拒绝处理的内容">		
+		<parameter name="ObjectIds" desc="待处理的内容工作流轨迹ID序列" type="string" required="true"/>
+		<parameter name="PostDesc" desc="拒绝的意见或者理由" type="string" required="false"/>
+	</method>
+
+	<method name="forceEnd" desc="强制结束发起的内容">		
+		<parameter name="ContentType" desc="内容类型" type="int" required="true"/>
+		<parameter name="ContentId" desc="内容Id" type="int" required="true"/>
+		<parameter name="PostDesc" desc="强制结束的意见或者理由" type="string" required="false"/>
+	</method>	
+
+	<method name="getFlowDocsOfContent" desc="获取指定内容的流转轨迹">		
+		<parameter name="ContentType" desc="内容类型" type="int" required="true"/>
+		<parameter name="ContentId" desc="内容Id" type="int" required="true"/>		
+	</method>	
+	
+	<method name="getEmploymentInfo" desc="获取工作流的被栏目使用的信息">
+		<parameter name="objectids" desc="文档ID序列" type="string" required="true"/>
+	</method>		
+
+	<method name="getNextNodes" desc="获取当前轨迹的下一个节点列表">		
+		<parameter name="ObjectId" desc="轨迹ID" type="int" required="true"/>
+		<parameter name="PageSize" desc="分页大小" type="int" required="false" default="-1"/>
+		<parameter name="Resubmit" desc="是否为重新处理" type="boolean" required="false" default="0"/>
+	</method>
+
+	<method name="exportFlows" desc="导出工作流">
+		<parameter name="objectids" desc="ID序列" type="string" required="true"/>
+	</method>		
+	<method name="importFlows" desc="导入工作流">
+		<parameter name="OwnerId" desc="工作流所属对象ID" type="int" required="true"/>
+		<parameter name="OwnerType" desc="工作流所属对象类型" type="int" required="true"/>	
+		<parameter name="ImportFile" desc="要导入的文件" type="string" required="true"/>
+	</method>	
+
+	<method name="getProcessInfoOfContent" desc="获取指定内容的流转信息">		
+		<parameter name="ContentType" desc="内容类型" type="int" required="true"/>
+		<parameter name="ContentId" desc="内容Id" type="int" required="true"/>		
+	</method>		
+
+	<method name="getBranchInfo" desc="获取分支的信息">		
+		<parameter name="FlowDocId" desc="当前轨迹Id" type="int" required="true"/>
+		<parameter name="NextNodeId" desc="下一个节点ID" type="int" required="false"/>		
+		<parameter name="PageSize" desc="不分页" type="int" required="false" default="-1"/>				
+		<parameter name="Resubmit" desc="是否为重新处理" type="boolean" required="false" default="0"/>
+	</method>		
+
+	<method name="getFlowOptionAuth">
+		<!-- 业务参数 -->
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="false"/>		
+		<parameter name="SiteId" desc="当前站点ID" type="int" required="false"/>
+	</method>
+
+	<method name="getFieldsInfoOfFlowDoc">
+		<!-- 业务参数 -->
+		<parameter name="FlowDocId" desc="当前轨迹ID" type="int" required="true"/>		
+		<parameter name="PageSize" desc="不分页显示" type="int" required="false" default="-1"/>
+	</method>
+
+	<method name="startDocumentInFlow" desc="让文档开始流转">		
+		<parameter name="ObjectId" desc="文档ID" type="int" required="true" min-value="0"/>
+	</method>
+	<method name="createFrom" desc="类似创建工作流">
+		<parameter name="objectids" desc="ID序列" type="string" required="true"/>
+		<parameter name="createWithFlowNodeFields" desc="决定要不要连带复制表单信息" type="boolean" required="false" default="0"/>
+	</method>	
+	<method name="getFlowingDocBySNO" desc="根据查询编号查询流转文档的信息" provider="com.trs.ajaxservice.FlowingDocQueryService">		
+		<parameter name="SNO" desc="文档查询编号" type="string" required="true"/>
+	</method>	
+	<method name="getFlowingStatByChnl" desc="根据栏目ID查询流转文档的状态信息" provider="com.trs.ajaxservice.FlowingDocQueryService">		
+		<parameter name="ChannelId" desc="栏目ID" type="string" required="true"/>
+	</method>
+	<method name="getProcessedNodes" desc="获取当前流转轨迹的所有已经流转过的节点">		
+		<parameter name="ObjectId" desc="轨迹ID" type="int" required="true"/>
+		<parameter name="PageSize" desc="分页大小" type="int" required="false" default="-1"/>
+	</method>
+	<method name="getWorkModalSepretorEndNodes" desc="获取当前流转轨迹的所有已经流转过的节点">		
+		<parameter name="ObjectId" desc="轨迹ID" type="int" required="true"/>
+		<parameter name="PageSize" desc="分页大小" type="int" required="false" default="-1"/>
+	</method>
+	<method name="getEndNodes" truename="getWorkModalSepretorEndNodes" desc="获取当前流转轨迹的所有已经流转过的节点">		
+	</method>
+	<method name="autoToNextNode" desc="自动转到指定的节点">		
+		<parameter name="ObjectIds" desc="待处理的内容工作流轨迹ID序列" type="string" required="true"/>
+		<parameter name="PostDesc" desc="处理意见" type="string" required="false"/>
+		<parameter name="NextNodeId" desc="下一个环节的节点ID" type="int" required="false"/>
+		<parameter name="ToUserIds" desc="下一个环节的处理用户" type="string" required="false"/>
+		<parameter name="NotifyTypes" desc="自定义的通知方式" type="string" required="false"/>
+	</method>
+	<method name="canDocumentIntoFlow" desc="判断文档是否可以进入工作流">		
+		<parameter name="ObjectId" desc="文档ID" type="int" required="true" min-value="0"/>
+	</method>
+	<method name="canTakeBack" desc="判断文档是否可以收回">		
+		<parameter name="flowdocid" desc="流转轨迹的ID" type="int" required="true" min-value="0"/>
+	</method>
+	<method name="takeBack" desc="收回已处理的工作流">		
+		<parameter name="flowdocid" desc="流转轨迹的ID" type="int" required="true" min-value="0"/>
+	</method>
+</service>

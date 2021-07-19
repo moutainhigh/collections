@@ -1,0 +1,4 @@
+//中文
+var OBJTYPE_USER	= 204;
+var OBJTYPE_GROUP	= 201;
+var OBJTYPE_ROLE	= 203;

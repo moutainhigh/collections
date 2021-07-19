@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="sys_rd_table_relation" class-name="cn.gwssi.dw.rd.metadata.dao.SysRdTableRelation" check-flag="false" backup-flag="false">
+    <description>表关系</description>
+  </table-info>
+
+  <column name="sys_rd_table_relation_id" data-type="varchar" length="32" not-null="true" value-from="input" description="关联ID"/>
+  <column name="sys_rd_table_id" data-type="varchar" length="32" not-null="false" value-from="input" description="主表ID"/>
+  <column name="table_code" data-type="varchar" length="100" not-null="false" value-from="input" description="主表代码"/>
+  <column name="table_name" data-type="varchar" length="100" not-null="false" value-from="input" description="主表中文名称"/>
+  <column name="table_fk" data-type="varchar" length="100" not-null="false" value-from="input" description="主表字段"/>
+  <column name="table_fk_name" data-type="varchar" length="100" not-null="false" value-from="input" description="主表字段名称"/>
+  <column name="relation_table_code" data-type="varchar" length="100" not-null="false" value-from="input" description="关联表代码"/>
+  <column name="relation_table_name" data-type="varchar" length="100" not-null="false" value-from="input" description="关联表中文名称"/>
+  <column name="relation_table_fk" data-type="varchar" length="100" not-null="false" value-from="input" description="关联表字段"/>
+  <column name="relation_table_fk_name" data-type="varchar" length="100" not-null="false" value-from="input" description="关联表字段中文名称"/>
+  <column name="sys_rd_system_id" data-type="varchar" length="32" not-null="false" value-from="input" description="主表所属主题ID"/>
+  <column name="sys_rd_data_source_id" data-type="varchar" length="32" not-null="false" value-from="input" description="主表所属数据源ID"/>
+  <column name="ref_sys_rd_system_id" data-type="varchar" length="32" not-null="false" value-from="input" description="关联表所属主题ID"/>
+  <column name="ref_sys_rd_data_source_id" data-type="varchar" length="32" not-null="false" value-from="input" description="关联表所属数据源ID"/>
+  <column name="ref_sys_rd_table_id" data-type="varchar" length="32" not-null="false" value-from="input" description="关联表ID"/>
+  <column name="table_relation_type" data-type="varchar" length="2" not-null="false" value-from="input" description="关联关系类型"/>
+  <column name="remarks" data-type="varchar" length="1000" not-null="false" value-from="input" description="注释"/>
+  <column name="timestamp" data-type="varchar" length="32" not-null="false" value-from="input" description="时间戳"/>
+  <primary-key name="pk_sys_rd_table_relation_id" column-list="sys_rd_table_relation_id"/>
+  <index name="pk_sys_rd_table_relation_id" index-type="unique" cluster="cluster" column-list="sys_rd_table_relation_id"/>
+  <function func-name="select one sys_rd_table_relation" func-type="select" column-list="sys_rd_table_relation_id,sys_rd_table_id,table_code,table_name,table_fk,table_fk_name,relation_table_code,relation_table_name,relation_table_fk,relation_table_fk_name,sys_rd_system_id,sys_rd_data_source_id,ref_sys_rd_system_id,ref_sys_rd_data_source_id,table_relation_type,remarks,timestamp,ref_sys_rd_table_id">
+    <filter-column column-name="sys_rd_table_relation_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_rd_table_relation list" func-type="rowset" column-list="sys_rd_system_id,sys_rd_data_source_id,table_name,sys_rd_table_id,sys_rd_table_relation_id,table_code,table_fk,table_fk_name,relation_table_code,relation_table_name,relation_table_fk,relation_table_fk_name,table_relation_type,remarks,timestamp,ref_sys_rd_system_id,ref_sys_rd_data_source_id,ref_sys_rd_table_id" sort-columns="sys_rd_table_id,table_fk" max-record="10">
+    <filter-column column-name="table_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="relation_table_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_rd_system_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_rd_data_source_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_rd_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="ref_sys_rd_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="table_fk" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="relation_table_fk" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="table_code" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="relation_table_code" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="table_fk_name" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_rd_table_relation" func-type="insert" column-list="sys_rd_table_relation_id,sys_rd_table_id,table_code,table_name,table_fk,table_fk_name,relation_table_code,relation_table_name,relation_table_fk,relation_table_fk_name,sys_rd_system_id,sys_rd_data_source_id,table_relation_type,remarks,timestamp,ref_sys_rd_system_id,ref_sys_rd_data_source_id,ref_sys_rd_table_id">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_rd_table_relation" func-type="delete">
+    <filter-column column-name="sys_rd_table_relation_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_rd_table_relation" func-type="update" column-list="sys_rd_table_id,table_code,table_name,table_fk,table_fk_name,relation_table_code,relation_table_name,relation_table_fk,relation_table_fk_name,sys_rd_system_id,sys_rd_data_source_id,table_relation_type,remarks,timestamp,ref_sys_rd_system_id,ref_sys_rd_data_source_id,ref_sys_rd_table_id">
+    <filter-column column-name="sys_rd_table_relation_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

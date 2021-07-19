@@ -1,0 +1,117 @@
+/*
+	Notice that IE has a display problem if the help link is on
+	the last line of a container with no padding. If this is the
+	case increase the padding bottom to at least 1px
+*/
+.cb-container{
+	position:	absolute;
+}
+.cb-shadow{
+	background:	transparent;
+	-moz-opacity:0.8; 
+	filter:alpha(opacity=80)
+
+}
+.cb-mask{
+	background:	#fff;
+	-moz-opacity:0.6; 
+	filter:alpha(opacity=60)
+}
+.cb-container a,
+.cb-container a:hover {
+	color:		blue !important;
+	background:	none;
+}
+
+.left_buttom{
+	position: relative;
+}
+
+.right_bottom{
+	position: absolute;
+}
+.right_center .bottom{
+}
+.justifiedit .bottom{
+	height:15px;
+}
+
+body.dialog{
+	background-color: transparent;
+}
+
+/*************************************************************/
+.cb-container{
+	position:	absolute;
+	color:		InfoText;
+	font:		Status-Bar;	
+	background: #fff;
+	cursor:move;
+}
+.cb-header{
+	font-size:13px;
+	font-family:arials;
+	height:29px;
+	text-align:left;
+}
+.cb-board .head-left{
+	height:29px;
+	width:7px;
+	background:url("head_left.gif") no-repeat center center;
+}
+.cb-board .head-logo{
+	height:29px;
+	width:9px;
+	background:url("head_separator.gif") repeat center center;
+}
+.cb-board .head-right{
+	height:29px;
+	width:13px;
+	background:url("head_right.gif") no-repeat center center;
+}
+.cb-board .cb-title{
+	padding:2px;
+	cursor:move;
+	font-size:12px;
+	font-weight:bold;
+	background:url('head_middle.gif') repeat center center;
+}
+.cb-board .cb-closer{
+	width:24px;
+	height:29px;
+}
+.cb-board .cb-content{
+	filter:		progid:DXImageTransform.Microsoft.Gradient(EndColorStr=#DEDCDD, StartColorStr=#ffffff, GradientType=0);
+}
+.cb-board .middle_left{
+	width:2px;
+	background:url("middle_left.gif") repeat left center;
+	/*filter:		progid:DXImageTransform.Microsoft.Gradient(EndColorStr=#DEDCDD, StartColorStr=#ffffff, GradientType=0);*/
+}
+.cb-board .middle_spt{
+	width: 13px;
+}
+.cb-board .middle_right{
+	width:5px;
+	background:url("middle_right.gif") repeat right center;
+	/*filter:		progid:DXImageTransform.Microsoft.Gradient(EndColorStr=#DEDCDD, StartColorStr=#ffffff, GradientType=0);*/
+}
+.cb-board .bottom_left{
+	float: left;
+	height:100%;
+	width:7px;
+	background:url("bottom_left.gif") no-repeat left top;
+}
+.cb-board .bottom_bg{
+	float: right;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	background:url("bottom_middle.gif") repeat-x center top;
+}
+.cb-board .bottom_right{
+	float: right;
+	height:100%;
+	width:13px;
+	background:url("bottom_right.gif") no-repeat right top;
+}

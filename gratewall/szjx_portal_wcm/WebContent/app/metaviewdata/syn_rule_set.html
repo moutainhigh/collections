@@ -1,0 +1,164 @@
+<html>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<TITLE WCMAnt:param="syn_rule_set.html.title">设置数据同步到WCMDocument的规则</TITLE>
+<SCRIPT language=JavaScript src="../js/com.trs.util/Common.js"></SCRIPT>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/metaviewdata.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<SCRIPT language=JavaScript src="syn_rule_set.js"></SCRIPT>
+<script language="javascript">
+	window.m_fpCfg = {
+		m_arrCommands : [{
+			cmd : "onOk",
+			name : wcm.LANG.METAVIEWDATA_1 || '确定'
+		}],
+		size : [550, 470]
+	};
+</script>
+<style type="text/css">
+    *{
+        font-size:12px;
+        margin:0px;
+        padding:0px;
+    }
+	.div_center{
+		width:100%;
+		height:100%;
+		overflow:auto;
+	}
+    .row{
+        margin:10px;        
+    }
+    .label{
+        line-height:18px;
+        width:85px;
+        text-align:right;
+        vertical-align:top;
+		display:inline-block;
+    }
+    .value{
+    }
+    .input_text{
+        width:340px;
+        border:1px solid silver;
+    }
+    select{
+        width:340px;
+        border:1px solid silver;
+    }
+    textarea{
+        width:340px;
+        height:200px;
+        border:1px solid silver;
+    }
+	.button{
+		text-align:left;
+	}
+	.row_li{
+		text-align:left;
+	}
+	.label_input{
+		width:80px;
+	}
+	.value_input{
+		width:340px;
+		margin-left:5px;
+        border:1px solid silver;
+	}
+	.container{
+        margin:10px;
+        text-align:center;
+        overflow:auto;		
+	}
+	.deleteRow{
+        background:url("../images/metadata/delete.gif") center center no-repeat;
+        width:16px;
+        height:16px;
+        cursor:pointer;
+        display:inline-block;
+    }
+	.head_li{	    
+		text-align:left;		
+	}
+	.head_label{
+		text-align:center;	
+		width:80px;
+		border-bottom:1px solid silver;
+	}
+	.head_value{
+		text-align:center;	
+		margin-left:10px;
+		width:340px;
+		border-bottom:1px solid silver;
+	}
+</style>
+</HEAD>
+
+<body>
+<div class="div_center">
+<center>
+    <div class="row">
+        <span class="label" WCMAnt:param="syn_rule_set.html.fieldCanSel">可选字段：</span>
+        <span class="value">
+            <select name="viewFields" id="viewFields">
+                <option WCMAnt:param="syn_rule_set.html.selFieldTemp">--请选择一个字段模板--</option>
+            </select>
+        </span>
+    </div>    
+    <div class="row">
+        <span class="label" WCMAnt:param="syn_rule_set.html.docTitle">文档标题：</span>
+        <span class="value"><input class="input_text" type="text" name="DocTitle" id="DocTitle" value="" onfocus="window.lastFocus=this;"></span>
+    </div>    
+    <div >
+        <span class="label" WCMAnt:param="syn_rule_set.html.docContent">文档正文：</span>
+        <span class="value">
+            <textarea name="DocContent" id="DocContent" rows="6" cols="50" onfocus="window.lastFocus=this;"></textarea>
+		</span>
+    </div>
+    <div class="row button"><button type="button" onclick="addField();"><img src="../images/channel/option_add.gif" align="middle" border=0 alt="" /><span WCMAnt:param="syn_rule_set.html.addsynfield">添加同步字段</span></button></div>
+	<div class="container" id="otherFieldContainer">
+		<ol id="containerInner" style="list-style:none;">		
+		</ol>
+	</div>
+    <div class="row" id="synType" style="text-align:left;">
+        <FIELDSET><legend WCMAnt:param="syn_rule_set.html.selType">同步方式:</legend>
+            <div style="margin-left:5px;">
+                <input type="radio" name="synType" id="onlySelf" value="0" checked>
+                <label for="onlySelf" WCMAnt:param="syn_rule_set.html.sel1">仅同步本栏目</label>    
+            </div>
+            <div style="margin-left:5px;">
+                <input type="radio" name="synType" id="channelChild" value="1">
+                <label for="channelChild" WCMAnt:param="syn_rule_set.html.sel2">同步本栏目及本栏目下具有相同视图的子栏目</label>    
+            </div>  
+            <div style="margin-left:5px;margin-bottom:8px;">
+                <input type="radio" name="synType" id="sameView" value="2">
+                <label for="sameView" WCMAnt:param="syn_rule_set.html.sel3">同步本栏目并同步具有相同视图的栏目</label>    
+            </div>
+        </FIELDSET>
+    </div>
+	<div id="fieldTemplate" style="display:none;">
+		<li class="row_li">
+			<span><input type="text" class="label_input" name="fieldName" value="" onfocus="window.lastFocus=this;"></span>
+			<span><input type="text" class="value_input" name="fieldValue" value="" onfocus="window.lastFocus=this;"></span>
+			<span class="deleteRow"></span>
+		</li>
+	</div>
+</center>
+</div>
+</body>
+</HTML>

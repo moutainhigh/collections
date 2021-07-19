@@ -1,0 +1,41 @@
+
+SELECT S.ENTNAME, --企业名称
+       S.REGCAP, --注册资本
+       S.DOM, --注册地址
+       S.UNIFSOCICREDIDEN, --统一社会信用代码
+       S.REGORG, --登记机关
+       S.APPRDATE, --核准时间
+       S.UNIFSOCICREDIDEN AS NSRH, --纳税人识别号
+       S.REGNO, --注册号
+       '' AS GPH, --股票号
+       TO_CHAR(S.ESTDATE, 'YYYY-MM-DD') AS ESTDATE, --成立时间
+       TO_CHAR(S.OPFROM, 'YYYY-MM-DD') AS OPFROM, --经营开始时间
+       TO_CHAR(S.OPTO, 'YYYY-MM-DD') AS OPTO, --经营结束时间
+       '' QYJC, --企业简称
+       '' AS QYYWM, --英文名
+       '' AS ZYM, --曾用名
+       NVL(P.PERSNAME, S.LEREP) AS LEREP, --法定代表人
+       P.CERNO, --法定代表人身份证号
+       D.OLD_CODE_NAME AS ENTTYPE, --企业类型
+       '' AS CBRS, --参保人数
+       B.CODE_NAME AS INDUSTRYPHY, --所属行业
+       S.OPSCOPE, --经营范围
+       P.OLD_CODE_NAME AS POST --担任职务
+  FROM DC_RA_MER_BASE S,
+       (SELECT T.LICFLAG, T.MAIN_TB_ID, t.PERSNAME, T.CERNO,C.OLD_CODE_NAME
+          FROM (SELECT P.ID,P.MAIN_TB_ID,P.LICFLAG,P.PERSNAME,P.CERNO FROM DC_RA_MER_PERSONS P WHERE P.PERSNAME = '' OR P.CERNO ='431002198706040531'
+                UNION ALL
+                SELECT P.ID,P.MAIN_TB_ID,P.LICFLAG,P.INV AS PERSNAME,P.CERNO FROM Dc_Ra_Mer_Invest P  WHERE P.INV = '' OR P.CERNO ='431002198706040531') T,
+               DC_RA_MER_MEMBER M,
+               (SELECT * FROM CODEDATA WHERE CODE_INDEX = 'CB18') C
+         WHERE /*T.LICFLAG IN ('gdxx', 'JSCY', 'DSZ')
+           AND */T.ID = M.ID
+           AND M.POST = C.OLD_CODE_VALUE(+)) P,
+       (SELECT * FROM UP_CODELIST WHERE CODETYPE = 'CA05') B,
+       (SELECT * FROM CODEDATA WHERE CODE_INDEX = 'CA16') D
+ WHERE S.ID = P.MAIN_TB_ID(+)
+   AND S.INDUSTRYPHY = B.CODE_VALUE(+)
+   AND S.ENTTYPE = D.OLD_CODE_VALUE(+)
+;
+
+

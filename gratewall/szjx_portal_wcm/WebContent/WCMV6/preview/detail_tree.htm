@@ -1,0 +1,127 @@
+<html xmlns:TRS="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>导航树</title>
+<script src="../js/com.trs.util/Common.js"></script>
+<script language="javascript">
+    $import('com.trs.logger.Logger');
+    $import('com.trs.web2frame.TempEvaler');
+    $import('com.trs.web2frame.DataHelper');
+//-->
+</script>
+<script language="javascript">
+<!--
+
+	var PageContext = {};
+
+	Object.extend(PageContext, {
+		objectIds: top.getParameter("objectids"),
+		objectType: top.getParameter("objectType"), 
+		FolderId : top.getParameter("FolderId"), 
+		FolderType : top.getParameter("FolderType") 
+	});
+
+	top.document.title = getTitleByObjType(PageContext.objectType);
+
+	function getTitleByObjType(_sObjectType){
+		switch(_sObjectType){
+			case '101':
+				return '栏目预览';
+				break;
+			case '103':
+				return '站点预览';
+				break;
+			case '600':
+			case '605':
+				return '文档预览';
+				break;
+			default:
+				return '预览';
+				break;
+		}
+	}
+
+	Event.onDOMReady(function(){
+		var sServiceId = PageContext.objectType == '600' ? 'wcm6_viewdocument' : 'wcm6_publish';
+		BasicDataHelper.call(sServiceId, 'preview', {
+            objectIds: PageContext.objectIds, 
+            objectType: PageContext.objectType,
+			FolderId : PageContext.FolderId,
+			FolderType : PageContext.FolderType			
+		}, true, function(_trans, _json){
+			var sValue = TempEvaler.evaluateTemplater('nav_template', _json,
+				{});
+			Element.update($('divNav'),sValue);			
+			
+			initDetailInfo();
+		});
+		
+		top.focus();
+    });
+
+    function initDetailInfo(){
+        document.getElementsByClassName("element", "divNav")[0].fireEvent('onclick');
+    }
+
+	function changeSrc(_lnk){
+        top.document.getElementById("detail_content").setAttribute("src", _lnk.href); 
+	}
+
+    function showException(divDomObj){
+        var exceptionDetail = divDomObj.getElementsByTagName("span")[0];
+        var detailFrame = top.document.getElementById("detail_content");
+        try{
+            detailFrame.contentWindow.document.body.innerHTML = exceptionDetail.innerHTML;
+        }catch(error){//拒绝访问的错误
+            detailFrame.src = "detail_content.html";
+            detailFrame.onreadystatechange = function(){
+                if(this.readyState == 'complete'){
+                    detailFrame.contentWindow.document.body.innerHTML = exceptionDetail.innerHTML;
+                    detailFrame.onreadystatechange = null;
+                }
+            }
+        }
+    }
+</script>
+<style type="text/css">
+	.sp_title{
+		font-weight:bold;
+		font-size:12px;
+        white-space:nowrap;
+        color:green;
+	}
+    .link{
+		font-size:12px;  
+    }
+	.exception{
+        font-size:10px;
+        color:red;
+        cursor:pointer;
+    }
+    .element{
+    
+    }
+</style>
+</head>
+
+<body background="../images/preview/framebg.gif" style="margin:0px;padding:0px;">
+<div>
+	<div id="divNav"></div>
+	<textarea id="nav_template" select="DATA" style='display:none'>
+		<for select="." norecord="true">
+			<span class="sp_title">{#NAME}</span>
+			<ul style="margin-top:0px;padding-top:0px; margin-left:20px;">
+				<for2 select="URLS" blankRef="error_msg" norecord="true">
+					<li>
+						<a href="{#.}" onclick="changeSrc(this);return false;" title="{#.}" class="element link">{#.}</a>
+					</li>
+				</for2>
+			</ul>
+		</for>        
+	</textarea>
+	<div id='error_msg' style='display:none'>
+	<div class="element exception" onclick="showException(this);"><span style="display:none;"><div style="font-size:14px; color:red;padding:50px;">{#EXCEPTIONDETAIL}</div></span>{#Exception}</div>
+	</div>
+</div>
+</body>
+</html>

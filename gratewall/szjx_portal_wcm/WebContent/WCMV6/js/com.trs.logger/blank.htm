@@ -1,0 +1,16 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<body>
+<script>
+	window.onunload=function()
+	{
+		dialogArguments.__logger_dialog.close();
+		dialogArguments.__logger_dialog=null;
+		dialogArguments.getLogger().setLevel(5);
+	}
+</script>
+<div id="com_trs_log" style="position:absolute;top:30px;left:2px;background-color:#f0f0f0;font-size:9pt;border:1px solid black;padding:2px;width:470px;height:260px;overflow:auto;zIndex:1">
+</div>
+<div id="com_trs_log_tab" style="position:absolute;top:3px;left:2px;font-size:9pt;border:1px solid black;width:470px;height:25px;" align="right">
+<button onclick="dialogArguments.getLogger().show();">全部</button><button onclick="dialogArguments.getLogger().showLevel(0);">Debug</button><button onclick="dialogArguments.getLogger().showLevel(1);">Info</button><button onclick="dialogArguments.getLogger().showLevel(2);">Warn</button><button onclick="dialogArguments.getLogger().showLevel(3);">Error</button><button onclick="dialogArguments.getLogger().showLevel(4);">Fatal</button><button onclick="dialogArguments.clipboardData.setData('Text',document.getElementById('com_trs_log').innerText);"><font color="blue">复制</font></button><button onclick="dialogArguments.getLogger().clear();"><font color="blue">清除</font></button>
+</div>
+</body>

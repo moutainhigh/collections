@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="sys_svr_service" class-name="com.gwssi.dw.runmgr.services.dao.SysSvrService" check-flag="false" backup-flag="false">
+    <description>共享服务管理</description>
+  </table-info>
+
+  <column name="sys_svr_service_id" data-type="varchar" length="32" not-null="true" value-from="input" description="共享服务编号"/>
+  <column name="svr_name" data-type="varchar" length="1000" not-null="true" empty-is-null="true" value-from="input" description="共享服务名称"/>
+  <column name="table_no" data-type="varchar" length="2000" not-null="true" value-from="input" description="数据表编码"/>
+  <column name="column_no" data-type="varchar" length="2000" not-null="false" value-from="input" description="字段编码"/>
+  <column name="create_date" data-type="varchar" length="10" not-null="true" value-from="input" description="创建服务日期"/>
+  <column name="create_by" data-type="char" length="32" not-null="true" value-from="input" description="创建服务人"/>
+  <column name="svr_desc" data-type="varchar" length="2000" not-null="false" value-from="input" description="服务备注"/>
+  <column name="svr_code" data-type="varchar" length="1000" not-null="true" value-from="input" description="服务代码"/>
+  <column name="max_records" data-type="integer" length="10" not-null="true" empty-is-null="true" unique="false" value-from="input" description="最大记录数"/>
+  <column name="svr_type" data-type="char" length="10" not-null="true" value-from="input" description="服务类型"/>
+  <column name="svr_order" data-type="integer" length="10" not-null="false" empty-is-null="false" unique="false" value-from="input" description="服务插入顺序"/>
+  <column name="query_sql" data-type="varchar" length="4000" not-null="false" value-from="input" description="查询SQL"/>
+  <column name="shared_columns_en_array" data-type="varchar" length="4000" not-null="false" value-from="input" description="所有共享字段的英文名"/>
+  <column name="shared_columns_cn_array" data-type="varchar" length="4000" not-null="false" value-from="input" description="所有共享字段的中文名"/>
+  <primary-key name="p_identifier_1" column-list="sys_svr_service_id"/>
+  <index name="sql080506141152960" index-type="unique" cluster="other" column-list="sys_svr_service_id"/>
+  <function func-name="select one sys_svr_service" func-type="select" column-list="sys_svr_service_id,svr_name,table_no,column_no,create_date,create_by,svr_desc,svr_code,max_records,svr_type">
+    <filter-column column-name="sys_svr_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_svr_service list" func-type="rowset" column-list="sys_svr_service_id,svr_name,table_no,column_no,create_date,create_by,svr_desc,svr_code,svr_type" sort-columns="svr_order desc" max-record="10">
+    <filter-column column-name="svr_code" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="svr_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="create_by" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="create_date" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_svr_service" func-type="insert" column-list="sys_svr_service_id,svr_name,table_no,column_no,create_date,create_by,svr_desc,svr_code,max_records,svr_type,svr_order,query_sql,shared_columns_en_array,shared_columns_cn_array">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_svr_service" func-type="delete">
+    <filter-column column-name="sys_svr_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_svr_service" func-type="update" column-list="sys_svr_service_id,svr_code,svr_name,max_records,svr_desc,table_no,column_no,query_sql,shared_columns_en_array,shared_columns_cn_array">
+    <filter-column column-name="sys_svr_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="insert self sys_svr_service" func-type="insert" column-list="sys_svr_service_id,svr_name,table_no,create_date,create_by,svr_desc,svr_code,max_records,svr_type">
+    <description>插入自定义服务</description>
+  </function>
+
+  <function func-name="update one sys_svr_self_service" func-type="update" column-list="svr_name,table_no,svr_desc,svr_code,max_records">
+    <filter-column column-name="sys_svr_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改自定义服务记录</description>
+  </function>
+
+  <function func-name="select one sys_svr_service_code" func-type="rowset" column-list="sys_svr_service_id">
+    <filter-column column-name="svr_code" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询-服务代码</description>
+  </function>
+
+  <function func-name="select one sys_svr_service_name" func-type="rowset" column-list="sys_svr_service_id">
+    <filter-column column-name="svr_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询-服务名称</description>
+  </function>
+
+  <function func-name="select one sys_svr_service_id" func-type="rowset" column-list="sys_svr_service_id,svr_name,table_no,create_date,create_by,svr_desc,svr_code,max_records,svr_type">
+    <filter-column column-name="sys_svr_service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询-服务名称</description>
+  </function>
+
+  <function func-name="select max sys_svr_service_svr_code" func-type="rowset" column-list="max(svr_order) as svr_order">
+    <description>单记录查询</description>
+  </function>
+</table>
+

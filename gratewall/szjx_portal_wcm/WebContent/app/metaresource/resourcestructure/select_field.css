@@ -1,0 +1,37 @@
+﻿/*01 首先消除默认的边框边距和字体大小*/
+*{margin: 0px; padding: 0px; }
+
+/*02 设置html、body的大小*/
+html, body {width:100%; height:100%; overflow: hidden;font-size: 12px;}
+
+.selectField {position: relative; width: 100%;height: 100%; }
+.selectField .top {width: 100%; height: 50px; text-align: right;color:#5D3700; font-size: 14px; line-height: 50px; overflow: hidden;}
+.selectField .content {position:absolute; top:50px; bottom: 0px; width: 100%; overflow-y: auto;overflow-x:hidden;}
+
+.selectField .top img {width: 65px; height: 27px; cursor: pointer;margin-right: 15px;}
+.selectField .top input, .selectField .top img {vertical-align: middle;}
+
+.selectField .content ul {}
+.selectField .content ul li {list-style:none; float:left; width: 25%; height: 30px; color: #4A4A4A; text-overflow: ellipsis; white-space: nowrap;overflow: hidden; line-height: 30px;}
+.selectField .content ul .odd {background-color: #FFF6DD; }
+.selectField .content ul li input {margin-left: 10px; vertical-align: middle;}
+.selectField .content ul li label {margin-left: 5px; vertical-align: middle;}
+
+.jquery-ie6 .selectField{
+	padding-top:50px;
+}
+.jquery-ie6 .top {
+	position:absolute;
+	padding-top: 10px;
+	top:0px;
+}
+.jquery-ie6 .selectField .content{
+	position:static;
+	height:100%;
+}
+.jquery-ie6 .selectField .content ul li {
+	padding-top: 5px;
+}
+/**兼容IE67 **/
+.first-li {margin-left:-1px;}
+.last-li {margin-right:-1px;}

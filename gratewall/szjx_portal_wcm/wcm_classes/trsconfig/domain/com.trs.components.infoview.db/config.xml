@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0" id="components.infoview.db">
+
+	<!--Config For Server BEGIN-->
+	<extension element-class="com.trs.infra.ServerConfig" id="Server">
+		<server bean-id="InfoViewDBStoreServer" name="表单数据存储服务器" />
+	</extension>
+	<!--Config For Server END-->
+
+	<!--Config For ObjectLCMonitor BEGIN-->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		1：新增
+		2：修改
+		3：删除前
+		4：删除后
+		5：修改后
+		多个以逗号隔开
+	-->
+	<extension 
+		element-class="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		id="components.wcm.content.ObjectLCMonitor">
+		<!--文档-->
+		<monitor-host name="文档" 
+			class-name="com.trs.components.wcm.content.persistent.Document">
+			<listener bean-id="DocumentLCListenerForInfoViewDB" event-type="-1,1,4,5"/>
+		</monitor-host>
+		<monitor-host name="栏目文档" 
+			class-name="com.trs.components.wcm.content.persistent.ChnlDoc">
+			<listener bean-id="ChnlDocLCListenerForInfoViewDB" event-type="5"/>
+		</monitor-host>
+	</extension>
+</plugin>

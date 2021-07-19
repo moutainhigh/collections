@@ -1,0 +1,310 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<TITLE></TITLE>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/metadata.js"></script>
+<!--wcm-dialog start-->
+<script src="../../app/js/source/wcmlib/Observable.js"></script>
+<script src="../../app/js/source/wcmlib/Component.js"></script>
+<script src="../../app/js/source/wcmlib/dialog/Dialog.js"></script>
+<script src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></script>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog end-->
+<!-- CarshBoard Inner Start -->
+<script src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></script>
+<script src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Inner End -->
+<script language="javascript">
+<!--
+    window.m_cbCfg = {
+        btns : [
+            {
+                text : wcm.LANG.METADATA_BUTTON_1 || '确定',
+                cmd : function(){
+					var valueArr, _enumValue, _defaultValue;
+					valueArr = getResult();
+					//此处的false判断是为了阻断事件传播，当有提示信息时不关闭crashboard.
+					if(valueArr == false)
+						return false;
+					if(valueArr){
+						_enumValue = getResult()[0];
+						_defaultValue = getResult()[1];
+					}else{
+						_enumValue = "";
+						_defaultValue = "";
+					}
+					if(_enumValue.length>61||_defaultValue.length>61)
+						Ext.Msg.alert( wcm.LANG.enumvalue_create_1000 || "描述和值总长度超过60.");
+					//if(!_enumValue && !_defaultValue) return false;
+					var _args = {enumValue : _enumValue,defaultValue : _defaultValue};
+					var cbr = this;
+					cbr.notify(_args);
+					cbr.hide();
+				}
+            },
+			{
+				extraCls : 'wcm-btn-cancel',
+                text : wcm.LANG.METADATA_BUTTON_2 || '取消选择',
+                cmd : function(){
+					var checkOrRadioArr = document.getElementsByName("defaultValue");
+					if(!checkOrRadioArr || checkOrRadioArr.length == 0) return false;
+					for(var i = 0; i < checkOrRadioArr.length; i++){
+						if(checkOrRadioArr[i].checked){
+							checkOrRadioArr[i].checked = false;
+						}			
+					}
+					return false;
+				}
+            },
+			{
+				extraCls : 'wcm-btn-close',
+                text : wcm.LANG.METADATA_BUTTON_3 || '取消',
+                cmd : function(){
+				}
+            }
+        ]
+    };
+//-->
+</script>
+
+<style type="text/css">
+    *{
+        font-size:12px;
+        margin:0px;
+        padding:0px;
+    }
+    .header{
+        width:100%;
+        height:100%;
+        font-size:14px;
+        font-weight:bold;
+        text-align:center;
+    }
+    .container{
+        width:100%;
+        height:240px;
+        text-align:center;
+        overflow:hidden;
+        scrollbar-face-color : #EDEDED;
+        scrollbar-darkshadow-color : #EDEDED;
+    }
+    .row{
+        margin-left:-30px;
+		width:100%;
+    }
+	.ext-gecko3 .row{
+		margin-left:-30px;
+		float:left;
+	}
+    .desc{
+        width:40px;
+        text-align:right;
+		height:20px;
+        line-height:20px;
+        overflow:visible;
+    }
+    input{
+        border:1px solid silver;
+    }
+    .label{
+        width:120px;
+    }
+    .value{
+        width:50px;
+    }
+    .deleteRow{
+        background:url("../images/metadata/delete.gif") center center no-repeat;
+        width:16px;
+        height:16px;
+        cursor:pointer;
+		display:inline-block;
+    }
+	.tip{
+		margin:10px 10px;  
+	}
+	#containerInner{height:100%;overflow:auto;}
+	#checkboxOrRadio{display:inline-block;}
+</style>
+<script language="javascript">
+<!--
+    Event.observe(document, 'keydown', function(event){
+        //filter for condition.
+        event = window.event || event;
+        if(event.keyCode != Event.KEY_RETURN){
+            return true;
+        }
+        var activeElement = document.activeElement;
+        if(!activeElement || 
+                (activeElement.name != "enumValue" && activeElement.name != "enumLabel")){
+            return true;
+        }
+        //get row object.
+        var tempNode = getRowObject(activeElement);
+        if(!tempNode) return true;
+
+        if(activeElement.name == "enumLabel"){
+            var inputs = tempNode.getElementsByTagName("input");
+            if(inputs[1]) inputs[1].focus();
+            return true;
+        }
+
+        //create new row.
+        new Insertion.After(tempNode, $('template').innerHTML);
+
+        //focus the first form element in new row.
+        var newNode = Element.next(tempNode);
+        var inputs = newNode.getElementsByTagName("input");
+        if(inputs.length > 1) inputs[1].focus();
+    });
+
+    Event.observe(document, 'click', function(event){
+        //filter for condition.
+        var srcElement = Event.element(window.event || event);
+        if(!Element.hasClassName(srcElement, "deleteRow")){
+            return;
+        }
+
+        //get row object.
+        var tempNode = getRowObject(srcElement);
+        if(!tempNode) return true;
+
+        //delete the row or clear the value.
+        if(Element.previous(tempNode) || Element.next(tempNode)){
+            Element.remove(tempNode);
+        }else{
+            var inputs = tempNode.getElementsByTagName("input");
+            for(var i = 0; i < inputs.length; i++){
+                inputs[i].value = "";
+            }
+        }
+    });
+
+    function getRowObject(tempNode){
+        while(tempNode){
+            if(Element.hasClassName(tempNode, "row")){
+                break;
+            }
+            tempNode = tempNode.parentNode;
+        }
+        return tempNode;
+    }
+
+    function getResult(){
+        var aResult = [];
+		var defaultValue = [];
+		var result = [];
+        var inputs = $('containerInner').getElementsByTagName("input");
+        for(var i = 0; i < inputs.length; i+=3){
+				var sLabel = inputs[i+1].value.trim();
+				var sValue = inputs[i+2].value.trim();
+				if(inputs.length == 3 && !sLabel && !sValue){
+					break;					
+				}
+				if(!sLabel){
+					Ext.Msg.alert(wcm.LANG.METADATA_ALERT_3 || "描述不能为空.");
+					return false;
+				}
+				var reg = /~|`/ig;
+
+				if(sLabel.match(reg) || sValue.match(reg)){
+					Ext.Msg.alert(wcm.LANG.METADATA_ALERT_33 || "描述或值不能包含特殊字符：~` 。");
+					return false;
+				}
+
+				if(sValue != ''){
+					if(inputs[i].checked){
+						defaultValue.push(sValue); 
+					}
+					sValue = "`" + sValue;
+				}
+				if(inputs[i].checked && !sValue){ 
+					Ext.Msg.alert(wcm.LANG.METADATA_ALERT_1 || "请为默认选项设置值.");
+					return false;
+				}
+					
+				aResult.push(sLabel + sValue);
+        }
+		result.push(aResult.join("~"));
+		result.push(defaultValue.join(","));
+        return result;
+    }
+
+    function init(_params) {
+        var hasItem = false;
+        _params = _params || {"enumValue" : ""};
+        var enumValue = _params["enumValue"].split("~");
+		var defaultValue = _params["defaultValue"];
+		var arDefaultValue = [];
+		if(defaultValue){
+			arDefaultValue = defaultValue.split(","); 
+		}
+
+		var isRadio = _params["isRadio"];
+		if(!isRadio){
+			new Insertion.After($('checkboxOrRadio'), "<input style='border:0' type='checkbox' name='defaultValue' id='defaultValue'>");
+		}else{
+			new Insertion.After($('checkboxOrRadio'), "<input style='border:0' type='radio' name='defaultValue' id='defaultValue'>");
+		}
+        for (var i = 0; i < enumValue.length; i++){
+            var aItem = enumValue[i].split("`");
+            var sLabel = aItem[0];
+            if(sLabel == null){
+                Ext.Msg.alert( (wcm.LANG.METADATA_ALERT_2 || "分析枚举值时发现枚举值不合法") + "[" + enumValue + "]");
+                break;
+            }
+            var sValue = aItem[1] || "";
+            new Insertion.Bottom($('containerInner'), $('template').innerHTML);
+            var newNode = Element.last($('containerInner'));
+            var inputs = newNode.getElementsByTagName("input");
+            if(inputs[1]){
+                inputs[1].value = sLabel;
+            }
+            if(inputs[2]){
+                inputs[2].value = sValue;
+				if(inputs[2].value != "" && arDefaultValue.include(sValue)){
+					inputs[0].checked = true;
+				}
+            }
+            hasItem = true;
+        }
+        if(!hasItem){
+            new Insertion.Bottom($('containerInner'), $('template').innerHTML);
+        }
+		
+		var last = Element.last($('containerInner'));
+		if(last){
+			var inputs = last.getElementsByTagName('input');
+			if(inputs && inputs.length > 1){
+				inputs[1].focus();
+			}
+		}
+    }
+//-->
+</script>
+</HEAD>
+
+<BODY>
+
+	<div class="tip" WCMAnt:param="enumvalue_create.html.tip">选择的描述和值将作为默认值</div>
+	<div class="container" id="container">
+		<ol id="containerInner"></ol>
+	</div>
+
+    <div id="template" style="display:none;">
+        <li class="row">
+			<div id="checkboxOrRadio"></div>
+            <span class="desc" WCMAnt:param="enumvalue_create.html.desc">描述：</span>
+            <span><input type="text" name="enumLabel" value="" class="label"></span>
+            <span class="desc" WCMAnt:param="enumvalue_create.html.value">值：</span>
+            <span><input type="text" name="enumValue" value="" class="value"></span>
+            <span class="deleteRow">&nbsp;</span>
+        </li>
+    </div>
+</BODY>
+</HTML>

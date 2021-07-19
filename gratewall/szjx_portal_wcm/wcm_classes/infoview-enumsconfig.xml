@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<infoview-enumsconfig>
+	<enum-creator key="所属部门" infoviewid="28" split-by="," value-split-by="~">
+		<![CDATA[
+			<TRS_CHANNELS id="parent" childtype="-1" startpos="0">
+			<TRS_CHANNEL FIELD="CHANNELID"/>~<TRS_CHANNEL FIELD="CHNLNAME" autolink="false"/>,
+			</TRS_CHANNELS>
+		]]>
+	</enum-creator>
+	<enum-linked infoviewid="28">
+		<![CDATA[
+			<chains>
+				<chain keys="地区,国家,城市">
+					<items key="地区">
+						<item value="亚洲">
+							<items key="国家">
+								<item value="中国">
+									<items key="城市">
+										<item value="北京"/>
+										<item value="上海"/>
+										<item value="天津"/>
+									</items>
+								</item>
+								<item value="印度">
+									<items key="城市">
+										<item value="AA"/>
+										<item value="BB"/>
+									</items>
+								</item>
+							</items>
+						</item>
+						<item value="非洲"></item>
+					</items>
+				</chain>
+			</chains>
+		]]>
+	</enum-linked>
+</infoview-enumsconfig>

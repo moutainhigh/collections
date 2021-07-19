@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.common.publish.widget.LayoutServiceProvider" objclass="com.trs.components.common.publish.widget.Layout">
+
+	<method name="save" desc="保存布局"></method>
+
+	<method name="query" desc="查询布局">		
+		<parameter name="PageSize	" desc="布局列表分页大小" type="int" required="false" default="20"/>
+		<parameter name="CurrPage	" desc="当前布局第几页" type="int" required="false" default="1"/>
+		<parameter name="OrderBy	" desc="排序条件" type="string" required="false" default="CrTime Desc"/>
+		<parameter name="LayoutName" desc="包含该名称的布局" type="string" required="false"
+			search="true" search-operator="like" search-field="LayoutName"/>
+		<parameter name="Ratio" desc="包含该比例值的" type="string" required="false"
+			search="true" search-operator="like" search-field="Ratio"/>
+		<parameter name="RatioType" desc="布局比例类型,1为固定比，2为百分比" type="int" required="false"
+			search="true" search-operator="=" search-field="RatioType"/>
+		<parameter name="Columns" desc="布局列数" type="int" required="false"
+			search="true" search-operator="=" search-field="Columns"/>
+	</method>
+
+	<method name="jQuery" truename="query"  convertor="uri:/app/special/layout/layout_query.jsp"/>
+
+	<method name="delete" desc="删除布局">
+		<parameter name="ObjectIds" desc="需要删除的布局的ID序列" type="string" required="true"/>
+	</method>
+
+	<method name="getLayoutHtml" desc="通过比例信息获取到相应的HTML代码">
+		<parameter name="Ratio" desc="比例值" type="string" required="true"/>
+		<parameter name="RatioType" desc="比例类型,1为固定比,2为百分比" type="int" required="true"/>
+	</method>
+</service>

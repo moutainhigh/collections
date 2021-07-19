@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<!-- <link rel="stylesheet" href="../../../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" type="text/css" /> -->
+<link rel="stylesheet" href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" type="text/css" />
+<link rel="stylesheet" href="../../../static/css/common.css" />
+<!-- <link rel="stylesheet" href="../../../../static/css/baseInfo.css" /> -->
+<style>
+article {
+	background-color: #fff;
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.content {
+	background-color: #fff;
+	margin-top: -25px;
+	width: 1000px;
+	border: none;
+}
+
+.jazz-panel-border {
+	border-color: #74A7D9;
+}
+
+.jazz-form-text-label {
+	font-size: 14px;
+	font-weight: normal;
+}
+
+.content-top {
+	width: 952px;
+	margin: 0 auto;
+	margin-top: 10px;
+}
+
+.dotted-line {
+	margin-bottom: 20px;
+	margin-top: 20px;
+}
+
+.h46 {
+	height: 46px;
+}
+</style>
+</head>
+<body>
+	<section>
+
+		<div class="content">
+			<!-- 构建页面==开始 -->
+			<!-- 数据展现 -->
+			<div class="content-top">
+				<img src="../../../static/image/img/icon/info-white.png">
+				<span>企业补充信息</span>
+			</div>
+
+			<div vtype="formpanel" wid="cp_rs_entsnd" name="entSnd_Form" dataview="false" titleDisplay="false" title="企业补充信息" width="952" showborder="true" dataurl="" layout="auto" labelstyleclass="labelstyle">
+
+				<!-- 数据展示 -->
+				<div name="entId" vtype="hiddenfield" label="主键" labelwidth="200" labelalign="right" width="450"></div>
+				<div name="members" vtype="textfield" label="从业人数" labelwidth="160" labelalign="right" width="450" rule="numberPlusInt" readonly="" tooltip="必须 为正整数,不能是小数，负数等非法数字"></div>
+				<div name="laidoffNumber" vtype="textfield" label="安置下岗失业人数" labelwidth="205" labelalign="right" width="450" rule="numberPlusInt" tooltip="必须 为正整数,不能是小数，负数等非法数字" readonly=""></div>
+				<div name="incityNumber" vtype="textfield" label="本市人数" labelwidth="160" labelalign="right" width="450" rule="numberPlusInt" tooltip="必须 为正整数,不能是小数，负数等非法数字" readonly=""></div>
+				<div name="othercityNumber" vtype="textfield" label="外地人数" labelwidth="205" labelalign="right" width="450" rule="numberPlusInt" tooltip="必须 为正整数,不能是小数，负数等非法数字" readonly=""></div>
+				<div name="womenNumber" vtype="textfield" label=" 女性人数" labelwidth="160" labelalign="right" width="450" tooltip="必须 为正整数,不能是小数，负数等非法数字" rule="numberPlusInt" readonly=""></div>
+
+				<!-- 分割线 -->
+				<div class="dotted-line"></div>
+
+				<div name="hasParty" vtype="radiofield" label="建立党组织" class="h46" labelwidth="205" labelalign="right" width="450" dataurl="[{checked: true,value: '1',text: '是'},{value: '2',text: '否'}]" rule="must" readonly=""></div>
+				<div name="partyNumber" vtype="textfield" label="党员（预备党员）人数" class="h46" labelwidth="205" labelalign="right" width="450" rule="numberPlusInt" tooltip="必须 为正整数,不能是小数，负数等非法数字" readonly=""></div>
+				<div name="hasLeague" vtype="radiofield" label="建立团组织" class="h46" labelwidth="205" labelalign="right" width="450" dataurl="[{checked: true,value: '1',text: '是'},{value: '2',text: '否'}]" rule="must" readonly=""></div>
+				<div name="leagueNumber" vtype="textfield" label="团员人数" class="h46" labelwidth="205" labelalign="right" width="450" rule="numberPlusInt" tooltip="必须 为正整数,不能是小数，负数等非法数字" readonly=""></div>
+				<div name="hasUnion" vtype="radiofield" label="建立工会组织" class="h46" labelwidth="205" labelalign="right" width="450" dataurl="[{checked: true,value: '1',text: '是'},{value: '2',text: '否'}]" rule="must" readonly=""></div>
+				<div name="unionNumber" vtype="textfield" label="工会会员人数" class="h46" labelwidth="205" labelalign="right" width="450" rule="numberPlusInt" tooltip="必须 为正整数,不能是小数，负数等非法数字" readonly=""></div>
+				<div name="anOrgParSign" vtype="radiofield" label="党组织是否本年度组建" class="h46" labelwidth="205" labelalign="right" width="450" dataurl="[{checked: true,value: '1',text: '是'},{value: '2',text: '否'}]" rule="must" readonly=""></div>
+				<div name="resParMSign" vtype="radiofield" label="法定代表人党员标志" class="h46" labelwidth="205" labelalign="right" width="450" dataurl="[{checked: true,value: '1',text: '是'},{value: '2',text: '否'}]" rule="must" readonly=""></div>
+				<div name="resParSecSign" vtype="radiofield" label="法定代表人党组织书记标志" class="h46" labelwidth="205" labelalign="right" width="450" dataurl="[{checked: true,value: '1',text: '是'},{value: '2',text: '否'}]" rule="must" readonly=""></div>
+
+			</div>
+
+
+			<!-- 按钮区域 -->
+			<div name="cp_rs_entsndToolbar" vtype="toolbar" location="bottom" align="center">
+				<div name="cp_rs_entsnd_save_button" class="commonBt">保存</div>
+				<div name="cp_rs_entsnd_goback_button" class="commonBt">返回</div>
+			</div>
+		</div>
+
+	</section>
+
+
+
+	<!-- 构建页面==结束 -->
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" data-main="torch/cp_rs_entSndTorch.js" src="../../../static/lib/require.js"></script>
+</body>
+</html>

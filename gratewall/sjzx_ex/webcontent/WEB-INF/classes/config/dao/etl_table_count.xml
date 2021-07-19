@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="etl_table_count" class-name="com.gwssi.dw.runmgr.etl.dao.EtlTableCount" check-flag="false" backup-flag="false">
+    <description>中心库数据量统计表</description>
+  </table-info>
+
+  <column name="sys_name" data-type="varchar" length="30" not-null="false" value-from="input" description="主题名称"/>
+  <column name="table_name_cn" data-type="varchar" length="100" not-null="false" value-from="input" description="表中文名"/>
+  <column name="table_name" data-type="varchar" length="30" not-null="false" value-from="input" description="表名"/>
+  <column name="ent_type" data-type="varchar" length="30" not-null="false" value-from="input" description="主体类型"/>
+  <column name="ent_stats" data-type="varchar" length="30" not-null="false" value-from="input" description="主体状态"/>
+  <column name="c_count" data-type="long" length="22" not-null="false" value-from="input" description="表数据量"/>
+  <column name="i_count" data-type="long" length="22" not-null="false" value-from="input" description="较上次统计增量"/>
+  <column name="etl_date" data-type="date" length="7" not-null="false" value-from="input" description="统计日期"/>
+  <column name="last_etl_date" data-type="date" length="7" not-null="false" value-from="input" description="上次统计日期"/>
+  <column name="sys_order" data-type="long" length="22" not-null="false" value-from="input" description="主题序号"/>
+  <column name="table_order" data-type="long" length="22" not-null="false" value-from="input" description="表序号"/>
+  <primary-key name="etl_table_count_pk" column-list="sys_name,table_name,etl_date"/>
+  <function func-name="select one etl_table_count" func-type="select" column-list="sys_name,table_name_cn,table_name,ent_type,ent_stats,c_count,i_count,etl_date,last_etl_date,sys_order,table_order">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select etl_table_count list" func-type="rowset" column-list="sys_name,table_name_cn,table_name,ent_type,ent_stats,c_count,i_count,etl_date,last_etl_date,sys_order,table_order" max-record="10">
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one etl_table_count" func-type="insert" column-list="sys_name,table_name_cn,table_name,ent_type,ent_stats,c_count,i_count,etl_date,last_etl_date,sys_order,table_order">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one etl_table_count" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one etl_table_count" func-type="update" column-list="sys_name,table_name_cn,table_name,ent_type,ent_stats,c_count,i_count,etl_date,last_etl_date,sys_order,table_order">
+    <description>修改记录</description>
+  </function>
+</table>
+

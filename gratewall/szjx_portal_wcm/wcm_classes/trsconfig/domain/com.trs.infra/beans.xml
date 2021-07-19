@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0" id="infra">		
+	<beans>
+		<bean id="ServerControl" class="com.trs.infra.ServerControl" 
+			singleton="true"/>
+		<bean id="JobScheduler" class="com.trs.infra.util.job.JobScheduler" 
+			singleton="true"/>
+		<bean id="ConfigServer" 
+			class="com.trs.infra.support.config.ConfigServer" singleton="true"/>
+		<bean id="CacheServer" class="com.trs.infra.support.cache.CacheServer" 
+			singleton="true"/>
+		<bean id="UpdateServer" class="com.trs.infra.update.UpdateServer" 
+			singleton="true"/>
+		<bean id="ObjectLCMonitorServer" 
+			class="com.trs.infra.persistent.listener.ObjectLCMonitorServer" 
+			singleton="true"/>
+		<bean id="ILogMgr" class="com.trs.infra.support.log.LogMgr" 
+			singleton="true"/>
+		<!-- WCMOBJ Life Cycle Listeners BEGIN -->
+		<bean id="PathConfigLCListener" 
+			class="com.trs.infra.support.file.PathConfigLCListener" 
+			singleton="true"/>
+		<!-- WCMOBJ Life Cycle Listeners END -->
+		<bean id="ICachedPOMgr" 
+			class="com.trs.infra.persistent.cache.CachedPOMgr" 
+			singleton="true"/>
+		<bean id="SMTPServerConfigMapper" 
+			class="com.trs.infra.util.email.SMTPServerConfigMapper" 
+			singleton="true"/>
+		<bean id="SecureKeyMgr" 
+			class="com.trs.infra.support.security.SecureKeyMgr" 
+			singleton="true"/>
+	</beans>
+</plugin>

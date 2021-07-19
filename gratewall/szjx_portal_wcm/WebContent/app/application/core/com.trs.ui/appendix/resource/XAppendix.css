@@ -1,0 +1,50 @@
+﻿.XAppendix{
+	display:inline;
+}
+.appendix-browser{
+	position:relative;
+	width:16px;
+	height:20px;
+	background:url(Accessories.png) center center no-repeat;
+	overflow:hidden;
+	cursor:pointer;
+}
+.XDisabledCls .appendix-browser{
+	filter:gray;
+	cursor:default;
+}
+.XAppendix input{
+	position:absolute;
+	top:0px;
+	right:0px;
+	width:auto;
+	height:auto;
+	opacity:0;
+	filter:alpha(opacity=0);
+	cursor:pointer;
+}
+.XDisabledCls input{
+	cursor:default;
+}
+.XAppendix  form{
+	display:inline;
+}
+.appendix-text{
+	float:left;
+	height:16px;
+	line-height:16px;
+}
+.appendix-delete{
+	display:inline-block;
+	width:16px;
+	height:16px;
+	cursor:pointer;
+	background:url(delete.gif) center center no-repeat;
+}
+.XDisabledCls .appendix-delete{
+	filter:gray;
+	cursor:default;
+}
+.ext-ie6 .appendix-delete{
+	display:inline;
+}

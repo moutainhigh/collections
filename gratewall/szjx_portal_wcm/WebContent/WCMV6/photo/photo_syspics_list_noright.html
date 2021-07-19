@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>图片列表</title>
+
+<!-- ~Common CSS Begin~ -->
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/wcm_list_abstract.css" rel="stylesheet" type="text/css" />
+<!-- ~Common CSS End~ -->
+</head>
+
+<body>
+<table id="table_body" class="wcm_table_layout" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="wcm_list_view">
+			<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+			<tbody>
+				<tr>
+					<td height="29px;">
+						<div class="pageinfo">
+								<div class="pageinfo_left"></div>
+								<div class="pageinfo_right"></div>																																					
+							</div>
+					</td>
+				</tr>
+				<tr style="height:29px">
+					<td>
+						<div class="grid_head" id="grid_head">													
+						</div>
+					</td>
+				</tr>
+				<tr class="list_view">
+					<td valign="top">						
+						<div class="no_object_found" style="font-size:18px;" id="desc">
+							请点击左边的导航树，以选择需要导入的图片
+						</div>										
+					</td>
+				</tr>
+				<tr class="list_navigator">
+					<td>						
+						<div id="list_navigator" class="list_navigator_div">
+						</div>
+					</td>
+				</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+</table>
+<script>
+	var params = window.location.search;
+	if(params != null && params.indexOf("NodePath")!=-1){
+		var sHtml = "不好意思, 您没有权限查看["+params.split("=")[1]+"]上的图片...-____-|||";
+		document.getElementById("desc").innerHTML=sHtml;
+	}
+</script>
+</body>
+</html>
+

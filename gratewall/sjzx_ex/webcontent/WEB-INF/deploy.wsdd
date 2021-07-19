@@ -1,0 +1,81 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment xmlns="http://xml.apache.org/axis/wsdd/"
+	xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+	<!-- Services from Service WSDL service -->
+	<service name="GSWebService" provider="java:RPC">
+		<parameter name="className"
+			value="com.gwssi.webservice.server.GSGeneralWebService" />
+		<parameter name="allowedMethods" value="query,queryData,queryTrsData" />
+	</service>
+	<!-- Services from Service WSDL service -->
+
+	<!-- webservice for dotnet -->
+	<service name="GSWebServiceForDotnet" provider="java:RPC"
+		style="rpc" use="encoded">
+		<parameter name="wsdlTargetNamespace"
+			value="urn:GSWebServiceForDotnet" />
+		<parameter name="wsdlServiceElement"
+			value="GSGeneralWebServiceForDotnetService" />
+		<parameter name="schemaUnqualified"
+			value="urn:GSWebServiceForDotnet" />
+		<parameter name="wsdlServicePort" value="GSWebServiceForDotnet" />
+		<parameter name="className"
+			value="com.gwssi.webservice.server.dotnet.GSWebServiceForDotnetSoapBindingSkeleton" />
+		<parameter name="wsdlPortType"
+			value="GSGeneralWebServiceForDotnet" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="allowedMethods" value="*" />
+		<parameter name="scope" value="Session" />
+
+		<arrayMapping xmlns:ns="urn:GSWebServiceForDotnet"
+			qname="ns:ArrayOf_soapenc_string" type="java:java.lang.String[]"
+			innerType="cmp-ns:string"
+			xmlns:cmp-ns="http://schemas.xmlsoap.org/soap/encoding/"
+			encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+		<arrayMapping xmlns:ns="urn:GSWebServiceForDotnet"
+			qname="ns:ArrayOfCommonMapObject"
+			type="java:com.gwssi.webservice.server.dotnet.CommonMapObject[]"
+			innerType="cmp-ns:CommonMapObject"
+			xmlns:cmp-ns="urn:GSWebServiceForDotnet"
+			encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+		<typeMapping xmlns:ns="urn:GSWebServiceForDotnet"
+			qname="ns:CommonResult"
+			type="java:com.gwssi.webservice.server.dotnet.CommonResult"
+			serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+			deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+			encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+		<typeMapping xmlns:ns="urn:GSWebServiceForDotnet"
+			qname="ns:CommonMapObject"
+			type="java:com.gwssi.webservice.server.dotnet.CommonMapObject"
+			serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+			deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+			encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+	</service>
+	<!-- webservice for dotnet -->
+
+	<!-- Services from IQuartzWebServiceService WSDL service -->
+	<service name="QuartzWebService" provider="java:RPC" style="rpc"
+		use="encoded">
+		<parameter name="wsdlTargetNamespace"
+			value="urn:QuartzWebService" />
+		<parameter name="wsdlServiceElement"
+			value="IQuartzWebServiceService" />
+		<parameter name="wsdlServicePort" value="QuartzWebService" />
+		<parameter name="className"
+			value="com.gwssi.dw.component.quartz.webservice.QuartzWebServiceSoapBindingSkeleton" />
+		<parameter name="wsdlPortType" value="IQuartzWebService" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="allowedMethods" value="*" />
+		<parameter name="scope" value="Session" />
+	</service>
+	<!-- Services from IQuartzWebServiceService WSDL service -->
+
+</deployment>

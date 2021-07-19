@@ -1,0 +1,533 @@
+<HTML>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE WCMAnt:param="flownode_property.html.flowNodeTitle">工作流节点属性页面</TITLE>
+<script label="TagParser">
+	top.actualTop = window;
+</script>
+<!--my import-->
+<script type="text/javascript" src="../js/data/locale/wcm52.js"></script>
+<script src="../../app/js/wcm52/CTRSHashtable.js"></script>
+<script src="../../app/js/wcm52/CTRSRequestParam.js"></script>
+<script src="../../app/js/wcm52/CTRSAction.js"></script>
+<script src="../../app/js/wcm52/CTRSArray.js"></script>
+<script src="../../app/js/wcm52/CTRSString.js"></script>
+<script src="../js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/flow.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/data/locale/system.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/TempEvaler.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/lang/cn.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.workflow/WorkFlow.js"></script>
+<!-- CarshBoard Outer Start -->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/resource/widget.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Outer End -->
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog end-->
+<!--page scope-->
+<script src="./domain/Configurator.js"></script>
+<script src="./flownode_property.js"></script>
+<link href="../css/workflow.css" rel="stylesheet" type="text/css" />
+<link href="./flownode_property.css" WCMAnt:locale="./flownode_property_$locale$.css" rel="stylesheet" type="text/css" />
+</HEAD>
+<body align="center">
+<div id="dy_adjust">
+</div>
+<script>
+	var nCurrPanelIndex = 0;
+	function switchDisplay(_nPanelIndex){
+		if(_nPanelIndex == nCurrPanelIndex) {
+			return;
+		}
+		//else
+		nCurrPanelIndex = _nPanelIndex;
+		var flagCurrent = (_nPanelIndex == 0 ? 'doc_opt'	: 'field_opt');
+		var flagOther	= (_nPanelIndex == 0 ? 'field_opt'	: 'doc_opt');
+		Element.removeClassName('sp_' + flagCurrent, 'box_header_alter');
+		Element.addClassName('sp_' + flagOther, 'box_header_alter');
+		Element.hide('dv_' + flagOther);
+		Element.show('dv_' + flagCurrent);
+
+	}
+</script>
+<center>
+<div id="divContent">
+  <div class="options_box" style="width:539px;">
+	<div>
+	<span class="box_header_left"></span>
+	<span class="box_header_center" style="width:33%;" WCMAnt:param="flownode_property.html.flowinfo">基本信息</span>
+	<span class="box_header_right"></span>
+	</div>
+	<div class="box_body" id="divHeader">
+		<table border="0" cellspacing="0" cellpadding="3" style="table-layout:fixed">
+		<tbody>
+			<tr>
+				<td align="left" width="18%" style="white-space: nowrap" WCMAnt:param="flownode_property.html.flowNodeName">节点名称:</td>
+				<td align="left" width="82%"><input class="inputtext" id=nodeName size=21 validation="type:'string',required:'true',max_len:'50',desc:'节点名称',no_desc:''" WCMAnt:paramattr="validation_desc:flownode_property.html.flowNodeNameDesc" validation_desc="节点名称"></td>
+			</tr>
+			<tr>
+				<td align="left" WCMAnt:param="flownode_property.html.nodeDesc">节点描述:</td>
+				<td align="left"><input class="inputtext" id=nodeDesc size=21 validation="type:'string',max_len:'200',desc:'节点描述',no_desc:''" validation_desc="节点描述" WCMAnt:paramattr="validation_desc:flownode_property.html.flowNodedis"></td>
+			</tr>
+		</tbody>
+		</table>	
+	</div>
+  </div>
+  <div class="options_box" style="width:539px">
+	<div>
+		<span class="box_header_left" style="margin-top: 1px"></span>
+		<span class="box_header_center box_header_alter" style="display: none; width: 35%; border-right: 1px solid silver; white-space:nowrap;overflow:hidden" id="sp_field_opt" title="表单字段操作限定" WCMAnt:paramattr="title:flownode_property.html.sp_field_opt">
+			<a href="#" onclick="switchDisplay(1); return;"><span WCMAnt:param="flownode_property.html.operLimited">表单字段操作限定</span></a>
+			&nbsp;<span style="background-image: url(../images/list/edit.png); width: 16px; background-position: center center; background-repeat: no-repeat; cursor: pointer; " align="absmiddle"  onclick="switchDisplay(1); selectFields()" border=0 title="设置字段操作权限" WCMAnt:paramattr="title:flownode_property.html.operLimitedDesc">&nbsp;</span>
+		</span>
+		<span class="box_header_center" id="sp_doc_opt" WCMAnt:paramattr="title:flownode_property.html.sp_doc_opt" title="文档操作限定">
+			<a href="#" onclick="switchDisplay(0); return;"><span WCMAnt:param="flownode_property.html.operLimitedConfirm">文档操作限定</span></a>	
+		</span>
+		<span class="box_header_right" id="sp_opt_right"></span>
+	</div>
+	<div class="box_body" id="dv_field_opt" style="display: none; width:539px;">
+		<table border="0" cellspacing="1" cellpadding="1" width="100%" height="60px">
+		<tbody>
+			<tr>
+				<td style="width: 80px; white-space: nowrap" WCMAnt:param="flownode_property.html.cannotField">不可见字段:</td>
+				<td align="left">
+					<span id="spReadFields" class="sp_fields_list"></span>
+				</td>
+			</tr>
+			<tr>
+				<td WCMAnt:param="flownode_property.html.readOnlyField">只读的字段:</td>
+				<td>
+					<span id="spWriteFields" class="sp_fields_list"></span>
+				</td>
+			</tr>
+			<tr>
+				<td WCMAnt:param="flownode_property.html.onlyInit">仅被初始化:</td>
+				<td>
+					<span id="spInitedFields" class="sp_fields_list"></span>
+				</td>
+			</tr>
+		</tbody>
+		</table>	
+	</div>
+	<div class="box_body" id="dv_doc_opt" style="width:539px">
+		<table border="0" cellspacing="0" cellpadding="3" width="100%" height="60px">
+		<tbody>
+			<tr>
+				<td><input type="checkbox" id=action_edit><span WCMAnt:param="flownode_property.html.edit" id="edit" class="action_name">编辑文档</span></td>
+				<td><input type="checkbox" id=action_del><span WCMAnt:param="flownode_property.html.delete" id="del" class="action_name">删除文档</span></td>
+				<td><input type="checkbox" id=action_pub colspan="2"><span WCMAnt:param="flownode_property.html.publish" id="pub" class="action_name">发布文档</span></td>
+			</tr>
+			<tr>
+				<td align="left" style="border-top: 1px solid #efefef;">
+					<input type="radio" name="workmodal" id="workmodal_0"><span WCMAnt:param="flownode_property.html.workmodal1_0" id="_0" class="modal_name">普通流转</span>
+				</td>
+				<td align="left" style="border-top: 1px solid #efefef;">
+					<input type="radio" name="workmodal" id="workmodal_1"><span WCMAnt:param="flownode_property.html.workmodal1_1" id="_1" class="modal_name">会签</span>
+				</td>
+				<td align="left" style="border-top: 1px solid #efefef;">
+					<input type="radio" name="workmodal" id="workmodal_2"><span WCMAnt:param="flownode_property.html.workmodal1_2" id="_2" class="modal_name">并联审批开始</span>
+				</td>
+				<td align="left" style="border-top: 1px solid #efefef;">
+					<input type="radio" name="workmodal" id="workmodal_3"><span WCMAnt:param="flownode_property.html.workmodal1_3" id="_3" class="modal_name">并联审批结束</span>
+				</td>					
+			</tr>
+		</tbody>
+		</table>
+		<input type="checkbox" name="bReasignSepNodes" id="bReasignSepNodes" checked="checked"/><span>并联审批开始节点处理时可指定分支</span>
+	</div>
+
+  </div>
+  <div class="options_box" style="width:539px">
+	<div>
+	<span class="box_header_left"></span>
+	<span class="box_header_center" style="width: 40%" WCMAnt:param="flownode_property.html.selectuser">选择用户和组织</span>
+	<span class="box_header_right" style="width: 55%"></span>
+	</div>
+	<div class="box_body">
+		<table border="0" cellspacing="0" cellpadding="0" height="60px">
+		<tbody>
+			<tr>
+				<td style="white-space: nowrap" width="60%" valign="top">
+					<div id="dvUserNGroup" style="padding: 5px; width: 100%">
+						<div style="width:100%;">
+							<span WCMAnt:param="flownode_property.html.receiver" class="receiving_user_titlesp">接收用户:</span>
+							<span class="receiving_user_sp">
+								<span class="receiving_user_inputsp">
+									<input TYPE="text" readonly id="trUsers" name="trUsers" class="readonly_text" value="" size="25">
+								</span>&nbsp;
+								<span class="receiving_user_imgsp">
+									<img onclick="setOwner(0);" src="../images/icon/icon_user.gif" align="absmiddle">
+								</span>
+							</span>
+						</div>
+						<div style="width:100%;">
+							<span class="receiving_org_titlesp" WCMAnt:param="flownode_property.html.receiveOrg">接收组织:</span>
+							<span class="receiving_org_sp">
+								<span class="receiving_org_inputsp">
+									<input TYPE="text" readonly id="trGroups" name="trGroups" class="readonly_text" value=""; size="25">
+								</span>&nbsp;
+								<span class="receiving_org_imgsp">
+									<img onclick="setOwner(1);" src="../images/icon/icon_group.gif" align="absmiddle">
+								</span>
+							</span>
+						</div>
+					</div>
+					<div id="dvUserRule" style="padding: 5px; margin-top: 2px; display: none; width: 100%">
+						<div style="margin-bottom: 3px;">
+							<span WCMAnt:param="flownode_property.html.receiveRule">接收规则:</span>
+							<span>
+								<select id="selHandlers" style="width:80%;"></select>
+							</span>	
+						</div>
+						<div id="ruletip" style="display: none">
+							<br>
+							<span class="font_red" WCMAnt:param="flownode_property.html.ruletip">&nbsp;&nbsp; 请注意：用户所在的组织必须是组织机构的子组织。</span>
+						</div>
+						<div style="display: none" id="dvToUsersGroupIds">
+							<input type="hidden" id="hdToUsersGroupIds" value="">
+							<span WCMAnt:param="flownode_property.html.selectOrg">指定组织:</span>
+							<span>
+								<span>
+									<input TYPE="text" readonly id="txtToUsersGroupNames" class="readonly_text" value="" size="30">
+								</span>
+								<span>
+									<img onclick="setOwner2(1);" id="imToUsersGroupNames" src="../images/icon/icon_group.gif" align="absmiddle">
+								</span>
+							</span>
+						</div>
+						<div style="display: none" id="dvToUsersFieldName">
+							<span WCMAnt:param="flownode_property.html.selectField">指定字段:</span>
+							<span>
+								<span>
+									<input TYPE="text" id="txtToUsersFieldName" value="" size="30">
+								</span>
+							</span>
+						</div>
+						<div style="display: none" id="dvToUsersRoleIds">
+							<input type="hidden" id="hdToUsersRoleIds" value="">
+							<span WCMAnt:param="flownode_property.html.selectrole">指定角色:</span>
+							<span>
+								<span>
+									<input TYPE="text" readonly  id="txtToUsersRoleNames" value="" class="readonly_text" size="30">
+								</span>
+								<span>
+									<img onclick="setRoleOwner();" id="imToUsersRoleIds" src="../images/icon/icon-role.png" align="absmiddle">
+								</span>
+							</span>
+						</div>
+						<div style="display: none" id="dvToUsersUserIds">
+							<input type="hidden" id="hdToUsersUserIds" value="">
+							<span WCMAnt:param="flownode_property.html.user">指定用户:</span>
+							<span>
+								<span>
+									<input TYPE="text" readonly id="txtToUsersUserNames" class="readonly_text" value="" size="30">
+								</span>
+								<span>
+									<img onclick="setOwner3();" id="imToUsersUserNames" src="../images/icon/icon_user.gif" align="absmiddle">
+								</span>
+							</span>
+						</div>
+					</div>
+					<div>
+						<input type="checkbox" name="bReasignUsers" id="bReasignUsers" checked="checked"/><span WCMAnt:param="flownode_property.html.cansetuserwhenhandling">处理时可指定用户</span>
+					</div>
+					
+				</td>
+				<td style="padding: 0px; padding-left: 5px; " valign="top"  width="40%">
+					<div style="width: 100%; padding: 5px; background: #ffffe0; border: silver 1px solid">
+						<span>
+						
+							<span style="color: #010101; font-weight: bold" WCMAnt:param="flownode_property.html.tip">提示:</span><span WCMAnt:param="flownode_property.html.confirmReceive">无法确认具体接受用户或组织时，您可以:</span><br>
+							<span class="chkuserrule_sp">
+								<span><input onclick="displayUserSelection()" type="checkbox" name="" value="" id="chkUserRule"></span>&nbsp;
+								<span><a href="#" onclick="displayUserSelection(true); return false;" onfocus="this.blur()"><span WCMAnt:param="flownode_property.html.selectReceiveRule">指定接收规则</span></a></span>
+							</span>
+						</span>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+  </div>
+</div>
+<div id="divRules">
+  <div class="options_box" style="width:539px">
+	<div>
+	<span class="box_header_left"></span>
+	<span class="box_header_center"  style="width:33%;" WCMAnt:param="flownode_property.html.rule">规则</span>
+	<span class="box_header_right"></span>
+	</div>
+	<div class="box_body" style="width:539px">
+		<div id="divRuleSkimList" style="overflow: auto;"></div>
+		<textarea id="rules_template" style="display: none; font-size: 14px;">
+		<for select="rules" blankRef="divNoItem">
+			<div style="width: 100%;" class="data_item">
+				<span style="font-family: Georgia">{$$index}. </span>
+				<span title="颜色标明有效时机" WCMAnt:paramattr="title:flownode_property.html.ruleType"><img src="../images/workflow/ball_{#ruletype}.gif" align="absmiddle">({@WorkflowHelper.getRuleTypeName(#ruletype)})</span>
+				&nbsp;<span>({@thansferRuleName(#ruleName)})</span>
+			</div>
+		</for>
+		</textarea>
+		<div>
+			<iframe id="frmRuleDef" src="workflow_rules_define.html" height="0" frameborder="0" style="border: 0px solid gray"></iframe>
+		</div>
+  </div>
+</div>
+</center>
+<div id="divRuleDefine">
+	<a href="#" onclick="defineRules(); return false;" id="lnkToggle" class="btn_style_link" disabled><span WCMAnt:param="flownode_property.html.startDefRule">开始规则定义</span></a><!--<button type="button" onclick="refreshMe();">refresh</button>-->
+</div>	
+<div id="divOptions">
+<table border="0" cellspacing="0" cellpadding="0" style="width: 100%;">
+<tbody>
+	<tr>
+		<td align="center"><span><button onclick="doOK()" type="button" id='okbutton' disabled><span WCMAnt:param="flownode_property.html.confirm">确定</span></button></span>&nbsp;&nbsp;<span><button onclick="doCancel()" type="button"><span WCMAnt:param="flownode_property.html.cancel">取消</span></button></span></td>
+	</tr>
+</tbody>
+</table>
+</div>
+<div id="divNoItem" style="display:none;">
+	<div class="no_object_found" WCMAnt:param="flownode_property.html.no_object_found">(当前没有规则。请点击"开始规则定义"进行添加)</div>
+</div>
+
+
+
+<script language="javascript">
+<!--
+initPage();
+var m_bFirstDisplayUserRule = true;
+function displayUserSelection(_bFired, _sTousers, _sTousersParams){
+	var chk = $('chkUserRule');
+	if(_bFired) {
+		chk.checked = !chk.checked;
+	}
+
+	if(chk.checked) {
+		//若是第一次显示，先读取配置后显示选项
+		if(m_bFirstDisplayUserRule) {
+			m_bFirstDisplayUserRule = false;
+			var hSysHandlers = $configurator.getWorkflowConfig()['touser'];
+			var selHandlers = $('selHandlers');
+			for( var sName in hSysHandlers){
+				var eOptionion = document.createElement("OPTION");
+				selHandlers.options.add(eOptionion);
+				eOptionion.value = sName;
+				eOptionion.innerText = sName;
+			}
+			if(_sTousers != null && _sTousers.trim() != '') {
+				selHandlers.value = _sTousers;
+			}
+			
+			//附带显示合适的用户选择规则参数
+			//alert(Object.parseSource(hSysHandlers))
+			displayTousersParams(hSysHandlers, _sTousersParams);
+			Event.observe(selHandlers, 'change', function(){
+				displayTousersParams(hSysHandlers)
+			}, false);
+			
+		}
+		Element.hide('dvUserNGroup');
+		Element.show('dvUserRule');
+	}else{
+		Element.hide('dvUserRule');
+		Element.show('dvUserNGroup');		
+	}
+
+}
+
+function displayTousersParams(_config, _sTousersParams){
+	var selHandlers = $('selHandlers');
+	var sCurrVal = selHandlers.value;
+	if(sCurrVal == '当前组织或部门内成员') 
+		$('ruletip').style.display = '';
+	else $('ruletip').style.display = 'none';
+	var currTousers = null;
+	if(_config == null) {
+		_config = $configurator.getWorkflowConfig()['touser'];
+	}
+	if(_config == null || (currTousers = _config[sCurrVal]) == null) {
+		return;
+	}
+	//else
+	//暂时写死
+	var eOption = selHandlers.options(selHandlers.selectedIndex);
+	if(eOption == null) {
+		return;
+	}
+	if(currTousers['groupids'] != null) { // 根据指定GroupIds, 特定组织或部门经理
+		if(eOption.getAttribute('_firstload', 2) != '1') {
+			var sGIDsVal = currTousers['groupids'];
+			var sGNAMEVal = sGIDsVal;
+			if(sGIDsVal != null && sGIDsVal.trim().length != 0) {
+				Element.hide('imToUsersGroupNames');
+			}else{
+				if(_sTousersParams != null && _sTousersParams.trim().length != 0) {
+					sGIDsVal = getAttributeAsString(_sTousersParams, 'groupids') || '';
+					sGNAMEVal = getAttributeAsString(_sTousersParams, 'groupnames') || sGIDsVal;
+				}		
+			}
+			$('txtToUsersGroupNames').value = sGNAMEVal;
+			$('hdToUsersGroupIds').value = sGIDsVal;
+			eOption.setAttribute('_firstload', '1');
+		}
+
+		Element.hide('dvToUsersFieldName')
+		Element.hide('dvToUsersRoleIds')
+		Element.hide('dvToUsersUserIds');
+		Element.show('dvToUsersGroupIds');
+		return;
+	}else if(currTousers['userids'] != null) { // 根据指定GroupIds, 特定组织或部门经理
+		if(eOption.getAttribute('_firstload', 2) != '1') {
+			var sGIDsVal = currTousers['userids'];
+			if(sGIDsVal != null && sGIDsVal.trim().length != 0) {
+				Element.hide('imToUsersUserNames');
+			}else{
+				if(_sTousersParams != null && _sTousersParams.trim().length != 0) {
+					sGIDsVal = getAttributeAsString(_sTousersParams, 'userids') || '';
+				}		
+			}
+			$('txtToUsersUserNames').value = sGIDsVal;
+			$('hdToUsersUserIds').value = sGIDsVal;
+			eOption.setAttribute('_firstload', '1');
+		}
+
+		Element.hide('dvToUsersFieldName');
+		Element.hide('dvToUsersGroupIds');
+		Element.hide('dvToUsersRoleIds');
+		Element.show('dvToUsersUserIds');
+		return;
+	}else if(currTousers['fieldname'] != null) {//根据指定FieldName, 特定表单文档字段查询经理
+		var sFieldName = currTousers['fieldname'];
+		var bIsFieldnameReadonly = (sFieldName != null && sFieldName.trim().length != 0);
+		if(bIsFieldnameReadonly) {
+			$('txtToUsersFieldName').readOnly = true;
+			//edit by liuyou@2008-06-24 只读属性需要恢复默认值
+			$('txtToUsersFieldName').value = sFieldName;
+			Element.addClassName('txtToUsersFieldName', 'readonly_text');
+		}else{
+			$('txtToUsersFieldName').readOnly = false;
+			Element.removeClassName('txtToUsersFieldName', 'readonly_text');	
+		}		
+		if(eOption.getAttribute('_firstload', 2) != '1') {
+			if(!bIsFieldnameReadonly) {
+				if(_sTousersParams != null && _sTousersParams.trim().length != 0) {
+					sFieldName = getAttributeAsString(_sTousersParams, 'fieldname') || '';
+				}	
+				
+				$('txtToUsersFieldName').readOnly = false;
+				Element.removeClassName('txtToUsersFieldName', 'readonly_text');	
+			}
+			
+			$('txtToUsersFieldName').value = sFieldName;
+			eOption.setAttribute('_firstload', '1');
+		}
+	
+		Element.hide('dvToUsersGroupIds');
+		Element.hide('dvToUsersRoleIds');
+		Element.hide('dvToUsersUserIds');
+		Element.show('dvToUsersFieldName');
+		return;
+	}else if(currTousers['roleids'] != null){
+		if(eOption.getAttribute('_firstload', 2) != '1') {
+			var sRoleIds = currTousers['roleids'];
+			var sRoleName = sRoleIds;
+			if(sRoleIds != null && sRoleIds.trim().length != 0) {
+				Element.hide('imToUsersRoleNames');
+			}else{
+				if(_sTousersParams != null && _sTousersParams.trim().length != 0) {
+					sRoleIds = getAttributeAsString(_sTousersParams, 'roleids') || '';
+					sRoleName = getAttributeAsString(_sTousersParams, 'rolenames') || sRoleIds;
+
+				}		
+			}
+			$('txtToUsersRoleNames').value = sRoleName;
+			$('hdToUsersRoleIds').value = sRoleIds;
+			eOption.setAttribute('_firstload', '1');
+		}
+		Element.hide('dvToUsersGroupIds');
+		Element.hide('dvToUsersFieldName');
+		Element.hide('dvToUsersUserIds');
+		Element.show('dvToUsersRoleIds');
+		return;
+
+		
+	}
+	Element.hide('dvToUsersGroupIds');
+	Element.hide('dvToUsersFieldName');
+	Element.hide('dvToUsersUserIds');
+	Element.hide('dvToUsersRoleIds');
+}
+
+function getAttributeAsString(_sVal, _sField){
+	if(_sVal == null || _sVal.trim().length == 0) {
+		return null;
+	}
+	//else
+	var arParts = _sVal.split(';');
+	if(arParts.length == 0) {
+		return;
+	}
+	var hFieldsMap = {};
+	for (var i = 0; i < arParts.length; i++){
+		var entry = arParts[i].split('=');
+		if(!(entry.length == 2)) {
+			continue;
+		}
+		hFieldsMap[entry[0].trim().toUpperCase()] = entry[1];
+	}
+
+	return hFieldsMap[_sField.toUpperCase()];
+}
+function thansferRuleName(_ruleName){
+	return $transHtml(_ruleName);
+}
+function $transHtml(_sContent) {
+	if (_sContent == null)
+		return '';
+
+	var nLen = _sContent.length;
+	if (nLen == 0)
+		return '';
+
+	var result = '';
+	for (var i = 0; i < nLen; i++) {
+		var cTemp = _sContent.charAt(i);
+		switch (cTemp) {
+		case '<': // 转化：< --> &lt;
+			result += '&lt;';
+			break;
+		case '>': // 转化：> --> &gt;
+			result += '&gt;';
+			break;
+		case '"': // 转化：" --> &quot;
+			result += '&quot;';
+			break;
+		default:
+			result += cTemp;
+		}// case
+	}// end for
+	return result;
+}
+//-->
+</script>
+<!-- Body of Node Property -->
+</BODY>
+</HTML>

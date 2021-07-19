@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="res_collect_dataitem" class-name="com.gwssi.resource.collect.dao.ResCollectDataitem" check-flag="false" backup-flag="false">
+    <description>采集数据项表</description>
+  </table-info>
+
+  <column name="collect_dataitem_id" data-type="varchar" length="32" not-null="true" value-from="input" description="采集数据项ID"/>
+  <column name="collect_table_id" data-type="varchar" length="32" not-null="false" value-from="input" description="采集数据表ID"/>
+  <column name="dataitem_name_en" data-type="varchar" length="100" not-null="false" value-from="input" description="数据项名称"/>
+  <column name="dataitem_name_cn" data-type="varchar" length="100" not-null="false" value-from="input" description="数据项中文名称"/>
+  <column name="dataitem_type" data-type="varchar" length="20" not-null="false" value-from="input" description="数据项类型"/>
+  <column name="dataitem_long" data-type="varchar" length="4" not-null="false" value-from="input" description="数据项长度"/>
+  <column name="is_key" data-type="varchar" length="1" not-null="false" value-from="input" description="是否主键"/>
+  <column name="is_code_table" data-type="varchar" length="1" not-null="false" value-from="input" description="是否代码表"/>
+  <column name="code_table" data-type="varchar" length="32" not-null="false" value-from="input" description="对应代码表"/>
+  <column name="dataitem_long_desc" data-type="varchar" length="2000" not-null="false" value-from="input" description="数据项描述"/>
+  <column name="is_markup" data-type="varchar" length="1" not-null="false" value-from="input" description="有效标记"/>
+  <column name="creator_id" data-type="varchar" length="32" not-null="false" value-from="input" description="创建人ID"/>
+  <column name="created_time" data-type="varchar" length="19" not-null="false" value-from="input" description="创建时间"/>
+  <column name="last_modify_id" data-type="varchar" length="32" not-null="false" value-from="input" description="最后修改人ID"/>
+  <column name="last_modify_time" data-type="varchar" length="19" not-null="false" value-from="input" description="最后修改时间"/>
+  <column name="dataitem_state" data-type="varchar" length="2" not-null="false" value-from="input" description="物理表是否已生成该字段"/>
+  <primary-key name="pk_res_collect_dataitem" column-list="collect_dataitem_id"/>
+  <index name="pk_res_collect_dataitem" index-type="unique" cluster="cluster" column-list="collect_dataitem_id"/>
+  <function func-name="select one res_collect_dataitem" func-type="select" column-list="collect_dataitem_id,collect_table_id,dataitem_name_en,dataitem_name_cn,dataitem_type,dataitem_long,is_key,is_code_table,code_table,dataitem_long_desc,is_markup,creator_id,created_time,last_modify_id,last_modify_time,dataitem_state" sort-columns="created_time,collect_table_id">
+    <filter-column column-name="collect_dataitem_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="collect_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select res_collect_dataitem list" func-type="rowset" column-list="collect_dataitem_id,collect_table_id,dataitem_name_en,dataitem_name_cn,dataitem_type,dataitem_long,is_key,is_code_table,code_table,dataitem_long_desc,is_markup,creator_id,created_time,last_modify_id,last_modify_time,dataitem_state" sort-columns="created_time,collect_table_id" max-record="10">
+    <filter-column column-name="collect_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="dataitem_name_en" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="dataitem_name_cn" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="dataitem_type" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="code_table" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one res_collect_dataitem" func-type="insert" column-list="collect_dataitem_id,collect_table_id,dataitem_name_en,dataitem_name_cn,dataitem_type,dataitem_long,is_key,is_code_table,code_table,dataitem_long_desc,is_markup,creator_id,created_time,last_modify_id,last_modify_time,dataitem_state">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one res_collect_dataitem" func-type="delete">
+    <filter-column column-name="collect_dataitem_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one res_collect_dataitem" func-type="update" column-list="dataitem_name_en,dataitem_name_cn,dataitem_type,dataitem_long,is_key,is_code_table,code_table,dataitem_long_desc,last_modify_id,last_modify_time,is_markup,dataitem_state">
+    <filter-column column-name="collect_dataitem_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="collect_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

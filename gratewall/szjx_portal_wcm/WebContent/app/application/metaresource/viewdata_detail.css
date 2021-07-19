@@ -1,0 +1,61 @@
+*{
+	margin:0px;
+	padding:0px;
+	font-size:12px;
+}
+html,body{
+	width:100%;
+	height:100%;
+}
+.flow_start{
+	margin-left:10px;
+	padding-left:20px;
+	background:url(../images/workflow/option_start.gif) no-repeat 0 center;
+}
+.flow_cease{
+	margin-left:10px;
+	padding-left:20px;
+	background:url(../images/workflow/option_cease.gif) no-repeat 0 center;
+	cursor:pointer;
+}
+.flow_reflow{
+	margin-left:10px;
+	padding-left:20px;
+	background:url(../images/workflow/option_reflow.gif) no-repeat 0 center;
+	cursor:pointer;
+}
+
+.box{
+	width:100%;
+}
+.label{
+	width:90px;
+	text-align:right;
+	vertical-align:top;
+	padding-top:5px;
+	overflow:hidden;
+}
+.value{
+	text-align:left;
+	padding-left:5px;
+	vertical-align:top;
+	padding-top:5px;
+}
+.appendix{
+	width:20px;
+	height:16px;
+	cursor:pointer;
+	background:center center no-repeat;
+	text-decoration:none;
+}
+.ext-strict .appendix{
+	padding:9px 10px;
+}
+.ext-ie8 .value li, .ext-gecko .value li{
+	margin-left:15px;
+}
+.type{
+	cursor:pointer;
+	padding:8px;
+	background:center center no-repeat;
+}

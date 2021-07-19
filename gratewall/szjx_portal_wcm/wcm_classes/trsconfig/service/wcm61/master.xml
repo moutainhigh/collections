@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.common.publish.widget.MasterServiceProvider">
+	<method name="save" desc="保存母板">
+		<parameter name="ObjectId" desc="母板Id" type="int" required="true"/>
+		<parameter name="MName" desc="母板名称" type="string" required="true"/>
+		<parameter name="MDesc" desc="母板描述信息" type="string" required="false"/>
+		<parameter name="FileName" desc="母板文件" type="string" required="true"/>
+		<parameter name="PicFileName" desc="母板缩略图" type="string" required="false"/>
+		<parameter name="MasterType" desc="母版类型" type="int" required="true"/>
+	</method>
+
+	<method name="query" desc="查询母板">
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="CrTime Desc" required="false"/>
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="MName" desc="母板名称" type="string" required="false"
+			search="true" search-operator="like" search-field="MName"/>
+		<parameter name="MDesc" desc="母板描述" type="string" required="false"
+			search="true" search-operator="like" search-field="MName"/>			
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>		
+		<parameter name="MasterId" desc="母版Id" type="int" required="false" search="true"
+			search-operator="="/>
+		<parameter name="MasterType" desc="母版类型" type="int" required="false" search="true"
+			search-operator="="/>
+		<!-- 检索相关配置 END -->	
+	</method>
+
+	<!-- 按母板类型查询 母板类型：1 （概览），2 （细缆）-->
+	<method name="queryMasterByMasterType" truename="query" convertor="uri:/app/special/master/master_select_query.jsp">
+	</method>
+
+	<method name="queryMasterByContentType" desc="获取指定类型文件不为空的母版集合">
+		<!-- 母板文件有三种类型，分别为：专题首页（Master.MASTER_INDEX），专题下分类首页（Master.MASTER_OUTLINE） ，专题细览页（Master.MASTER_DETAIL）-->
+		<parameter name="MasterFileType" desc="母版中的文件类型" type="int" required="true"/>
+	</method>
+
+	<!-- 过滤掉旧母板，旧母板的母板类型MasterType值为0或者NULL -->
+	<method name="JQuery" truename="query" convertor="uri:/app/special/master/master_query.jsp">
+		<parameter name="MasterType" desc="母版类型" type="int" required="false" search="true"
+			search-operator=">"/>
+	</method>
+
+	<method name="delete" desc="删除母板">
+		<parameter name="ObjectIds" desc="要删除的母板的Id序列" type="string" required="true"/>
+	</method>
+
+	<method name="export" desc="导出母板">
+		<parameter name="ObjectIds" desc="要导出的母板的Id序列" type="string" required="true"/>
+	</method>
+
+	<method name="validateMasterFile" desc="校验模板文件是否合法">
+		<!-- FileName：母板文件名。必须是在服务器端的文件 （可以是绝对，也可以是单个文件名，单个文件名必须是符合WCM规则的文件名） 后缀必须是一个ZIP -->
+		<parameter name="FileName" desc="要校验的母板文件" type="string" required="true"/>
+	</method>
+
+	<method name="importMasters" desc="导入母板">
+		<parameter name="FileName" desc="要导入的母板文件" type="string" required="true"/>
+		<parameter name="ImportMode" desc="重名时的处理方式" type="int" required="false" default="1"/>
+	</method>
+
+	<method name="existsMName" desc="判断母板名称是否已经存在">
+		<parameter name="ObjectId" desc="母板ID" type="int" required="true"/>
+		<parameter name="MName" desc="母板名称" type="string" required="true"/>
+	</method>
+
+</service>

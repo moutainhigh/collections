@@ -1,0 +1,65 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<TITLE>新建/修改元数据</TITLE>
+<link href="../css/add_edit.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+    *{
+        font-size:12px;
+        margin:0px;
+        padding:0px;
+    }
+    .row{
+        margin:10px;
+        height:18px;
+    }
+    .label{
+        line-height:18px;
+    }
+    .value{
+    }
+    input{
+        width:200px;
+        height:18px;
+        border:1px solid silver;
+    }
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script>
+    $import('com.trs.wcm.MessageCenter');
+    $import('com.trs.validator.Validator');
+    $import('com.trs.wcm.util.LockedUtil');
+    $import('com.trs.wcm.domain.TableInfoMgr');
+</script>
+<script language="javascript" src="key_words.js" type="text/javascript"></script>
+<script language="javascript" src="tableinfo_add_edit.js" type="text/javascript"></script>
+</head>
+
+<body>
+<form id="ObjectForm" name="ObjectForm" method="post">
+    <div id="objectContainer"></div>
+    <div id="validTip" style="margin-left:10px;"></div>
+</form>
+<textarea name="objectTemplate" id="objectTemplate" rows="" cols="" select="MetaDBTable" style="display:none;">
+    <div class="row">
+        <span class="label">元数据名称：</span>
+        <span class="value"><input type="text" id="tableName" name="tableName" value="{#tableName}" validation="type:'common_char',required:'',max_len:'16',showid:'validTip',desc:'元数据名称'"></span>
+    </div>
+    <div class="row">
+        <span class="label">元数据别名：</span>
+        <span class="value"><input type="text" id="anotherName" name="anotherName" value="{#anotherName}" validation="type:'string',required:'',max_len:'60',showid:'validTip',desc:'元数据别名'"></span>
+    </div>
+    <div class="row">
+        <span class="label">元数据描述：</span>
+        <span class="value"><input type="text" id="tableDesc" name="tableDesc" value="{#tableDesc}" validation="type:'string',max_len:'120',showid:'validTip',desc:'元数据描述'"></span>
+    </div>
+</textarea>
+</body>
+</html>
+

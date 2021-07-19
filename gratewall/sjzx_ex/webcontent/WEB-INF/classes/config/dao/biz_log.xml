@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="biz_log" class-name="com.gwssi.sysmgr.bizlog.dao.Bizlog" check-flag="false">
+    <description>业务日志表</description>
+  </table-info>
+
+  <column name="flowno" data-type="long" length="12" not-null="true" empty-is-null="false" unique="false" value-from="sequence" value-set="flowid" description="流水号"/>
+  <column name="reqflowno" data-type="varchar" length="24" not-null="false" empty-is-null="false" unique="false" value-from="input" description="请求流水号"/>
+  <column name="username" data-type="varchar" length="24" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="operName" description="操作员代码"/>
+  <column name="opername" data-type="varchar" length="24" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="name" description="操作员姓名"/>
+  <column name="orgid" data-type="varchar" length="32" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="orgCode" description="机构代码"/>
+  <column name="orgname" data-type="varchar" length="64" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="orgName" description="机构名称"/>
+  <column name="regdate" data-type="char" length="10" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="currentDate" description="操作日期"/>
+  <column name="regtime" data-type="char" length="6" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="currentTime" description="操作时间"/>
+  <column name="trdcode" data-type="varchar" length="12" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="txnCode" description="交易码"/>
+  <column name="trdname" data-type="varchar" length="64" not-null="false" empty-is-null="false" unique="false" value-from="generate" func-name="txnName" description="交易名称"/>
+  <column name="trdtype" data-type="varchar" length="64" not-null="false" empty-is-null="false" unique="false" value-from="input" description="分类名称"/>
+  <column name="errcode" data-type="varchar" length="10" not-null="false" empty-is-null="false" unique="false" value-from="input" description="错误代码"/>
+  <column name="errdesc" data-type="varchar" length="128" not-null="false" empty-is-null="false" unique="false" value-from="input" description="错误描述"/>
+  <column name="resultdata" data-type="binary"  not-null="false" empty-is-null="false" unique="false" value-from="input" description="处理结果"/>
+  <column name="operfrom" data-type="char" length="2" not-null="true" empty-is-null="false" unique="false" value-from="input" description="来源平台"/>
+  <primary-key name="biz_log_pk" column-list="flowno"/>
+  <index name="USERNAME" index-type="other" cluster="false" column-list="username"/>
+  <function func-name="insert one biz_log" func-type="insert" column-list="flowno,reqflowno,username,opername,orgid,orgname,regdate,regtime,trdcode,trdname,trdtype,errcode,errdesc,resultdata">
+    <description>增加日志</description>
+  </function>
+
+  <function func-name="select one biz_log" func-type="select" column-list="flowno,reqflowno,username,opername,orgid,orgname,regdate,regtime,trdcode,trdname,trdtype,errcode,errdesc,resultdata">
+    <filter-column column-name="flowno" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>窗口日志信息</description>
+  </function>
+
+  <function func-name="select biz_log list" func-type="rowset" column-list="flowno,reqflowno,username,opername,orgid,orgname,regdate,regtime,trdcode,trdname,trdtype,errcode,errdesc,resultdata" sort-columns="regdate desc,regtime desc" max-record="10">
+    <filter-column column-name="reqflowno" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="username" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="orgid" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="orgname" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="regdate" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="trdcode" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="errcode" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="trdtype" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="opername" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>查询日志列表</description>
+  </function>
+
+  <function func-name="select user biz_log list" func-type="rowset" column-list="flowno,reqflowno,username,opername,orgid,orgname,regdate,regtime,trdcode,trdname,trdtype,errcode,errdesc,resultdata,operfrom" sort-columns="regdate desc,regtime desc" max-record="10">
+    <filter-column column-name="username" operator="eq" value-from="generate" func-name="operName" empty-flag="skip"/>
+    <filter-column column-name="regdate" operator="between" value-from="input" value-item="startdate" value-item2="stopdate" empty-flag="skip"/>
+    <filter-column column-name="errcode" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="trdcode" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="trdtype" operator="like" value-from="input" empty-flag="skip"/>
+    <description>用户日志列表</description>
+  </function>
+</table>
+

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> appendix demo </title>
+	<!-- 组件依赖的代码 BEGIN -->
+	<script language="javascript" src="../../core.js" type="text/javascript"></script>
+	<script language="javascript" src="../../com.trs.util/Observable.js" type="text/javascript"></script>
+	<script language="javascript" src="../BaseComponent.js" type="text/javascript"></script>
+	<!-- 组件依赖的代码 END -->
+	<script language="javascript" src="YUIConnection.js" type="text/javascript"></script>
+	<script language="javascript" src="XAppendix.js" type="text/javascript"></script>
+	<link href="resource/XAppendix.css" rel="stylesheet" type="text/css" />	
+
+	<style type="text/css">
+		*{
+			font-size:12px;
+		}
+		.row{
+			clear:both;
+		}
+		.label{
+			float:left;
+			text-align:right;
+			width:80px;
+		}
+		.value{
+			margin-left:85px;
+		}
+	</style>
+</head>
+
+<body>
+<div class="row">
+	<div class="label" WCMAnt:param="XAppendix.html.app1">附件字段1：</div>
+	<div class="value">
+		<script language="javascript">
+		<!--
+			new com.trs.ui.XAppendix({
+				name : 'appendix1',
+				value : "trs.bmp"
+			}).render();
+		//-->
+		</script>		
+	</div>
+</div>
+<div class="row">
+	<div class="label" WCMAnt:param="XAppendix.html.app2">附件字段2：</div>
+	<div class="value" id="box"></div>
+</div>
+<script language="javascript">
+<!--
+	new com.trs.ui.XAppendix({
+		name : 'appendix2',
+		value : "wcm.bmp",
+		renderTo : "box"
+	}).render();
+//-->
+</script>	
+<br />
+<button onclick="upload();">upload()</button>
+<script language="javascript">
+<!--
+	function upload(){	
+		com.trs.ui.XAppendixMgr.upload(
+			function(){//success
+				alert(com.trs.ui.XAppendixMgr.get('appendix1').getValue());		
+				alert(com.trs.ui.XAppendixMgr.get('appendix2').getValue());		
+			}, 
+			function(sError){//failure
+				alert(sError);
+			}
+		);
+	}
+//-->
+</script>
+</body>
+</html>

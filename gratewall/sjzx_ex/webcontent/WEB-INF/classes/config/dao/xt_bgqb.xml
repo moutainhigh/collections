@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="xt_bgqb" class-name="cn.gwssi.csdb.xt.dao.XtBgqb" check-flag="false" backup-flag="false">
+    <description>报告期别</description>
+  </table-info>
+
+  <column name="dm_bgqb" data-type="varchar" length="2" not-null="true" value-from="input" description="报告期别代码"/>
+  <column name="bgqb_mc" data-type="varchar" length="20" not-null="true" value-from="input" description="报告期别名称"/>
+  <primary-key name="p_xtkey1" column-list="dm_bgqb"/>
+  <index name="p_xtkey1" index-type="unique" cluster="cluster" column-list="dm_bgqb"/>
+  <foreign-key foreign-table="wjg_wjml" foreign-type="one-to-many" on-delete="none" on-update="none" column-names="dm_bgqb" foreign-names="dm_bgqb"/>
+  <function func-name="select one xt_bgqb" func-type="select" column-list="dm_bgqb,bgqb_mc">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select xt_bgqb list" func-type="rowset" column-list="dm_bgqb,bgqb_mc" max-record="10">
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one xt_bgqb" func-type="insert" column-list="dm_bgqb,bgqb_mc">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one xt_bgqb" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="bgqb_codeList" func-type="rowset" column-list="dm_bgqb as codevalue,bgqb_mc as codename" max-record="-1">
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="报告期别代码对照表" func-type="rowset" column-list="dm_bgqb as codevalue, bgqb_mc as codename" sort-columns="dm_bgqb" max-record="-1">
+    <filter-column column-name="dm_bgqb" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+</table>
+

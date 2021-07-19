@@ -1,0 +1,279 @@
+<html xmlns:TRS_UI>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>TRS WCM V6 图片库图片上传</title>
+  <link href="../css/common.css" rel="stylesheet" type="text/css" />
+	<style>
+		.simpletab{
+			padding-bottom:23px;
+			border-bottom:1px solid gray;
+			font-size:12px;
+		}
+		div.simpletab_item{
+			float:left;
+			width:60px;
+			height:20px;
+			background:gray;
+			margin-left:4px;
+			border:1px solid gray;
+			padding:4px;
+			text-align:center;
+		}
+		.simpletab_item a,.simpletab_item a:link,.simpletab_item a:visited,.simpletab_item a:hover{
+			text-decoration: none;
+			color:white;
+		}
+		div.simpletab_item_active{
+			float:left;
+			width:60px;
+			height:21px;
+			background:#ffffff;
+			margin-left:4px;
+			border:1px solid gray;
+			border-bottom:0;
+			padding:4px;
+			padding-bottom:5px;
+			text-align:center;
+		}
+		.simpletab_item_active a,.simpletab_item_active a:link,.simpletab_item_active a:visited,.simpletab_item_active a:hover{
+			text-decoration: none;
+			color:black;
+		}
+		.simpletab_item_before{
+			float:left;
+			padding-left:20px;
+		}
+		.message {
+			font-family: "宋体", "Arial", "Courier New";
+			font-size: 12px;
+			float:left;
+			height:18px;
+			line-height:18px;
+		}
+		.input_file{
+			float:left;
+			width:220px;
+			height:20px;
+			border:1px solid black;	
+			margin-top:2px;
+		}
+		.input_text{
+			height:16px;
+			border:1px solid green;
+			margin:0 1px;
+		}
+		.input_button{
+			float:left;
+			width:60px;
+			height:20px;
+			border:1px solid black;
+		}
+		.input_select{
+			height:16px;
+			border:1px solid black;
+			margin:0 1px;
+		}
+		.preview_head{
+			font-weight:bold;
+			color:green;
+			font-size:14px;
+		}
+		.preview_data{
+			line-height:130%;
+			width:260px;
+			height:207px;
+			overflow:auto;
+			border:1px solid black;
+			padding:3px;
+		}
+		.ui_select{
+			border:1px solid green;
+			text-indent:5px;
+			border-width:0 0 1px;
+		}
+		.ui_select_selected,.ui_select_hover{
+			border:1px solid black;
+		}
+		.attr_name{
+			font-weight:bold;						
+		}
+		fieldset{			
+			width:320px;
+			height:295px;
+			padding:10px;
+		}
+		legend{
+			font-weight:bold;
+			color:#039;
+			padding:5px;
+		}
+		#picnum{
+			width:30px;
+			height:16px;
+			border:1px solid green;
+			padding-right:10px;
+		}
+		#picnumbtn{
+			width:30px;
+			height:20px;
+			border:1px solid black;			
+		}
+		label{
+			cursor:hand;
+			padding-left:5px;
+		}
+		.invalid_file{
+			border:1px solid red;
+		}
+		#process_wating{
+			display:none;
+			background:url(../images/icon/waiting2.gif) no-repeat center center;
+			z-index:100;
+			background-color:#fff;			
+			top:0px;
+			left:0px;			
+			-moz-opacity:0.5;
+			opacity:0.5;
+			filter:alpha(opacity=50);		
+		}
+	</style>
+	<script src="../js/com.trs.util/Common.js"></script>	
+	<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+	</script>
+	<script label="UITransformer">
+		$import('com.trs.util.UITransformer');
+	</script>
+	<script>
+		$import('com.trs.wcm.FloatPanel');
+		$import('com.trs.wcm.MessageCenter');
+		$import('com.trs.wcm.ProcessBar');
+		$import('com.trs.wcm.ui.SimpleTab');
+		$import('com.trs.wcm.SimpleDragger');
+		$import('com.trs.wcm.util.FileUploadHelper');
+		$import('com.trs.util.YUIConnection');
+		$import('com.trs.validator.Validator');
+		$import('com.trs.crashboard.CrashBoarder');
+	</script>	
+	<script>
+		FloatPanel.addCloseCommand('取消');
+		FloatPanel.addCommand('btnOnOK','确定','Ok');	
+	</script>
+	<script src="photo_upload.js"></script>
+<div id="process_wating">
+	<div style="text-align:center;margin:50px;font:bold 28px">
+		<p>正在保存图片...<p>请稍候继续设置图片属性
+	</div>
+</div>
+<table width="670"  border="0" style="font-size:12px">
+  <tr>
+    <td valign="top">
+	<fieldset><legend>选择图片</legend>
+		<table width="100%" border="0" height="100%">        
+		<tr>
+		  <td style="font-size:12px" valign="top" height="30px">
+		    上传图片数目<input type="text" id="picnum" value="1" validation="type:'int',min:'1',max:'10'" desc="上传数目"/>&nbsp;&nbsp;
+			<input type="button" value="OK" id="picnumbtn" />
+			<label for="batchupload" style="padding-left:10px;cursor:hand"><input type="checkbox" id="batchupload"/>批量导入(*.zip)</label>
+		  </td>
+		</tr>
+		<tr>
+			<td valign="top">
+				<div class="message">选择本地图片文件：</div>
+				<div>
+				<form id="form_pic" name="fm_pic" style="margin:0;" enctype='multipart/form-data' onsubmit="Ok();return false;">
+					<input type="file" class="input_file" style="width:280px;" id="PicUpload" name="PicUpload">
+				</form>
+				</div>
+				<form id="form_imageInfo">
+					<input type="hidden" name="MainKindId" id="MainKindId" value="0"></input>
+					<input type="hidden" name="OtherKindIds" id="OtherKindIds" value=""></input>
+					<input type="hidden" name="WatermarkFile" id="WatermarkFile" value="0"></input>
+					<input type="hidden" name="WatermarkPos" id="WatermarkPos" value=""></input>	
+					<input type="hidden" name="UploadedFiles" id="UploadedFiles" value=""></input>
+					<input type="hidden" name="SourceFiles" id="SourceFiles" value=""></input>
+					<input type="hidden" name="BatchMode" id="BatchMode" value="0"></input>
+					<input type="hidden" name="BmpConverType" id="BmpConverType" value=""></input>
+				</form>
+			</td>			
+		</tr>	     
+      </table>
+	</fieldset>
+	</td>
+    <td valign="top">
+	<fieldset><legend>图片属性</legend>
+		<table style="font-size:12px" width="100%" border="0" height="100%">       
+        <tr>
+          <td>
+			<span class="attr_name">主分类：</span>
+			<span id="mainkind">正在装载...</span>
+			<textarea id="template_mainkind" style="display:none" select="Channel">			
+				<span id="_mainkind" title="点击更改" style="cursor:hand;color:#483d8b" _mainkindId="{#ChannelId}" _siteId="{#Site.Id}">{#ChnlDesc}</span>
+			</textarea>
+          </td>
+        </tr>		
+		<tr>
+          <td>
+			<span class="attr_name">其它分类：</span>
+			<span style="cursor:hand;color:#483d8b" title="选择图片的其它分类" id="selOtherKinds">选择</span><br />			
+			<span id="otherkinds_holder">
+				<select size="4" style="width:150">					
+				</select>
+			</span>
+			<textarea id="template_otherkinds" style="display:none">
+			<select name="otherkinds" id="otherkinds" multiple size="4" style="width:150">
+				<for select="Channels.Channel">
+					<option value="{#ChannelId}">{#ChnlDesc}</option>
+				</for>
+			</select>
+			</textarea>
+          </td>
+        </tr>
+		<tr>
+          <td>
+			<span class="attr_name">BMP图片转换格式：</span>
+			<select onchange="convertBmp(this);" id="BmpConverTypeSelect">
+				<option value="bmp">不转换</option>
+				<option value="gif">GIF</option>
+				<option value="jpg">JPG</option>
+			</select>
+          </td>
+        </tr>
+		<tr>
+          <td>
+			<span class="attr_name">选择水印：</span>
+			<span id="watermarks"></span>
+			<textarea style="display:none" id="template_watermarks">
+				<select id="selwatermark">
+					<option value="-1">--不添加水印--</option>
+				<for select="Watermarks.Watermark">
+					<option value="{#WATERMARKID}" _picsrc="{#WMPICTURE.MAPNAME}" _picfile="{#WMPICTURE.SRCNAME}">{@truncateIfNeed(#WMNAME)}</option>
+				</for>
+				</select>
+			</textarea>			
+          </td>
+        </tr>
+		<tr>
+          <td>
+			<div id="div_watermarkpos" style="display:none">
+				<span class="attr_name" title="点击全选" style="cursor:hand" onclick="selectAllPos()">水印位置：</span><br />
+				<label for="LT">左上<input type="checkbox" id="LT" value="1"/></label>
+				<label for="CM">居中<input type="checkbox" id="CM" value="2"/></label>
+				<label for="RB">右下<input type="checkbox" id="RB" checked="true" value="3"/></label>
+			</div>			
+          </td>
+        </tr>
+      </table>
+	</fieldset>
+	</td>
+  </tr>
+</table>
+<div style="margin:-300 0 0 550">
+	<img src=""  style="display:none" id="watermarkpic">
+</div>
+</body>
+</html>

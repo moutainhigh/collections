@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<chart  bgColor='F7F7F7, E9E9E9' numVDivLines='10' divLineAlpha='30' 
+ yAxisValuesPadding ='10' baseFontSize='12' formatNumber='0' slantLabels='1' 
+showValues='0'  showLabels='1'  formatNumberScale='0' <#if labelStep = '0'>labelStep='7'</#if> >
+<categories><#list list as x><category label='${x.log_date}' /></#list></categories>
+<dataset seriesName='响应请求次数' renderAs='Line' color='5B9BD5' ><#list list as x><set value='${x.exec_count}' /></#list></dataset>
+<dataset seriesName='共享数据量' renderAs='Line' color='ED7D31' parentYAxis='S'><#list list as x><set value='${x.sum_num}' /></#list></dataset>
+</chart>

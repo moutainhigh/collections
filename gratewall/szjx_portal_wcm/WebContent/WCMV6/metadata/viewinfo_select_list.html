@@ -1,0 +1,141 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<TITLE>视图选择列表</TITLE>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.wcmbutton.WCMButton');
+	$import('com.trs.wcm.SimpleQuery');
+</script>
+<script>
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.domain.ViewInfoMgr');	
+</script>
+<script src="viewinfo_select_list.js"></script>
+<style type="text/css">
+	body{
+        background:#DEDCDD;
+        padding:0px;
+		margin:0px;
+	}
+	.object_row{
+		height: 24px;
+		line-height: 24px;
+		font-size: 12px;
+		float: left;
+		width: 45%;
+		margin-right: 3px;
+		font-family: Georgia;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow:ellipsis;
+	}
+	.object_Name{
+        cursor: pointer; 
+        width: 100px; 
+        white-space:nowrap; 
+        text-overflow:ellipsis; 
+        overflow:hidden
+    }
+	.list_navigator_div{
+		font-size: 12px;
+		height: 14px;
+		line-height: 14px;
+		padding: 1px;
+	}
+	.simple_query_box{
+		background: #fff;
+		padding-left: 10px;
+	}
+	.simple_query_text{
+		width: 80px;
+	}
+	.simple_query_select{
+		width: 70px;
+	}
+	.simple_query_right_edge{
+		width: 0;
+	}
+    .nav_currpage{
+        padding:0 6px 0 2px;
+        background:url(../images/icon/PublishDetail.gif) no-repeat 8 -4;
+    }
+</style>
+</HEAD>
+
+<BODY>
+<div id="dy_adjust">
+</div>
+<script>
+	var nEditorHeight = 250;
+	function adjustScale(){
+		var sStyleId = 'dy_adjust';
+		var eStyleDiv = $(sStyleId);
+		nEditorHeight = Element.getDimensions(document.body)["height"] - 125;
+		var cssStr = '.objectsContainer, .waiting{\
+				height: ' + nEditorHeight + 'px;\
+			}';
+		var eStyle = $style(cssStr);
+		$removeChilds(eStyleDiv);
+		eStyleDiv.appendChild(eStyle);
+	}
+	adjustScale();
+</script>
+<div style="background:#ffffff; padding-top: 2px;">
+	<table id="tblContent" border=0 align="center" cellspacing=0 cellpadding=3 style="font-size:12px; width: 100%;">
+	<tbody>
+		<tr>
+			<td style="border-bottom:1px dashed silver; padding-top:3px;padding-bottom:3px; padding-left: 10px;">
+				<span><a href="#" id="refreshObjects" onclick="PageContext.loadPage(); return false"><img src="../images/icon/reload.gif" align="absmiddle" border="0" style="margin-top: -3px;">刷新</a></span>
+			</td>
+			<td align="right" style="border-bottom:1px dashed silver; padding-top:3px;padding-bottom:3px;">
+				<div style="float:right;" id="query_box"></div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div id="objects" class="objectsContainer" style="overflow:visible; display:none;"></div>
+				<textarea id="objectTemplates" style="display: none">
+				<for select="MetaViews.MetaView" blankRef="divNoObjectFound">
+					<span class="object_row" title="名称:{#viewDesc}&#13;创建者:{#CrUser}&#13;创建时间:{#CrTime}">
+						<span style="width: 16px;">{$$index}.</span>
+						<input type="_INPUT_TYPE_" name="objectId" value="{#viewInfoId}" id="input_{#viewInfoId}" _name="{#viewDesc}"><span class="object_Name" _id="{#viewInfoId}">{#viewDesc}</span>
+					</span>
+				</for>
+				</textarea>
+				<div id="divWaiting" class="waiting" style="overflow:auto;padding-top:50px;text-align:center">
+					<input type="image" src="../images/icon/waiting2.gif">
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<DIV id="list_navigator" class="list_navigator_div"></DIV>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	<div style="font-size:12px;width:100%;height:16px;margin:0px;background:#DEDCDD;text-align:left;">
+		<span id="sp_checkNone">
+			<input type="checkbox" id="chkNone" onclick="deSelect(this.checked)">
+            <label for="chkNone">取消选择</label>
+		</span>
+		<span>
+			<input type="checkbox" id="ContainsChildren">
+            <label for="ContainsChildren">同步到子栏目</label>
+		</span>
+	</div>
+	<div style="font-size:12px;width:100%;padding-top:10px;height:50px;margin-top:0px;background:#DEDCDD;text-align: center">
+		<span id="ButtonContainer"></span>
+	</div>
+</div>
+<div id="divNoObjectFound" style="display:none;">
+	<div class="no_object_found">不好意思, 没有找到符合条件的视图..-____-|||</div>
+</div>
+<div id="divMask" style="position: absolute; z-index: 999; background: whitesmoke; display: none; margin-bottom: 5px;  border: 1px solid #C7C7C7;"><div class="no_object_found" style="font-style:normal;">点击"确定"后将取消选中的对象</div></div>
+</BODY>
+</HTML>

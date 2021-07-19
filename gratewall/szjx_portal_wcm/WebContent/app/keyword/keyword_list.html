@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="replace_list.html.title">WCM通用列表页面-替换内容</title>
+	<link href="../js/resource/all_widgets.css" rel="stylesheet" type="text/css">
+	<link href="../css/common_list.css" rel="stylesheet" type="text/css">
+	<style type="text/css">
+	.ext-strict .layout-left{right:0px!important;}
+	.layout-container{padding-right:0px!important;}
+	.layout-right{display:none;}
+	.ext-strict .layout-center{bottom:0px!important;}
+	.layout-left{padding-bottom:0px!important;}
+	.layout-bottom{display:none;}
+	.keyword_edit{
+		background-image:url(../images/document/trsmapping_edit.gif);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	.keyword_delete{
+		background-image:url(../images/document/docbak_delete.gif);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	.input_btn{
+		height:24px;
+		margin-top:3px;
+	}
+	.grid_table .grid_body tr td:first-child {
+		padding-left:15px;
+	}
+	.input_text{
+		border:1px solid gray;
+	}
+	.wcm-btn-text{
+		text-align:center;
+	}
+	.new_keyword{
+		position:relative;top:-5px;
+	}
+	.ext-strict .new_keyword{
+		position:relative;top:0px;
+	}
+	.ext-ie7 .new_keyword{
+		position:relative;top:-5px;
+	}
+	.ext-ie8 .new_keyword{
+		position:relative;top:0px;
+	}
+	</style>
+</head>
+<body>
+<script src="../../app/js/easyversion/cssrender.js"></script>
+<div class="layout-container">
+    <div class="layout-left">
+        <div class="layout-top">
+            <div class="pageinfo">
+                <div class="pageinfo_left"></div>
+                <div class="pageinfo_right"></div>
+				<div class="search" id="search" style="float:right;"></div>
+				<span id="pageinfo" class="new_keyword">
+					<span WCMAnt:param="keyword_list.jsp.newkeyword">新建关键词:</span> <input type="text" class="input_text" id="keywordName" name="keywordName" value="" validation="type:'string',required:true,max_len:'50',showid:'errMsg',no_desc:'',rpc:'checkKeywordName'" validationId="keywordName"/>&nbsp;
+				</span>
+				<span id="btnbox1" style="padding-top:3px;"></span>
+				<span id="errMsg" style="position:absolute;float:left;padding-left:5px;margin-top:5px;z-index:1000;"></span>
+            </div>
+        </div>
+        <div class="layout-center">
+            <div id='wcm_table_grid' class="layout_center_container table_grid_data"><!--query页面ajax填充区域--></div>
+            <div id="list_navigator" class="list-navigator"></div>
+        </div>
+        <div class="layout-bottom" id="south_tabs"></div>
+    </div>
+    <div class="layout-right" id="east_opers"></div>
+</div>
+<script src="../js/runtime/lightlib.js"></script>
+<script src="../js/runtime/core_main.js"></script>
+<script src="../js/runtime/abs_list.js"></script>
+<script src="../js/runtime/data/list.js"></script>
+<script src="keyword_list.html.compress.js"></script>
+<script src="keyword_list.js"></script>
+</body>
+</html>

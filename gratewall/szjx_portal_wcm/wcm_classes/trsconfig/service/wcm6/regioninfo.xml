@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.wcm.publish.region.RegionServiceProvider">
+	
+	<method name="save" desc="保存当前站点或栏目的导读信息">
+		<parameter name="ChannelId" desc="频道ID" type="int" required="false"/>
+		<parameter name="WebSiteId" desc="站点ID" type="int" required="false"/>
+		<parameter name="ObjectId" desc="导读ID" type="int" required="false"/>
+	</method>
+	
+	<method name="findById">
+		<parameter name="ObjectId" desc="ChnlDoc中的RecID" type="int" required="true"/>
+		<parameter name="ChannelId" desc="频道ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>				
+	</method>	
+	
+	<method name="delete" desc="批量删除导读">
+		<parameter name="ObjectIds" desc="指定Region ID序列" type="string" required="true"/>
+		<parameter name="Drop" desc="是否彻底删除" type="boolean" required="false"/>				
+	</method>
+	
+	<method name="query">
+		<parameter name="ChannelId" desc="导读所属栏目" type="string" required="false"/>
+		<parameter name="WebSiteId" desc="导读所属站点" type="string" required="false"/>		
+		<parameter name="OrderBy" desc="导读排序字段及方式" type="string" required="false"/>
+		<parameter name="ContainsChildren" desc="是否显示子下的导读" type="boolean" required="false" default="false"/>
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="Rname" desc="导读标题" type="string" required="false" search="true"
+			search-operator="like" search-field="XWCMREGIONINFO.Rname"/>
+		<parameter name="CrUser" desc="创建者" type="string" required="false" search="true"
+			search-operator="like" search-field="XWCMREGIONINFO.CrUser"/>
+		<parameter name="RegionInfoId" desc="导读id" type="int" required="false" search="true"
+			search-operator="in" search-type="pint" search-field="XWCMREGIONINFO.RegionInfoId"/>
+		<!-- 检索相关配置 END -->
+	</method>
+	<method name="existsSimilarName">
+		<parameter name="Rname" desc="导读名称" type="string" required="true"/>
+		<parameter name="ChannelId" desc="栏目id" type="int" required="false"/>
+		<paramerer name="WebsiteId" desc="站点id" type="int" required="false"/>
+	</method>
+	<method name="jQuery" truename="query"  convertor="uri:/app/region/region_query.jsp"/>
+	<method name="jQueryForSelect" truename="query"  convertor="uri:/app/region/region_select_query.jsp"/>
+	<method name="jFindById" truename="findById"  convertor="uri:/app/region/region_findbyid.jsp"/>
+	
+</service>

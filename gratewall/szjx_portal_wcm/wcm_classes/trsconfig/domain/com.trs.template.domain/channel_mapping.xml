@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!DOCTYPE databases PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN"
+                           "http://castor.exolab.org/mapping.dtd">
+<mapping>
+	<class name="com.trs.template.persistent.InfoEntities"
+		auto-complete="false">
+		<map-to xml="WCMOBJS" />
+		<field name="infoEntityColl" collection="collection"
+			type="com.trs.template.persistent.IInfoEntity">
+			<bind-xml name="WCMOBJ" />
+		</field>
+	</class>
+	<class name="com.trs.template.persistent.WebSiteInfoEntity"
+		auto-complete="false">
+		<map-to xml="WCMOBJ" />
+		<field name="siteName">
+			<bind-xml name="SITENAME" node="element" location="PROPERTIES"/>
+		</field>
+		<field name="siteId">
+			<bind-xml name="SITEID" node="element" location="PROPERTIES"/>
+		</field>
+		<field name="siteDesc">
+			<bind-xml name="SITEDESC" node="element" location="PROPERTIES"/>
+		</field>
+	</class>
+
+	<class name="com.trs.template.persistent.BaseChannelInfoEntity"
+		auto-complete="false">
+		<map-to xml="WCMOBJ" />
+		<field name="channelName">
+			<bind-xml name="CHNLNAME" node="element" location="PROPERTIES"/>
+		</field>
+		<field name="channelId">
+			<bind-xml name="CHANNELID" node="element" location="PROPERTIES"/>
+		</field>
+		<field name="parentId">
+			<bind-xml name="PARENTID" node="element" location="PROPERTIES"/>
+		</field>
+		<field name="isRoot">
+			<bind-xml name="ISROOT" node="element" location="PROPERTIES"/>
+		</field>
+		<field name="children">
+			<bind-xml name="CHILDREN" node="element" location="PROPERTIES"/>
+		</field>
+		<field name="channelDesc">
+			<bind-xml name="CHNLDESC" node="element" location="PROPERTIES"/>
+		</field>
+	</class>
+
+	<class name="com.trs.template.persistent.TagFieldInfoEntity"
+		auto-complete="false">
+		<map-to xml="WCMOBJ" />
+		<field name="objType">
+			<bind-xml name="OBJTYPE" node="element" location="PROPERTIES"/>
+		</field>
+		<field name="fields">
+			<bind-xml name="FIELD" node="element" location="PROPERTIES"/>
+		</field>
+		<field name="description">
+			<bind-xml name="FIELDDESC" node="element" location="PROPERTIES"/>
+		</field>		
+	</class>
+	<class name="com.trs.template.persistent.TemplateInfoEntity"
+		auto-complete="false">
+		<map-to xml="WCMOBJ" />
+		<field name="templateId">
+			<bind-xml name="TEMPID" node="element" location="PROPERTIES"/>
+		</field>
+		<field name="templateName">
+			<bind-xml name="TEMPNAME" node="element" location="PROPERTIES"/>
+		</field>
+		<field name="templateType">
+			<bind-xml name="TEMPTYPE" node="element" location="PROPERTIES"/>
+		</field>
+		<field name="folderId">
+			<bind-xml name="FOLDERID" node="element" location="PROPERTIES"/>
+		</field>
+		<field name="folderType">
+			<bind-xml name="FOLDERTYPE" node="element" location="PROPERTIES"/>
+		</field>								
+	</class>
+</mapping>
+
+
+

@@ -1,0 +1,12 @@
+<!--普通文本-->
+<script language="javascript">
+<!--
+	new com.trs.ui.XText({
+		disabled : ${NOTEDIT},
+		name : '<TRS_ViewField field="DBFieldName" filterForJs="true" />',
+		value : '<%=CMyString.filterForJs(getValue(obj, "${FieldName}", "<TRS_ViewField field="DefaultValue" filterForJava="true" />"))%>',
+		identityField : '<TRS_ViewField field="IDENTITYFIELD" filterForJs="true" />',
+		validation:"type:'string',rpc:'isValidOnlyField',required:'${NotNull}',max_len:'${DBLength}',desc:'<TRS_ViewField field="AnotherName" filterForJs="true" doubleFilter="true" />'"
+	}).render();
+//-->
+</script>

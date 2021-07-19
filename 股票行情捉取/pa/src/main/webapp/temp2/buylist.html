@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>买单记录</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,height=device-height,inital-scale=1.0,maximum-scale=1.0,user-scalable=no;" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<script type="text/javascript" src="../statics/js/public.js"></script>
+<style>
+</style>
+</head>
+
+<body>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">买单列表</h3>
+		</div>
+		<div class="panel-body">
+			<ul class="list-group" id="lists"></ul>
+		</div>
+	</div>
+	<script>
+		$(function() {
+			loadData();
+		});
+	
+		function loadData() {
+			$.ajax({
+				url : "../common/buyList.do",
+				data : {},
+				dataType : "json",
+				befordSend : function() {},
+				success : function(data) {
+					if (data.msg == "-1") {
+						setTimeout(function() {
+							window.location.href = "login.html";
+						}, 2000)
+					}
+	
+	
+					var datas = data.pageList;
+					var _html = "";
+					for (var i = 0; i < datas.length; i++) {
+						_html += '<li class="list-group-item" ><div class="container-fluid"><div class="row clearfix"><div class="col-md-4 column">代码：【' + datas[i].code + '】</div><div class="col-md-4 column">名称：【' + datas[i].name + '】</div><div class="col-md-4 column">委托价：【' + datas[i].weituoprice + '】</div></div></div></li>';
+					}
+	
+	
+					$("#lists").append(_html);
+				}
+			});
+	
+		}
+	</script>
+</body>
+</html>

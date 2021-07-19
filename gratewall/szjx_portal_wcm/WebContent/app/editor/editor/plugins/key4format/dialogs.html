@@ -1,0 +1,1354 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>一键排版</title>
+	<script type="text/javascript" src="lang.js"></script>
+</head>
+
+<body onload="bm()" style="overflow:hidden;">
+	<table border=0 cellpadding=0 cellspacing=5 id=tabDialogSize>
+		<tr>
+			<td>
+				<table border=0 cellpadding=0 cellspacing=0 align=center>
+					<tr>
+						<td>
+							<fieldset>
+								<legend><span style="font-weight: bold;font-size:12px">保留选项</span>:</legend>
+								<table border=0 cellpadding=3 cellspacing=0 width="100%">
+									<tr>
+										<td>
+											<table border=0 cellpadding=0 cellspacing=2>
+												<tr>
+													<td noWrap>
+														<input type=checkbox id=d_keepall onclick="aboutAllKeepCheck(this)">
+														<label for=d_keepall>
+															<span>保留所有</span>
+														</label>
+													</td>
+												</tr>
+												<tr>
+													<td noWrap>
+														<input type=checkbox id=d_keepul checked>
+														<label for=d_keepul>
+															<span>保留列表</span>
+														</label>
+													</td>
+												</tr>
+												<tr>
+													<td noWrap>
+														<input type=checkbox id=d_keeptable checked>
+														<label for=d_keeptable>
+															<span>保留表格</span>
+														</label>
+													</td>
+												</tr>
+												<tr>
+													<td noWrap>
+														<input type=checkbox id=d_keepimg checked>
+														<label for=d_keepimg>
+															<span>保留图片</span>
+														</label>
+													</td>
+												</tr>
+												<tr>
+													<td noWrap>
+														<input type=checkbox id=d_keepobject checked>
+														<label for=d_keepobject>
+															<span>保留对象</span>
+														</label>
+													</td>
+												</tr>
+												<tr>
+													<td noWrap>
+														<input type=checkbox id=d_keepa checked>
+														<label for=d_keepa>
+															<span>保留超链接</span>
+														</label>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</fieldset>
+						</td>
+						<td width=5>
+							&nbsp;
+						</td>
+						<td>
+							<fieldset>
+								<legend><span style="font-weight: bold;font-size:12px">去除选项</span>:</legend>
+								<table border=0 cellpadding=3 cellspacing=0 width="100%">
+									<tr>
+										<td>
+											<table border=0 cellpadding=0 cellspacing=2>
+												<tr>
+													<td noWrap>
+														<input type=checkbox id=d_delline checked>
+														<label for=d_delline>
+															<span>去除空行</span>
+														</label>
+													</td>
+												</tr>
+												<tr>
+													<td noWrap>
+														<input type=checkbox id=d_delspace checked>
+														<label for=d_delspace>
+															<span>去除多余空格</span>
+														</label>
+													</td>
+												</tr>
+												<tr>
+													<td noWrap>
+														<input type=checkbox id=d_delhidden checked>
+														<label for=d_delhidden>
+															<span>去除隐藏域</span>
+														</label>
+													</td>
+												</tr>
+												<tr>
+													<td noWrap>
+														<input type=checkbox id=d_delallattr onclick="aboutAllDelCheck(this)">
+														<label for=d_delallattr>
+															<span id="_delallattr">去除所有属性</span>
+														</label>
+													</td>
+												</tr>
+												<tr>
+													<td noWrap>
+														<input type=checkbox id=d_delstyle checked>
+														<label for=d_delstyle>
+															<span>去除样式属性</span>
+														</label>
+													</td>
+												</tr>
+												<tr>
+													<td noWrap>
+														<input type=checkbox id=d_delon checked>
+														<label for=d_delon>
+															<span>去除事件属性</span>
+														</label>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</fieldset>
+						</td>
+						<td width=5>
+							&nbsp;
+						</td>
+						<td>
+							<fieldset>
+								<legend><span style="font-weight: bold;font-size:12px">增效选项</span>:</legend>
+								<table border=0 cellpadding=3 cellspacing=0 width="100%">
+									<tr>
+										<td>
+											<table border=0 cellpadding=0 cellspacing=2>
+												<tr>
+													<td noWrap>
+														<input type=checkbox id=d_inpmargintop checked>
+														<label for=d_inpmargintop>
+															<span>段前</span>
+														</label>
+														<input type=text id=v_inpmargintop size=3 value="0">
+													</td>
+													<td rowspan=6>
+														&nbsp;
+													</td>
+													<td noWrap>
+														<input type=checkbox id=d_addindent checked>
+														<label for=d_addindent>
+															<span>首行缩进2字</span>
+														</label>
+													</td>
+													<td rowspan=6>
+														&nbsp;
+													</td>
+													<td noWrap>
+														<input type=checkbox id=d_confusion checked onclick="aboutConfusionCheck(this)">
+														<label for=d_confusion>
+															<span>去除干扰字</span>
+														</label>
+													</td>
+												</tr>
+												<tr>
+													<td noWrap>
+														<input type=checkbox id=d_inpmarginbottom checked>
+														<label for=d_inpmarginbottom>
+															<span>段后</span>
+														</label>
+														<input type=text id=v_inpmarginbottom size=3 value="0">
+													</td>
+													<td noWrap>
+														<input type=checkbox id=d_addjustify checked>
+														<label for=d_addjustify>
+															<span>两端对齐</span>
+														</label>
+													</td>
+													<td noWrap>
+														<input type=radio id=d_confusionauto name=d_confusionopt checked>
+														<label for=d_confusionauto>
+															<span>自动检测</span>
+														</label>
+													</td>
+												</tr>
+												<tr>
+													<td noWrap>
+														<input type=checkbox id=d_inplineheight>
+														<label for=d_inplineheight>
+															<span>行距</span>
+														</label>
+														<input type=text id=v_inplineheight size=3 value="1.5">
+													</td>
+													<td noWrap>
+														<input type=checkbox id=d_addbr2p>
+														<label for=d_addbr2p>
+															<span>&lt;BR&gt;转&lt;P&gt;</span>
+														</label>
+													</td>
+													<td noWrap>
+														<input type=radio id=d_confusionclass name=d_confusionopt>
+														<label for=d_confusionclass>
+															<span>干扰字类</span>
+														</label>
+														<input type=text id=v_confusionclass size=6>
+													</td>
+												</tr>
+												<tr>
+													<td noWrap id="td_addfontfamily">
+													</td>
+													<td noWrap>
+														<input type=checkbox id=d_addtablebc>
+														<label for=d_addtablebc>
+															<span>单线表格</span>
+														</label>
+													</td>
+													<td noWrap>
+														<input type=radio id=d_confusioncolor name=d_confusionopt>
+														<label for=d_confusioncolor>
+															<span>干扰字色</span>
+														</label>
+														<input type=text id=v_confusioncolor size=6 value="#FFFFFF">
+													</td>
+												</tr>
+												<tr>
+													<td noWrap id="td_selfontsize">
+													</td>
+													<td noWrap>
+													</td>
+													<td noWrap>
+													</td>
+												</tr>
+												<tr>
+													<td noWrap>
+														&nbsp;
+													</td>
+													<td noWrap>
+													</td>
+													<td noWrap>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</table>
+							</fieldset>
+						</td>
+					</tr>
+					<tr>
+						<td colspan=5 height=5>
+						</td>
+					</tr>
+					<tr>
+						<td colspan=5>
+							<table border=0 cellpadding=0 cellspacing=0 width="100%" style="table-layout:fixed">
+								<tr colspan=3>
+									<td noWrap>
+									</td>
+									<td noWrap>
+									</td>
+									<td noWrap align="right">
+										<input id="rememberIt" type="checkbox" name=""><label for="rememberIt">记住我的选择</label>
+									</td>
+								</tr>
+								<tr colspan=3>
+									<td></td>
+									<td noWrap>
+											&nbsp;&nbsp;
+										<input type=submit class="dlgBtnCommon dlgBtn" value='开始排版' id="btn_ok" onclick="ok()">
+										&nbsp;&nbsp;
+										<input type=button class="dlgBtnCommon dlgBtn" value='　取消　' onclick="cancel()">
+									</td>
+									<td></td>
+								</tr>
+							</table>
+							</td>
+					</tr>
+				</table>
+				</td>
+		</tr>
+	</table>
+	<div id="docbox" style="display:none "></div>
+</body>
+<script language="javascript">
+	//接受传递进来的html值
+	var args = window.dialogArguments;
+	//获取传入参数的html值
+	var gHtml = args.html;
+	//获取传入参数的dom对象
+	var doc = args.doc;
+	var attribute = args.attribute;
+function cancel() {
+	window.close();
+}
+function ok() {
+//修改内联样式为css样式
+	var cssText = "";
+/*--------------------------------------检验参数是否合法-------------------------------------------------*/
+	if(!do_validation("inpmargintop")) {
+		alert("[段前值]设置参数不合法");
+		return false;
+	}
+	if(!do_validation("inpmarginbottom")) {
+		alert("[段后值]设置参数不合法");
+		return false;
+	}
+	if(!do_validation("inplineheight")) {
+		alert("[行距值]设置参数不合法");
+		return false;
+	}
+/*----------------------------------------去除干扰字-----------------------------------------------------*/
+	//去除干扰字
+	if ($("d_confusion").checked) {
+		//干扰字色
+		if ($("d_confusioncolor").checked) {
+			$("v_confusioncolor").value = fo($("v_confusioncolor").value);//干扰字色input值,此处fo没有改变input值
+			if (jy($("v_confusioncolor").value) == "") {//对干扰字色的颜色做处理，获取系统可读的颜色值；如果错误则返回""
+			//如果为空，则弹出警报信息，并且将焦点设置在干扰字色value上并选中
+				return dz($("v_confusioncolor"), "无效的颜色值！");
+			}
+		}
+		//干扰字类
+		if ($("d_confusionclass").checked) {
+			$("v_confusionclass").value = fo($("v_confusionclass").value);
+			if ($("v_confusionclass").value == "") {
+				return dz($("v_confusionclass"), "干扰字类" + ":" + "不能为空！");
+			}
+		}
+	}
+/*--------------------------------------增效选项----------------------------------------------------------*/
+	//段前（如果为空则警告；有值没数字则段前0字符，有数字值则匹配数字值个字符）
+	var wr = "";
+	if ($("d_inpmargintop").checked) {
+		$("v_inpmargintop").value = fo($("v_inpmargintop").value);
+		if ($("v_inpmargintop").value == "") {
+			return dz($("v_inpmargintop"), "设置的段前值错误" + ":" + "不能为空");
+		}
+		var v = $("v_inpmargintop").value;
+		if (isNaN(parseFloat(v))) {
+			v = "0";
+		}
+		if (v != "0") {
+			bv = /[^0-9\.]+/gi;
+			if (!bv.test(v)) {
+				v += "em";
+			}
+		}
+		wr = v;
+	}
+	//段后（如果为空则警告；有值没数字则段前0字符，有数字值则匹配数字值个字符）
+	var wv = "";
+	if ($("d_inpmarginbottom").checked) {
+		$("v_inpmarginbottom").value = fo($("v_inpmarginbottom").value);
+		if ($("v_inpmarginbottom").value == "") {
+			return dz($("v_inpmarginbottom"), "设置的段后值错误" + ":" + "不能为空");
+		}
+		var v = $("v_inpmarginbottom").value;
+		if (isNaN(parseFloat(v))) {
+			v = "0";
+		}
+		if (v != "0") {
+			bv = /[^0-9\.]+/gi;
+			if (!bv.test(v)) {
+				v += "em";
+			}
+		}
+		wv = v;
+	}
+	//行距（如果为空则警告）
+	if ($("d_inplineheight").checked) {
+		$("v_inplineheight").value = fo($("v_inplineheight").value);
+		if ($("v_inplineheight").value == "") {
+			return dz($("v_inplineheight"), "设置的行距值错误" + ":" + "不能为空");
+		}
+	}
+/*------------------------------进行dom的格式化处理-------------------------------------------------------*/
+	if(doc){
+	/*--------------------------去除干扰字+自动检测-------------------------------------------------------*/
+		if ($("d_confusion").checked) {
+			xW();
+		}
+		//去除隐藏域
+		//编辑器自身会根据选择去除script，所以这里不再去除//getTagName("SCRIPT");，去除style会导致word样式丢失
+		if ($("d_delhidden").checked || $("d_confusion").checked) {
+			getTagName("hidden");
+			//getTagName("STYLE");
+			//getTagName("SCRIPT");
+		}
+		//保留所有
+		if (!$("d_keepall").checked) {
+			//保留所有不会去除样式和脚本
+			if (!$("d_keeptable").checked) {
+				getTagName("TABLE");
+			}
+			if (!$("d_keepimg").checked) {
+				getTagName("IMG");
+			}
+			if (!$("d_keepobject").checked) {
+				getTagName("OBJECT");
+				getTagName("EMBED");
+				getTagName("APPLET");
+			}
+		}
+	//..............................................................
+		var divEls = doc.getElementsByTagName("div");
+		for (var k=0; k<divEls.length; k++) {
+			var divEl = divEls[k];
+			if ($("d_addindent").checked){
+				if(!(divEl.innerHTML.toUpperCase().indexOf("<P")>-1)) {
+					divEl.style.textIndent = "";
+					
+					if(!isValidParentTagName(divEl,"TD")){
+						var sHtml = divEl.innerHTML;
+						var RexSpace = /^(&nbsp\;|\s|　)*(.*?)$/gi;
+						sHtml = sHtml.replace(RexSpace, "$2");
+						divEl.innerHTML = '　　' + sHtml;
+					}
+				}
+			}
+		}
+		var bz = doc.getElementsByTagName("P");
+		for (var i = 0; i < bz.length; i++) {
+			var R = bz[i];
+			/*
+			//段前
+			if ($("d_inpmargintop").checked) {
+				//R.style.marginTop = wr;
+				cssText += "margin-top:"+ wr +";";
+			}
+			//断后
+			if ($("d_inpmarginbottom").checked) {
+				//R.style.marginBottom = wv;
+				cssText += "margin-bottom:"+ wv +";";
+			}
+			*/
+			//首行缩进
+			if ($("d_addindent").checked) {
+				//R.style.textIndent = "2em";
+				if(R.style.textIndent == "2em") {
+					R.style.textIndent = "";
+				}
+				/*修改设置首行缩进后无法通过删除去掉缩进样式的bug --by@sj--2012-05-28*/
+				//-table标签中的P元素不应该设置首行缩进-by@sj--2012-07-09
+				if(R.tagName == "P" && !isValidParentTagName(R,"TD")){//R.parentNode.tagName.toUpperCase()!="TD"
+					//避免多重设置导致缩进多次2个空格
+					var sHtml = R.innerHTML;
+					//去掉可能存在段首的缩进空格
+					var RexSpace = /^(&nbsp\;|\s|　)*(.*?)$/gi;
+					sHtml = sHtml.replace(RexSpace, "$2");
+					R.innerHTML = '　　' + sHtml;
+				}
+			}
+			//两端对齐
+			if ($("d_addjustify").checked) {
+				//R.style.textAlign = "justify";
+				//R.style.textJustify = "inter-ideograph";
+				if(R.style.textAlign == "justify") {
+					R.style.textAlign = "";
+				}
+				R.align = "justify";
+			}
+			/*
+			//行距
+			if ($("d_inplineheight").checked) {
+				//R.style.lineHeight = $("v_inplineheight").value;
+				cssText += "line-height:"+ $("v_inplineheight").value +";";
+			}
+			*/
+		}
+		//段前
+		if ($("d_inpmargintop").checked) {
+			//R.style.marginTop = wr;
+			cssText += "margin-top:"+ wr +";";
+		}
+		//断后
+		if ($("d_inpmarginbottom").checked) {
+			//R.style.marginBottom = wv;
+			cssText += "margin-bottom:"+ wv +";";
+		}
+		//行距
+		if ($("d_inplineheight").checked) {
+			//R.style.lineHeight = $("v_inplineheight").value;
+			cssText += "line-height:"+ $("v_inplineheight").value +";";
+		}
+		//文字的字体和尺寸
+		var pP = $("d_selfontname").value;
+		var jg = $("d_selfontsize").value;
+		if ((pP && pP!="--系统字体--") || (jg && jg!="--系统字号--")) {
+			var bz = doc.getElementsByTagName("*");
+			for (var i = 0; i < bz.length; i++) {
+				if ("|P|DIV|TD|TH|SPAN|FONT|UL|LI|A|".indexOf("|" + bz[i].tagName + "|") >= 0) {
+					/*
+					if (pP && pP!="--系统字体--") {
+						bz[i].style.fontFamily = pP;//获取到标签内部文字字体的属性
+					}
+					if (jg && jg!="--系统字号--") {
+						bz[i].style.fontSize = jg;//获取到标签内部文字大小的属性
+					}
+					*/
+				}
+			}
+			cssText += "font-family:"+ pP +";";
+			cssText += "font-size:"+ jg +";";
+		}
+		html = doc.innerHTML;
+		if(args.GetHtml){
+			 html = args.GetHtml();
+		}
+		var bv = /<!--([^a]|a)*?-->/gi;
+		html = html.replace(bv, "");
+		bv = /<br\s*\/?>\s*/gi;
+		html = html.replace(bv, "<br>");
+		if (!$("d_keepall").checked) {
+			var qh = ",P,BR,TABLE,TBODY,TH,TR,TD,IMG,APPLET,OBJECT,EMBED,PARAM,STYLE,";
+			if ($("d_keepul").checked) {
+				qh += "UL,OL,LI,";
+			}
+			if ($("d_keepa").checked) {
+				qh += "A,";
+			}
+			bv = /<\/?([a-zA-Z]+)(\s[^>]*)?>/gi;
+			html = html.replace(bv,
+			function(wu, $1) {
+				if (qh.indexOf("," + $1.toUpperCase() + ",") > -1) {
+					return wu;
+				} else {
+					return "";
+				}
+			});
+		}
+		bv = /^[\s\r\n]*[^<\s\r\n]+/gi;
+		if (bv.test(html)) {
+			html = "<p>" + html;
+		}
+		//<br>2<p>
+		if ($("d_addbr2p").checked) {
+			//bv = /<br>/gi;
+			bv = /<br>(&nbsp\;|\s|　)*/gi;
+			if($("d_addindent").checked) {
+				html = html.replace(bv, "</p><p>　　");
+			}else {
+				html = html.replace(bv, "</p><p>");
+			}
+		}
+		//去除多余空格
+		if ($("d_delspace").checked) {
+			bv = /(\s|&nbsp\;)+<\/p>/gi;
+			html = html.replace(bv, "</p>");
+			bv = /(\s|&nbsp\;)+<br>/gi;
+			html = html.replace(bv, "<br>");
+			//@空行不显示
+			bv = /><\/p>/gi;
+			html = html.replace(bv, ">&nbsp\;</p>");
+		}
+		//去除多余行
+		if ($("d_delline").checked) {
+			bv = /<p(\s[^>]*)?>(&nbsp\;|\s|　)*<\/p>/gi;
+			html = html.replace(bv, "");
+			bv = /(<br>)+/gi;
+			html = html.replace(bv, "<br>");
+		}
+		//去除所有属性
+		if ($("d_delallattr").checked) {
+			bv = /(<[a-zA-Z]+)(\s[^>]*)>/gi;
+			html = html.replace(bv,
+			function(wu, $1, $2) {
+				var r = "";
+				var m = $2.match(/(oldsrc|src|href|type|name|value|rowsspan|colspan|classid|codebase)=(\'[^\']+\'|\"[^\"]+\"|[^\s]+)/gi);
+				if (m) {
+					for (var i = 0; i < m.length; i++) {
+						r += " " + m[i];
+					}
+				}
+				return $1 + r + ">";
+			});
+		} else {
+			//去除样式属性
+			if ($("d_delstyle").checked) {
+				bv = /<style[^>]*>([\s\S]*?)<\/style>/ig;
+				html = html.replace(bv, "");
+				bv = /(<[^>]+?)(\sstyle\s*=\s*(\'[^\']*?\'|\"[^\"]*?\"))([^>]*>)/gi;
+				html = html.replace(bv, "$1$4");
+				bv = /(<[^>]+?)(\sclass\s*=\s*(\'[^\']*?\'|\"[^\"]*?\"|\w+))([^>]*>)/gi;
+				html = html.replace(bv, "$1$4");
+			}
+			//去除事件属性
+			if ($("d_delon").checked) {
+				bv = /(<[^>]+?)(\son[a-zA-Z]+\s*=\s*(\w+\([^\)]*?\)|\'[^\']*?\'|\"[^\"]*?\"))([^>]*)>/gi;
+				html = html.replace(bv, "$1$4");
+			}
+		}
+		//首行缩进2字节
+		if ($("d_addindent").checked) {
+			bv = /(<p(\s[^>]*)?>)(&nbsp\;|\s[^\s\u3000])*/gi;
+			html = html.replace(bv, "$1");
+			//@空行不显示
+			bv = /><\/p>/gi;
+			html = html.replace(bv, ">&nbsp\;</p>");
+		}
+		//单线表格
+		if ($("d_addtablebc").checked) {
+			bv = /<table(\s[^>]*)?>/gi;
+			html = html.replace(bv, '<table style=\"BORDER-COLLAPSE:collapse\" border=1 bordercolor=\"#000000\" cellpadding=2 cellspacing=0>');
+		}
+		//window.returnValue = html;
+		//.......................................................
+		if(args.SetHtml){
+			html = SetHtml(html);
+		}
+	//对html进行格式化处理
+	}else if(gHtml){
+	//有关dom的操作忽略，只进行html值的格式化
+	//重复代码535-618（向下）
+		var bv = /<!--([^a]|a)*?-->/gi;
+		html = html.replace(bv, "");
+		bv = /<br\s*\/?>\s*/gi;
+		html = html.replace(bv, "<br>");
+		if (!$("d_keepall").checked) {
+			var qh = ",P,BR,TABLE,TBODY,TH,TR,TD,IMG,APPLET,OBJECT,EMBED,PARAM,STYLE,";
+			if ($("d_keepul").checked) {
+				qh += "UL,OL,LI,";
+			}
+			if ($("d_keepa").checked) {
+				qh += "A,";
+			}
+			bv = /<\/?([a-zA-Z]+)(\s[^>]*)?>/gi;
+			html = html.replace(bv,
+			function(wu, $1) {
+				if (qh.indexOf("," + $1.toUpperCase() + ",") > -1) {
+					return wu;
+				} else {
+					return "";
+				}
+			});
+		}
+		bv = /^[\s\r\n]*[^<\s\r\n]+/gi;
+		if (bv.test(html)) {
+			html = "<p>" + html;
+		}
+		//<br>2<p>
+		if ($("d_addbr2p").checked) {
+			//bv = /<br>/gi;
+			bv = /<br>(&nbsp\;|\s|　)*/gi;
+			if($("d_addindent").checked) {
+				html = html.replace(bv, "</p><p>　　");
+			}else {
+				html = html.replace(bv, "</p><p>");
+			}
+		}
+		//去除多余空格
+		if ($("d_delspace").checked) {
+			bv = /(\s|&nbsp\;)+<\/p>/gi;
+			html = html.replace(bv, "</p>");
+			bv = /(\s|&nbsp\;)+<br>/gi;
+			html = html.replace(bv, "<br>");
+			//@空行不显示
+			bv = /><\/p>/gi;
+			html = html.replace(bv, ">&nbsp\;</p>");
+		}
+		//去除多余行
+		if ($("d_delline").checked) {
+			bv = /<p(\s[^>]*)?>(&nbsp\;|\s|　)*<\/p>/gi;
+			html = html.replace(bv, "");
+			bv = /(<br>)+/gi;
+			html = html.replace(bv, "<br>");
+		}
+		//去除所有属性
+		if ($("d_delallattr").checked) {
+			bv = /(<[a-zA-Z]+)(\s[^>]*)>/gi;
+			html = html.replace(bv,
+			function(wu, $1, $2) {
+				var r = "";
+				var m = $2.match(/(src|href|type|name|value|rowsspan|colspan|classid|codebase)=(\'[^\']+\'|\"[^\"]+\"|[^\s]+)/gi);
+				if (m) {
+					for (var i = 0; i < m.length; i++) {
+						r += " " + m;
+					}
+				}
+				return $1 + r + ">";
+			});
+		} else {
+			//去除样式属性
+			if ($("d_delstyle").checked) {
+				bv = /<style[^>]*>([\s\S]*?)<\/style>/ig;
+				html = html.replace(bv, "");
+				bv = /(<[^>]+?)(\sstyle\s*=\s*(\'[^\']*?\'|\"[^\"]*?\"))([^>]*>)/gi;
+				html = html.replace(bv, "$1$4");
+				bv = /(<[^>]+?)(\sclass\s*=\s*(\'[^\']*?\'|\"[^\"]*?\"|\w+))([^>]*>)/gi;
+				html = html.replace(bv, "$1$4");
+			}
+			//去除事件属性
+			if ($("d_delon").checked) {
+				bv = /(<[^>]+?)(\son[a-zA-Z]+\s*=\s*(\w+\([^\)]*?\)|\'[^\']*?\'|\"[^\"]*?\"))([^>]*)>/gi;
+				html = html.replace(bv, "$1$4");
+			}
+		}
+		//首行缩进2字节
+		if ($("d_addindent").checked) {
+			//bv = /(<p(\s[^>]*)?>)(&nbsp\;|\s)*/gi;
+			bv = /(<p(\s[^>]*)?>)(&nbsp\;|\s[^\s\u3000])*/gi;
+			html = html.replace(bv, "$1");
+			//@空行不显示
+			bv = /><\/p>/gi;
+			html = html.replace(bv, ">&nbsp\;</p>");
+		}
+		//单线表格
+		if ($("d_addtablebc").checked) {
+			bv = /<table(\s[^>]*)?>/gi;
+			html = html.replace(bv, "<table style=\"BORDER-COLLAPSE:collapse\" border=1 bordercolor=\"#000000\" cellpadding=2 cellspacing=0>");
+		}
+	//重复代码535-618（向上）
+	}	
+	/*,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,SetCOOKIE,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,by@sj 20111221*/
+	/*
+	*统一读取cookie，与默认排版统一，字体、字号、段前、段后、行距修改保存cookie名
+	*部分保留项修改为去除项：超链接，表格，图片，列表
+	*/
+	//保留选项
+	checkCookieSet("rememberIt");
+	if($("rememberIt").checked) {
+		checkCookieSet("d_keepall");
+		checkCookieSet("d_keepul");
+		checkCookieSet("d_keeptable");
+		checkCookieSet("d_keepimg");
+		checkCookieSet("d_keepobject");
+		checkCookieSet("d_keepa");
+		//去除选项
+		checkCookieSet("d_delline");
+		checkCookieSet("d_delspace");
+		checkCookieSet("d_delhidden");
+		checkCookieSet("d_delallattr");
+		checkCookieSet("d_delstyle");
+		checkCookieSet("d_delon");
+		//增效选项
+		checkCookieSet("d_inpmargintop","d_inpmargintop");
+		checkCookieSet("d_addindent");
+		//checkCookieSet("d_confusion");//去除干扰字cookie不做处理
+		checkCookieSet("d_inpmarginbottom","d_inpmarginbottom");
+		checkCookieSet("d_addjustify");
+		checkCookieSet("d_inplineheight","d_inplineheight");
+		checkCookieSet("d_addbr2p");
+		checkCookieSet("d_addtablebc");
+		//value（段前、段后、行距，字体，字号）
+		valueCookieSet("v_inpmargintop","v_inpmargintop");
+		valueCookieSet("v_inpmarginbottom","v_inpmarginbottom");
+		valueCookieSet("v_inplineheight","v_inplineheight");
+		valueCookieSet("d_selfontname","d_selfontname");
+		valueCookieSet("d_selfontsize","d_selfontsize");
+	}
+	/*..................................................................................................*/
+	var tagName = "P|DIV|TD|TH|SPAN|FONT|UL|LI|A";
+	var arrTagName = tagName.split("|");
+	var formatStyle = "<style type=\"text/css\">";
+	for (var i=0; i<arrTagName.length; i++) {
+		formatStyle += ".TRS_Editor " + arrTagName[i] +"{"+ cssText +"}";
+	}
+	window.returnValue = formatStyle + "</style>"+html;
+	window.close();
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function aboutAllDelCheck(clickInput) {//点击去除所有属性，在界面上的对所有去除属性的单选框选定
+	if (clickInput.checked) {
+		$("d_delstyle").checked = true;
+		$("d_delon").checked = true;
+		$("d_delstyle").disabled = true;
+		$("d_delon").disabled = true;
+	} else {
+		$("d_delstyle").disabled = false;
+		$("d_delon").disabled = false;
+	}
+}
+function aboutAllKeepCheck(clickInput) {//点击保留所有属性，在界面上的对所有保留属性的单选框选定
+	if (clickInput.checked) {
+		$("d_keepul").checked = true;
+		$("d_keeptable").checked = true;
+		$("d_keepimg").checked = true;
+		$("d_keepobject").checked = true;
+		$("d_keepa").checked = true;
+		$("d_keepul").disabled = true;
+		$("d_keeptable").disabled = true;
+		$("d_keepimg").disabled = true;
+		$("d_keepobject").disabled = true;
+		$("d_keepa").disabled = true;
+	} else {
+		$("d_keepul").disabled = false;
+		$("d_keeptable").disabled = false;
+		$("d_keepimg").disabled = false;
+		$("d_keepobject").disabled = false;
+		$("d_keepa").disabled = false;
+	}
+}
+function aboutConfusionCheck(F) {//界面上，去除干扰字对干扰字子单选框的影响
+	var b = (!F.checked);
+	$("d_confusionauto").disabled = b;
+	$("d_confusioncolor").disabled = b;
+	$("v_confusioncolor").disabled = b;
+	$("d_confusionclass").disabled = b;
+	$("v_confusionclass").disabled = b;
+}
+/*....................................................................................................*/
+function bm() {//页面加载默认值
+	var cp = "";
+	for (var k = 0; k < lang["FontNameItem"].length; k++) {
+		cp += "<option value='" + lang["FontNameItem"][k] + "'";
+		cp += ">" + lang["FontNameItem"][k] + "</option>";
+	}
+	$("td_addfontfamily").innerHTML = "<select id=d_selfontname size=1 style='width:100px'><option selected>" + lang["FontName"] + "</option>" + cp + "</select>";
+	cp = "";
+	for (var k = 0; k < lang["FontSizeItem"].length; k++) {
+		cp += "<option value='" + lang["FontSizeItem"][k][0] + "'";
+		cp += ">" + lang["FontSizeItem"][k][1] + "</option>";
+	}
+	$("td_selfontsize").innerHTML = "<select id=d_selfontsize size=1 style='width:100px'><option selected>" + lang["FontSize"] + "</option>" + cp + "</select>";
+	/*,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,GetCOOKIE,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,by @sj 20111221*/
+	//保留选项
+	checkCookieGet("rememberIt");
+	if($("rememberIt").checked) {
+		checkCookieGet("d_keepall");
+		aboutAllKeepCheck($("d_keepall"));
+		checkCookieGet("d_keepul");
+		checkCookieGet("d_keeptable");
+		checkCookieGet("d_keepimg");
+		checkCookieGet("d_keepobject");
+		checkCookieGet("d_keepa");
+		//去除选项
+		checkCookieGet("d_delline");
+		checkCookieGet("d_delspace");
+		checkCookieGet("d_delhidden");
+		checkCookieGet("d_delallattr");
+		aboutAllDelCheck($("d_delallattr"));
+		checkCookieGet("d_delstyle");
+		checkCookieGet("d_delon");
+		//增效选项
+		checkCookieGet("d_inpmargintop","d_inpmargintop");
+		checkCookieGet("d_addindent");
+		//checkCookieGet("d_confusion");//去除干扰字cookie不做处理
+		checkCookieGet("d_inpmarginbottom","d_inpmarginbottom");
+		checkCookieGet("d_addjustify");
+		checkCookieGet("d_inplineheight","d_inplineheight");
+		checkCookieGet("d_addbr2p");
+		checkCookieGet("d_addtablebc");
+		//value（段前、段后、行距，字体，字号）
+		valueCookieGet("v_inpmargintop","v_inpmargintop");
+		valueCookieGet("v_inpmarginbottom","v_inpmarginbottom");
+		valueCookieGet("v_inplineheight","v_inplineheight");
+		valueCookieGet("d_selfontname","d_selfontname"); 
+		valueCookieGet("d_selfontsize","d_selfontsize");
+	}else {
+		//if(attribute && attribute["isStatus"]!="1") return;
+		checkAttributeGet("d_keepall");
+		aboutAllKeepCheck($("d_keepall"));
+		checkAttributeGet("d_keepul");
+		checkAttributeGet("d_keeptable");
+		checkAttributeGet("d_keepimg");
+		checkAttributeGet("d_keepobject");
+		checkAttributeGet("d_keepa");
+		//去除选项
+		checkAttributeGet("d_delline");
+		checkAttributeGet("d_delspace");
+		checkAttributeGet("d_delhidden");
+		checkAttributeGet("d_delallattr");
+		aboutAllDelCheck($("d_delallattr"));
+		checkAttributeGet("d_delstyle");
+		checkAttributeGet("d_delon");
+		//增效选项
+		checkAttributeGet("d_inpmargintop","d_inpmargintop");
+		checkAttributeGet("d_addindent");
+		//checkAttributeGet("d_confusion");//去除干扰字Attribute不做处理
+		checkAttributeGet("d_inpmarginbottom","d_inpmarginbottom");
+		checkAttributeGet("d_addjustify");
+		checkAttributeGet("d_inplineheight","d_inplineheight");
+		checkAttributeGet("d_addbr2p");
+		checkAttributeGet("d_addtablebc");
+		//value（段前、段后、行距，字体，字号）
+		valueAttributeGet("v_inpmargintop","v_inpmargintop");
+		valueAttributeGet("v_inpmarginbottom","v_inpmarginbottom");
+		valueAttributeGet("v_inplineheight","v_inplineheight");
+		valueAttributeGet("d_selfontname","d_selfontname"); 
+		valueAttributeGet("d_selfontsize","d_selfontsize");
+	}
+	//为"去除所有属性"添加title
+	if($('_delallattr')) {
+		var delallattrLang = "去除所有属性包括去除样式、事件以及src、href、type、name、value等";
+		$('_delallattr').setAttribute("title",delallattrLang);
+	}
+
+	/*....................................................................................................*/
+}
+/*....................................................................................................*/
+function fo(av) {
+	rj = 0;
+	pM = av.length;
+	if (fo.arguments.length == 2) {//当传入两个参数时
+		oP = fo.arguments[1].toLowerCase();
+	} else {
+		oP = "all";
+	}
+	for (var i = 0; i < av.length; i++) {
+		yi = av.substring(rj, rj + 1);
+		yH = av.substring(pM, pM - 1);
+		if ((oP == "all" || oP == "left") && yi == " ") {
+			rj++;
+		}
+		if ((oP == "all" || oP == "right") && yH == " ") {
+			pM--;
+		}
+	}
+	av = av.slice(rj, pM);
+	return av;
+}
+function dz(uc, xG) {
+	alert(xG);
+	uc.focus();
+	uc.select();
+	return false;
+}
+function jy(ao) {//对干扰字色的颜色做处理，获取系统可读的颜色值；如果错误则返回""
+	var vF = {
+		"ALICEBLUE": "#F0F8FF",
+		"ANTIQUEWHITE": "#FAEBD7",
+		"AQUA": "#00FFFF",
+		"AQUAMARINE": "#7FFFD4",
+		"AZURE": "#F0FFFF",
+		"BEIGE": "#F5F5DC",
+		"BISQUE": "#FFE4C4",
+		"BLACK": "#000000",
+		"BLANCHEDALMOND": "#FFEBCD",
+		"BLUE": "#0000FF",
+		"BLUEVIOLET": "#8A2BE2",
+		"BROWN": "#A52A2A",
+		"BURLYWOOD": "#DEB887",
+		"CADETBLUE": "#5F9EA0",
+		"CHARTREUSE": "#7FFF00",
+		"CHOCOLATE": "#D2691E",
+		"CORAL": "#FF7F50",
+		"CORNFLOWERBLUE": "#6495ED",
+		"CORNSILK": "#FFF8DC",
+		"CRIMSON": "#DC143C",
+		"CYAN": "#00FFFF",
+		"DARKBLUE": "#00008B",
+		"DARKCYAN": "#008B8B",
+		"DARKGOLDENROD": "#B8860B",
+		"DARKGRAY": "#A9A9A9",
+		"DARKGREEN": "#006400",
+		"DARKKHAKI": "#BDB76B",
+		"DARKMAGENTA": "#8B008B",
+		"DARKOLIVEGREEN": "#556B2F",
+		"DARKORANGE": "#FF8C00",
+		"DARKORCHID": "#9932CC",
+		"DARKRED": "#8B0000",
+		"DARKSALMON": "#E9967A",
+		"DARKSEAGREEN": "#8FBC8F",
+		"DARKSLATEBLUE": "#483D8B",
+		"DARKSLATEGRAY": "#2F4F4F",
+		"DARKTURQUOISE": "#00CED1",
+		"DARKVIOLET": "#9400D3",
+		"DEEPPINK": "#FF1493",
+		"DEEPSKYBLUE": "#00BFFF",
+		"DIMGRAY": "#696969",
+		"DODGERBLUE": "#1E90FF",
+		"FIREBRICK": "#B22222",
+		"FLORALWHITE": "#FFFAF0",
+		"FORESTGREEN": "#228B22",
+		"FUCHSIA": "#FF00FF",
+		"GAINSBORO": "#DCDCDC",
+		"GHOSTWHITE": "#F8F8FF",
+		"GOLD": "#FFD700",
+		"GOLDENROD": "#DAA520",
+		"GRAY": "#808080",
+		"GREEN": "#008000",
+		"GREENYELLOW": "#ADFF2F",
+		"HONEYDEW": "#F0FFF0",
+		"HOTPINK": "#FF69B4",
+		"INDIANRED": "#CD5C5C",
+		"INDIGO": "#4B0082",
+		"IVORY": "#FFFFF0",
+		"KHAKI": "#F0E68C",
+		"LAVENDER": "#E6E6FA",
+		"LAVENDERBLUSH": "#FFF0F5",
+		"LAWNGREEN": "#7CFC00",
+		"LEMONCHIFFON": "#FFFACD",
+		"LIGHTBLUE": "#ADD8E6",
+		"LIGHTCORAL": "#F08080",
+		"LIGHTCYAN": "#E0FFFF",
+		"LIGHTGOLDENRODYELLOW": "#FAFAD2",
+		"LIGHTGREEN": "#90EE90",
+		"LIGHTGREY": "#D3D3D3",
+		"LIGHTPINK": "#FFB6C1",
+		"LIGHTSALMON": "#FFA07A",
+		"LIGHTSEAGREEN": "#20B2AA",
+		"LIGHTSKYBLUE": "#87CEFA",
+		"LIGHTSLATEGRAY": "#778899",
+		"LIGHTSTEELBLUE": "#B0C4DE",
+		"LIGHTYELLOW": "#FFFFE0",
+		"LIME": "#00FF00",
+		"LIMEGREEN": "#32CD32",
+		"LINEN": "#FAF0E6",
+		"MAGENTA": "#FF00FF",
+		"MAROON": "#800000",
+		"MEDIUMAQUAMARINE": "#66CDAA",
+		"MEDIUMBLUE": "#0000CD",
+		"MEDIUMORCHID": "#BA55D3",
+		"MEDIUMPURPLE": "#9370DB",
+		"MEDIUMSEAGREEN": "#3CB371",
+		"MEDIUMSLATEBLUE": "#7B68EE",
+		"MEDIUMSPRINGGREEN": "#00FA9A",
+		"MEDIUMTURQUOISE": "#48D1CC",
+		"MEDIUMVIOLETRED": "#C71585",
+		"MIDNIGHTBLUE": "#191970",
+		"MINTCREAM": "#F5FFFA",
+		"MISTYROSE": "#FFE4E1",
+		"MOCCASIN": "#FFE4B5",
+		"NAVAJOWHITE": "#FFDEAD",
+		"NAVY": "#000080",
+		"OLDLACE": "#FDF5E6",
+		"OLIVE": "#808000",
+		"OLIVEDRAB": "#6B8E23",
+		"ORANGE": "#FFA500",
+		"ORANGERED": "#FF4500",
+		"ORCHID": "#DA70D6",
+		"PALEGOLDENROD": "#EEE8AA",
+		"PALEGREEN": "#98FB98",
+		"PALETURQUOISE": "#AFEEEE",
+		"PALEVIOLETRED": "#DB7093",
+		"PAPAYAWHIP": "#FFEFD5",
+		"PEACHPUFF": "#FFDAB9",
+		"PERU": "#CD853F",
+		"PINK": "#FFC0CB",
+		"PLUM": "#DDA0DD",
+		"POWDERBLUE": "#B0E0E6",
+		"PURPLE": "#800080",
+		"RED": "#FF0000",
+		"ROSYBROWN": "#BC8F8F",
+		"ROYALBLUE": "#4169E1",
+		"SADDLEBROWN": "#8B4513",
+		"SALMON": "#FA8072",
+		"SANDYBROWN": "#F4A460",
+		"SEAGREEN": "#2E8B57",
+		"SEASHELL": "#FFF5EE",
+		"SIENNA": "#A0522D",
+		"SILVER": "#C0C0C0",
+		"SKYBLUE": "#87CEEB",
+		"SLATEBLUE": "#6A5ACD",
+		"SLATEGRAY": "#708090",
+		"SNOW": "#FFFAFA",
+		"SPRINGGREEN": "#00FF7F",
+		"STEELBLUE": "#4682B4",
+		"TAN": "#D2B48C",
+		"TEAL": "#008080",
+		"THISTLE": "#D8BFD8",
+		"TOMATO": "#FF6347",
+		"TURQUOISE": "#40E0D0",
+		"VIOLET": "#EE82EE",
+		"WHEAT": "#F5DEB3",
+		"WHITE": "#FFFFFF",
+		"WHITESMOKE": "#F5F5F5",
+		"YELLOW": "#FFFF00",
+		"YELLOWGREEN": "#9ACD32"
+	};
+	if (!ao) {
+		return "";
+	}
+	ao = ao.toUpperCase();
+	var bv;
+	//rgb正则,结果序数为2、4、6
+	bv = /RGB(A)?\((\d{1,3}),(\s)*(\d{1,3}),(\s)*(\d{1,3})(,(\s)*(\d{1,3}))?\)/;
+	if(bv.test(ao)) {
+		var rgbfix = bv.exec(ao);
+		var r,g,b,a;
+		r = parseInt(rgbfix[2]).toString(16);
+		g = parseInt(rgbfix[4]).toString(16);
+		b = parseInt(rgbfix[6]).toString(16);
+		rs = '#'+(r<10?'0'+r:r)+(g<10?'0'+g:g)+(b<10?'0'+b:b);
+		if(rs.length==4 && !noun.test(rs)) {//修正简写的十六进制，采取length判断方式
+			rs = rs+rs.split('#')[1]
+		}
+		return rs;
+	}
+	bv = /#[0-9A-H]{6}/gi;
+	if (bv.test(ao)) {
+		return ao;
+	}
+	bv = /#[0-9A-H]{3}/gi;
+	if (bv.test(ao)) {
+		var bU = ao.substr(1, 1);
+		var bN = ao.substr(2, 1);
+		var tA = ao.substr(3, 1);
+		return "#" + bU + bU + bN + bN + tA + tA;
+	}
+	bv = /[A-Z]+/gi;
+	if (bv.test(ao)) {
+		if (vF[ao]) {
+			return vF[ao];
+		}
+	}
+	return "";
+};
+function getTagName(flag) {//jk==getTagName
+	var b = false;
+	var oBody = doc;
+	while (!b) {
+		b = delHiddenOrAdjustTABIMG(oBody, flag);//oBody = O.J.body,O.J = doc
+	}
+};
+function delHiddenOrAdjustTABIMG(oBody, flag) {//xc
+	var oo = oBody.children;
+	for (var i = 0; i < oo.length; i++) {
+		var o = oo[i];
+		if (flag == "hidden" && ((changeAttrStyle(o, "display") == "none") || (changeAttrStyle(o, "visibility") == "hidden"))) {
+			removeSelfNode(o);
+			return false;
+		} else if (o.tagName == flag) {
+			if (flag == "TABLE" && $("d_keepimg").checked) {
+				var jH = o.getElementsByTagName("IMG");
+				for (var j = 0; j < jH.length; j++) {
+					o.parentNode.insertBefore(jH[j], o);
+				}
+			}
+			removeSelfNode(o);
+			return false;
+		} else {
+			if (!delHiddenOrAdjustTABIMG(o, flag)) {
+				return false;
+			}
+		}
+	}
+	return true;
+};
+function removeSelfNode(F) {//dh
+	F.parentNode.removeChild(F);
+};
+function changeAttrStyle(bG, propertyName) {//font-size → fontSize  //changeAttrStyle/zd.aU
+	if(window.ActiveXObject) {
+		propertyName = propertyName.replace(/\-(\w)/g,
+		function(AR, ra) {
+			return ra.toUpperCase();
+		});
+	}
+	return getStyle(bG,propertyName);
+};
+function getStyle(element, _style) {
+	if(element.currentStyle) {
+		value = element.currentStyle[_style];
+	}else if (document.defaultView && document.defaultView.getComputedStyle) {
+		var css = document.defaultView.getComputedStyle(element, null);
+		value = css ? css.getPropertyValue(_style) : null;
+	}
+	return value == 'auto' ? null : value;
+}
+
+function xW() {
+	pz("SPAN");
+	pz("FONT");
+	pz("DIV");
+}
+function pz(ae) {
+	while (xz(ae)) {}
+}
+function xz(ae) {
+	var bz = doc.getElementsByTagName(ae);
+	for (var i = 0; i < bz.length; i++) {
+		var R = bz[i];
+		if ($("d_confusionauto").checked) {
+			var me = jy(qn(R, ""));
+			var jg = changeAttrStyle(R, "font-size");
+			if (jg) {
+				jg = jg.substr(0, 1);
+			}
+			/*
+			*调试去除干扰字的调试信息
+			alert("jg"+jg+"\njg.substr(0,1)"+jg.substr(0, 1));
+			alert(me+"\n"+qn(R, ""));
+			alert(jy(changeAttrStyle(R, "color"))+"\n"+changeAttrStyle(R, "color"));
+			*/
+			
+			/*
+			*兼容chrome浏览器,color默认属性为#000000(黑色)的bug,{&& (me!="#000000")} 
+			*/
+			if ((jy(changeAttrStyle(R, "color")) == me) && (me!="#000000") || (jg == "0")) {
+				removeSelfNode(R);
+				return true;
+			}
+		} else if ($("d_confusioncolor").checked) {
+			if (jy(changeAttrStyle(R, "color")) == jy($("v_confusioncolor").value)) {
+				removeSelfNode(R);
+				return true;
+			}
+		} else if ($("d_confusionclass").checked) {
+			if (R.className == $("v_confusionclass").value) {
+				removeSelfNode(R);
+				return true;
+			}
+		}
+	}
+	return false;
+};
+function qn(R, yp) {//干扰字
+	var b = true;
+	while (b) {
+		R = R.parentNode;
+		if (!R || R.nodeType != 1) {
+			return "";
+		}
+		if (R.tagName == yp) {
+			return "";
+		}
+		var pE = changeAttrStyle(R, "background-color");//return R.backgroundColor
+		if ((pE) && (pE != "transparent")) {
+			return pE;
+		}
+		
+	}
+	return "";
+}
+
+/*Cookie的设置与调用 by@sj20111221*/
+//checkBox
+function checkCookieSet(domID,cookieID){
+	if(!cookieID) {
+		cookieID = domID;
+	}
+	var currDom = $(domID);
+	if (currDom.checked){
+		CookieUtil.set(cookieID,"1");
+	}else{
+		CookieUtil.set(cookieID,"0");
+	}
+}
+function checkCookieGet(domID,cookieID){
+	if(!cookieID) {
+		cookieID = domID;
+	}
+	if(CookieUtil.get(cookieID) == "1") {
+		$(domID).checked = true;
+	}else if(CookieUtil.get(cookieID) == "0") {
+		$(domID).checked = false;
+	}
+}
+function checkAttributeGet(domID,cookieID){
+	if(!cookieID) {
+		cookieID = domID;
+	}
+	if(attribute && attribute[cookieID]=="1") {
+		$(domID).checked = true;
+	}else{
+		$(domID).checked = false;
+	}
+}
+//inputValue
+function valueCookieSet(domID,cookieID){
+	if(!cookieID) {
+		cookieID = domID;
+	}
+	var currDom = $(domID);
+	if(currDom.value) {
+		CookieUtil.set(cookieID,currDom.value);
+	}
+}
+function valueCookieGet(domID,cookieID){
+	if(!cookieID) {
+		cookieID = domID;
+	}
+	var currValue = CookieUtil.get(cookieID);
+	//特殊考虑到select选项中字体和字号的显示问题，当未对字体进行设置时，不读取cookie中的值，仍为默认的"字体"和"字号"
+	if(currValue && (currValue !== "--系统字体--") && (currValue !== "--系统字号--")) {
+		$(domID).value = currValue;
+	}
+}
+function valueAttributeGet(domID,cookieID){
+	if(!cookieID) {
+		cookieID = domID;
+	}
+	var currValue = attribute && attribute[domID] ? attribute[domID] : "" ;
+	//特殊考虑到select选项中字体和字号的显示问题，当未对字体进行设置时，不读取cookie中的值，仍为默认的"字体"和"字号"
+	if(currValue && (currValue !== "--系统字体--") && (currValue !== "--系统字号--")) {
+		$(domID).value = currValue;
+	}
+}
+/*校验参数 by@sj20120703*/
+function do_validation(_id){
+	var regNum = /^\d*(\.\d+)?(px|pt|em|cm)?$/;
+	if($("d_"+_id).checked && !regNum.test($("v_"+_id).value)) {
+		$("v_"+_id).focus();
+		$("v_"+_id).select();
+		return false;
+	}
+	return true;
+}
+/*校验上级标签是否包含参数tagName*/
+function isValidParentTagName(elementP,tagName){
+	var element = elementP;
+	while( element.tagName.toUpperCase() != "BODY" ){
+		element = element.parentNode;
+		if(element.tagName.toUpperCase() == tagName){
+			return true;
+		}
+	}
+	return false;
+}
+/*默认设置 by@sj20120202*/
+function defaultSet(){
+//保留选项
+	/*保留所有*/$(d_keepall).checked = false;
+	if($(d_keepall).checked) {
+		aboutAllKeepCheck($(d_keepall));
+	}else {
+		/*保留列表*/$(d_keepul).checked = true;
+		/*保留表格*/$(d_keeptable).checked = true;
+		/*保留图片*/$(d_keepimg).checked = true;
+		/*保留对象*/$(d_keepobject).checked = true;
+		/*保留超链接*/$(d_keepa).checked = true;
+	}
+//去除选项
+	/*去除空行*/$(d_delline).checked = true;
+	/*去除多余空格*/$(d_delspace).checked = true;
+	/*去除隐藏域*/$(d_delhidden).checked = true;
+	/*去除所有属性*/$(d_delallattr).checked = true;
+	if($(d_delallattr).checked) {
+		aboutAllDelCheck($(d_delallattr));
+	}else {
+		/*去除样式属性*/$(d_delstyle).checked = true;
+		/*去除事件属性*/$(d_delon).checked = true;
+	}
+//增效选项
+	/*段前*/$(d_inpmargintop).checked = true;
+	/*段后*/$(d_inpmarginbottom).checked = true;
+	/*行距*/$(d_inplineheight).checked = true;
+	/*首行缩进2字*/$(d_addindent).checked = true;
+	/*两端对齐*/$(d_addjustify).checked = true;
+	/*<BR>转<P>*/$(d_addbr2p).checked = true;
+	/*单线表格*/$(d_addtablebc).checked = false;
+//字体字号
+	$(d_selfontname).value = "Arial"; 
+	$(d_selfontsize).value = "12pt";
+//设置段前、段后、行距默认值
+	/*段前值*/$(v_inpmargintop).value = "0";
+	/*段后值*/$(v_inpmarginbottom).value = "1";
+	/*行距值*/$(v_inplineheight).value = "2";
+}
+</script>
+</html>

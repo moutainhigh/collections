@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0"  id="cms.process">
+	<beans>
+		<bean id="FlowServer" class="com.trs.cms.process.FlowServer" 
+			singleton="true"/>
+		<bean id="IFlowServer" class="com.trs.cms.process.FlowServerImpl" 
+			singleton="true"/>
+		<bean id="FlowConfigServer" class="com.trs.cms.process.config.FlowConfigServer" 
+			singleton="true"/>
+		<bean id="IFlowRuleCacheServer" class="com.trs.cms.process.definition.FlowRuleCacheServerImpl" 
+			singleton="true"/>
+		
+		<!-- Mgr BEGIN -->
+		<bean id="FlowEmployMgr" 
+			class="com.trs.cms.process.definition.FlowEmployMgr" 
+			singleton="true"/>
+		<bean id="FlowMgr" class="com.trs.cms.process.definition.FlowMgr" 
+			singleton="true"/>
+		<bean id="FlowEmployCacheMgr" 
+			class="com.trs.cms.process.definition.FlowEmployCacheMgr" 
+			singleton="true" />
+		<!-- Mgr END -->
+		
+		<!-- WCMOBJ Life Cycle Listeners BEGIN -->
+		<bean id="IFlowCacheMgr"  
+			class="com.trs.cms.process.definition.FlowCacheMgr" 
+			singleton="true"/>
+		<bean id="IWorkflowDelegateMgr" 
+			class="com.trs.cms.process.WorkflowDelegateMgr" 
+			singleton="true" />
+		<bean id="FlowNodeLCListenerForForceEnd" 
+			class="com.trs.cms.process.engine.FlowNodeLCListenerForForceEnd" 
+			singleton="true"/>
+		<bean id="FlowContentLCListener" 
+			class="com.trs.cms.process.engine.FlowContentLCListener" 
+			singleton="true"/>
+		<bean id="FlowEmployerLCListener" 
+			class="com.trs.cms.process.definition.FlowEmployerLCListener" 
+			singleton="true"/>
+		<bean id="RuleHostLCListnerForCache" 
+			class="com.trs.cms.process.definition.RuleHostLCListnerForCache" 
+			singleton="true"/>
+		<!-- WCMOBJ Life Cycle Listeners END -->
+	</beans>
+</plugin>

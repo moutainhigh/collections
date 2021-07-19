@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1">
+<title>北京工商网上登记申请平台全程电子化</title>
+<link rel="stylesheet" href="../../../static/css/jquery-ui-1.9.2.custom.css" type="text/css" />
+<link href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="../../../static/css/common.css">
+<link rel="stylesheet" href="../../../static/css/jquery.Jcrop.css">
+<link rel="stylesheet" href="../../../static/css/uploadfile.css">
+<link rel="Shortcut Icon" href="../../../static/image/img/verify.png" type="image/x-icon">
+
+</head>
+<body>
+<div class="cover">
+	<img src="../../../static/image/img/icon/_loading.gif">
+</div>
+	<!--头部区域-->
+	<!--主体内容区域-->
+	<article class="wrapper">
+		<!--banner结束-->
+
+		<!--主要信息展示区域-->
+		<div class="main">
+			<div class="content-top">
+				<img src="../../../static/image/img/icon/info-white.png"> <span>文件上传信息</span>
+			</div>
+			<div class="content-main">
+				<div class="title">
+					<h2>操作步骤</h2>
+					<div class="dotted-line"></div>
+				</div>
+				<!--有序列表-->
+				<!-- <ol>
+				    <li class="font-blue">、请按以下提示准备申请所必需的证明文件对应上传。
+						<ol class="normal">
+							<li>与住所相关的产权证明文件。</li>
+							<li>企业的主要人员的身份证件。</li>
+							<li>企业的自然人股东的身份证明文件，非自然股东的营业执照等证明文件。</li>
+							<li>上传之前请仔细阅读&nbsp; <a
+						href="javascript:void(0);" class="notice" id="notice">文件上传说明</a>&nbsp;。
+					</li>
+						</ol>
+					</li>
+					<li class="font-blue">、下载申请材料,打印后给相关人员签字盖章。
+						<ol class="normal">
+							<li>下载前请确认所有申请数据及证明文件都已填写及上传完毕,系统会自动生成电子材料供您下载。</li>
+							<li>如果您修改了申请内容,需要重新下载材料(系统会按照最新的数据生成材料)。</li>
+						</ol>
+					</li>
+					<li class="font-blue">、将签字盖章页对应上传。</li>
+				</ol> -->
+				
+				<!--操作步骤-->
+				<ul class="upload-step clearfix">
+				    <li class="selected"><span class="step"><span class="step-no">1</span><span class="step-text">上传证明文件</span></span><span class="step-next"></span></li>
+				    <li><span class="step"><span class="step-no">2</span><span class="step-text">文书下载</span></span><span class="step-next"></span></li>
+				    <li><span class="step"><span class="step-no">3</span><span class="step-text">上传签字盖章页</span></span></li>
+				</ul>
+				
+				<!--上传文件-->
+				<div id="stepOne">
+					<div class="title">
+						<span class="big-font">1、上传证明文件</span>&nbsp;&nbsp;<span class="font-blue">（上传之前请仔细阅读&nbsp; <a
+							href="javascript:void(0);" class="notice" id="notice">文件上传说明</a>）</span>
+						<div class="dotted-line"></div>
+					</div>
+					<div id="uploadList" class="clearfix"></div>
+					<h3 class="info-color">全程电子系统已经为您自动生成章程，您无需再上传。<h3>
+					<h3>如果企业自主制定章程，请下载&nbsp;&nbsp;<span class="download-point"></span>&nbsp;&nbsp;<a id="docTemplateDownload" href="" class="notice text-underline">公司章程模板</a></h3>
+					<h3>在模板的基础上完成编辑后&nbsp;&nbsp;
+					    <span id="upload_constitution" class="noticeBt">点此上传</span>&nbsp;&nbsp;
+					    <span id="constitution_name" class="info-color"></span>
+					    <div id=constitution_loading class="hide">
+						    <div id="loading1"></div>
+						    <div id="loading2"></div>
+						    <div id="loading3"></div>
+						</div>
+					</h3>
+					<input type="file" name="constitution" id="constitution" class="hide">
+<!-- 					    
+					    <div id="constitution" name="constitution" vtype="attachment" title="点此上传" 
+					    default_flash_url="../../../static/lib/JAZZ-UI/lib/swfupload/swfupload.swf"  
+					    default_flash9_url="../../../static/lib/JAZZ-UI/lib/swfupload/swfupload_fp9.swf" 
+	         width="400" single="true" theme="2" allowfiletypes="*.docx" fileuploadlimit="1"></div>	 -->
+					    
+					<h3 class="info-color">如果未按系统提供的公司章程模板编辑并上传，会导致业务申请审批不通过！<h3>
+				</div>
+				
+				<!--下载文件-->
+				<div id="stepTwo" class="hide">
+					<div class="title">
+						<span class="big-font">2、文书下载</span>&nbsp;&nbsp;
+						<span class="font-blue">（文书下载之前需要企业全体股东、法定代表人完成身份信息的提交，否则无法下载！）</span>
+						<div class="dotted-line"></div>
+					</div>
+					<div id="cannot_download"> 
+					    <h3 class="font-blue">很抱歉，暂时无法下载文书！</h3>
+					    <h3>全体股东、法定代表人还未全部完成身份认证信息的提交，点击&nbsp;&nbsp;<a href="javascript:void(0);" class="notice text-underline" id="id_confirm">查看身份认证情况</a></h3>
+					</div>
+					<div id="first_download">
+					    <span class="infoBt downloadPDF"><span class="down-pointer"></span><span>文书下载</span></span>
+					</div>
+					<div id="more_download">
+					    <span class="infoBt downloadPDF" download="pre">下载已生成版本</span >
+					    <span class="large-font">如果申请内容未发生修改可快速下载（上次下载时间：2016-09-08）。</span>
+					    <div class="gap"></div>
+					    <span class="infoBt downloadPDF">重新生成并下载</span>
+					    <span class="large-font">如申请内容已发生修改需要重新生成，请耐心等待生成结果并下载。</span>
+					</div>
+					<a id="download_content">pdf下载链接</a>
+				</div> 
+				
+				<div id="stepThree" class="hide">
+					<div class="title">
+						<h2>3、上传签字盖章页</h2>
+						<div class="dotted-line"></div>
+					</div>
+					<div id="signList" class="clearfix"></div>
+				</div>
+				<div class="button_container">
+					<div id="continue_step" class="commonBt">继续</div>
+				</div>
+			</div>
+			
+		</div>
+		<section class="wrapAdvice">
+			<section class="advice">
+				<section class="adviceTop">
+					<span>退回修改意见</span>
+					<img src='../../../static/image/img/icon/minus.png' name="back">
+				</section>
+				<section class="tips">
+					
+				</section>
+			</section>
+			<section class="modifyBack" id="#modifyBack">
+				<img src="../../../static/image/img/icon/plusign.png">
+				<p>退回修改意见</p>
+			</section>
+		</section>
+		<div class="button_container novisible" id="business_step">
+			<div id="pre_step" class="commonBt">上一步</div>
+			<div id="save" class="commonBt">保存</div>
+			<div id="next_step" class="commonBt">下一步</div>
+		</div>
+
+		<!--按钮样式-->
+
+	</article>
+
+	<!--尾部区域-->
+	
+	<!--引入js代码-->
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" src="../../../static/lib/require.js" data-main="apply/applySetupUpload.js"></script>
+</body>
+</html>

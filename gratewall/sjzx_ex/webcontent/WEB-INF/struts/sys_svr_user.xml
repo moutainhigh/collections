@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>服务对象管理</menu-name>
+  <menu-path>/page/share/svruser/</menu-path>
+  <description>服务对象管理</description>
+  <form-beans>
+    <form-bean name="SysSvrUserRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="primary-key" name="sys_svr_user_id" type="string" size="32" cannull="false" description="服务对象编号"/>
+      <form-property prefix="select-key" name="sys_svr_user_id" type="string" size="32" cannull="false" description="服务对象编号"/>
+      <form-property prefix="select-key" name="sys_svr_service_id" type="string" size="32" cannull="false" description="服务对象编号"/>
+      <form-property prefix="select-key" name="sys_svr_user_id2" type="string" size="32" cannull="false" description="服务对象编号2"/>
+      <form-property prefix="select-key" name="login_name" 	type="string" size="20" description="用户名"/>
+      <form-property prefix="select-key" name="user_name" 	type="string" size="20" description="用户名称"/>
+      <form-property prefix="select-key" name="svr_name" 	type="string" size="20" description="用户名称"/>
+      <form-property prefix="select-key" name="sys_svr_config_id" type="string" size="32" cannull="false" description="服务配置编号"/>
+      <form-property prefix="select-key" name="user_type" 	type="string" size="10" description="用户类型"/>
+      <form-property prefix="select-key" name="state" 		type="string" size="32" cannull="false" description="密码"/>
+      <form-property prefix="select-key" name="is_limit" 	type="string" size="32" description="是否限制"/>
+      <form-property prefix="select-key" name="stype" 	type="string" size="32" description="服务类型"/>
+      <form-property prefix="select-key" name="showall" 	type="string" size="32" description="临时变量"/>
+      <form-property prefix="select-key" name="is_pause" 	type="string" size="32" description="是否暂停"/>
+      <form-property prefix="select-key" name="column_nos" 	type="string" size="2000" description="字段编号串"/>
+       
+      <form-property prefix="record" name="sys_svr_user_id" type="string" size="32" cannull="false" description="服务对象编号"/>
+      
+      <form-property prefix="record" name="sys_svr_service_id" type="string" size="32" cannull="false" description="服务对象编号"/>
+      <form-property prefix="record" name="login_name" 		type="string" size="32" cannull="false" description="用户名"/>
+      <form-property prefix="record" name="user_name" 		type="string" size="32" cannull="false" description="名称"/>
+      <form-property prefix="record" name="password" 		type="string" size="32" cannull="false" description="密码"/>
+      <form-property prefix="record" name="old_password" 	type="string" size="32" cannull="false" description="旧密码"/>
+      <form-property prefix="record" name="create_date" 	type="string" size="10" cannull="false" description="创建日期"/>
+      <form-property prefix="record" name="create_by" 		type="string" size="32" cannull="false" description="创建人"/>
+      <form-property prefix="record" name="state" 			type="string" size="1"  cannull="false" description="状态"/>
+      <form-property prefix="record" name="user_desc" 		type="string" size="1000" cannull="true" description="描述"/>
+      <form-property prefix="record" name="user_type" 		type="string" size="10" cannull="false" description="用户类型"/>
+      <form-property prefix="record" name="sys_svr_config_id" type="string" size="32" cannull="false" description="服务配置编号"/>
+      <form-property prefix="record" name="svr_num" type="string" size="32" cannull="false" description="服务数量"/>
+      <form-property prefix="record" name="ws_num" type="string" size="32" cannull="false" description="WS数量"/>
+      <form-property prefix="record" name="view_num" type="string" size="32" cannull="false" description="view数量"/>
+      <form-property prefix="record" name="clt_num" type="string" size="32" cannull="false" description="采集数量"/>
+      
+      <form-property prefix="record" name="is_ip_bind" type="string" size="2" cannull="false" description="是否绑定IP"/>
+      <form-property prefix="record" name="ip_bind" type="string" size="400" cannull="false" description="绑定IP"/>
+      <form-property prefix="record" name="user_code" type="string" size="10" cannull="false" description="用户类型"/>
+      <form-property prefix="record" name="is_limit" type="string" size="2" cannull="false" description="是否受限"/>
+       <form-property prefix="record" name="max_records" type="string" size="4000" cannull="false" description="服务最大条数"/>
+       <form-property prefix="record" name="old_login_name" type="string" size="32" cannull="false" description="修改时登录名"/>
+       <form-property prefix="record" name="old_user_name" type="string" size="32" cannull="false" description="修改时登录名"/>
+      
+      <!-- json 部分 -->
+      <form-property prefix="record" name="svr_type" type="string" size="32" cannull="false" description="采集数量"/>
+      <form-property prefix="record" name="svr_name" type="string" size="32" cannull="false" description="采集数量"/>
+     
+      <form-property prefix="record" name="view_order" type="string" size="32" cannull="false" description="采集数量"/>
+      <form-property prefix="record" name="svr_order" type="string" size="32" cannull="false" description="采集数量"/>
+      <form-property prefix="record" name="stype" type="string" size="2" cannull="false" description="服务类型"/>
+      <form-property prefix="record" name="is_pause" type="string" size="2" cannull="false" description="是否暂停"/>
+      
+      <!-- 基本信息 -->
+      <form-property prefix="info-base" name="login_name" 		type="string" size="32" cannull="false" description="用户名"/>
+      <form-property prefix="info-base" name="user_name" 		type="string" size="32" cannull="false" description="名称"/>
+      <form-property prefix="info-base" name="password" 		type="string" size="32" cannull="false" description="密码"/>
+      <form-property prefix="info-base" name="ip_bind" 		type="string" size="400" cannull="false" description="绑定IP"/>
+      <form-property prefix="info-base" name="sys_svr_service_id" 		type="string" size="32" cannull="false" description="服务ID"/>
+      <form-property prefix="info-base" name="svr_code" 		type="string" size="32" cannull="false" description="用户名"/>
+      <form-property prefix="info-base" name="sys_svr_user_id" 		type="string" size="32" cannull="false" description="用户ID"/>
+      <form-property prefix="info-base" name="stype" type="string" size="2" cannull="false" description="服务类型"/>
+      <form-property prefix="info-base" name="limit_cond" type="string" size="200" cannull="false" description="限定条件"/>
+      <form-property prefix="info-base" name="open_time" type="string" size="200" cannull="false" description="开放时间"/>
+      <form-property prefix="info-base" name="create_date" type="string" size="10" cannull="false" description="创建日期"/>
+      <form-property prefix="info-base" name="create_by" type="string" size="32" cannull="false" description="创建人"/>
+      <form-property prefix="info-base" name="is_limit" type="string" size="2" cannull="false" description="是否有限定条件"/>
+      
+      <!-- 配置信息 -->
+      <form-property prefix="info-config" name="shared_columns" type="string" size="4000" cannull="false" description="共享字段"/>
+      <form-property prefix="info-config" name="sys_params" type="string" size="4000" cannull="false" description="系统参数"/>
+      <form-property prefix="info-config" name="user_params" type="string" size="4000" cannull="false" description="用户参数"/>
+     
+      <!-- 限制信息 -->
+      <form-property prefix="info-base" name="is_limit_week" type="string" size="2" cannull="true" description="是否限制本日期"/>
+      <form-property prefix="info-base" name="is_limit_time" type="string" size="2" cannull="true" description="是否限制时间"/>
+      <form-property prefix="info-base" name="is_limit_number" type="string" size="2" cannull="true" description="是否限制次数"/>
+      <form-property prefix="info-base" name="is_limit_total" type="string" size="2" cannull="true" description="是否限制总条数"/>
+      <form-property prefix="info-base" name="limit_week" type="string" size="2" cannull="true" description="限制星期"/>
+      <form-property prefix="info-base" name="limit_time" type="string" size="32" cannull="true" description="限制时间"/>
+      <form-property prefix="info-base" name="limit_start_time" type="string" size="32" cannull="true" description="起止限制时间"/>
+      <form-property prefix="info-base" name="limit_end_time" type="string" size="32" cannull="true" description="结束限制时间"/>
+      <form-property prefix="info-base" name="limit_number" type="string" size="32" cannull="true" description="限制次数"/>
+      <form-property prefix="info-base" name="limit_total" type="string" size="32" cannull="true" description="限制总条数"/>
+      <form-property prefix="info-base" name="limit_desp" type="string" size="200" cannull="true" description="限制描述"/>
+       
+      <!-- 查询视图相关信息 --> 
+      <form-property prefix="info-config" name="conn_params" type="string" size="200" cannull="true" description="连接条件"/>
+     
+      <!-- 查询自定义视图相关信息 -->
+      <form-property prefix="info-config" name="grant_table" type="string" size="4000" cannull="true" description="授权表"/>
+      <form-property prefix="info-config" name="query_sql" type="string" size="1048576" cannull="true" description="查询SQL"/>
+      
+       <!-- 共享字段信息 -->
+      <form-property prefix="info-column" name="table_code" type="string" size="100" cannull="true" description="物理表名"/>
+      <form-property prefix="info-column" name="table_name" type="string" size="2" cannull="true" description="表中文名"/>
+      <form-property prefix="info-column" name="column_code" type="string" size="100" cannull="true" description="字段名"/>
+      <form-property prefix="info-column" name="column_name" type="string" size="100" cannull="true" description="字段中文名"/>
+      <form-property prefix="info-column" name="column_type" type="string" size="50" cannull="true" description="字段类型"/>
+      <form-property prefix="info-column" name="column_length" type="long" cannull="true" description="字段长度"/>
+     
+    </form-bean>
+
+  </form-beans>
+
+  <action-mappings>
+  <!-- DC2-jufeng-2012-07-10 -->
+  <action input="query-sys_user.jsp" name="SysSvrUserRowsetForm" txn-code="50200001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询用户列表</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50200001" input-node="select-key" output-node="record" description="查询用户列表"/>
+      <forward error-code="success" path="query-sys_user.jsp"/>
+      <forward error-code="failure" path="query-sys_user.jsp"/>
+    </action>
+   <!-- DC2-jufeng-2012-07-11 -->
+  <action input="tree-sys_svr.jsp" name="SysSvrUserRowsetForm" txn-code="50200021" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询用户列表</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50200021" input-node="select-key" output-node="record" description="查询用户列表"/>
+      <forward error-code="success" path="tree-sys_svr.jsp"/>
+      <forward error-code="failure" path="tree-sys_svr.jsp"/>
+    </action> 
+    
+  <action input="tree-sys_svr.jsp" name="SysSvrUserRowsetForm" txn-code="50200022" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询用户服务信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50200022" input-node="select-key" output-node="record" description="查询用户服务信息"/>
+      <forward error-code="success" path="view-sys_user.jsp"/>
+      <forward error-code="failure" path="view-sys_user.jsp"/>
+    </action>
+   <action input="tree-sys_svr.jsp" name="SysSvrUserRowsetForm" txn-code="50200023" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询用户视图信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50200023" input-node="select-key" output-node="record" description="查询用户视图信息"/>
+      <forward error-code="success" path="view-sys_view.jsp"/>
+      <forward error-code="cv" path="view-sys_cview.jsp"/>
+      <forward error-code="failure" path="view-sys_cview.jsp"/>
+    </action>  
+    
+   <action input="tree-sys_svr.jsp" name="SysSvrUserRowsetForm" txn-code="50200024" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询用户可以配置的服务或视图信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50200024" input-node="select-key" output-node="record" description="查询用户可以配置的服务或视图信息"/>
+      <forward error-code="success" path="tree-sys_svr.jsp"/>
+      <forward error-code="failure" path="tree-sys_svr.jsp"/>
+    </action>  
+    <action input="tree-sys_svr.jsp" name="SysSvrUserRowsetForm" txn-code="50200025" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询某个用户可以拷贝的用户</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50200025" input-node="select-key" output-node="record" description="查询某个用户可以拷贝的用户"/>
+      <forward error-code="success" path="tree-sys_svr.jsp"/>
+      <forward error-code="failure" path="tree-sys_svr.jsp"/>
+    </action> 
+    
+    <action input="tree-sys_svr.jsp" name="SysSvrUserRowsetForm" txn-code="50200027" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>修改用户IP</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50200027" input-node="record" output-node="record" description="修改用户IP"/>
+      <forward error-code="success" path="tree-sys_svr.jsp"/>
+      <forward error-code="failure" path="tree-sys_svr.jsp"/>
+    </action>  
+    
+    <action input="tree-sys_svr.jsp" name="SysSvrUserRowsetForm" txn-code="50200028" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>修改用户密码</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50200028" input-node="record" output-node="record" description="修改用户密码"/>
+      <forward error-code="success" path="tree-sys_svr.jsp"/>
+      <forward error-code="failure" path="tree-sys_svr.jsp"/>
+    </action> 
+      
+    <action input="tree-sys_svr.jsp" name="SysSvrUserRowsetForm" txn-code="50200029" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询用户可以拷贝其他用户的服务列表</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50200029" input-node="select-key" output-node="record" description="查询用户可以拷贝其他用户的服务列表"/>
+      <forward error-code="success" path="tree-sys_svr.jsp"/>
+      <forward error-code="failure" path="tree-sys_svr.jsp"/>
+    </action>   
+    <action input="tree-sys_svr.jsp" name="SysSvrUserRowsetForm" txn-code="50200030" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>拷贝某个用户可以拷贝的用户服务配置信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50200030" input-node="select-key" output-node="record" description="拷贝某个用户可以拷贝的用户服务配置信息"/>
+      <forward error-code="success" path="tree-sys_svr.jsp"/>
+      <forward error-code="failure" path="tree-sys_svr.jsp"/>
+    </action>   
+    
+    <action input="tree-sys_svr.jsp" name="SysSvrUserRowsetForm" txn-code="50200031" check-type="login" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>打印某个用户的某个接口WORD信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50200031" input-node="select-key" output-node="record" description="打印Word接口信息"/>
+      <forward error-code="success" path="print-sys_user_svr.jsp"/>
+      <forward error-code="failure" path="print-sys_user_svr.jsp"/>
+    </action> 
+    
+    <action input="tree-sys_svr.jsp" name="SysSvrUserRowsetForm" txn-code="50200032" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询用户服务信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50200032" input-node="select-key" output-node="record" description="查询用户服务信息"/>
+      <forward error-code="success" path="view-sys_user.jsp"/>
+      <forward error-code="failure" path="view-sys_user.jsp"/>
+    </action>  
+    
+  
+ <action input="tree-sys_svr.jsp" name="SysSvrUserRowsetForm" txn-code="50200011" check-type="login" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务对象列表</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50200011" input-node="info-base" output-node="record"  description="查询用户列表"/>
+      <forward error-code="success" path="tree-sys_svr.jsp"/>
+      <forward error-code="failure" path="tree-sys_svr.jsp"/>
+</action>
+  
+    <action input="query-sys_svr_user.jsp" name="SysSvrUserRowsetForm" txn-code="50201001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务对象列表</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50201001" input-node="select-key" output-node="record" description="查询服务对象列表"/>
+      <forward error-code="success" path="query-sys_svr_user.jsp"/>
+      <forward error-code="failure" path="query-sys_svr_user.jsp"/>
+    </action>
+
+    <action input="update-sys_svr_user.jsp" name="SysSvrUserRowsetForm" txn-code="50201002" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改服务对象信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50201002" input-node="record" description="修改服务对象信息"/>
+      <forward error-code="success" path="update-sys_svr_user.jsp"/>
+      <forward error-code="failure" path="update-sys_svr_user.jsp"/>
+    </action>
+
+    <action input="insert-sys_svr_user.jsp" name="SysSvrUserRowsetForm" txn-code="50201003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加服务对象信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50201003" input-node="record" description="增加服务对象信息"/>
+      <forward error-code="success" path="insert-sys_svr_user.jsp"/>
+      <forward error-code="failure" path="insert-sys_svr_user.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_user.jsp" name="SysSvrUserRowsetForm" txn-code="50201004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务对象用于修改</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50201004" input-node="record" output-node="record" description="查询服务对象用于修改"/>
+      <forward error-code="success" path="update-sys_svr_user.jsp"/>
+      <forward error-code="failure" path="update-sys_svr_user.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_user.jsp" name="SysSvrUserRowsetForm" txn-code="50201005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除服务对象信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50201005" input-node="record" description="删除服务对象信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_user.jsp" name="SysSvrUserRowsetForm" txn-code="50201006" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>修改服务对象状态</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50201006" input-node="record" output-node="record" description="修改服务对象状态"/>
+      <forward error-code="success" path="/txn50201001.do"/>
+      <forward error-code="failure" path="query-sys_svr_user.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_user.jsp" name="SysSvrUserRowsetForm" txn-code="50201007" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查詢服务对象是否被配置服务</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50201007" input-node="record" output-node="record" description="查詢服务对象是否被配置服务"/>
+      <forward error-code="success" path="query-sys_svr_user.jsp"/>
+      <forward error-code="failure" path="query-sys_svr_user.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_user.jsp" name="SysSvrUserRowsetForm" txn-code="50201009" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查詢服务对象</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50201009" input-node="select-key" output-node="record" description="查詢服务对象"/>
+      <forward error-code="success" path="query-sys_svr_user.jsp"/>
+      <forward error-code="failure" path="query-sys_svr_user.jsp"/>
+    </action>
+    
+    <action input="query-sys_svr_user.jsp" name="SysSvrUserRowsetForm" txn-code="50201011" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>删除用户服务</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50201011" input-node="select-key" output-node="record" description="查詢服务对象"/>
+      <forward error-code="success" path="query-sys_svr_user.jsp"/>
+      <forward error-code="failure" path="query-sys_svr_user.jsp"/>
+    </action>
+    
+     <action input="query-sys_svr_user.jsp" name="SysSvrUserRowsetForm" txn-code="50201012" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>停用或启用用户服务</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrUser" func-name="txn50201012" input-node="select-key" output-node="record" description="查詢服务对象"/>
+      <forward error-code="success" path="query-sys_svr_user.jsp"/>
+      <forward error-code="failure" path="query-sys_svr_user.jsp"/>
+    </action>
+
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_svr_user.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/dw/runmgr/services/svruser/query-sys_svr_user.jsp" description="查询服务对象列表"/>
+    <resource-file type="jsp" file-name="/dw/runmgr/services/svruser/insert-sys_svr_user.jsp" description="增加服务对象信息"/>
+    <resource-file type="jsp" file-name="/dw/runmgr/services/svruser/update-sys_svr_user.jsp" description="修改服务对象信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.SysSvrUserContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrUser" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrUserSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrUserPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

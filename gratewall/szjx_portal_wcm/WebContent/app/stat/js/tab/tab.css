@@ -1,0 +1,79 @@
+.tab{
+	height:100%;
+	float:left;
+}
+.tab .l{
+	height:100%;
+	border-top:1px solid gray;
+}
+.tab .r{
+	height:100%;
+	padding-right:12px;
+	background:url("images/normal_r.gif") no-repeat right 0;
+}
+.tab .c{
+	cursor:pointer;
+	height:100%;
+	line-height:25px;	
+	padding:0 5px;
+	background:#ebe9ea;
+	border-bottom:1px solid gray;
+}
+.tab .c:hover{
+	color:red;
+}
+.tab .c .desc{
+	padding-left:18px;
+}
+
+
+/*
+*  激活TAB的样式
+*/
+
+.active .l{
+	padding-left:12px;
+	background:url("images/active_l.gif") no-repeat;
+	border-top:1px solid white;
+}
+.active .r{
+	padding-right:12px;
+	background:url("images/active_r.gif") no-repeat right top;
+}
+.active .c{
+	color:#003496;
+	background:white;
+}
+
+.active-left .r{
+	padding-right:0;
+}
+.active-right{
+	padding-left:0;
+}
+
+.tab div{display:inline;}
+.ext-strict .tab div{display:block;}
+.ext-ie6 .tab .desc{padding-top:4px;padding-bottom:4px;line-height:21px;}
+
+/*
+*  第一个tab的样式
+*/
+.tab .first-tab{
+	padding-left:12px;
+	background:url("images/first_normal_l.gif") no-repeat left top;
+}
+.active .first-tab{
+	background:url("images/first_active_l.gif") no-repeat left top;
+}
+
+/*
+*  最后一个tab的样式
+*/
+.last-tab .r{
+	padding-right:12px;
+	background:url("images/last_normal_r.gif") no-repeat right top;
+}
+.active .last-tab .r{
+	background:url("images/last_active_r.gif") no-repeat right top;
+}

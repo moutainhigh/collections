@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>未认领表</menu-name>
+  <menu-path>/page/resource/res/rd/metadata/datastructure/unclaim/</menu-path>
+  <description>未认领表</description>
+  <form-beans>
+    <form-bean name="SysRdUnclaimTableRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="data_object_type" type="string" size="1" description="数据对象类型"/>
+      <form-property prefix="select-key" name="db_name" type="string" size="100" description="数据源名称"/>
+      <form-property prefix="select-key" name="sys_rd_data_source_id" type="string" size="32" description="数据源ID"/>
+      <form-property prefix="select-key" name="unclaim_table_code" type="string" size="100" description="未认领表"/>
+      <form-property prefix="select-key" name="unclaim_table_name" type="string" size="100" description="未认领表名称"/>
+      <form-property prefix="select-key" name="object_schema" type="string" size="36" description="对象模式"/>
+      <form-property prefix="select-key" name="sys_rd_unclaim_table_id" type="string" size="32" description="未认领表ID"/>
+      <form-property prefix="record" name="sys_rd_unclaim_table_id" type="string" size="32" cannull="false" description="未认领表ID"/>
+      <form-property prefix="record" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="数据源ID"/>
+      <form-property prefix="record" name="unclaim_table_code" type="string" size="100" cannull="true" description="未认领表"/>
+      <form-property prefix="record" name="unclaim_table_name" type="string" size="100" cannull="true" description="未认领表名称"/>
+      <form-property prefix="record" name="table_code" type="string" size="100" cannull="true" description="已认领表"/>
+      <form-property prefix="record" name="table_name" type="string" size="100" cannull="true" description="已认领表名称"/>
+      <form-property prefix="record" name="object_schema" type="string" size="36" cannull="true" description="对象模式"/>
+      <form-property prefix="record" name="tb_index_name" type="string" size="32" cannull="true" description="索引名称"/>
+      <form-property prefix="record" name="tb_index_columns" type="string" size="2000" cannull="true" description="索引字段"/>
+      <form-property prefix="record" name="tb_pk_name" type="string" size="32" cannull="true" description="主键名"/>
+      <form-property prefix="record" name="tb_pk_columns" type="string" size="2000" cannull="true" description="主键字段"/>
+      <form-property prefix="record" name="cur_record_count" type="long" cannull="true" description="当前记录数量"/>
+      <form-property prefix="record" name="remark" type="string" size="2000" cannull="true" description="备注"/>
+      <form-property prefix="record" name="data_object_type" type="string" size="1" cannull="true" description="数据对象类型"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+      <form-property prefix="record" name="total_num" type="string" size="100" cannull="true" description="物理表总数"/>
+      <form-property prefix="record" name="unclaim_num" type="string" size="100" cannull="true" description="未认领数量"/>
+      <form-property prefix="record" name="claim_num" type="string" size="100" cannull="true" description="已认领数量"/>
+      <form-property prefix="record" name="db_name" type="string" size="100" cannull="true" description="数据库名称"/>
+      
+    </form-bean>
+
+    <form-bean name="SysRdUnclaimTableUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_rd_unclaim_table_id" type="string" size="32" cannull="false" description="未认领表ID"/>
+      <form-property prefix="record" name="sys_rd_unclaim_table_id" type="string" size="32" cannull="false" description="未认领表ID"/>
+      <form-property prefix="record" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="数据源ID"/>
+      <form-property prefix="record" name="unclaim_table_code" type="string" size="100" cannull="true" description="未认领表"/>
+      <form-property prefix="record" name="unclaim_table_name" type="string" size="100" cannull="true" description="未认领表名称"/>
+      <form-property prefix="record" name="object_schema" type="string" size="36" cannull="true" description="对象模式"/>
+      <form-property prefix="record" name="tb_index_name" type="string" size="32" cannull="true" description="索引名称"/>
+      <form-property prefix="record" name="tb_index_columns" type="string" size="2000" cannull="true" description="索引字段"/>
+      <form-property prefix="record" name="tb_pk_name" type="string" size="32" cannull="true" description="主键名"/>
+      <form-property prefix="record" name="tb_pk_columns" type="string" size="2000" cannull="true" description="主键字段"/>
+      <form-property prefix="record" name="cur_record_count" type="long" cannull="true" description="当前记录数量"/>
+      <form-property prefix="record" name="remark" type="string" size="2000" cannull="true" description="备注"/>
+      <form-property prefix="record" name="data_object_type" type="string" size="1" cannull="true" description="数据对象类型"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+      <form-property prefix="record" name="sys_rd_system_id" type="string" size="32" cannull="true" description="业务主题ID"/>
+      <form-property prefix="record" name="object_script" type="string" size="4000" cannull="true" description="对象脚本"/>
+      <form-property prefix="record" name="db_name" type="string" size="100" cannull="true" description="数据库名称"/>
+    </form-bean>
+
+    <form-bean name="SysRdUnclaimTableDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_rd_unclaim_table_id" type="string" size="32" cannull="false" description="未认领表ID"/>
+    </form-bean>
+    
+    <form-bean name="DatabaseMetaDataTableForm">
+      <description>查询表信息</description>
+      <form-property prefix="select-key" name="db_name" type="string" size="100" description="数据源名称"/>
+      <form-property prefix="select-key" name="table_type" type="string" size="100" description="数据表类型,表或视图"/>
+      <form-property prefix="select-key" name="table_schema" type="string" size="100" description="schema"/>
+      
+      <form-property prefix="record" name="db_name" type="string" size="100" cannull="true" description="数据源名称"/>
+      <form-property prefix="record" name="table_type" type="string" size="100" cannull="true" description="数据表类型,表或视图"/>
+      <form-property prefix="record" name="table_name" type="string" size="100" cannull="true" description="表或视图名称"/>
+      <form-property prefix="record" name="table_schema" type="string" size="100" cannull="true" description="相关schema对象"/>
+      <form-property prefix="record" name="remarks" type="string" size="2000" cannull="true" description="注释"/>
+    
+    </form-bean>
+    
+    <form-bean name="DatabaseMetaDataProcedureForm">
+      <description>查询存储过程信息</description>
+      <form-property prefix="select-key" name="db_name" type="string" size="100" description="数据源名称"/>
+      <form-property prefix="select-key" name="procedure_type" type="string" size="32" description="存储过程类型：1存储过程，2函数，0未知"/>
+      <form-property prefix="select-key" name="table_schema" type="string" size="32" description="schema"/>
+      
+      <form-property prefix="record" name="db_name" type="string" size="100" cannull="true" description="数据源名称"/>
+      <form-property prefix="record" name="procedure_type" type="string" size="100" cannull="true" description="存储过程类型,存储过程或函数"/>
+      <form-property prefix="record" name="procedure_name" type="string" size="100" cannull="true" description="存储过程名称"/>
+      <form-property prefix="record" name="table_schema" type="string" size="100" cannull="true" description="相关schema对象"/>
+      <form-property prefix="record" name="remarks" type="string" size="2000" cannull="true" description="注释"/>
+    
+    </form-bean>
+    <form-bean name="DatabaseMetaDataPrimaryKeyForm">
+      <description>查询主键信息</description>
+      <form-property prefix="select-key" name="db_name" type="string" size="100" description="数据源名称"/>
+      <form-property prefix="select-key" name="table_schema" type="string" size="100" description="schema"/>
+      <form-property prefix="select-key" name="table_name" type="string" size="100" description="表名称"/>
+      
+      <form-property prefix="record" name="db_name" type="string" size="100" cannull="true" description="数据源名称"/>
+      <form-property prefix="record" name="table_schema" type="string" size="100" description="schema"/>
+      <form-property prefix="record" name="table_name" type="string" size="100" description="表名称"/>
+      <form-property prefix="record" name="column_name" type="string" size="100" description="列名称"/>
+      <form-property prefix="record" name="pk_name" type="string" size="100" cannull="true" description="主键名称"/>
+      <form-property prefix="record" name="key_seq" type="string" size="6" cannull="true" description="注释"/>
+    
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_rd_unclaim_table.jsp" name="SysRdUnclaimTableRowsetForm" txn-code="80002101" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询未认领表列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80002101" input-node="select-key" output-node="record" description="查询未认领表列表"/>
+      <forward error-code="success" path="query-sys_rd_unclaim_table.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_unclaim_table.jsp"/>
+    </action>
+
+    <action input="update-sys_rd_unclaim_table.jsp" name="SysRdUnclaimTableUpdateForm" txn-code="80002102" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改未认领表信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80002102" input-node="record" description="修改未认领表信息"/>
+      <forward error-code="success" path="update-sys_rd_unclaim_table.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_unclaim_table.jsp"/>
+    </action>
+
+    <action input="insert-sys_rd_unclaim_table.jsp" name="SysRdUnclaimTableUpdateForm" txn-code="80002103" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加未认领表信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80002103" input-node="record" description="增加未认领表信息"/>
+      <forward error-code="success" path="insert-sys_rd_unclaim_table.jsp"/>
+      <forward error-code="failure" path="insert-sys_rd_unclaim_table.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_unclaim_table.jsp" name="SysRdUnclaimTableUpdateForm" txn-code="80002104" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询未认领表用于修改</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80002104" input-node="primary-key" output-node="record" description="查询未认领表用于修改"/>
+      <forward error-code="success" path="update-sys_rd_unclaim_table.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_unclaim_table.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_unclaim_table.jsp" name="SysRdUnclaimTableDeleteForm" txn-code="80002105" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除未认领表信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80002105" input-node="primary-key" description="删除未认领表信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_unclaim_table.jsp" name="SysRdUnclaimTableUpdateForm" txn-code="80002106" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>拷贝未认领字段至已认领表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80002106" input-node="primary-key" description="xxx"/>
+      <forward error-code="success" path="query-sys_rd_unclaim_table.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_unclaim_table.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_unclaim_table.jsp" name="SysRdUnclaimTableUpdateForm" txn-code="80002107" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>认领物理表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80002108" input-node="record" output-node="record" description="查询未认领表">
+        <next-step next-index="20"/>
+      </step>
+      <step index="20" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80002106" input-node="record" output-node="record" description="拷贝未认领字段至已认领表"/>
+      <forward error-code="success" path="/page/resource/res/rd/metadata/datastructure/claim/insert-sys_rd_table.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_unclaim_table.jsp"/>
+    </action>
+    
+    <action input="query-sys_rd_table.jsp" name="SysRdUnclaimTableRowsetForm" txn-code="80002000" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据结构的认领情况</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80002000" input-node="primary-key" output-node="record" description="查询数据结构的认领情况"/>
+      <forward error-code="success" path="query-state_of_table.jsp"/>
+      <forward error-code="failure" path="query-state_of_table.jsp"/>
+    </action>
+    
+    <action input="query-sys_rd_table.jsp" name="SysRdUnclaimTableRowsetForm" txn-code="80002001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据结构的认领情况</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80002001" input-node="primary-key" output-node="record" description="查询数据结构的认领情况"/>
+      <forward error-code="success" path="query-state_of_table1.jsp"/>
+      <forward error-code="failure" path="query-state_of_table1.jsp"/>
+    </action>
+    
+    <!-- 未领视图 begin -->
+    <action input="query-unclaim_view.jsp" name="SysRdUnclaimTableRowsetForm" txn-code="80003101" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+     <description>查询未认领视图列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80003101" input-node="select-key" output-node="record" description="查询未认领视图"/>
+      <forward error-code="success" path="../../view/query-unclaim_view.jsp"/>
+      <forward error-code="failure" path="../../view/query-unclaim_view.jsp"/>
+    </action>
+    <action input="query-unclaim_view.jsp" name="SysRdUnclaimTableRowsetForm" txn-code="80003102" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+     <description>认领视图</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80003102" input-node="select-key" output-node="record" description="认领视图"/>
+      <forward error-code="success" path="../../view/insert-unclaim_view.jsp"/>
+      <forward error-code="failure" path="../../view/insert-unclaim_view.jsp"/>
+    </action>
+    <action input="query-unclaim_view.jsp" name="SysRdUnclaimTableUpdateForm" txn-code="80003103" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>认领视图(用于保存)</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80003103" input-node="record" output-node="record" description="认领视图"/>
+      <forward error-code="success" path="/txn80003101.do"/>
+      <forward error-code="failure" path="../../view/insert-unclaim_view.jsp"/>
+    </action>
+    <action input="query-unclaim_view.jsp" name="SysRdUnclaimTableRowsetForm" txn-code="80003104" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+     <description>查看视图信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80003104" input-node="select-key" output-node="record" description="查看视图信息"/>
+      <forward error-code="success" path="../../view/view-view-unclaim.jsp"/>
+      <forward error-code="failure" path="../../view/view-view-unclaim.jsp"/>
+    </action>
+    
+     <action input="query-unclaim_view.jsp" name="DatabaseMetaDataTableForm" txn-code="80003107" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+     <description>根据DatabaseMetaData对象查询表信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80003107" input-node="select-key" output-node="record" description="根据DatabaseMetaData对象查询表信息"/>
+      <forward error-code="success" path="../../view/view-view-unclaim.jsp"/>
+      <forward error-code="failure" path="../../view/view-view-unclaim.jsp"/>
+    </action>
+    <action input="query-unclaim_view.jsp" name="DatabaseMetaDataTableForm" txn-code="80003108" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+     <description>根据DatabaseMetaData对象查询字段信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80003108" input-node="select-key" output-node="record" description="查看视图信息"/>
+      <forward error-code="success" path="../../view/view-view-unclaim.jsp"/>
+      <forward error-code="failure" path="../../view/view-view-unclaim.jsp"/>
+    </action>
+    <action input="query-unclaim_view.jsp" name="DatabaseMetaDataProcedureForm" txn-code="80003109" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+     <description>根据DatabaseMetaData对象查询存储过程信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80003109" input-node="select-key" output-node="record" description="根据DatabaseMetaData对象查询存储过程信息"/>
+      <forward error-code="success" path="../../view/view-view-unclaim.jsp"/>
+      <forward error-code="failure" path="../../view/view-view-unclaim.jsp"/>
+    </action>
+    
+    <action input="query-unclaim_view.jsp" name="DatabaseMetaDataPrimaryKeyForm" txn-code="80003110" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+     <description>根据DatabaseMetaData对象查询主键信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80003110" input-node="select-key" output-node="record" description="根据DatabaseMetaData对象查询主键信息"/>
+      <forward error-code="success" path="../../view/view-view-unclaim.jsp"/>
+      <forward error-code="failure" path="../../view/view-view-unclaim.jsp"/>
+    </action>
+    
+    <!-- 未领视图 end -->
+    
+    <!-- 未领函数 begin -->
+    <action input="query-unclaim_function.jsp" name="SysRdUnclaimTableRowsetForm" txn-code="80004101" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+     <description>查询未认领函数列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80004101" input-node="select-key" output-node="record" description="查询未认领函数"/>
+      <forward error-code="success" path="../../functions/query-unclaim_function.jsp"/>
+      <forward error-code="failure" path="../../functions/query-unclaim_function.jsp"/>
+    </action>
+    <action input="query-unclaim_function.jsp" name="SysRdUnclaimTableRowsetForm" txn-code="80004102" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+     <description>认领函数</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80003102" input-node="select-key" output-node="record" description="认领函数"/>
+      <forward error-code="success" path="../../functions/insert-unclaim_function.jsp"/>
+      <forward error-code="failure" path="../../functions/insert-unclaim_function.jsp"/>
+    </action>
+     <action input="query-unclaim_function.jsp" name="SysRdUnclaimTableUpdateForm" txn-code="80004103" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>认领函数(用于保存)</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80003103" input-node="record" output-node="record" description="认领视图"/>
+      <forward error-code="success" path="/txn80004101.do"/>
+      <forward error-code="failure" path="../../functions/insert-unclaim_function.jsp"/>
+    </action>
+    <action input="query-unclaim_function.jsp" name="SysRdUnclaimTableRowsetForm" txn-code="80004104" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+     <description>查看函数信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80003104" input-node="select-key" output-node="record" description="查看函数信息"/>
+      <forward error-code="success" path="../../functions/view-function-unclaim.jsp"/>
+      <forward error-code="failure" path="../../functions/view-function-unclaim.jsp"/>
+    </action>
+    <!-- 未领函数 end -->
+    
+    <!-- 未领存储过程 begin -->
+    <action input="query-unclaim_procedure.jsp" name="SysRdUnclaimTableRowsetForm" txn-code="80005101" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+     <description>查询未认领存储过程列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80005101" input-node="select-key" output-node="record" description="查询未认领存储过程"/>
+      <forward error-code="success" path="../../procedures/query-unclaim_procedure.jsp"/>
+      <forward error-code="failure" path="../../procedures/query-unclaim_procedure.jsp"/>
+    </action>
+    <action input="query-unclaim_procedure.jsp" name="SysRdUnclaimTableRowsetForm" txn-code="80005102" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+     <description>认领存储过程</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80003102" input-node="select-key" output-node="record" description="认领存储过程"/>
+      <forward error-code="success" path="../../procedures/insert-unclaim_procedure.jsp"/>
+      <forward error-code="failure" path="../../procedures/insert-unclaim_procedure.jsp"/>
+    </action>
+     <action input="query-unclaim_procedure.jsp" name="SysRdUnclaimTableUpdateForm" txn-code="80005103" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>认领存储过程(用于保存)</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80003103" input-node="record" output-node="record" description="认领视图"/>
+      <forward error-code="success" path="/txn80005101.do"/>
+      <forward error-code="failure" path="../../procedures/insert-unclaim_procedure.jsp"/>
+    </action>
+    <action input="query-unclaim_procedure.jsp" name="SysRdUnclaimTableRowsetForm" txn-code="80005104" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+     <description>查看存储过程信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdUnclaimTable" func-name="txn80003104" input-node="select-key" output-node="record" description="查看存储过程信息"/>
+      <forward error-code="success" path="../../procedures/view-procedure-unclaim.jsp"/>
+      <forward error-code="failure" path="../../procedures/view-procedure-unclaim.jsp"/>
+    </action>
+    <!-- 未领存储过程 end -->
+    
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_rd_unclaim_table.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/metadata/query-sys_rd_unclaim_table.jsp" description="查询未认领表列表"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/metadata/insert-sys_rd_unclaim_table.jsp" description="增加未认领表信息"/>
+    <resource-file type="jsp" file-name="/page/resource/res/rd/metadata/update-sys_rd_unclaim_table.jsp" description="修改未认领表信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.SysRdUnclaimTableContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.VoSysRdUnclaimTable" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.VoSysRdUnclaimTableSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.VoSysRdUnclaimTablePrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

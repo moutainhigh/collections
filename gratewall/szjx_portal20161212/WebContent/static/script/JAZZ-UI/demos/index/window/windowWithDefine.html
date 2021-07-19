@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jazz-ui.js" type="text/javascript"></script> 
+<script>
+var win = null;
+function _btn1(){
+	win = jazz.widget({
+		vtype: 'window',
+		name: 'win',
+    	title: '窗口',
+    	titlealign: 'center',
+    	titledisplay: true,
+        width: 300,
+        height: 260,
+        visible: true,
+        customtitlebutton:[{
+		  	  id: "id_1",
+		  	  align: "right",
+		  	  icon: "../../window/test.png",
+		  	  click:function(e,ui){
+		  		 alert('这是个自定义按钮');
+		  	  }
+		}]
+	});
+}
+
+function _btn2(){
+	if(win!=null){
+		win.window('close');			
+	}
+}		        	
+
+      
+</script>
+</head>
+<body>
+	<input id="btn1" type="button" value="打开实例" onclick="_btn1()" />
+	<input id="btn2" type="button" value="关闭实例" onclick="_btn2()" />
+</body>
+</html>

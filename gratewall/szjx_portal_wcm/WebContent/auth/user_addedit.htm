@@ -1,0 +1,155 @@
+<HTML>
+<HEAD>
+    <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <TITLE>TRS WCM 5.2 Preview</TITLE>
+    <LINK href="../style/style.css" rel="stylesheet" type="text/css">
+	<SCRIPT LANGUAGE="JavaScript" src="../js/CTRSString.js"></SCRIPT>
+</HEAD>
+<SCRIPT LANGUAGE="JavaScript">
+function validUserName(_obj){
+	var obj = _obj;
+	if(obj.value.toLowerCase() == "admin" || obj.value.toLowerCase() == "system" || obj.value.toLowerCase() == "radar"){
+		CTRSAction_alert("["+obj.value+"]是系统保留的用户名！请改用其它用户名！");
+		obj.value = "";
+		document.all("submit").disabled = true;
+		return false;
+	}
+	var regExp = /[<>\[\]{}#%$%&@^!\\\/！？~`=()（）,，。、 　]/g;
+	if(obj.value.match(regExp)){
+		CTRSAction_alert("对不起，您输入的用户名包含了禁用的特殊字符：\""+obj.value.match(regExp)+"\"");
+		document.all("submit").disabled = true;
+		return false;
+	}
+	document.all("submit").disabled = false;
+	return true;	
+}
+
+function userNameExist(_sName){
+	var sName = TRSString.trim(_sName);
+	if(sName.length==0){
+		CTRSAction_alert("您输入了一个空字符串！");
+		return false;
+	}
+	var oTRSAction = new CTRSAction("../auth/username_exsit.jsp");
+	oTRSAction.setParameter("UserName",  sName);
+	oTRSAction.doDialogAction(500, 300);
+}
+
+function checkPassword(_obj){
+	var obj = _obj;
+	if(obj.value != document.all("PASSWORD").value){
+		CTRSAction_alert("您在[确认密码]框中输入的值与[密码]框中的值不一致！请重新输入！");
+		obj.value = "";
+		document.all("submit").disabled = true;
+		return false;
+	}
+	document.all("submit").disabled = false;
+	return true;
+}
+</SCRIPT>
+<BODY>
+<!--定义本页面的Action Form：存储对象的XML数据以及与本对象相关的信息，必须定义ObjXML-->
+	<FORM  action="document_addedit_dowith.jsp" name="frmAction" method="post">
+		<input type="hidden" name="UserId" Desc="当前对象的Id" value="<%=nUserId%>">
+		<input type="hidden" name="ObjectXML" Desc="当前对象的XML信息">
+	</FORM>
+<!-- END 定义本页面的Action Form：存储对象的XML数据以及与本对象相关的信息，必须定义ObjXML-->
+    <TABLE width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+    <TR>
+	<TD height="25">
+	    <TABLE width="100%" border="0" cellpadding="0" cellspacing="0" background="../images/window_general_them_title_bg.jpg">
+	    <TR>
+		    <TD width="20"><DIV align="center"><IMG src="../images/bite-yellow.gif" width="10" height="10"></DIV></TD>
+	
+        <TD class="windowname">新建用户</TD>
+
+		    <TD width="20"><IMG src="../images/window_general_them_middle.jpg" width="20" height="25"></TD>
+			<TD width="60" valign="bottom" background="../images/window_general_them_hinder_.jpg"><DIV align="center">
+		    <TABLE width="52" border="0" cellspacing="0" cellpadding="0">
+		    <TR>
+			<TD width="50"><A href="#" class="top_white_link">帮助</A></TD>
+		    </TR>
+		    </TABLE>
+		</DIV></TD>
+	    </TR>
+	    </TABLE>
+	</TD>
+    </TR>
+    <TR>
+	    <TD height="6"><IMG src="../images/window_general_them_bottom.jpg" width="100%" height="6"></TD>
+    </TR>
+    <TR>
+	<TD align="center" valign="top" class="tanchu_content_td">
+	    <TABLE width="100%" border="0" cellspacing="0" cellpadding="10">
+	    <TR>
+		<TD class="tanchu_content">
+			<FORM METHOD="POST" NAME="frmUser" ACTION="../auth/user_addedit_dowith.jsp" onSubmit="return WCMAction.doPost(this, document.frmAction);">
+		    <TABLE width="100%" border="0" cellspacing="2" cellpadding="0">
+		    <TR>
+				<TD width="80" align="left" valign="middle">用户登录名：</TD>
+				<TD><INPUT type="text" name="USERNAME" onblur="validUserName(this)" userid="<%=nUserId%>" min_len="3" max_len="20" not-null="1" pattern="string">&nbsp;&nbsp;必填</TD>
+		    </TR>
+		    <TR>
+				<TD align="left" valign="top">&nbsp;</TD> <TD>
+				<P>
+				<SPAN class="font_red">
+				用户登录名填写规则：
+				</SPAN>
+				<BR> 1)由a-z的英文字母（不区分大小写），汉字，0-9的数字，点或下划线组成
+				<BR> 2)长度为3-20个字符（每个英文或数字算一个字符，每个汉字算两个字符）
+				<BR> 3)中间不可以出现空格符、单引号、双引号减号、逗号等非法字符
+				<BR> 4)system, admin, radar是系统保留账号
+				</P>
+				</TD>
+		    </TR>
+			<TR>
+				<TD width="80" align="left" valign="middle">用户昵称：</TD>
+				<TD><INPUT type="text" name="NICKNAME" max_len="40" not-null="1" pattern="string">&nbsp;&nbsp;必填&nbsp;&nbsp;（最多40个字符）</TD>
+		    </TR>
+			<TR>
+				<TD width="80" align="left" valign="middle">密码：</TD>
+				<TD><INPUT type="password" name="PASSWORD" min_len="8" not-null="1" pattern="string">&nbsp;&nbsp;必填&nbsp;&nbsp;（最少8个字符）</TD>
+		    </TR>
+			<TR>
+				<TD width="80" align="left" valign="middle">确认密码：</TD>
+				<TD><INPUT type="password" onblur="checkPassword(this)" min_len="8" not-null="1" pattern="string">&nbsp;&nbsp;必填&nbsp;&nbsp;（最少8个字符）</TD>
+		    </TR>
+			<TR>
+				<TD width="80" align="left" valign="middle">电子信箱：</TD>
+				<TD><INPUT type="text" name="EMAIL" isemail="1" not-null="1" pattern="string">&nbsp;&nbsp;必填&nbsp;&nbsp;（最多50个字符）</TD>
+		    </TR>
+			<TR>
+				<TD width="80" align="left" valign="middle">真实姓名：</TD>
+				<TD><INPUT type="text" name="TRUENAME"></TD>
+		    </TR>
+			<TR>
+				<TD width="80" align="left" valign="middle">详细地址：</TD>
+				<TD><INPUT type="text" name="ADDRESS"></TD>
+		    </TR>
+			<TR>
+				<TD width="80" align="left" valign="middle">联系电话：</TD>
+				<TD><INPUT type="text" name="TEL"></TD>
+		    </TR>
+		    </TABLE>
+			</FORM>
+		</TD>
+	    </TR>
+	    <TR>
+		<TD>
+		    <TABLE border="0" align="center" cellpadding="0" cellspacing="3">
+		    <TR>
+			    <TD><INPUT type="submit" name="submit" value="确定"></TD>
+			
+    <TD width="8">&nbsp;</TD>
+
+			    <TD><input type="button" name="btnCancel" value="取消" onclick="window.close();"></TD>
+		    </TR>
+		    </TABLE>
+		</TD>
+	    </TR>
+	    </TABLE>
+	</TD>
+    </TR>
+    </TABLE>
+</BODY>
+</HTML>

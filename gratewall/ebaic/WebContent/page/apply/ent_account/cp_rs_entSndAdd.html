@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<link rel="stylesheet" href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" type="text/css" />
+<link rel="stylesheet" href="../../../static/css/common.css" />
+<link rel="stylesheet" href="../../../static/css/baseInfo.css" />
+<style>
+	.content{
+	    width:1024px;
+	    border:1px solid #74A7D9;
+	    margin:0 auto;
+	    margin-top: 15px;
+	    overflow: hidden;
+	    background-color:#f8f9fb;
+	}
+</style>
+</head>
+<body>
+<div class="content">
+	<!-- 构建页面==开始 -->
+	
+	﻿<!-- 数据展现 -->
+	<div vtype="formpanel" name="entSndAdd_Form" wid="cp_rs_entsndAdd" dataview="false"
+		titleDisplay="true" title="企业补充信息添加" width="100%" showborder="true" 
+		dataurl="" layout="table" layoutconfig="{cols:2, columnwidth: ['50%','50%']}" labelstyleclass="labelstyle">
+		
+		<div name="entId" vtype="hiddenfield" label="企业Id" labelwidth="180" labelalign="right" width="450" tooltip="" rule="" ></div>
+		<div name="domAcreage" vtype="textfield" label="营业面积（平方米）" labelwidth="180" labelalign="right" width="450" tooltip="" rule="number_length;1,11" ></div>
+		<div name="domTerm" vtype="textfield" label="住所使用期限（年）" labelwidth="180" labelalign="right" width="450" tooltip="" rule="numberInt_length;1,2" ></div>
+		<div name="members" vtype="textfield" label="从业人数" labelwidth="180" labelalign="right" width="450" tooltip="" rule="must_numberInt_length;1,9" ></div>
+		<div name="incityNumber" vtype="textfield" label="本市人数" labelwidth="180" labelalign="right" width="450" tooltip="" rule="must_numberInt_length;1,9" ></div>
+		<div name="othercityNumber" vtype="textfield" label="外地人数" labelwidth="180" labelalign="right" width="450" tooltip="" rule="must_numberInt_length;1,9" ></div>
+		<div name="womenNumber" vtype="textfield" label="女性人数" labelwidth="180" labelalign="right" width="450" tooltip="" rule="must_numberInt_length;1,9" ></div>
+		<div name="laidoffNumber" vtype="textfield" label="安置下岗失业人数" labelwidth="180" labelalign="right" width="450" tooltip="" rule="must_numberInt_length;1,9" ></div>
+		<div name="depInCha" vtype="textfield" label="主管部门" labelwidth="180" labelalign="right" width="450" tooltip="" rule="" ></div>
+		<div name="opForm" vtype="textfield" label="经营方式" labelwidth="180" labelalign="right" width="450" tooltip="" rule="" ></div>
+		<div name="proLoc" vtype="textfield" label="生产场地" labelwidth="180" labelalign="right" width="450" tooltip="" rule="" ></div>
+		<div name="hasParty" vtype="radiofield" label="建立党组织" labelwidth="180" labelalign="right" width="450" tooltip="" rule="must"   
+		dataurl="[{checked: true,value: '1',text: '是'},{value: '2',text: '否'}]"></div>
+		<div name="partyNumber" vtype="textfield" label="党员（预备党员）人数" labelwidth="180" labelalign="right" width="450" tooltip="" rule="must_numberInt_length;1,9" ></div>
+		<div name="hasLeague" vtype="radiofield" label="建立团组织" labelwidth="180" labelalign="right" width="450" tooltip="" rule="must"   
+		dataurl="[{checked: true,value: '1',text: '是'},{value: '2',text: '否'}]"></div>
+		<div name="leagueNumber" vtype="textfield" label="团员人数" labelwidth="180" labelalign="right" width="450" tooltip="" rule="must_numberInt_length;1,9" ></div>
+		<div name="hasUnion" vtype="radiofield" label="建立工会组织" labelwidth="180" labelalign="right" width="450" tooltip="" rule="must"   
+		dataurl="[{checked: true,value: '1',text: '是'},{value: '2',text: '否'}]"></div>
+		<div name="unionNumber" vtype="textfield" label="工会会员人数" labelwidth="180" labelalign="right" width="450" tooltip="" rule="must_numberInt_length;1,9" ></div>
+		<div name="hypotaxis" vtype="comboxfield" label="隶属关系" labelwidth="180" labelalign="right" width="450" tooltip="" rule="" dataurl="../../../dictionary/queryData.do?dicId=CA46" ></div>
+		<!-- char(1) -->
+		<!-- <div name="parIns" vtype="textfield" label="党组织建制" labelwidth="180" labelalign="right" width="450" tooltip="" rule="" ></div>
+		
+		<div name="parOrgW" vtype="textfield" label="党组织组建方式" labelwidth="180" labelalign="right" width="450" tooltip="" rule="" ></div>
+		 --> 
+		<div name="anOrgParSign" vtype="radiofield" label="党组织是否本年度组建" labelwidth="180" labelalign="right" width="450" tooltip="" rule="must"  
+		dataurl="[{checked: true,value: '1',text: '是'},{value: '2',text: '否'}]"></div>
+		<div name="resParMSign" vtype="radiofield" label="法定代表人是否是党员" labelwidth="180" labelalign="right" width="450" tooltip="" rule="must"  
+		dataurl="[{checked: true,value: '1',text: '是'},{value: '2',text: '否'}]"></div>
+		<div name="resParSecSign" vtype="radiofield" label="法定代表人是否是党组织书记" labelwidth="180" labelalign="right" width="450" tooltip="" rule="must"  
+		dataurl="[{checked: true,value: '1',text: '是'},{value: '2',text: '否'}]"></div>
+		
+		<!-- <div name="entReccap" vtype="textfield" label="未知？" labelwidth="180" labelalign="right" width="450" tooltip="" rule="" ></div> -->
+		
+		<!-- <div name="yieDistrict" vtype="textfield" label="未知？" labelwidth="180" labelalign="right" width="450" tooltip="" rule="" ></div> -->
+		
+		<!-- <div name="calculationMethod" vtype="textfield" label="未知？" labelwidth="180" labelalign="right" width="450" tooltip="" rule="" ></div> -->
+	</div>
+	<div name="cp_rs_entsndAddToolbar" vtype="toolbar" location="bottom" align="center" style="margin-top:10px;margin-bottom:10px">
+		<div name="cp_rs_entsndAdd_save_button" vtype="button" text="保存">
+		</div>
+		<div name="cp_rs_entsndAdd_reset_button" vtype="button" text="重置">
+		</div>
+		<div name="cp_rs_entsndAdd_goback_button" vtype="button" text="返回"></div>
+	</div>
+</div>
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../../static/js/config.js"></script>
+<script type="text/javascript" data-main="torch/cp_rs_entSndAddTorch.js" src="../../../static/lib/require.js"></script>
+</body>
+</html>

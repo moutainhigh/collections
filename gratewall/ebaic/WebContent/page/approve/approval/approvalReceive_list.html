@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>核准领取查询条件</title>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+<style>
+.jazz-field-comp{
+	margin:0;
+	margin-bottom:5px;
+	margin-top:5px;
+}
+#img{
+	display:none;
+	margin:10px 0 10px 400px;
+}
+.gridtablebox{
+	display:table-cell;
+	vertical-align:middle;
+	text-align:center;
+}
+</style>
+</head>
+<body >
+<!-- 构建页面==开始 -->
+
+
+
+<!-- 查询条件 -->
+
+<div name="queryForm_Form" wid="33CB2653196B66F1E055000000000001" vtype="formpanel" width="100%" layout="auto" labelstyleclass="labelstyle" title="核准领取查询条件" 
+	titledisplay="true" showborder="true"  toggleable="true">
+	<div style="margin:0 auto;">
+	<div name="nameAppId" vtype="textfield" label="名称预核文号" labelwidth=200 labelalign="right" width="36%" tooltip="" rule="length;7,30"></div>
+	<div name="entName" vtype="textfield" label="企业名称" labelwidth="200" labelalign="right" width="36%" tooltip="" rule=""></div>
+	<div name="queryType" id="queryType" vtype="radiofield" dataurl="[{value:'1',text:'以...开头',checked:true},{value:'0',text:'模糊'}]"></div>
+	<div name="uniScid" vtype="textfield" label="统一社会信用代码最后几位" labelwidth="200"
+	 labelalign="right" width="36%" tooltip="至少9位" rule="length;9,18"></div>
+	
+	<!-- <div name="operationType" vtype="comboxfield" label="业务类型" labelwidth="200" labelalign="right" 
+	 width="36%" tooltip="" valuetip="请选择业务类型" rule="" 
+	 dataurl="[{value:'10',text:'普通设立'},{value:'20',text:'普通变更'},{value:'30',text:'注销'}]"></div> -->
+	<div name="regNo" vtype="textfield" label="注册号最后几位" labelwidth="200" labelalign="right" width="36%" tooltip="至少6位" rule="length;6,15"></div>
+	<!-- <div name="appDateBegin" vtype="datefield" label="申请日期起始"  labelwidth="200" labelalign="right" width="36%" tooltip="" rule="" editable=false></div>
+	<div name="appDateEnd" vtype="datefield" label="申请日期截止"  labelwidth="200" labelalign="right" width="36%" tooltip="" rule="" editable=false></div>
+	<div name="uniScid" vtype="textfield" label="统一社会信用代码最后几位" labelwidth="200"
+	 labelalign="right" width="36%" tooltip="至少9位" rule="length;9,18"></div> -->
+	<div name="regOrg" vtype="hiddenfield" label="" labelwidth="30%" labelalign="right" width="36%" tooltip="" rule=""></div>
+	</div>
+	
+	<div name="approvalReceive_listToolbar" vtype="toolbar" location="bottom" align="center" class="btnBox" width="100%">
+		<div name="approvalReceive_list_query_button" id="applySetupBasic_query_button"  class="commonBt"  
+		onclick="javascript:tf.approvalReceive_list.approvalReceive_listSure()">查询
+		</div>
+		<div name="approvalReceive_list_reset_button" id="applySetupBasic_next_button"  class="commonBt"
+		onclick="javascript:tf.approvalReceive_list.approvalReceive_listReset()">重置
+	</div>
+</div>
+</div>
+
+
+<div>
+	<div type="button" name="doReceive" class="littleBt">领取</div>
+</div>
+<!-- 数据展现 -->
+<div vtype="gridpanel" name="queryForm_Grid" wid="33CB2653196B66F1E055000000000001" datarender="tf.approvalReceive_list.queryForm_datarender"
+	titleDisplay="false" title="领取查询结果" width="100%" showborder="true" style="margin:0 auto;"
+	dataurl="../../../torch/service.do?fid=5187ecb80fae47e0ac739f8edbe6c643&wid=33CB2653196B66F1E055000000000001">
+	<div vtype="gridcolumn" name="grid_column" width="100%">
+		<div>
+			<div name="entName" text="企业名称" textalign="center" width="35%" dataurl=""></div>
+			<!-- <div name="nameAppId" text="名称预核文号" textalign="center" width="23%" dataurl=""></div>
+			<div name="regNo" text="企业注册号" textalign="left" width="10%" dataurl=""></div>
+			<div name="uniScid" text="统一社会信用代码" textalign="center" width="15%" dataurl=""></div> -->
+			<div name="operationType" text="业务类型" textalign="center" width="20%" dataurl="../../../dictionary/queryData.do?dicId=DFCD05"></div>
+			<div name="approveName" text="最近核准人" textalign="center" width="30%" dataurl=""></div>
+			<div name="appDate" text="申请日期" textalign="center" width="15%" dataurl=""></div>
+		</div>
+		
+	</div>
+	<div vtype="gridtable" name="grid_table" width="100%"></div>
+	<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10" width="100%"></div>
+</div>
+
+
+<!-- 构建页面==结束 -->
+
+<script>
+var tf = {};
+tf.approvalReceive_list = {};
+
+tf.approvalReceive_list.queryForm_datarender = function (event,obj){
+};
+
+tf.approvalReceive_list.query_fromNames = [ 'queryForm_Form'];
+
+tf.approvalReceive_list.approvalReceive_listSure = function(){
+	var appDateBegin = $("div[name='appDateBegin']").datefield('getValue');
+	var appDateEnd = $("div[name='appDateEnd']").datefield('getValue');
+	if(appDateBegin&&appDateEnd){
+		var num = Date.parse(new Date(appDateBegin))-Date.parse(new Date(appDateEnd));
+		if(num&&num>0){
+			jazz.warn("申请日期起始时间不能大于截止时间！");
+			return false;
+		}
+	}
+	if($("div[name='queryForm_Form']").formpanel('validate')){
+		$("div[name='queryForm_Grid']").gridpanel("option", "dataurl","../../../torch/service.do?fid=5187ecb80fae47e0ac739f8edbe6c643&wid=33CB2653196B66F1E055000000000001");
+		$("div[name='queryForm_Grid']").gridpanel("query", [ "queryForm_Form"]);
+	}
+};
+tf.approvalReceive_list.approvalReceive_listReset = function(){
+	for( x in tf.approvalReceive_list.query_fromNames){
+		$("div[name='"+tf.approvalReceive_list.query_fromNames[x]+"']").formpanel("reset");
+	} 
+};
+
+
+</script>
+<script type="text/javascript" src="../../../static/js/config.js"></script> 
+<script type="text/javascript" src="../../../static/lib/require.js"  data-main="approve/ApproveReceiveList.js"></script>
+</body>
+</html>

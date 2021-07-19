@@ -1,0 +1,321 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>TRS WCM 6.0 权限设置测试页面::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::</TITLE>
+<base target="_self">
+<LINK href="../css/wcm52/style.css" rel="stylesheet" type="text/css">
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/auth_index.css" rel="stylesheet" type="text/css" />
+
+<script src="../js/wcm52/CTRSHTMLElement.js"></script>
+<script src="../js/wcm52/CTRSHTMLTr.js"></script>  
+
+<script src="../js/wcm52/CTRSSimpleTab.js"></script>
+
+<script src="../js/wcm52/CTRSArray.js"></script>
+
+<SCRIPT LANGUAGE="JavaScript" src="../js/wcm52/CWCMObj.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../js/wcm52/CWCMObjHelper.js"></SCRIPT>
+
+<SCRIPT LANGUAGE="JavaScript" src="../js/wcm52/CTRSButton.js"></script>  
+
+<script src="../js/wcm52/CTRSHashtable.js"></script>
+<script src="../js/wcm52/CTRSRequestParam.js"></script>
+<script src="../js/wcm52/CTRSAction.js"></script>
+
+<script src="../js/com.trs.util/Common.js"></script>
+<script>
+	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.wcm.MessageCenter');
+</script>
+<script src="../js/wcm52/CNewWCMRightHelper.js"></script>
+<script>
+//====================================
+//==定义权限==========================
+//====================================
+
+	NewWCMRightHelper.addRightDef(0, "新建频道", "新建频道", "Channel");
+	NewWCMRightHelper.addRightDef(1, "修改频道", "修改频道", "Channel");
+	NewWCMRightHelper.addRightDef(2, "删除频道", "删除频道", "Channel");
+	NewWCMRightHelper.addRightDef(3, "预览频道", "预览频道", "Channel", null, "6");
+	NewWCMRightHelper.addRightDef(3, "预览频道2", "预览频道2", "Channel",  null, "6");
+	NewWCMRightHelper.addRightDef(5, "增量发布频道", "增量发布频道", "Channel", null, "6");
+	NewWCMRightHelper.addRightDef(6, "完全发布频道", "完全发布频道", "Channel", "5,3");
+	NewWCMRightHelper.addRightDef(7, "频道回收站", "频道回收站", "Channel");
+	NewWCMRightHelper.addRightDef(8, "频道扩展字段", "频道扩展字段", "Channel");
+
+	NewWCMRightHelper.addRightDef(10, "新建模板", "新建模板", "Template");
+	NewWCMRightHelper.addRightDef(11, "修改模板", "修改模板", "Template");
+	NewWCMRightHelper.addRightDef(12, "删除模板", "删除模板", "Template");
+	
+	
+	NewWCMRightHelper.addRightDef(20, "新建文档", "新建文档", "Document");
+	NewWCMRightHelper.addRightDef(21, "修改文档", "修改文档", "Document");
+	NewWCMRightHelper.addRightDef(22, "删除文档", "删除文档", "Document");
+	NewWCMRightHelper.addRightDef(23, "预览文档", "预览文档", "Document");
+	NewWCMRightHelper.addRightDef(24, "发布文档", "发布文档", "Document");
+	NewWCMRightHelper.addRightDef(25, "文档回收站", "文档回收站", "Document");
+
+//=======================================
+//===定义初始化权限的设置=================
+//=======================================
+
+	NewWCMRightHelper.addRight(TYPE_WCMOBJ_USER, 2, "admin", "10101");
+	NewWCMRightHelper.addRight(TYPE_WCMOBJ_USER, 3, "rain", "0");
+
+//========================================
+//===设置权限的类型========================
+//========================================
+	function init(){
+		NewWCMRightHelper.draw("Channel", document.all("id_TRSSimpleTab0"));
+		NewWCMRightHelper.draw("Template", document.all("id_TRSSimpleTab1"));
+		NewWCMRightHelper.draw("Document", document.all("id_TRSSimpleTab2"));
+	}
+
+	window.onload = init;
+
+	var currMode = "view";
+
+	function getIMGHTML(){
+		return	"<TABLE><TR VALIGN='top'><TD class='wcm_pointer'>" +
+					"<img id='imgObj' src='../images/auth/" + (currMode == 'edit' ? "edit.gif" : "view.gif") +  
+					"' title='" + (currMode == 'edit' ? "当前为修改模式，&#13;单击转为查看模式'" : "当前为查看模式，&#13;单击转为修改模式'") + " onclick='changeMode(this);'>" +
+				"</TD></TR></TABLE>";			 
+	}
+	function changeMode(imgObj){
+		if(currMode == 'edit'){//改为查看模式
+			imgObj.setAttribute('src', "../images/auth/view.gif");
+			imgObj.setAttribute('title', "当前为查看模式，\n单击转为修改模式");
+
+			//隐藏commandBtn
+			$('saveDiv').style.display = 'none';		
+			$('passTable').style.display = 'none';
+			$('comDiv').style.display = 'none';
+			currMode = 'view';
+		}else{//改为编辑模式
+			imgObj.setAttribute('src', "../images/auth/edit.gif");
+			imgObj.setAttribute('title', "当前为修改模式，\n单击转为查看模式");
+			$('saveDiv').style.display = '';		
+			$('passTable').style.display = '';
+			$('comDiv').style.display = '';
+			currMode = 'edit';
+		}
+		init();
+	}
+</script>
+
+<script>
+//覆盖删除的通知函数，以便刷新页面
+function CWCMRightHelper_notifyRemove(_elEvent){
+	init();
+}
+
+function addOperator(_nType, sReturnValue){
+	if(sReturnValue == null || sReturnValue.length == 0)return;
+
+	var arDeleteIndex = NewWCMRightHelper.getIndexArray(_nType);
+	var arDeleteId = NewWCMRightHelper.getIdArray(_nType);
+
+	var arSelectId = sReturnValue[0];
+	var arSelectName = sReturnValue[1]; 
+	
+	var bRemove = false;
+
+	for(var i= arDeleteId.length - 1; i>=0; i--){
+		bRemove = true;
+		for(var j=0; j<arSelectId.length;j++){
+			if(arDeleteId[i] == arSelectId[j]){
+				arSelectId[j]=-1;
+				bRemove = false;
+			}
+		}
+		if(bRemove) NewWCMRightHelper.removeAt(arDeleteIndex[i]);
+	}
+	
+	//遍历添加
+	for(var i=0; i<arSelectId.length; i++){
+		if (arSelectId[i] == -1) continue;
+		NewWCMRightHelper.putOperator(_nType, arSelectId[i], arSelectName[i]);
+	}
+	if(!NewWCMRightHelper.bUpdate)return;
+
+//刷新页面	
+	init();
+}
+
+function addUser(){
+	var _nType = TYPE_WCMOBJ_USER;
+	FloatPanel.open(getOperatorSelectURL(_nType) + "?TransferName=1", '用户选择', 600, 400);
+}
+function getArguments(index){
+	var typeArray = [TYPE_WCMOBJ_USER, TYPE_WCMOBJ_GROUP, TYPE_WCMOBJ_ROLE];
+	return [NewWCMRightHelper.getIdArray(typeArray[index]), NewWCMRightHelper.getNameArray(typeArray[index])];
+}
+function addGroup(){
+	var _nType = TYPE_WCMOBJ_GROUP;
+	var url = getOperatorSelectURL(_nType) + "?TransferName=1&GroupIds=" + NewWCMRightHelper.getIdArray(_nType) + "&TreeType=1";
+	FloatPanel.open(url, '用户组选择', 600, 400);
+}
+
+function addRole(){
+	var _nType = TYPE_WCMOBJ_ROLE;
+	var url = getOperatorSelectURL(_nType) + "?TransferName=1&RoleIds=" + NewWCMRightHelper.getIdArray(_nType);
+	FloatPanel.open(url, '用户组选择', 600, 400);
+}
+
+function getOperatorSelectURL(_nType){
+	switch(_nType){
+		case TYPE_WCMOBJ_USER:
+			return "/auth/user_select_index.jsp";
+		case TYPE_WCMOBJ_GROUP:
+			return "/auth/group_select_index.jsp";
+		case TYPE_WCMOBJ_ROLE:
+			return "/auth/role_select_index.jsp";
+		default:
+			return "/auth/user_select_index.jsp";
+	}
+}
+
+function onSave(){
+	var frmAction = document.frmAction;
+	if(frmAction == null){
+		CTRSAction_alert("没有定义");
+	}
+	ProcessBar.init('进度执行中，请稍候...');
+	ProcessBar.addState('正在执行保存操作');			
+	ProcessBar.addState('保存完成');
+	ProcessBar.start();
+	frmAction.RightsXML.value = NewWCMRightHelper.toXMLInfo();
+	var oResetChildren = document.getElementById("resetChildren");
+	if(oResetChildren != null)
+		frmAction.ResetChildrenRights.value = (oResetChildren.checked ? "1" : "0");
+
+	var objIdArray = getParameter("ObjId").split(",");
+	for(var i = 0; i < objIdArray.length; i++){
+		var postData = {
+			ObjType : $F('ObjType'),
+			ObjId : objIdArray[i],
+			ResetChildrenRights : $F('ResetChildrenRights'),
+			RightsXML : $F('RightsXML')
+		};
+		new Ajax.Request("/wcm/WCMV6/auth/right_set_dowith.jsp", {
+			method:'post', 
+			parameters:$H(postData).toQueryString(), 
+			onComplete :complete,
+			onFailure:failure,
+			contentType:'application/x-www-form-urlencoded'
+		});
+	}
+	var tempInt = 0;
+	function complete(){
+		tempInt++;
+		if(tempInt == objIdArray.length){
+			ProcessBar.next();
+			setTimeout(function(){
+				ProcessBar.exit();
+				var dlg = $success("修改成功", function(){$dialog().hide();});
+				setTimeout(function(){dlg.hide();}, 3000);
+				$('imgObj').fireEvent('onclick');
+			}, 100);
+		}
+	}
+	function failure(){
+		ProcessBar.next();
+		setTimeout(function(){
+			ProcessBar.exit();
+			var dlg = $alert("修改失败,已经成功修改了" + tempInt + "个", function(){$dialog().hide();});
+			setTimeout(function(){dlg.hide();}, 3000);
+		}, 100);	
+	}
+}
+</script>
+<style>
+	#id_TRSSimpleTab{
+		float:left;
+		width:30px;
+		height:100%;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<form name="frmAction" method="post">
+	<INPUT TYPE="hidden" name="ObjType" id="ObjType" value="101">
+	<INPUT TYPE="hidden" name="ObjId" id="ObjId" value="1">
+	<INPUT TYPE="hidden" name="ResetChildrenRights" id="ResetChildrenRights" value="0">
+	<INPUT TYPE="hidden" name="RightsXML" id="RightsXML" value="">
+</form>
+<table id="table_body" class="wcm_table_layout" border="0" cellpadding="0" cellspacing="0">
+<tr>
+	<td valign="top" bgcolor="#fff" style="height:29px;">
+		<div class="pageinfo">
+			<div class="pageinfo_left"></div>
+			<div class="pageinfo_right"></div>
+			<div style="float:right">
+				<script>document.write(getIMGHTML());</script>
+			</div>	
+			<div style="float:right; display:none;" id="saveDiv">
+				<script>
+					var oButtons = new CTRSButtons("bt_table_noborder");
+					oButtons.addTRSButton("保存修改", "onSave();", "../images/auth/save.png","保存修改");
+					oButtons.draw();
+					delete oButtons;
+				</script>
+			</div>
+			<table style="float:right;height:29px; display:none;" id="passTable"><TR valign="top"><TD>
+			<input type="checkbox" name="resetChildren" id="resetChildren" value=1>传递给子对象
+			</TD></TR></table>
+			<div style="float:right; display:none;" id="comDiv">
+			<script>		
+				oButtons = new CTRSButtons("bt_table_noborder");
+				oButtons.addTRSButton("添加用户", "addUser();", "../images/wcm52/icon_user.gif","添加用户");
+				oButtons.addTRSButton("添加用户组", "addGroup();", "../images/wcm52/icon_group.gif","添加用户组");
+				oButtons.addTRSButton("添加角色", "addRole();", "../images/wcm52/icon_role.gif","添加角色");
+				oButtons.addTRSButton("全部删除", "NewWCMRightHelper.removeAll();", "../images/wcm52/button_delete.gif","删除全部设置");
+				oButtons.draw();
+				delete oButtons;
+			</script>	
+			</div>
+			<TABLE style="float:left;height:29px;"><TR VALIGN='MIDDLE'><TD id="hostInfoTd">&nbsp;测试权限的设置</TD></TR></TABLE>
+		</div>	
+	</td>
+	<td></td>
+</tr>
+<tr>
+	<td valign="top">
+		<div style="width:100%; height:100%; overflow-y:auto;">
+		<TABLE width="100%" height="100%" style="border-left:1px solid #474747;" cellpadding="0" cellspacing="0">
+			<TR>		  
+			  <TD bgcolor="whitesmoke" align=center valign="top" id="tabContentTd">
+				<div id="id_TRSSimpleTab0" style="display:inline;"></div>				
+				<div id="id_TRSSimpleTab1" style="display:none"></div>
+				<div id="id_TRSSimpleTab2" style="display:none"></div>			
+				<div id="id_TRSSimpleTab3" style="display:none"></div>			
+			  </TD>
+			</TR>	
+		</TABLE>
+		</div>
+	</td>
+	<td valign="top" style="width:50px;" id="tabTd">
+		<script>					
+			TRSSimpleTab.nCurrIndex = 0;		
+			
+			TRSSimpleTab.addItem("频道类操作权限");
+			TRSSimpleTab.addItem("模板类操作权限");
+			TRSSimpleTab.addItem("文档类操作权限");
+
+			TRSSimpleTab.draw();
+		</script>
+	</td>
+</tr>
+</table>
+<script>
+	if((top.actualTop||top).$('footer')){
+		(top.actualTop||top).$('footer').style.width = (top.actualTop||top).$('footer_td').offsetWidth - 50;
+		Event.observe(window,'unload',function(){
+			(top.actualTop||top).$('footer').style.width = '100%';
+		});
+	}
+</script>
+</BODY>
+</HTML>

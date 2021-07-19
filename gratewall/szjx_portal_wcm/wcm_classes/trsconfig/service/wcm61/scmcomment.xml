@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.scm.service.SCMCommentServiceProvider">
+	<method name="createComment" desc="添加一条评论">			
+		<parameter name="AccountId" desc="操作的账号Id" type="int" required="true"/>
+		<parameter name="Content" desc="评论的内容" type="string" required="true"/>
+		<parameter name="MicroContentId" desc="要评论的微博Id" type="string" required="true"/>
+		<parameter name="CommentId" desc="评论Id" type="string" required="false"/>
+		<parameter name="isReplyComment" desc="是否为回复评论" type="boolean" required="false"/>
+	</method>
+	
+	<method name="destroyComment" desc="删除一条评论">
+		<parameter name="AccountId" desc="操作的账号Id" type="int" required="true"/>
+		<parameter name="CommentId" desc="要删除的评论Id" type="string" required="true"/>
+	</method>
+	
+	<method name="queryCommentsByMCId" desc="获取指定微博的评论列表">			
+		<parameter name="AccountId" desc="操作的账号Id" type="int" required="true"/>
+		<parameter name="PageSize" desc="页面大小" type="int" required="false"/>
+		<parameter name="PageIndex" desc="当前的页码" type="int" required="false"/>
+		<parameter name="MicroContentId" desc="微博的Id" type="string" required="true"/>
+	</method>
+	
+	<method name="queryCommentsToMe" desc="获取我收到的评论列表">	
+		<parameter name="AccountId" desc="操作的账号Id" type="int" required="true"/>
+		<parameter name="PageSize" desc="页面大小" type="int" required="false"/>
+		<parameter name="PageIndex" desc="当前的页码" type="int" required="false"/>
+	</method>
+	
+	<method name="queryCommentsByMe" desc="获取我发出的评论列表">			
+		<parameter name="AccountId" desc="操作的账号Id" type="int" required="true"/>
+		<parameter name="PageSize" desc="页面大小" type="int" required="false"/>
+		<parameter name="PageIndex" desc="当前的页码" type="int" required="false"/>
+	</method>	
+	
+	<method name="queryCommentMentions" desc="获取@我的评论列表">			
+		<parameter name="AccountId" desc="操作的账号Id" type="int" required="true"/>
+		<parameter name="PageSize" desc="页面大小" type="int" required="false"/>
+		<parameter name="PageIndex" desc="当前的页码" type="int" required="false"/>
+	</method>
+</service>

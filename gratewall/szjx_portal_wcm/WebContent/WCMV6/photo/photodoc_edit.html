@@ -1,0 +1,147 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>图片基本属性编辑</title>
+	<link href="../css/common.css" rel="stylesheet" type="text/css" />
+	<link href="calendar-blue.css" rel="stylesheet" type="text/css" />
+	<style>
+		.input_text{
+			height:20px;
+			border:1px solid lightgray;
+			margin:0px;			
+		}
+		.input_textarea{
+			height:100;
+			width:600;
+			border:1px solid lightgray;
+			margin-left:35px;
+			font-size:14px;
+		}
+		#attr_basic{			
+			width:240px;
+			height:100%;			
+			padding-left:15px;
+			margin-left:-20px;
+		}
+		#attr_extend{
+			float:right;
+			width:190px;
+			margin:5px;
+			height:180px;
+			overflow:auto;
+		}		
+		#photo_container{
+			width:220px;
+			margin:10px -10px;		
+			float:left;			
+			text-align:center;			
+		}
+		label{
+			font-weight:bold;
+			font-size:14px;						
+		}
+	</style>
+	<script src="../js/com.trs.util/Common.js"></script>	
+	<script label="TagParser">
+		$import('com.trs.web2frame.DataHelper');
+		$import('com.trs.web2frame.TempEvaler');
+		$import('com.trs.wcm.Web2frameDefault');
+		$import('com.trs.dialog.Dialog');		
+	</script>
+	<script label="UITransformer">
+		$import('com.trs.util.UITransformer');
+	</script>
+	<script>
+		$import('com.trs.wcm.FloatPanel');
+		$import('com.trs.wcm.MessageCenter');
+		$import('com.trs.wcm.ProcessBar');		
+		$import('com.trs.validator.Validator');	
+		$import('com.trs.crashboard.CrashBoard');
+		$import('com.trs.wcm.util.LockedUtil');
+	</script>	
+	<script src="photodoc_edit.js"></script>
+	<script src="./CTRSCalendar.js"></script>
+	<script>
+		FloatPanel.addCloseCommand('取消');
+		FloatPanel.addCommand('btnOnOK','确定','Ok');	
+	</script>	
+</head>
+
+<body>
+	<div>
+		<div id="photoprops"></div>
+		<textarea id="template_photoprops" style="display:none" select="Document">
+			<form id="form_photoprops">
+			<input type="hidden" name="ObjectId" id="ObjectId" value="{#DOCID}">
+			<input type="hidden" name="ChannelId" id="ChannelId" value="{#DOCCHANNEL.ID}">
+			<input type="hidden" name="FlowDocId" id="FlowDocId" value="0">
+			<div id="attr_extend"></div>
+			<div style="margin-top:10px;height:180px">				
+				<div id="photo_container">			
+					<img src="{@mapFileName(#DOCRELWORDS,0,#ATTRIBUTE.SRCFILE)}" id="photoitem">
+					<div style="margin-top:10px">
+						<a href="#" id="photouploader">重新上传</a>
+						&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="#" onclick="editPhoto({#DocId});return false;" id="photoeditor">编辑图片</a>
+					</div>
+				</div>				
+				<div id="attr_basic">			
+					<label>标题</label>
+					<input type="text" name="DocTitle" id="DocTitle" value="{#DocTitle}" class="input_text"
+						   validation="required:'true',type:'string',max_len:'200',desc:'标题',showid:'validatetip'"						   
+					></input><br />
+					<label>作者</label>
+					<input type="text" name="DocAuthor" id="DocAuthor" value="{#DocAuthor}" class="input_text"
+						   validation="type:'string',max_len:'100',desc:'作者',showid:'validatetip'"
+					></input><br />		
+					<label>人物</label>
+					<input type="text" name="DocPeople" id="DocPeople" value="{#DocPeople}" class="input_text"
+						   validation="type:'string',max_len:'100',desc:'人物',showid:'validatetip'"
+					></input><br />
+					<label>地点</label>
+					<input type="text" name="DocPlace" id="DocPlace" value="{#DocPlace}" class="input_text"
+						   validation="type:'string',max_len:'100',desc:'地点',showid:'validatetip'"
+					></input><br />
+					<label>时间</label>					
+					<input type="text" name="DocRelTime" id="DocRelTime" value="{#DocRelTime}" class="input_text"  validation="type:'date',date_format:'yyyy-mm-dd hh:MM:ss',showid:'validatetip'"></input>
+					<img src="img_calendar.gif" id="img_calendar" style="cursor:hand;width:20px;height:14px">
+					<br />
+					<label style="margin-left:-15px">关键词</label>
+					<input type="text" name="DocKeywords" id="DocKeywords" value="{#DocKeywords}" class="input_text"
+						   validation="type:'string',max_len:'100',desc:'关键词',showid:'validatetip'"
+					></input><br />
+					
+				</div>				
+			</div>
+			<div id="attr_desc" style="margin:10px">
+				<label style="float:left;margin-left:35px">描述</label><br />
+				<textarea name="DocContent" id="DocContent" class="input_textarea" scroll="auto" validation="type:'string',max_len:'200',showid:'validatetip',desc:'图片描述'">{#DocContent}</textarea>				
+			</div>
+			<span style="position:relative">
+				<span id="validatetip" style="width:40px;position:absolute;margin-left:20px;">
+				</span>
+			</span>
+			</form>
+		</textarea>
+		<textarea id="template_imageextprops" style="display:none">
+			<table border="0" cellspacing="0" cellpadding="0">
+			<tbody>
+			<for select="ExtendedProps">				
+				<tr>
+					<td style="font-weight:bold;font-size:12px;white-space:nowrap">{#DESC}</td>	
+				</tr>			
+				<tr>
+					<td style="font-weight:bold;white-space:nowrap;height:100%">
+						{@drawInputEl(#NAME,#VALUE,#Type,#maxlen,#minlen,#Desc)}
+					</td>
+				</tr>
+				<!--tr>
+					<td height="1px">&nbsp;</td>
+				</tr-->
+			</for>				
+			</tbody>
+			</table>			
+		</textarea>
+	</div>	
+</body>
+</html>

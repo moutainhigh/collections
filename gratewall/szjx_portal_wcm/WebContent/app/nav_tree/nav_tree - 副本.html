@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="nav_tree.html.title">Navigator Tree</title>
+	<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+	<link href="../js/source/wcmlib/com.trs.tree/resource/TreeNav.css" rel="stylesheet" type="text/css" />
+	<link href="nav_tree.css" rel="stylesheet" type="text/css" />
+	<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+	<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+	<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+
+<!--WCM-1763 | 提供一个系统工具，可以对WCM导航树中的某些节点设置为显示或不显示-->
+<script src="../../app/js/easyversion/lightbase.js"></script>
+<script language="javascript">
+<!--
+Event.observe(window, 'load', function(){
+	var navTree = parent.m_CustomizeInfo;	//获得父页面关于是否显示导航树的相关值
+	if(!navTree["textLib"]){
+		return;
+	}
+	if(navTree["textLib"].paramValue=="false")
+		document.getElementById("r_0").style.display = "none";	
+	 
+	if(navTree["pictureLib"].paramValue=="false")
+		document.getElementById("r_1").style.display = "none";
+	
+	if(navTree["videoLib"].paramValue=="false")
+		document.getElementById("r_2").style.display = "none";
+	  
+	if(navTree["resourcesLib"].paramValue=="false")
+		document.getElementById("r_4").style.display = "none";
+	  
+	if(navTree["TRSServerData"].paramValue=="false")
+		document.getElementById("trsserver_300").style.display = "none";
+	
+});
+
+//-->
+</script>
+</head>
+<style type="text/css">
+	.TreeView div{width:30px;}
+</style>
+<body>
+<div id="bodyContainer" class="layout_container">
+	<div class="layout_north">
+		<div class="nav_options">
+			<div id="tblOptions">
+				<span class="nav_option nav_option_refresh" title="刷新资源树" _type="refreshTree" WCMAnt:paramattr="title:nav_tree.html.nav_refresh">&nbsp;</span>
+				<span class="nav_option nav_option_locate" _type="quickLocate" title="快速定位" id="quickLocateId" WCMAnt:paramattr="title:nav_tree.html.quick_locate">&nbsp;</span>
+				<span class="nav_option nav_option_more" _type="moreAction" title="更多操作"  id="showTreeMoreId" WCMAnt:paramattr="title:nav_tree.html.more_action">&nbsp;</span>
+			</div>
+		</div>
+	</div>
+	<div id="chnl_expl_ctn" class="layout_center_container" style="overflow:auto;">
+        <div class="TreeView" id="divTreeRegion">
+            <div title="文字库" id="r_0" classPre="SiteType0" SiteType="0" WCMAnt:paramattr="title:nav_tree.html.textWarehouse">
+                <a href="#" name="ar_0" SiteType="0" WCMAnt:param="nav_tree.html.textWarehouse">文字库</a>
+            </div>
+            <ul id="r_0_children" SiteType="0"></ul>
+            <div title="图片库" id="r_1" classPre="SiteType1" SiteType="1" WCMAnt:paramattr="title:nav_tree.html.picWarehouse">
+                <a href="#" name="ar_1" SiteType="1" WCMAnt:param="nav_tree.html.picWarehouse">图片库</a>
+            </div>
+            <ul id="r_1_children" SiteType="1"></ul>
+            <div title="视频库" id="r_2" classPre="SiteType2" SiteType="2" WCMAnt:paramattr="title:nav_tree.html.viedoWarehouse">
+                <a href="#" name="ar_2" SiteType="2" WCMAnt:param="nav_tree.html.viedoWarehouse">视频库</a>
+            </div>
+            <ul id="r_2_children" SiteType="2"></ul>
+            <div title="资源库" id="r_4" classPre="SiteType4" SiteType="4" WCMAnt:paramattr="title:nav_tree.html.resourceWarehouse">
+                <a href="#" name="ar_4" WCMAnt:param="nav_tree.html.resourceWarehouse">资源库</a>
+            </div>
+            <ul id="r_4_children" SiteType="4"></ul>
+            <div title="协作服务" id="myint_1" classPre="MyInt" SiteType="" WCMAnt:paramattr="title:nav_tree.html.amyint">
+                <a href="#" name="amyint_1" SiteType="" _stop="1" WCMAnt:param="nav_tree.html.amyint">协作服务</a>
+            </div>
+            <ul id="i_3_children" SiteType="" style="display:none">
+                <div title="我的工作列表" id="mywork_100" classPre="MyWork" SiteType="" WCMAnt:paramattr="title:nav_tree.html.amywork">
+                    <a href="#" name="amywork_100" SiteType="" WCMAnt:param="nav_tree.html.amywork">我的工作列表</a>
+                </div>
+                <div title="我的消息列表" id="mymsg_200" classPre="MyMsg" SiteType="" WCMAnt:paramattr="title:nav_tree.html.msgList">
+                    <a href="#" name="amymsg_200" SiteType="" WCMAnt:param="nav_tree.html.amymsg">短消息</a>
+                </div>
+				<div title="提取TRSServer数据" id="trsserver_300" classPre="TrsServer" SiteType="" WCMAnt:paramattr="title:nav_tree.html.server">
+                    <a href="#" name="atrsserver_300" SiteType="" WCMAnt:param="nav_tree.html.server">提取TRSServer数据</a>
+                </div>
+            </ul>
+            <div title="个性化栏目站点" id="i_3" classPre="SiteType3" SiteType="3" WCMAnt:paramattr="title:nav_tree.html.customChnlSite">
+                <a href="#" name="ai_3" _stop="1" WCMAnt:param="nav_tree.html.customChnlSite">个性化栏目</a>
+            </div>
+            <ul id="i_3_children" SiteType="3"></ul>
+        </div>
+	</div>
+</div>
+<script src="../js/easyversion/lightbase.js"></script>
+<script src="../js/easyversion/extrender.js"></script>
+<script language="javascript">
+	initExtCss();
+</script>
+<script src="../js/easyversion/elementmore.js"></script>
+<script src="../js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../js/data/locale/nav_tree.js"></script>
+<script src="../js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../js/source/wcmlib/com.trs.tree/TreeNav.js"></script>
+<!--AJAX-->
+<script src="../js/easyversion/ajax.js"></script>
+<!--page owner-->
+<!-- CarshBoard Inner Start -->
+<script src="../../app/js/source/wcmlib/Observable.js"></script>
+<script src="../../app/js/source/wcmlib/Component.js"></script>
+<script src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></script>
+<script src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></script>
+<!-- CarshBoard Inner End -->
+<script src="nav_tree_wcm6.js"></script>
+<script src="nav_tree.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<HTML>
+<HEAD>
+<TITLE>multi-selector for outline-template</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="../../js/CTRSHashtable.js"></script>
+<script language="JavaScript" src="../../js/CTRSRequestParam.js"></script>
+<script language="JavaScript" src="../../js/CTRSAction.js"></script>
+<script language="JavaScript" src="../../js/CTRSArray.js"></script>
+<script language="JavaScript" src="../../js/CTRSString.js"></script>
+<script type="text/javascript" src="../simpleeditor/fckeditor.js"></script>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+</script>
+<script>
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.dialog.Dialog');
+	$import('com.trs.crashboard.CrashBoard');
+	$import('com.trs.dialog.wcmbutton.WCMButton');
+</script>
+<style type="text/css">
+	.liner_row{
+		height: 25px;
+		line-height: 25px;
+		font-size: 12px;
+		float: left;
+		width: 170px;
+		font-family: Georgia;
+		overflow: hidden;
+		text-overflow:ellipsis;
+	}
+	.sp_name{
+		cursor: pointer;
+	}
+	.red_alert{
+		color: red;
+		font-size: 12px;
+		margin-left: 4px;
+	}
+	.readonly_text{
+		background: #efefef;
+		border: 1px solid #7f9db9;
+		color: #010101;
+	}
+	body{
+		background: #ffffff;
+		padding:0px;
+		margin:0px;
+	}
+	A:link, A:visited{
+		color: #1571D5;
+		text-decoration: none;
+		border: solid 1px silver;
+		padding-left: 5px;
+		padding-right: 5px;
+		height: 20px;
+		line-height: 20px;
+		width: 80px;
+		text-align: center;
+	}
+	A:hover{
+		color: #ff6600
+	}
+</style>
+</HEAD>
+<script language="javascript" src="./message_sending.js" type="text/javascript"></script>
+<BODY>
+<div id="dy_adjust">
+</div>
+<script>
+	var nEditorHeight = 500;
+	function adjustScale(){
+		var sStyleId = 'dy_adjust';
+		var eStyleDiv = $(sStyleId);
+		nEditorHeight = Element.getDimensions(document.body)["height"] - 55;
+		var cssStr = '.container_onliners{\
+				height: ' + nEditorHeight + 'px;\
+			}';
+		var eStyle = $style(cssStr);
+		$removeChilds(eStyleDiv);
+		eStyleDiv.appendChild(eStyle);
+	}
+	adjustScale();
+</script>
+<div>
+<form method=post id="fmData">
+	<input type="hidden" name="MsgType" value="1">
+	<input type="hidden" name="MBody" id="hdContent">
+	<input type="hidden" id="hdSendTypes" name="SendType" value="">
+	<input type="hidden" id="hdUserIds" name="UserIds" value="">
+	<input type="hidden" id="hdUserNames" value="">
+	<input type="hidden" id="hdGroupIds" name="GroupIds" value="">
+	<table border=0 align="center" cellspacing=0 cellpadding=3 style="font-size:12px;width:100%;border:1px solid #C7C7C7;margin-top: 10px;">
+	<tbody>
+		<tr>
+			<td colspan="2">
+				<div id="onliners" class="container_onliners" style="overflow: auto; padding: 5px; font-size: 14px; font-weight: normal; padding-top: 8px;">
+					<table border="0" cellspacing="0" cellpadding="3" style="border-bottom: 1px #efefef dashed; font-size: 14px; width: 100%">
+					<tbody>
+						<tr>
+							<td rowspan="2" width="100px">发消息给</td>
+							<td width="20px">
+								<span onclick="setOwner(); return false" style="width: 20px; background-repeat: no-repeat; background-image:url(../images/icon/icon_user_new.gif); cursor: pointer">
+								</span>
+							</td>
+							<td>
+								<span>用户：</span>
+								<span><input id="txtUsers" type="text" name="" value="" style="width: 200px;"></span>
+								<span style="color: gray; font-size: 12px;">(多个用户用逗号“,”分隔)</span>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span onclick="setOwner(); return false" style="width: 20px; background-repeat: no-repeat; background-image:url(../images/icon/icon_group_new.gif); cursor: pointer">
+								</span>
+							</td>
+							<td>
+								<span>组织：</span>
+								<span><input id="txtGroups" readonly class="readonly_text" type="text" name="" value="" style="width: 200px;"></span>
+							</td>
+						</tr>
+					</tbody>
+					</table>
+					<table border="0" cellspacing="0" cellpadding="2" style="font-size: 12px; width: 95%; margin-top: 10px;" align="center">
+					<tbody>
+						<tr>
+							<td width="100px">标题：</td>
+							<td>
+								<input id="txtTitle" type="text" name="Title" value="" style="width: 440px"><span class="red_alert">*</span>
+							</td>
+						</tr>
+						<tr>
+							<td width="50px">正文：</td>
+							<td>
+								<div id="editorContainer" style="width: 440px; height: 150px; overflow: auto; margin-top: 5px;"></div>
+								<!--<textarea id="txtContent" name="MBody" value="admin" style="width: 440px; height: 150px; overflow: auto; margin-bottom: 5px;"></textarea><span class="red_alert">*</span>-->
+							</td>
+						</tr>
+						<tr>
+							<td style="padding: 1px; width:80%;" colspan="2" align="center">
+								<span style="padding-right: 10px;">
+									<input type="checkbox" name="SendingType" value="Message" checked>&nbsp;在线短消息
+								</span>
+								<span style="padding-right: 10px;">
+									<input type="checkbox" name="SendingType" value="Email">&nbsp;电子邮件
+								</span>
+								<span style="padding-right: 10px;">
+									<input type="checkbox" name="SendingType" value="SMS">&nbsp;手机短信
+								</span>
+							</td>
+						</tr>
+					</tbody>
+					</table>					
+				</div>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	<table border=0 align="center" cellspacing=0 cellpadding=3 style="font-size:12px;width: 100%;background:#DEDCDD;height:40px;">
+	<tbody>
+		<tr>
+			<td align="center" id="ButtonContainer" style="padding-top:10px;">
+                <!--
+				<span>
+					<a href="#" onclick="PageContext.sendMsg(); return false;">发送消息</a>
+				</span>
+				&nbsp;
+				<span>
+					<a href="#" onclick="closeframe(); return false;">关闭窗口</a>
+				</span>				
+                //-->
+			</td>
+		</tr>
+	</tbody>
+	</table>
+</form>
+</div>
+</BODY>
+</HTML>

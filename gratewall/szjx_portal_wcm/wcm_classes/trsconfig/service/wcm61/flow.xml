@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.ProcessService">
+	<method name="findById"/>
+	<method name="jFindById" truename="findById"  convertor="uri:/app/flow/flow_findbyid.jsp"/>
+	<method name="query">
+		<parameter name="ChannelIds" desc="检索的栏目ID序列" type="string" required="false"/>
+		<parameter name="SiteIds" desc="检索的站点ID序列" type="string" required="false"/>	
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<!--排序字段及方式-->
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false" default="CrTime desc"/>		
+		<!--文档过滤器-->
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" required="false"/>
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="FlowId" desc="工作流ID" type="int" required="false" search="true"/>
+		<parameter name="FlowName" desc="工作流名称" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="FlowDesc" desc="工作流描述" type="string" required="false" search="true"
+			search-operator="like"/>			
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>
+		<!-- 检索相关配置 END -->
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="yyyy-MM-dd HH:mm"/>	
+	</method>
+	<method name="jQuery" truename="query"  convertor="uri:/app/flow/flow_query.jsp"/>
+	<method name="exportFlows" desc="导出工作流">
+		<parameter name="objectids" desc="ID序列" type="string" required="true"/>
+	</method>
+	<method name="getChannelsUseingFlow">		
+		<parameter name="ObjectId" desc="工作流ID" type="int" required="true"/>
+		<parameter name="SelectFields" desc="栏目信息字段列表" type="string" required="false" default="ChannelId,CHNLTYPE,ChnlName,ChnlDesc"/>		
+	</method>
+	<method name="save">		
+		<parameter name="ObjectId" desc="工作流ID" type="int" required="true"/>
+		<parameter name="OwnerId" desc="工作流所属对象ID" type="int" required="false"/>
+		<parameter name="OwnerType" desc="工作流所属对象类型" type="int" required="false"/>
+	</method>
+	<method name="jqueryChannelsUseingFlow" truename="getChannelsUseingFlow"  convertor="uri:/app/flow/flow_query_using_channels.jsp"/>
+	<method name="jqueryFlow" truename="query"  convertor="uri:/app/flow/flow_select_query.jsp"/>
+
+	<method name="queryOptionalFlows" convertor="uri:/app/flow/flow_select_query.jsp">
+		<parameter name="OwnerId" desc="工作流所属对象ID" type="int" required="true"/>
+		<parameter name="OwnerType" desc="工作流所属对象类型" type="int" required="true"/>	
+		
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" required="false" default="CrTime desc"/>		
+		<!-- 查询的表 -->		
+		<parameter name="FromTable" desc="查询的表" type="string" required="false" default="WCMFlow"/>	
+					
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="yyyy-MM-dd HH:mm"/>	
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="FlowId" desc="工作流ID" type="int" required="false" search="true"/>
+		<parameter name="FlowName" desc="工作流名称" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="FlowDesc" desc="工作流描述" type="string" required="false" search="true"
+			search-operator="like"/>			
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>
+		<!-- 检索相关配置 END -->
+
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false" default="FlowId,FlowName,FlowDesc,OwnerType,OwnerId,CrTime,CrUser"/>		
+	</method>
+</service>

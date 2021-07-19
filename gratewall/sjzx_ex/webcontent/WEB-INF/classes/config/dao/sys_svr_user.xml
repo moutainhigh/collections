@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="sys_svr_user" class-name="com.gwssi.dw.runmgr.services.dao.SysSvrUser" check-flag="false" backup-flag="false">
+    <description>服务对象管理</description>
+  </table-info>
+
+  <column name="sys_svr_user_id" data-type="varchar" length="32" not-null="true" description="服务对象编号"/>
+  <column name="login_name" data-type="varchar" length="32" not-null="true" value-from="input" description="登录名"/>
+  <column name="password" data-type="varchar" length="32" not-null="true" value-from="input" description="密码"/>
+  <column name="create_date" data-type="varchar" length="10" not-null="true" value-from="input" description="创建用户日期"/>
+  <column name="create_by" data-type="char" length="32" not-null="true" value-from="input" description="创建用户人"/>
+  <column name="state" data-type="char" length="1" not-null="true" default="0" value-from="input" description="用户状态"/>
+  <column name="user_desc" data-type="varchar" length="1000" not-null="false" value-from="input" description="用户简介"/>
+  <column name="user_type" data-type="varchar" length="10" not-null="true" value-from="input" description="用户类型"/>
+  <column name="user_name" data-type="varchar" length="32" not-null="true" empty-is-null="false" unique="false" value-from="input" description="用户名"/>
+  <column name="user_order" data-type="long" length="38" not-null="true" empty-is-null="false" unique="false" value-from="input" description="用户排序"/>
+  <column name="is_ip_bind" data-type="varchar" length="2" not-null="true" empty-is-null="false" unique="false" value-from="input" description="是否IP绑定"/>
+  <column name="ip_bind" data-type="varchar" length="400" not-null="true" empty-is-null="false" unique="false" value-from="input" description="绑定IP"/>
+  <column name="is_limit" data-type="varchar" length="32" not-null="true" empty-is-null="false" unique="false" value-from="input" description="是否有限制条件"/>
+  <column name="grant_table" data-type="varchar" length="2000" not-null="true" empty-is-null="false" unique="false" value-from="input" description="授予表"/>
+  <column name="user_code" data-type="varchar" length="10" not-null="true" empty-is-null="false" default="05" description="用户类型"/>
+  <primary-key name="p_identifier_1" column-list="sys_svr_user_id"/>
+  <index name="sql080504093311000" index-type="unique" cluster="other" column-list="sys_svr_user_id"/>
+  <function func-name="select one sys_svr_user" func-type="select" column-list="sys_svr_user_id,login_name,user_name,password,create_date,create_by,state,user_desc,user_type,is_limit,is_ip_bind,ip_bind,user_code">
+    <filter-column column-name="sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_svr_user list" func-type="rowset" column-list="sys_svr_user_id,login_name,user_name,password,create_date,create_by,state,user_type,is_ip_bind, ip_bind, is_limit, grant_table,user_code " sort-columns="user_order desc" max-record="10">
+    <filter-column column-name="login_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="user_type" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="state" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="select exist sys_svr_user list" func-type="rowset" column-list="sys_svr_user_id" max-record="10">
+    <filter-column column-name="login_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="user_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_svr_user" func-type="insert" column-list="sys_svr_user_id,login_name,user_name,user_type,password,create_date,create_by,state,user_order,is_ip_bind,ip_bind,user_code">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_svr_user" func-type="delete">
+    <filter-column column-name="sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_svr_user" func-type="update" column-list="login_name,user_name,user_type,state,is_ip_bind,ip_bind,user_code">
+    <filter-column column-name="sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="update one sys_svr_user state" func-type="update" column-list="state">
+    <filter-column column-name="sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改状态</description>
+  </function>
+
+  <function func-name="select one sys_svr_user_name" func-type="rowset" column-list="sys_svr_user_id">
+    <filter-column column-name="login_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="user_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select one sys_svr_user_password" func-type="rowset" column-list="sys_svr_user_id">
+    <filter-column column-name="sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="password" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询-密码</description>
+  </function>
+
+  <function func-name="select sys_svr_test_user list" func-type="rowset" column-list="sys_svr_user_id,login_name,password,create_date,create_by,state,user_desc,user_type" max-record="10">
+    <filter-column column-name="login_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="user_type" operator="like" value-from="input" empty-flag="skip"/>
+    <description>用于共享服务测试的多记录查询</description>
+  </function>
+
+  <function func-name="select user_order sys_svr_user" func-type="select" column-list="max(user_order) as user_order">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="reset sys_svr_user password" func-type="update" column-list="password">
+    <filter-column column-name="sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改密码</description>
+  </function>
+
+  <function func-name="update sys_svr_user ip" func-type="update" column-list="ip_bind">
+    <filter-column column-name="sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改IP</description>
+  </function>
+</table>
+

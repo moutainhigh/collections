@@ -1,0 +1,161 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<TITLE>action addedit</TITLE>
+<!-- my import-->
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/flow.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/lang/cn.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<link rel="stylesheet" type="text/css" href="../../app/css/wcm-common.css">
+<!-- CarshBoard Out Start -->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Out end -->
+<!-- dialog  Start -->
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT> 
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<!-- dialog  End -->
+<!--page scrop-->
+<script src="../../app/js/source/wcmlib/com.trs.workflow/WorkFlow.js"></script>
+<script src="./domain/Configurator.js"></script>
+<script src="./workflow_action_edit.js"></script>
+<link href="../css/workflow.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	body{
+		margin: 0;
+		padding: 0;
+		background: #ffffff;
+		text-align: left;
+		width: 100%;
+	}
+	body, table{
+		font-size: 12px;
+	}
+	.single_text{
+		height: 20px;
+		line-height: 20px;
+		font-size: 12px;
+		border: 0;
+		border-bottom: 1px solid black;
+		text-align: center;
+		width: 120px;
+	}
+	.multi_text{
+		height: 50px;
+		font-size: 12px;
+		width: 150px;
+	}
+	select{
+		width: 150px;
+	}
+	.block_box{
+		width: 100%; 
+		padding: 3px;
+	}
+	.left_column{
+		text-align: left;
+		width: 100%;
+	}
+	.right_column{
+		text-align: left;
+		width: 100%; 
+	}
+	.alter_item{
+		background: #ffffff;
+		border-top: solid 1px #efefef;
+		border-bottom: solid 1px #efefef;
+	}
+	.normal_item{
+		
+	}
+	td{
+		line-height: 18px;
+	}
+	li{
+		list-style-type: circle;
+	}
+	.text_param{
+		background-image:url(../images/icon/Window-more.png);
+		background-repeat:no-repeat;
+		background-position:center center;
+		cursor: pointer;
+		width: 16px;
+	}
+	.combox_input{
+		width: 132px;
+		font-size: 10pt;
+	}
+	.combox_select{
+		margin-left: -132px;
+		font-size: 10pt;
+		width: 150px;
+	}
+	#divParamsContainer{
+		height: 123px;
+	}
+</style>
+</head>
+<body style="background: transparent">
+<div id="dy_adjust">
+</div>
+<script>
+	var m_nBoxHeight = 100;
+	function adjustScale(){
+		var sStyleId = 'dy_adjust';
+		var eStyleDiv = $(sStyleId);
+		var m_nBoxHeight = Element.getDimensions(document.body)["height"];
+		var cssStr = '#divParamsContainer{\
+			height: ' + (m_nBoxHeight - 22) + 'px;\
+		}';
+		var eStyle = $style(cssStr);
+		$removeChilds(eStyleDiv);
+		eStyleDiv.appendChild(eStyle);
+	}
+	//adjustScale();
+</script>
+<center>
+	<div id="divParamsContainer" style="padding-top: 5px; overflow: auto;">
+	</div>
+	<div id="divParamsTemplate" style="display: none;">
+		<table border="0" cellspacing="0" cellpadding="0" width="100%" style="width: 100%; padding:3px; padding-top: 5px;">
+		<tbody>
+			<tr>
+				<td align="left" width="40%"><li><span class="left_column" style="white-space:nowrap;"></span></td>
+				<td align="left" width="60%"><span class="right_column"></span></td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+	<div style="width: 100%; margin-top: 2px; padding-right: 10px; background: #f6f6f6; border-top: 1px solid #eeeeee;">
+		<table border="0" cellspacing="0" cellpadding="0" style="width: 100%;">
+		<tbody>
+			<tr>
+				<td align="right">
+					<span>
+						<a href="#" id="btnOk" onclick="submitData(); return false;" WCMAnt:param="workflow.action.edit.html.confirm">确定</a>
+					</span>&nbsp;&nbsp;&nbsp;&nbsp;
+					<span>
+						<a href="#" id="btnCancel" onclick="closeframe(); return false;" WCMAnt:param="workflow.action.add.html.cancel">取消</a>
+					</span>
+				</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+</center>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+<style>
+/*引用字体参考demo,见http://blog.csdn.net/damys/article/details/27055205 和http://blog.csdn.net/zxleezx/article/details/8111610*/
+html {
+	font-size: 62.5%; /*将em,rem的字体重置为1.2em=12px,默认是1em或者rem=16px*/
+}
+
+body {
+	overflow-x: hidden;
+}
+/*去掉jazz的边框线条*/
+/*jazz grid表格头部*/
+.jazz-grid-headerCell {
+	border-style: none;
+}
+/*单元格*/
+.jazz-grid-cell {
+	border-style: none;
+}
+
+.container {
+	position: relative;
+	height: 2000px;
+	/* background: url(/page/approve/testzz/AA_1.jpg) no-repeat -111px -102px;
+	background-size: contain; */
+	background: url(/page/approve/testzz/AA_1.jpg) no-repeat -73px -71px;
+	background-size: contain;
+	width: 980px;
+	min-width: 600px;
+}
+
+.printDiv {
+	position: absolute;
+	z-index: 5;
+}
+
+
+/* 执照标题开始 */
+/*内容显示标签提示*/
+.printLabel {
+	/* text-align: justify; */
+	text-justify: distribute-all-lines;
+	text-align-last: justify;
+	font-family: "黑体";
+	font-size: 1.2em;
+	width: 59.0mm;
+	left:10.5mm;
+	
+}
+/* 统一社会信用代码标题label */
+.uniscid_name {
+	left: 127mm;
+    top: 93mm;
+	width: 38mm;
+}
+/*名称标题label*/
+.mc_name {
+	top: 110.5mm;
+}
+/* 类型 标题label*/
+.qylx_name {
+	top: 124.5mm;
+}
+
+/*住所标题label*/
+.dz_name {
+	top: 137.5mm;
+}
+/* 法定代表人标题label */
+.fr_name {
+	top: 150.5mm;
+}
+/* 注册资本标题label */
+.zczb_name {
+	top: 163.5mm;
+}
+/* 成立日期 标题label*/
+.clrq_name {
+	top: 177.5mm;
+}
+/* 营业期限 标题label*/
+.yynx_name {
+	top: 193.5mm;
+}
+/* 经营范围 标题label*/
+.jyfw_name {
+	top: 209.5mm;
+}
+/*在线扫码标题label*/
+.qrcode {
+	left: 33mm;
+    top: 277.5mm;
+    width: 45mm;
+}
+
+/* 公示系统上一年度年度提示标题label */
+.year_report{
+	text-indent: 2em;
+	left: 19.0mm;
+	top: 425.0mm;
+	width: 130.0mm;
+}
+/* 执照标题结束 */
+
+
+
+
+/*执照内容开始*/
+
+.printDetail {
+	font-family: "宋体";
+	font-size: 1.2em;
+	width: 140.0mm;
+	left: 83.0mm;
+	
+}
+/* 统一社会信用代码 */
+.uniscid {
+	left: 170mm;
+    top: 93mm;
+	width: 70.0mm;
+}
+/* 名称 */
+.mc {
+	top: 109.5mm;
+}
+/* 类型 */
+.qylx {
+	top: 124.5mm;
+}
+
+/*住所*/
+.dz {
+	top: 137.5mm;
+}
+/*企业法人*/
+.entfr {
+	top: 150.5mm;
+	z-index: 6;
+}
+/* 注册资本 */
+.zczb {
+	top: 163.5mm;
+}
+/* 成立日期 */
+.clrq {
+	top: 178.5mm;
+}
+/* 营业期限 */
+.yynx {
+	top: 194.5mm;
+}
+/* 经营范围 */
+.jyfw {
+	top: 210.5mm;
+	width: 125mm;
+	line-height: 1.1em;
+}
+/* 年 */
+.fzrq_n {
+	left: 151mm;
+    top: 305mm;
+	width: 28.0mm;
+	font-weight: bold;
+}
+/* 月 */
+.fzrq_y {
+	left: 171.0mm;
+    top: 305mm;
+	width: 28.0mm;
+	font-weight: bold;
+}
+/* 日 */
+.fzrq_r {
+	left:186mm;
+	top: 305mm;
+	width: 28.0mm;
+	font-weight: bold;
+}
+
+/*公示系统网址*/
+.xy_address {
+	left: 74.0mm;
+	top: 479.0mm;
+	width: 80.0mm;
+}
+/*执照内容提示*/
+</style>
+</head>
+<body>
+	<!-- container start -->
+	<div class="container">
+		<!-- 营业执照标题 -->
+		<div class="printDiv printLabel uniscid_name" id="uniscid_name">统一社会信用代码</div>
+		<div class="printDiv printLabel mc_name" id="mc_name">名称</div>
+		<div class="printDiv printLabel qylx_name" id="qylx_name">类型</div>
+		<div class="printDiv printLabel fr_name" id="fr_name">法定代表人</div>
+		<div class="printDiv printLabel dz_name" id="dz_name">住所</div>
+		<div class="printDiv printLabel zczb_name" id="zczb_name">注册资本</div>
+		<div class="printDiv printLabel clrq_name" id="clrq_name">成立日期</div>
+		<div class="printDiv printLabel yynx_name" id="yynx_name">营业期限</div>
+		<div class="printDiv printLabel jyfw_name" id="jyfw_name">经营范围</div>
+		<div class="printDiv printLabel qrcode" id="qrcode">在线扫码获取详细信息</div>
+		<div class="printDiv year_report" id="year_report">提示：每年1月1日至6月30日通过企业信用信息公示系统报送上一年度年度报告并公示。</div>
+	
+		<!-- 企业证件内容，只要后台数据库字段（驼峰）的name与此次的name一致，这里下方的内容会自动修改 -->
+		<div class="printDiv printDetail uniscid" name="uniscid" id="uniscid">91110108MA006NPD8G</div>
+		<div class="printDiv printDetail mc" name="mc" id="mc">北京吴测试整体流程科技有限公司</div>
+		<div class="printDiv printDetail dz" name="dz" id="dz">北京市海淀区中关村东路23号</div>
+		<div class="printDiv printDetail entfr" name="fr" id="fr">郭明海</div>
+		<div class="printDiv printDetail qylx" name="qylx" id="qylx">其他有限责任公司</div>
+		<div class="printDiv printDetail jyfw" name="jyfw" id="jyfw">技术服务；废弃电器电子产品处理、国际船舶运输；技术服务。（企业依法自主选择经营项目，开展经营活动；废弃电器电子产品处理、国际船舶运输以及依法须经批准的项目，经相关部门批准后依批准的内容开展经营活动；不得从事本市产业政策禁止和限制类项目的经营活动。）</div>
+		<div class="printDiv printDetail zczb" name="zczb" id="zczb">300万元</div>
+		<div class="printDiv printDetail clrq" name="clrq" id="clrq">2016年07月28日</div>
+		<div class="printDiv printDetail yynx" name="yynx" id="yynx">2016年07月28日 至 2046年07月27日</div>
+		<div class="printDiv printDetail fzrq_n" name="fzrq_n" id="fzrq_n">2016</div>
+		<div class="printDiv printDetail fzrq_y" name="fzrq_y" id="fzrq_y">07</div>
+		<div class="printDiv printDetail fzrq_r" name="fzrq_r" id="fzrq_r">28</div>
+		<!-- <div class="printDiv printDetail xy_address" name="xy_address" id="xy_address">qyxy.baic.gov.cn</div> -->
+
+	</div>
+	<!-- container ended -->
+
+	<!-- 构建页面==结束 -->
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" data-main="approve/queryReqHistoryTorch.js" src="../../../static/lib/require.js"></script>
+</body>
+</html>

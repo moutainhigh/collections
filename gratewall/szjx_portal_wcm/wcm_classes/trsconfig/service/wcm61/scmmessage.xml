@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.scm.service.SCMMessageServiceProvider">
+	
+	<method name="queryUnReadMessages">
+	</method>
+	
+	<method name="setMessageRead">		
+		<parameter name="AccountId" desc="账号" type="int" required="true"/>	
+		<parameter name="MessageType" desc="消息类型" type="int" required="true"/>		
+	</method>
+	 
+</service>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="sys_rd_standard_column" class-name="cn.gwssi.dw.rd.standard.dao.SysRdStandardColumn" check-flag="false" backup-flag="false">
+    <description>指标项</description>
+  </table-info>
+
+  <column name="sys_rd_standard_column_id" data-type="varchar" length="32" not-null="true" value-from="input" description="指标项ID"/>
+  <column name="sys_rd_standard_table_id" data-type="varchar" length="32" not-null="false" value-from="input" description="信息实体ID"/>
+  <column name="data_element_identifier" data-type="varchar" length="10" not-null="false" value-from="input" description="数据元标识符"/>
+  <column name="cn_name" data-type="varchar" length="100" not-null="false" value-from="input" description="指标项名称"/>
+  <column name="column_name" data-type="varchar" length="100" not-null="false" value-from="input" description="字段名称"/>
+  <column name="column_type" data-type="varchar" length="2" not-null="false" value-from="input" description="数据类型"/>
+  <column name="column_format" data-type="varchar" length="32" not-null="false" value-from="input" description="格式"/>
+  <column name="code_identifier" data-type="varchar" length="10" not-null="false" value-from="input" description="代码标识符"/>
+  <column name="memo" data-type="varchar" length="2000" not-null="false" value-from="input" description="备注"/>
+  <primary-key name="pk_jc_standard_column" column-list="sys_rd_standard_column_id"/>
+  <index name="pk_jc_standard_column" index-type="unique" cluster="cluster" column-list="sys_rd_standard_column_id"/>
+  <function func-name="select one sys_rd_standard_column" func-type="select" column-list="sys_rd_standard_column_id,sys_rd_standard_table_id,data_element_identifier,cn_name,column_name,column_type,column_format,code_identifier,memo">
+    <filter-column column-name="sys_rd_standard_column_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_rd_standard_column list" func-type="rowset" column-list="sys_rd_standard_column_id,sys_rd_standard_table_id,data_element_identifier,cn_name,column_name,column_type,column_format,code_identifier,memo" max-record="10">
+    <filter-column column-name="sys_rd_standard_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="column_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="cn_name" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_rd_standard_column" func-type="insert" column-list="sys_rd_standard_column_id,sys_rd_standard_table_id,data_element_identifier,cn_name,column_name,column_type,column_format,code_identifier,memo">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_rd_standard_column" func-type="delete">
+    <filter-column column-name="sys_rd_standard_column_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_rd_standard_column" func-type="update" column-list="sys_rd_standard_column_id,sys_rd_standard_table_id,data_element_identifier,cn_name,column_name,column_type,column_format,code_identifier,memo">
+    <filter-column column-name="sys_rd_standard_column_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

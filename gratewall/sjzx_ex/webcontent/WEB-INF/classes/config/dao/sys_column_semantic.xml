@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="sys_column_semantic" class-name="com.gwssi.dw.metadata.datadict.dao.SysColumnSemantic" check-flag="false" backup-flag="false">
+    <description>业务表字段语义</description>
+  </table-info>
+
+  <column name="table_no" data-type="varchar" length="32" not-null="true" unique="false" value-from="input" description="业务表编码"/>
+  <column name="column_no" data-type="varchar" length="32" not-null="true" unique="true" value-from="generate" func-name="getUUID" description="业务字段编码"/>
+  <column name="column_name" data-type="varchar" length="60" not-null="true" value-from="input" description="业务字段名"/>
+  <column name="column_name_cn" data-type="varchar" length="100" not-null="true" value-from="input" description="业务字段中文名"/>
+  <column name="column_order" data-type="integer" length="10" not-null="false" value-from="input" description="检索顺序"/>
+  <column name="edit_type" data-type="char" length="2" not-null="true" value-from="input" description="编辑类型"/>
+  <column name="edit_content" data-type="varchar" length="100" not-null="false" value-from="input" description="编辑内容"/>
+  <column name="demo" data-type="varchar" length="100" not-null="false" value-from="input" description="备注"/>
+  <column name="column_byname" data-type="varchar" length="60" not-null="false" empty-is-null="false" unique="false" value-from="input" description="业务字段别名"/>
+  <primary-key name="p_key_1" column-list="column_no"/>
+  <index name="sql080418142101460" index-type="unique" cluster="other" column-list="column_no"/>
+  <index name="idx_ywbzdyy_ywbbm" index-type="other" cluster="other" column-list="table_no,column_order"/>
+  <foreign-key foreign-table="sys_table_semantic" foreign-type="one-to-many" on-delete="none" on-update="none" column-names="table_no" foreign-names="table_no"/>
+  <function func-name="select one sys_column_semantic" func-type="select" column-list="table_no,column_no,column_name,column_name_cn,column_order,edit_type,edit_content,demo,sys_table_semantic.sys_id,column_byname">
+    <filter-column column-name="column_no" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_column_semantic list" func-type="rowset" column-list="table_no,column_no,column_name,column_name_cn,column_order,edit_type,edit_content,demo,sys_table_semantic.sys_id,sys_table_semantic.table_name_cn,sys_table_semantic.table_name" sort-columns="column_name_cn" max-record="10">
+    <filter-column column-name="table_no" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="column_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="column_name_cn" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_table_semantic.sys_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_column_semantic" func-type="insert" column-list="table_no,column_no,column_name,column_name_cn,column_order,edit_type,edit_content,demo,column_byname">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_column_semantic" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_column_semantic" func-type="update" column-list="table_no,column_name,column_name_cn,column_order,edit_type,edit_content,demo,column_byname">
+    <description>修改记录</description>
+  </function>
+</table>
+

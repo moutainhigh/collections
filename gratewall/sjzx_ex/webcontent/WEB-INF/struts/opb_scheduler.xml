@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>调度执行任务</menu-name>
+  <menu-path>/page/resource/res/runmgr/etl/etlsvr/</menu-path>
+  <description>调度执行任务</description>
+  <form-beans>
+    <form-bean name="OpbSchedulerRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="scheduler_id" type="long" description="主键"/>
+      <form-property prefix="select-key" name="scheduler_name" type="string" size="240" description="调度任务名称"/>
+      <form-property prefix="select-key" name="workflow_id" type="string" size="240" description="WorkFlow_Id"/>
+      <form-property prefix="select-key" name="dbuser" type="string" size="240" description="数据库用户"/>
+      <form-property prefix="record" name="scheduler_id" type="long" cannull="true" description="主键"/>
+      <form-property prefix="record" name="start_time" type="string" size="30" cannull="true" description="开始时间"/>
+      <form-property prefix="record" name="end_time" type="string" size="30" cannull="true" description="结束时间"/>
+      <form-property prefix="record" name="run_options" type="long" cannull="true" description="运行选项"/>
+      <form-property prefix="record" name="end_options" type="long" cannull="true" description="结束选项"/>
+      <form-property prefix="record" name="scheduler_name" type="string" size="240" cannull="true" description="调度任务名称"/>
+      <form-property prefix="record" name="run_count" type="long" cannull="true" description="运行次数"/>
+      <form-property prefix="record" name="delta_value" type="long" cannull="true" description="抽取周期"/>
+      <form-property prefix="record" name="run_status_code" type="long" cannull="true" description="运行状态代码"/>
+      <form-property prefix="record" name="has_failed_tasks" type="long" cannull="true" description="是否有失败任务"/>
+      <form-property prefix="record" name="run_err_code" type="long" cannull="true" description="运行错误代码"/>
+      <form-property prefix="record" name="run_err_msg" type="long" cannull="true" description="运行错误信息"/>
+    </form-bean>
+
+    <form-bean name="OpbSchedulerUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="scheduler_id" type="long" cannull="true" description="主键"/>
+      <form-property prefix="record" name="scheduler_id" type="long" cannull="true" description="主键"/>
+      <form-property prefix="record" name="start_time" type="string" size="30" cannull="true" description="开始时间"/>
+      <form-property prefix="record" name="end_time" type="string" size="30" cannull="true" description="结束时间"/>
+      <form-property prefix="record" name="run_options" type="long" cannull="true" description="运行选项"/>
+      <form-property prefix="record" name="end_options" type="long" cannull="true" description="结束选项"/>
+      <form-property prefix="record" name="scheduler_name" type="string" size="240" cannull="true" description="调度任务名称"/>
+      <form-property prefix="record" name="run_count" type="long" cannull="true" description="运行次数"/>
+      <form-property prefix="record" name="delta_value" type="long" cannull="true" description="抽取周期"/>
+      <form-property prefix="record" name="dbuser" type="string" size="240" cannull="true" description="数据库用户"/>
+    </form-bean>
+
+    <form-bean name="OpbSchedulerDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="scheduler_id" type="long" cannull="true" description="主键"/>
+    </form-bean>
+  </form-beans>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-opb_scheduler.xml" description="模板文件"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.OpbSchedulerContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoOpbScheduler" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoOpbSchedulerSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoOpbSchedulerPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

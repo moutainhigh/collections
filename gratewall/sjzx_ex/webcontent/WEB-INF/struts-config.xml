@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+	<global-forwards>
+	    <forward name="reportDisplay" path="/csdb/report/indiquery/common/reportDisplay.jsp"/>
+	    <forward name="reportPreview" path="/csdb/report/indiquery/common/reportPreview.jsp"/>
+    </global-forwards>
+	<action-mappings>
+		<action path="/indicatorYear" 
+	    	type="com.gwssi.csdb.target.targetquery.action.IndicatorYearQueryAction"  
+	    	scope="request" 
+	    	parameter="method"
+	     	unknown="false"
+	      	validate="false">
+	      <forward name="success" path="/csdb/report/indiquery/common/dbtest.jsp" />
+	      <forward name="tree" path="/csdb/report/indiquery/common/xml.jsp" />
+	    </action>
+	    
+	    <action path="/bgqXml"
+	    	type="com.gwssi.csdb.target.targetquery.action.BgqXmlAction"  
+	    	scope="request">
+	    	<forward name="xml" path="/csdb/report/indiquery/common/xml.jsp" />
+	    </action>
+	    
+	    <action path="/getPcBgq"
+	    	type="com.gwssi.csdb.target.targetquery.action.GetPcBgqAction"  
+	    	scope="request">
+	    	<forward name="xml" path="/csdb/report/indiquery/common/xml.jsp" />
+	    </action>
+	    
+	    <action path="/queryUtil"
+	    	type="com.gwssi.csdb.conmponent.queryutil.action.QueryUtilAction"  
+	    	scope="request" >
+	      <forward name="tree" path="/csdb/report/indiquery/common/xml.jsp" />
+	    </action>
+	    
+	    <action path="/saveReportAsTxt"
+	      parameter="method" type="com.gwssi.csdb.conmponent.queryutil.action.GenReportAction">
+	    </action>
+	    
+	    <action path="/adjustReport"
+	      parameter="method" type="com.gwssi.csdb.conmponent.queryutil.action.GenReportAction">
+	     <forward name="adjustReport" path="/csdb/report/indiquery/common/reportDisplay.jsp" />
+	    </action>
+	    
+	    <action path="/genGraph"
+	      parameter="method" type="com.gwssi.csdb.conmponent.queryutil.action.GenReportAction">
+	     <forward name="genGraph" path="/csdb/report/indiquery/common/statGraph.jsp" />
+	     <forward name="failure" path="/csdb/report/indiquery/common/error.jsp" />
+	    </action>
+	    
+	    <action path="/getSumValue"
+	      parameter="method" type="com.gwssi.csdb.conmponent.queryutil.action.GenReportAction">
+	     <forward name="mxs" path="/csdb/report/indiquery/common/reportDisplay.jsp" />
+	    </action>
+	    
+	    <action
+	      parameter="method"
+	      path="/changeUnit"
+	      type="com.gwssi.csdb.conmponent.queryutil.action.GenReportAction">
+	     <forward name="success" path="/csdb/report/indiquery/common/changeUnit.jsp" />
+	     <forward name="failure" path="/csdb/report/indiquery/common/error.jsp" />
+	     <forward name="goBack" path="/csdb/report/indiquery/common/reportDisplay.jsp" />
+	    </action>
+	    
+	    <action	path="/getUnitByJldwLbId" 
+	    	type="com.gwssi.csdb.conmponent.queryutil.action.GetJldwByJldwLbId" >
+	    </action>	
+	    
+	    <action	path="/genUuid" 
+	    	type="com.gwssi.csdb.conmponent.queryutil.action.GenerateUuid" >
+	    </action>  
+	    
+	    <action	path="/stats" 
+	    	type="com.gwssi.csdb.conmponent.queryutil.action.Stats" >
+	    </action>
+	    
+	    <action path="/jsh" type="com.gwssi.csdb.conmponent.queryutil.action.ZbjieshiAction"  
+    	     scope="request"
+    	     parameter="method" 
+    	     unknown="false"
+      		 validate="false">
+	      <forward name="jieshi" path="/csdb/report/indiquery/common/targetjs.jsp" />
+	      <forward name="fzjieshi" path="/csdb/report/indiquery/common/fzjieshi.jsp" />
+	    </action>
+	    
+	    <action path="/indicatorYearQuery" type="org.apache.struts.actions.ForwardAction" parameter="/csdb/report/indiquery/year/indicatorQuery.jsp"></action>
+		<action path="/indicatorMonthQuery" type="org.apache.struts.actions.ForwardAction" parameter="/csdb/report/indiquery/month/indicatorQuery.jsp"></action>
+		<action path="/indicatorQuarterQuery" type="org.apache.struts.actions.ForwardAction" parameter="/csdb/report/indiquery/quarter/indicatorQuery.jsp"></action>
+		<action path="/indicatorPcQuery" type="org.apache.struts.actions.ForwardAction" parameter="/csdb/report/indiquery/normal/indicatorQuery.jsp"></action>
+	</action-mappings>
+</struts-config>

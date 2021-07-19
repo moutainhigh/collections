@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="ad_mon_bc.xml" app-path="/dw/aic/bj/ad/wfgg/" app-name="ad_mon_bc" description="电台广告登记信息" template="single-table.xml"/>
+  <table name="ad_mon_bc.xml" app-name="ad_mon_bc" app-desc="电台广告登记信息" delete-action="delete" description="电台广告登记信息" class-name="com.gwssi.dw.aic.bj.ad.txn.TxnAdMonBc" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-ad_mon_bc.jsp" txn-code="60182301" description="查询电台广告登记信息列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加电台广告登记信息" path="insert-ad_mon_bc.jsp" description="增加电台广告登记信息" func-name="addRecord"/>
+	    <button type="button" name="修改电台广告登记信息" path="/txn60182304.do" description="修改电台广告登记信息" func-name="updateRecord"/>
+	    <button type="button" name="删除电台广告登记信息" path="/txn60182305.do" description="删除电台广告登记信息" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60182301.do" description="查询电台广告登记信息信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-ad_mon_bc.jsp" txn-code="60182303" description="增加电台广告登记信息信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60182303.do" description="保存电台广告登记信息信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60182303.do" description="保存电台广告登记信息信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60182301.do" description="保存电台广告登记信息信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60182301.do" description="返回到电台广告登记信息明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-ad_mon_bc.jsp" txn-code="60182302" description="修改电台广告登记信息信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60182301.do" description="修改电台广告登记信息信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60182301.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-ad_mon_bc.jsp" txn-code="60182301" description="查询电台广告登记信息列表">
+	    <forward error-code="success" path="query-ad_mon_bc.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-ad_mon_bc.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-ad_mon_bc.jsp" txn-code="60182302" description="修改电台广告登记信息信息">
+	    <forward error-code="success" path="update-ad_mon_bc.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-ad_mon_bc.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-ad_mon_bc.jsp" txn-code="60182303" description="增加电台广告登记信息信息">
+	    <forward error-code="success" path="insert-ad_mon_bc.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-ad_mon_bc.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-ad_mon_bc.jsp" txn-code="60182304" description="查询电台广告登记信息用于修改">
+	    <forward error-code="success" path="update-ad_mon_bc.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-ad_mon_bc.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-ad_mon_bc.jsp" txn-code="60182305" description="删除电台广告登记信息信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.vo.AdMonBcContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.vo.VoAdMonBc" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.vo.VoAdMonBcSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.vo.VoAdMonBcPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

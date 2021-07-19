@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="share_service_condition" class-name="com.gwssi.share.service.dao.ShareServiceCondition" check-flag="false" backup-flag="false">
+    <description>服务条件表</description>
+  </table-info>
+
+  <column name="condition_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="服务查询条件ID"/>
+  <column name="service_id" data-type="varchar" length="32" not-null="false" value-from="input" description="服务ID"/>
+  <column name="frist_connector" data-type="varchar" length="20" not-null="false" value-from="input" description="连接符1"/>
+  <column name="left_paren" data-type="varchar" length="20" not-null="false" value-from="input" description="左括号"/>
+  <column name="table_name_en" data-type="varchar" length="100" not-null="false" value-from="input" description="表名称"/>
+  <column name="table_name_cn" data-type="varchar" length="100" not-null="false" value-from="input" description="表中文名称"/>
+  <column name="column_name_en" data-type="varchar" length="100" not-null="false" value-from="input" description="字段名称"/>
+  <column name="column_name_cn" data-type="varchar" length="100" not-null="false" value-from="input" description="字段中文名称"/>
+  <column name="second_connector" data-type="varchar" length="20" not-null="false" value-from="input" description="连接符2"/>
+  <column name="param_value" data-type="varchar" length="32" not-null="false" value-from="input" description="参数值"/>
+  <column name="param_type" data-type="varchar" length="20" not-null="false" value-from="input" description="参数值类型"/>
+  <column name="right_paren" data-type="varchar" length="20" not-null="false" value-from="input" description="右括号"/>
+  <column name="show_order" data-type="long" length="0" not-null="false" value-from="input" description="显示顺序"/>
+  <column name="need_input" data-type="varchar" length="1" not-null="false" value-from="input" description="是否需要参数"/>
+  <primary-key name="pk_share_service_condition" column-list="condition_id"/>
+  <index name="pk_share_service_condition" index-type="unique" cluster="cluster" column-list="condition_id"/>
+  <function func-name="insert one share_service_condition" func-type="insert" column-list="condition_id,service_id,frist_connector,left_paren,table_name_en,table_name_cn,column_name_en,column_name_cn,second_connector,param_value,param_type,right_paren,show_order,need_input">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one share_service_condition" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one share_service_condition" func-type="update">
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="select share_service_condition list" func-type="rowset" column-list="condition_id,service_id,frist_connector,left_paren,table_name_en,table_name_cn,column_name_en,column_name_cn,second_connector,param_value,param_type,right_paren,show_order,need_input" max-record="10">
+    <filter-column column-name="service_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="need_input" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="select one share_service_condition" func-type="select" column-list="condition_id,service_id,frist_connector,left_paren,table_name_en,table_name_cn,column_name_en,column_name_cn,second_connector,param_value,param_type,right_paren,show_order,need_input">
+    <description>单记录查询</description>
+  </function>
+</table>
+

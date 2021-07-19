@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+<style>
+body {
+	margin-right: 0;
+	overflow-x: hidden;
+	width:580px;
+}
+.jazz-form-text-label{
+	font-size:14px;
+}
+.censor-div {
+	border: 2px solid #2488C6;
+	background: #f6f6f6;
+	 height: 450px; 
+	/* border-right: none; */
+	width:580px;
+	margin-left:5px;
+}
+.dotted-line{
+	width:100%;
+	border:1px dotted #71b0e0;
+	margin-top:10px;
+}
+.jazz-panel-content {
+	background: #f6f6f6;
+}
+
+#censor-help {
+	margin: 2px 5px 0;
+	font-family: "Microsoft YaHei";
+}
+/* .jazz-checkbox-label{
+	color:#71b0e0;
+} */
+#showMemo {
+/* 	float: left; */
+	margin-left: 80px;
+	/* margin-top: -36px; */
+	display: block;
+	text-decoration: underline;
+    color: #71b0e0;
+    margin-top:7px;
+}
+.jazz-field-comp-input{
+	padding-left:5px;
+	
+}
+.jazz-field-comp{
+	margin: 2px 0 8px;
+}
+/*toolBar样式开始*/
+.toolBar {
+	/* margin-left: 160px; */
+    /* margin-bottom: 10px; */
+    margin: 0 auto;
+    width: 180px;
+}
+.commonBt{
+	margin:0;
+}
+/*添加备注样式下方出现文本域的样式*/
+.note {
+	margin-left: 156px;
+}
+.adviceTop {
+	height: 29px;
+	background: #2488C7;
+	color: #fff;
+	margin: 1px;
+	line-height:29px;
+	padding-left:10px;
+}
+#addMemo{
+	margin-left:5px;
+}
+.cont_detail{margin-top: -8px;}
+</style>
+</head>
+<body>
+	<!-- 核准  隐藏层 -->
+	<div class="approve-hide-cover" id="approve-hide-cover"></div>
+	<div class="approve-steps" id="approve-steps">
+		<div class="approve-title" id="approve-title">核准步骤</div>
+		<div class="approve-step" id="approve-step1">
+			<span class="step-content">1、执行规则准备（搬库）</span>
+			<span class="step-result"></span>
+			<span class="step-errorinfo"></span>
+		</div>
+		<div class="approve-step" id="approve-step2">
+			<span class="step-num">2、执行规则</span>
+			<span class="step-result"></span>
+			<span class="step-errorinfo"></span>
+		</div>
+		<div class="approve-rules" id="approve-rules">
+			<table class="approve-table" id="approve-table">
+				<tr>
+					<td></td>
+					<td align="center">序号</td>
+					<td align="center">规则类型</td>
+					<td align="center">规则名称</td>
+					<td align="center">规则信息</td>
+				</tr>
+			</table>
+
+			<div id="ruleToolbar" class="ruleToolbar">
+				<span id="prompt-rule-pass" class="commonBt">通过</span>
+				<span id="special-rule-pass" class="commonBt">特殊通道</span>
+				<span id="special-rule-apply" class="commonBt">通道申请</span>
+			</div>
+
+		</div>
+
+		<div class="approve-step" id="approve-step3">
+			<span class="step-num">3、执行核准</span>
+			<span class="step-result"></span>
+			<span class="step-errorinfo"></span>
+		</div>
+
+		<div class="approve-step" id="approve-step4">
+			<span class="step-content">4、生成电子文书（准备签名）</span>
+			<span class="step-result"></span>
+			<span class="step-errorinfo"></span>
+			<span class="commonBt" id="approve-sign">签名</span>
+			<!-- 		visibility="visible|hidden" -->
+			<form name="SignForm" class="approve-SignForm" hidden="hidden">
+				<select id="UserList" name="UserList"></select>
+				<input type="hidden" name="hashcode" id="hashcode" value="" />
+			</form>
+		</div>
+
+		<div class="approve-step" id="approve-step5">
+			<span class="step-content">5、签名</span>
+			<span class="step-result"></span>
+			<span class="step-errorinfo"></span>
+		</div>
+		<div id="back_mytask" class="commonBt" style="margin: 10px 0px 0px 500px;">返回列表</div>
+
+	</div>
+	<!-- censor-div开始 -->
+	
+	<div class="censor-div">
+	
+		<!-- 构建页面==开始 -->
+		<!-- 数据展现 -->
+		<div vtype="formpanel" wid="34A8081EA5511FC9E055000000000001" name="entRuleCheck_Form" dataview="false" titleDisplay="false" title="" width="580" showborder="false" dataurl="" layout="auto">
+			<div name="gid" vtype="hiddenfield" label="主键" labelwidth="150" labelalign="right" width="600" style="margin-top:20px"></div>
+			<div name="entType" vtype="comboxfield" label="请选择企业类型" labelwidth="150" labelalign="right" width="400" tooltip="" rule="must"  dataurl="../../../dictionary/queryData.do?dicId=CA16" readonly=""></div>
+			<div class="commonBt" id="censor-help">辅助审查</div>
+		</div>
+
+		<div class="cont_detail">
+			<!-- 数据展现 -->
+			<!-- formpanel start -->
+			<div vtype="formpanel" wid="34A8081EA54F1FC9E055000000000001" name="examineOpinion_Form" dataview="false" titleDisplay="false" title="审查意见" width="580" showborder="false" dataurl="" layout="auto">
+				<div name="gid" vtype="hiddenfield" label="主键" labelwidth="150" labelalign="right" width="500"></div>
+				<div name="state" vtype="hiddenfield" labelalign="right" width="500"></div>
+				<div name="pageType" vtype="hiddenfield" labelalign="right" width="500"></div>
+				<div name="censorResult" vtype="radiofield" label="处理操作" labelwidth="150" labelalign="right" width="500" dataurl="[{checked: true,value: '10',text: '通过'},{value: '12',text: '退回修改'},{value: '13',text: '驳回'}]" tooltip="" rule="" readonly=""></div>
+				<div name="censorNotion" class="censorNotion" vtype="textareafield" label="审查意见" labelwidth="150" labelalign="right" width="500" tooltip="" rule="length;0,1000" readonly=""></div>
+				<div name="censorName" vtype="textfield" label="审查人" labelwidth="150" labelalign="right" width="220" tooltip="" rule="" height="20" readonly="true"></div>
+				<div name="censorDate" vtype="datefield" label="审查时间" labelwidth="150" labelalign="right" width="300" tooltip="" rule="" readonly=""></div>
+				<div name="approveResult" vtype="radiofield" label="处理操作" labelwidth="150" labelalign="right" width="500" dataurl="[{checked: true,value: '14',text: '通过'},{value: '12',text: '退回修改'},{value: '13',text: '驳回'}]" tooltip="" rule="" readonly=""></div>
+				<div name="approveNotion" vtype="textareafield" label="核准意见" labelwidth="150" labelalign="right" width="500" tooltip="" rule="length;0,1000" height="80" readonly=""></div>
+				<div name="approveDate" vtype="datefield" label="核准时间" labelwidth="150" labelalign="right" width="300" tooltip="" rule="" readonly=""></div>
+				<div name="approveName" vtype="textfield" label="核准人" labelwidth="150" labelalign="right" width="500" tooltip="" rule="" readonly="true"></div>
+				<div name="memo" vtype="textareafield" label="备注" labelwidth="150" labelalign="right" width="500" rule="length;0,1000"></div>
+				<!-- <a href="javascript:void(0);" id="showMemo">
+					<span id="addMemo">备注:</span>
+					<span id="delMemo">取消备注:</span>
+				</a> -->
+				<!-- <div style="margin-left:110px;margin-top:10px">
+					<span style="color: #666;font-weight: bold;vertical-align: top;">备注:</span>
+					<textarea name='memo' id='addMemo' rows="2" cols="46"></textarea>
+				</div> -->
+				<!-- <div class="note">
+					<div name="memo" vtype="textareafield" label="" labelwidth="150" labelalign="right" width="342" height="70" tooltip="" rule="length;0,1000" readonly=""></div>
+				</div> -->
+				<div name="censorNo" vtype="hiddenfield" label="" labelwidth="150" labelalign="right" width="500" tooltip="" rule="" readonly=""></div>
+				<div name="censorUserId" vtype="hiddenfield" label="" labelwidth="150" labelalign="right" width="500" tooltip="" rule="" readonly=""></div>
+				<div name="approveNo" vtype="hiddenfield" label="" labelwidth="150" labelalign="right" width="500" tooltip="" rule="" readonly=""></div>
+				<div name="approveUserId" vtype="hiddenfield" label="" labelwidth="150" labelalign="right" width="500" tooltip="" rule="" readonly=""></div>
+			</div>
+			<!-- formpanel ended -->
+		</div><!-- cont_detail ended -->
+		<div class="separator"></div>
+		<div name="examineOpinionToolbar" class="toolBar">
+			<div name="examineOpinion_save_button" class="commonBt">保存</div>
+			<!-- <div name="examineOpinion_submit_button" class="commonBt">提交</div> -->
+			<div name="examineOpinion_submit_button_docSign" class="commonBt">提交</div>
+		</div>
+		<!-- toolBar ended -->
+
+	</div>
+	<!-- censor-div结束 -->
+
+
+
+
+
+	<!-- 构建页面==结束 -->
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" data-main="approve/examineOpinionTorch.js" src="../../../static/lib/require.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title WCMAnt:param="metaviewdata_addedit.jsp.title">撤销申请</title>
+<script language="javascript">
+<!--
+	var m_nChannelId = 83;
+	var m_nObjectId = 0;
+	var m_nFlowDocId = 0;	
+//-->
+</script>
+
+<script src="../../../app/application/core/core.js"></script>
+<script src="../../../app/application/core/com.trs.util/Observable.js"></script>
+<script src="../../../app/application/core/com.trs.util/CAjaxCaller.js"></script>
+<script src="../../../app/application/core/com.trs.ui/BaseComponent.js"></script>
+
+<script src="../../../app/application/core/wcm-adapter.js"></script>
+<script src="../../../app/js/source/wcmlib/core/CMSObj.js"></script>
+
+<script src="../../../app/application/core/ajax.js"></script>
+<script src="../../../app/application/core/wcm-ajax.js"></script>
+<script src="../../../app/js/source/wcmlib/core/LockUtil.js"></script>
+<!--wcm-dialog start-->
+<link href="../../../app/js/resource/widget.css" rel="stylesheet" type="text/css" />
+<link href="../../../app/css/wcm-common.css" rel="stylesheet" type="text/css" >
+<script src="../../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanel.js"></script>
+<script src="../../../app/js/source/wcmlib/Observable.js"></script>
+<script src="../../../app/js/source/wcmlib/dragdrop/dd.js"></script>
+<script src="../../../app/js/source/wcmlib/dragdrop/wcm-dd.js"></script>
+<script src="../../../app/js/source/wcmlib/Component.js"></script>
+<script src="../../../app/js/source/wcmlib/dialog/Dialog.js"></script>
+<script src="../../../app/js/source/wcmlib/dialog/DialogAdapter.js"></script>
+<script src="../../../app/js/source/wcmlib/crashboard/CrashBoard.js"></script>
+<script src="../../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></script>
+
+<script src="../../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<link href="../../../app/js/source/wcmlib/com.trs.validator/css/validator.css" rel="stylesheet" type="text/css" />
+
+<script src="../../../app/js/source/wcmlib/components/ProcessBar.js"></script>
+
+<script src="../../../app/application/core/com.trs.ui/text/XText.js"></script>
+<link href="../../../app/application/core/com.trs.ui/text/resource/XText.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/application/core/com.trs.ui/otherfield/XOtherField.js"></script>
+<link href="../../../app/application/core/com.trs.ui/otherfield/resource/XOtherField.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/application/core/com.trs.ui/docappendixes/XDocAppendixes.js"></script>
+<link href="../../../app/application/core/com.trs.ui/docappendixes/resource/XDocAppendixes.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/application/core/com.trs.ui/imgappendixes/XImgAppendixes.js"></script>
+<link href="../../../app/application/core/com.trs.ui/imgappendixes/resource/XImgAppendix.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/application/core/com.trs.ui/process/XProcess.js"></script>
+<link href="../../../app/application/core/com.trs.ui/process/resource/XProcess.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/application/core/com.trs.ui/preview/XPreview.js"></script>
+<link href="../../../app/application/core/com.trs.ui/preview/resource/XPreview.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/application/core/com.trs.ui/radio/XRadio.js"></script>
+<link href="../../../app/application/core/com.trs.ui/radio/resource/XRadio.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/application/core/com.trs.ui/select/XSelect.js"></script>
+<link href="../../../app/application/core/com.trs.ui/select/resource/XSelect.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/application/core/com.trs.ui/appendix/YUIConnection.js"></script>
+<script src="../../../app/application/core/com.trs.ui/appendix/XAppendix.js"></script>
+<link href="../../../app/application/core/com.trs.ui/appendix/resource/XAppendix.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/application/core/com.trs.ui/checkbox/XCheckbox.js"></script>
+<link href="../../../app/application/core/com.trs.ui/checkbox/resource/XCheckbox.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/classinfo/ClassInfoSelector.js"></script>
+<script src="../../../app/application/core/com.trs.ui/classinfo/XClassInfo.js"></script>
+<link href="../../../app/application/core/com.trs.ui/classinfo/resource/XClassInfo.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/application/core/com.trs.ui/ckeditor/XEditor.js"></script>
+<link href="../../../app/application/core/com.trs.ui/ckeditor/resource/XEditor.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/application/core/com.trs.ui/relateddoc/XRelatedDoc.js"></script>
+<link href="../../../app/application/core/com.trs.ui/relateddoc/resource/XRelatedDoc.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/application/core/com.trs.ui/combox/XCombox.js"></script>
+<link href="../../../app/application/core/com.trs.ui/combox/resource/XCombox.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/application/core/com.trs.ui/suggestion/XSuggestion.js"></script>
+<link href="../../../app/application/core/com.trs.ui/suggestion/resource/XSuggestion.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/application/core/com.trs.ui/calendar/XCalendar.js"></script>
+<link href="../../../app/application/core/com.trs.ui/calendar/resource/XCalendar.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/js/easyversion/calendar3.js"></script>
+<link href="../../../app/js/easyversion/resource/calendar.css" rel="stylesheet" type="text/css" />
+
+<script src="../../../app/application/core/com.trs.ui/appendix/XAppendixExt.js"></script>
+<link href="../../../app/application/core/com.trs.ui/appendix/resource/XAppendixExt.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/application/core/com.trs.ui/link/XLink.js"></script>
+<link href="../../../app/application/core/com.trs.ui/link/resource/XLink.css" rel="stylesheet" type="text/css" />
+
+<script src="../../../app/template/TemplateSelector.js"></script>
+<script src="../../../app/application/common/TemplateSelectHandler.js" type="text/javascript"></script>
+<script src="../../../app/application/common/TopSetHandler.js" type="text/javascript"></script>
+
+<script src="../../../app/application/common/metaviewdata_addedit.js"></script>
+<link href="../../../app/application/common/metaviewdata_addedit.css" rel="stylesheet" type="text/css" />
+<script language="javascript" src="metaviewdata_addedit.js" type="text/javascript"></script>
+<link href="metaviewdata_addedit_cn.css" rel="stylesheet" type="text/css" WCMAnt:locale="metaviewdata_addedit_$locale$.css"/>
+
+<script src="../../../app/application/common/jquery/js/jquery-1.6.1.min.js"></script>
+<script src="../../../app/application/common/jquery/js/jquery-ui-1.8.13.custom.min.js"></script>
+<link href="../../../app/application/common/jquery/css/ui-lightness/jquery-ui-1.8.13.custom.css" rel="stylesheet" type="text/css" />
+
+</head>
+<script>
+	//fix:firefox在使用getComputedStyle时，如果当前窗口不可见，那么将出现错误。
+	//这导致编辑器和附件管理这个iframe嵌套在jquery的tab下时将引发错误。
+	//目前通过单击指定的tab时再加载进行解决
+	(function(){
+		/**
+		*container节点中是否包含dom节点
+		*/
+		var contains = function(container, dom){
+			if(container.contains) return container.contains(dom);
+			while(dom && dom.tagName != 'BODY'){
+				if(container == dom) return true;
+				dom = dom.parentNode;
+			}
+			return false;
+		}
+		//初始化tab控件
+		jQuery.noConflict()(function() {
+			jQuery("#tabs").tabs({
+				show: function(event, ui) {
+					//已经加载，则不再加载
+					if(ui.panel.getAttribute("__init__")) return;
+					ui.panel.setAttribute("__init__", "1");
+
+					//遍历页面所有的延迟加载控件，包括编辑器及附件管理
+					var components = com.trs.ui.ComponentMgr.getAllLazyRenderComponents();
+					for(var index = 0; index < components.length; index++){
+						var component = components[index];
+
+						//对延迟加载的元素进行初始化
+						var renderTo = $(component.getProperty('renderTo'));
+						if(contains(ui.panel, renderTo)){
+							component.render();
+						}
+					}
+
+					// 延迟加载产品细览页面
+					if(ui.panel.id == "tabs-5"){
+						$("frmDetail").src = "http://www.haier.com/cn/consumer/laundry/gtxyj/201107/t20110702_15352.shtml";
+					}
+				}
+			});
+		});
+	})();
+</script>
+<body>
+
+<div class="box" id="data" action="metaviewdata_addedit_dowith.jsp" serviceId="wcm61_metaviewdata" methodName="saveMetaViewData">
+	<input type="hidden" name="objectId" id="objectId" value="0" />
+	<input type="hidden" name="flowdocId" id="flowdocId" value="0" />
+	<input type="hidden" name="channelId" id="channelId" value="0" />
+	
+	<div id="tabs">
+		<ul>
+			
+			<li>
+				<a href="#tabs-4">撤销请求</a>
+			</li>
+		
+			<li>
+				<a href="#tabs-5">已发布的页面</a>
+			</li>		
+			
+			<li>
+				<a href="#tabs-process" WCMAnt:param="metaviewdata_addedit.jsp.process">处理情况</a>
+			</li>
+			
+		</ul>
+		
+		
+		<div id="tabs-4">
+			<div class="row" style=''>
+				<div class="label">标题</div>
+				<div class="sep">：</div>
+				<div class="value">
+					XXXXX撤销发布申请
+				</div>						
+			</div>
+
+			<div class="row" style=''>
+				<div class="label">撤销理由</div>
+				<div class="sep">：</div>
+				<div class="value">
+					<!--普通文本-->
+					<script language="javascript">
+					<!--
+						new com.trs.ui.XTextArea({
+							disabled : 0,
+							name : 'ddesc',
+							value : '产品已经下架',
+							validation:"type:'string',required:'0',max_len:'200',desc:'标题'"
+						}).render();
+					//-->
+					</script>
+				</div>						
+			</div>
+		</div>
+		
+		<div id="tabs-5">
+			<iframe id="frmDetail" style="height:600px;border:0;"></iframe>
+		</div>			
+		
+
+		<div id="tabs-process">
+			<div class="row">
+					<script language="javascript">
+					<!--
+						var oProcessHTML = new com.trs.ui.XProcess({
+							name : 'workflowprocess',
+							objectId : '0',
+							FlowDocId : '1'
+						});
+						//oProcessHTML.render();
+					//-->
+					</script>
+			</div>
+		</div>
+		
+		
+</div>
+<div class="buttonBox" id="CommandButtons" >
+		<button id="btnSaveAndClose" onclick="saveData(true);return false;" WCMAnt:param="metaviewdata_addedit.jsp.saveclose">保存并关闭</button>&nbsp;&nbsp;&nbsp;
+		<button onclick="window.close();" WCMAnt:param="metaviewdata_addedit.jsp.close">关&nbsp;&nbsp;闭</button>
+	</div>
+</div>
+</body>
+</html>

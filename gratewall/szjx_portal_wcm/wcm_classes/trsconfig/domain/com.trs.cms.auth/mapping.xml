@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="GB2312"?>
+<mapping>
+	<description>Auth config mapping</description>
+	<class name="com.trs.cms.auth.config.RightObjectConfig" 
+		identity="ClassName" auto-complete="true">
+		<map-to xml="right-object"/>
+		<field name="name">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		<field name="ClassName">
+			<bind-xml name="ClassName" node="attribute"/>
+		</field>
+	</class>
+	<class name="com.trs.cms.auth.config.RightHostConfig" identity="ClassName" 
+		auto-complete="true">
+		<map-to xml="right-host"/>
+		<field name="name">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		<field name="ClassName">
+			<bind-xml name="ClassName" node="attribute"/>
+		</field>
+	</class>
+	<!--config for operation begin-->
+	<class name="com.trs.cms.auth.config.OperationConfig" identity="name" 
+		auto-complete="true">
+		<map-to xml="operation" />
+		<field name="name">
+			<bind-xml name="name" node="attribute" />
+		</field>
+		<field name="dispName">
+			<bind-xml name="disp-name" node="element" />
+		</field>
+		<field name="type">
+			<bind-xml name="type" node="element" />
+		</field>
+		<field name="desc">
+			<bind-xml name="desc" node="element" />
+		</field>
+		<field name="index" type="integer">
+			<bind-xml name="index" node="element" />
+		</field>
+		<field name="includeOperations" 
+			type="com.trs.cms.auth.config.OperationRelatedConfig">
+			<bind-xml name="reverse-cancel" />
+		</field>
+		<field name="depends" type="com.trs.cms.auth.config.OperationRelatedConfig">
+			<bind-xml name="depends" />
+		</field>
+	</class>
+	<class name="com.trs.cms.auth.config.OperationRelatedConfig" identity="operation" 
+		auto-complete="true">
+		<map-to xml="depends" />
+		<field name="operations" collection="collection" 
+			type="com.trs.cms.auth.config.OperationConfig">
+			<bind-xml name="operation-name" node="element" reference="true"/>
+		</field>
+	</class>
+
+	<class name="com.trs.cms.auth.config.OperationDefineOnCurrChannelConfig" identity="name" 
+		auto-complete="true">
+		<map-to xml="operations-define-on-current-channel" />
+		<field name="SiteId" type="integer">
+			<bind-xml name="siteid" node="attribute" />
+		</field>
+		<field name="operations" collection="collection" 
+			type="com.trs.cms.auth.config.OperationConfig">
+			<bind-xml name="operation-name" node="element" reference="true"/>
+		</field>
+	</class>
+
+	<!--config for operation end-->
+</mapping>

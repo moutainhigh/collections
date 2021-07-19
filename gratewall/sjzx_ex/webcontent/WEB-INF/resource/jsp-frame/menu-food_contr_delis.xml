@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="主从表[主表通过导航按钮，维护子表信息]" page="master-detail-table-2.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="multi-table-2.gif"/>
+  <struts name="food_contr_delis.xml" app-path="/dw/aic/bj/reg/foo/" app-name="food_contr_delis" description="企业退市" template="master-detail-table-2.xml"/>
+  <table name="food_contr_delis.xml" app-name="food_contr_delis" app-desc="企业退市" delete-action="delete" description="企业退市" class-name="com.gwssi.dw.aic.bj.reg.foo.txn.TxnFoodContrDelis" template="master-detail-table-2.master.java" dao-class-template="single-table.java" type="master">
+	  <jsp page-name="query-food_contr_delis.jsp" txn-code="60147001" description="查询企业退市列表" template="master-detail-2/master-table-query.jsp">
+	    <button type="button" name="增加企业退市" path="insert-food_contr_delis.jsp" description="增加企业退市" func-name="addRecord"/>
+	    <button type="button" name="修改企业退市" path="/txn60147004.do" description="修改企业退市" func-name="updateRecord"/>
+	    <button type="button" name="删除企业退市" path="/txn60147005.do" description="删除企业退市" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60147001.do" description="查询企业退市信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-food_contr_delis.jsp" txn-code="60147003" description="增加企业退市信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60147003.do" description="保存企业退市信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60147003.do" description="保存企业退市信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60147001.do" description="保存企业退市信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60147001.do" description="返回到企业退市明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-food_contr_delis.jsp" txn-code="60147002" description="修改企业退市信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60147001.do" description="修改企业退市信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60147001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-food_contr_delis.jsp" txn-code="60147001" description="查询企业退市列表">
+	    <forward error-code="success" path="query-food_contr_delis.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-food_contr_delis.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-food_contr_delis.jsp" txn-code="60147002" description="修改企业退市信息">
+	    <forward error-code="success" path="update-food_contr_delis.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-food_contr_delis.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-food_contr_delis.jsp" txn-code="60147003" description="增加企业退市信息">
+	    <forward error-code="success" path="insert-food_contr_delis.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-food_contr_delis.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-food_contr_delis.jsp" txn-code="60147004" description="查询企业退市用于修改">
+	    <forward error-code="success" path="update-food_contr_delis.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-food_contr_delis.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-food_contr_delis.jsp" txn-code="60147005" description="删除企业退市信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.foo.vo.FoodContrDelisContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.foo.vo.VoFoodContrDelis" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.foo.vo.VoFoodContrDelisSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.foo.vo.VoFoodContrDelisPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="food_contr_task.xml" app-name="food_contr_task" app-desc="市场控制任务" delete-action="delete" description="市场控制任务" class-name="com.gwssi.dw.aic.bj.reg.foo.txn.TxnFoodContrTask" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60147011">
+	  <jsp page-name="food_contr_task/query-food_contr_task.jsp" txn-code="60147011" description="查询市场控制任务列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加市场控制任务" path="food_contr_task/insert-food_contr_task.jsp" description="增加市场控制任务" func-name="addRecord"/>
+	    <button type="button" name="修改市场控制任务" path="/txn60147014.do" description="修改市场控制任务" func-name="updateRecord"/>
+	    <button type="button" name="删除市场控制任务" path="/txn60147015.do" description="删除市场控制任务" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60147001.do" description="返回到企业退市明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60147011.do" description="查询市场控制任务信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="food_contr_task/insert-food_contr_task.jsp" txn-code="60147013" description="增加市场控制任务信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60147013.do" description="保存市场控制任务信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60147013.do" description="保存市场控制任务信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60147011.do" description="保存市场控制任务信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60147011.do" description="返回到市场控制任务明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="food_contr_task/update-food_contr_task.jsp" txn-code="60147012" description="修改市场控制任务信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60147011.do" description="修改市场控制任务信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60147011.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="food_contr_task/query-food_contr_task.jsp" txn-code="60147011" description="查询市场控制任务列表">
+	    <forward error-code="success" path="food_contr_task/query-food_contr_task.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="food_contr_task/query-food_contr_task.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="food_contr_task/update-food_contr_task.jsp" txn-code="60147012" description="修改市场控制任务信息">
+	    <forward error-code="success" path="food_contr_task/update-food_contr_task.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="food_contr_task/update-food_contr_task.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_contr_task/insert-food_contr_task.jsp" txn-code="60147013" description="增加市场控制任务信息">
+	    <forward error-code="success" path="food_contr_task/insert-food_contr_task.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="food_contr_task/insert-food_contr_task.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_contr_task/query-food_contr_task.jsp" txn-code="60147014" description="查询市场控制任务用于修改">
+	    <forward error-code="success" path="food_contr_task/update-food_contr_task.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="food_contr_task/update-food_contr_task.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="food_contr_task/query-food_contr_task.jsp" txn-code="60147015" description="删除市场控制任务信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.foo.vo.FoodContrTaskContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.foo.vo.VoFoodContrTask" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.foo.vo.VoFoodContrTaskSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.foo.vo.VoFoodContrTaskPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+</resource>

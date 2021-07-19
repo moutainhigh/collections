@@ -1,0 +1,92 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="website_likecopy.html.title">类似创建站点</title>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<script src="../js/data/locale/website.js"></script>
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog end-->
+<!--ProcessBar Start-->
+<script src="../../app/js/source/wcmlib/components/ProcessBar.js"></script>
+<link rel="stylesheet" type="text/css" href="../../app/css/wcm-common.css">
+<link rel="stylesheet" type="text/css" href="../../app/js/source/wcmlib/components/processbar.css">
+<!--ProcessBar End-->
+
+<script language="javascript">
+window.m_fpCfg = {
+	m_arrCommands : [{
+		cmd : 'createSite',
+		name : wcm.LANG.WEBSITE_TRUE||'确定'
+	}],
+	size : [400, 100]
+};
+</script>
+<script>
+
+	function createSite(){
+        ProcessBar.start(wcm.LANG.WEBSITE_5||"执行类似创建站点..");
+        var oHelper = new com.trs.web2frame.BasicDataHelper();
+        oHelper.Call('wcm6_website', 'createFrom', {
+            SrcSiteId:getParameter('siteid'),
+            ContainsRelated : document.getElementsByName("ContainsRelated")[0].checked ? 1 : 0
+        }, false, function(_oTrans, _json){
+            ProcessBar.close();
+            Ext.Msg.report(_json, wcm.LANG.WEBSITE_6||'报告', function(){
+                //$dialog().hide(); 
+                var isSuccess = com.trs.util.JSON.value(_json, 'REPORTS.IS_SUCCESS');
+                if(isSuccess.toLowerCase() == 'false') return;
+                try{
+                    //var treeWindow = $nav();
+                    //var mainWindow = $main();
+                    var objectIds = $v(_json, 'REPORTS.OBJECTIDS.OBJECTID');
+                    var objectId = Array.isArray(objectIds) ? $v(objectIds[0],'') : objectIds;
+                    notifyFPCallback(objectId);
+                    FloatPanel.close();
+                }catch(error){
+                    //TODO logger
+                    //alert(error.message);
+                }
+                FloatPanel.hide();
+            });	
+        });
+        return false;
+	}
+</SCRIPT>
+<style type="text/css">
+	#divContainer{
+		background: #ffffff;
+		padding:5px;
+	}
+	body{
+		background:whitesmoke;
+        font-size:12px;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<div id="divContainer">
+	<div id="">
+        <span WCMAnt:param="website_likecopy.html.syn">是否同步创建站点的模板和扩展字段:</span>
+        <span>
+            <input type="radio" name="ContainsRelated" value="1" checked><span WCMAnt:param="website_likecopy.html.true">是</span>
+            <input type="radio" name="ContainsRelated" value="0"><span WCMAnt:param="website_likecopy.html.false">否</span>
+        </span>
+	</div>
+</div>
+</BODY>
+</HTML>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="res_business_topics" class-name="com.gwssi.resource.share.dao.ResBusinessTopics" check-flag="false" backup-flag="false">
+    <description>业务主题表</description>
+  </table-info>
+
+  <column name="business_topics_id" data-type="varchar" length="32" not-null="true" value-from="input" description="业务主题ID"/>
+  <column name="service_targets_id" data-type="varchar" length="32" not-null="false" value-from="input" description="服务对象ID"/>
+  <column name="topics_name" data-type="varchar" length="100" not-null="false" value-from="input" description="主题名称"/>
+  <column name="topics_no" data-type="varchar" length="10" not-null="false" value-from="input" description="主题编号"/>
+  <column name="topics_desc" data-type="varchar" length="2000" not-null="false" value-from="input" description="主题描述"/>
+  <column name="show_order" data-type="long" length="0" not-null="false" value-from="input" description="显示顺序"/>
+  <primary-key name="pk_res_business_topics" column-list="business_topics_id"/>
+  <index name="pk_res_business_topics" index-type="unique" cluster="cluster" column-list="business_topics_id"/>
+  <function func-name="select one res_business_topics" func-type="select" column-list="business_topics_id,service_targets_id,topics_name,topics_no,topics_desc,show_order">
+    <description>单记录查询</description>
+  </function>
+</table>
+

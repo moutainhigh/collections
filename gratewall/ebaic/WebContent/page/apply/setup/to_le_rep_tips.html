@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8">
+<title>北京工商网上登记申请平台全程电子化</title>
+<link href="../../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/common.css" rel="stylesheet" type="text/css" />
+<style>
+body {
+	font-family: "微软雅黑";
+}
+
+
+article{
+	background: #fff;
+}
+
+
+.content {
+	text-align: center;
+	margin: 0px auto;
+	/* width:590px; */
+	width:80%;
+	border: 1px solid #72B0E1;
+	padding-bottom: 20px;
+	height: 300px;
+}
+
+
+.titleLine {
+	height: 32px;
+	background: #72B0E1;
+	line-height: 32px;
+}
+
+.textLeft {
+	float: left;
+	margin-left: 10px;
+	color: #fff;
+}
+
+.textRight {
+	float: right;
+	background: #72B0E1;
+	text-decoration: underline;
+	color: #fff;
+	margin-right: 90px;
+	cursor: pointer;
+}
+
+ .commonBt {
+	width: 120px;
+	/*  background-color:#48b36f;  */
+	margin-top: 10px;
+} 
+
+/* .commonBt:hover {
+	width: 120px;
+	background-color: #2488c7;
+	margin-top: 10px;
+} */
+
+h2 {
+	border-bottom: 1px dashed #666;
+	width: 80%;
+	margin: 10px auto;
+	text-align: left;
+	font-size: 16px;
+	padding-left: 18px;
+	font-weight: bold;
+	padding-bottom: 10px;
+}
+
+p {
+	text-align: justify;
+	/* text-indent:2em; */
+	/* width: 500px; */
+	width:620px;
+	margin: 10px auto;
+}
+
+#backToAppUser {
+	text-decoration: underline;
+	color: #f88c23;
+}
+
+.btns{
+	width: 450px; 
+	margin: 30px auto;
+}
+</style>
+
+
+</head>
+<body>
+	<!-- 构建页面==开始 -->
+	<article>
+		<div class="content">
+			<div class="titleLine">
+				<span class="textLeft">
+					<span>
+						<img src="../../../static/image/img/icon/info-white.png" width="14px" />
+					</span>
+					选择提交方式
+				</span>
+				<div id="showApplyDetail" class="textRight">查看申请内容</div>
+			</div>
+			<div>
+				<h2 >操作提示</h2>
+				<p>1、<span>工商登记全程电子化业务申请必须经过企业法定代表人对申请内容进行确认后才允许提交，<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;提交后申请内容如有修改，仍需法定代表人再次确认。</span></p>
+				<p>2、法定代表人不能及时完成上述操作的，可授权申请人代为确认。</p>
+				<p>3、<span>无论选择何种提交方式，均表示法定代表人对全部申请内容予以确认，并承担相应的法律责<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;任。</span></p>
+				<p>
+					4、如发现申请内容存在问题，可将申请退回给申请人修改。
+					<a href='#' id="backToAppUser">退回申请人</a>
+				</p>
+			</div>
+		</div >
+		 <div class="btns">
+				<div id="submitToLeRep" class="commonBt">确认并提交</div>
+				<div id="applyAuth" class="commonBt">授权申请人提交</div>
+				<div id="cancel" class="commonBt">返回</div>
+		</div>
+	</article>
+	<!-- 构建页面==结束 -->
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" data-main="apply/toLeRep.js" src="../../../static/lib/require.js"></script>
+
+</body>
+</html>
+

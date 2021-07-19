@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>日志查询</sort-name>
+  <table-info name="log_report_create" class-name="com.gwssi.log.report.dao.LogReportCreate" check-flag="false" backup-flag="false">
+    <description>日志报告生成</description>
+  </table-info>
+
+  <column name="log_report_create_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="日志报告id"/>
+  <column name="report_name" data-type="varchar" length="1000" not-null="false" value-from="input" description="报告名称"/>
+  <column name="create_date" data-type="varchar" length="10" not-null="false" value-from="input" description="建立日期"/>
+  <column name="creator" data-type="varchar" length="1000" not-null="false" value-from="input" description="上传人"/>
+  <column name="last_mender" data-type="varchar" length="100" not-null="false" value-from="input" description="最后修改者"/>
+  <column name="publish_date" data-type="varchar" length="10" not-null="false" value-from="input" description="发布日期"/>
+  <column name="publish_person" data-type="varchar" length="100" not-null="false" value-from="input" description="发布人"/>
+  <column name="state" data-type="varchar" length="1" not-null="false" value-from="input" description="状态"/>
+  <column name="report_type" data-type="varchar" length="1" not-null="false" value-from="input" description="报告类型"/>
+  <column name="operate" data-type="varchar" length="10" not-null="false" value-from="input" description="操作"/>
+  <column name="filename" data-type="varchar" length="1000" not-null="false" value-from="input" description="文件名"/>
+  <column name="path" data-type="varchar" length="4000" not-null="false" value-from="input" description="路径"/>
+  <column name="timestamp" data-type="varchar" length="32" not-null="false" value-from="input" description="时间戳"/>
+  <primary-key name="报告名称id" column-list="log_report_create_id"/>
+  
+  <function func-name="select one log_report_create" func-type="select" column-list="log_report_create_id,report_name,create_date,last_mender,publish_date,publish_person,state,operate,filename,path,timestamp">
+    <filter-column column-name="log_report_create_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select log_report_create list" func-type="rowset" column-list="log_report_create_id,report_name,create_date,last_mender,publish_date,publish_person,state,operate,filename,path,report_type,timestamp" sort-columns="create_date,publish_date" max-record="10">
+    <filter-column column-name="log_report_create_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="report_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="publish_date" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="state" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="create_date" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one log_report_create" func-type="insert" column-list="log_report_create_id,report_name,create_date,last_mender,publish_date,publish_person,state,operate,filename,path,report_type,timestamp">
+    <filter-column column-name="log_report_create_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one log_report_create" func-type="delete">
+    <filter-column column-name="log_report_create_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one log_report_create" func-type="update" column-list="state,log_report_create_id,report_name,create_date,last_mender,publish_date,publish_person,operate,filename,path,report_type,timestamp">
+    <filter-column column-name="log_report_create_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

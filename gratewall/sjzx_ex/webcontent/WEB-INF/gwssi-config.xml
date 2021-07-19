@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gwssi-config SYSTEM "gwssi-config.dtd">
+<gwssi-config>
+  <jdbc>
+    <database db-name="gwssi" db-type="datasource" db-server="oracle">
+      <jndi-name>gwssi</jndi-name>
+      <db-username>weblogic</db-username>
+      <db-password>weblogic123</db-password>
+      <value-class>com.gwssi.common.util.GenerateValue</value-class>
+    </database>
+    <database db-name="gwssi_cjk" db-type="datasource" db-server="oracle">
+      <jndi-name>gwssi_cjk</jndi-name>
+      <db-username>weblogic</db-username>
+      <db-password>weblogic123</db-password>
+      <value-class>com.gwssi.common.util.GenerateValue</value-class>
+    </database>
+    <database db-name="gwssi_gxk" db-type="datasource" db-server="oracle">
+      <jndi-name>gwssi_gxk</jndi-name>
+      <db-username>weblogic</db-username>
+      <db-password>weblogic123</db-password>
+      <value-class>com.gwssi.common.util.GenerateValue</value-class>
+    </database>
+  </jdbc>
+
+  <txn-containers>
+    <container name="default">
+      <type>javabean</type>
+      <clazz>cn.gwssi.common.txn.TxnBroker</clazz>
+    </container>
+
+    <container name="local">
+      <type>local-ejb</type>
+      <clazz>cn.gwssi.common.txn.TxnBroker</clazz>
+      <url>t3://localhost:7011</url>
+      <username>weblogic</username>
+      <password>1qaz2wsx</password>
+    </container>
+
+    <container name="servlet">
+      <type>servlet</type>
+    </container>
+  </txn-containers>
+
+  <page>
+    <login-page>/index.jsp</login-page>
+    <logout-page>/logout.jsp</logout-page>
+    <error-page>/welcome.jsp</error-page>
+    <home-page>/welcome.jsp</home-page>
+  </page>
+
+  <user-config>
+    <property name="struts-file" value="/WEB-INFO/struts-config.xml"/>
+  </user-config>
+
+  <controller>
+    <start-mode>test</start-mode>
+    <upload-path>D:\temp\</upload-path>	
+    <download-path>D:\temp\</download-path>
+    <resource-path>D:\temp\</resource-path>
+  </controller>
+
+  <cvs>
+ 	 <project-path>D:\workspace\eclipse-luna\sjzx_ex\webcontent</project-path>
+    <src-path>D:\workspace\eclipse-luna\sjzx_ex\src</src-path>
+  </cvs>
+  
+  <char-set>GBK</char-set>
+  <layout-name>layout-weiqiang</layout-name>
+  <message-resources parameter="config.resource.ApplicationResources"/>
+</gwssi-config>

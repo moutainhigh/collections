@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.1">
+	<!-- Right Objects BEGIN -->
+	<extension element-class="com.trs.cms.auth.config.RightObjectConfig" id="RightObjects">
+	
+		<right-object name="站点权限判断对象"
+			ClassName="com.trs.components.wcm.auth.WebSiteRightObjImpl"/>
+					
+		<right-object name="栏目权限判断对象"
+			ClassName="com.trs.components.wcm.auth.ChannelRightObjImpl"/>		
+
+	</extension>
+	<!-- Right Objects END -->	
+</plugin>

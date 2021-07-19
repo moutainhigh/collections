@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.common.publish.widget.ResourceStyleServiceProvider">
+	<method name="delete" desc="删除指定的风格">
+		<parameter name="ObjectIds" desc="等待删除的风格ID串" type="string" required="true"/>
+	</method>
+	
+	<method name="query" desc="在指定的风格下查询资源可用风格">
+		<parameter name="PageStyleId" desc="系统风格Id" type="int" required="true"/>
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" required="false" default="STYLENAME desc, crtime desc"/>
+		<!--排序字段及方式-->
+		<parameter name="StyleDesc" desc="风格显示名称" type="string" required="false" search="true"
+			search-operator="like"/>	
+		<parameter name="StyleName" desc="风格名称" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false" default="*"/>	
+	</method>
+	
+	<method name="save" desc="保存资源可用风格">
+		<parameter name="ObjectId" desc="资源可用风格Id" type="int" required="true"/>
+		<parameter name="PageStyleId" desc="系统风格Id" type="int" required="true"/>
+		<parameter name="CssFlag" desc="风格标识" type="string" required="true"/>
+		<parameter name="CustomStyle" desc="自定义风格" type="string" required="false"/>
+		<parameter name="Template" desc="风格模板" type="string" required="true"/>
+		<parameter name="StyleName" desc="风格名称" type="string" required="true"/>
+		<parameter name="StyleDesc" desc="风格显示名" type="string" required="false"/>
+		<parameter name="StyleItemXML" desc="风格项XML" type="string" required="false"/>
+		<parameter name="CopyToSystemResourceStyle" desc="是否创建到系统级，0：不创建；1：创建" type="int" required="false"/>			
+	</method>
+	
+	 <method name="saveStyleThumb" desc="保存上传的风格示意图">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>
+		<parameter name="StyleThumb" desc="风格示意图名称" type="string" required="true"/>		
+	</method>
+	
+	<method name="findById" desc="获取指定Id的风格">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>
+	</method>
+	
+	<method name="copy" desc="将指定的资源风格复制到页面风格下">
+		<parameter name="SourceResourceStyleId" desc="拷贝的风格Id" type="int" required="true"/>
+		<parameter name="TargetPageStyleIds" desc="拷贝的风格Ids" type="string" required="true"/>
+		<parameter name="CopyMode" desc="复制的方式 1:覆盖，2：忽略，3：自动更名" type="int" required="true"/>
+		
+	</method>	
+	
+	<method name="makePreviewCssContent" desc="获取预览时需要的样式内容">
+		<parameter name="ObjectId" desc="资源可用风格Id" type="int" required="true"/>
+	</method>
+	
+	 <method name="checkCssFlag" desc="在指定的系统风格下校验CssFlag是否唯一">
+		<parameter name="PageStyleId" desc="风格Id" type="int" required="true"/>
+		<parameter name="CssFlag" desc="风格标识" type="string" required="true"/>
+		<parameter name="CurrResourceStyleId" desc="当前资源可用风格Id" type="int" required="false"/>		
+	</method>
+	
+	<method name="queryResourceStyles" desc="获取指定系统风格下的资源可用风格集合">
+		<parameter name="PageStyleId" desc="风格Id" type="int" required="true"/>
+	</method>
+	<method name="previewStyle" desc="预览风格时提供的服务">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>
+		<parameter name="StyleItemXML" desc="需要保存的风格项内容(是一个xml串)" type="string" required="false"/>
+		<parameter name="CustomStyle" desc="自定义风格" type="string" required="false"/>
+	</method>
+	<method name="findCssFlagUsedInfo" desc="获取风格标识被使用的信息">
+		<parameter name="PageStyleId" desc="页面风格Id" type="int" required="true"/>
+		<parameter name="CssFlag" desc="风格标识" type="string" required="true"/>
+		<parameter name="CurrResourceStyleId" desc="当前资源风格Id" type="int" required="true"/>
+	</method>
+	<method name="findStyleNameUsedInfo" desc="校验风格名称被使用的信息">
+		<parameter name="PageStyleId" desc="页面风格Id" type="int" required="true"/>
+		<parameter name="StyleName" desc="风格标识" type="string" required="true"/>
+		<parameter name="CurrResourceStyleId" desc="当前资源风格Id" type="int" required="true"/>
+	</method>
+	<method name="resetResourceStyle" desc="将当前 资源风格的设置 重置为 对应的系统级别的 资源风格的设置">
+		<parameter name="ResourceStyleId" desc="当前资源风格Id" type="int" required="true"/>
+	</method>
+	<method name="importResourceStyleZip" desc="导入风格">
+		<parameter name="ResourceStyleZipFile" desc="导入的内容风格的zip文件" type="string" required="true"/>
+		<parameter name="ImportMode" desc="出现重名后的处理方式" type="int" required="true"/>
+	</method>
+		<method name="exportResourceStyleZip" desc="导出风格">
+		<parameter name="ObjectIds" desc="风格Id" type="string" required="true"/>
+	</method>
+	<method name="jQuery" truename="query"  convertor="uri:/app/special/style/resourcestyle_query.jsp"/>
+</service>

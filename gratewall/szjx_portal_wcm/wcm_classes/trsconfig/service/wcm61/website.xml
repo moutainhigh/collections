@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.WebSiteServiceProvider" objclass="com.trs.components.wcm.content.persistent.WebSite">
+	<method name="save" desc="保存站点"/>
+	<method name="delete" desc="删除站点"/>
+	<method name="findById">
+		<!--默认的参数，可以不写-->
+		<parameter name="ObjectId" desc="站点ID" type="int" required="true"/>
+		<parameter name="SelectFields" desc="提取的字段列表" type="string" required="false"/>
+	</method>
+	<method name="recycleFindById" truename="findById"  convertor="uri:/app/siterecycle/siterecycle_findbyid.jsp"/>
+	<method name="jFindById" truename="findById"  convertor="uri:/app/website/website_findbyid.jsp"/>
+	<method name="query">
+		<!-- 业务参数 -->
+		<parameter name="SiteType" desc="站点类型" type="int" required="false"/>
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>			
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="站点排序字段及方式" type="string" default="SiteOrder Desc" required="false"/>		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="SiteDesc" desc="站点显示名称" type="string" required="false"
+			search="true" search-operator="like" search-field="SiteDesc"/>
+		<parameter name="SiteName" desc="站点名称" type="string" required="false"
+			search="true" search-operator="like" search-field="SiteName"/>			
+		<parameter name="id" desc="站点ID" type="int" required="false"
+			search="true" search-operator="=" search-field="SiteId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>				
+		<parameter name="ExcludeObjectId" desc="需要排除的站点ID" type="int" required="false"
+			search="true" search-operator="!=" search-field="SiteId"/>								
+		<!-- 检索相关配置 END -->
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>
+	</method>
+	<method name="getRecycleSites">
+		<!-- 业务参数 -->
+		<parameter name="SiteType" desc="站点类型(限定检索的范围)" type="int" required="false"/>
+	
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="站点排序字段及方式" type="string" default="SiteOrder Desc" required="false"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="QuerySiteDesc" desc="站点显示名称" type="string" required="false"
+			search="true" search-operator="like" search-field="SiteDesc"/>
+		<parameter name="QuerySiteName" desc="站点名称" type="string" required="false"
+			search="true" search-operator="like" search-field="SiteName"/>
+		<parameter name="QuerySiteId" desc="站点ID" type="int" required="false"
+			search="true" search-operator="=" search-field="SiteId"/>	
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="OperUser" desc="查询删除者" type="string" required="false" search="true"
+			search-operator="like"/>						
+		<parameter name="ExcludeObjectId" desc="需要排除的站点ID" type="int" required="false"
+			search="true" search-operator="!=" search-field="SiteId"/>								
+		<!-- 检索相关配置 END -->
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>
+	</method>
+	<method name="jQuery" truename="getRecycleSites"  convertor="uri:/app/siterecycle/siterecycle_query.jsp"/>
+	<method name="jListQuery" truename="query"  convertor="uri:/app/website/website_query.jsp"/>
+	<method name="jThumbQuery" truename="query"  convertor="uri:/app/website/website_thumb_query.jsp"/>
+
+	<method name="export" desc="导出站点">
+		<parameter name="ObjectIds" desc="站点ID序列" type="string" required="true" min-length="1"/>
+		<parameter name="ContainsChildren" desc="是否导出所有的子栏目" type="boolean" required="false" default="true"/>			
+		<parameter name="ContainsRelated" desc="是否导出所有的相关内容" type="boolean" required="false" default="true"/>					
+	</method>
+	
+	<method name="createFromFile" desc="批量创建站点" logger="com.trs.ajaxservice.logger.BatchChannelCreateFromFileLogger">
+		<parameter name="ImportFile" desc="待导入文件" type="string" required="true" />
+		<parameter name="SiteType" desc="站点类型" type="int" required="false" />		
+	</method>
+	
+	<method name="getSitesForCurrUser" desc="获取当前登录用户可以操作（默认为设置权限）的站点">
+		<parameter name="forIndividual" desc="是否获取个性化站点" type="int" required="false" />
+		<parameter name="rightIndex" desc="需要过滤的权限位" type="int" required="false" />
+		<parameter name="SiteType" desc="需要过滤的站点类型" type="int" required="false"
+			search="true" search-operator="=" search-field="SiteType"/>										
+	</method>
+</service>

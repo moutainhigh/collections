@@ -1,0 +1,217 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="template_import.html.title">import some channels</title>
+
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="../../app/css/wcm-common.css">
+ 
+<style type="text/css">
+	#divBox_temp{
+		margin:10px;
+		background: lightblue;
+		padding:1px;
+		
+	}
+	#divContainer{
+		background: #ffffff;
+		padding:10px;
+	}
+	#divClue{
+		color:blue;
+		font-size:14px;
+		margin-top: 10px;
+	}
+	.operations_title{
+		font-size:14px;
+		margin-top:8px;
+		margin-bottom:4px;		
+	}
+	.operations{
+		font-size:12px;
+		height: 25px;
+		line-height: 25px;
+		padding-left: 30px;
+	}
+	.base_line{
+		border-bottom: 1px solid lightgrey;
+		font-size:12px;
+	}
+	body{
+		background:whitesmoke;
+	}
+	#divContainer{
+		min-height:220px;		
+	}
+	.ext-ie6 #divContainer{
+		min-height:220px;		
+	}	
+</style>
+</HEAD>
+
+<BODY>
+<div id="divBox_temp">
+<div id="divContainer">
+	<div id="divFileUpload" >
+		<IFRAME name="frmUploadFile" id="frmUploadFile" style="height:40px; width:350px" frameborder="0" vspace="0" src="../../file/file_upload.jsp?SelfControl=0&AllowExt=HTM,HTML,SHTML,XML,JSP,ASP,ZIP" scrolling="no" noresize></IFRAME>
+		<INPUT TYPE="hidden" NAME="RealFileName" id="RealFileName">
+	</div>
+	<div id="divClue" class="base_line" WCMAnt:param="template_import.html.file_format">
+		支持htm、html、shtml、xml、jsp、asp和zip格式的文件
+	</div>
+
+	<div class="operations_title" WCMAnt:param="template_import.html.same_tempname">
+		如果模板同名：
+	</div>
+	<div class="operations base_line">
+		<span><input type="radio" name="TempImportMode" value="1" checked></span>
+		<span WCMAnt:param="template_import.html.auto_cover">自动覆盖</span>
+		<span><input type="radio" name="TempImportMode" value="3"></span>
+		<span WCMAnt:param="template_import.html.alter_name">自动更名</span>
+		<span><input type="radio" name="TempImportMode" value="4"></span>
+		<span WCMAnt:param="template_import.html.show_return">提示返回</span>
+	</div>
+	<div class="operations_title" WCMAnt:param="template_import.html.same_picname">
+		如果zip文件中出现相同图片文件名时：
+	</div>
+	<div class="operations base_line">
+		<span><input type="radio" name="TempPicMode" value="1" checked></span>
+		<span WCMAnt:param="template_import.html.auto_cover">自动覆盖</span>
+		<span><input type="radio" name="TempPicMode" value="3"></span>
+		<span WCMAnt:param="template_import.html.alter_name">自动更名</span>
+		<span><input type="radio" name="TempPicMode" value="4"></span>
+		<span WCMAnt:param="template_import.html.show_return">提示返回</span>
+	</div>
+	<div class="operations_title" style="color:blue" WCMAnt:param="template_import.html.error_encode">
+		如果导入出现乱码,请指定文件编码再导入一次
+	</div>
+	<div class="operations" style="padding-left:0">
+		<span WCMAnt:param="template_import.html.FileEncode">文件编码：</span>
+		<SELECT name="FileEncode" id="FileEncode">
+			<OPTION value="" WCMAnt:param="template_import.html.select">==请选择==</OPTION>
+			<OPTION value="UTF-8">UTF-8</OPTION> 
+			<OPTION value="GBK" WCMAnt:param="website_add_edit.jsp.chianness">简体中文</OPTION> 
+			<OPTION value="iso-8859-1" WCMAnt:param="website_add_edit.jsp.english">英语</OPTION> 
+			<OPTION value="iso-8859-1" WCMAnt:param="website_add_edit.jsp.french">法语</OPTION>
+			<OPTION value="windows-1251" WCMAnt:param="website_add_edit.jsp.eyu">俄语</OPTION> 
+			<OPTION value="iso-8859-1" WCMAnt:param="website_add_edit.jsp.xibanya">西班牙语</OPTION>
+			<OPTION value="windows-1256" WCMAnt:param="website_add_edit.jsp.alabo">阿拉伯语</OPTION> 
+			<OPTION value="big5" WCMAnt:param="website_add_edit.jsp.chianness2">中文繁体</OPTION>
+			<OPTION value="iso-8859-1" WCMAnt:param="website_add_edit.jsp.butaoya">葡萄牙语</OPTION>
+			<OPTION value="iso-8859-1" WCMAnt:param="website_add_edit.jsp.deyu">德语</OPTION>
+			<OPTION value="iso-8859-1" WCMAnt:param="website_add_edit.jsp.yidali">意大利语</OPTION> 
+			<OPTION value="iso-8859-1" WCMAnt:param="website_add_edit.jsp.helan">荷兰语</OPTION> 
+			<OPTION value="windows-1251" WCMAnt:param="website_add_edit.jsp.baojialiya">保加利亚语</OPTION>
+			<OPTION value="iso-8859-2" WCMAnt:param="website_add_edit.jsp.bolan">波兰语</OPTION>
+			<OPTION value="windows-1250" WCMAnt:param="website_add_edit.jsp.luomaniya">罗马尼亚语</OPTION> 
+			<OPTION value="iso-8859-2" WCMAnt:param="website_add_edit.jsp.xiongyali">匈牙利语</OPTION>
+			<OPTION value="windows-1250" WCMAnt:param="website_add_edit.jsp.jieke">捷克语</OPTION>
+			<OPTION value="euc-kr" WCMAnt:param="website_add_edit.jsp.chaoxian">朝鲜语</OPTION> 
+			<OPTION value="windows-874" WCMAnt:param="website_add_edit.jsp.taiguo">泰国语</OPTION>
+			<OPTION value="windows-1254" WCMAnt:param="website_add_edit.jsp.tuerqi">土耳其语</OPTION> 
+			<OPTION value="windows-1258" WCMAnt:param="website_add_edit.jsp.yuenan">越南语</OPTION>
+			<OPTION value="windows-1251" WCMAnt:param="website_add_edit.jsp.menggu">蒙古语</OPTION> 
+			<OPTION value="iso-8859-1" WCMAnt:param="website_add_edit.jsp.yinni">印尼语</OPTION>
+			<OPTION value="euc-jp" WCMAnt:param="website_add_edit.jsp.japanness">日语</OPTION>
+		</SELECT>
+	</div>
+</div>
+</div>
+<script src="../js/easyversion/lightbase.js"></script>
+<script src="../js/easyversion/extrender.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../js/data/locale/template.js"></script>
+<script src="../js/easyversion/ajax.js"></script>
+<script src="../js/easyversion/basicdatahelper.js"></script>
+<script src="../js/easyversion/web2frameadapter.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<script src="../../app/js/source/wcmlib/components/ProcessBar.js"></script>
+<!--wcm-dialog end-->
+<script language="javascript">
+window.m_fpCfg = {
+	m_arrCommands : [{
+		cmd : 'uploadFile',
+		name : wcm.LANG.TRUE||'确定'
+	}],
+	size : [480, 300]
+};
+</script>
+
+<!--Page scope-->
+<script>
+	var PageContext = {};
+	Object.extend(PageContext, {
+		hostid: getParameter('hostid'),
+		hosttype: getParameter('hosttype')
+	});
+
+	
+	function uploadFile(){
+		var winUpload = $('frmUploadFile').contentWindow;
+		var frm = winUpload.document.getElementById("frmPost");
+		var sFileName = winUpload.document.getElementById("fileUpload").value;
+
+		if(!winUpload.valid(sFileName)){
+			return false;
+		}
+		sFileName = sFileName.substring(sFileName.lastIndexOf("\\")+1);
+		$('RealFileName').value = sFileName;
+		frm.submit();
+		return false;
+	}
+
+	function addFile(_sFilePath){
+		if(_sFilePath==null){
+			doAlert(wcm.LANG.TEMPLATE_ALERT4 || "文件路径为空，上传失败！");
+			return false;
+		}
+		ProcessBar.start(wcm.LANG.TEMPLATE_139||'导入模板');
+		var oPostData = {
+			ImportFile: _sFilePath,
+			SrcFileName: $('RealFileName').value,
+			ImportMode: getRadioValue('TempImportMode'),
+			PicMode: getRadioValue('TempPicMode'),
+			FileEncode:$F("FileEncode")||""
+		};
+		Object.extend(oPostData, PageContext);
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+		oHelper.Call('wcm6_template', 'importTemplates', oPostData, true, function(_oTrans, _json){
+			ProcessBar.close();
+			Ext.Msg.report(_json, wcm.LANG.TEMPLATE_RESULT||'模板导入结果',function(){
+				notifyFPCallback();
+				FloatPanel.close();
+			});			
+			FloatPanel.hide();
+		});
+		return false;
+	}
+	function notifyOnUploadFileError(_sErrorMsg) {
+		doAlert(_sErrorMsg);
+	}
+	function doAlert(_sAlertion){
+		Ext.Msg.$alert(_sAlertion);
+		//$('divClue').innerHTML = _sAlertion;
+		//$('divClue').style.color = 'red';
+	}//*/
+	function getRadioValue(_sRadioName){
+		var radios = document.getElementsByName(_sRadioName);
+		for (var i = 0; i < radios.length; i++){
+			if(radios[i].checked) {
+				return radios[i].value;
+			}
+		}
+		return null;
+	}
+</SCRIPT>
+</BODY>
+</HTML>

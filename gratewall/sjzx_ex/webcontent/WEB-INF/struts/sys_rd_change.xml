@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>变更记录表</menu-name>
+  <menu-path>/page/resource/res/rd/metadata/datastructure/change/</menu-path>
+  <description>变更记录表</description>
+  <form-beans>
+    <form-bean name="SysRdChangeRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="sys_rd_change_id" type="string" size="32" description="表主键"/>
+      <form-property prefix="select-key" name="table_name" type="string" size="100" description="物理表"/>
+      <form-property prefix="select-key" name="column_name" type="string" size="100" description="字段"/>
+      <form-property prefix="select-key" name="change_item" type="string" size="1" description="变更类型"/>
+      <form-property prefix="select-key" name="change_result" type="string" size="1" description="处理结果"/>
+      
+      <form-property prefix="record" name="sys_rd_table_id" type="string" size="32" cannull="false" description="已认领表id"/>
+      <form-property prefix="record" name="sys_rd_change_id" type="string" size="32" cannull="false" description="表主键"/>
+      <form-property prefix="record" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="数据源ID"/>
+      <form-property prefix="record" name="db_name" type="string" size="100" cannull="true" description="数据源名称"/>
+      <form-property prefix="record" name="db_username" type="string" size="100" cannull="true" description="用户名称"/>
+      <form-property prefix="record" name="table_name" type="string" size="100" cannull="true" description="物理表"/>
+      <form-property prefix="record" name="table_name_cn" type="string" size="100" cannull="true" description="物理表中文名"/>
+      <form-property prefix="record" name="column_name" type="string" size="100" cannull="true" description="字段"/>
+      <form-property prefix="record" name="column_name_cn" type="string" size="100" cannull="true" description="字段中文名"/>
+      <form-property prefix="record" name="change_item" type="string" size="1" cannull="true" description="变更类型"/>
+      <form-property prefix="record" name="change_before" type="string" size="100" cannull="true" description="变更前内容"/>
+      <form-property prefix="record" name="change_after" type="string" size="100" cannull="true" description="变更后内容"/>
+      <form-property prefix="record" name="change_result" type="string" size="1" cannull="true" description="处理结果"/>
+      <form-property prefix="record" name="change_oprater" type="string" size="100" cannull="true" description="变更人"/>
+      <form-property prefix="record" name="change_time" type="string" size="32" cannull="true" description="变更时间"/>
+      <form-property prefix="record" name="change_reason" type="string" size="1000" cannull="true" description="变更原因"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+    </form-bean>
+
+    <form-bean name="SysRdChangeUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_rd_change_id" type="string" size="32" cannull="false" description="表主键"/>
+      <form-property prefix="record" name="sys_rd_table_id" type="string" size="32" cannull="false" description="已认领表id"/>
+      <form-property prefix="record" name="sys_rd_change_id" type="string" size="32" cannull="false" description="表主键"/>
+      <form-property prefix="record" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="数据源ID"/>
+      <form-property prefix="record" name="db_name" type="string" size="100" cannull="true" description="数据源名称"/>
+      <form-property prefix="record" name="db_username" type="string" size="100" cannull="true" description="用户名称"/>
+      <form-property prefix="record" name="table_name" type="string" size="100" cannull="true" description="物理表"/>
+      <form-property prefix="record" name="table_name_cn" type="string" size="100" cannull="true" description="物理表中文名"/>
+      <form-property prefix="record" name="column_name" type="string" size="100" cannull="true" description="字段"/>
+      <form-property prefix="record" name="column_name_cn" type="string" size="100" cannull="true" description="字段中文名"/>
+      <form-property prefix="record" name="change_item" type="string" size="1" cannull="true" description="变更类型"/>
+      <form-property prefix="record" name="change_before" type="string" size="100" cannull="true" description="变更前内容"/>
+      <form-property prefix="record" name="change_after" type="string" size="100" cannull="true" description="变更后内容"/>
+      <form-property prefix="record" name="change_result" type="string" size="1" cannull="true" description="处理结果"/>
+      <form-property prefix="record" name="change_oprater" type="string" size="100" cannull="true" description="变更人"/>
+      <form-property prefix="record" name="change_time" type="string" size="32" cannull="true" description="变更时间"/>
+      <form-property prefix="record" name="change_reason" type="string" size="1000" cannull="true" description="变更原因"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+    </form-bean>
+    
+    <form-bean name="SysRdChangeViewForm">
+      <description>单记录处理：查询</description>
+      <form-property prefix="primary-key" name="sys_rd_change_id" type="string" size="32" cannull="false" description="表主键"/>
+      <form-property prefix="record" name="sys_rd_change_id" type="string" size="32" cannull="false" description="表主键"/>
+      <form-property prefix="record" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="数据源ID"/>
+      <form-property prefix="record" name="db_name" type="string" size="100" cannull="true" description="数据源名称"/>
+      <form-property prefix="record" name="db_username" type="string" size="100" cannull="true" description="用户名称"/>
+      <form-property prefix="record" name="table_name" type="string" size="100" cannull="true" description="物理表"/>
+      <form-property prefix="record" name="table_name_cn" type="string" size="100" cannull="true" description="物理表中文名"/>
+      <form-property prefix="record" name="column_name" type="string" size="100" cannull="true" description="字段"/>
+      <form-property prefix="record" name="column_name_cn" type="string" size="100" cannull="true" description="字段中文名"/>
+      <form-property prefix="record" name="change_item" type="string" size="1" cannull="true" description="变更类型"/>
+      <form-property prefix="record" name="change_before" type="string" size="100" cannull="true" description="变更前内容"/>
+      <form-property prefix="record" name="change_after" type="string" size="100" cannull="true" description="变更后内容"/>
+      <form-property prefix="record" name="change_result" type="string" size="1" cannull="true" description="处理结果"/>
+      <form-property prefix="record" name="change_oprater" type="string" size="100" cannull="true" description="变更人"/>
+      <form-property prefix="record" name="change_time" type="string" size="32" cannull="true" description="变更时间"/>
+      <form-property prefix="record" name="change_reason" type="string" size="1000" cannull="true" description="变更原因"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+    </form-bean>
+
+    <form-bean name="SysRdChangeDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_rd_change_id" type="string" size="32" cannull="false" description="表主键"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_rd_change.jsp" name="SysRdChangeRowsetForm" txn-code="80002301" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询变更记录表列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdChange" func-name="txn80002301" input-node="select-key" output-node="record" description="查询变更记录表列表"/>
+      <forward error-code="success" path="query-sys_rd_change.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_change.jsp"/>
+    </action>
+
+    <action input="update-sys_rd_change.jsp" name="SysRdChangeUpdateForm" txn-code="80002302" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改变更记录表信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdChange" func-name="txn80002302" input-node="record" description="修改变更记录表信息"/>
+      <forward error-code="success" path="update-sys_rd_change.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_change.jsp"/>
+    </action>
+
+    <action input="insert-sys_rd_change.jsp" name="SysRdChangeUpdateForm" txn-code="80002303" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加变更记录表信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdChange" func-name="txn80002303" input-node="record" description="增加变更记录表信息"/>
+      <forward error-code="success" path="insert-sys_rd_change.jsp"/>
+      <forward error-code="failure" path="insert-sys_rd_change.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_change.jsp" name="SysRdChangeUpdateForm" txn-code="80002304" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>查询变更记录表用于修改</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdChange" func-name="txn80002304" input-node="record" output-node="record" description="查询变更记录表用于修改"/>
+      <forward error-code="success" path="update-sys_rd_change.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_change.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_change.jsp" name="SysRdChangeDeleteForm" txn-code="80002305" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除变更记录表信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdChange" func-name="txn80002305" input-node="primary-key" description="删除变更记录表信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+      <action input="query-sys_rd_change.jsp" name="SysRdChangeViewForm" txn-code="80002306" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>查询变更记录表用于查看变更详情</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdChange" func-name="txn80002306" input-node="primary-key" output-node="record" description="查看变更详情"/>
+      <forward error-code="success" path="view-sys_rd_change.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_change.jsp"/>
+    </action>
+    
+  </action-mappings>
+  
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_rd_change.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/dw/rd/metadata/datastructure/change/query-sys_rd_change.jsp" description="查询变更记录表列表"/>
+    <resource-file type="jsp" file-name="/dw/rd/metadata/datastructure/change/insert-sys_rd_change.jsp" description="增加变更记录表信息"/>
+    <resource-file type="jsp" file-name="/dw/rd/metadata/datastructure/change/update-sys_rd_change.jsp" description="修改变更记录表信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.SysRdChangeContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.VoSysRdChange" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.VoSysRdChangeSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.VoSysRdChangePrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

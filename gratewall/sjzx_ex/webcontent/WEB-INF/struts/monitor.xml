@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>运行监控</menu-name>
+  <menu-path>/page/monitor/</menu-path>
+  <description>运行监控</description>
+  <form-beans>
+    <form-bean name="MonitorForm">
+      </form-bean>
+  </form-beans>
+  <action-mappings>
+    <action input="" name="MonitorForm" txn-code="5100000" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>跳转到实时监控</description>
+      <step index="10" bean-name="com.gwssi.monitor.txn.TxnMonitor" func-name="txn5100000" input-node="primary-key" output-node="record" description="跳转到实时监控"/>
+      <forward error-code="success" path=""/>
+      <forward error-code="failure" path=""/>
+    </action>
+    <action input="" name="MonitorForm" txn-code="5200000" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>跳转到监控指标管理</description>
+      <step index="10" bean-name="com.gwssi.monitor.txn.TxnMonitor" func-name="txn5200000" input-node="primary-key" output-node="record" description="跳转到监控指标管理"/>
+      <forward error-code="success" path=""/>
+      <forward error-code="failure" path=""/>
+    </action>
+    <action input="" name="MonitorForm" txn-code="5300000" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>监控管理</description>
+      <step index="10" bean-name="com.gwssi.monitor.txn.TxnMonitor" func-name="txn5300000" input-node="primary-key" output-node="record" description="跳转到警情发现与管理"/>
+      <forward error-code="success" path=""/>
+      <forward error-code="failure" path=""/>
+    </action>
+    <action input="" name="MonitorForm" txn-code="5400000" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>监控事件</description>
+      <step index="10" bean-name="com.gwssi.monitor.txn.TxnMonitor" func-name="txn5300000" input-node="primary-key" output-node="record" description="跳转到警情发现与管理"/>
+      <forward error-code="success" path=""/>
+      <forward error-code="failure" path=""/>
+    </action>
+    <action input="" name="MonitorForm" txn-code="5500000" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>警情发现与管理</description>
+      <step index="10" bean-name="com.gwssi.monitor.txn.TxnMonitor" func-name="txn5300000" input-node="primary-key" output-node="record" description="跳转到警情发现与管理"/>
+      <forward error-code="success" path=""/>
+      <forward error-code="failure" path=""/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="vo-bean" file-name="com.gwssi.monitor.vo.MonitorContext" description="应用对应的数据上下文对象"/>
+  </resource>
+</struts-config>
+

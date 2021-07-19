@@ -1,0 +1,62 @@
+*{
+	margin:0px;
+	padding:0px;
+	font-size:12px;
+}
+html, body{
+	overflow:hidden;
+	width:100%;
+	height:100%;
+}
+.container{
+	position:relative;
+	width:100%;
+	height:100%;
+}
+.jquery-ie6 .container{
+	padding-top:47px;
+	padding-bottom:24px;
+}
+
+.container .header{
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:47px;
+	background:url(images/logo_bg.jpg) center center repeat-x;
+}
+.jquery-ie6 .container .main{
+	width:100%;
+	height:100%;
+}
+.jquery-strict .container .main{
+	position:absolute;
+	top:47px;
+	left:0px;
+	bottom:24px;
+	right:0px;
+}
+.bottom{
+	position:absolute;
+	left:0px;
+	bottom:0px;
+	width:100%;
+	height:24px;
+	background: transparent url(images/list_bg_bottom.gif) center bottom repeat-x;
+}
+.container .header .logo{
+	float:left;
+	width:1000px;
+	background:url(images/logo.jpg) left center no-repeat;
+	height:100%;
+}
+.logo .wcm-tab-page{
+	position:absolute;
+	top:13px;
+	left:230px;
+}
+iframe{
+	overflow:hidden;
+}
+

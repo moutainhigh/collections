@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="view_sys_count_semantic" class-name="com.gwssi.dw.runmgr.etl.dao.ViewSysCountSemantic" check-flag="false" backup-flag="false">
+    <description>数据增量统计</description>
+  </table-info>
+
+  <column name="table_class_id" data-type="varchar" length="32" not-null="false" value-from="input" description="关联ID"/>
+  <column name="sys_name" data-type="varchar" length="100" not-null="true" value-from="input" description="主题名称"/>
+  <column name="table_name" data-type="varchar" length="60" not-null="true" value-from="input" description="表英文名"/>
+  <column name="table_name_cn" data-type="varchar" length="100" not-null="true" value-from="input" description="表中文名"/>
+  <column name="class_sort" data-type="varchar" length="32" not-null="false" value-from="input" description="分类标志"/>
+  <column name="class_state" data-type="varchar" length="32" not-null="false" value-from="input" description="状态标志"/>
+  <column name="count_date" data-type="char" length="10" not-null="false" value-from="input" description="统计日期"/>
+  <column name="count_full" data-type="long" length="0" not-null="false" value-from="input" description="表全量"/>
+  <column name="count_incre" data-type="long" length="0" not-null="false" value-from="input" description="表增量"/>
+  <column name="sys_order" data-type="long" length="38" not-null="false" value-from="input" description="主题排序"/>
+  <column name="table_order" data-type="long" length="38" not-null="false" value-from="input" description="表排序"/>
+  <column name="sort_order" data-type="long" length="0" not-null="false" value-from="input" description="分类排序"/>
+  <column name="state_order" data-type="long" length="0" not-null="false" value-from="input" description="状态排序"/>
+  <primary-key name="pk" column-list="table_class_id"/>
+  <function func-name="select view_sys_count_semantic list" func-type="rowset" column-list="table_class_id,sys_name,table_name,table_name_cn,class_sort,class_state,count_date,count_full,count_incre,sys_order,table_order,sort_order,state_order" sort-columns="sys_name,table_name_cn" max-record="10">
+    <filter-column column-name="sys_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="table_name_cn" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="count_date" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="class_state" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+</table>
+

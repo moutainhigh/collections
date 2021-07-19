@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> image upload </title>
+	<link href="page.css" rel="stylesheet" type="text/css" />
+	<script language="javascript" src="../../../../js/runtime/myext-debug.js" type="text/javascript"></script>
+	<script src="../../../../js/source/wcmlib/WCMConstants.js"></script>
+	<script src="../../../../js/data/locale/system.js"></script>	
+	<script src="../../../../js/source/wcmlib/util/YUIConnection.js"></script>
+	<script language="javascript" src="page.js" type="text/javascript"></script>
+</head>
+
+<body>
+	<form id="fm_pic" name="fm_pic" style="margin:0;" enctype='multipart/form-data'>
+	<div class="row">
+		<input type="radio" id="browserAddressRadio" name="imageAddressRadio" style="vertical-align:middle;" checked="checked"/>
+		<label for="browserAddressRadio" style="vertical-align:middle;" WCMAnt:param="ckeditor.plugins.wcmimage.browser">浏览计算机，指定上传的图片文件:</label><br />
+		<input type="file" name="browserAddress" id="browserAddress" style="margin-left:20px;margin-top:4px;width:350px;" />
+	</div>
+
+	<div class="row">
+		<input type="radio" id="inputAddressRadio" name="imageAddressRadio" style="vertical-align:middle;" />
+		<label for="inputAddressRadio" style="vertical-align:middle;" WCMAnt:param="ckeditor.plugins.wcmimage.inputaddress">手动输入图片地址（支持本地及网络图片）:</label><br />
+		<input type="text" name="inputAddress" id="inputAddress" style="margin-left:20px;margin-top:4px;width:350px;" />
+	</div>
+	</form>
+
+	<div id="img-options-trigger" class="toggleOptions" WCMAnt:param="ckeditor.plugins.wcmimage.showoptions">显示图片选项</div>
+
+	<div id="img-options" style="display:none;">
+		<fieldset class="row">
+			<legend><span WCMAnt:param="ckeditor.plugins.wcmimage.replacetext">替换文本(alt):</span></legend>
+			<input id="txtAlt" style="margin-top:4px;width:350px" type="text" maxlength="50"/>
+		</fieldset>
+
+		<fieldset class="row">
+			<legend><span WCMAnt:param="ckeditor.plugins.wcmimage.size">大小:</span></legend>
+
+			<span WCMAnt:param="ckeditor.plugins.wcmimage.dlgimgwidth">宽度</span>
+			<input type="text" maxLength="4" size="3" id="txtWidth" onkeypress="return IsDigit(event);" />
+
+			<span WCMAnt:param="ckeditor.plugins.wcmimage.dlgimgheight">高度</span>
+			<input type="text" maxLength="4" size="3" id="txtHeight" onkeypress="return IsDigit(event);" />
+
+			<span WCMAnt:param="ckeditor.plugins.wcmimage.dlgimgborder">边框</span>
+			<input type="text" maxLength="2" size="2" id="txtBorder" onkeypress="return IsDigit(event);" />
+		</fieldset>
+
+		<fieldset class="row">
+			<legend><span WCMAnt:param="ckeditor.plugins.wcmimage.location">位置:</span></legend>
+
+			<span WCMAnt:param="ckeditor.plugins.wcmimage.dlgimghspace">HSpace</span>
+			<input type="text" maxLength="2" size="2" id="txtHSpace" onkeypress="return IsDigit(event);" />
+
+			<span WCMAnt:param="ckeditor.plugins.wcmimage.dlgimgvspace">VSpace</span>
+			<input type="text" maxLength="2" size="2" id="txtVSpace" onkeypress="return IsDigit(event);"/>
+
+			<span WCMAnt:param="ckeditor.plugins.wcmimage.dlgimgalign">Align</span>
+			<select id="cmbAlign">
+				<option value="" selected="selected" WCMAnt:param="ckeditor.plugins.wcmimage.default">&lt;缺省设置&gt;</option>
+				<option fcklang="DlgImgAlignLeft" value="left">Left</option>
+				<option fcklang="DlgImgAlignAbsBottom" value="absbottom">Abs Bottom</option>
+				<option fcklang="DlgImgAlignAbsMiddle" value="absmiddle">Abs Middle</option>
+				<option fcklang="DlgImgAlignBaseline" value="baseline">Baseline</option>
+				<option fcklang="DlgImgAlignBottom" value="bottom">Bottom</option>
+				<option fcklang="DlgImgAlignMiddle" value="middle">Middle</option>
+				<option fcklang="DlgImgAlignRight" value="right">Right</option>
+				<option fcklang="DlgImgAlignTextTop" value="texttop">Text Top</option>
+				<option fcklang="DlgImgAlignTop" value="top">Top</option>
+			</select>
+		</fieldset>
+
+		<fieldset class="row">
+			<legend><span WCMAnt:param="ckeditor.plugins.wcmimage.link">链接:</span></legend>
+			<input type="checkbox" id="linkImage" style="vertical-align:middle;" /> 
+			<label for="linkImage" WCMAnt:param="ckeditor.plugins.wcmimage.linktip" style="vertical-align:middle;">单击此图片可链接到原始图片文件</label>
+		</fieldset>
+	</div>
+
+	<div class="row">
+		<input id="cbIgnore" type="checkbox" style="vertical-align:middle;" />
+		<label for="cbIgnore" WCMAnt:param="ckeditor.plugins.wcmimage.remoteonly" style="vertical-align:middle;">仅使用远程地址</label>
+		<span class="desc" WCMAnt:param="ckeditor.plugins.wcmimage.norecate" style="vertical-align:middle;padding-left:4px;">(远程文件将不下载到本地)</span>
+	</div>
+
+	<div class="row">
+		<input id="NeedReEdit" type="checkbox" style="vertical-align:middle;" />
+		<label for="NeedReEdit" WCMAnt:param="ckeditor.plugins.wcmimage.needreedit" style="vertical-align:middle;">对本地图片再编辑</label>
+		<span class="desc" WCMAnt:param="ckeditor.plugins.wcmimage.edittip" style="vertical-align:middle;padding-left:4px;">(勾选后点击确定将进入裁剪页面)</span>
+	</div>
+
+	<div id="upload_message" style="display:none;" class="upload_message"></div>
+
+</body>
+</html>

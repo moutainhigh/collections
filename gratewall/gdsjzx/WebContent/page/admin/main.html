@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../../static/script/jazz.js" type="text/javascript"></script>
+<script>
+	var setting;
+	setting = {
+		data: {
+			simpleData: {
+				enable: true,
+				idKey: "id",
+				pIdKey: "pid"
+			}
+		},
+
+		callback: {
+			onClick: treeOnClick
+		}
+	};
+//{id=38e323489db14a7d91f074561c06a4ff, frameurl=/page/auth/func_list.html, name=功能管理, pid=af7786ac117d47d3bf9b6d5659f048ab}, {id=931467464af24bd9a063394d84df32d9, frameurl=/page/report/bbgl_rcgl.jsp, name=gg, pid=0}, {id=86a9e57f576146669714bfe15adad703, frameurl=/page/report/bbgl_rcgl.jsp, name=gg1, pid=0}, {id=01a55cf34dd44ac18a57e6d0443320e8, frameurl=/page/auth/role_list.html, name=角色管理, pid=af7786ac117d47d3bf9b6d5659f048ab}, {id=9ffbb04414b4432a9652aa04d1442228, frameurl=null, name=系统管理, pid=0}, {id=24ceaa9dbe71402e82d52971a96a8a4d, frameurl=/page/auth/user_list.html, name=用户管理, pid=af7786ac117d47d3bf9b6d5659f048ab},
+	var gnId, //当前选中的功能ID
+	gnMc, //当前选中的功能名称
+	sjgnId, //当前选中功能的上级功能ID
+	sjgnMc, //当前选中功能的上级功能名称
+	frameUrl; //当前选中功能的URL
+
+	function treeOnClick(event, treeId, treeNode) {
+		gnId = treeNode.id;
+		gnMc = gnId == "0" ? "" : treeNode.name;
+		frameUrl = gnId == "0" ? "" : treeNode.frameurl;
+		if(frameUrl==null){
+			
+		}else{
+			$("#frame").outerHeight("99%");
+			$("#frame").attr("src", rootPath + frameUrl);
+		}
+	}
+
+	var tree;
+	$(document).ready(function() {
+		$.ajax({
+			url : rootPath+'/admin/getLoginName.do',
+			type : 'post',
+			async:false,//使ajax同步使用
+			success : function(data){
+				$("#loginName").append(data["loginName"]);
+			}
+		});
+	
+		var index = getUrlParam("index");
+		//alert(index);
+		refreshFuncTree(index);
+	});
+	
+	 function getUrlParam(name) {
+	         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+	         var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+	         if (r != null) return unescape(r[2]); return null; //返回参数值
+	     }
+	function refreshFuncTree(index) {
+		gnId = '', gnMc = '', sjgnId = '', sjgnMc = '';
+		var params = {
+			url : rootPath+'/admin/queryFuncTree.do',
+		}
+		$.DataAdapter.submit(params);
+	}
+		
+	function _northdragstart(e, layout) {
+		//layout.index  当前选中的边线的索引值
+		$("#frame").css({"marginLeft": "-2000px"});
+	}
+
+	function _northdragstop(e, layout) {
+		//layout.top      拖动后，边线上部区域的宽度
+	    //layout.bottom   拖动后，边线下部区域的宽度
+	    //layout.index    当前选中的边线的索引值
+		$("#frame").css({"marginLeft": "0px"});
+	}
+	
+	function _westdragstart(e, layou){
+		$("#frame").css({"marginLeft": "-2000px"});
+	}
+
+	function _westdragstop(e, layout) {
+		//layout.index  当前选中的边线的索引值
+		$("#frame").css({"marginLeft": "0px"});
+	}
+
+	function quit() {
+		var params = {
+			url : rootPath+'/admin/quit.do',
+			callback : function(data, r, res) {
+				window.location.href = rootPath + "/page/admin/login.html";
+			}
+		};
+		$.DataAdapter.submit(params);
+	}
+</script>
+</head>
+<body>
+
+	<div name="test3" id="test3" vtype="panel" layout="border"
+		layoutconfig="{border:true}" northdragstart="_northdragstart();" northdragstop="_northdragstop();"
+		westdragstart="_westdragstart();" westdragstop="_westdragstop();">
+		<div name="title" region="north" height="50">
+			<div><font size="4">后台管理</font></div>
+			<div style="width: 100%; height:20px; position:relative">
+			    <div style="position:absolute; bottom: 0px; right: 10px;">
+					<span id="xxx">当前用户：</span>
+					<span id="loginName"></span>
+					<span id="yyy">&nbsp;</span>
+					<div name="quit_button" vtype="button" text="退出" icon="../query/queryssuo.png" onclick="quit();"></div>
+				</div>
+			</div>
+		</div>
+		<div region="west" width="220">
+			<div id="funcTree" name="funcTree" class="ztree"></div>
+		</div>
+		<div id="url" name="url" region="center">
+			<iframe id="frame" name="frame" height="auto" width="100%" src="" frameBorder="0"></iframe>
+		</div>
+	</div>
+</body>
+</html>

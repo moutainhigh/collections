@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<TITLE WCMAnt:param="classinfo_select_tree.html.title">分类法选择</TITLE>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/classinfo.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/data/locale/tree.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.tree/TreeNav.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<link rel="stylesheet" type="text/css" href="../../app/js/source/wcmlib/com.trs.tree/resource/TreeNav.css">
+<script src="classinfo_select_tree.js"></script>
+<script language="javascript">
+<!--
+    window.m_cbCfg = {
+        btns : [
+            {
+                text : wcm.LANG.CLASSINFO_22 || '确定',
+                cmd : onOk
+            },
+			{
+				extraCls : 'wcm-btn-cancel',
+                text : wcm.LANG.CLASSINFO_35 || '取消选择',
+                cmd : onCancelSelect
+            },
+            {
+				extraCls : 'wcm-btn-close',
+                text : wcm.LANG.CLASSINFO_24 || '取消',
+                cmd : onCancel
+            }
+        ]
+    };
+//-->
+</script>
+<style type="text/css">
+    *{
+        margin:0px;
+        padding:0px;
+    }
+    .TreeView{
+        width:100%;
+        height:88%;
+        overflow:auto;
+        background:white;
+    }
+	.TreeView{
+		padding-left:0px;
+	}
+	.TreeView div{margin-left:0px;}
+</style>
+</HEAD>
+
+<BODY>
+<div class="TreeView" id="TreeView">
+	<div onlynode="true"><a href="#"></a></div><ul></ul>
+</div>
+</BODY>
+</HTML>

@@ -1,0 +1,1 @@
+<iframe id="frmFlow"  src="../../flowdoc/workflow_process_init_for_doc.jsp?FlowId=<%=nFlowId%>" height="100%" scrolling="auto" frameborder="0"></iframe>

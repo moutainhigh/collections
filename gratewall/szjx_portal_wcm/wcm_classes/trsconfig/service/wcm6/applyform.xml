@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.ApplyFormServiceProvider" desc="依申请相关服务提供者">
+	<method name="startDocumentInFlow" desc="让文档开始流转">		
+		<parameter name="ObjectId" desc="文档ID" type="int" required="true" min-value="0"/>
+	</method>
+	<method name="saveAppendixes" desc="保存指定文档手工设定的相关文档">
+		<parameter name="ApplyFormId" desc="指定文档ID" type="int" required="true"/>	
+		<parameter name="AppendixType" desc="文档类型" type="int" required="true"/>		
+		<parameter name="AppendixesXML" desc="需要保存的附件内容" type="string" required="true"/>
+	</method>
+	<method name="getFlowingStat" desc="查询依申请公开流转文档的状态信息">
+	</method>		
+</service>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="photo_syspics_list.html.title">WCM通用列表页面-图片库导入</title>
+	<link href="../css/common_thumb.css" rel="stylesheet" type="text/css">
+    <link href="../js/resource/all_widgets.css" rel="stylesheet" type="text/css">
+<link href="../photo/photo_thumb.css" rel="stylesheet" type="text/css">
+<link href="../photo/photo_syspics_list.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script src="../../app/js/easyversion/cssrender.js"></script>
+<div class="layout_container">
+	<div class="layout_center_container">
+		<div class="layout_center">
+			<div class="layout_container layout_innercontainer" style="padding-top:0px;">
+				<div class="layout_center_container layout_center_innercontainer" style="top:0px;">
+					<div class="layout_center layout_innercenter">
+<div class="layout_container thumb_grid">
+	<div class="layout_north thumb_grid_head">
+		<span style="float:right;" id="query_box"></span>
+		<div id="list-order-box" style="float:right;margin-top:5px;margin-right:10px;"></div> 
+	</div>
+	<div id='wcm_table_grid' class="layout_center_container thumb_grid_data" style="height:570px;">
+	</div>
+	<div id="grid_navigator" class="layout_south table_grid_navigator">
+		<div id="list_navigator" class="list_navigator_div">
+		</div>
+	</div>
+</div>
+					</div>
+				</div>
+				<div id="south_tabs" class="layout_south"></div>
+			</div>
+		</div>
+		<div id="east_opers" class="layout_east"></div>
+	</div>
+</div>
+<div style="position:absolute;left:15px;bottom:32px;" id="selDiv"><span WCMAnt:param="photo_syspics_list.html.selectAll">全选</span><input type="checkbox" value="" id="selectAll"></div>
+<div style="position:absolute;left:15px;bottom:4px;cursor:hand;" onclick="window.parent.Tobeimport()" id="toImportDiv"><img src="../images/icon/SortUp.gif" border=0 alt=""/><span WCMAnt:param="photo_importsyspics.jsp.selectedRelation">待导入的图片</span></div>
+<script src="../js/runtime/lightlib.js"></script>
+<script src="../js/runtime/core_main.js"></script>
+<script src="../js/runtime/abs_thumb.js"></script>
+<script src="../js/runtime/data/list.js"></script>
+<script src="photo_syspics_list.html.compress.js"></script>
+<script src="photo_syspics_list.js"></script>
+</body>
+</html>

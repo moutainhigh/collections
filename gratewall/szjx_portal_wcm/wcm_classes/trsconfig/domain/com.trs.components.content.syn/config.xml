@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin name="内容同步" version="1.0" id="content.syn">
+	<!--Config For ObjectLCMonitor BEGIN-->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		1：新增
+		2：修改后
+		3：删除前
+		4、删除后
+		5、修改前
+		多个以逗号隔开
+	-->
+	<extension 
+		element-class="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		id="components.wcm.content.ObjectLCMonitor">
+		
+		<!--监听文字库、图片库和视频库中的数据，以便新建时触发-->
+		<!--由于引用文档也要被同步，所以监听的对象要做变化
+		<monitor-host name="文档" 
+			class-name="com.trs.components.wcm.content.persistent.Document">
+			<listener bean-id="IContentSynMgr" event-type="1"/>
+		</monitor-host>
+		-->
+		<monitor-host name="栏目文档" 
+			class-name="com.trs.components.wcm.content.persistent.ChnlDoc">
+			<listener bean-id="IContentSynMgr" event-type="1"/>
+		</monitor-host>
+		<monitor-host name="栏目文档" 
+			class-name="com.trs.components.wcm.content.persistent.ChnlDoc">
+			<listener bean-id="IContentSynMgr" event-type="2"/>
+		</monitor-host>
+		<!--监听元数据中的数据，以便新建时触发-->
+		<monitor-host name="元数据" 
+			class-name="com.trs.cms.content.CMSObjDefaultImpl">
+			<listener bean-id="IContentSynMgr" event-type="1"/>
+		</monitor-host>
+		
+		
+	</extension>
+	<!--Config For System Collocation BEGIN-->
+
+</plugin>

@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../../static/script/jazz.js" type="text/javascript"></script>
+
+<style type="text/css">
+.line {
+    height:auto;
+}
+</style>
+
+<script>
+
+	var setting = {
+		data: {
+			simpleData: {
+				enable: true,
+				idKey: "id",
+				pIdKey: "pid"
+			},
+			key: {
+				checked: "checked"
+			}
+		},
+		check: { 
+            enable: true, 
+            chkboxType:{ "Y":'s', "N":'s'}, 
+        }
+	};
+	
+	$(document).ready(function(){
+		var jsId = jazz.util.getParameter("jsId");
+		var jsUrl, funcUrl;
+		if(jsId!=null && jsId!=''){
+			$("#jsId").hiddenfield("setValue", jsId);
+			jsUrl = rootPath+'/auth/roleDetail.do?jsId='+jsId;
+			funcUrl = rootPath+'/auth/queryAuthFunc.do?jsId='+jsId;
+		}else{
+			jsUrl = rootPath+'/auth/initRole.do';
+			funcUrl = rootPath+'/auth/queryFuncTree.do';
+		}
+		$('#formpanel').formpanel('option', 'dataurl', jsUrl);
+		$('#formpanel').formpanel('reload');
+		
+		var params = {
+			url : funcUrl,
+			callback : function(data, r, res) { 
+				var data = data["data"];
+				tree = $.fn.zTree.init($("#funcTree"), setting, data);
+				tree.expandAll(true);
+				console.info(data);
+			}
+		}
+		$.DataAdapter.submit(params);
+	});
+	
+	function save() {
+		var selectedData = tree.getCheckedNodes(true);
+		var sfsa = $("div[name='sfsa']").comboxfield('getValue');
+		if(sfsa == '1'){
+			if(selectedData.length>0){
+				jazz.warn("超级管理员不用授权功能");
+				return;
+			}
+		}
+		var funcIds = new Array();
+		$.each(selectedData, function(i, n){
+			funcIds.push(n.id);
+		});
+		var funcIdsStr = funcIds.join(","); 
+		var params = {
+			url : rootPath+'/auth/saveRole.do',
+			components : [ 'formpanel' ],
+			params: {
+				funcIdsStr : funcIdsStr
+			},
+			callback : function(data, r, res) { 
+				jazz.info("保存成功");
+				//刷新
+				parent.queryRole();
+				parent.win.window("close");
+			} 
+		};
+		$.DataAdapter.submit(params);
+	}
+	
+	function closeWin(){
+		parent.win.window("close");
+	}
+	
+</script>
+</head>
+<body>
+
+		<div>
+			<div id="formpanel" name="formpanel" vtype="formpanel"
+				showborder="false" width="100%" layout="table" layoutconfig="{cols:1, columnwidth: ['*']}">
+				<div name='jsId' id="jsId" vtype="hiddenfield" label="角色_ID"
+					 labelAlign="right"></div>
+				<div name='jsMc' id="jsMc" vtype="textfield" label="角色名称"
+					 labelAlign="right" rule="must" width="80%" labelwidth="110"></div>
+				<!-- <div name='sfsa' vtype="comboxfield" label="是否超级管理员"
+					labelAlign="right" rule="must" width="400"
+					dataurl='[{"text":"是","value":"1"},{"text":"否","value":"0"}]'></div> -->
+				<div name='defUrl' id="defUrl" vtype="textfield" label="默认登陆页"
+					 labelAlign="right" width="80%" labelwidth="110"></div>
+				<div>
+					<div id="funcTree" name="funcTree" class="ztree" title="sfsdfs"
+						titledisplay="true"></div>
+				</div>
+				<!-- <div id='funcTree' name='funcTree' vtype="comboxtreefield" 
+					label="功能" labelalign="right" width="400"   oncheck="chktree"
+				  	dataurl="comboxtree.json" prefix="开始" suffix="结个"></div> -->
+				<div id="toolbar" name="toolbar" vtype="toolbar" align="center">
+					<div id="btn1" name="btn1" vtype="button" text="保存"
+						icon="../../../style/default/images/save.png" click="save()"></div>
+					<div id="btn2" name="btn2" vtype="button" text="返回"
+						icon="../../../style/default/images/fh.png" click="closeWin()"></div>
+				</div>
+			</div>
+			<!-- <div vtype="gridpanel" name="userGrid" id="userGrid"  datarender="datarender"
+				titleDisplay="true" title="授权用户列表" dataurl="" showborder=false>
+				<div name="toolbar" vtype="toolbar">
+					<div id="btn1" name="btn1" vtype="button" text="新增"
+							icon="../../../style/default/images/save.png" click="add()"></div>
+					<div name="delete_button" vtype="button" text="删除"
+						icon="../query/queryssuo.png" onClick="deleteRole();"></div>
+				</div>
+				<div vtype="gridcolumn" name="grid_column">
+					<div>
+						单行表头
+						<div name='jsId' text="用户 ID"  isshowcolumn=false></div>
+						<div name='dlm' text="用户名" textalign="center" width='25%' ></div>
+						<div name='xm' text="姓名" textalign="center" width='50%' ></div>
+					</div>
+				</div>
+				<div vtype="gridtable" name="grid_table" rowdblclick="rowdblclick()"></div>
+				<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10"></div>
+			</div> -->
+		</div>
+
+		<div>
+			<div id="funcTree" name="funcTree" class="ztree" title="sfsdfs"
+				titledisplay="true"></div>
+		</div>
+
+
+</body>
+</html>

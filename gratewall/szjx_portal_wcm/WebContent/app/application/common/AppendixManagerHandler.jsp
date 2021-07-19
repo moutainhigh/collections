@@ -1,0 +1,1 @@
+<script language="javascript">new com.trs.ui.XDocAppendixes({name : 'myDocAppendixes',objectId : '<%=nObjectId%>'}).render();</script>

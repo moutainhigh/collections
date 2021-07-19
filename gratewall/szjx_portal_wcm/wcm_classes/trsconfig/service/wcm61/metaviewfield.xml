@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.metadata.service.MetaDataDefServiceProvider">
+	<method name="findViewFieldById">		
+		<parameter name="ObjectId" desc="视图字段ID序列" type="string" required="true"/>
+	</method>
+	<method name="jFindById" truename="findViewFieldById"  convertor="uri:/app/metaviewfield/metaviewfield_findbyid.jsp"/>
+
+	<method name="queryViewFieldInfos">		
+		<parameter name="ViewId" desc="视图ID" type="int" required="false"/>
+		<parameter name="ChannelId" desc="栏目Id" type="int" required="false"/>
+
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="queryAnotherName" desc="视图字段别名" type="string" required="false"
+			search="true" search-operator="like" search-field="AnotherName"/>
+		<parameter name="queryFieldName" desc="视图字段名称" type="string" required="false"
+			search="true" search-operator="like" search-field="FieldName"/>			
+		<parameter name="viewFieldInfoId" desc="视图字段ID" type="int" required="false"
+			search="true" search-operator="=" search-field="ViewFieldInfoId"/>
+		<parameter name="ClassId" desc="查询创建者" type="int" required="false"
+			search="true" search-operator="=" search-field="ClassId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>				
+		<!-- 检索相关配置 END -->
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="FieldOrder desc" required="false"/>
+		<parameter name="IsURLField" desc="URL字段" type="int" required="false" search="true" search-operator="=" search-field="IsURLField"/>
+	</method>
+	<method name="jQuery" truename="queryViewFieldInfos"  convertor="uri:/app/metaviewfield/metaviewfield_query.jsp"/>
+
+	<method name="deleteViewField">		
+		<parameter name="ObjectIds" desc="待删除视图字段ID序列" type="string" required="true"/>
+	</method>
+
+	<method name="saveViewField">		
+		<parameter name="ObjectId" desc="视图字段ID" type="int" required="true"/>		
+
+		<parameter name="ViewId" desc="所属视图ID" type="int" required="false" min-value="1"/>
+
+		<parameter name="AnotherName" desc="中文名称"
+			 type="string" required="false" max-length="100"/>					 
+		<parameter name="FieldName" desc="英文名称"
+			 type="string" required="false" max-length="50"/>		
+
+		<!--逻辑属性 BEGIN-->
+		<parameter name="InOutline" desc="是否显示在概览上"
+			 type="boolean" required="false"/>		
+		<parameter name="InDetail" desc="是否显示在细览上"
+			 type="boolean" required="false"/>
+		<parameter name="InDetail" desc="检索字段"
+			 type="boolean" required="false"/>	 
+		<parameter name="TitleField" desc="标题字段"
+			 type="boolean" required="false"/>		
+		<!--逻辑属性 END-->
+		
+		<!--物理字段属性 BEGIN-->		
+		<parameter name="FieldType" desc="字段逻辑类型"
+			 type="int" required="fasle"/>				
+
+		<parameter name="DBType" desc="物理字段类型"
+			 type="int" required="fasle"/>				
+
+		<parameter name="DBLength" desc="物理字段长度"
+			 type="int" required="fasle"/>				
+
+		<parameter name="DBScale" desc="小数位"
+			 type="int" required="fasle"/>
+
+		<parameter name="NotNull" desc="是否允许空"
+			 type="boolean" required="fasle"/>				
+			 
+		<parameter name="DefaultValue" desc="默认值"
+			 type="string" required="false" max-length="200"/>	
+			 
+		<parameter name="EnumValue" desc="默认值"
+			 type="string" required="false" max-length="200"/>		
+
+		<parameter name="ClassId" desc="所属分类法"
+			 type="int" required="fasle"/>				
+
+
+		<parameter name="attribute" desc="扩展属性"
+			 type="string" required="fasle"/>				
+
+		<!--物理字段属性 END-->
+			 
+	</method>
+
+</service>

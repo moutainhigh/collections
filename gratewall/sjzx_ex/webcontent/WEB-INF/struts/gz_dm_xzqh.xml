@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>行政区划</menu-name>
+  <menu-path>/page/ysjgl/jcsjgl/xzqhgl/xzqh/</menu-path>
+  <description>行政区划</description>
+  <form-beans>
+    <form-bean name="GzDmXzqhRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="bb_id" type="string" size="2" description="版本ID"/>
+      <form-property prefix="select-key" name="xzqh_nm" type="string" size="36" cannull="true" description="行政区划内码"/>
+      <form-property prefix="select-key" name="xzqh_fjd" type="string" size="36" cannull="true" description="行政区划父节点"/>
+      <form-property prefix="select-key" name="xzqh_mc" type="string" size="255" description="行政区划名称"/>
+      <form-property prefix="select-key" name="xzqh_dm" type="string" size="12" description="行政区划代码"/>
+      <form-property prefix="record" name="xzqh_id" type="string" size="36" cannull="false" description="行政区划ID"/>
+      <form-property prefix="record" name="xzqh_nm" type="string" size="36" cannull="true" description="行政区划内码"/>
+      <form-property prefix="record" name="bb_id" type="string" size="2" cannull="true" description="版本ID"/>
+      <form-property prefix="record" name="xzqh_dm" type="string" size="12" cannull="true" description="行政区划代码"/>
+      <form-property prefix="record" name="xzqh_mc" type="string" size="255" cannull="true" description="行政区划名称"/>
+      <form-property prefix="record" name="parent_node_name" type="string" size="255" cannull="true" description="上级行政区划名称"/>
+      <form-property prefix="record" name="xzqh_cn_ms" type="string" size="255" cannull="true" description="行政区划中文描述"/>
+      <form-property prefix="record" name="xzqh_en_mc" type="string" size="255" cannull="true" description="行政区划英文名称"/>
+      <form-property prefix="record" name="xzqh_en_ms" type="string" size="255" cannull="true" description="行政区划英文描述"/>
+      <form-property prefix="record" name="xzqh_cjm" type="string" size="12" cannull="true" description="行政区划层级码"/>
+      <form-property prefix="record" name="xzqh_fjd" type="string" size="36" cannull="true" description="行政区划父节点"/>
+      <form-property prefix="record" name="xzqh_cc" type="string" size="2" cannull="true" description="所在层次"/>
+      <form-property prefix="record" name="szcc_sxm" type="int" cannull="true" description="顺序码"/>
+      <form-property prefix="record" name="sf_mx" type="string" size="1" cannull="true" description="是否明细"/>
+      <form-property prefix="record" name="expand" type="string" size="6" cannull="true" description="是否展开树节点"/>
+    </form-bean>
+
+    <form-bean name="GzDmXzqhUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="xzqh_id" type="string" size="36" cannull="false" description="行政区划ID"/>
+      <form-property prefix="select-key" name="source_bb_id" type="string" size="2" cannull="true" description="版本ID"/>
+      <form-property prefix="select-key" name="xzqh_nm" type="string" size="36" cannull="true" description="行政区划内码"/>
+      <form-property prefix="select-key" name="xzqh_fjd" type="string" size="36" cannull="true" description="父节点代码"/>
+      <form-property prefix="select-key" name="bb_id" type="string" size="2" cannull="true" description="版本ID"/>
+      <form-property prefix="select-key" name="bb_mc" type="string" size="255" description="版本名称"/>
+      
+      <form-property prefix="record" name="first_id" type="string" size="36" cannull="false" description="行政区划ID"/>
+      <form-property prefix="record" name="last_id" type="string" size="36" cannull="false" description="行政区划ID"/>
+      <form-property prefix="record" name="first_xh" type="int" cannull="false" description="顺序码"/>
+      <form-property prefix="record" name="last_xh" type="int" cannull="false" description="顺序码"/>
+      
+      <form-property prefix="record" name="xzqh_id" type="string" size="36" cannull="false" description="行政区划ID"/>
+      <form-property prefix="record" name="xzqh_nm" type="string" size="36" cannull="true" description="行政区划内码"/>
+      <form-property prefix="record" name="bb_id" type="string" size="2" cannull="true" description="版本ID"/>
+      <form-property prefix="record" name="xzqh_dm" type="string" size="12" cannull="true" description="行政区划代码"/>
+      <form-property prefix="record" name="xzqh_mc" type="string" size="255" cannull="true" description="行政区划名称"/>
+      <form-property prefix="record" name="parent_node_name" type="string" size="255" cannull="true" description="上级行政区划名称"/>
+      <form-property prefix="record" name="xzqh_cn_ms" type="string" size="255" cannull="true" description="行政区划中文描述"/>
+      <form-property prefix="record" name="xzqh_en_mc" type="string" size="255" cannull="true" description="行政区划英文名称"/>
+      <form-property prefix="record" name="xzqh_en_ms" type="string" size="255" cannull="true" description="行政区划英文描述"/>
+      <form-property prefix="record" name="xzqh_cjm" type="string" size="12" cannull="true" description="行政区划层级码"/>
+      <form-property prefix="record" name="xzqh_fjd" type="string" size="36" cannull="true" description="行政区划父节点"/>
+      <form-property prefix="record" name="xzqh_cc" type="string" size="2" cannull="true" description="所在层次"/>
+      <form-property prefix="record" name="szcc_sxm" type="int" cannull="true" description="顺序码"/>
+      <form-property prefix="record" name="sf_mx" type="string" size="1" cannull="true" description="是否明细"/>
+    </form-bean>
+
+    <form-bean name="GzDmXzqhDeleteForm">
+      <description>多记录和单记录删除</description>
+       <form-property prefix="primary-key" name="xzqh_id" type="string" size="36" cannull="false" description="行政区划ID"/>
+      <form-property prefix="select-key" name="xzqh_id" type="string" size="36" cannull="true" description="行政区划ID"/>
+      <form-property prefix="select-key" name="sf_mx" type="string" size="1" cannull="true" description="是否明细"/>
+      <form-property prefix="select-key" name="isUpdateSfmx" type="string" size="1" cannull="true" description="是否更新父节点的sf_mx"/>
+      <form-property prefix="foreign-key" name="xzqh_id" type="string" size="36" cannull="true" description="行政区划ID"/>
+      <form-property prefix="foreign-key" name="xzqh_nm" type="string" size="36" cannull="true" description="行政区划内码"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+
+    <action input="query-gz_dm_xzqh.jsp" name="GzDmXzqhDeleteForm" txn-code="30102015" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>元数据管理-行政区划管理-删除行政区划信息</description>
+      <step index="10" bean-name="cn.gwssi.csdb.ysjgl.txn.TxnGzDmXzqh" func-name="txn30102015" input-node="primary-key" output-node="record" description="删除行政区划信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-gz_dm_xzqh.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/ysjgl/jcsjgl/xzqhgl/xzqh/query-gz_dm_xzqh.jsp" description="查询行政区划列表"/>
+    <resource-file type="jsp" file-name="/ysjgl/jcsjgl/xzqhgl/xzqh/copy-gz_dm_xzqh.jsp" description="复制行政区划"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.ysjgl.vo.GzDmXzqhContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.ysjgl.vo.VoGzDmXzqh" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.ysjgl.vo.VoGzDmXzqhSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.ysjgl.vo.VoGzDmXzqhPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

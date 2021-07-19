@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../jazz-ui.js" type="text/javascript"></script> 
+<script type="text/javascript">
+function _start(e, layout){
+	 //layout.index    当前选中的边线的索引值
+}
+
+function _stop(e, layout){
+	//layout.top      拖动后，边线上部区域的宽度
+    //layout.bottom   拖动后，边线下部区域的宽度
+    //layout.index    当前选中的边线的索引值
+}
+</script>
+</head>
+<body>
+    <div id="column_id" width="500" height="300" vtype="panel" name="panel" layout="row" layoutconfig="{border: true, height:['20%', '*', '80']}"
+    	rowdragstart="_start()" rowdragstop="_stop()">
+        <div>
+    		<div>边框设置，layoutconfig="{border: true}<br>边框可拖动</div>
+    	</div>
+    	<div>
+    		<div>边框设置，layoutconfig="{border: true}<br>边框可拖动</div>
+    	</div>
+    	<div>
+    		<div>边框设置，layoutconfig="{border: true}<br>边框可拖动</div>
+    	</div>
+    </div>
+</body>
+</html>

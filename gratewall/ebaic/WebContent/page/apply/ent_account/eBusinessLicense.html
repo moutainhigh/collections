@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<link rel="stylesheet" href="../../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" type="text/css" />
+<link rel="stylesheet" href="../../../../static/css/common.css" />
+<link rel="stylesheet" href="../../../static/css/entIndex.css"/>
+<style>
+	/* article{
+	    width:1000px;
+	    height:542px;
+	    margin:10px auto;
+	} */
+	.content{
+		background-color: #EBEBEB; 
+		margin-top: 10px;
+	    width:1000px;
+	    height:760px;
+	   	 border:1px solid #EBEBEB; 
+	    margin:10px auto;
+	    overflow: hidden;
+	} 
+	.pic{
+	    width:650px;
+	    height:700px;
+	    margin-right:10px;
+	    margin-top:10px;
+	    float: left;
+	    background-color: #FFFFFF;
+	}
+	.eBussinessLicInfo{
+	    width:300px;
+	    height:700px;
+	    margin-bottom:10px;
+	    margin-top:10px;
+	    float: right;
+		position: relative;
+		background-color: #FFFFFF;
+	}
+	.btn-box{
+	    height:50px;
+	    margin:0 auto; 
+	    cursor: pointer;
+	    text-align: center;
+	    margin-top:10px;
+	    margin-right:100px;
+	    position: relative;
+	    float: right;
+	}
+	.top-line,.bottom-line{
+	    width:100%;
+	    min-height: 1px;
+	    background: #000;
+	}
+	.img{
+		height: 600px;
+		margin: 0 auto;
+		margin-left: 80px;
+		/* color: #FFFFFF;
+		background-color: #FFFFFF;  */
+	}
+</style>
+</head>
+<body>
+<div id="top-line"></div>
+<div class="content">
+<!-- <article> -->
+	<!-- 电子营业执照显示 -->
+	<div class="pic">
+		<div class="content-top">
+			<img src="../../../static/image/img/icon/JBXX.png"> <span>电子营业执照</span>
+		</div>
+		<div class="img">
+			<img alt="" src="images/aa.jpg" height="600px">
+		</div>
+	</div>
+	<!-- 相关信息 -->
+	<div class="eBussinessLicInfo">
+		<div class="content-top">
+			<img src="../../../static/image/img/icon/JBXX.png"> <span>相关信息</span>
+		</div>
+		<div vtype="formpanel" name="accountDetail_Form"
+			dataview="true" titleDisplay="false" title="相关信息" width="100%"
+			showborder="false" dataurl="" layout="table"
+			layoutconfig="{cols:1, columnwidth: ['100%']}"
+			labelstyleclass="labelstyle">
+			<div name="entName" vtype="textfield" label="核准时间" 
+				labelwidth="140" labelalign="right" width="400"></div>
+			<!-- <div name="accoutState" vtype="textfield" label="账户状态"
+				labelwidth="140" labelalign="right" width="400"></div>
+			<div name="legName" vtype="textfield" label="法人代表姓名"
+				labelwidth="140" labelalign="right" width="400"></div>
+			<div name="legMobile" vtype="textfield" label="法人手机号"
+				labelwidth="140" labelalign="right" width="400"></div>
+			<div name="legCerType" vtype="textfield" label="法人证件类型"
+				labelwidth="140" labelalign="right" width="400"></div>
+			<div name="legCerNo" vtype="textfield" label="法人证件号"
+				labelwidth="140" labelalign="right" width="400"></div>
+			<div name="legIdentityState" vtype="textfield" label="法人身份认证状态"
+				labelwidth="140" labelalign="right" width="400"></div>
+			<div name="uniScid" vtype="textfield" label="统一社会信用代码"
+				labelwidth="140" labelalign="right" width="400"></div> -->
+		</div>
+	</div>
+	
+	<div class="btn-box">
+		<div id="backButton" class="commonBt">返回</div>
+	</div>
+<!-- </article> -->
+</div>
+
+<div id="bottom-line"></div>
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../../../static/js/config.js"></script>
+<script type="text/javascript" data-main="apply/ent_account/eBusinessLicense.js" src="../../../../static/lib/require.js"></script>
+</body>
+</html>

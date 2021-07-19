@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="sys_db_config_param" class-name="com.gwssi.dw.runmgr.db.dao.SysDbConfigParam" check-flag="false" backup-flag="false">
+    <description>配置参数</description>
+  </table-info>
+
+  <column name="sys_db_config_param_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="配置参数ID"/>
+  <column name="sys_db_config_id" data-type="varchar" length="32" not-null="true" value-from="input" description="配置ID"/>
+  <column name="operator1" data-type="varchar" length="10" not-null="false" value-from="input" description="or或and"/>
+  <column name="left_paren" data-type="varchar" length="5" not-null="false" value-from="input" description="左括号"/>
+  <column name="left_table_no" data-type="varchar" length="32" not-null="true" value-from="input" description="表ID"/>
+  <column name="left_column_no" data-type="varchar" length="32" not-null="true" value-from="input" description="字段ID"/>
+  <column name="operator2" data-type="varchar" length="5" not-null="true" value-from="input" description="操作符"/>
+  <column name="param_value" data-type="varchar" length="32" not-null="true" value-from="input" description="值"/>
+  <column name="right_paren" data-type="varchar" length="5" not-null="false" value-from="input" description="右括号"/>
+  <column name="param_type" data-type="varchar" length="32" not-null="true" value-from="input" description="参数类型"/>
+  <column name="param_order" data-type="long" length="0" not-null="true" value-from="input" description="参数顺序"/>
+  <column name="left_table_name" data-type="varchar" length="32" not-null="true" value-from="input" description="表英文名称"/>
+  <column name="left_table_name_cn" data-type="varchar" length="32" not-null="true" value-from="input" description="表中文名称"/>
+  <column name="left_column_name" data-type="varchar" length="32" not-null="true" value-from="input" description="字段英文名称"/>
+  <column name="left_column_name_cn" data-type="varchar" length="32" not-null="true" value-from="input" description="字段中文名称"/>
+  <column name="param_text" data-type="varchar" length="4000" not-null="true" value-from="input" description="参数中文"/>
+  <primary-key name="sys_c009594" column-list="sys_db_config_param_id"/>
+  <index name="sys_c009594" index-type="unique" cluster="cluster" column-list="sys_db_config_param_id"/>
+  <function func-name="select one sys_db_config_param" func-type="select" column-list="sys_db_config_param_id,sys_db_config_id,operator1,left_paren,left_table_no,left_column_no,operator2,param_value,right_paren,param_type,left_table_name,left_table_name_cn,left_column_name,left_column_name_cn,param_text">
+    <filter-column column-name="sys_db_config_param_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_db_config_param list" func-type="rowset" column-list="sys_db_config_param_id,sys_db_config_id,operator1,left_paren,left_table_no,left_column_no,operator2,param_value,right_paren,param_type,left_table_name,left_table_name_cn,left_column_name,left_column_name_cn,param_text" sort-columns="param_order" max-record="10">
+    <filter-column column-name="sys_db_config_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_db_config_param" func-type="insert" column-list="sys_db_config_param_id,sys_db_config_id,operator1,left_paren,left_table_no,left_column_no,operator2,param_value,right_paren,param_type,param_order,left_table_name,left_table_name_cn,left_column_name,left_column_name_cn,param_text">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_db_config_param" func-type="delete">
+    <filter-column column-name="sys_db_config_param_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="delete config sys_db_config_param" func-type="delete">
+    <filter-column column-name="sys_db_config_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+</table>
+

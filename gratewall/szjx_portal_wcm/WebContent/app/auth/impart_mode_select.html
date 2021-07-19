@@ -1,0 +1,104 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title WCMAnt:param="impart_mode_select.html.title">选择传递模式</title>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/data/locale/auth.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></SCRIPT>
+<script>
+function init(args){
+	// 将选择清零
+	if(!$("Mode0").checked){
+		$("Mode0").checked = true;
+		$("Mode0").disabled = false;
+	}
+	for(var i=1; i<5; i++){	
+		if($("Mode"+i).checked)
+			$("Mode"+i).checked = false;
+		$("Mode"+i).disabled = false;
+	}
+}
+
+function selectAllMode(_bChecked){
+	if(_bChecked){
+		for(var i=0; i<4; i++){	
+			$("Mode"+i).checked = false;
+			$("Mode"+i).disabled = true;
+		}
+	}else{
+		for(var i=0; i<4; i++){	
+			$("Mode"+i).disabled = false;
+		}
+	}
+}
+
+function selectNormalMode(_bChecked){
+	if(!_bChecked)
+		return;
+
+	$("Mode0").checked = false;
+}
+
+function selectNoneMode(_bChecked){
+	if(!_bChecked)
+		return;
+
+	for(var i=1; i<5; i++){	
+		$("Mode"+i).checked = false;		
+	}
+}
+
+window.m_cbCfg = {
+    btns : [
+        {
+            text : wcm.LANG.AUTH_TRUE||'确定',
+            cmd : function(){
+				var inputArr = document.getElementsByTagName("input");
+				var flag = false;
+				for(var i = 0; i< inputArr.length; i++){
+					if(inputArr[i].checked == true){
+						flag = true;
+						break;
+					}
+				}
+				if(!flag){
+					alert(wcm.LANG.AUTH_ONEORMORE || "请至少选择一项");
+					return false;
+				}
+                this.notify({
+			        ImpartMode : $$F("ImpartMode")
+		        });
+            }
+        },
+        {text : wcm.LANG.AUTH_CANCEL||'取消'}
+    ]
+};
+</script>
+<style>
+.sp_title{
+		font-size: 12px;
+		height: 25px;
+		line-height: 25px;
+		text-decoration: none;
+		width: 180px;
+		padding-left: 5px;
+	}
+</style>
+</head>
+<body style="padding:0px;margin:0px;">
+<div style="background:#ffffff; padding-top: 2px; font-size:9pt">
+<OL>
+	<li><input type="checkbox" value="0" name="ImpartMode" id="Mode0" checked onclick="selectNoneMode(this.checked);"><label for="Mode0" WCMAnt:param="impart_mode_select.html.nosend">不传递任何权限记录</label></li>
+	<li><input type="checkbox" value="1" name="ImpartMode" id="Mode1" onclick="selectNormalMode(this.checked);"><label for="Mode1" WCMAnt:param="impart_mode_select.html.nosendnew">传递新增的权限记录</label></li>
+	<li><input type="checkbox" value="2" name="ImpartMode"  id="Mode2" onclick="selectNormalMode(this.checked);"><label for="Mode2" WCMAnt:param="impart_mode_select.html.nosendedit">传递修改的权限记录</label></li>
+	<li><input type="checkbox" value="3" name="ImpartMode"  id="Mode3" onclick="selectNormalMode(this.checked);"><label for="Mode3" WCMAnt:param="impart_mode_select.html.nosenddel">传递删除的权限记录</label></li>
+	<li><input type="checkbox" value="4" name="ImpartMode"  id="Mode4" onclick="selectAllMode(this.checked);"><label for="Mode4" WCMAnt:param="impart_mode_select.html.same">将权限设置成完全一致</label></li>
+</OL>
+</div>
+</body>
+</html>

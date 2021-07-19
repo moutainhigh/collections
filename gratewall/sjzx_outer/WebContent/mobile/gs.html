@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>商事主体登记及备案信息查询</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="expires" content="0">
+<!-- <meta name="viewport" content="width=device-width,initial-scale=0.5,maximum-scale=1.0,user-scalable=no"/> -->
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0" />
+<link rel="stylesheet" href="../statics/bt/css/bootstrap.min.css">
+<script type="text/javascript" src="../statics/bt/js/jquery.min.js"></script>
+<script type="text/javascript" src="../statics/js/util.js"></script>
+<script type="text/javascript" src="../statics/js/base64.js"></script>
+<script type="text/javascript" src="../statics/bt/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../statics/css/mobileConfig.css">
+<link rel="stylesheet" href="../statics/css/mobileCompone.css">
+</head>
+<body>
+	<div id="entId"></div>
+	<div id="entJinYinYiChang" data-desc="经营异常信息"></div>
+	<div id="entName"></div>
+	<div id="validateCodeState"></div>
+	<div id="opetype"></div>
+	<div id="regno"></div>
+	<div id="unifsocicrediden"></div>
+	<div style="text-align: center;margin-top:.8rem">
+	<p style="font-weight: bold; font-size: 20px;">商事登记簿查询</p>
+	<p>（商事主体登记及备案信息查询）</p>
+	</div>
+
+
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="myModalLabel">系统提示</h4>
+				</div>
+				<div class="modal-body">注册号\统一社会信用代码，商事主体名称：至少一项不能为空</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">好的</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-12 column">
+				<div style="margin-top: 10px">
+					<form class="bs-example bs-example-form" role="form" onsubmit="return false">
+						<div class="input-group">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-user"></span>
+							</span>
+							<input type="text" class="form-control" id="unifsocicredidenInput" placeholder="注册号或统一社会信用代码">
+						</div>
+						<br />
+						<div class="input-group" style="position: relative;">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-registration-mark"></span>
+							</span>
+							<input type="text" class="form-control" id="entNameInput" style="width:80%" placeholder="商事主体名称">
+							<div class="checkbox" style="position: absolute;right: 0">
+								<label>
+									<input type="checkbox" id='isFull' checked>
+									<!-- checked -->
+									全称
+								</label>
+							</div>
+						</div>
+						<br />
+						<div class="input-group">
+							<span class="input-group-addon">
+								<span class="glyphicon glyphicon-road"></span>
+							</span>
+							<input type="text" class="form-control" id="index_code" style="width:60%" placeholder="输入右边显示的验证码">
+							<div style="position: absolute;right:4px">
+								<img id="imgObj" title="点击可重新获取验证码" name="verifycode" width="100" height="45" alt="看不清" onclick="getCode()" />
+							</div>
+						</div>
+						<br />
+
+
+						<div class="input-group">
+							<div class="col-sm-offset-2 col-sm-10" style="padding-left: 0">
+								<button class="btn  btn-primary" id="submit2" style="padding:0;width: 70px;height: 36px;">查询</button>
+							</div>
+						</div>
+					</form>
+
+					<div style="margin-top: 5px;">
+						<p>注意：</p>
+						<p>1.按"注册号"查询时，应当输入完整的注册号;</p>
+						<p>2.当查询结果超过20条时，只显示前20条，请用户录入更精确的条件;</p>
+					</div>
+				</div>
+
+				<!-- 标签页开始 -->
+				<div id="tagsSwitch">
+					<div id="infos" class="tagInfoBg"></div>
+					<h2 id="infosfunDesc" class="queryExport tagInfoBg" style="font-size: 1.2rem;font-weight: bold;">商事主体登记及备案信息查询单</h2>
+					<div class="container tagInfoBg wcont">
+						<div class="tableInfosList">
+							<ul class="nav nav-tabs" id="tagDispayEnt">
+								<li id="p1"></li>
+								<li id="p2"></li>
+								<li id="p3"></li>
+								<li id="p4"></li>
+								<li id="p5"></li>
+								<li id="p6"></li>
+								<li id="p7"></li>
+								<li id="p8"></li>
+								<li id="p9"></li>
+							</ul>
+							<div class="tab-content" id="tab-content">
+								<div class='tab-pane' id='panel-1'>
+									<h2>
+										<span id='jbxxTitle'></span>
+										的基本信息
+									</h2>
+									<span id="l1"></span>
+									<div class='wrap'>
+										<table></table>
+									</div>
+								</div>
+								<div class='tab-pane' id='panel-2'>
+									<h2></h2>
+									<div class='wrap'>
+										<span id="l2"></span>
+										<table></table>
+									</div>
+								</div>
+								<div class='tab-pane' id='panel-3'>
+									<h2></h2>
+									<div class='wrap'>
+										<span id="l3"></span>
+										<table></table>
+									</div>
+								</div>
+								<div class='tab-pane' id='panel-4'>
+									<h2></h2>
+									<div class='wrap'>
+										<span id="l4"></span>
+										<table></table>
+									</div>
+								</div>
+								<div class='tab-pane' id='panel-5'>
+									<h2>
+										<span id='bgxxTitle'></span>
+										的变更信息
+									</h2>
+									<div class='wrap'>
+										<span id="l5"></span>
+										<table>
+										</table>
+									</div>
+								</div>
+								<div class='tab-pane' id='panel-6'>
+									<h2>
+										<span id='gqzyTitle'></span>
+										的股权质押信息
+									</h2>
+									<div class='wrap'>
+										<span id="l6"></span>
+										<table></table>
+									</div>
+								</div>
+								<div class='tab-pane' id='panel-7'>
+									<h2>
+										<span id='dcdyTitle'></span>
+										的动产抵押信息
+									</h2>
+									<div class='wrap'>
+										<span id="l7"></span>
+										<table></table>
+									</div>
+								</div>
+								<div class='tab-pane' id='panel-8'>
+									<h2>
+										<span id='fydjTitle'></span>
+										的法院冻结信息
+									</h2>
+									<div class='wrap'>
+										<span id="l8"></span>
+										<table></table>
+									</div>
+								</div>
+								<div class='tab-pane' id='panel-9'>
+									<h2>
+										<span id='jyycTitle'></span>
+										的经营异常信息
+									</h2>
+									<div class='wrap'>
+										<span id="l9"></span>
+										<table></table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 标签页结束 -->
+				<!-- 商事主体列表 -->
+				<div class="listItems hide" id="list">
+					<!-- class="hide" -->
+					<div id="listTips" class="alert alert-warning">
+						<p>温馨提示：</p>
+						<p>
+							您模糊查询的商事主体名称<strong class="keyWordsDesc" id="keyWorkInfo"></strong>，由于对应的商事主体数量过大，现只显示前20条；如有需要，请输更精准的查询条件
+						</p>
+					</div>
+					<table class="table table-bordered">
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<style type="text/css">
+#gotop {
+	display: none;
+	width: 55px;
+	height: 55px;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	background: url(../statics/images/top.png) no-repeat -70px 0px;
+}
+</style>
+	<div id="gotop"></div>
+	<script type="text/javascript" src="../statics/plugins/myUI/tzMobileInit.js"></script>
+	<script type="text/javascript" src="../statics/plugins/myUI/mobileGS.js"></script>
+	<script type="text/javascript" src="../statics/plugins/myUI/myMobileTemplate.js"></script>
+	<script type="text/javascript" src="../statics/plugins/myUI/backTop.js"></script>
+	<script type="text/javascript" src="../statics/plugins/myUI/common.js"></script>
+</body>
+</html>

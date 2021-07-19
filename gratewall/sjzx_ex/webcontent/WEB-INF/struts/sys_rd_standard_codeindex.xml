@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>基础代码集管理</menu-name>
+  <menu-path>/page/resource/res/rd/standard/jcdmjgl/</menu-path>
+  <description>基础代码集管理</description>
+  <form-beans>
+    <form-bean name="SysRdStandardCodeindexRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="sys_rd_standar_codeindex" type="string" size="255" description="代码集标识符"/>
+      <form-property prefix="select-key" name="codeindex_name" type="string" size="255" description="代码集名称"/>
+      <form-property prefix="record" name="sys_rd_standar_codeindex" type="string" size="10" cannull="false" description="代码集标识符"/>
+      <form-property prefix="record" name="codeindex_name" type="string" size="255" cannull="true" description="代码集名称"/>
+      <form-property prefix="record" name="codeindex_category" type="string" size="2" cannull="true" description="代码集分类"/>
+      <form-property prefix="record" name="representation" type="string" size="10" cannull="true" description="表示"/>
+      <form-property prefix="record" name="standard_codeindex_version" type="string" size="10" cannull="true" description="版本"/>
+      <form-property prefix="record" name="code_table" type="string" size="64" cannull="true" description="代码表"/>
+      <form-property prefix="record" name="coding_methods" type="string" size="4000" cannull="true" description="编码方法"/>
+      <form-property prefix="record" name="description" type="string" size="2000" cannull="true" description="说明"/>
+    </form-bean>
+
+    <form-bean name="SysRdStandardCodeindexUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_rd_standar_codeindex" type="string" size="10" cannull="false" description="代码集标识符"/>
+      <form-property prefix="record" name="sys_rd_standar_codeindex" type="string" size="10" cannull="false" description="代码集标识符"/>
+      <form-property prefix="record" name="codeindex_name" type="string" size="255" cannull="true" description="代码集名称"/>
+      <form-property prefix="record" name="codeindex_category" type="string" size="2" cannull="true" description="代码集分类"/>
+      <form-property prefix="record" name="representation" type="string" size="10" cannull="true" description="表示"/>
+      <form-property prefix="record" name="standard_codeindex_version" type="string" size="10" cannull="true" description="版本"/>
+      <form-property prefix="record" name="code_table" type="string" size="64" cannull="true" description="代码表"/>
+      <form-property prefix="record" name="coding_methods" type="string" size="4000" cannull="true" description="编码方法"/>
+      <form-property prefix="record" name="description" type="string" size="2000" cannull="true" description="说明"/>
+    </form-bean>
+    
+     <form-bean name="SysRdStandardCodeindexViewForm">
+      <description>单记录处理：查询</description>
+      <form-property prefix="primary-key" name="sys_rd_standar_codeindex" type="string" size="10" cannull="false" description="代码集标识符"/>
+      <form-property prefix="record" name="sys_rd_standar_codeindex" type="string" size="10" cannull="false" description="代码集标识符"/>
+      <form-property prefix="record" name="codeindex_name" type="string" size="255" cannull="true" description="代码集名称"/>
+      <form-property prefix="record" name="codeindex_category" type="string" size="2" cannull="true" description="代码集分类"/>
+      <form-property prefix="record" name="representation" type="string" size="10" cannull="true" description="表示"/>
+      <form-property prefix="record" name="standard_codeindex_version" type="string" size="10" cannull="true" description="版本"/>
+      <form-property prefix="record" name="code_table" type="string" size="64" cannull="true" description="代码表"/>
+      <form-property prefix="record" name="coding_methods" type="string" size="4000" cannull="true" description="编码方法"/>
+      <form-property prefix="record" name="description" type="string" size="2000" cannull="true" description="说明"/>
+    </form-bean>
+
+    <form-bean name="SysRdStandardCodeindexDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_rd_standar_codeindex" type="string" size="10" cannull="false" description="代码集标识符"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_rd_standard_codeindex.jsp" name="SysRdStandardCodeindexRowsetForm" txn-code="7000401" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询代码集列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardCodeindex" func-name="txn7000401" input-node="select-key" output-node="record" description="查询代码集列表"/>
+      <forward error-code="success" path="query-sys_rd_standard_codeindex.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_standard_codeindex.jsp"/>
+    </action>
+
+    <action input="update-sys_rd_standard_codeindex.jsp" name="SysRdStandardCodeindexUpdateForm" txn-code="7000402" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改代码集信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardCodeindex" func-name="txn7000402" input-node="record" description="修改代码集信息"/>
+      <forward error-code="success" path="update-sys_rd_standard_codeindex.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_standard_codeindex.jsp"/>
+    </action>
+
+    <action input="insert-sys_rd_standard_codeindex.jsp" name="SysRdStandardCodeindexUpdateForm" txn-code="7000403" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加代码集信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardCodeindex" func-name="txn7000403" input-node="record" description="增加代码集信息"/>
+      <forward error-code="success" path="insert-sys_rd_standard_codeindex.jsp"/>
+      <forward error-code="failure" path="insert-sys_rd_standard_codeindex.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_standard_codeindex.jsp" name="SysRdStandardCodeindexUpdateForm" txn-code="7000404" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询代码集用于修改</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardCodeindex" func-name="txn7000404" input-node="primary-key" output-node="record" description="查询代码集用于修改"/>
+      <forward error-code="success" path="update-sys_rd_standard_codeindex.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_standard_codeindex.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_standard_codeindex.jsp" name="SysRdStandardCodeindexDeleteForm" txn-code="7000405" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除代码集信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardCodeindex" func-name="txn7000405" input-node="primary-key" description="删除代码集信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+    <action input="query-sys_rd_standard_codeindex.jsp" name="SysRdStandardCodeindexViewForm" txn-code="7000406" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询代码集用于视图</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardCodeindex" func-name="txn7000406" input-node="primary-key" output-node="record" description="查询代码集用于查看"/>
+      <forward error-code="success" path="view-sys_rd_standard_codeindex.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_standard_codeindex.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_rd_standard_codeindex.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/dw/rd/standard/jcdmjgl/query-sys_rd_standard_codeindex.jsp" description="查询代码集列表"/>
+    <resource-file type="jsp" file-name="/dw/rd/standard/jcdmjgl/insert-sys_rd_standard_codeindex.jsp" description="增加代码集信息"/>
+    <resource-file type="jsp" file-name="/dw/rd/standard/jcdmjgl/update-sys_rd_standard_codeindex.jsp" description="修改代码集信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.SysRdStandardCodeindexContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardCodeindex" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardCodeindexSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardCodeindexPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

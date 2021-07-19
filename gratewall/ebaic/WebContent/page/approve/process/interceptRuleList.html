@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>辅助审查</title>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+<!-- 构建页面==开始 -->
+<!-- 数据展现 -->
+<div vtype="gridpanel" name="interceptRuleGrid" 
+	titleDisplay="true" title="辅助审查" width="100%" showborder="true" 
+	dataurl="">
+	<div vtype="gridcolumn" name="grid_column" width="100%">
+		<div>
+			<div name="type" text="规则类型"  textalign="left" width="10%" dataurl=""></div>
+			<div name="name" text="规则名称"  textalign="left" width="40%" dataurl=""></div>
+			<div name="msg" text="规则信息"  textalign="left" width="50%" dataurl=""></div>
+		</div>
+	</div>
+	<div vtype="gridtable" name="grid_table" width="100%"></div>
+</div>
+<div name="ruleListToolbar" vtype="toolbar" location="bottom" align="center">
+	<div name="passButton" class="commonBt">通过</div>
+	<div name="notionButton" class="commonBt">告知</div>
+	<div name="tstdButton" class="commonBt">特殊通道</div>
+	<div name="tdApplyButton" class="commonBt">通道申请</div>
+	<div name="closeButton" class="commonBt">关闭</div>
+</div>
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../../static/js/config.js"></script>
+<script type="text/javascript" data-main="approve/interceptRuleList.js" src="../../../static/lib/require.js"></script>
+</body>
+</html>

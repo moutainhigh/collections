@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="login_session_hs" class-name="com.gwssi.dw.runmgr.etl.dao.LoginSessionHs" check-flag="false" backup-flag="false">
+    <description>历史登录用户信息</description>
+  </table-info>
+
+  <column name="session_id" data-type="varchar" length="100" not-null="true" value-from="input" description="id"/>
+  <primary-key name="login_session_hs_pk" column-list="session_id"/>
+  <index name="login_session_hs_pk" index-type="unique" cluster="cluster" column-list="session_id"/>
+</table>
+

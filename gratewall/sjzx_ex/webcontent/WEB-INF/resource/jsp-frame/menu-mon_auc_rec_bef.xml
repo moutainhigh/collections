@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="mon_auc_rec_bef.xml" app-path="/dw/aic/bj/htjg/reg/" app-name="mon_auc_rec_bef" description="fwpm" template="single-table.xml"/>
+  <table name="mon_auc_rec_bef.xml" app-name="mon_auc_rec_bef" app-desc="拍卖" delete-action="delete" description="fwpm" class-name="com.gwssi.dw.aic.bj.htjg.auc.txn.TxnMonAucRecBef" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-mon_auc_rec_bef.jsp" txn-code="81226001" description="查询拍卖列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加拍卖" path="insert-mon_auc_rec_bef.jsp" description="增加拍卖" func-name="addRecord"/>
+	    <button type="button" name="修改拍卖" path="/txn81226004.do" description="修改拍卖" func-name="updateRecord"/>
+	    <button type="button" name="删除拍卖" path="/txn81226005.do" description="删除拍卖" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn81226001.do" description="查询拍卖信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-mon_auc_rec_bef.jsp" txn-code="81226003" description="增加拍卖信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn81226003.do" description="保存拍卖信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn81226003.do" description="保存拍卖信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn81226001.do" description="保存拍卖信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn81226001.do" description="返回到拍卖明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-mon_auc_rec_bef.jsp" txn-code="81226002" description="修改拍卖信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn81226001.do" description="修改拍卖信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn81226001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-mon_auc_rec_bef.jsp" txn-code="81226001" description="查询拍卖列表">
+	    <forward error-code="success" path="query-mon_auc_rec_bef.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-mon_auc_rec_bef.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-mon_auc_rec_bef.jsp" txn-code="81226002" description="修改拍卖信息">
+	    <forward error-code="success" path="update-mon_auc_rec_bef.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-mon_auc_rec_bef.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-mon_auc_rec_bef.jsp" txn-code="81226003" description="增加拍卖信息">
+	    <forward error-code="success" path="insert-mon_auc_rec_bef.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-mon_auc_rec_bef.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-mon_auc_rec_bef.jsp" txn-code="81226004" description="查询拍卖用于修改">
+	    <forward error-code="success" path="update-mon_auc_rec_bef.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-mon_auc_rec_bef.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-mon_auc_rec_bef.jsp" txn-code="81226005" description="删除拍卖信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.htjg.auc.vo.MonAucRecBefContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.htjg.auc.vo.VoMonAucRecBef" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.htjg.auc.vo.VoMonAucRecBefSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.htjg.auc.vo.VoMonAucRecBefPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

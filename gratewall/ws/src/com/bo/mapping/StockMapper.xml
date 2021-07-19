@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 
+	例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ye.dao.StockDao">
+
+	<!-- http://blog.csdn.net/kangsenkangsen/article/details/51236279 -->
+	<!-- 在select标签中编写查询的SQL语句， 设置select标签的id属性为getUser，id属性值必须是唯一的，不能够重复 使用parameterType属性指明查询时使用的参数类型，resultType属性指明查询返回的结果集类型 
+		resultType="me.gacl.domain.User"就表示将查询结果封装成一个User类的对象返回 User类就是users表所对应的实体类 -->
+	<!-- 根据id查询得到一个user对象 -->
+
+	<select id="getStockByStockCode" resultType="Stock"
+		parameterType="String">
+		select *
+		from stock where stockCode=#{stockCode}
+	</select>
+
+	<!-- https://www.cnblogs.com/luxiaoxun/p/4035040.html -->
+	<!-- http://blog.csdn.net/bear_wr/article/details/52386257 -->
+	<!-- https://www.cnblogs.com/fsjohnhuang/p/4078659.html -->
+
+	<select id="selectStockAllList" resultType="Stock">
+		select *
+		from stock
+	</select>
+
+	<!-- https://github.com/pagehelper -->
+	<!-- http://www.jianshu.com/nb/5226994 -->
+	<!-- https://github.com/pagehelper/Mybatis-PageHelper -->
+	<select id="selectIf" resultType="Stock">
+		select *
+		from stock
+	</select>
+
+
+
+
+<!-- https://www.cnblogs.com/dushan/p/4766954.html -->
+<!-- https://www.cnblogs.com/cyttina/p/3894428.html -->
+<!-- <select id="getStockByCodeOrName" resultType="Stock" parameterType="Map">
+		select *
+		from stock where stockcode LIKE concat(concat('%',#{queryStr}),'%') or stockname like concat(concat('%',#{queryStr}),'%')
+		
+		select *
+		from stock where 1 = 1 
+ 
+		 <if test="stockCode !=''"> 
+		   and  stockcode LIKE concat(concat('%',#{stockCode}),'%')
+		 </if>
+		 
+		  <if test="stockName !=''"> 
+		   and  stockName LIKE concat(concat('%',#{stockName}),'%')
+		 </if> 
+	</select>
+ -->
+	<select id="getStockByCodeOrName" resultType="Stock" parameterType="String">
+			select *
+			from stock where stockcode LIKE concat(concat('%',#{queryStr}),'%') or stockname like concat(concat('%',#{queryStr}),'%') or pinYin like concat(concat('%',#{queryStr}),'%')
+	</select>
+
+	<select id="selectPubList" resultType="Stock" parameterType="Stock">
+		select * from
+		stock where
+		ispub != 0
+	</select>
+
+	<select id="selectAllRecentImpList" resultType="Stock"  parameterType="Map">
+		select * from
+		stock where
+		isRecentImport != 0
+		<if test="codes!='' and  codes!=null">
+			and stockcode LIKE concat(concat('%',#{codes}),'%') or stockname like concat(concat('%',#{codes}),'%') or pinYin like concat(concat('%',#{codes}),'%')
+		</if>
+	</select>
+
+
+	<select id="selectMostImpList" resultType="Stock" parameterType="Map">
+		select * from
+		stock
+		where
+		mostimp != 0 
+		<if test="codes!='' and  codes!=null">
+			and stockcode LIKE concat(concat('%',#{codes}),'%') or stockname like concat(concat('%',#{codes}),'%') or pinYin like concat(concat('%',#{codes}),'%')
+		</if>
+	</select>
+	
+	
+	<select id="imp" resultType="Stock" parameterType="Map">
+		select *
+		from stock where
+		isimp != 0
+		<if test="codes!='' and  codes!=null">
+			and stockcode LIKE concat(concat('%',#{codes}),'%') or stockname like concat(concat('%',#{codes}),'%') or pinYin like concat(concat('%',#{codes}),'%')
+		</if>
+	</select>
+
+	<select id="selectWaitImpList" resultType="Stock" parameterType="Map">
+		select * from
+		stock
+		where
+		waitImp != 0 
+		<if test="codes!='' and  codes!=null">
+			and stockcode LIKE concat(concat('%',#{codes}),'%') or stockname like concat(concat('%',#{codes}),'%') or pinYin like concat(concat('%',#{codes}),'%')
+		</if>
+	</select>
+
+	<select id="selectLongHuList" resultType="Stock" parameterType="Map">
+		select * from
+		stock
+		where
+		longhuBang != 0 
+		<if test="codes!='' and  codes!=null">
+			and stockcode LIKE concat(concat('%',#{codes}),'%') or stockname like concat(concat('%',#{codes}),'%') or pinYin like concat(concat('%',#{codes}),'%')
+		</if>
+	</select>
+
+
+	<select id="selectRecentImpAndPubList" resultType="Stock" parameterType="Map">
+		select * from
+		stock where
+		isRecentImport != 0 and ispub != 0  
+		
+		<if test="codes!='' and  codes!=null">
+			and stockcode LIKE concat(concat('%',#{codes}),'%') or stockname like concat(concat('%',#{codes}),'%') or pinYin like concat(concat('%',#{codes}),'%')
+		</if>
+	</select>
+
+	<select id="selectConsoleStockList" resultType="Stock" parameterType="Map">
+		select * from
+		stock where
+		isconsole !=0 
+		<if test="codes!='' and  codes!=null">
+			and stockcode LIKE concat(concat('%',#{codes}),'%') or stockname like concat(concat('%',#{codes}),'%') or pinYin like concat(concat('%',#{codes}),'%')
+		</if>
+	</select>
+
+<!-- <if test="stockname=='' or stockName is null">
+		 or stockname = ''; 
+		</if> -->
+	<select id="selectNoNameStockList" resultType="Stock">
+		select * from
+		stock where
+		stockname is null or stockname = ''
+		
+	</select>
+
+
+	<insert id="save" parameterType="Stock">
+		INSERT INTO stock
+		(stockId,stockname, pointerPrice,rates,stockBelong) VALUES
+		(#{stockId},
+		#{stockname}, #{pointerPrice}, #{rates},#{stockBelong})
+	</insert>
+
+
+	<!-- http://www.bubuko.com/infodetail-1018676.html -->
+	<!-- https://www.cnblogs.com/qiankun-site/p/5758383.html -->
+	<!-- http://www.bubuko.com/infodetail-1018676.html -->
+	<!-- http://xintiankun.iteye.com/blog/2088088 -->
+	<!-- http://www.zuidaima.com/share/1610395974765568.htm -->
+	<!-- http://blog.csdn.net/gui66497/article/details/48010671 -->
+	<!-- http://www.what21.com/programming/java/java-framework/easyui-spring4-mybatis.html -->
+	<!-- https://www.cnblogs.com/han-1034683568/p/6545751.html -->
+	<!-- http://www.xuebuyuan.com/1987626.html -->
+	<!-- http://www.cnblogs.com/han-1034683568/p/6440157.html -->
+	<!-- http://www.jb51.net/article/91593.htm -->
+	<!-- https://www.cnblogs.com/gxbk629/p/5370383.html -->
+	<!-- http://www.cnblogs.com/xdp-gacl/p/4264440.html -->
+	<!-- https://yq.aliyun.com/ziliao/111062 -->
+	<!-- http://blog.csdn.net/h70614959/article/details/8773726 -->
+	<update id="update" parameterType="Stock">
+		UPDATE stock SET
+		stockName=#{stockName},
+		stockCode=#{stockCode},
+		currentPrice=#{currentPrice},
+		todayMaxPrice=#{todayMaxPrice},
+		todayMinPrice=#{todayMinPrice},
+		pointerPrice=#{pointerPrice},
+		pointerRates=#{pointerRates},
+		stockBelong=#{stockBelong},
+		fudu=#{fudu},
+		ispub=#{ispub},
+		isRecentImport = #{isRecentImport},
+		longhuBang = #{longhuBang},
+		mostImp = #{mostImp},
+		waitImp = #{waitImp},
+		prevClose = #{prevClose},
+		isconsole=#{isconsole},
+		thumbsImg=#{thumbsImg},
+		pinYin =#{pinYin}
+		WHERE
+		stockcode=#{stockCode}
+	</update>
+	
+	
+	<select id="getZhangFuStock" resultType="Stock" parameterType="Map">
+	select * from stock s where s.currentPrice - s.prevClose  &gt;  0 and s.currentPrice !=0 ORDER BY s.currentPrice - s.prevClose  and stockcode LIKE concat(concat('%',#{stockcode}),'%') or stockname like concat(concat('%',#{stockcode}),'%') or pinYin like concat(concat('%',#{stockcode}),'%')
+	
+	<if test="codes!='' and  codes!=null">
+			and stockcode LIKE concat(concat('%',#{codes}),'%') or stockname like concat(concat('%',#{codes}),'%') or pinYin like concat(concat('%',#{codes}),'%')
+		</if>
+	</select>
+	 
+    <select id="getDieFuStock" resultType="Stock" parameterType="Map">
+	select * from stock s where s.currentPrice - s.prevClose &lt; 0  and s.currentPrice !=0 ORDER BY s.currentPrice - s.prevClose and s.currentPrice !=0 and stockcode LIKE concat(concat('%',#{stockcode}),'%') or stockname like concat(concat('%',#{stockcode}),'%') or pinYin like concat(concat('%',#{stockcode}),'%')
+	<if test="codes!='' and  codes!=null">
+			and stockcode LIKE concat(concat('%',#{codes}),'%') or stockname like concat(concat('%',#{codes}),'%') or pinYin like concat(concat('%',#{codes}),'%')
+		</if>
+	</select>
+</mapper>

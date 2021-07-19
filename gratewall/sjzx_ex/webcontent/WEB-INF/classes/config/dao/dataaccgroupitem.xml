@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>csdb</sort-name>
+  <table-info name="dataaccgroupitem" class-name="com.gwssi.sysmgr.priv.datapriv.dao.Dataaccgroupitem" check-flag="false" backup-flag="false">
+    <description>数据权限分组项</description>
+  </table-info>
+
+  <column name="dataaccgrpid" data-type="long" length="19" not-null="true" value-from="input" description="数据权限分组ID"/>
+  <column name="objectid" data-type="long" length="19" not-null="true" value-from="input" description="数据权限类型代码"/>
+  <column name="dataaccid" data-type="varchar" length="200" not-null="true" value-from="input" description="数据权限内码"/>
+  <primary-key name="sql070828124119030" column-list="dataaccgrpid,dataaccid,objectid"/>
+  <index name="sql070828124118710" index-type="unique" cluster="other" column-list="dataaccgrpid,dataaccid,objectid"/>
+  <function func-name="insert one dataaccgroupitem" func-type="insert" column-list="dataaccgrpid,objectid,dataaccid">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one dataaccgroupitem" func-type="delete">
+    <filter-column column-name="dataaccgrpid" operator="eq" value-from="input" empty-flag="null"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="select dataaccgroupitem list" func-type="rowset" column-list="dataaccgrpid,objectid,dataaccid" max-record="10">
+    <filter-column column-name="dataaccgrpid" operator="in" value-from="input" empty-flag="null"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="findByPramaryKey" func-type="rowset" column-list="dataaccgrpid, objectid, dataaccid" max-record="10">
+    <filter-column column-name="dataaccgrpid" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="objectid" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="dataaccid" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+</table>
+

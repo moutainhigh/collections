@@ -1,0 +1,91 @@
+/*为减少页面风格的CSS文件大小，故将CSS模版中的固定样式抽取作为公共样式*/
+/*lky于2013-02-06从content_template_*.css中抽取固定内容的css样式*/
+p_w_box .p_doc_title_li{
+	overflow:hidden;
+	word-break:breakall;
+	font-weight:normal;
+	position:relative;
+}
+/*文档分割线，第一条分割线不显示*/
+p_w_box .c_line_1{
+	display:none !important;
+}
+p_w_box .c_line{
+	display:none;
+	width:100%;
+	font-size:0px;
+}
+p_w_box .c_line .c_last_line{
+	display:none;
+	width:100%;
+	font-size:0px;
+}
+/*没有文档时候的提示样式*/
+p_w_box h1{
+	font-family:"宋体";
+	font-weight:bold;
+	font-size:14px;
+	line-height:150%;
+}
+/*lky于2013-02-06从resource_template_*.css中抽取固定内容的css样式*/
+.p_w_box .p_w_head{
+	margin-right:10px;
+	position:relative;
+}
+.p_w_box .p_w_head .p_w_title{
+	float:left;
+	line-height:100%;
+}
+.p_w_box .p_w_head .p_w_more{
+	height:100%;
+	line-height:100%;
+	position:absolute;
+	right:-10px;
+	text-align:right;
+}
+.p_w_box .p_w_body .p_w_body_bg .p_w_content_box:after{
+	content:"";
+	font-size:0;
+	line-height:0;
+	height:0;
+	clear:both;
+}
+.p_w_box .p_w_body .p_w_body_bg .p_w_content_box{
+	zoom:1;
+}
+.p_w_box .p_w_body .p_w_body_bg .p_w_content_box .p_w_content{
+	width:auto;
+	overflow:hidden;
+}
+.p_w_box .p_w_body{
+	width:auto;
+	border-top:none;
+}
+.p_w_box .p_w_foot{
+	display:none;
+}
+.p_w_box .p_w_foot .p_w_foot_bg{
+	width:100%;
+	overflow:hidden;
+	height:100%;
+	line-height:100%;
+	position:absolute;
+	right:-10px;
+}
+.p_w_box{
+	width:100%;
+	height:100%;
+}
+/*公告栏滚动新闻*/
+.gglbgm .scrollFont{
+	position /*\**/:relative\9;
+	top /*\**/:-12px\9
+}
+:root .gglbgm .scrollFont{
+	position:static\0\9
+}
+@-moz-document url-prefix(){
+	.gglbgm MARQUEE{
+		position:relative;top:-12px;
+	}
+}

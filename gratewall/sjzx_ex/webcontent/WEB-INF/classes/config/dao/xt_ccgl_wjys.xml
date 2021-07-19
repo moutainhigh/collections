@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>文件管理</sort-name>
+  <table-info name="xt_ccgl_wjys" class-name="com.gwssi.file.manage.dao.XtCcglWjys" check-flag="false" backup-flag="false">
+    <description>文件映射</description>
+  </table-info>
+
+  <column name="ysbh_pk" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="映射编号"/>
+  <column name="cclbbh_pk" data-type="varchar" length="32" not-null="false" value-from="input" description="类别编号ID"/>
+  <column name="wybs" data-type="varchar" length="255" not-null="true" value-from="input" description="唯一标识"/>
+  <column name="wjmc" data-type="varchar" length="255" not-null="true" value-from="input" description="文件名称"/>
+  <column name="wjzt" data-type="varchar" length="1" not-null="false" value-from="input" description="文件状态"/>
+  <column name="cclj" data-type="varchar" length="255" not-null="false" value-from="input" description="存储路径"/>
+  <column name="cjsj" data-type="varchar" length="20" not-null="false" value-from="input" description="创建时间"/>
+  <column name="scxgsj" data-type="varchar" length="20" not-null="false" value-from="input" description="上次修改时间"/>
+  <column name="bz" data-type="varchar" length="255" not-null="false" value-from="input" description="备注"/>
+  <column name="ywbz" data-type="varchar" length="32" not-null="false" value-from="input" description="业务备注"/>
+  <column name="xm_fk" data-type="varchar" length="32" not-null="false" value-from="input" description="项目fk"/>
+  <primary-key name="ysbh_pk" column-list="ysbh_pk"/>
+  <function func-name="select one xt_ccgl_wjys" func-type="select" column-list="ysbh_pk,cclbbh_pk,wybs,wjmc,wjzt,cclj,cjsj,scxgsj,bz,ywbz,xm_fk">
+    <filter-column column-name="ysbh_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+  
+  <function func-name="select one xt_ccgl_wjys by pk" func-type="select" column-list="ysbh_pk,cclbbh_pk,wybs,wjmc,wjzt,cclj,cjsj,scxgsj,bz,ywbz">
+    <filter-column column-name="ysbh_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>主键单记录查询</description>
+  </function>
+
+  <function func-name="select xt_ccgl_wjys list" func-type="rowset" column-list="ysbh_pk,cclbbh_pk,wybs,wjmc,wjzt,cclj,cjsj,scxgsj,bz,ywbz,xm_fk" max-record="10">
+    <filter-column column-name="ysbh_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one xt_ccgl_wjys" func-type="insert" column-list="ysbh_pk,cclbbh_pk,wybs,wjmc,wjzt,cclj,cjsj,scxgsj,bz,ywbz,xm_fk">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one xt_ccgl_wjys" func-type="delete">
+    <filter-column column-name="ysbh_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one xt_ccgl_wjys" func-type="update" column-list="wjmc,scxgsj,wybs">
+    <filter-column column-name="ysbh_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>中心库数据量统计表</menu-name>
+  <menu-path>/page/resource/res/runmgr/etl/</menu-path>
+  <description>中心库数据量统计表</description>
+  <form-beans>
+    <form-bean name="EtlTableCountRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="sys_name" type="string" size="100" cannull="true" description="主题名称"/>
+      <form-property prefix="record" name="sys_name" type="string" size="30" cannull="true" description="主题名称"/>
+      <form-property prefix="record" name="table_name_cn" type="string" size="100" cannull="true" description="表中文名"/>
+      <form-property prefix="record" name="table_name" type="string" size="30" cannull="true" description="表名"/>
+      <form-property prefix="record" name="ent_type" type="string" size="30" cannull="true" description="主体类型"/>
+      <form-property prefix="record" name="ent_stats" type="string" size="30" cannull="true" description="主体状态"/>
+      <form-property prefix="record" name="c_count" type="long" cannull="true" description="表数据量"/>
+      <form-property prefix="record" name="i_count" type="long" cannull="true" description="较上次统计增量"/>
+      <form-property prefix="record" name="etl_date" type="date" cannull="true" description="统计日期"/>
+      <form-property prefix="record" name="last_etl_date" type="date" cannull="true" description="上次统计日期"/>
+      <form-property prefix="record" name="sys_order" type="long" cannull="true" description="主题序号"/>
+      <form-property prefix="record" name="table_order" type="long" cannull="true" description="表序号"/>
+    </form-bean>
+
+    <form-bean name="EtlTableCountUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_name" type="string" size="30" cannull="true" description="主题名称"/>
+      <form-property prefix="primary-key" name="table_name" type="string" size="30" cannull="true" description="表名"/>
+      <form-property prefix="primary-key" name="etl_date" type="date" cannull="true" description="统计日期"/>
+      <form-property prefix="record" name="sys_name" type="string" size="30" cannull="true" description="主题名称"/>
+      <form-property prefix="record" name="table_name_cn" type="string" size="100" cannull="true" description="表中文名"/>
+      <form-property prefix="record" name="table_name" type="string" size="30" cannull="true" description="表名"/>
+      <form-property prefix="record" name="ent_type" type="string" size="30" cannull="true" description="主体类型"/>
+      <form-property prefix="record" name="ent_stats" type="string" size="30" cannull="true" description="主体状态"/>
+      <form-property prefix="record" name="c_count" type="long" cannull="true" description="表数据量"/>
+      <form-property prefix="record" name="i_count" type="long" cannull="true" description="较上次统计增量"/>
+      <form-property prefix="record" name="etl_date" type="date" cannull="true" description="统计日期"/>
+      <form-property prefix="record" name="last_etl_date" type="date" cannull="true" description="上次统计日期"/>
+      <form-property prefix="record" name="sys_order" type="long" cannull="true" description="主题序号"/>
+      <form-property prefix="record" name="table_order" type="long" cannull="true" description="表序号"/>
+    </form-bean>
+
+    <form-bean name="EtlTableCountDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_name" type="string" size="30" cannull="true" description="主题名称"/>
+      <form-property prefix="primary-key" name="table_name" type="string" size="30" cannull="true" description="表名"/>
+      <form-property prefix="primary-key" name="etl_date" type="date" cannull="true" description="统计日期"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+  	 
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-etl_table_count.xml" description="模板文件"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.EtlTableCountContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoEtlTableCount" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoEtlTableCountSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoEtlTableCountPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

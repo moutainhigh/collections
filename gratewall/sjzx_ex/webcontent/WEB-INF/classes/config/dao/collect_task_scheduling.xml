@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>采集服务</sort-name>
+  <table-info name="collect_task_scheduling" class-name="com.gwssi.collect.webservice.dao.CollectTaskScheduling" check-flag="false" backup-flag="false">
+    <description>任务调度表</description>
+  </table-info>
+
+  <column name="task_scheduling_id" data-type="varchar" length="32" not-null="true" value-from="input" description="计划任务ID"/>
+  <column name="job_class_name" data-type="varchar" length="100" not-null="false" value-from="input" description="触发调用的类名"/>
+  <column name="scheduling_type" data-type="varchar" length="2" not-null="false" value-from="input" description="计划任务类型"/>
+  <column name="scheduling_day" data-type="timestamp" length="7" not-null="false" value-from="input" description="计划任务日期"/>
+  <column name="start_time" data-type="timestamp" length="11" fraction-length="6" not-null="false" value-from="input" description="计划任务开始时间"/>
+   <column name="end_time" data-type="timestamp" length="11" fraction-length="6" not-null="false" value-from="input" description="计划任务结束时间"/>
+  <column name="scheduling_day1" data-type="varchar" length="100" not-null="false" value-from="input" description="计划任务周期"/>
+  <column name="scheduling_week" data-type="varchar" length="100" not-null="false" value-from="input" description="计划任务周天"/>
+  <column name="scheduling_count" data-type="varchar" length="4" not-null="false" value-from="input" description="计划任务执行次数"/>
+  <column name="interval_time" data-type="varchar" length="4" not-null="false" value-from="input" description="每次间隔时间"/>
+  <column name="task_expression" data-type="varchar" length="3" not-null="false" value-from="input" description="表达式"/>
+  <column name="creator_id" data-type="varchar" length="32" not-null="false" value-from="input" description="创建人"/>
+  <column name="created_time" data-type="varchar" length="19" not-null="false" value-from="input" description="创建时间"/>
+  <column name="last_modify_id" data-type="varchar" length="32" not-null="false" value-from="input" description="修改人"/>
+  <column name="last_modify_time" data-type="varchar" length="19" not-null="false" value-from="input" description="修改时间"/>
+  <column name="is_markup" data-type="varchar" length="1" not-null="false" value-from="input" description="有效标记"/>
+  <column name="collect_task_id" data-type="varchar" length="32" not-null="false" value-from="input" description="采集任务ID"/>
+  <primary-key name="计划任务ID" column-list="task_scheduling_id"/>
+  <function func-name="select one collect_task_scheduling" func-type="select" column-list="task_scheduling_id,scheduling_type,job_class_name,scheduling_day,start_time,end_time,scheduling_day1,scheduling_week,scheduling_count,interval_time,creator_id,created_time,last_modify_id,last_modify_time,is_markup,task_expression,collect_task_id">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select collect_task_scheduling list" func-type="rowset" column-list="task_scheduling_id,scheduling_type,job_class_name,scheduling_day,start_time,end_time,scheduling_day1,scheduling_week,scheduling_count,interval_time,creator_id,created_time,last_modify_id,last_modify_time,is_markup,task_expression" sort-columns="created_time" max-record="10">
+    <filter-column column-name="task_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="jhrw_lx" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one collect_task_scheduling" func-type="insert" column-list="task_scheduling_id,scheduling_type,job_class_name,scheduling_day,start_time,end_time,scheduling_day1,scheduling_week,scheduling_count,interval_time,creator_id,created_time,last_modify_id,last_modify_time,is_markup,task_expression,collect_task_id">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one collect_task_scheduling" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one collect_task_scheduling" func-type="update" column-list="scheduling_type,job_class_name,scheduling_day,start_time,end_time,scheduling_day1,scheduling_week,scheduling_count,interval_time,last_modify_id,last_modify_time,is_markup,task_expression">
+    <description>修改记录</description>
+  </function>
+</table>
+

@@ -1,0 +1,55 @@
+<public:component lightweight="true">
+
+<public:attach event="oncontentready" onevent="ShowBorders()" />
+<public:attach event="onpropertychange" onevent="OnPropertyChange()" />
+
+<script language="javascript">
+
+var oClassRegex = /\s*FCK__ShowTableBorders/ ;
+var oClassRegex2 = /\s*FCK__ShowTableBorders2/ ;
+
+function ShowBorders()
+{
+	return;
+	if ( this.border == 0 )
+	{
+		var tds = this.getElementsByTagName("td");
+		var bHasBorder = false;
+		for(var i=0;i<tds.length;i++){
+			if(tds[i].style.borderWidth!=0){
+				bHasBorder = true;
+				break;
+			}
+		}
+		if(bHasBorder && !oClassRegex2.test( this.className )){
+			this.className += ' FCK__ShowTableBorders2' ;
+		}
+		if (!bHasBorder && !oClassRegex.test( this.className ) )
+			this.className += ' FCK__ShowTableBorders' ;
+	}
+	else
+	{
+		if ( oClassRegex.test( this.className ) )
+		{
+			this.className = this.className.replace( oClassRegex, '' ) ;
+			if ( this.className.length == 0 )
+				this.removeAttribute( 'className', 0 ) ;
+		}
+		if ( oClassRegex2.test( this.className ) )
+		{
+			this.className = this.className.replace( oClassRegex2, '' ) ;
+			if ( this.className.length == 0 )
+				this.removeAttribute( 'className', 0 ) ;
+		}
+	}
+}
+
+function OnPropertyChange()
+{
+	if ( event.propertyName == 'border' || event.propertyName == 'className' )
+		ShowBorders.call(this) ;
+}
+
+</script>
+
+</public:component>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://cxf.apache.org/jaxws 
+    http://cxf.apache.org/schemas/jaxws.xsd">
+        
+    <!--导入与CXF框架有关的xml-->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	
+	<!-- 设置密码bean -->  
+  <!--   <bean id="serverPasswordCallback" class="com.gwssi.cxf.ws.auth.ServerPasswordCallback"></bean>  --> 
+      
+    <!-- WSS4J密码校验 --> 
+    <!-- SAAJInInterceptor只在CXF是2.0.X版本时或之前版本时才是必须的 -->  
+    <!-- <bean class="org.apache.cxf.binding.soap.saaj.SAAJInInterceptor"/> -->   
+    <!-- <bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">  
+         <constructor-arg>  
+             <map>  
+            	 用户认证（明文密码）
+                 <entry key="action" value="UsernameToken" />  
+                 <entry key="passwordType" value="PasswordText" /> 
+                 密文采用PasswordDigest Password_Digest = Base64 ( SHA-1 ( nonce + created + password ) )
+                 <entry key="user" value="FHDServer" />  
+                 <entry key="passwordCallbackRef" value-ref="serverPasswordCallback"/>  
+             </map>  
+         </constructor-arg>  
+    </bean>    -->
+	<!--    
+        action:                 UsernameToken               指使用用户名令牌    
+        passwordType:           PasswordText                指密码加密策略，这里直接文本    
+        user:                   FHDServer                   指别名    
+        passwordCallBackRef:    serverPasswordCallback      指消息验证    
+    -->  
+	<!-- 发布服务 --> 
+    <jaxws:server id="hello" address="/hello"  serviceClass="com.gwssi.cxf.ws.impl.HelloWorldImpl">
+		 <!-- 输入拦截器 -->  
+        <jaxws:inInterceptors>
+         	 <bean class="org.apache.cxf.interceptor.LoggingInInterceptor" />
+        	<!--  <ref bean="wss4jInInterceptor" /> --> <!-- 引用WSS4J密码校验 --> 
+              <!-- 自定义拦截器校验用户名和密码 --> 
+             <bean class="com.gwssi.cxf.ws.auth.AuthInterceptor" /> 
+        </jaxws:inInterceptors>
+        <!-- 正常输出拦截器 -->  
+        <jaxws:outInterceptors>  
+            <bean class="com.gwssi.cxf.ws.auth.ErrorHandlerInterceptor"></bean> 
+            <bean class="org.apache.cxf.interceptor.LoggingOutInterceptor" /> 
+        </jaxws:outInterceptors>  
+        <!-- 错误输出拦截器 -->  
+       <jaxws:outFaultInterceptors>  
+            <bean class="com.gwssi.cxf.ws.auth.ErrorHandlerInterceptor"></bean> 
+            <bean class="org.apache.cxf.interceptor.LoggingOutInterceptor" />  
+        </jaxws:outFaultInterceptors>
+    </jaxws:server>
+    
+</beans>

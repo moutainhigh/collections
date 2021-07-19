@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+</head>
+<script>
+$(function($){                
+    $('#btn-confirm').click(function() {  
+        jazz.confirm('confirm?<br>you must realize the risk before making your choice.');   
+    });
+    
+  //调整父页面iframe高度
+    try{
+        parent.setWinHeight(400);           
+    }catch(e){
+        jazz.log(e);
+    }
+	
+});
+</script>
+<body>
+    <input type="button" id="btn-confirm" value="confirm" />
+</body>
+</html>

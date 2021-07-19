@@ -1,0 +1,305 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>短消息列表</title>
+
+<!-- ~Common CSS Begin~ -->
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/wcm_list_abstract.css" rel="stylesheet" type="text/css" />
+<!-- ~Common CSS End~ -->
+
+<!-- ~Imports Begin~    -->
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+</script>
+<script label="Imports">
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.util.CommonHelper');
+	$import('com.trs.wcm.QuickKey');
+	$import('com.trs.wcm.Grid');
+	$import('com.trs.wcm.PageFilter');
+	$import('com.trs.wcm.BubblePanel');	
+	$import('com.trs.crashboard.CrashBoard');
+	$import('com.trs.wcm.SimpleQuery');
+</script>
+<!-- ~Imports END~    -->
+
+<!-- ~PageJavaScript Begin~    -->
+<script src="../common/wcm_list_abstract.js" label="PageScope"></script>
+<script src="./domain/ShortMsgMgr.js" label="PageScope" desc="业务对象"></script>
+<script src="short_msg_list.js" label="PageScope" desc="页面的描述文件"></script>
+<link href="../js/opensource/helptip/helptip.css" rel="stylesheet" type="text/css" />
+<SCRIPT language=JavaScript src="../js/opensource/helptip/helptip.js" type=text/javascript></SCRIPT>
+<!-- ~PageJavaScript END~    -->
+
+<style label="PageScope">
+	/*可变的列[标题]所使用的样式*/
+	.DynamicWidth1{
+		text-align:left;
+		padding-left:0!important;
+		padding-left:10px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	/**页面自己的样式**/
+	.object_restore{
+		width: 20px;
+		background-image:url(../images/icon/PublishRefresh.gif);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	.object_delete{
+		background-image:url(../images/icon/CancelPublish.gif);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+
+	/**for path**/
+	A.navigation_channel_link_current:link{
+		color: #010101;
+		text-decoration:none;
+	}
+	.navigation_channel_desc{
+		color: darkred;
+	}
+	/**for pageinfo**/
+	.pageinfo_1 {
+		float:left;
+		width:100%;
+		height:29px;
+		overflow:hidden;
+		background-image:url(../images/channel_thumbs_index/header_bg.gif);
+		background-repeat:repeat-x;
+	}
+	.options_bar{
+		float:left;
+		width:100%;
+		height:30px;
+		background-image: url(../images/channel_thumbs_index/button-bg.png);
+		background-repeat: repeat-x;
+		overflow:hidden;
+		padding-top:4px;
+		padding-left: 10px;
+		border-left: 1px solid #010101;
+		border-right: 1px solid #010101;
+	}
+	/*TODO*/
+	.options_bar button{
+		height: 22px;
+		background: #eeeeee;
+		border: solid 1px silver;
+		font-size: 12px;
+		padding-left: 3px;
+		padding-right: 3px;
+	}
+	.option_btn{
+		padding-left: 3px;
+		padding-right: 3px;
+	}
+	.help-tooltip {
+		width:	420px;
+		padding: 8px;
+	}
+	.title_unreaded{
+		font-weight: bold;
+	}
+	.title_normal{
+		font-weight: normal;
+	}
+
+	.dv_title{
+		font-size: 14px;
+		font-weight: bold;
+		line-height: 25px;
+		width: 100%;
+		border-bottom: 1px dashed silver;
+	}
+	.dv_detail{
+		margin-top: 5px;
+		padding: 3px;
+		font-size: 14px;
+		line-height: 18px;
+		width: 100%;
+		overflow:auto;
+	}
+</style>
+<script language="javascript">
+<!--
+	Event.onDOMReady(function(){
+		var arQueryFields = [
+			{name: 'title', desc: '消息标题', type: 'string'},
+			{name: 'mbody', desc: '消息内容', type: 'string'}
+		]
+		SimpleQuery.register('query_box', arQueryFields, function(_params){
+			Object.extend(PageContext.params, _params);
+			PageContext.refreshCurrRows();
+		}, true);
+		
+	});
+	function getTitleStyle(_bUnreaded){
+		if(_bUnreaded === true) {
+			return 'title_unreaded';
+		}
+		//else
+		return 'title_normal';
+	}
+//-->
+</script>
+</head>
+
+<body>
+<iframe src="../include/processbar.html" id='processbar' frameborder="0" style='position:absolute;left:0;top:0;width:100%;height:100%;display:none' allowtransparency="true"></iframe>
+<div id="dy_list_adjust"></div>
+<table id="table_body" class="wcm_table_layout" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="wcm_list_view">
+			<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+			<tbody>
+				<tr class="list_pageinfo">
+					<td colSpan="3">
+						<div class="pageinfo_1">
+							<div class="pageinfo_left"></div>
+							<div class="pageinfo_right"></div>
+							<span id="pageinfo" style="float: left"></span>
+							<div style="float:right;" id="query_box"></div>
+							<div style="float:right; display: none; margin-top: 8px; margin-right: 5px; font-size: 12px" id="userinfo">
+								<span style="width: 20px; background-repeat: no-repeat; background-image:url(../images/icon/icon_user_online.gif);" title="当前登录用户"></span>
+								<span id="spUserInfo"></span>
+							</div>
+							<textarea id="pageinfo_template" style='display:none' select="PageInfo">
+								<table height="28" border="0" cellpadding="0" cellspacing="0">
+									<tr height="28">
+										<td align="left" valign="center">
+											<div height="28" class="pagefilter_container">
+												<for select="Filters.Filter">
+												<span class="pagefilter {#IsDefault,,PageFilter.filterClass}" pagefilter_type="{#Type}">
+													<table border="0" cellpadding="0" cellspacing="0">
+														<tr height="23">
+															<td class="left" width="7"></td>
+															<td class="middle" nowrap="nowrap" valign="middle">
+																<a href="#" onclick="return false">{#Name}</a>
+															</td>
+															<td class="right" width="7"></td>
+														</tr>
+													</table>
+												</span>
+												</for>
+												<span class="wcm_pointer pagefilter_more_btn" id="pagefilter_more_btn"></span>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</textarea>
+						</div>
+						<div class="options_bar" id="divOptions">
+							<span class="option_btn" id="spSendMsg"><button _action="sendMsg">写新短消息</button></span><span id="spSignAsReaded" style="display: none" class="option_btn"><button _action="signAsReaded">标记为已读</button></span><span id="spClearInbox" style="display: none" class="option_btn"><button _action="clearInbox">清空收件箱</button></span><span id="spClearOutbox" style="display: none" class="option_btn"><button _action="clearOutbox">清空已发短消息</button></span><span class="option_btn" id="spReply"><button _action="reply">回复</button></span><span class="option_btn"><button _action="forward">转发</button></span><span class="option_btn"><button _action="delete">删除</button></span><span class="option_btn"><button _action="refresh">刷新</button></span>
+						</div> 
+					</td>
+				</tr>
+				<tr class="list_view">
+					<td class="list_view_border"></td>
+					<td valign="top">
+						<DIV id='objects_grid' class="grid">
+							<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+								<tr style="height:29px">
+									<td>
+										<DIV class="grid_head" id="grid_head">
+											<!--列表头模板-->
+											<SPAN class="grid_head_column" onclick="Grid.toggleAllRows();" style="width:50px;">
+												全选
+											</SPAN>
+											<SPAN class="grid_head_column DynamicWidth1" grid_dywidth="DynamicWidth1,1.0" grid_sortby="Title" style="text-align: center">
+												短信息
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:60px;" grid_sortby="CrUser" id="spCrUserHeader">
+												发送人
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:60px;" id="spRecieverHeader">
+												收件人
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:90px;" grid_sortby="CrTime" id="spTimeHeader">
+												到达时间
+											</SPAN>
+										</DIV>
+									</td>
+								</tr>
+								<tr>
+									<td valign="top">
+										<div id="grid_data" class="grid_data"></div>
+										<!--Objects列表数据模板-->
+										<textarea id="objects_template" select="Messages.Message" style='display:none'>
+											<for select="." blankRef="divNoObjectFound">
+											<DIV class="grid_row wcm_pointer" grid_rowid="{#MsgId}" right="{#Right}">
+												<SPAN class="grid_column" style="width:50px">
+													<input type="checkbox" class="wcm_pointer grid_checkbox" name="MsgId" value="{#MsgId}"/>
+													<span style="font-family: Georgia">{$$index}</span>
+												</SPAN>
+												<SPAN class="grid_column DynamicWidth1">
+													<a href="#" onclick="PageContext.showDetail(event, this); return false;" _index="{$$index}" _id="{#MsgId}"><span title="{#Title, }" style="font-size: 14px;" class="{@getTitleStyle(#unreaded)}">{#Title}</span><span style="color: gray;"> - {@escapeHTML(#MBody)}</span></a>
+												</SPAN>
+												<SPAN class="grid_column" style="width:60px;" title="{@getAdaptedUsers(#CrUser,  #Receivers)}">
+													{@getAdaptedUsers(#CrUser, #Receivers)}
+												</SPAN>
+												<SPAN class="grid_column" style="width:90px; font-family: Georgia">
+													{#CrTime}
+												</SPAN>
+											</DIV>
+											</for>
+										</textarea>
+									</td>
+								</tr>
+							</table>
+						</DIV>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+				<tr class="list_navigator">
+					<td class="list_view_border"></td>
+					<td>
+						<DIV id="list_navigator" class="list_navigator_div" valign="top" style="height: 50px; padding-top: 10px;">
+						</DIV>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+</table>
+<div id="divNoObjectFound" style="display:none;">
+	<div class="no_object_found">不好意思, 没有找到符合条件的对象..-____-|||</div>
+</div>
+<script language="javascript">
+<!--
+	PageContext.initOptions();
+	Event.observe($('processbar'), 'load', function(){
+		PageContext.ViewType = getParameter('ViewType') || 2;
+		PageContext.LoadPage();
+		displayUserInfo();
+	}, false);
+	window.focus();
+
+	function displayUserInfo(){
+		var sUserInfo = getParameter('user');
+		if(sUserInfo != null && sUserInfo.trim() != '') {
+			sUserInfo = decodeURIComponent(sUserInfo);
+			var sNick = getParameter('nick');
+			if(sNick == null || sNick.trim() == '') {
+				sNick = sUserInfo;
+			}else{
+				sNick = decodeURIComponent(sNick);
+			}
+			sUserInfo = sUserInfo + '(' + sNick + ')';
+			$('spUserInfo').innerHTML = sUserInfo;
+			Element.show('userinfo');
+		}
+	}
+//-->
+</script>
+</body>
+</html>

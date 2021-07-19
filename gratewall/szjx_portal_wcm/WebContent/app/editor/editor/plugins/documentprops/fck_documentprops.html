@@ -1,0 +1,538 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE fcklang="SETPAGEATTR">设置页面属性</TITLE>
+<script src="../../../../js/easyversion/lightbase.js"></script>
+<script src="../../../../js/easyversion/extrender.js"></script>
+<script language="javascript" type="text/javascript" src="../../../../../js/prototype.js"></script>
+<script language="javascript">
+
+	function $(el) {
+		if (typeof el == 'string')
+			el = document.getElementById(el) || document.getElementsByName(el)[0];
+		return el;
+	}
+	var oEditor = window.parent.InnerDialogLoaded() ;
+	var FCK = oEditor.FCK;
+	var oCurrStyle = null;
+	var oCurrStyle_for_show = null;
+	var oCookies = FCK.loadCookie();
+
+	//初始化为默认样式  2011-10-08
+	var initStyleSelect = '0';
+	var quoteEles = ["H1","H2","H3","H4","H5","H6","HR","BLOCKQUOTE","DL","DD","DT","OL","UL","LI","PRE","CODE","TEXTAREA","SELECT","CITE","PRE","CENTER","TABLE","DIV"];
+	var quoteEles2 = ["FORM","FIELDSET","LEGEND","SELECT","TR","TD","TH"];
+	var inlineEles = ["BUTTON","OPTION","ADDRESS","DFN","EM","VAR","KBD","INPUT","SMALL","SAMP","SUB","SUP","SPAN","A","B","I","U","S","STRONG","LABEL","IMG","BR","FONT"
+	];
+	function OnLoad() {
+		// First of all, translate the dialog box texts.
+		oEditor.FCKLanguageManager.TranslatePage( document ) ;
+
+		/**
+		*param@ recordStyleChoice  
+		*	1表示选择上次样式进行初始化;
+		*	0表示每次打开时优先选择站点样式进行初始化；如果没有站点样式，则选择默认样式
+		*param@ initStyleSelect  
+		*	当recordStyleChoice=1且initStyleSelect=0时，选择默认样式进行初始化；否则优先选择站点样式进行初始化
+		*/
+		var recordStyleChoice = oCookies['recordStyleChoice'] || '0';
+		initStyleSelect = oCookies['initStyleSelect'] || '3';
+		if(recordStyleChoice != '0' && initStyleSelect == '0' || oEditor.setRecord == '0'){
+			//使用默认样式进行初始化
+			initStyleSelect = '0';
+		}
+		initCurrStyle();
+		toggleDisable(false);
+		
+		//2011-10-08初始化其他属性
+		if(recordStyleChoice == '1'){
+			document.getElementById("recordStyleChoice").checked="checked";
+			document.getElementById("ys_" + initStyleSelect).checked="checked";
+		} else if(oEditor.setRecord == '0'){
+			document.getElementById("ys_" + initStyleSelect).checked="checked";
+		}
+		//如果是非管理员，则只有选择"自定义样式"后，才能进行样式设置
+		if(FCK.isAdmin && initStyleSelect == '0'){
+			disable('props-box', false);
+		} else {
+			disable('props-box', true);
+		}
+		//if(!FCK.isAdmin){
+			//$("saveStyle-box").style.display = "none";
+		//}
+		window.parent.SetBtnsRow(false);
+		window.parent.SetAutoSize( true );
+	}
+	function Ok(){
+		DoPreview();
+		//保存"是否默认使用选择样式"和默认的选择样式
+		if($('recordStyleChoice').checked){
+			FCK.setCookie("recordStyleChoice",$('recordStyleChoice').value);
+			FCK.setCookie("initStyleSelect", initStyleSelect);
+		} else {
+			FCK.setCookie("recordStyleChoice",0);
+			oEditor.setRecord = initStyleSelect;
+			FCK.setCookie("tempSelect",initStyleSelect);
+		}
+		//如果是系统管理员，则判断是否需要将设置的样式保存到文件中
+		if(FCK.isAdmin){
+			//如果选择的是自定义样式或者是不选择样式，则不会将页面属性保存到文件中
+			if(initStyleSelect == '0' || initStyleSelect == '1'){
+				var saveDefaultStyle = $("saveDefaultStyle").checked ? true : false;
+				var saveSiteStyle = $("saveSiteStyle").checked ? true : false;
+				if(saveDefaultStyle || saveSiteStyle){
+					var strCurrStyle = transObj2Str(oCurrStyle);
+					var text = getStyle(oCurrStyle,strCurrStyle);
+					//保存页面属性设置样式到cookie中;
+					FCK.setCookie("styleFromdocProps",text);
+					var oPostData = "cssText=" + text;
+					var sURL = "editorStyle.jsp?saveDefaultStyle=" + saveDefaultStyle + "&saveSiteStyle=" + saveSiteStyle + '&nSiteId=' + FCK.nSiteId;
+					new Ajax.Request(sURL, {  
+						method: 'post', 
+						parameters:oPostData,
+						onSuccess:function(transport){
+						}
+					}); 
+				}
+			}
+		}
+		//用自定义样式控制当前编辑器的显示
+		var strCurrStyle = transObj2Str(oCurrStyle);
+		var text = getStyle(oCurrStyle,strCurrStyle);
+		//text = text.replace(/BODY/ig,".TRS_Editor");
+		var strCurrStyle_show = transObj2Str(oCurrStyle_for_show);
+		FCK.SetCustomStyle(oCurrStyle_for_show,strCurrStyle_show);
+		return true;
+	}
+
+	function getStyle(_oStyles,strCurrStyle){
+		var result = "";
+		try{
+			FCK.CustomStyle = _oStyles;
+			FCK.JsonCustomStyle = strCurrStyle||FCK._transObj2Str(_oStyles);
+			var sCssText = "";
+			var idx = 0;
+			for(var sRuleName in _oStyles){
+				var oStyle = _oStyles[sRuleName];
+				sCssText = "";
+				for(var sName in oStyle){
+					sCssText += sName + ":" + oStyle[sName] + ";" ;
+				}
+				result += (sRuleName + "{" + sCssText+"}\n");
+			}
+		}finally{
+			FCK.EnableCustomStyle = true;
+		}
+		return result;
+	}
+	function DoPreview() {
+		var preview = $("preview");
+		oCurrStyle = {};
+		oCurrStyle_for_show = {};
+		preview.style.fontFamily = $("fontNameSel").value;
+		preview.style.fontSize = $("fontSizeSel").value;
+		preview.style.lineHeight = $("paraSpacingSel").value;
+
+		//字体样式设定
+		oCurrStyle_for_show[""] = oCurrStyle_for_show["TABLE"] = oCurrStyle["BODY"] = oCurrStyle["BODY TABLE"] = {
+				"font-family" : preview.style.fontFamily,
+				"font-size" : preview.style.fontSize
+		}
+		
+		//P元素样式单独设置，方便后面的获取解析
+		oCurrStyle_for_show["P"] = oCurrStyle["BODY P"] = {
+				"font-family" : preview.style.fontFamily,
+				"font-size" : preview.style.fontSize,
+				"margin-top" : $("dl_1").checked ? setValue($("paraMarginSel1").value) : "0",
+				"margin-bottom" : $("dl_1").checked ? setValue($("paraMarginSel2").value) : "0"
+		}
+		if(preview.style.lineHeight.trim() != ""){
+			oCurrStyle_for_show["P"]["line-height"] = oCurrStyle["BODY P"]["line-height"] = preview.style.lineHeight;
+		}
+		if($("textIndentSel").value.trim() != "")
+			oCurrStyle_for_show["P"]["text-indent"] = oCurrStyle["BODY P"]["text-indent"] = $("textIndentSel").value;
+
+		var sPreCssText = "";
+		for(var i=0; i < quoteEles.length; i++){
+			sPreCssText += ("BODY " + quoteEles[i] + ",");
+			oCurrStyle_for_show[quoteEles[i]] = {
+				"margin-top" : $("dl_1").checked ? setValue($("paraMarginSel1").value) : "0",
+				"margin-bottom" : $("dl_1").checked ? setValue($("paraMarginSel2").value) : "0"
+			}
+
+			if(preview.style.lineHeight.trim() != "")
+				oCurrStyle_for_show[quoteEles[i]]["line-height"] = preview.style.lineHeight;
+			if($("textIndentSel").value.trim() != "")
+				oCurrStyle_for_show[quoteEles[i]]["text-indent"] = $("textIndentSel").value;
+			}
+		sPreCssText = sPreCssText.substring(0,sPreCssText.length -1);
+		oCurrStyle[sPreCssText] = {
+			"margin-top" : $("dl_1").checked ? setValue($("paraMarginSel1").value) : "0",
+			"margin-bottom" : $("dl_1").checked ? setValue($("paraMarginSel2").value) : "0"
+		}
+		if(preview.style.lineHeight.trim() != "")
+			oCurrStyle[sPreCssText]["line-height"] = preview.style.lineHeight;
+		if($("textIndentSel").value.trim() != "")
+			oCurrStyle[sPreCssText]["text-indent"] = $("textIndentSel").value;
+
+		//无缩进块级元素样式
+		sPreCssText = "";
+		for(var i=0; i < quoteEles2.length; i++){
+			sPreCssText += ("BODY " + quoteEles2[i] + ",");
+			oCurrStyle_for_show[quoteEles2[i]] = {
+				"margin-top" : $("dl_1").checked ? setValue($("paraMarginSel1").value) : "0",
+				"margin-bottom" : $("dl_1").checked ? setValue($("paraMarginSel2").value) : "0"
+			}
+			if(preview.style.lineHeight.trim() != "")
+				oCurrStyle_for_show[quoteEles2[i]]["line-height"] = preview.style.lineHeight;
+		}
+		sPreCssText = sPreCssText.substring(0,sPreCssText.length -1);
+		oCurrStyle[sPreCssText] = {
+			"margin-top" : $("dl_1").checked ? setValue($("paraMarginSel1").value) : "0",
+			"margin-bottom" : $("dl_1").checked ? setValue($("paraMarginSel2").value) : "0"
+		}
+		if(preview.style.lineHeight.trim() != "")
+			oCurrStyle[sPreCssText]["line-height"] = preview.style.lineHeight;
+
+		//内联元素样式设置
+		sPreCssText = "";
+		for(var i=0; i < inlineEles.length; i++){
+			sPreCssText += ("BODY " + inlineEles[i] + ",");
+			oCurrStyle_for_show[inlineEles[i]] = {
+				"margin-top" : "0",
+				"margin-bottom" : "0",
+				"text-indent"	: "0"
+			}
+		}
+		sPreCssText = sPreCssText.substring(0,sPreCssText.length -1);
+		oCurrStyle[sPreCssText] = {
+			"margin-top" : "0",
+			"margin-bottom" : "0",
+			"text-indent"	: "0"
+		}
+		var pps = preview.getElementsByTagName("p");
+		for(var i=0;i<pps.length;i++){
+			if($("dl_1").checked){
+				pps[i].style.marginTop = setValue($("paraMarginSel1").value);
+				pps[i].style.marginBottom = setValue($("paraMarginSel2").value);
+			}else{
+				pps[i].style.marginTop = "0";
+				pps[i].style.marginBottom = "0";
+			}
+			pps[i].style.textIndent = $("textIndentSel").value;
+		}
+	}
+
+	function setValue(result){
+		if(result == null || result.trim() == "") return "";
+		if(result.indexOf("em") < 0 ) result = result.trim() + "em";
+		return result.trim();
+	}
+
+	function initCurrStyle(){
+		 //这里需要传递两个变量过去：1、选择样式类型。2、当前站点ID
+		var request = new Ajax.Request('../../../getEditorCss.jsp?initStyleSelect=' + initStyleSelect + '&nSiteId=' + FCK.nSiteId, {
+			asynchronous:false, 
+			method:'get',
+			parameters:{}
+		}); 
+		var oStyle = null;
+		try{
+			oStyle = request.transport.responseText.trim();
+			var exg = /BODY P{([^}]*)?}/img;
+			oStyle = exg.exec(oStyle);
+			if(oStyle && oStyle[1]){
+				oStyle = oStyle[1];
+				var temp = /FONT-FAMILY:([^;}]*)?/ig.exec(oStyle);
+				$("fontNameSel").value = temp[1].trim()||'';
+				if($("fontNameSel").value == "")$("fontNameSel").value = "宋体";
+				temp = /FONT-SIZE:([^;}]*)?/ig.exec(oStyle);
+				$("fontSizeSel").value = temp[1].trim()||'';
+				temp = /LINE-HEIGHT:([^;}]*)?/ig.exec(oStyle);
+				if(temp && temp[1]){
+					$("paraSpacingSel").value = temp[1].trim()||'';
+				}else{
+					$("paraSpacingSel").value = '';
+				}
+				temp = /MARGIN-TOP:([^;}]*)?/ig.exec(oStyle);
+				if(temp != null){
+					var top = kick(temp[1].trim());
+					$("paraMarginSel1").value = kick(temp[1].trim())||'1';
+					temp = /MARGIN-BOTTOM:([^;}]*)?/ig.exec(oStyle);
+					var bottom = kick(temp[1].trim());
+					if(top == "0" && bottom == "0") $("dl_0").checked = true;
+					else $("dl_1").checked = true;
+					$("paraMarginSel2").value = kick(temp[1].trim())||'0';
+				}
+				temp = /TEXT-INDENT:([^;}]*)?/ig.exec(oStyle);
+				if(temp && temp[1]){
+					$("textIndentSel").value = temp[1].trim()||'';
+				}else{
+					$("textIndentSel").value = '';
+				}
+			}
+			DoPreview();
+		}catch(ex){}
+	}
+
+	function kick(temp){
+		if(temp == null || temp == "") return "";
+		return temp.substring(0,temp.length -2);
+	}
+	function transObj2Str(_obj){
+		if(_obj==null)return '""';
+		if(typeof _obj != 'object')return '"' + _obj + '"';
+		var retVal = "{";
+		var bFirst = true;
+		for(var sName in _obj){
+			if(_obj[sName]==null)continue;
+			if(!bFirst)retVal += ',';
+			retVal += '"' + sName + '":' + transObj2Str(_obj[sName]);
+			bFirst = false;
+		}
+		retVal += '}';
+		return retVal;
+	}
+	
+	function toggleDisable(setDefault){
+		if($("dl_0").checked){
+			$("paraMarginSel1").value = "0";
+			$("paraMarginSel2").value = "0";
+			$("paraMarginSel1").disabled = true;
+			$("paraMarginSel2").disabled = true;
+		}else{
+			$("paraMarginSel1").disabled = false;
+			$("paraMarginSel2").disabled = false;
+			if(setDefault){
+				$("paraMarginSel1").value = "1";
+				$("paraMarginSel2").value = "1";
+			}
+		}
+		DoPreview();
+	}
+
+	function disable(formId, disabled){
+		var dom = $(formId);
+		var tags = ['input', 'select'];
+		for (var i = 0; i < tags.length; i++){
+			var tag = tags[i];
+			var nodes = dom.getElementsByTagName(tag);
+			for (var j = 0; j < nodes.length; j++){
+				nodes[j].disabled = disabled;
+			}
+		}
+	}
+
+	function isEditorEnableCustomStyle(){
+		var bChecked = $('docprops').checked;
+		return ((sLabel == oEditor.FCKLang.OPEN) && bChecked) || ((sLabel == oEditor.FCKLang.FINISH) && !bChecked);
+	}
+	
+	function selectStyle(value){
+		//如果是管理员，则只有选择"默认样式"后，才能进行样式设置
+		if(FCK.isAdmin && value ==0){
+			disable('props-box', false);
+		} else {
+			disable('props-box', true);
+		}
+		initStyleSelect = value;
+		//初始化页面属性，选择默认样式和站点样式会发生变化
+		initCurrStyle();
+	}
+
+	function check(ele){
+		var reg = /^\d+(\.\d+)?$/;
+		if(!reg.test(ele.value)) {
+			alert("输入值无效!");
+			if(ele.id == "paraMarginSel1") ele.value = 1;
+			else ele.value = 0;
+			ele.select();
+		}
+		DoPreview();
+	}
+	window.onload = OnLoad;
+</SCRIPT>
+<style>
+body {
+	padding:10px;
+	margin:0;
+	background-color: white;
+}
+td{
+	height:30px;
+}
+.input_btn{
+	width:60px;
+	margin-right:10px;
+}
+.input_file{
+	border:1px solid gray;
+	width:260px;
+}
+.lpl {
+	PADDING-LEFT: 0px
+}
+.lpr {
+	PADDING-RIGHT: 10px; PADDING-LEFT: 8px
+}
+.preview{
+	FONT-SIZE: 12pt;
+	OVERFLOW: auto;
+	WIDTH: 240px;
+	COLOR: #000000;
+	BACKGROUND-COLOR:#ffffef;
+	FONT-FAMILY: Arial;
+	HEIGHT: 270px;
+	border:1px solid gray;
+	padding:5px;
+}
+.app{
+	font-size:12px;
+}
+.category_title{
+	font-size: 12px;
+	font-weight: bold;
+	margin-top: 0px;
+}
+.min_input{
+	width:40px;
+}
+</STYLE>
+</HEAD>
+
+<BODY onload="OnLoad();">
+	<table cellspacing="0" cellpadding="0" width="100%" border="0" height="100%">
+		<tr>
+			<td valign="top">
+				<table cellspacing="1" cellpadding="1" width="100%" border="0">
+					<tr>
+						<td width="84%" valign="top">
+							<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+								<TBODY>
+									<TR vAlign=top>
+										<TD style="width:45%;">
+											<fieldset style="width:90%;height:100%;">
+												<legend class="category_title">
+													<label style="font-weight:bold" fcklang="PAGEATTROPEN">页面属性设置</label>
+												</legend>
+												<DIV style="PADDING-LEFT: 12px;padding-top:6px;">
+													<TABLE cellSpacing=0 cellPadding=0 width="100%" border=0 id="props-box">
+														<TR style="padding-bottom:6px;">
+															<TD class=lpl noWrap style="height:22px"><label style="font-weight:bold" fcklang="DUOLUOHANG">段落间距:</label>
+															<input type="radio" name="Dljj_sel" value="0" id="dl_0" checked onclick="toggleDisable(false)"/><label for="dl_0">无</label>
+															<input type="radio" name="Dljj_sel" value="1" id="dl_1" onclick="toggleDisable(true)"/><label for="dl_1">有</label></TD>
+														</TR>
+														<TR style="padding-bottom:6px;">
+															<TD class=lpr style="height:22px">
+																<label fcklang="DUANQIAN">段前:</label><input class="min_input" type="text" name="paraMarginSel1" value="1" id="paraMarginSel1" onblur="check(this)"/>(em)
+																<label fcklang="DUANHOU">段后:</label><input  class="min_input" type="text" name="paraMarginSel2" value="1" id="paraMarginSel2" onblur="check(this)"/>(em)
+															</TD>
+														</TR>
+														<TR style="padding-bottom:6px;">
+															<TD class=lpl noWrap style="height:22px"><label style="font-weight:bold" fcklang="HANGJU">行间距:</label></TD>
+														</TR>
+														<TR>
+															<TD class=lpr style="height:22px">
+																<SELECT id=paraSpacingSel style="width:120px" onchange=DoPreview()> 
+																<OPTION value="" fcklang="DlgDocGeneralTab">常规</OPTION>
+																<OPTION value=1 fcklang="DANBEI">单倍行距</OPTION>
+																<OPTION value=1.4 selected fcklang="YIDIANWU">1.4 倍行距</OPTION>
+																<OPTION value=2 fcklang="LIANGBEI">两倍行距</OPTION>
+																<OPTION value=3 fcklang="SANBEI">三倍行距</OPTION>
+																</SELECT>
+															</TD>
+														</TR>
+														
+														<TR>
+															<TD class=lpl noWrap style="height:22px"><label style="font-weight:bold" fcklang="DUANSUO">段落缩进:</label></TD>
+														</TR>
+														<TR>
+															<TD class=lpr style="height:22px">
+																<SELECT id=textIndentSel style="width:120px" onchange=DoPreview()> 
+																<OPTION value="" fcklang="DlgDocGeneralTab">常规</OPTION>
+																<OPTION value="1em" fcklang="SUOYI">缩进一格</OPTION>
+																<OPTION value="2em" selected fcklang="SUOLIANG">缩进两格</OPTION>
+																</SELECT>
+															</TD>
+														</TR>
+
+														<TR>
+															<TD class=lpl noWrap style="height:22px"><label style="font-weight:bold" fcklang="FONT">字体:</label></TD>
+														</TR>
+														<TR>
+															<TD class=lpr noWrap style="height:22px">
+																<SELECT id=fontNameSel style="width:100px" onchange=DoPreview()> 
+																<OPTION value="宋体" selected fcklang="SONGTI">宋体</OPTION>
+																<OPTION value="新宋体" fcklang="XINSONGTI">新宋体</OPTION>
+																<OPTION value="楷体" fcklang="KAITI">楷体</OPTION>
+																<OPTION value="仿宋" fcklang="FANGSONG">仿宋</OPTION>
+																<OPTION value="黑体" fcklang="MOSHU">黑体</OPTION> 
+																<OPTION value="隶书" fcklang="LISHU">隶书</OPTION>
+																<OPTION value="Arial">Arial</OPTION>
+																<OPTION value="Comic Sans MS">Comic Sans MS</OPTION>
+																<OPTION value="Courier New">Courier New</OPTION>
+																<OPTION value="Tahoma">Tahoma</OPTION>
+																<OPTION value="Times New Roman">Times New Roman</OPTION>
+																<OPTION value="Verdana">Verdana</OPTION>
+																</SELECT>
+																<label for="fontSizeSel">大小:</label><input type="text" id="fontSizeSel" value="10.5pt" style="width:50px;" onblur="DoPreview()"/>
+															</TD>
+														</TR>
+													</TABLE>
+												</DIV>
+											</fieldset>
+										</TD>
+										<TD valign="top" style="width:45%;">
+											<SPAN class=lpl style="height:22px"><label style="font-weight:bold" fcklang="PREVIEW">预览:</label></SPAN>
+											<DIV id=preview class="preview"  style="BORDER: #cccccc 1px solid; PADDING: 3px;">
+											<label fcklang="COMPANY">北京拓尔思(TRS)信息技术有限公司成立于1993年,是中文全文检索的创始者,在企业和互联网搜索,内容管理和信息挖掘等领域具有领先的技术和产品,是国内最大的搜索和内容管理技术提供者,在大中华地区拥有约2000家企业级用户,是非结构化信息处理技术领域的创新者和领导者.公司总部在北京,现有员工200多人,已在全国主要城市建立了分公司,办事处或合作伙伴网络,为当地客户提供高水平的本地化服务.公司成立十余年来,销售收入和利润始终保持持续的增长,自1996年以来连续10年盈利,是中国从事自主核心技术和软件产品研发的典范企业之一.</label></DIV>
+										</TD>
+									</TR>
+									<TR>
+										<TD class=app style="PADDING-LEFT: 12px; PADDING-TOP: 3px" colspan="2" align=left>
+											<input type="checkbox" name="recordStyleChoice" value="1" id="recordStyleChoice"/><label class="" for="recordStyleChoice" title="保存当前选择样式，下次打开编辑器时，使用当前选择样式进行初始化" fcklang="RECORDSTYLECHOICE">记住"选择样式"，下次打开时使用</label>
+										</TD>
+									</TR>
+									<TR>
+										<TD class=app style="PADDING-LEFT: 12px; PADDING-TOP: 3px" colspan="2" align=left>
+											<label style="font-weight:bold" fcklang="XZYANGSHI">选择打开时的系统自带样式:</label>
+												<input type="radio" name="ys_sel" value="0" id="ys_0" onclick="selectStyle(0)"/><label for="ys_0" fcklang="DEFAULTSTYLE">默认样式</label><!--
+												<input type="radio" name="ys_sel" value="1" id="ys_1" onclick="selectStyle(1)"/><label for="ys_1" fcklang="SITESTYLE">站点样式</label>
+												<input type="radio" name="ys_sel" value="2" id="ys_2" onclick="selectStyle(2)"/><label for="ys_2" fcklang="CUSTOMSTYLE">自定义样式</label>-->
+												<input type="radio" name="ys_sel" value="3" id="ys_3" onclick="selectStyle(3)" checked/><label for="ys_3" fcklang="NOTTAKESTYLE">不使用样式(关闭样式)</label>
+										</TD>
+									</TR>
+									<!--暂时隐藏这些改进，默认选择保存到'系统自带默认样式文件'，在新版本的编辑器中再进行引入-->
+									<TR style="display:none;">
+										<TD class=app style="PADDING-LEFT: 12px; PADDING-TOP: 3px" colspan="2" align=left>
+											<table cellSpacing=0 cellPadding=0 width="100%" border=0 id="saveStyle-box">
+											<tbody>
+												<TR>
+													<TD class=lpl noWrap style="height:22px">
+														<label style="font-weight:bold" fcklang="SAVESTYLE">将当前页面属性设置保存到:</label>
+														<input type="checkbox" name="saveDefaultStyle" value="1" id="saveDefaultStyle" checked="checked"/><label class="" for="saveDefaultStyle" fcklang="SAVEDEFAULTSTYLE">系统自带默认样式文件</label>
+														<input type="checkbox" name="saveSiteStyle" value="0" id="saveSiteStyle"/><label class="" for="saveSiteStyle"  fcklang="SAVESITESTYLE">系统自带站点样式文件</label>
+													</TD>
+												</TR>
+											</tbody>
+											</table>
+										</TD>
+									</TR>
+								</TBODY>
+							</TABLE>
+						</td>
+						<td width="4%" align="center" valign="top">
+							<div style="width:2px;border-left:1px solid gray;background:white;overflow:hidden;height:300px;"></div></td>
+						<td width="12%" valign="top">
+							<input id="btnOk" class="input_btn" onclick="window.parent.Ok();"
+								type="button" value="Ok" fcklang="DlgBtnOK"/>
+							<div style="height:5px;overflow:hidden"></div>
+							<input id="btnCancel" name="button2" class="input_btn" type="button" value="Close" onclick="window.parent.Cancel();" fcklang="DlgBtnCancel">
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</BODY>
+</HTML>

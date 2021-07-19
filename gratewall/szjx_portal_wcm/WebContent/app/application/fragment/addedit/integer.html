@@ -1,0 +1,11 @@
+<!--整型-->
+<script language="javascript">
+<!--
+	new com.trs.ui.XInteger({
+		disabled : ${NOTEDIT},
+		name : '<TRS_ViewField field="DBFieldName" filterForJs="true" />',
+		value : '<%=CMyString.filterForJs(getValue(obj, "${FieldName}", "<TRS_ViewField field="DefaultValue" filterForJava="true" />"))%>',
+		validation:"type:'int',<%=makeIntegerFiledValueRange()%>,required:'${NotNull}',desc:'<TRS_ViewField field="AnotherName" filterForJs="true" doubleFilter="true" />'"
+	}).render();
+//-->
+</script>

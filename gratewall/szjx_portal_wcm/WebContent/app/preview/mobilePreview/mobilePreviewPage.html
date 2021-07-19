@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> 文档预览 </title>
+	<link rel="stylesheet" type="text/css" href="images/mobilePreviewPage.css"/>
+	<script src="mobilePreviewPage.js"></script>
+</head>
+<body onload="setClass('phoneBox');">
+<div id="box" class="box">
+	<div id="header" class="header">
+		<div id="iphoneBtn" class="iphoneBtn" style="float:left" onclick="setClass('phoneBox','iphone_S');return false;" onmouseover='hover(this.id);return false;' onmouseout='hoverOut(this.id);return false;'></div>
+		<div id="ipadBtn" class="ipadBtn" style="float:left" onclick="setClass('phoneBox','ipad_S');return false;" onmouseover='hover(this.id);return false;' onmouseout='hoverOut(this.id);return false;'></div>
+		<div id="androidBtn" class="androidBtn" style="float:left" onclick="setClass('phoneBox','android_S');return false;" onmouseover='hover(this.id);return false;' onmouseout='hoverOut(this.id);return false;'></div>
+		<div style="clear:both"></div>
+	</div>
+	<div id="forAndroidSize" class="forAndroidSize" style="display:none;">
+		<ul>
+			<li>
+				<input type="radio" id="37" name="forSize" value="37">
+				<label for="37">size : 3.7</label>
+			</li>
+			<li>
+				<input type="radio" id="40" name="forSize" value="40" checked>
+				<label for="40">size : 4.0</label>
+			</li>
+			<li>
+				<input type="radio" id="47" name="forSize" value="47">
+				<label for="47">size : 4.7</label>
+			</li>
+			<li>
+				<input type="radio" id="55" name="forSize" value="55">
+				<label for="55">size : 5.5</label>
+			</li>
+		</ul>
+	</div>
+	
+	<div id="phoneBody" class="phoneBody">
+		<div id="switch_HS" class="switch_HS" onclick="changeClass('phoneBox');return false;"></div>
+<!-- <div id="turnLeft" class="turnLeft" style="float:left;" onclick="changeClass('phoneBox','H')"></div> -->
+		<div id="phoneBox" class="phoneBox" style="float:left;">
+			<div id="iframeStyle" class="iframeStyle" style="border:1px solid white;">
+				<!-- 预览内容 -->
+				<!-- <iframe src="http://www.baidu.com" id="" style="border:0;height:100%;width:100%;zoom:28%"></iframe> -->
+			</div>
+		</div>
+<!-- <div id="turnRight" class="turnRight" style="float:left;" onclick="changeClass('phoneBox','S')"></div> -->
+		<div style="clear:both"></div>
+	</div>
+</div>
+<div id="footer" class="footer"></div>
+<input type="hidden" name="" id="androidSize" value="40">
+</body>
+<script language="javascript">
+<!--
+	EventUtil.addHandler($("forAndroidSize"),"click",setSizeForAndroid);
+//-->
+</script>
+</html>

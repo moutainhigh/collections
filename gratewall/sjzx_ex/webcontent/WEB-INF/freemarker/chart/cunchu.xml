@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chart caption="最近五天数据存储量增长情况" xAxisName=""  numberPrefix="" showValues="0">  
+<set label="${day1!}" value="${online1!}" /> 
+<set label="${day2!}" value="${online2!}" />
+<set label="${day3!}" value="${online3!}" /> 
+<set label="${day4!}" value="${online4!}" />  
+<set label="${day5!}" value="${online5!}" />   
+<styles>
+<definition><style name="CanvasAnim" type="animation" param="_xScale" start="0" duration="1" /></definition>   
+<application><apply toObject="Canvas" styles="CanvasAnim" /></application>  
+</styles></chart>

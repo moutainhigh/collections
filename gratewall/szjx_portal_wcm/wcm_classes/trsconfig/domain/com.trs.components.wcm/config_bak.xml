@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin name="WCM应用" version="1.0" id="wcm">
+	<!-- WCMApp Config BEGIN -->
+	<extension element-class="com.trs.components.wcm.WCMAppConfig" id="CachedObjs">
+		<wcmapp-config>
+			<!--WCMDocument中某些属性是否同步到WCMChnlDoc中-->
+			<document-syn-chnldoc>
+				true
+			</document-syn-chnldoc>
+			<!--WCMDocument中同步到WCMChnlDoc中的属性-->
+			<document-syn-chnldoc-fields>
+				DOCRELTIME,DOCCHANNEL,DocFlag,DocKind,nodeId,SITEID,SRCSITEID,DOCOUTUPID,DOCFORM,DOCLEVEL
+			</document-syn-chnldoc-fields>			
+			<!--是否采用最优化的模式获取文档集合-->				
+			<documents-get-optimize>
+				true
+			</documents-get-optimize>
+		</wcmapp-config>	
+	</extension>
+	<!-- WCMApp Config END -->
+	
+	<!-- Update-Commander Config For UpdateServer BEGIN -->
+	<extension element-class="com.trs.infra.update.UpdateCommanderConfig" id="WCMContentUpdateCommander">
+		<update-commander Name="WCM内容升级程序" 
+			ClassName="com.trs.components.wcm.wcmx.help.WcmHelpUpdate"/>
+	</extension>
+	<!-- Update-Commander Config For UpdateServer END -->	
+	
+</plugin>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.ContentLinkServiceProvider">
+	<method name="save">
+	</method>
+	<method name="findById"/>
+	<method name="jFindById" truename="findById"  convertor="uri:/app/channelcontentlink/channelcontentlink_findbyid.jsp"/>
+	<method name="query">
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>		
+		<!--文档过滤器-->
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" required="false"/>
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="LINKNAME" desc="热词名称" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="LINKTITLE" desc="热词描述" type="string" required="false" search="true"
+			search-operator="like"/>
+		<!-- 检索相关配置 END -->
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>			
+	</method>
+	<method name="createFromFile" desc="批量创建热词">
+		<parameter name="ImportFile" desc="待导入文件" type="string" required="true" />
+		<parameter name="ChannelId" desc="目标栏目ID" type="int" required="false" />
+		<parameter name="SiteId" desc="目标站点ID" type="int" required="false" />		
+	</method>	
+	<method name="queryTypes">
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="true"/>
+	</method>
+	<method name="jQuery" truename="query"  convertor="uri:/app/channelcontentlink/channelcontentlink_query.jsp"/>
+	<method name="tQuery" truename="queryTypes"  convertor="uri:/app/channelcontentlink/channelcontentlink_import_query.jsp"/>
+	<method name="importSysLinks">
+		<parameter name="ContentLinkTypeIds" desc="热词分类ID序列" type="string" 
+			required="true"/>
+		<parameter name="ChannelId" desc="栏目Id" type="int" required="true" />
+		<parameter name="sameNameOpera" desc="同名操作处理" type="int" required="true" />
+	</method>
+</service>

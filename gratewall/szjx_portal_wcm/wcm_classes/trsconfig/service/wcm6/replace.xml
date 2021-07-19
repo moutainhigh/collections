@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.ReplaceContentServiceProvider">
+
+	<method name="save">		
+		<parameter name="ObjectId" desc="分发信息ID" type="int" required="true"/>
+		<parameter name="ChannelId" desc="栏目Id" type="int" required="false"/>
+	</method>
+
+	<method name="delete">	
+		<parameter name="ObjectIds" desc="待删除的分发信息ID序列" type="string" required="true"/>
+	</method>
+	
+	<method name="query">
+		<parameter name="ChannelId" desc="栏目Id" type="int" required="true"/>
+		
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" required="false" default="ReplaceId Desc"/>		
+		
+		<!-- 检索相关配置 BEGIN -->
+		<!-- 检索相关配置 END -->
+	</method>
+	
+	<method name="findByIds" >
+		<parameter name="ObjectIds" desc="替换内容ID序列" type="string" required="true"/>
+	</method>
+	
+	<method name="findById">
+		<parameter name="ObjectId" desc="替换内容ID" type="int" required="true"/>
+		<parameter name="ChannelId" desc="栏目Id" type="int" required="false"/>
+	</method>	
+	
+	<method name="existsSimilarName">
+		<parameter name="ObjectId" desc="替换内容ID" type="int" required="true"/>
+		<parameter name="ChannelId" desc="栏目Id" type="int" required="true"/>
+		<parameter name="ReplaceName" desc="替换内容名称" type="string" required="true"/>
+	</method>	
+	
+	
+</service>

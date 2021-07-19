@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="GB2312"?>
+<parameters>	
+	<parameter name="RoleIds"  desc="默认定位角色ID" type="string" required="false"/>
+	
+	<parameter name="TreeType"  desc="类型"  min-value="0" type="int" default="0"/>
+	<parameter name="OperType"  desc="导航操作类型"  min-value="0" type="int" default="14"/>
+
+	<parameter name="ObjTreeName"  desc="JavaScript TREE对象名称" type="string" default="oTRSTreeRole"/>
+	<parameter name="DisabledRoles"  desc="栏目树不允许选择的角色ID序列" type="string" required="false" default=""/>
+
+	<parameter name="ShowAll"  desc="是否显示所有角色" type="boolean" default="0"/>
+	<parameter name="FilterRight"  desc="是否过滤没有管理权限的角色" type="boolean" default="0"/>
+
+</parameters>

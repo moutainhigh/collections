@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+</head>
+<body>
+  
+<script>  
+    function btnclick(){
+    	//alert("i belong to group one. (checktype='check')");
+    }
+    function btn1click(){
+    	//alert("i belong to group two. (checktype='radio')");
+    }
+</script>
+<div id="btn-01"  vtype="button" name="btn01" text="spring" group="one" checktype="check" width=null
+	 iconurl="../../../themes/default/toolbar/images/print.png" 
+	 click="btnclick()"></div>
+<div id="btn-02"  vtype="button" name="btn02" text="summer" group="one" checktype="check" width=null
+	 defaultview=1 click="btnclick()"></div>
+<div id="btn-03"  vtype="button" name="btn03" text="fall" group="one" checktype="check" width=null
+	 defaultview=1 click="btnclick()"></div>
+<div id="btn-04"  vtype="button" name="btn04" text="winter" group="one" checktype="check" width=null
+	 iconurl="../../../themes/default/toolbar/images/print.png" iconalign='right' 
+	 click="btnclick()"></div>
+
+<div id="btn-05"  vtype="button" name="btn05" text="the one" group="two" checktype="radio" width=null
+	 defaultview=1 click="btn1click()"></div>
+<div id="btn-06"  vtype="button" name="btn06" text="another" group="two" checktype="radio" width=null
+	 defaultview=1 click="btn1click()"></div>
+<script type="text/javascript">
+$(function(){
+    //调整父页面iframe高度
+    try{
+        parent.setWinHeight(200);           
+    }catch(e){
+        jazz.log(e);
+    }
+});
+</script>   
+</body>
+</html>

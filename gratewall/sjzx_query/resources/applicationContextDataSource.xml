@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:ws="http://jax-ws.dev.java.net/spring/core" xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+	    http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+	    http://jax-ws.dev.java.net/spring/core 
+	    http://jax-ws.dev.java.net/spring/core.xsd
+        http://jax-ws.dev.java.net/spring/servlet 
+        http://jax-ws.dev.java.net/spring/servlet.xsd"
+	default-autowire="byName">
+	<!-- 登记主题库 -->
+	<!--  <bean id="sjzx" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:oracle:thin:@(DESCRIPTION= (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.153)(PORT=1521)) (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.159)(PORT=1521)) (LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED) (SERVICE_NAME=racdb5)))</value>	
+		</property>
+		<property name="username">
+			<value>tm_dswap</value>
+		</property>
+		<property name="password">
+			<value>tm_dswap</value>
+		</property>
+		<property name="validationQuery">
+			<value>select 1 from dual</value>
+		</property>
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>30000</value>
+		</property>
+		<property name="minEvictableIdleTimeMillis">
+			<value>200000</value>
+		</property>
+
+	</bean> -->
+	<bean id="dc_sqlserver" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>com.microsoft.sqlserver.jdbc.SQLServerDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:sqlserver://10.0.2.11:1433;database=esdb;integratedSecurity=false</value>
+		</property>
+		<property name="username">
+			<value>changruan</value>
+		</property>
+		<property name="password">
+			<value>cruser?123</value>
+		</property>
+	</bean> 
+	<!-- 代码库 -->
+	<bean id="dc_code" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:oracle:thin:@10.3.70.7:1521:racdb5</value>  
+			<!-- <value>jdbc:oracle:thin:@(DESCRIPTION= (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.153)(PORT=1521)) (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.159)(PORT=1521)) (LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED) (SERVICE_NAME=racdb5)))</value> -->
+		</property>
+		<property name="username">
+			<!-- <value>db_yyjc13510</value> -->
+			<value>dc_code</value>
+		</property>
+		<property name="password">
+			<value>dc_code</value>
+		</property>
+		<property name="validationQuery">
+			<value>select 1 from dual</value>
+		</property>
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>30000</value>
+		</property>
+		<property name="minEvictableIdleTimeMillis">
+			<value>200000</value>
+		</property>
+	</bean>
+	<!-- 日志库 -->
+	<bean id="logDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:oracle:thin:@10.3.70.7:1521:racdb5</value>  
+			<!-- <value>jdbc:oracle:thin:@(DESCRIPTION= (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.153)(PORT=1521)) (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.159)(PORT=1521)) (LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED) (SERVICE_NAME=racdb5)))</value>
+		 --></property>
+		<property name="username">
+			<!-- <value>db_yyjc13510</value> -->
+			<value>dc_log</value>
+		</property>
+		<property name="password">
+			<value>dc_log</value>
+		</property>
+		<property name="validationQuery">
+			<value>select 1 from dual</value>
+		</property>
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>30000</value>
+		</property>
+		<property name="minEvictableIdleTimeMillis">
+			<value>200000</value>
+		</property>
+	</bean>
+	
+	<!-- 高级查询所建 -->
+	<bean id="db_dc" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:oracle:thin:@10.3.70.7:1521:racdb5</value>  
+			<!-- <value>jdbc:oracle:thin:@(DESCRIPTION= (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.153)(PORT=1521)) (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.159)(PORT=1521)) (LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED) (SERVICE_NAME=racdb5)))</value>
+		 --></property>
+		<property name="username">
+			<!-- <value>db_yyjc13510</value> -->
+			<value>db_dc</value>
+		</property>
+		<property name="password">
+			<value>db_dc</value>
+		</property>
+		<property name="validationQuery">
+			<value>select 1 from dual</value>
+		</property>
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>30000</value>
+		</property>
+		<property name="minEvictableIdleTimeMillis">
+			<value>200000</value>
+		</property>
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">  
+        <property name = "dataSource" ref="dc_dc"/>  
+	</bean>  
+	
+	<!-- 高级查询中心库 -->
+	  <bean id="dc_dc" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:oracle:thin:@10.3.70.7:1521:racdb5</value>  
+			<!-- <value>jdbc:oracle:thin:@(DESCRIPTION= (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.153)(PORT=1521)) (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.159)(PORT=1521)) (LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED) (SERVICE_NAME=racdb5)))</value>
+		 --></property>
+		<property name="username">
+			<value>dc_dc</value>
+		</property>
+		<property name="password">
+			<value>dc_dc</value>
+		</property>
+		<property name="validationQuery">
+			<value>select 1 from dual</value>
+		</property>
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>30000</value>
+		</property>
+		<property name="minEvictableIdleTimeMillis">
+			<value>200000</value>
+		</property>
+	</bean>
+	
+	<bean id="db_query" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>oracle.jdbc.driver.OracleDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:oracle:thin:@10.3.70.7:1521:racdb5</value>  
+		<!-- <value>jdbc:oracle:thin:@(DESCRIPTION= (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.153)(PORT=1521)) (ADDRESS=(PROTOCOL=TCP)(HOST=10.0.3.159)(PORT=1521)) (LOAD_BALANCE=yes)(CONNECT_DATA=(SERVER=DEDICATED) (SERVICE_NAME=racdb5)))</value>	
+		 --><!--  <value>jdbc:oracle:thin:@10.0.2.16:1521:oradb01</value> -->
+ 		</property>
+		<property name="username">
+			<value>db_query</value>
+		</property>
+		<property name="password">
+			<!-- <value>123456</value> -->
+			<value>db_query</value>
+		</property>
+		<property name="validationQuery">
+			<value>select 1 from dual</value>
+		</property>
+		<property name="testWhileIdle">
+			<value>true</value>
+		</property>
+		<property name="removeAbandoned">
+			<value>true</value>
+		</property>
+		<property name="timeBetweenEvictionRunsMillis">
+			<value>30000</value>
+		</property>
+		<property name="minEvictableIdleTimeMillis">
+			<value>200000</value>
+		</property>
+	</bean>
+</beans>

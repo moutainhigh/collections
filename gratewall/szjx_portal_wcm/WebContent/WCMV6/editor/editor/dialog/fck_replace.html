@@ -1,0 +1,357 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!--
+ * FCKeditor - The text editor for Internet - http://www.fckeditor.net
+ * Copyright (C) 2003-2007 Frederico Caldeira Knabben
+ *
+ * == BEGIN LICENSE ==
+ *
+ * Licensed under the terms of any of the following licenses at your
+ * choice:
+ *
+ *  - GNU General Public License Version 2 or later (the "GPL")
+ *    http://www.gnu.org/licenses/gpl.html
+ *
+ *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+ *    http://www.gnu.org/licenses/lgpl.html
+ *
+ *  - Mozilla Public License Version 1.1 or later (the "MPL")
+ *    http://www.mozilla.org/MPL/MPL-1.1.html
+ *
+ * == END LICENSE ==
+ *
+ * "Replace" dialog box window.
+-->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta content="noindex, nofollow" name="robots" />
+	<script type="text/javascript">
+
+var oEditor = window.parent.InnerDialogLoaded() ;
+
+function OnLoad()
+{
+	// Whole word is available on IE only.
+	if ( oEditor.FCKBrowserInfo.IsIE ){
+		document.getElementById('divWord').style.display = '' ;
+		document.getElementById('divFind').style.display = '' ;
+		document.getElementById('divWrapAround').style.display = '' ;
+	}
+
+	// First of all, translate the dialog box texts
+	oEditor.FCKLanguageManager.TranslatePage( document ) ;
+
+	window.parent.SetBtnsRow(false);
+	window.parent.SetAutoSize( true ) ;
+
+	oEditor.FCKUndo.SaveUndoStep() ;
+}
+
+function btnStat(frm)
+{
+	document.getElementById('btnFind').disabled = 
+	document.getElementById('btnReplace').disabled = 
+		document.getElementById('btnReplaceAll').disabled = 
+			( document.getElementById('txtFind').value.length == 0 ) ;
+}
+var replaced = 0;
+function ReplaceTextNodes( parentNode, regex, replaceValue, replaceAll, hasFound )
+{
+	for ( var i = 0 ; i < parentNode.childNodes.length ; i++ )
+	{
+		var oNode = parentNode.childNodes[i] ;
+		if ( oNode.nodeType == 3 )
+		{
+			var sReplaced = oNode.nodeValue.replace( regex, function(s){replaced++;return replaceValue ;}) ;
+			if ( oNode.nodeValue != sReplaced )
+			{
+				oNode.nodeValue = sReplaced ;
+				if ( ! replaceAll )
+					return true ;
+				hasFound = true ;
+			}
+		}
+
+		hasFound = ReplaceTextNodes( oNode, regex, replaceValue, replaceAll, hasFound ) ;
+		if ( ! replaceAll && hasFound )
+			return true ;
+	}
+	
+	return hasFound ;
+}
+
+function GetRegexExpr()
+{
+	var sExpr = EscapeRegexString( document.getElementById('txtFind').value ) ;
+
+	if ( document.getElementById('chkWord').checked )
+		sExpr = '\\b' + sExpr + '\\b' ;
+
+	return sExpr ;
+}
+
+function GetCase() 
+{
+	return ( document.getElementById('chkCase').checked ? '' : 'i' ) ;
+}
+
+function GetReplacement()
+{
+	return document.getElementById('txtReplace').value.replace( /\$/g, '$$$$' ) ;
+}
+
+function EscapeRegexString( str )
+{
+	return str.replace( /[\\\^\$\*\+\?\{\}\.\(\)\!\|\[\]\-]/g, '\\$&' ) ;
+}
+function Replace()
+{
+	var sWord = document.getElementById('txtFind').value;
+	if(sWord!=sLastWord){
+		oLastRangeFound = null;
+	}
+	if ( oEditor.FCKBrowserInfo.IsIE ){
+		if(!oLastRangeFound){
+			var bFound = Find();
+			if(!bFound)return;
+		}
+		var oAbcRange = oEditor.FCK.EditorDocument.selection.createRange() ;
+		oAbcRange.text = document.getElementById('txtReplace').value;
+		oRange.collapse(false);
+		oRange.select();
+		oLastRangeFound = null;
+		Find();
+//		if(bFound){
+//			oLastRangeFound = null;
+//			Find();
+//		}
+		return;
+	}
+	var oRegex = new RegExp( GetRegexExpr(), GetCase() ) ;
+	if ( !ReplaceTextNodes( oEditor.FCK.EditorDocument.body, oRegex, GetReplacement(), false, false ) )
+		alert( oEditor.FCKLang.DlgFindNotFoundMsg ) ;
+}
+
+function ReplaceAll()
+{
+	replaced = 0;
+	var oRegex = new RegExp( GetRegexExpr(), GetCase() + 'g' ) ;
+	ReplaceTextNodes( oEditor.FCK.EditorDocument.body, oRegex, GetReplacement(), true, false );
+	if ( replaced===0 )
+		alert( oEditor.FCKLang.DlgFindNotFoundMsg ) ;
+	else{
+		alert( (oEditor.FCKLang.DlgReplacedTimesMsg||'replaced {#NUM} times.').replace(/{#NUM}/ig,replaced));
+	}
+//	window.parent.Cancel() ;
+}
+var sLastWord = null;
+function Find()
+{
+	var sWord = document.getElementById('txtFind').value;
+	if(sWord.length==0&&oEditor.FCKLang.DlgFindTxtFindBlankMsg){
+		alert( oEditor.FCKLang.DlgFindTxtFindBlankMsg) ;
+		return false;
+	}
+//	if ( document.getElementById('txtFind').value.length == 0 )
+//		return ;
+	var bReturnIE = false;
+	if(sWord!=sLastWord){
+		bReturnIE = true;
+		sLastWord = sWord;
+	}
+
+	if ( oEditor.FCKBrowserInfo.IsIE )
+		return FindIE(bReturnIE) ;
+	else
+		return FindGecko() ;
+}
+
+var oRange ,oLastRangeFound;
+var sBookMark;
+if ( oEditor.FCKBrowserInfo.IsIE )
+{
+	oRange = oEditor.FCK.EditorDocument.body.createTextRange() ;
+	sBookMark = oRange.getBookmark();  
+}
+function FindIE(_bReturnIE)
+{
+	var sWord = document.getElementById('txtFind').value;
+	var iFlags = 0 ;
+
+	if ( chkCase.checked )
+		iFlags = iFlags | 4 ;
+
+	if ( chkWord.checked )
+		iFlags = iFlags | 2 ;
+
+	//	if ( Direction1.checked )
+	//		iFlags = iFlags | 1 ;
+	if(_bReturnIE){
+		oRange.moveToBookmark(sBookMark);
+	}
+	var iSearchScope = (Direction1.checked)?-1:1;
+	bFound = oRange.findText( sWord,iSearchScope, iFlags ) ;
+	if ( bFound )
+	{
+		oRange.scrollIntoView() ;
+		oRange.select() ;
+		oRange.collapse((iSearchScope<0)) ;
+		oLastRangeFound = oRange ;
+	}
+	else
+	{
+		var bWrapAround = document.getElementById('WrapAround').checked ;
+		if(bWrapAround){
+			oEditor.FCK.ExecuteNamedCommand( 'SelectAll' ) ;
+			oRange = oEditor.FCK.EditorDocument.body.createTextRange() ;
+			oRange.collapse(Direction2.checked) ;
+			bFound = oRange.findText(sWord,iSearchScope,iFlags ) ;
+		}
+		if(bFound){
+			oRange.scrollIntoView() ;
+			oRange.select() ;
+			oRange.collapse((iSearchScope<0)) ;
+			oLastRangeFound = oRange ;
+		}
+		else{
+			oRange = oEditor.FCK.EditorDocument.body.createTextRange() ;
+			oRange.collapse((iSearchScope<0)) ;
+			oRange.select() ;
+			alert( oEditor.FCKLang.DlgFindNotFoundMsg ) ;
+			return false;
+		}
+	}
+	return true;
+}
+
+function FindGecko()
+{
+	var sWord = document.getElementById('txtFind').value;
+	if(sWord.length==0&&oEditor.FCKLang.DlgFindTxtFindBlankMsg){
+		alert( oEditor.FCKLang.DlgFindTxtFindBlankMsg) ;
+	}
+	var bCase = document.getElementById('chkCase').checked ;
+	var bWord = document.getElementById('chkWord').checked ;
+	var bBackwards = document.getElementById('Direction1').checked ;
+	var bWrapAround = document.getElementById('WrapAround').checked ;
+	// window.find( searchString, caseSensitive, backwards, wrapAround, wholeWord, searchInFrames, showDialog ) ;
+	if ( !oEditor.FCK.EditorWindow.find( document.getElementById('txtFind').value, bCase, bBackwards, bWrapAround, bWord, false, false ) ){
+		alert( oEditor.FCKLang.DlgFindNotFoundMsg ) ;
+		return false;
+	}
+	return true;
+}
+
+	</script>
+<style>
+body {
+	padding-top:10px;
+	background-color: #CCCCCC;
+}
+.input_btn{
+	width:60px;
+	margin-right:10px;
+}
+.input_text{
+	border:1px solid gray;
+}
+</style>
+</head>
+<body onload="OnLoad()" style="overflow: hidden">
+<!--
+	<table cellspacing="3" cellpadding="2" width="100%" border="0">
+		<tr>
+			<td nowrap="nowrap">
+				<label for="txtFind" fcklang="DlgReplaceFindLbl">
+					Find what:</label>
+			</td>
+			<td width="100%">
+				<input id="txtFind" onkeyup="btnStat(this.form)" style="width: 100%" tabindex="1"
+					type="text" />
+			</td>
+			<td>
+				<input id="btnReplace" style="width: 100%" disabled="disabled" onclick="Replace();"
+					type="button" value="Replace" fcklang="DlgReplaceReplaceBtn" />
+			</td>
+		</tr>
+		<tr>
+			<td valign="top" nowrap="nowrap">
+				<label for="txtReplace" fcklang="DlgReplaceReplaceLbl">
+					Replace with:</label>
+			</td>
+			<td valign="top">
+				<input id="txtReplace" style="width: 100%" tabindex="2" type="text" />
+			</td>
+			<td>
+				<input id="btnReplaceAll" disabled="disabled" onclick="ReplaceAll()" type="button"
+					value="Replace All" fcklang="DlgReplaceReplAllBtn" />
+			</td>
+		</tr>
+		<tr>
+			<td valign="bottom" colspan="3">
+				&nbsp;<input id="chkCase" tabindex="3" type="checkbox" /><label for="chkCase" fcklang="DlgReplaceCaseChk">Match
+					case</label>
+				<br />
+				&nbsp;<input id="chkWord" tabindex="4" type="checkbox" /><label for="chkWord" fcklang="DlgReplaceWordChk">Match
+					whole word</label>
+			</td>
+		</tr>
+	</table>
+-->
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+  <tr align="left">
+    <td colspan="2" nowrap="nowrap" >
+	<label for="txtFind" fcklang="DlgReplaceFindLbl" style="width:20%;overflow:hidden;float:left;">
+		Find what:</label>
+	  <input id="txtFind" tabindex="1" type="text" class="input_text" style="width:80%;overflow:hidden;float:right" onkeyup="btnStat(this.form)"/>
+	 </td>
+    <td width="20%" align="right" rowspan="4" valign="top">
+		<div id="divFind" style="display:none">
+		<input id="btnFind" class="input_btn" onclick="Find();"
+			type="button" value="Find" fcklang="DlgFindFindBtn" disabled="disabled"/>
+		<div style="height:5px;overflow:hidden"></div>
+		</div>
+		<input id="btnReplace" class="input_btn" disabled="disabled" onclick="Replace();"
+			type="button" value="Replace" fcklang="DlgReplaceReplaceBtn" />
+		<div style="height:5px;overflow:hidden"></div>
+		<input id="btnReplaceAll" class="input_btn" disabled="disabled" onclick="ReplaceAll()" type="button"
+			value="Replace All" fcklang="DlgReplaceReplAllBtn" />
+		<div style="height:5px;overflow:hidden"></div>
+		<input name="button2" class="input_btn" type="button" value="Close" onclick="window.parent.Cancel();" fcklang="DlgFindCloseBtn">
+	</td>
+  </tr>
+	<tr>
+		<td valign="top" nowrap="nowrap" colspan="2" >
+			<label for="txtReplace" fcklang="DlgReplaceReplaceLbl" style="width:20%;overflow:hidden;float:left;">
+				Replace with:</label>
+			  <input id="txtReplace" tabindex="2" type="text" class="input_text" style="width:80%;overflow:hidden;float:right"/>
+		</td>
+	</tr>
+  <tr align="left">
+    <td height="5" colspan=3></td>
+  </tr>
+  <tr align="left">
+    <td width="35%" valign="top">
+	&nbsp;<input id="chkCase" tabindex="3" type="checkbox" /><label for="chkCase" fcklang="DlgReplaceCaseChk">Match
+		case</label>
+	<br />
+	<div id="divWord">
+		&nbsp;<input id="chkWord" tabindex="4" type="checkbox" /><label for="chkWord" fcklang="DlgReplaceWordChk">Match
+			whole word</label>
+	</div>
+      </td>
+    <td width="45%" valign="top" scope="row">
+		<FIELDSET>
+		<LEGEND><span fcklang="DlgFindDirection">Direction</span></LEGEND>
+			<input id="Direction1" type="radio" name="Direction" value="-1"><label for="Direction1" fcklang="DlgFindDirectionUp">Up</label>&nbsp;
+			<input id="Direction2" type="radio" name="Direction" value="1" checked><label for="Direction2" fcklang="DlgFindDirectionDown">Down</label>
+		</FIELDSET>
+		<div id="divWrapAround" style="display: none">
+		<input id="WrapAround" type="checkbox" name="WrapAround" value="1" checked><label for="FileEnd" fcklang="DlgFindDirectionWrap">Wrap at the end of document</label>
+		</div>
+	 </td>
+  </tr>
+</table>
+</body>
+</html>

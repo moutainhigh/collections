@@ -1,0 +1,94 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="editorCssExample.html.title"> 编辑器自定义样式示例说明 </title>
+	<style type="text/css">
+		.divCont{
+			border:2px solid gray;
+			width:500px;
+		}
+		DT{
+			font-weight:bold;
+		}
+	</style>
+	<script language="javascript">
+	<!--
+		window.m_cbCfg = {
+		// 定义按钮
+		btns : [
+			{
+				text : '确定',
+				cmd : function(){
+					return true;
+				}
+			}
+		]
+	};
+	//-->
+	</script>
+</head>
+
+<body style="overflow:auto;font-size:10.5pt;width:600px;">
+<span style="padding-left:20px"></span><span WCMAnt:param="editorCssExample.html.editorcss">【导入编辑器样式文件】操作是为用户自己定义编辑器样式设定的。如果用户要使发布的文档满足某种要求，例如：字体大小为10pt、正文居中显示等，我们可以首先按照WCM编辑器样式文件的要求定义好这些样式，使用【导入编辑器样式文件】操作导入样式文件，然后在模板中引入这个样式文件，那么我们就能够在编辑文档的时候看到发布文档的效果。【导入编辑器样式文件】的目的是：保证发布页面和编辑器页面显示风格一致，以达到所见即所得的效果。</span><br/><br/>
+<span style="padding-left:20px"></span><span WCMAnt:param="editorCssExample.html.example">下面以一个具体的示例来介绍这个功能：</span>
+<DL>
+<DT WCMAnt:param="editorCssExample.html.demand">1、需求
+<DD>
+	<ul WCMAnt:param="editorCssExample.html.docdemand">指定发布的文档满足以下要求：
+		<li WCMAnt:param="editorCssExample.html.fontdemand">正文字体为黑体五号，行距1.5倍，居中显示。</li>
+		<li WCMAnt:param="editorCssExample.html.picdemand">正文中图片用红色边框标注，宽、高控制为100像素。</li>
+	</ul>
+<DT WCMAnt:param="editorCssExample.html.operate">2、操作
+<DD WCMAnt:param="editorCssExample.html.first">首先，上传预定义的样式文件，注意具体的格式就是容器类名为TRS_Editor，代码如下：
+<div class="divCont">
+<pre>
+<font color="#000000">.TRS_Editor{</font>
+	<font color="#0000ff">font-family:</font><font color="#ff00ff">"SimHei"</font><font color="#000000">;</font>
+	<font color="#0000ff">font-size:</font><font color="#000000">10.5pt;</font>
+	<font color="#0000ff">line-height:</font><font color="#000000">1.5;</font>
+	<font color="#0000ff">text-align:</font><font color="#ff0000">center</font><font color="#000000">;</font>
+<font color="#000000">}</font>
+<font color="#000000">.TRS_Editor img{</font>
+	<font color="#0000ff">border: </font><font color="#000000">1px </font><font color="#ff0000">solid red</font><font color="#000000">;</font>
+	<font color="#0000ff">width:</font><font color="#000000">100px;</font>
+	<font color="#0000ff">height:</font><font color="#000000">100px;</font>
+<font color="#000000">}</font>
+</pre>	
+</div>
+<br/>
+<DD WCMAnt:param="editorCssExample.html.afterwards">然后，将所调整的样式文件包含进模板中，保证发布后效果的一致
+<div class="divCont">
+<pre>
+<font color="#0000ff">&lt;HTML&gt;&lt;HEAD&gt;</font>
+<font color="#0000ff">&lt;STYLE </font><font color="#ff0000">type</font><font color="#0000ff">=</font><font color="#ff00ff">'text/css'</font><font color="#0000ff">&gt;</font>
+<font color="#800000">.TRS_Editor{</font>
+	<font color="#0000ff">font-family:</font><font color="#ff00ff">"SimHei"</font><font color="#800000">;</font>
+	<font color="#0000ff">font-size:</font><font color="#800000">10.5pt;</font>
+	<font color="#0000ff">line-height:</font><font color="#800000">1.5;</font>
+	<font color="#0000ff">text-align:</font><font color="#ff0000">center</font><font color="#800000">;</font>
+<font color="#800000">}</font>
+
+<font color="#800000">.TRS_Editor img{</font>
+	<font color="#0000ff">border: </font><font color="#800000">1px </font><font color="#ff0000">solid red</font><font color="#800000">;</font>
+	<font color="#0000ff">width:</font><font color="#800000">100px;</font>
+	<font color="#0000ff">height:</font><font color="#800000">100px;</font>
+<font color="#800000">}</font><font color="#0000ff">&lt;/STYLE&gt;</font>
+<font color="#0000ff">&lt;/HEAD&gt;</font>
+<font color="#0000ff">&lt;BODY&gt;</font>
+<font color="#0000ff">&lt;</font><font color="#808000">TRS_DOCUMENT </font><font color="#800080">FIELD</font><font color="#0000ff">=</font><font color="#ff00ff">"DOCHTMLCON" </font><font color="#0000ff">&gt;</font><font color="#000000" WCMAnt:param="editorCssExample.html.content"> 正文 </font><font color="#0000ff">&lt;/</font><font color="#808000">TRS_DOCUMENT</font><font color="#0000ff">&gt;</font>
+<font color="#0000ff">&lt;/BODY&gt;</font>
+<font color="#0000ff">&lt;/</font><font color="#808000">HMTL</font><font color="#0000ff">&gt;</font>
+</pre>
+</div>
+<br/>
+<DT WCMAnt:param="editorCssExample.html.direction">3、说明
+<DD>
+<div style="width:500px;">
+	<span style="padding-left:30px;"></span><span WCMAnt:param="editorCssExample.html.summary">从上面的例子中可以看出，自定义样式所做的就是将文档内容预先定义在一个以TRS_Editor为类名的容器内，通过在编辑器预先加入对TRS_Editor子容器样式的定义从而轻易达到目标效果（负责的样式适应等还需要在编辑器中调整）；从而通过在模板中引入同样样式文件控制，保证发布效果和编辑效果一致。</span>
+</div>
+
+</DL>
+</body>
+</html>

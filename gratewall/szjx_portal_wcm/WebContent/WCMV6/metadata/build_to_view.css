@@ -1,0 +1,139 @@
+﻿.no_object_found{
+	color:gray;
+	font-style:italic;
+	margin-top:50px;
+	height:100%;
+}
+*{
+	margin:0px;
+	padding:0px;
+	font-size:12px;
+}
+body{
+	text-align:center;
+	background-color:#EDEDED;
+	border:1px inset gray;
+}
+.Container{
+	width:100%;
+	height:75%; 
+	padding:2px;
+}
+.TableContainer{
+	height:100%;
+	background:white;
+	border:1px inset gray;
+}
+.FieldContainer{
+	width:25%;
+	height:100%;
+	float:right;      
+	background:white;
+	border:1px inset gray;
+	margin-right:3px;
+}
+.ViewContainer{
+	width:45%;
+	height:100%;
+	float:right;
+	background:white;
+	border:1px outset gray;
+}
+.Command{
+	width:100%;
+	height:30px; 
+	padding:2px;
+}
+.TableCommand{
+	height:100%;
+	text-align:left;
+}
+.FieldCommand{
+	width:25%;
+	height:100%;
+	float:right;      
+	margin-right:3px;
+	text-align:left;
+}
+.ViewCommand{
+	width:45%;
+	height:100%;
+	float:right;
+	text-align:left;
+}
+button{
+	margin:2px;
+}
+.row{
+	width:100%;
+	margin:3px 0px;
+	text-align:left;
+	cursor:default;
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+}
+.row_normal{
+	background-color:white;
+	color:black;
+}
+.row_active{
+	background-color:highlight;
+	color:white;
+}
+.row span, .row_active span{
+}
+.deleteOperator{
+	background:url('../images/metadata/delete.gif') center center no-repeat;
+	width:16px;
+	height:16px;    
+	margin-right:5px;
+}
+.row_head{
+	width:100%;
+	height:18px;
+	background:url('../images/metadata/bg-head.gif') center center repeat-x;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	white-space:nowrap;
+}
+.row_head_cell{
+	padding-left:6px;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+	cursor:default;
+	line-height:18px;
+}
+.row_head_cell_float{
+	width:60px;
+	display:inline;
+	float:right;
+	border-left:1px solid gray;
+	text-align:center;
+	cursor:pointer;
+}
+.row_body_cell{
+	width:100%;
+	padding-left:6px;
+	overflow:hidden;
+	white-space:nowrap;
+	text-overflow:ellipsis;
+}
+.row_body_cell_float{
+	width:60px;
+	display:inline;
+	float:right;
+	text-align:center;
+}
+table{
+	table-layout:fixed;
+}
+.tableAnotherName{
+	width:100%;
+	margin-top:3px;	
+	white-space:nowrap;
+	overflow:hidden;
+	text-overflow:ellipsis;
+	cursor:pointer;
+}

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+ * FCKeditor - The text editor for internet
+ * Copyright (C) 2003-2006 Frederico Caldeira Knabben
+ * 
+ * Licensed under the terms of the GNU Lesser General Public License:
+ * 		http://www.opensource.org/licenses/lgpl-license.php
+ * 
+ * For further information visit:
+ * 		http://www.fckeditor.net/
+ * 
+ * "Support Open Source software. What about a donation today?"
+ * 
+ * File Name: fcktemplates.xml
+ * 	This is the sample templates definitions file. It makes the "templates" 
+ * 	command completely customizable.
+ * 	See FCKConfig.TemplatesXmlPath in the configuration file.
+ * 
+ * File Authors:
+ * 		Frederico Caldeira Knabben (fredck@fckeditor.net)
+-->
+<Templates imagesBasePath="fck_template/images/">
+	<Template title="引用模板" image="quote.gif" wizard="basic">
+		<Description>引用某人的言语或者引用某篇文章的节选内容。</Description>
+		<Html>
+			<![CDATA[
+				<TABLE style="BORDER-COLLAPSE: collapse;border:1px solid gray" cellSpacing=4 cellPadding=2 width="100%" bgColor=#F5F5F5 border=0>
+				<TBODY>
+				<TR>
+				<TD>
+					以下是引用来自<STRONG>{#quotesrc}</STRONG> 的内容：</FONT>
+				</TD>
+				</TR>
+				<TR>
+				<TD>
+					{#quote}
+				</TD>
+				</TR>
+				</TBODY></TABLE>
+			]]>
+		</Html>
+		<Params>
+			<Param name="quotesrc" display="引用来源">
+				<![CDATA[
+					<input id="quotesrc" class="input_text" style="width:200px;" value="请在此输入引用来源...">
+				]]>
+			</Param>
+			<Param name="quote" display="引用内容">
+				<![CDATA[
+					<textarea id="quote" class="textarea" style="width:200px;height:120px;">请在此输入引用内容</textarea>
+				]]>
+			</Param>
+		</Params>
+	</Template>
+	<Template title="注释模板" image="zhushi.gif" wizard="basic">
+		<Description>为某段内容进行额外的注释。</Description>
+		<Html>
+			<![CDATA[
+				<TABLE style="BORDER-COLLAPSE: collapse;border:1px solid gray" cellSpacing=4 cellPadding=2 width="100%" bgColor=#F5F5F5 border=0>
+				<TBODY>
+				<TR>
+				<TD>
+					<STRONG>注释:</STRONG>
+				</TD>
+				</TR>
+				<TR>
+				<TD style="font-size:9pt;font-style:italic;">
+					{#desc}
+				</TD>
+				</TR>
+				</TBODY></TABLE>
+			]]>
+		</Html>
+		<Params>
+			<Param name="desc" display="注释">
+				<![CDATA[
+					<textarea id="desc" class="textarea" style="width:200px;height:120px;">请在此输入注释的内容</textarea>
+				]]>
+			</Param>
+		</Params>
+	</Template>
+	<Template title="代码模板" image="code.gif" wizard="basic">
+		<Description>一段代码，保留代码格式。</Description>
+		<Html>
+			<![CDATA[
+				<TABLE style="BORDER-COLLAPSE: collapse;border:1px solid gray" cellSpacing=0 cellPadding=5 width="100%" bgColor=#cccccc border=0>
+					<TBODY>
+					<TR>
+						<TD>{#code}</TD>
+					</TR>
+					</TBODY>
+				</TABLE>
+			]]>
+		</Html>
+		<Params>
+			<Param name="code" display="代码" format="trans2Text">
+				<![CDATA[
+					<textarea id="code" class="textarea" style="width:200px;height:120px;">请在此输入代码</textarea>
+				]]>
+			</Param>
+		</Params>
+	</Template>
+<!--
+	<Template title="嵌套页面" image="code.gif">
+		<Description>嵌入一个页面。</Description>
+		<Html>
+			<![CDATA[
+				<IFRAME src="about:blank" frameborder="NO" border="0" framespacing="0" width="100%" height="100%" Scrolling="Yes"></IFRAME>
+			]]>
+		</Html>
+	</Template>
+-->
+	<Template title="图片和主题" image="template1.gif" wizard="none">
+		<Description>一幅图片，一个主题，文本环绕着图片。</Description>
+		<Html>
+			<![CDATA[
+				<div>
+					<img src="css/images/fck_noimg.gif" style="MARGIN-RIGHT: 10px" alt="" align="left"/>
+					<h3>请在此输入主题</h3>
+					请在此输入文本
+				</div>
+			]]>
+		</Html>
+	</Template>
+<!--
+	<Template title="Strange Template" image="template2.gif">
+		<Description>A template that defines two colums, each one with a title, and some text.</Description>
+		<Html>
+			<![CDATA[
+				<table cellspacing="0" cellpadding="0" width="100%" border="0">
+					<tbody>
+						<tr>
+							<td width="50%">
+							<h3>Title 1</h3>
+							</td>
+							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
+							<td width="50%">
+							<h3>Title 2</h3>
+							</td>
+						</tr>
+						<tr>
+							<td>Text 1</td>
+							<td>&nbsp;</td>
+							<td>Text 2</td>
+						</tr>
+					</tbody>
+				</table>
+				More text goes here.
+			]]>
+		</Html>
+	</Template>
+-->
+	<Template title="文字和表格" image="template3.gif" wizard="none">
+		<Description>一个标题，一段文本和一个表格.</Description>
+		<Html>
+			<![CDATA[
+<table cellspacing="0" cellpadding="0" width="80%" align="left" border="0">
+    <tbody>
+        <tr>
+            <td>
+            <div>
+            <h3>请在此输入标题</h3>
+            <table style="FLOAT: right; BORDER-COLLAPSE: collapse" bordercolor="#000000" cellspacing="0" cellpadding="0" width="150" border="1">
+                <tbody>
+                    <tr>
+                        <td align="center" colspan="3"><strong>表格标题</strong></td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>请在此输入文本 </div>
+            </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+			]]>
+		</Html>
+	</Template>
+</Templates>

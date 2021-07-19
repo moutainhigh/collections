@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="GB2312"?>
+<mapping>
+	<description>the Mapping of the infrastructure</description>
+	<class name="com.trs.infra.support.cache.CacheMgrConfig" identity="beanId" 
+		auto-complete="true">
+		<map-to xml="cache-manager"/>
+		<field name="beanId">
+			<bind-xml name="beanId" node="attribute"/>
+		</field>
+		<field name="name">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+	</class>
+	<class name="com.trs.infra.persistent.cache.CachedObjectConfig" 
+		identity="className" auto-complete="true">
+		<map-to xml="cached-object"/>
+		<field name="Name">
+			<bind-xml name="Name" node="attribute"/>
+		</field>
+		<field name="ClassName">
+			<bind-xml name="ClassName" node="attribute"/>
+		</field>
+	</class>
+	<class name="com.trs.infra.persistent.ObjectTypeConfig" 
+		identity="className" auto-complete="true">
+		<map-to xml="object-type"/>
+		<field name="name">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		<field name="ObjectType">
+			<bind-xml name="ObjectType" node="attribute"/>
+		</field>
+		<field name="ObjectClassName">
+			<bind-xml name="ObjectClassName" node="attribute"/>
+		</field>
+	</class>
+	<class name="com.trs.infra.update.UpdateCommanderConfig" 
+		identity="ClassName">
+		<map-to xml="update-commander"/>
+		<field name="name">
+			<bind-xml name="Name" node="attribute"/>
+		</field>
+		<field name="CommanderClassName">
+			<bind-xml name="ClassName" node="attribute"/>
+		</field>
+	</class>
+	<!--Mapping for Server Config BEGIN-->
+	<class name="com.trs.infra.ServerConfig" identity="beanId">
+		<map-to xml="server"/>
+		<field name="beanId">
+			<bind-xml name="bean-id" node="attribute"/>
+		</field>
+		<field name="name">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+	</class>
+	<!--Mapping for Server Config END-->
+	<!--Mapping for SMTPServer Server Config BEGIN-->
+	<class name="com.trs.infra.util.email.SMTPServerConfigs" 
+		identity="defaultSMTPServer">
+		<map-to xml="smtp-servers"/>
+		<field name="defaultSMTPServer">
+			<bind-xml name="default" node="attribute"/>
+		</field>
+		<field name="sMTPServerConfigColl" 
+			type="com.trs.infra.util.email.SMTPServerConfig" 
+			collection="collection">
+			<bind-xml auto-naming="deriveByClass"/>
+		</field>
+	</class>
+	<class name="com.trs.infra.util.email.SMTPServerConfig" identity="name">
+		<map-to xml="smtp-server"/>
+		<field name="name">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		<field name="port" type="integer">
+			<bind-xml name="port" node="attribute"/>
+		</field>
+		<field name="auth" type="boolean">
+			<bind-xml name="auth" node="attribute"/>
+		</field>
+		<field name="userName" >
+			<bind-xml name="user" node="attribute"/>
+		</field>
+		<field name="password" >
+			<bind-xml name="password" node="attribute"/>
+		</field>
+	</class>
+	<!--Mapping for SMTPServer Server Config END-->
+	<!--Mapping for ObjectLCMonitor Config BEGIN-->
+	<class name="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		identity="name">
+		<map-to xml="monitor-host"/>
+		<field name="name">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		<field name="className">
+			<bind-xml name="class-name" node="attribute"/>
+		</field>		
+		<field name="listeners" 
+			type="com.trs.infra.persistent.listener.ObjectLCListenerConfig" 
+			collection="collection">
+			<bind-xml auto-naming="deriveByClass"/>
+		</field>
+	</class>
+	<class name="com.trs.infra.persistent.listener.ObjectLCListenerConfig" identity="beanId">
+		<map-to xml="listener"/>
+		<field name="beanId" required="true">
+			<bind-xml name="bean-id" node="attribute"/>
+		</field>
+		<field name="eventType">
+			<bind-xml name="event-type" node="attribute"/>
+		</field>
+		<field name="usedInChildren">
+			<bind-xml name="used-in-children" node="attribute"/>
+		</field>
+	</class>
+	<!--Mapping for ObjectLCMonitor Config END-->
+	<!--Mapping for System Collocation BEGIN-->
+	<class name="com.trs.infra.support.config.SystemCollocationConfig" identity="name">
+		<map-to xml="config-type"/>
+		<field name="name">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		<field name="typeId">
+			<bind-xml name="type-id" node="attribute" type="integer"/>
+		</field>		
+	</class>
+	<!--Mapping for System Collocation  BEGIN-->	
+</mapping>

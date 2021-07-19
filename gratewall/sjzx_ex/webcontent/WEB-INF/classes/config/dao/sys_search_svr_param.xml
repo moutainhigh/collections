@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="sys_search_svr_param" class-name="cn.gwssi.search.dao.SysSearchSvrParam" check-flag="false" backup-flag="false">
+    <description>检索服务参数</description>
+  </table-info>
+
+  <column name="sys_search_svr_param_id" data-type="varchar" length="32" not-null="true" value-from="input" description="检索服务参数ID"/>
+  <column name="sys_search_svr_id" data-type="varchar" length="32" not-null="true" value-from="input" description="检索服务ID"/>
+  <column name="column_name" data-type="varchar" length="200" not-null="true" value-from="input" description="列名称"/>
+  <column name="column_type" data-type="varchar" length="20" not-null="true" value-from="input" description="列类型"/>
+  <column name="index_type" data-type="varchar" length="20" not-null="true" value-from="input" description="索引类型"/>
+  <column name="weight" data-type="long" length="22" not-null="true" value-from="input" description="权重"/>
+  <column name="db_name" data-type="varchar" length="200" not-null="true" value-from="input" description="检索库名称"/>
+  <column name="sort_order" data-type="long" length="22" not-null="true" value-from="input" description="排序"/>
+  <primary-key name="pk_sys_search_svr_param_id" column-list="sys_search_svr_param_id"/>
+  <index name="pk_sys_search_svr_param_id" index-type="unique" cluster="cluster" column-list="sys_search_svr_param_id"/>
+  <function func-name="select one sys_search_svr_param" func-type="select" column-list="sys_search_svr_param_id,sys_search_svr_id,column_name,column_type,index_type,weight,db_name,sort_order">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_search_svr_param list" func-type="rowset" column-list="sys_search_svr_param_id,sys_search_svr_id,column_name,column_type,index_type,weight,db_name,sort_order" sort-columns="sort_order" max-record="-1">
+    <filter-column column-name="sys_search_svr_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_search_svr_param" func-type="insert" column-list="sys_search_svr_param_id,sys_search_svr_id,column_name,column_type,index_type,weight,db_name,sort_order">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_search_svr_param" func-type="delete">
+    <filter-column column-name="sys_search_svr_param_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_search_svr_param" func-type="update" column-list="column_name,column_type,index_type,weight,db_name,sort_order">
+    <filter-column column-name="sys_search_svr_param_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_search_svr_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

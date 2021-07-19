@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+</head>
+<body>
+  
+<script>
+	
+    function btnclick(){
+    	jazz.info("splitbutton with menu ");
+    }
+    
+    var opt = [{
+    	text: '大家好',
+    	iconurl: 'p1_img.png',
+        items:[{
+    			text:"CUT",
+    			iconurl:"p1_img.png",
+    			click:function(e){
+    				alert("aid click....");
+    			}
+    		},
+    		'-',
+    		{
+    			text:"Delphi",
+    			iconurl:"p1_img.png",
+    			click:function(e){
+    				
+    			},
+    			items:[{
+    					text:"Delphi",
+    					iconurl:"",
+    					click:function(e){
+    			
+    					},
+    					items:[{
+    						text:"Borland",
+    						iconurl:"",
+    						click:function(e){
+    							
+    						}							
+    					}]
+    				},{
+    					text:"Saarland",
+    					iconurl:"",
+    					click:function(e){
+    			
+    					}
+    				},{
+    					text:"AMMS",
+    					iconurl:"",
+    					click:function(e){
+    			
+    					}
+    				}
+    			]
+    		},{
+    			text:"Amesville",
+    			iconurl:"",
+    			click:function(e){
+    			
+    			}
+    		}
+    	]
+    },{
+    	text: '系统管理',
+    	iconurl: "p1_img.png",
+    	click: function(){
+    		alert('系统管理');
+    	},
+        items:[{
+    			text:"用户管理",
+    			iconurl:"p1_img.png",
+    			click:function(e){
+    				alert('用户管理');
+    			}
+    		},
+    		'-',
+    		{
+    			text:"新功能",
+    			iconurl:"p1_img.png",
+    			click:function(e){
+    				alert('新功能');
+    			},
+    			items:[{
+    					text:"Delphi",
+    					iconurl:"",
+    					click:function(e){
+    			
+    					},
+    					items:[{
+    						text:"Borland",
+    						iconurl:"",
+    						click:function(e){
+    							
+    						}							
+    					}]
+    				},{
+    					text:"Saarland",
+    					iconurl:"",
+    					click:function(e){
+    			
+    					}
+    				},{
+    					text:"AMMS",
+    					iconurl:"",
+    					click:function(e){
+    			
+    					}
+    				}
+    			]
+    		},{
+    			text:"Amesville",
+    			iconurl:"",
+    			click:function(e){
+    			
+    			}
+    		}
+    	]
+    }];	
+</script>
+<div id="btn-01"  name="btn01" text="basicmenubutton" vtype="button" items="opt"
+        iconurl="../../../themes/default/toolbar/images/print.png"></div>
+<div id="btn-02"  name="btn02" text="click me" vtype="button" items="opt" issplitbutton=true arrowalign="right"  showmenuevent="click" 
+        iconurl="../../../themes/default/toolbar/images/print.png" onclick="btnclick"></div>
+
+<script type="text/javascript">
+$(function(){
+    //调整父页面iframe高度
+    try{
+        parent.setWinHeight(200);           
+    }catch(e){
+        jazz.log(e);
+    }
+});
+</script>   
+</body>
+</html>

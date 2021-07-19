@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>业务表语义定义</menu-name>
+  <menu-path>/page/resource/res/metadata/datadict/ywbyydy/</menu-path>
+  <description>业务表语义定义</description>
+  <form-beans>
+    <form-bean name="SysTableSemanticRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="sys_id" type="string" size="32" description="业务系统编码"/>
+      <form-property prefix="select-key" name="table_name" type="string" size="60" description="业务表名"/>
+      <form-property prefix="select-key" name="table_name_cn" type="string" size="100" description="业务表中文名"/>
+      <form-property prefix="record" name="table_no" type="string" size="32" cannull="false" description="业务表编码"/>
+      <form-property prefix="record" name="table_name" type="string" size="60" cannull="false" description="业务表名"/>
+      <form-property prefix="record" name="table_name_cn" type="string" size="100" cannull="false" description="业务表中文名"/>
+      <form-property prefix="record" name="table_order" type="int" cannull="false" description="检索顺序"/>
+      <form-property prefix="record" name="demo" type="string" size="100" cannull="true" description="备注"/>
+      <form-property prefix="record" name="sys_id" type="string" size="32" cannull="false" description="业务系统编码"/>
+      <form-property prefix="record" name="dczd_dm" type="string" size="4" cannull="false" description="调查制度代码"/>
+      <form-property prefix="record" name="downloadflag" type="string" size="1" cannull="false" description="是否可下载"/>
+    </form-bean>
+
+    <form-bean name="SysTableSemanticUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="table_no" type="string" size="32" cannull="false" description="业务表编码"/>
+      <form-property prefix="record" name="table_no" type="string" size="32" cannull="false" description="业务表编码"/>
+      <form-property prefix="record" name="table_name" type="string" size="60" cannull="false" description="业务表名"/>
+      <form-property prefix="record" name="table_name_cn" type="string" size="100" cannull="false" description="业务表中文名"/>
+      <form-property prefix="record" name="table_order" type="int" cannull="false" description="检索顺序"/>
+      <form-property prefix="record" name="demo" type="string" size="100" cannull="true" description="备注"/>
+      <form-property prefix="record" name="sys_id" type="string" size="32" cannull="false" description="业务系统编码"/>
+      <form-property prefix="record" name="dczd_dm" type="string" size="4" cannull="false" description="调查制度代码"/>
+      <form-property prefix="record" name="downloadflag" type="string" size="1" cannull="false" description="是否可下载"/>
+    </form-bean>
+
+    <form-bean name="SysTableSemanticDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="table_no" type="string" size="32" cannull="false" description="业务表编码"/>
+      <form-property prefix="primary-key" name="table_name" type="string" size="60" cannull="false" description="业务表名"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_table_semantic.jsp" name="SysTableSemanticRowsetForm" txn-code="30402001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询业务表列表</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.datadict.txn.TxnSysTableSemantic" func-name="txn30402001" input-node="select-key" output-node="record" description="查询业务表列表"/>
+      <forward error-code="success" path="query-sys_table_semantic.jsp"/>
+      <forward error-code="failure" path="query-sys_table_semantic.jsp"/>
+    </action>
+
+    <action input="update-sys_table_semantic.jsp" name="SysTableSemanticUpdateForm" txn-code="30402002" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改业务表信息</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.datadict.txn.TxnSysTableSemantic" func-name="txn30402002" input-node="record" description="修改业务表信息"/>
+      <forward error-code="success" path="update-sys_table_semantic.jsp"/>
+      <forward error-code="failure" path="update-sys_table_semantic.jsp"/>
+    </action>
+
+    <action input="insert-sys_table_semantic.jsp" name="SysTableSemanticUpdateForm" txn-code="30402003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加业务表信息</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.datadict.txn.TxnSysTableSemantic" func-name="txn30402003" input-node="record" description="增加业务表信息"/>
+      <forward error-code="success" path="insert-sys_table_semantic.jsp"/>
+      <forward error-code="failure" path="insert-sys_table_semantic.jsp"/>
+    </action>
+
+    <action input="query-sys_table_semantic.jsp" name="SysTableSemanticUpdateForm" txn-code="30402004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询业务表用于修改</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.datadict.txn.TxnSysTableSemantic" func-name="txn30402004" input-node="primary-key" output-node="record" description="查询业务表用于修改"/>
+      <forward error-code="success" path="update-sys_table_semantic.jsp"/>
+      <forward error-code="failure" path="update-sys_table_semantic.jsp"/>
+    </action>
+
+    <action input="query-sys_table_semantic.jsp" name="SysTableSemanticDeleteForm" txn-code="30402005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除业务表信息</description>
+      <step index="10" bean-name="com.gwssi.dw.metadata.datadict.txn.TxnSysTableSemantic" func-name="txn30402005" input-node="primary-key" description="删除业务表信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+      
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_table_semantic.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/resource/res/metadata/datadict/ywbyydy/query-sys_table_semantic.jsp" description="查询业务表列表"/>
+    <resource-file type="jsp" file-name="/page/resource/res/metadata/datadict/ywbyydy/insert-sys_table_semantic.jsp" description="增加业务表信息"/>
+    <resource-file type="jsp" file-name="/page/resource/res/metadata/datadict/ywbyydy/update-sys_table_semantic.jsp" description="修改业务表信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.metadata.datadict.vo.SysTableSemanticContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.metadata.datadict.vo.VoSysTableSemantic" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.metadata.datadict.vo.VoSysTableSemanticSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.metadata.datadict.vo.VoSysTableSemanticPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

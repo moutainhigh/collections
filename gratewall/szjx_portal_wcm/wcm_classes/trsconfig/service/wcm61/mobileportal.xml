@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.wcm.mobileportal.MobilePortalServiceProvider">
+	<method name="createMobilePortal">	
+		<parameter name="SrcSiteId" desc="源站点ID" type="int" required="true"/>
+		<parameter name="DelChnlIds" desc="待删除的栏目id序列" type="string" required="false" default=""/>
+		<parameter name="CreateOfficialWB" desc="是否创建官微栏目" type="boolean" required="false" default="true"/>
+		<parameter name="CreatePushMsg" desc="是否创建消息推送栏目" type="boolean" required="false" default="true"/>
+		<parameter name="DocSDate" desc="文档同步时间" type="string" required="false"/>
+	</method>
+	<method name="createMobileChannel">	
+		<parameter name="SrcChnlId" desc="源栏目ID" type="int" required="true"/>
+		<parameter name="DestHostId" desc="目标对象id" type="int" required="true"/>
+		<parameter name="DestHostType" desc="目标对象类型" type="int" required="true"/>
+		<parameter name="containChildren" desc="是否同步创建子栏目" type="boolean" required="false" default="false"/>
+		<parameter name="DocSDate" desc="文档同步时间" type="string" required="false"/>
+	</method>
+	<method name="getCurrMessage"></method>
+	<method name="isCanCreateMobile">	
+		<parameter name="ObjectId" desc="站点或栏目id" type="int" required="true"/>
+		<parameter name="ObjectType" desc="站点或栏目类型" type="int" required="true"/>
+	</method>
+	<method name="isMobileObject">	
+		<parameter name="ObjectId" desc="站点或栏目id" type="int" required="true"/>
+		<parameter name="ObjectType" desc="站点或栏目类型" type="int" required="true"/>
+	</method>
+</service>

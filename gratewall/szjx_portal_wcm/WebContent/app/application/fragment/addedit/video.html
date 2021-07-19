@@ -1,0 +1,17 @@
+<!--สำฦต-->
+<%
+	String my${DBFieldName} = getValue(obj, "${FieldName}", "<TRS_ViewField field="DefaultValue" filterForJava="true" />");
+	String sChnlId = ConfigServer.getServer().getSysConfigValue("METADATA_CHANNELID_FOR_VIDEO",""+nChannelId);
+%>
+<script language="javascript">
+<!--
+	new com.trs.ui.XVideo({
+		disabled : ${NOTEDIT},
+		name : '<TRS_ViewField field="DBFieldName" filterForJs="true" />',
+		value : '<%=CMyString.filterForJs(my${DBFieldName})%>', 
+		desc : '<%=CMyString.filterForJs(getDesc(obj, "${FieldName}", "<TRS_ViewField field="DefaultValue" filterForJava="true" />"))%>', 
+		channelId : '<%=sChnlId%>',
+		validation:"type:'string',required:'${NotNull}',max_len:'${DBLength}',desc:'<TRS_ViewField field="AnotherName" filterForJs="true" doubleFilter="true" />'"
+	}).render();
+//-->
+</script>

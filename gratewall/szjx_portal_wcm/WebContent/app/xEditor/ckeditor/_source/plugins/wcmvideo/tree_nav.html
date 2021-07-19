@@ -1,0 +1,51 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> New Document </title>
+	
+	<link href="../../../../../../app/js/source/wcmlib/com.trs.tree/resource/TreeNav.css" rel="stylesheet" type="text/css" />
+	<link href="../../../../../../app/nav_tree/nav_tree.css" rel="stylesheet" type="text/css" />
+	
+	<script src="../../../../../js/easyversion/lightbase.js"></script>
+	<script src="../../../../../js/easyversion/extrender.js"></script>
+	<script src="../../../../../js/easyversion/elementmore.js"></script>
+	<script src="../../../../../js/source/wcmlib/WCMConstants.js"></script>
+	<script src="../../../../../js/source/wcmlib/core/MsgCenter.js"></script>
+	<script src="../../../../../js/source/wcmlib/com.trs.tree/TreeNav.js"></script>
+	<script src="../../../../../js/data/locale/nav_tree.js"></script>
+	<script src="../../../../../js/data/locale/tree.js"></script>
+	<script src="../../../../../js/easyversion/ajax.js"></script>
+	
+	<script language="javascript">
+	<!--
+	var TreeNav = com.trs.tree.TreeNav;
+	//重写com.trs.tree.TreeNav的动态载入方法
+	com.trs.tree.TreeNav.makeGetChildrenHTMLAction = function(_elElementLi){
+		var nPos	= _elElementLi.id.indexOf("_");
+		//获取父节点的类型
+		var sParentType	= _elElementLi.id.substring(0, nPos);
+		//获取父节点的id
+		var sParentId	= _elElementLi.id.substring(nPos+1);
+		//返回tree_html_creator.jsp请求页面的结果，返回的结果为子节点的代码
+		return "../../../../../nav_tree/tree_html_creator.jsp" + (location.search||'?1=1') + "&Type=0&FromSelect=0&ParentType=" + sParentType + "&ParentId=" + sParentId;
+	}
+	com.trs.tree.TreeNav.doActionOnClickA=function (event,oSrcElement){
+		alert(oSrcElement.innerHTML);
+		return false;
+	}
+	//-->
+	</script>
+</head>
+
+<body>
+	<DIV class="TreeView">
+		<DIV id="r_1" title="图片库 "SiteType="1" classPre="SiteType1" isRoot="true" style="zoom:1">
+			<A href="#">图片库</A>
+		</DIV>
+		<ul></ul>
+	</DIV >
+
+</body>
+</html>

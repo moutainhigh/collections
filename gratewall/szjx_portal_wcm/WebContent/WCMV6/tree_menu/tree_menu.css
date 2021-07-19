@@ -1,0 +1,36 @@
+﻿.contextMenu{
+	padding:1px;
+	z-index:9999;
+	position:absolute;
+	border:1px solid gray;
+	border-bottom:1px outset;
+	border-right:1px outset;
+	cursor:default;
+	/*background-color:menu;*/
+	background-color:#fff;
+}
+
+.contextMenuItem, .contextMenuItemActive{
+	width:160px;
+	height:18px;
+	padding:4px 3px 4px 15px;
+	/*background-color:menu;*/
+	background-color:#fff;
+	color:#000;
+	white-space:nowrap;
+	overflow:visible;
+}
+
+.contextMenuItemActive{
+	background-color:highlight;
+	color:#fff;
+}
+
+.contextMenuSeparator{	
+	width:156px;
+	height:1px;
+	margin:0px 2px;
+	overflow:hidden;
+	border-top:1px inset;
+	display:block;
+}

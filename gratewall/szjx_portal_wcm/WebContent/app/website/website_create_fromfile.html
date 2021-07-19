@@ -1,0 +1,107 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="website_create_fromfile.html.title">create some channels from file</title>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/data/locale/website.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<!--wcm-dialog start-->
+<script src="../../app/js/source/wcmlib/Observable.js"></script>
+<script src="../../app/js/source/wcmlib/Component.js"></script>
+<script src="../../app/js/source/wcmlib/dialog/Dialog.js"></script>
+<script src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></script>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog end-->
+
+<script language="javascript">
+window.m_fpCfg = {
+	m_arrCommands : [{
+		cmd : 'uploadFile',
+		name : wcm.LANG.WEBSITE_TRUE||'确定'
+	}],
+	size : [400, 100]
+};
+</script>
+<script>	
+
+	function uploadFile(){
+		var winUpload = $("frmUploadFile").contentWindow;
+		var frm = winUpload.document.getElementById("frmPost");
+		var sFileName = winUpload.document.getElementById("fileUpload").value;
+		if(!winUpload.valid(sFileName)){
+			return false;
+		}
+		sFileName = sFileName.substring(sFileName.lastIndexOf("\\")+1);
+		document.getElementById("RealFileName").value = sFileName;
+
+		frm.submit();
+		return false;
+	}
+
+	function addFile(_sFilePath){
+		if(_sFilePath==null){
+			doAlert(wcm.LANG.WEBSITE_8||"文件路径为空，上传失败！");
+			return false;
+		}
+		
+		var oPostData = {
+			ImportFile : _sFilePath,
+			SiteType : getParameter("SiteType")
+		};
+		
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+		oHelper.Call('wcm61_website','createFromFile', oPostData, true, function(_oTrans, _json){					
+			notifyFPCallback();
+			FloatPanel.close();			
+		});
+	}
+	function notifyOnUploadFileError(_sErrorMsg) {
+		doAlert(_sErrorMsg);
+	}
+	function doAlert(_sAlertion){
+		Ext.Msg.$alert(_sAlertion);
+		//$('divClue').innerHTML = _sAlertion;
+		//$('divClue').style.color = 'red';
+	}
+</SCRIPT>
+<style type="text/css">
+	#divBox{		
+		background: lightblue;
+		padding:1px;		
+	}
+	#divContainer{
+		background: #ffffff;
+		padding:5px;
+	}
+	#divClue{
+		color:blue;
+		font-size:14px;
+	}
+	body{
+		background:whitesmoke;
+	}
+</style>
+</head>
+
+<body>
+<div id="divBox">
+<div id="divContainer">
+	<div id="divFileUpload">
+		<iframe name="frmUploadFile" id="frmUploadFile" style="height:40; width:330" frameborder="0" vspace="0" src="../../file/file_upload.jsp?SelfControl=0&AllowExt=txt" scrolling="NO" noresize></iframe>
+		<input TYPE="hidden" NAME="RealFileName" id="RealFileName">
+	</div>
+	<div id="divClue" WCMAnt:param="website_create_fromfile.html.filecode">
+		支持txt格式文件(文件保存编码建议为UTF-8格式)
+	</div>
+</div>
+</div>
+</body>
+</html>

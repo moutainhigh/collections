@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<body>
+
+本页不做展示和操作
+
+属于审批平台的操作模块可在approve下创建文件夹 属于核准（approval）功能点的细项划分可在approval下创建文件夹细分
+
+暂定
+approval 包下存放 核准操作的页面
+censor 包下存放 领取、分配、退回、受理的操作的页面
+manager 存放 管理
+mytask 我的任务
+process 存放 审批操作页面
+certificate 存放证照相关页面 
+	print 打照相关页面 
+	provide 发照相关页面
+sysidentify 身份认证
+
+
+名称 由下滑线组成 
+查询页面后缀为 _list 
+修改页面后缀  _modify | _edit
+添加     _add 
+详情/结果页  _info
+
+如果名称过长可根据音标进行缩减 可去掉部分元音字母3-5位缩写  approval -> appr  censor -> cns  manager -> mgr   process ->  pcs
+
+
+
+审批页面引用的css：
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+
+</body>
+</html>

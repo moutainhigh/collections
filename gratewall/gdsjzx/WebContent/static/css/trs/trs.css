@@ -1,0 +1,384 @@
+body {}
+.p { PADDING-LEFT:18px;
+	FONT-SIZE: 14px;
+	WORD-SPACING: 4px
+}
+.pagination {
+	background: #eee;
+	margin: 0px;
+	margin-left: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	text-align: center;
+	border: 1px;
+	font-size: 12px;
+}
+
+.sous_list {
+	border-bottom: 1px dashed #CCCCCC;
+	margin-left:  auto;
+	margin-top: 0px;
+	padding-bottom: 0px;
+	margin-right:  auto;
+	/* text-align: center; */
+}
+
+
+/* .sous_list div{
+	margin-left:  11%;
+	text-align: center;
+} */
+
+.sous_list h3 a {
+	font-size: 16px;
+	color: #21419E;
+	line-height: 30px;
+	text-decoration: underline;
+}
+
+.sous_list h3 a span {
+	color: #F00;
+}
+
+.sous_list p {
+	font-size: 12px;
+	line-height: 24px;
+	width: 100%;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.page {
+	padding: 50px 0;
+	zoom: 1;
+	width: 820px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.page:after {
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.page span {
+	position: relative;
+	margin: 0 2px;
+	border: solid 1px #ccc;
+	float: left;
+}
+
+.page span a {
+	padding: 2px 5px;
+	cursor: pointer;
+}
+
+.page span i {
+	display: block;
+	height: 10px;
+	width: 10px;
+	background: #ccc;
+	border-radius: 50%;
+	position: absolute;
+	left: 50%;
+	top: -20px;
+	margin-left: -5px;
+}
+
+.page span i.active_i {
+	background: red;
+}
+
+
+html{
+			margin:0px;
+			border: 0;
+			padding: 0px;
+		}
+		body{
+			margin:0px;
+			border: 0;
+			padding: 0px;
+
+		}
+
+		.header{
+			right: 10px;
+			top: 0px;
+			position: absolute;
+		}
+		ol li{
+			display:block;
+
+		}
+		li{
+			list-style-type:none;
+			display:inline;
+		}
+		.gd{
+			display: inline-block;
+			position: absolute;
+			right: 10px;
+			width: 60px;
+			height: 23px;
+			float: left;
+			color: white;
+			background: #38f;
+			line-height: 24px;
+			font-size: 13px;
+			text-align: center;
+			overflow: hidden;
+			border-bottom: 1px solid #38f;
+			margin-left: 19px;
+			margin-right: 2px;
+		}
+		.under p{
+			text-align: center;
+		}
+		.under{
+			bottom: 10px;
+			position: absolute;
+			width: 100%;
+
+		}
+		li a{
+			float: left;
+			color: #333;
+			line-height: 24px;
+			font-size: 16px;
+			text-decoration: underline;
+		}
+		#nav{
+			margin: 0px;
+		}
+		p{
+			color: #333;
+			line-height: 24px;
+			font-size: 10px;
+
+			width:100%;
+			margin: 4px 0px ;
+		}
+		li ul{
+			display: none;
+		}
+		.s_btn{
+			width: 100px;
+			height: 42px;
+			color: white;
+			font-size: 15px;
+			letter-spacing: 1px;
+			background: #3385ff;
+			border-bottom: 1px solid #2d78f4;
+			outline: medium;
+			-webkit-appearance: none;
+			-webkit-border-radius: 0;
+		}
+
+
+		#search{
+			float:right;
+		}
+
+
+		#inputBox{
+			border:0px;
+			padding: 0px;
+			height: 32px;
+			line-height:32px;
+			vertical-align:middle;
+			width:512px;
+			font: 16px/18px arial;
+			line-height: 22px\9;
+			padding: 0;
+			background: white;
+			position:absolute;
+			left:95px;
+			
+		}
+		
+		#whole1{
+		    height: 33px;
+		    border: 0px;
+		    width: 111px;
+		    left: -284px;
+		    /* top: -1px; */
+		    z-index: 1000;
+		    position: inherit;
+		    }
+
+		.bri{
+			display: inline-block;
+			right: 10px;
+			width: 60px;
+			height: 23px;
+			float: left;
+			color: white;
+			background: #38f;
+			line-height: 24px;
+			font-size: 13px;
+			text-align: center;
+			overflow: hidden;
+			border-bottom: 1px solid #38f;
+			margin-left: 19px;
+			margin-right: 2px;
+			display: none;
+		}
+		#searchBtn{
+			border: 0;
+			padding: 0;
+			height: 34px;
+			position:absolute;
+			left:540px;
+			top:-1px
+		}
+
+
+		.versionC{
+			width:500px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.imageblue {
+			background: #b5cfd2
+			url('<%=request.getContextPath()%>/static/images/public/cell-blue.jpg');
+			border-width: 1px;
+			padding: 3px;
+			border-style: solid;
+			border-color: #999999;
+			height: 20px;
+		}
+
+		.imagegrey {
+			background: #dcddc0
+			url('<%=request.getContextPath()%>/static/images/public/cell-grey.jpg');
+			border-width: 1px;
+			padding: 3px;
+			border-style: solid;
+			border-color: #999999;
+			height: 20px;
+		}
+		.xmkc{
+			text-align:center;
+			position:relative;
+			padding-left: 0;
+			padding:0 12.5px;
+			height: 33px;
+			width:614px;
+			color:#555555;
+			margin-left: auto;
+			margin-right: auto;
+			background-color: #F8F8F8;
+		}
+
+		#whole{
+			width:100px;
+			margin: 0px;'
+		}
+		.wena{
+			font-family:"微软雅黑,宋体";
+			font-size:12px;
+			display:block;
+			width:86px;
+			left:0px;
+			height:30px;
+			font-size:16px;
+			line-height:30px;
+			padding-left: 10px;
+			vertical-align:middle;
+			text-align:left;
+			cursor:pointer;
+			color:#555555;
+			font-weight:bold;
+			position:absolute;
+		}
+		.classlist{
+			z-index:1;
+			left:-0px;
+			top:33px;
+			position:absolute;
+		}
+		.lis{
+			display:block;
+			width: 95px;
+			padding:0px;
+			
+		}
+		.lis a{
+			display:block;
+			width:95px;
+			height:20px;
+			font-size:13px;
+			padding-top:8px;
+			text-align:center;
+			text-decoration:none;
+			color:#000;
+			outline:none;
+		}
+		.lis a:hover{
+			text-decoration:none;
+			background-color:#6D8DB3;
+			color:#fff;
+		}
+		.results{
+			width: 800px;
+			margin-top: 12px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		
+		#contloads {
+		    frameborder: 0px;
+		    scrolling: no;
+		    margin:  0 auto;
+		    overflow: hidden;
+		    width:100%;
+		   /*  height: 100%; */
+		}
+		#nav li a{
+			height:50px;
+			text-decoration:none;
+			color:white;
+			width:100px;
+			font-family:"寰蒋闆呴粦锛屽畫浣�;
+			font-weight:14;
+			border-radius:2px 2px 0px 0px;
+			text-align: center;
+			line-height: 50px;
+			font-weight:bold;
+		}
+		
+		#nav li a:hover{
+			height:50px;
+			text-decoration:none;
+			color:white;
+			width:100px;
+			font-family:"寰蒋闆呴粦锛屽畫浣�;
+			font-weight:bold;
+			font-size:14;
+			border-radius:2px 2px 0px 0px;
+			text-align: center;
+			line-height: 50px;
+			background-color: #3db0e0;
+		}
+		.transparent_class {
+			filter:alpha(opacity=50);
+			-moz-opacity:0.5;
+			-khtml-opacity: 0.5;
+			opacity: 0.5;
+		}
+	
+		.headertop b{
+		    text-decoration: none;
+		    color: #333;
+		    margin-top:14px;
+		    float: left;
+		    font-size: 13px;
+		    font-weight: bold;
+		    line-height: 24px;
+		    cursor: pointer;
+		}

@@ -1,0 +1,85 @@
+<html>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<TITLE>设置数据同步到WCMDocument的规则</TITLE>
+<SCRIPT language=JavaScript src="../js/com.trs.util/Common.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.FloatPanel');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.wcm.domain.ViewTemplateMgr');
+</SCRIPT>
+<SCRIPT language=JavaScript src="syn_rule_set.js"></SCRIPT>
+<style type="text/css">
+    *{
+        font-size:12px;
+        margin:0px;
+        padding:0px;
+    }
+    .row{
+        margin:10px;
+        height:18px;
+    }
+    .label{
+        line-height:18px;
+        width:70px;
+        text-align:right;
+        vertical-align:top;
+    }
+    .value{
+    }
+    .input_text{
+        width:350px;
+        border:1px solid silver;
+    }
+    select{
+        width:350px;
+        border:1px solid silver;
+    }
+    textarea{
+        width:350px;
+        height:200px;
+        border:1px solid silver;
+    }
+</style>
+</HEAD>
+
+<BODY>
+<center>
+    <div class="row">
+        <span class="label">可选字段：</span>
+        <span class="value">
+            <select name="viewFields" id="viewFields">
+                <option>--请选择一个字段模板--</option>
+            </select>
+        </span>
+    </div>    
+    <div class="row">
+        <span class="label">DocTitle：</span>
+        <span class="value"><input class="input_text" type="text" name="DocTitle" id="DocTitle" value="" onfocus="window.lastFocus=this;"></span>
+    </div>    
+    <div class="row">
+        <span class="label">DocContent：</span>
+        <span class="value">
+            <textarea name="DocContent" id="DocContent" rows="6" cols="50" onfocus="window.lastFocus=this;"></textarea>
+    </div>  
+    <div class="row" style="text-align:left;">
+        <FIELDSET><legend>同步方式:</legend>
+            <div style="margin-left:5px;">
+                <input type="radio" name="synType" id="onlySelf" value="0" checked>
+                <label for="onlySelf">仅同步本栏目</label>    
+            </div>
+            <div style="margin-left:5px;">
+                <input type="radio" name="synType" id="channelChild" value="1">
+                <label for="channelChild">同步本栏目及本栏目下具有相同视图的子栏目</label>    
+            </div>  
+            <div style="margin-left:5px;margin-bottom:8px;">
+                <input type="radio" name="synType" id="sameView" value="2">
+                <label for="sameView">同步本栏目并同步具有相同视图的栏目</label>    
+            </div>
+        </FIELDSET>
+    </div>
+</center>
+</BODY>
+</HTML>

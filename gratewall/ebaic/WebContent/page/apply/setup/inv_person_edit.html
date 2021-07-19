@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>config.title</title>
+<link href="../../../static/css/jquery-ui-1.9.2.custom.css"
+	rel="stylesheet" type="text/css" />
+<link href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css"
+	rel="stylesheet" type="text/css" />
+<link href="../../../static/css/common.css" rel="stylesheet"
+	type="text/css" />
+<style>
+body {
+	background-color: #fff;
+}
+
+#capital {
+	font-size: 14px;
+	font-weight: bold;
+	color: #f89406;
+	margin: 10px 0;
+}
+
+.hide {
+	display: none;
+}
+
+.fullLine {
+	display: block;
+	border-top: 1px solid  #6ABEF2;
+}
+.one{
+ position:absolute;
+ top:5px;
+ left:5px;
+}
+</style>
+</head>
+<body>
+	<!-- 构建页面==开始 -->
+
+	﻿
+	<article>
+		<!-- 数据展现 -->
+		<div vtype="formpanel" wid="applySetupInvPersonSave"
+			name="applySetupInvPersonSave_Form" dataview="false"
+			titleDisplay="false" title="自然人股东信息" width="100%" showborder="false"
+			class="formpanel" layout="auto">
+
+			<div name="investorId" vtype="hiddenfield" label="主键"
+				labelwidth="140" labelalign="right" width="390"></div>
+			<div name="inv" vtype="textfield" label="姓名" labelwidth="140"
+				labelalign="right" width="390" readonly="true" rule="must"></div>
+			<div name="nameEng" id="nameEng" vtype="textfield" label="英文姓名"
+				labelwidth="130"
+				rule="regexp;^([A-Za-z]+\\s?)*[A-Za-z]$_length;0,30"
+				msg="以字母开头和结尾,只能输入英文和空格" width="300" class="hide"></div>
+			<div name="localSign" id="localSign" vtype="radiofield" label="中方标识"
+				labelwidth="130" width="300" itemwidth="70"
+				dataurl="[{value: '0',text: '中方'},{value: '1',text: '外方'}]"
+				class="hide"></div>
+			<div class="hide" id="initiatorSign1">是否为发起人：&nbsp是</div>
+			<div name="cerType" id="cerType" vtype="comboxfield" label="证件类型"
+				labelwidth="140" labelalign="right" width="390" tooltip=""
+				rule="must" dataurl="../../../dictionary/queryData.do?dicId=CB16"
+				class="hide"></div>
+			<div name="cerNo" id="cerNo" vtype="textfield" label="身份证号码"
+				labelwidth="140" labelalign="right" width="390" tooltip=""
+				rule="must_idcard_length;0;20"></div>
+			<div name="sex" id="sex" vtype="comboxfield" label="性别"
+				labelwidth="140" labelalign="right" width="390" tooltip=""
+				rule="must" dataurl="../../../dictionary/queryData.do?dicId=CB17"
+				class="hide"></div>
+			<div name="folk" id="folk" vtype="comboxfield" label="民族"
+				labelwidth="140" labelalign="right" width="390" tooltip=""
+				rule="must" dataurl="../../../dictionary/queryData.do?dicId=CB32"></div>
+			<div name="contry" id="contry" vtype="comboxfield" label="国籍"
+				labelwidth="140" labelalign="right" width="390" tooltip=""
+				rule="must" dataurl="../../../dictionary/queryData.do?dicId=CA02"
+				class="hide"></div>
+			<!-- <div name="mobile" id="mobile" vtype="textfield" label="移动电话"
+				labelwidth="140" labelalign="right" width="390" tooltip=""
+				rule="must_cellphone"></div> -->
+			<div id="dom" name="dom" vtype="hiddenfield"></div>
+			<!-- 详细地址的隐藏域 -->
+			<div id="address" style="width: 1000px;" >
+				<div name="prov" id="prov" vtype="comboxfield" label="身份证登记住址"
+					labelwidth="140" width="270" tooltip="" rule="must" dataurl=""
+					readonly=""></div>
+				<div name="city" id="city" vtype="comboxfield" width="150" labelwidth="0"  
+					tooltip="" rule="" dataurl="" readonly="" ></div>
+				<div name="domOther" id="domOther" vtype="textfield" width="265" labelwidth="0"  
+					tooltip = "请录入身份证登记地址!" rule="must_length;0;40" readonly=""></div>
+			</div>
+			<div name="subConAm" id="subConAm" vtype="hiddenfield"></div>
+		</div>
+
+
+	</article>
+	<!-- 构建页面==结束 -->
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" data-main="apply/setupInvPersonEdit.js"
+		src="../../../static/lib/require.js"></script>
+</body>
+</html>

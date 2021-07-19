@@ -1,0 +1,216 @@
+<HTML xmlns:TRS_UI>
+<HEAD>
+  <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <TITLE>TRS WCM V6导入系统图片到图片库</TITLE>
+  <link href="../css/common.css" rel="stylesheet" type="text/css" />
+	<script src="../js/com.trs.util/Common.js"></script>
+	<script label="TagParser">	
+		$import('com.trs.web2frame.DataHelper');
+		$import('com.trs.web2frame.TempEvaler');
+		$import('com.trs.wcm.Web2frameDefault');
+	</script>
+	<script language="javascript">
+	<!--
+		top.actualTop = window;
+		$import('com.trs.wcm.MessageCenter');
+		$import('com.trs.logger.Logger');
+		$import('com.trs.dialog.Dialog');
+		$import('com.trs.wcm.SimpleDragger');
+		$import('com.trs.wcm.Grid');
+		$import('com.trs.wcm.BubblePanel');
+		$import('com.trs.wcm.FloatPanel');		
+		$import('com.trs.crashboard.CrashBoard');
+		$import('wcm52.calendar.Calendar');
+	//-->
+	</script>
+	<script src="photo_import_syspics.js"></script>
+	<script>		
+		Calendar.displayType = 'lb';/*hv*///日期控件的显示位置
+	</script>
+<style type="text/css">
+	body {
+		padding-top:0px;
+		background-color: #CCCCCC;
+	}
+	.input_btn{
+		width:60px;
+		margin-right:10px;
+	}
+	.input_text{
+		border:1px solid gray;
+		width:60px;
+	}
+	.message{
+		font-weight:bold;
+		color:green;
+		line-height:20px;
+	}
+	.myphoto{
+		position:relative;
+		background-repeat:no-repeat;
+		background-position:center center;
+		width:75px;
+		height:75px;
+		margin:5px;
+		display:block;		
+	}
+	.opl_delete{
+		float:right;
+		height:20px;
+		margin-top:-20px;
+		margin-right:2px;
+	}
+	label{
+		cursor:hand;
+		padding-left:5px;
+	}
+	.attr_name{
+		font-weight:bold;						
+	}
+	#process_wating{
+		display:none;
+		background:url(../images/icon/waiting2.gif) no-repeat center center;
+		z-index:100;
+		background-color:#fff;			
+		top:0px;
+		left:0px;		
+		-moz-opacity:0.5;
+		opacity:0.5;
+		filter:alpha(opacity=50);		
+	}
+</style>
+</HEAD>
+
+<BODY style="margin:0;padding:0;">
+<div id="process_wating"></div>
+<div>
+<form id="form_imageInfo">
+	<input type="hidden" name="MainKindId" id="MainKindId" value="0"></input>
+	<input type="hidden" name="OtherKindIds" id="OtherKindIds" value=""></input>
+	<input type="hidden" name="WatermarkFile" id="WatermarkFile" value="0"></input>
+	<input type="hidden" name="WatermarkPos" id="WatermarkPos" value=""></input>		
+	<input type="hidden" name="BmpConverType" id="BmpConverType" value=""></input>
+	<input type="hidden" name="PicIds" id="PicIds" value=""></input>
+</form>
+</div>
+		<table height="100%" width="100%">
+			<tr>
+				<td align="left" valign="top">
+	<TABLE width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+		<TR>
+			<TD valign="top">
+				<DIV id="docs_explorer" style="padding:4px;height:100%;overflow:auto;">
+					<TABLE width="100%" height="100%" border="0" cellpadding="0" cellspacing="1" style="font-size:12px">
+						<TR height="500">
+							<TD width="200" valign="top">
+								<iframe src="navtree_importsyspics.html" scrolling="no" frameborder="0" style="width:194px;height:55%;border:1px solid gray"></iframe>
+								<div style="height:25%;margin-top:2px;border:1px solid gray;overflow:auto;width:196px;background:#FFF">
+									<table style="font-size:12px" width="100%" border="0" height="100%">
+									<tbody>
+										<tr>
+										  <td>
+											<span class="attr_name">BMP图片转换格式：</span>											
+										  </td>
+										</tr>
+										<tr>
+										  <td>											
+											<select onchange="convertBmp(this);" id="BmpConverTypeSelect">
+												<option value="bmp">不转换</option>
+												<option value="gif">GIF</option>
+												<option value="jpg">JPG</option>
+											</select>
+										  </td>
+										</tr>
+										<tr>
+										  <td>
+											<span class="attr_name">选择水印：</span>													
+										  </td>
+										</tr>
+										<tr>
+											<td>
+												<span id="watermarks"></span>
+												<textarea style="display:none" id="template_watermarks">
+													<select id="selwatermark">
+														<option value="-1">--不添加水印--</option>
+													<for select="Watermarks.Watermark">
+														<option value="{#WATERMARKID}" _picsrc="{#WMPICTURE.MAPNAME}" _picfile="{#WMPICTURE.SRCNAME}">{@truncateStrIfNeed(#WMNAME)}</option>
+													</for>
+													</select>
+												</textarea>	
+											</td>
+										</tr>
+										<tr>
+										  <td height="110">
+											<div id="div_watermarkpos" style="display:none">												
+												<span class="attr_name" title="点击全选" style="cursor:hand" onclick="selectAllPos()">水印位置：</span><br />
+												<label for="LT">左上<input type="checkbox" id="LT" value="1"/></label>
+												<label for="CM">居中<input type="checkbox" id="CM" value="2"/></label>
+												<label for="RB">右下<input type="checkbox" id="RB"  checked="true" value="3"/></label>
+												<div>
+													<img src=""  style="display:none" id="watermarkpic">
+												</div>
+											</div>			
+										  </td>
+										</tr>
+									</tbody>
+									</table>
+								</div>
+								<div style="height:20%;margin-top:2px;border:1px solid gray;overflow:auto;width:196px;background:#FFF">
+									<table style="font-size:12px" width="100%" border="0" height="100%">       
+									<tr>
+									  <td>
+										<span class="attr_name">主分类：</span>
+										<span id="mainkind">正在装载...</span>
+										<textarea id="template_mainkind" style="display:none" select="Channel">			
+											<span id="_mainkind" title="点击更改" style="cursor:hand;color:#483d8b" _mainkindId="{#ChannelId}" _siteId="{#Site.Id}">{#ChnlDesc}</span>
+										</textarea>
+									  </td>
+									</tr>		
+									<tr>
+									  <td>
+										<span class="attr_name">其它分类：</span>
+										<span style="cursor:hand;color:#483d8b" title="选择图片的其它分类" id="selOtherKinds">选择</span><br />			
+										<span id="otherkinds_holder">
+											<select size="4" style="width:150">					
+											</select>
+										</span>
+										<textarea id="template_otherkinds" style="display:none">
+										<select name="otherkinds" id="otherkinds" multiple size="4" style="width:150">
+											<for select="Channels.Channel">
+												<option value="{#ChannelId}">{#ChnlDesc}</option>
+											</for>
+										</select>
+										</textarea>
+									  </td>
+									</tr>									
+								  </table>
+								</div>
+							</TD>
+							<TD width="100%">
+								<iframe name="photo_list" id='photo_list' src="photo_syspics_list_noright.html" scrolling="no" frameborder="0" style="width:100%;height:100%;border:1px solid gray"></iframe>								
+							</TD>
+						</TR>
+					</TABLE>
+				</DIV>
+			</TD>
+		</TR>
+	</TABLE>
+				</td>
+				<td width="10" align="center" valign="top">
+					<div style="width:2px;border-left:1px solid gray;background:white;overflow:hidden;height:100%;"></div></td>
+				<td width="130" valign="top" id="otherContainer">
+					<input id="btnOk" class="input_btn" style="margin-left:20px;width:80px" onclick="importPics();"
+						type="button" value="确定" fcklang="DlgBtnOK"/>
+					<div style="height:5px;overflow:hidden"></div>
+					<input name="button2" class="input_btn" style="margin-left:20px;width:80px" type="button" value="取消" onclick="cancelImport();" fcklang="DlgBtnCancel">
+					<div style="height:6px;overflow:hidden"></div>
+					<div style="height:2px;width:120px;border-top:1px solid gray;background:white;overflow:hidden;"></div>
+					<div style="height:6px;overflow:hidden"></div>
+					<span class="message">待导入的图片:</span><br>
+					<div style="position:absolute;width:120px;height:90%;border:1px solid gray;background:#FFF;overflow:auto;overflow-x:hidden;" id="selected_photos">
+					</div>
+				</td>
+			</tr>
+		</table>	
+</BODY>
+</HTML>

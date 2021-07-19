@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title WCMAnt:param="metaviewdata_list.html.viewdatalist">视图[政府公开信息]数据列表</title>
+	<!--css-->
+	<link rel="stylesheet" type="text/css" href="../../../app/js/resource/widget.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../app/css/wcm-common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../app/css/wcm-list-common.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../app/css/wcm-opers.css"/>
+	<link rel="stylesheet" type="text/css" href="metaviewdata_list.css"/>
+</head>
+<body>
+<script src="../../../app/js/easyversion/cssrender.js"></script>
+<div class="layout-container">
+    <!-- 左侧内容区域 -->
+    <div class="layout-left">
+        <!-- 显示顶部信息 -->
+        <div class="layout-top">
+            <div class="pageinfo">
+                <div class="pageinfo_left"></div>
+                <div class="pageinfo_right"></div>
+                <div class="search" id="search" style="float:right;"></div>
+                <span id="pageinfo"></span>
+            </div>
+        </div>
+		<!-- 中间列表区域 -->            
+        <div class="layout-center">
+            <div id='wcm_table_grid' class="layout_center_container table_grid_data" style="overflow-x:auto;"><!--query页面ajax填充区域--></div>
+			<!-- 列表分页导航区域 -->
+            <div id="list_navigator" class="list-navigator"></div>
+        </div>
+	    <!-- 底部标签显示区域 -->
+        <div class="layout-bottom" id="south_tabs"></div>
+    </div>
+	<!-- 右侧操作面板区域 -->
+    <div class="layout-right" id="east_opers"></div>
+</div>
+<script src="../../../app/js/easyversion/lightbase.js"></script>
+<script src="../../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../../app/js/easyversion/extrender.js"></script>
+<script src="../../../app/js/easyversion/ajax.js"></script>
+<script src="../../../app/js/easyversion/basicdatahelper.js"></script>
+<script src="../../../app/js/easyversion/web2frameadapter.js"></script>
+<script src="../../../app/js/easyversion/elementmore.js"></script>
+<script src="../../../app/js/easyversion/list.js"></script>
+<script src="../../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../../app/js/source/wcmlib/core/SysOpers.js"></script>
+<script src="../../../app/js/source/wcmlib/core/TabManager.js"></script>
+<script src="../../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanel.js"></script>
+<script src="../../../app/js/source/wcmlib/Observable.js"></script>
+<script src="../../../app/js/source/wcmlib/pagecontext/AbsList.js"></script>
+<script src="../../../app/js/source/wcmlib/components/ProcessBar.js"></script>
+<!-- Component Start -->
+<script src="../../../app/js/source/wcmlib/dragdrop/dd.js"></script>
+<script src="../../../app/js/source/wcmlib/dragdrop/wcm-dd.js"></script>
+<script src="../../../app/js/source/wcmlib/Component.js"></script>
+<script src="../../../app/js/source/wcmlib/dialog/Dialog.js"></script>
+<script src="../../../app/js/source/wcmlib/dialog/DialogAdapter.js"></script>
+<script src="../../../app/js/source/wcmlib/crashboard/CrashBoard.js"></script>
+<script src="../../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></script>
+<!-- Component End -->
+<!--validator-->
+<script src="../../../app/js/source/wcmlib/com.trs.validator/lang/cn.js"></script>
+<script src="../../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<!--page js data-->
+<script WCMAnt:combine="1" src="../../../app/js/data/combine.jsp?s=locale,operpanel,tab"></script>
+<script src="../../../app/js/data/opers/website.js"></script>
+<script src="../../../app/js/data/opers/channel.js"></script>
+<script src="../../../app/js/data/opers/publish.js"></script>
+<script src="../../../app/js/data/opers/metaviewdata.js"></script>
+<script WCMAnt:combine="1" src="../../../app/js/data/combine.jsp?s=opers%5cwebsite,opers%5cchannel,opers%5cmetaviewdata"></script>
+<script src="../../../app/js/data/cmsobj/metaviewdata.js"></script>
+<script src="../../../app/js/source/wcmlib/ListQuery.js"></script>
+<!--page js-->
+<script src="../common/metaviewdata_list.js"></script>
+<script src="../common/metaviewdata_list_dragger.js"></script>
+<script src="../../../app/metaview/MetaViewSelector.js"></script>
+<script language="javascript">
+	document.write("<script src=\"metaviewdata_list.js?t=" + new Date().getTime() + "\"></s" + "cript>");
+</script>
+</body>
+</html>

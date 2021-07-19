@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="reg_indiv_base.xml" app-path="/dw/aic/bj/reg/invid/" app-name="reg_indiv_base" description="test1" template="single-table.xml"/>
+  <table name="reg_indiv_base.xml" app-name="reg_indiv_base" app-desc="" delete-action="delete" description="test1" class-name="com.gwssi.dw.aic.bj.reg.txn.TxnRegIndivBase" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-reg_indiv_base.jsp" txn-code="60110201" description="查询列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加" path="insert-reg_indiv_base.jsp" description="增加" func-name="addRecord"/>
+	    <button type="button" name="修改" path="/txn60110204.do" description="修改" func-name="updateRecord"/>
+	    <button type="button" name="删除" path="/txn60110205.do" description="删除" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60110201.do" description="查询信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-reg_indiv_base.jsp" txn-code="60110203" description="增加信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60110203.do" description="保存信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60110203.do" description="保存信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60110201.do" description="保存信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60110201.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-reg_indiv_base.jsp" txn-code="60110202" description="修改信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60110201.do" description="修改信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60110201.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-reg_indiv_base.jsp" txn-code="60110201" description="查询列表">
+	    <forward error-code="success" path="query-reg_indiv_base.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-reg_indiv_base.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-reg_indiv_base.jsp" txn-code="60110202" description="修改信息">
+	    <forward error-code="success" path="update-reg_indiv_base.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-reg_indiv_base.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-reg_indiv_base.jsp" txn-code="60110203" description="增加信息">
+	    <forward error-code="success" path="insert-reg_indiv_base.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-reg_indiv_base.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-reg_indiv_base.jsp" txn-code="60110204" description="查询用于修改">
+	    <forward error-code="success" path="update-reg_indiv_base.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-reg_indiv_base.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-reg_indiv_base.jsp" txn-code="60110205" description="删除信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.vo.RegIndivBaseContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.vo.VoRegIndivBase" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.vo.VoRegIndivBaseSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.reg.vo.VoRegIndivBasePrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

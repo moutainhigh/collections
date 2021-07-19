@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> appendix demo </title>
+	<!-- 组件依赖的代码 BEGIN -->
+	<script language="javascript" src="../../core.js" type="text/javascript"></script>
+	<script language="javascript" src="../../com.trs.util/Observable.js" type="text/javascript"></script>
+	<script language="javascript" src="../BaseComponent.js" type="text/javascript"></script>
+	<!-- 组件依赖的代码 END -->
+	<script src="../../wcm-adapter.js" type="text/javascript"></script>
+
+	<!-- 窗口组件依赖的代码 BEGIN -->
+	<script src="../../../../js/source/wcmlib/com.trs.floatpanel/FloatPanel.js"></script>
+	<!-- 窗口组件依赖的代码 END -->
+
+	<!--Ajax Framework BEGIN-->
+	<script src="../../ajax.js" type="text/javascript"></script>
+	<script src="../../wcm-ajax.js" type="text/javascript"></script>
+	<!--Ajax Framework END-->
+
+	<script language="javascript" src="XDocAppendixes.js" type="text/javascript"></script>
+	<link href="resource/XDocAppendixes.css" rel="stylesheet" type="text/css" />	
+
+	<style type="text/css">
+		*{
+			font-size:12px;
+		}
+		.row{
+			clear:both;
+		}
+		.label{
+			float:left;
+			text-align:right;
+			width:80px;
+		}
+		.value{
+			margin-left:85px;
+		}
+	</style>
+</head>
+
+<body>
+<div class="row">
+	<div class="label" WCMAnt:param="XDocAppendixes.html.appendix">附件管理：</div>
+	<div class="value" id="box"></div>
+</div>
+<script language="javascript">
+<!--
+	new com.trs.ui.XDocAppendixes({
+		name : 'myDocAppendixes',
+		objectId : '642',
+		renderTo : "box"
+	}).render();
+//-->
+</script>	
+<br />
+<button onclick="getValue();">getValue()</button>
+<script language="javascript">
+<!--
+	function getValue(){			
+		var myDocAppendixes = com.trs.ui.ComponentMgr.get('myDocAppendixes');
+		alert(myDocAppendixes.getValue());
+	}
+//-->
+</script>
+</body>
+</html>

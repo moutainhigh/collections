@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>北京工商登记审批平台</title>
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<!-- 构建页面==开始 -->
+
+<!-- 数据展现 -->
+<div vtype="gridpanel" name="queryGrid_Grid" wid="queryBackAssign"
+	titleDisplay="false" title="审查退回修改再分配" width="100%" showborder="true"
+	dataurl="../../../torch/service.do?fid=query_back_assign&wid=queryBackAssign">
+	<div vtype="gridcolumn" name="grid_column">
+		<div>
+			<div name="censorName" text="上次审查人"  textalign="right" width="" dataurl=""></div>
+			<div name="taskcount" text="任务数"  textalign="right" width="" dataurl=""></div>
+		</div>
+	</div>
+	<div vtype="gridtable" name="grid_table" width="100%"></div>
+	<div vtype="paginator" name="grid_paginator" theme="2" pagerows="10" width="100%"></div>
+</div>
+<div name="queryBackAssignToolbar" vtype="toolbar" location="bottom" align="center">
+	<div name="queryBackAssign_query_button"  class="commonBt" >确定
+	</div>
+	<div name="queryBackAssign_reset_button"  class="commonBt">关闭
+	</div>
+</div> 
+
+
+<!-- 构建页面==结束 -->
+
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../../static/js/config.js"></script>
+<script type="text/javascript" data-main="approve/ApproveCensorBackAssignList.js" src="../../../static/lib/require.js"></script>
+</body>
+</html>

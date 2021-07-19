@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+<script type="text/javascript">
+function _start(e, layout){
+	$("#frame_id").css({"marginLeft": "-2000px"});
+}
+
+function _stop(e, layout){
+	//layout.left   拖动后，边线左侧区域的宽度
+    //layout.right  拖动后，边线右侧区域的宽度
+    //layout.index  当前选中的边线的索引值
+	$("#frame_id").css({"marginLeft": "0px"});	
+}
+</script>
+</head>
+<body>
+    <div id="column_id" width="640" height="300" vtype="panel" name="panel" layout="column" layoutconfig="{border: true,draggable: true, width:['*','50%','200']}"
+    	columndragstart="_start()" columndragstop="_stop()" style="margin:0 auto;">
+        <div>
+    		<div>边框可拖动</div>
+    	</div>
+    	<div>
+    		<iframe id="frame_id" src="column_frame.html" width="100%" height="99%"  frameBorder="0"></iframe>
+    	</div>
+    	<div>
+    		<div>边框可拖动</div>
+    		<div>边框可拖动</div>
+    	</div>	    
+    </div>
+<script type="text/javascript">
+$(function(){
+    //调整父页面iframe高度
+    try{
+        parent.setWinHeight(320);           
+    }catch(e){
+        jazz.log(e);
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>材料审查比对</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="./jazz-all/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+<script src="./jazz-all/jquery-1.8.3.js" type="text/javascript"></script>
+<script src="./jazz-all/jquery-ui-1.9.2.custom.js" type="text/javascript"></script>
+<script src="./jazz-all/jazz-all.js" type="text/javascript"></script>
+<style type="text/css">
+body{
+	margin:0 auto;
+}
+.clsc-div-wrap{
+	text-align: center;
+}
+.clsc-div-collection{
+	display:inline-block;
+}
+.clsc-div-content{
+	/* width:300px;height:400px; */
+	margin:14px 14px 0px 14px;float:left;boder:1px solid black;
+}
+.clsc-div-content-title{
+	height:16px;line-height:16px;text-align:left;
+}
+.clsc-div-content-img{
+	/* width:300px;height:300px; */
+	background-color: #EDECEB;
+	filter:alpha(opacity=70);
+	opacity:0.7;
+	position:relative;
+}
+.clsc-div-content-operation{
+	/* width:300px; */
+	height:100px;background: #DDD;text-align:left;
+}
+.clsc-div-content-operation textarea{
+	height:60px;width:96%;resize:none;
+}
+.div-content-operation-yijian{
+	height:76px;overflow:hidden;
+}
+.div-content-operation-btn{
+	height:24px;overflow:hidden;
+}
+.a-operation-btn{
+	margin:0px 2px;
+}
+img{
+	border:none;
+}
+.div-show-history{
+	width:100%;
+	height:100px;
+	left:0px;
+	bottom:0px;
+	position:absolute;
+	color:black;
+	background-color: #CEDFF7;
+	filter:alpha(opacity=80);
+	opacity:0.8;
+	text-align: left;
+}
+.jazz-imageview-wrap .jazz-imageview-toolbar{
+	background-color:#A9A9A9;
+}
+</style>
+
+<script type="text/javascript">
+//维护全局变量----是否进行了编辑操作（通过，未通过，忽略）
+var isEditted = false;
+function computeImgWidth(count,minStyle){
+	var divContentMargin=14;
+	var titleHeight = 16;
+	var contentOperationHeight = 100;
+	var realWidth=0,realHeight=0;
+	
+	var w=window.innerWidth
+		|| document.documentElement.clientWidth
+		|| document.body.clientWidth;
+
+	var h=window.innerHeight
+		|| document.documentElement.clientHeight
+		|| document.body.clientHeight;
+	w=w-20;//去掉纵向滚动条宽度
+	h=h-20;//去掉横向滚动条宽度
+	//console.log(w+"======"+h);
+	if(count===1){
+		realWidth = w-divContentMargin*2;
+		//realWidth = Math.min(w,(realWidth+divContentMargin*2))-divContentMargin;
+		realHeight = h-titleHeight-contentOperationHeight;
+	}else{
+		if(count==2||count==4){
+			realWidth = Math.floor(w/2)-divContentMargin*2;
+		}else if(count==3 || count>4){
+			realWidth = Math.floor(w/3)-divContentMargin*2;
+		}
+		//一个页面最多9个
+		if(count<4){
+			realHeight = h-titleHeight-contentOperationHeight;
+		}else if(count<7){
+			realHeight = Math.floor(h/2)-divContentMargin*2-titleHeight-contentOperationHeight;
+		}else {
+			realHeight = Math.floor(h/3)-divContentMargin*3-titleHeight-contentOperationHeight;
+		}
+	}
+	//对所有个数的宽度和高度进行拦截（其实正常情况下，1234个图片时高度和宽度会比minStyel规定的要大，就不必改变了
+	//那么对56789个图片进行拦截就可以了）
+	//如果宽度或者高度其一小于minStyle，则使用minStyele
+	//console.log("pre realWidth====="+realWidth+"==pre realHeight=="+realHeight);
+	if(count>3){
+		if(realWidth<minStyle.width||realHeight<minStyle.height){
+			//realWidth = minStyle.width;
+			realHeight = minStyle.height;
+		}
+	}
+	//console.log("realWidth====="+realWidth+"==realHeight=="+realHeight);
+	return {"width":realWidth,"height":realHeight};
+}
+function createImgContentDiv(style,list){
+	var dom = [];
+	
+	var info,id="",url="",title="",state="",content="";
+	for(var i=0;i<list.length;i++){
+		info=list[i];
+		id = info["id"];
+		title = info["title"];
+		url = info["url"];
+		state = info["state"];
+		content = info["content"];
+		var imagesrc="./image/transformer.jpg";
+		
+		dom.push('<div class="clsc-div-content" id="'+id+'" style="width:'+style.width+'">');
+		dom.push('<div class="clsc-div-content-title">');
+		dom.push(title);
+		dom.push('</div>');
+		dom.push('<div class="clsc-div-content-img">');
+		dom.push('<div vtype="imageviewer" ismovetocenter="true" iszoom="true" isrotate="true" name="imgviewer'+i+'"');
+		
+		if(state=="tongguo"){
+			dom.push(' watermarkurl="./image/mask-tongguo.png" ');
+		}else if(state=="butongguo"){
+			dom.push(' watermarkurl="./image/mask-butongguo.png" ');
+		}else if(state=="hulue"){
+			dom.push(' watermarkurl="./image/mask-hulue.png" ');
+		}else{
+			dom.push(' watermarkurl="./image/mask-tongguo.png" ');
+			//dom.push(' watermarkurl="" ');
+		}
+		dom.push(' imagesrc="'+imagesrc+'" ');
+		
+		dom.push(' width="'+style.width+'" height="'+style.height+'">');
+		dom.push('</div>');
+		
+		dom.push('<div class="div-show-history" style="display:none;"></div>');
+		
+		dom.push('</div>');
+		dom.push('<div class="clsc-div-content-operation">');
+		dom.push('<div class="div-content-operation-yijian">');
+		//dom.push(<input type="hidden" value=""/>);
+		dom.push('审查意见:<br>');
+		dom.push('<textarea class="content-yijian-now">'+content+'</textarea>');
+		dom.push('<textarea class="content-yijian-history" style="display:none;">'+content+'</textarea>');
+		dom.push('</div>');		
+		dom.push('<div class="div-content-operation-btn">');
+		dom.push('<div style="float:left;">');	
+		dom.push('<a class="a-operation-btn btn-tongguo" imgid="'+id+'"><img src="./clsc/image/tongg.png" /></a>');
+		dom.push('<a class="a-operation-btn btn-butongguo" imgid="'+id+'"><img src="./image/weitg.png" /></a>');
+		dom.push('<a class="a-operation-btn btn-hulue" imgid="'+id+'"><img src="./image/hl.png" /></a>');
+		dom.push('</div>');
+		dom.push('<div style="float:right;">');
+		dom.push('<a class="a-operation-btn btn-ckls" imgid="'+id+'"><img src="./image/ckls.png" /></a>');
+		dom.push('</div>');
+		dom.push('<div style="clear:both;"></div>');
+		dom.push('</div></div></div>');
+	}
+	//dom.push('<div style="clear:both;"></div>');
+	var domHtml = dom.join("").toString();
+	$(".clsc-div-collection").append(domHtml);
+	$(".clsc-div-collection").initComponent();
+}
+
+$(function() {
+	//考虑到工商内网系统是jsp页面
+	//从后台传来的数据结构是List<Map>
+	//map.put("suggestionID")
+	//map.put("suggestion")
+	//map.put("historySuggestion")
+	//map.put("imgSrc")
+	//根据list.size()得到图片的个数
+	var imgTotalCount = 0;
+	var imgInfos=[],info=null;url="",id="",yj="";
+	for(var i=0;i<5;i++){
+		imgTotalCount++;
+		id = i;
+		title = "pic00"+i;
+		url = "xxx.html";
+		state = "tongguo";
+		content = "this picture is passed...";
+		info = {"id":id,"title":title,"url":url,"state":state,"content":content};
+		imgInfos.push(info);
+	}
+	 
+	//alert(imgTotalCount);
+	//alert(imgInfos[0]["id"]);
+	//根据图片个数的不同，打开窗口每个图片的宽度也是不同，具体分类如下：	
+	var minStyle = {"width":300,"height":400};
+	var computeStyle = computeImgWidth(imgTotalCount,minStyle);
+	createImgContentDiv(computeStyle,imgInfos);
+	
+	$(".btn-tongguo").on("mouseover",function(){
+		$(this).find("img").attr("src","./image/tongg2.png");
+	}).on("mouseout",function(){
+		$(this).find("img").attr("src","./image/tongg.png");
+	}).on("click",function(){
+		var id = $(this).attr("imgid");
+		var maskurl = './image/mask-tongguo.png';
+		$("#"+id).find("div[vtype='imageviewer']").imageviewer("option","watermarkurl",maskurl);
+		pass(id);
+	});
+	$(".btn-butongguo").on("mouseover",function(){
+		$(this).find("img").attr("src","./image/weitg2.png");
+	}).on("mouseout",function(){
+		$(this).find("img").attr("src","./image/weitg.png");
+	}).on("click",function(){
+		var id = $(this).attr("imgid");
+		var maskurl = './image/mask-butongguo.png';
+		$("#"+id).find("div[vtype='imageviewer']").imageviewer("option","watermarkurl",maskurl);
+		nopass(id);
+	});
+	$(".btn-hulue").on("mouseover",function(){
+		$(this).find("img").attr("src","./image/hl2.png");
+	}).on("mouseout",function(){
+		$(this).find("img").attr("src","./image/hl.png");
+	}).on("click",function(){
+		var id = $(this).attr("imgid");
+		var maskurl = './image/mask-hulue.png';
+		$("#"+id).find("div[vtype='imageviewer']").imageviewer("option","watermarkurl",maskurl);
+		neglect(id);
+	});
+	$(".btn-ckls").on("mouseover",function(){
+		$(this).find("img").attr("src","./image/ckls2.png");
+	}).on("mouseout",function(){
+		$(this).find("img").attr("src","./image/ckls.png");
+	}).on("click",function(){
+		var id = $(this).attr("imgid");
+		var obj = $("#"+id).find(".div-show-history");
+		if(obj.is(":hidden")){
+			var jianyi = $("#"+id).find(".content-yijian-now").val();
+			jianyi ='历史审查意见:<br><p style="text-indent:2em;">'+jianyi+"</p>";
+			obj.html(jianyi).fadeIn();
+		}else{
+			obj.fadeOut();
+		}
+	});
+	
+	//window resize 事件
+	$(window).resize(function(){
+	  //1.确认图片个数
+	  var count =  $(".clsc-div-content").size();
+	  var obj = {"width":300,"height":400};
+	  var computedStyle = computeImgWidth(count,obj);
+	  var width = computedStyle.width;
+	  var height = computedStyle.height;
+	  
+	  $(".clsc-div-content").each(function(i){
+	  	$(this).width(width);
+	  	$(this).find("div[vtype='imageviewer']").imageviewer("option","width",width);
+	  	$(this).find("div[vtype='imageviewer']").imageviewer("option","height",height);
+	  });
+	}).unload(function(){
+		//window close event
+	});
+	
+	//添加工具条按钮（编辑和删除）
+	$(".clsc-div-content .jazz-toolbar").each(function(i){
+		var id = $(this).parents(".clsc-div-content").attr("id");
+		var editbtn = [{
+			'name': 'imageview-btn-edit',
+	        'vtype': 'button',
+	        'align': 'right',
+	        'defaultview': 0,
+	        'iconurl': "./image/imageview-bianji.png",
+	        'click': function() {
+	          editClick(id);
+	         }
+	    }];
+		$(this).toolbar('prependElement',editbtn,'jazz-imageview-button-zoomin');
+		if(imgTotalCount>1){
+		    var delbtn = [{
+		    	'name': 'imageview-btn-edit',
+		        'vtype': 'button',
+		        'align': 'right',
+		        'defaultview': 0,
+		        'iconurl': "./image/imageview-delete.png",
+		        'click': function() {
+		          deleteClick(id);
+		         }
+		    }];
+			$(this).toolbar('appendElement',delbtn,"'jazz-imageview-button-zoomout'");
+		}
+	});
+});
+function editClick(id){
+	//alert("editclick==="+id);
+	var textObj = $("#"+id).find(".content-yijian-now");
+	var isreadOnly = textObj.attr("readOnly");
+	if(!isreadOnly){
+		textObj.attr("readOnly",false);
+	}
+}
+function deleteClick(id){
+	//alert("deleteclick====="+id);
+	$("#"+id).remove();
+}
+function changeTextareaReadOnly(id){
+	$("#"+id).find(".content-yijian-now").attr("readOnly",true);
+}
+function pass(id){
+	isEditted = true;
+	changeTextareaReadOnly(id);
+	var jianyi = $("#"+id).find(".content-yijian-now").val();
+	alert(id+"==tongguo=="+jianyi);	
+}
+function nopass(id){
+	isEditted = true;
+	changeTextareaReadOnly(id);
+	var jianyi = $("#"+id).find(".content-yijian-now").val();
+	alert(id+"==butongguo=="+jianyi);	
+}
+function neglect(id){
+	isEditted = true;
+	changeTextareaReadOnly(id);
+	var jianyi = $("#"+id).find(".content-yijian-now").val();
+	alert(id+"==hulue=="+jianyi);
+}
+
+</script>
+
+</head>
+<body>
+<div class="clsc-div-wrap">
+<a class="clsc-div-collection">
+	<!-- 
+	<div class="clsc-div-content">
+		<div class="clsc-div-content-title">补充信息登记表1</div>
+		<div class="clsc-div-content-img">
+			<div id="sss" vtype="imageviewer" imagesrc="transformer.jpg" width="300" height="300" ismovetocenter="true" iszoom="true" name="imgviewer"></div>
+		</div>
+		<div class="clsc-div-content-operation">
+			<div class="div-content-operation-yijian">
+				<input type="hidden" value=""/>
+				审查意见:<br><textarea></textarea>
+			</div>
+			<div class="div-content-operation-btn">
+				<div style="float:left;">
+					<button>通过</button>
+					<button>不通过</button>
+					<button>忽略</button>
+				</div>
+				<div style="float:right;">
+					<button>查看历史</button>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+		</div>
+	</div>
+	 -->
+</a>
+</div>
+</body>
+</html>

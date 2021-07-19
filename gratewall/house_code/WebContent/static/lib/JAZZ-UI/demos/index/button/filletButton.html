@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="../common.js" type="text/javascript"></script> 
+</head>
+<body style="background:#fff">
+  
+<script>
+	function func1(){
+	    $("#btn").button("option", "isfillet", false);
+	}
+	function func2(){
+	    $("#btn").button("option", "isfillet", true);
+	}
+</script>
+<style>
+
+.button-top-border,
+.button-bottom-border {
+    height: 4px;
+}
+
+.button-left-border,
+.button-right-border {
+    width: 4px;
+}
+
+.button-corner {
+    width: 4px;
+    height: 4px;
+    background-size: 4px 4px;
+}
+</style>
+	<div id="btn-01" vtype="button" isfillet="false" name="btn01" text="直角按钮樣式" width=null click=""></div>
+    <div id="btn-02" vtype="button" isfillet="true" name="btn02" text="圆角按钮樣式" width=null click=""></div> 
+    <br><br>
+    <h3>通过修改对象options中isfillet可以动态修改按钮的顶角展示形式</h3>
+    <br>
+    <div id="btn" vtype="button" isfillet="true" name="btn03" height="40px" text="目标按钮" width=null click=""></div>
+    <br> 
+    <br>
+    <div id="btn-03" vtype="button" isfillet="false" name="btn04" text="使用直角" width=null click="func1"></div>
+    <div id="btn-03" vtype="button" name="btn05" text="使用圆角" width=null click="func2"></div>
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.PhotoServiceProvider">
+	<method name="query" 
+		provider="com.trs.ajaxservice.ViewDocumentServiceProvider">
+		<parameter name="ChannelIds" desc="检索的栏目ID序列" type="string" 
+			required="false"/>
+		<parameter name="SiteIds" desc="检索的站点ID序列" type="string" 
+			required="false"/>
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" 
+			required="false" default="0"/>
+		<parameter name="ContainsChildren" desc="是否递归检索子栏目" type="boolean" 
+			required="false" default="0"/>
+		<!--排序字段及方式-->
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" 
+			required="false"/>
+		<!-- 查询的表 -->
+		<parameter name="FromTable" desc="查询的表" type="string" required="false" 
+			default="WCMChnlDoc"/>
+		<!--文档过滤器-->
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" 
+			required="false"/>
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="DocTitle" desc="文档标题" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.DocTitle"/>
+		<parameter name="CrUser" desc="创建者" type="string" required="false" 
+			search="true" search-operator="=" 
+			search-field="WCMDocument.CrUser"/>
+		<parameter name="DocAuthor" desc="作者" type="string" required="false" 
+			search="true" search-operator="=" 
+			search-field="WCMDocument.DocAuthor"/>
+		<parameter name="DocPeople" desc="人物" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.DocPeople"/>
+		<parameter name="DocPlace" desc="地点" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.DocPlace"/>
+		<parameter name="DocKeywords" desc="地点" type="string" required="false" 
+			search="true" search-operator="like" 
+			search-field="WCMDocument.DocKeywords"/>
+		<parameter name="DocStatus" desc="待查询的状态" type="string" 
+			required="false" search="true" search-operator="in" 
+			search-type="int" search-field="WCMChnlDoc.DocStatus"/>
+		<parameter name="NotDocStatus" desc="待查询的状态" type="string" 
+			required="false" search="true" search-operator="not in" 
+			search-type="int" search-field="WCMChnlDoc.DocStatus"/>
+		<parameter name="StartDate" desc="开始时间" type="datetime" 
+			required="false" search="true" search-operator="&gt;=" 
+			search-field="WCMDocument.CrTime"/>
+		<parameter name="EndDate" desc="结束时间" type="datetime" required="false" 
+			search="true" search-operator="&lt;=" 
+			search-field="WCMDocument.CrTime"/>
+		<!-- 检索相关配置 END -->
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" 
+			required="false" default="MM-dd HH:mm"/>
+		<parameter name="ChnlDocSelectFields" desc="ChnlDoc提取的字段列表" 
+			type="string" required="false" 
+			default="RecId,ChnlId,wcmchnldoc.DocId,wcmchnldoc.DocStatus,wcmchnldoc.CrTime,wcmchnldoc.CrUser,Modal"/>
+		<parameter name="DocumentSelectFields" desc="提取的文档字段列表" type="string" 
+			required="false" 
+			default="DocId,DocTitle,DocContent,DocType,DocSource,DocAbstract,DocRelWords,DocPeople,DocPlace,DocRelTime,Attribute,DocChannel,CrUser,DocAuthor,DocRelTime,DocKeywords"/>
+	</method>
+	<method name="findById" 
+		provider="com.trs.ajaxservice.ViewDocumentServiceProvider">
+		<parameter name="ObjectId" desc="ChnlDoc中的RecID" type="int" 
+			required="true"/>
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>
+		<parameter name="SelectFieldsOfChnlDoc" 
+			default="RecId,ChnlId,wcmchnldoc.DocId,wcmchnldoc.DocStatus,wcmchnldoc.CrTime,wcmchnldoc.CrUser,WCMChnlDoc.DocChannel,wcmchnldoc.DocStatus,wcmchnldoc.docpubtime" 
+			desc="提取的ChnlDoc字段列表" type="string" required="false"/>
+		<parameter name="SelectFieldsOfDocument" 
+			default="DocId,DocTitle,DocContent,DocType,DocSource,DocAbstract,DocRelWords,DocPeople,DocPlace,DocRelTime,Attribute,CrUser,DocAuthor,DocKeywords" 
+			desc="提取的Document字段列表" type="string" required="false"/>
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" 
+			required="false" default="0"/>
+	</method>
+	<method name="saveImageInfo">
+		<!-- 
+		<parameter name="ObjectId" desc="图片对象Id" type="int" required="true"/>-->
+		<parameter name="MainKindId" desc="主分类Id" type="int" required="true"/>
+		<parameter name="OtherKindIds" desc="其它分类Id序列" type="string" 
+			required="false"/>
+		<parameter name="WatermarkFile" desc="水印图名称" type="string" 
+			required="false"/>
+		<parameter name="WatermarkPos" desc="水印图位置" type="string" 
+			required="false"/>
+		<parameter name="UploadedFiles" desc="上传的图片" type="string" 
+			required="false"/>
+		<parameter name="SourceFiles" desc="上传的图片原文件名" type="string" 
+			required="false"/>
+		<parameter name="BatchMode" desc="批处理模式" type="boolean" 
+			required="false"/>
+		<parameter name="BmpConverType" desc="BMP图片转换格式" type="string" 
+			required="false"/>
+	</method>
+	<method name="getSupportedFormat"></method>
+	<method name="getSacledImages">
+		<parameter name="ObjectId" desc="图片对象Id" type="int" required="true"/>
+	</method>
+	<method name="save">
+		<parameter name="PhotoDocId" desc="图片文档Id" type="int" required="true"/>
+		<parameter name="BmpConverType" desc="BMP图片转换格式" type="string" required="false"/>
+		<parameter name="WatermarkFile" desc="水印图名称" type="string" required="false"/>
+		<parameter name="WatermarkPos" desc="水印图位置" type="string" required="false"/>	
+	</method>
+	<method name="loadLibConf">
+	</method>
+	<method name="saveLibConf">
+	</method>
+	<method name="getQuoteDocs">
+		<parameter name="ObjectId" desc="图片对象Id" type="int" required="true"/>
+	</method>
+	<method name="getQuoteKinds">
+		<parameter name="ObjectId" desc="图片对象Id" type="int" required="true"/>
+	</method>
+	<method name="getExtendedProps">
+		<parameter name="ObjectId" desc="图片对象Id" type="int" required="true"/>
+	</method>
+	<method name="getPublishUrls">
+		<parameter name="ChnlDocIds" desc="图片对象RecIds" type="string" required="true"/>
+		<parameter name="ScaleIndex" desc="缩放比例位" type="int" required="true"/>
+	</method>	
+	<method name="getDefaultBmpConverType">		
+	</method>
+	<method name="loadOriginImg">
+		<parameter type="int" required="required" name="PhotoId" desc="图片对象Id"></parameter>
+	</method>
+	<method name="rotateImage">
+		<parameter type="string" required="true" name="FileName" desc="图片文件名"></parameter>
+		<parameter type="string" required="true" name="Degree" desc="旋转角度"></parameter>
+	</method>
+	<method name="addBorder">
+		<parameter type="string" required="true" name="FileName" desc="图片文件名"></parameter>
+		<parameter type="int" required="true" name="BorderWidth" desc="边框宽度"></parameter>
+		<parameter type="int" required="true" name="BorderHeight" desc="边框高度"></parameter>
+		<parameter type="string" required="true" name="BorderColor" desc="边框"></parameter>
+	</method>
+	<method name="raiseImage">
+		<parameter type="string" required="true" name="FileName" desc="图片文件名"></parameter>
+		<parameter type="int" required="true" name="RaiseWidth" desc="缩放宽度"></parameter>
+		<parameter type="int" required="true" name="RaiseHeight" desc="缩放高度"></parameter>
+		<parameter type="boolean" required="true" name="IsRaised" desc="浮雕"></parameter>
+	</method>
+	<method name="scaleImage">
+		<parameter type="string" required="true" name="FileName" desc="图片文件名"></parameter>
+		<parameter type="int" required="true" name="ScaleWidth" desc="缩放宽度"></parameter>
+		<parameter type="int" required="true" name="ScaleHeight" desc="缩放高度"></parameter>
+	</method>
+	<method name="saveOriginImg">
+		<parameter type="int" required="required" name="PhotoId" desc="图片对象Id"></parameter>
+		<parameter type="string" required="true" name="FileName" desc="图片文件名"></parameter>
+		<parameter type="string" required="false" name="ConvertType" 
+			desc="BMP转换格式"></parameter>
+		<parameter type="string" required="false" name="WaterMarkFile" 
+			desc="水印图片"></parameter>
+		<parameter type="string" required="false" name="WaterMarkPos" 
+			desc="水印图片"></parameter>
+	</method>
+	<method name="getSysPics">
+		<parameter type="int" required="false" name="ChannelId" desc="栏目ID"></parameter>
+		<parameter type="int" required="false" name="SiteId" desc="站点ID"></parameter>
+		<parameter type="string" required="false" name="SearchKey" default="DocTitle,DocKeywords,DocHtmlCon" desc="检索字段"></parameter>
+		<parameter type="string" required="false" name="SearchValue" desc="检索值"></parameter>
+		<parameter type="string" required="false" name="StartTime" desc="检索时间起始"></parameter>
+		<parameter type="string" required="false" name="EndTime" desc="检索时间结束"></parameter>
+	</method>
+	
+	<method name="importSysPics">	
+		<parameter type="string" required="true" name="PicIds" desc="系统图片Id序列"></parameter>	
+		<parameter name="MainKindId" desc="主分类Id" type="int" required="true"/>
+		<parameter name="OtherKindIds" desc="其它分类Id序列" type="string" required="false"/>
+		<parameter name="WatermarkFile" desc="水印图名称" type="string" required="false"/>
+		<parameter name="WatermarkPos" desc="水印图位置" type="string" required="false"/>
+		<parameter name="BmpConverType" desc="BMP图片转换格式" type="string" required="false"/>		
+	</method>	
+	<method name="loadSysPicProps">
+		<parameter type="int" required="true" name="PhotoId" desc="图片Id"></parameter>
+	</method>
+</service>

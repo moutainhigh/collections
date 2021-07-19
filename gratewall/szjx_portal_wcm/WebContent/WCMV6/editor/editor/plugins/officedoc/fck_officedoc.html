@@ -1,0 +1,202 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>智能创建文档</TITLE>
+<script src="../../../../js/com.trs.util/Common.js"></script>
+<script>
+//	$import('com.trs.logger.Logger');
+//	$import('com.trs.dialog.Dialog');
+	$import('com.trs.wcm.util.FileUploadHelper');
+	$import('com.trs.util.YUIConnection');
+</script>
+<script language="javascript">
+<!--
+
+var oEditor = window.parent.InnerDialogLoaded() ;
+var sOuterClass = window.parent.actualTop.FavClassName||'MyFav_'+new Date().getTime();
+window.$alert = window.alert;
+function OnLoad()
+{
+	// First of all, translate the dialog box texts.
+	oEditor.FCKLanguageManager.TranslatePage( document ) ;
+
+	window.parent.SetBtnsRow(false);
+	window.parent.SetAutoSize( true );
+}
+var lTimeout = 0;
+var YUI_ThrowError = true;
+function onFailure(){
+	$('btnOk').disabled = false;
+	$('btnCancel').disabled = false;
+	clearInterval(lTimeout);
+	Element.hide('upload_message');
+}
+function Ok(){
+	var sDocFileName = $("DocFile").value;
+	if(!FileUploadHelper.validFileExt(sDocFileName, "doc(.)?,rtf")){
+		return false;
+	}
+	$('btnOk').disabled = true;
+	$('btnCancel').disabled = true;
+	Element.show('upload_message');
+	$('upload_message').innerHTML = '正在上传,请稍候';
+	var nCount = 0;
+	lTimeout = setInterval(function(){
+		if(nCount>=40){
+			$('upload_message').innerHTML = '正在上传,请稍候.';
+			nCount = 1;
+		}
+		else{
+			$('upload_message').innerHTML = $('upload_message').innerHTML + '.';
+			nCount++;
+		}
+	},5);
+	var isSSL = location.href.indexOf("https://")!=-1;
+	var callBack1 = {
+		"upload":function(_transport){
+			clearInterval(lTimeout);
+			Element.hide('upload_message');
+			var sResponseText = _transport.responseText;
+			var bAlert = FileUploadHelper.fileUploadedAlert(sResponseText,function(){
+				var nIdx = sResponseText.indexOf('\n');
+				if($('DocSetTitle').checked&&oEditor.parent.window.SetTitle){
+					oEditor.parent.window.SetTitle(sResponseText.substring(0,nIdx));
+				}
+				var sHtml = sResponseText.substring(nIdx+1) ;
+				if($F('DocSetHTML')==1){
+					sHtml = RollWithHtml(sHtml,true);
+					oEditor.FCK.SetInnerHtml('') ;
+					oEditor.FCK.InsertHtml(sHtml);
+					oEditor.FCK.DisableCustomStyle();
+				}
+				else{
+					sHtml = RollWithHtml(sHtml,false);
+					var oOuterDiv = oEditor.FCK.EditorDocument.createElement( 'DIV' ) ;
+					oOuterDiv.className = sOuterClass;
+					oOuterDiv.innerHTML = sHtml;
+					oEditor.FCKUndo.SaveUndoStep() ;
+					oEditor.FCK.InsertElement( oOuterDiv ) ;
+				}
+				$('btnOk').disabled = false;
+				$('btnCancel').disabled = false;
+				window.parent.Cancel();
+			},function(){
+				$('btnOk').disabled = false;
+				$('btnCancel').disabled = false;
+			});
+			if(bAlert)return;
+		}
+	}
+	try{
+		YUIConnect.setForm('frmUploadDocFile',true,isSSL);
+		YUIConnect.asyncRequest('POST',
+			'../../../../system/upload_office_doc_editor.jsp?FileParamName=DocFile',callBack1);
+	}catch(err){
+		onFailure();
+	}
+	return false;
+}
+function RollStyle(_sHtml){
+	var re = /<style.*?>\s*<!--((.|\n|\r)*?)-->\s*<\/style>/ig;
+	var elIframe = document.createElement('IFRAME');
+	elIframe.style.display = 'none';
+	elIframe.src = 'javascript:void(0);';
+	document.body.appendChild(elIframe);
+	var eDoc = elIframe.contentWindow.document;
+	eDoc.open();
+	eDoc.write(_sHtml.replace(re,'<style>$1</style>'));
+	eDoc.close();
+	var oStyleSheet = eDoc.styleSheets[0];
+	var oRules = oStyleSheet.rules;
+	var sTmp = '';
+	for(var i=0;i<oRules.length;i++){
+		var oRule = oRules[i];
+		var ss = oRule.selectorText.split(',');
+		var arr = [];
+		for(var j=0;j<ss.length;j++){
+			var selector = ss[j];
+			arr.push('DIV.'+sOuterClass+' '+selector);
+		}
+		sTmp += arr.join()+'{'+oRule.style.cssText+'}';
+	}
+	return _sHtml.replace(re,'<style>'+sTmp+'</style>');
+}
+function RollAttr(_sHtml){
+	var re = / lang=(\"|\'|).*?\1( |>)/ig;
+	_sHtml = _sHtml.replace(re,'$2');
+	re = /(<[^>]* style=(\"|\'))layout-grid:[^;]*?((;.*?|)\2)/ig;
+	_sHtml = _sHtml.replace(re,'$1$3');
+	return _sHtml;
+}
+function RollWithHtml(_sHtml,_bNested){
+	_sHtml = RollStyle(_sHtml);
+	_sHtml = RollAttr(_sHtml);
+	if(_bNested){
+		return '<DIV class="'+sOuterClass+'">'+_sHtml+'</DIV>';
+	}
+	else{
+		return _sHtml;
+	}
+}
+window.onload = OnLoad;
+</SCRIPT>
+<style>
+body {
+	padding:10px;
+	margin:0;
+	background-color: #CCCCCC;
+}
+td{
+	height:30px;
+}
+.input_btn{
+	width:60px;
+	margin-right:10px;
+}
+.input_file{
+	border:1px solid gray;
+	width:260px;
+}
+.upload_message{
+	background:orangered;
+	color:white;
+	padding:2px 5px;
+	white-space : nowrap;
+	overflow:hidden;
+}
+</style>
+</HEAD>
+
+<BODY>
+	<table cellspacing="0" cellpadding="0" width="100%" border="0" height="100%">
+		<tr>
+			<td valign="top">
+				<table cellspacing="1" cellpadding="1" width="100%" border="0">
+					<tr>
+						<td width="84%" valign="top">
+		<DIV>选择您要转化的WORD文档：</DIV>
+		<DIV>
+			<FORM name="frmUploadDocFile" style="margin:0;padding:0;display:" enctype='multipart/form-data'>
+				<input type="file" class="input_file" id="DocFile" name="DocFile">
+			</FORM>
+		</DIV>
+		<br>
+		<DIV>自动设置文档标题：<input type="checkbox" id="DocSetTitle" name="DocSetTitle" value="1" checked></DIV>
+		<DIV><input type="radio" name="DocSetHTML" value="1" checked>替换文档内容<input type="radio" name="DocSetHTML" value="0">插入当前位置</DIV>
+		<DIV><span id="upload_message" style="display:none" class="upload_message"></span></DIV>
+						</td>
+						<td width="4%" align="center" valign="top">
+							<div style="width:2px;border-left:1px solid gray;background:white;overflow:hidden;height:120px;"></div></td>
+						<td width="12%" valign="top">
+							<input id="btnOk" class="input_btn" onclick="window.parent.Ok();"
+								type="button" value="Ok" fcklang="DlgBtnOK"/>
+							<div style="height:5px;overflow:hidden"></div>
+							<input id="btnCancel" name="button2" class="input_btn" type="button" value="Close" onclick="window.parent.Cancel();" fcklang="DlgBtnCancel">
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+</BODY>
+</HTML>

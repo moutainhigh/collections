@@ -1,0 +1,828 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.1">
+	<!-- Cached-Object Config For ICachePOMgr BEGIN -->
+	<extension element-class="com.trs.infra.persistent.cache.CachedObjectConfig" 
+		id="CachedObjs">
+		<cached-object Name="用户" ClassName="com.trs.cms.auth.persistent.User"/>
+		<cached-object Name="组织" ClassName="com.trs.cms.auth.persistent.Group"/>
+		<cached-object Name="角色" ClassName="com.trs.cms.auth.persistent.Role"/>
+		<!--cached-object Name="权限" ClassName="com.trs.cms.auth.persistent.Right"/-->
+	</extension>
+	<!-- Cached-Object Config For ICachePOMgr END -->
+	
+	<!--Object Types BEGIN-->
+	<extension element-class="com.trs.infra.persistent.ObjectTypeConfig" id="ObjectTypes">
+		<object-type ObjectType="204" name="用户" ObjectClassName="com.trs.cms.auth.persistent.User"/>		
+		<object-type ObjectType="201" name="组织" ObjectClassName="com.trs.cms.auth.persistent.Group"/>		
+		<object-type ObjectType="203" name="角色" ObjectClassName="com.trs.cms.auth.persistent.Role"/>		
+	</extension>
+	<!--Object Types END-->
+	
+	<!-- Right Objects BEGIN -->
+	<extension element-class="com.trs.cms.auth.config.RightObjectConfig" id="RightObjects">
+		<right-object name="用户组权限判断对象" ClassName="com.trs.cms.auth.domain.GroupRightObjImpl"/>		
+	</extension>
+	<!-- Right Objects END -->
+	
+	<!-- CacheMgrs Config For CacheServer BEGIN -->
+	<extension element-class="com.trs.infra.support.cache.CacheMgrConfig" 
+		id="CacheMgrs">
+		<cache-manager beanId="IUserCacheMgr" name="用户缓冲管理器"/>
+		<cache-manager beanId="IAdministratorCacheMgr" name="用户缓冲管理器"/>
+		<cache-manager beanId="RightCacheMgr" name="权限缓冲管理器"/>		
+	</extension>
+	<!-- CacheMgrs Config For CacheServer END -->
+	
+	<!--Config For Server BEGIN-->
+	<extension element-class="com.trs.infra.ServerConfig" id="Server">
+		<server bean-id="RightConfigServer" name="权限配置服务器" />
+	</extension>
+	<!--Config For Server END-->
+	
+	<!--Config For ObjectLCMonitor BEGIN-->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		1：新增
+		2：修改
+		3：删除前
+		4、删除后
+		多个以逗号隔开
+	-->
+	<extension element-class="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		id="ObjectLCMonitor">		
+		<!--权限-->
+		<monitor-host name="权限" class-name="com.trs.cms.auth.persistent.Right">
+			<listener bean-id="RightCacheMgr"/>
+		</monitor-host>
+		<!--用户-->
+		<monitor-host name="用户" class-name="com.trs.cms.auth.persistent.User">
+			<listener bean-id="IUserCacheMgr"/>
+			<listener bean-id="MemberLCListenerForRight" event-type="3"/>
+		</monitor-host>
+		<!--组织-->
+		<monitor-host name="组织" class-name="com.trs.cms.auth.persistent.Group">
+			<listener bean-id="MemberLCListenerForRight" event-type="3"/>
+		</monitor-host>
+		<!--角色-->
+		<monitor-host name="角色" class-name="com.trs.cms.auth.persistent.Role">
+			<listener bean-id="MemberLCListenerForRight" event-type="3"/>
+		</monitor-host>				
+		<!-- RoleUser : 角色用户-->
+		<monitor-host name="角色用户" 
+			class-name="com.trs.cms.auth.persistent.RoleUser">
+			<listener bean-id="IAdministratorCacheMgr" event-type="1,3"></listener>
+			<listener bean-id="RoleUserCacheMgr" event-type="1,3"></listener>
+		</monitor-host>
+		<!-- GroupUser : 组织成员 -->
+		<monitor-host name="组织成员" 
+			class-name="com.trs.cms.auth.persistent.GroupUser">
+			<listener bean-id="GroupAdminsCacheMgr" event-type="1,2,3"></listener>
+			<listener bean-id="GroupUserCacheMgr" event-type="1,3"></listener>
+		</monitor-host>
+	</extension>
+	<!--Config For System Collocation BEGIN-->
+	
+	<!--Config For Operation BEGIN-->
+	<extension element-class="com.trs.cms.auth.config.OperationConfig"
+		id="OperationConfigs">
+      <operation name="Site_add">
+          <disp-name>修改站点</disp-name>
+          <desc>修改站点</desc>
+          <index>1</index>
+          <type>Site</type>
+		  <depends>
+				<operation-name>Site_setTemplate</operation-name>
+				<operation-name>template_browse</operation-name>
+		  </depends>
+      </operation>
+      <operation name="Site_del">
+          <disp-name>删除站点</disp-name>
+          <desc>删除站点</desc>
+          <index>2</index>
+          <type>Site</type>
+      </operation>
+	  <!--
+	  <operation name="Site_browse">
+          <disp-name>浏览站点</disp-name>
+          <desc>浏览站点</desc>
+          <index>14</index>
+          <type>Site</type>
+      </operation>
+	  
+	  //-->
+      <operation name="Site_preview">
+          <disp-name>预览站点</disp-name>
+          <desc>预览站点</desc>
+          <index>3</index>
+          <type>Site</type>
+      </operation>
+      <operation name="Site_pub_all">
+          <disp-name>高级发布站点</disp-name>
+          <desc>高级发布站点</desc>
+          <index>4</index>
+          <type>Site</type>
+		  <depends>
+				<operation-name>Site_pub_inc</operation-name>
+		  </depends>
+		  <reverse-cancel>
+				<operation-name>Site_pub_inc</operation-name>
+		  </reverse-cancel>
+      </operation>
+      <operation name="Site_pub_inc">
+          <disp-name>快速发布站点</disp-name>
+          <desc>快速发布站点</desc>
+          <index>5</index>
+          <type>Site</type>
+      </operation>
+	  <operation name="Site_setRight">
+          <disp-name>设置权限</disp-name>
+          <desc>设置是否可以设置站点权限</desc>
+          <index>7</index>
+          <type>Site</type>
+      </operation>
+
+	<!--
+      <operation name="Site_add_user">
+          <disp-name>设定站点用户</disp-name>
+          <desc>设定站点用户</desc>
+          <index>6</index>
+          <type>Site</type>
+      </operation>
+	//-->
+      <operation name="Site_setTemplate">
+          <disp-name>设置站点模板</disp-name>
+          <desc>设置站点模板</desc>
+          <index>9</index>
+          <type>Site</type>	
+		  <depends>
+			  <operation-name>template_browse</operation-name>
+		  </depends>
+      </operation>
+	  <operation name="Site_mgrRegion">
+          <disp-name>管理站点导读</disp-name>
+          <desc>管理站点导读</desc>
+          <index>48</index>
+          <type>Site</type>
+      </operation>
+
+
+	  <operation name="Channel_add">
+          <disp-name>新建栏目</disp-name>
+          <desc>新建栏目</desc>
+          <index>11</index>
+          <type>Channel</type>
+		  <depends>
+				<!--operation-name>Channel_browse</operation-name-->
+		  </depends>	
+      </operation>
+      <operation name="Channel_edit">
+          <disp-name>修改栏目</disp-name>
+          <desc>修改栏目</desc>
+          <index>13</index>
+          <type>Channel</type>
+		  <depends>
+				<!--operation-name>Channel_browse</operation-name-->
+				<operation-name>Channel_setTemplate</operation-name>
+				<operation-name>template_browse</operation-name>
+		  </depends>
+      </operation>
+      <operation name="Channel_del">
+          <disp-name>删除栏目</disp-name>
+          <desc>删除栏目</desc>
+          <index>12</index>
+          <type>Channel</type>
+		  <depends>
+				<!--operation-name>Channel_browse</operation-name-->
+		  </depends>
+      </operation>
+	  <!--
+      <operation name="Channel_browse">
+          <disp-name>浏览栏目</disp-name>
+          <desc>浏览栏目</desc>
+          <index>14</index>
+          <type>Channel</type>
+      </operation>
+	  //-->
+      <operation name="Channel_preview">
+          <disp-name>预览栏目</disp-name>
+          <desc>预览栏目</desc>
+          <index>15</index>
+          <type>Channel</type>
+		  <depends>
+				<!--operation-name>Channel_browse</operation-name-->
+		  </depends>
+      </operation>
+      <operation name="Channel_pub_all">
+          <disp-name>高级发布栏目</disp-name>
+          <desc>高级发布栏目</desc>
+          <index>16</index>
+          <type>Channel</type>
+		  <depends>
+				<!--operation-name>Channel_browse</operation-name-->
+				<operation-name>Channel_pub_inc</operation-name>
+		  </depends>
+		  <reverse-cancel>
+				<operation-name>Channel_pub_inc</operation-name>
+		  </reverse-cancel>
+	  </operation>
+      <operation name="Channel_pub_inc">
+          <disp-name>快速发布栏目</disp-name>
+          <desc>快速发布栏目</desc>
+          <index>17</index>
+          <type>Channel</type>
+		  <depends>
+				<!--operation-name>Channel_browse</operation-name-->
+		  </depends>
+      </operation>
+      <operation name="Channel_extend">
+          <disp-name>扩展字段</disp-name>
+          <desc>扩展字段</desc>
+          <index>19</index>
+          <type>Channel</type>
+		  <depends>
+				<!--operation-name>Channel_browse</operation-name-->
+		  </depends>
+      </operation>
+      <operation name="Channel_recycle">
+          <disp-name>管理废稿箱</disp-name>
+          <desc>管理废稿箱</desc>
+          <index>18</index>
+          <type>Channel</type>
+		  <depends>
+				<!--operation-name>Channel_browse</operation-name-->
+				<operation-name>Document_restore</operation-name>
+				<operation-name>Document_del</operation-name>
+				<operation-name>Document_outline</operation-name>
+				<operation-name>Document_browse</operation-name>
+		  </depends>
+      </operation>
+      <operation name="Channel_settemparg">
+          <disp-name>管理模板变量</disp-name>
+          <desc>管理模板变量</desc>
+          <index>53</index>
+          <type>Channel</type>
+		  <depends>
+				<!--operation-name>Channel_browse</operation-name-->
+		  </depends>
+      </operation>
+	  <operation name="Channel_setRight">
+          <disp-name>设置权限</disp-name>
+          <desc>设置是否可以设置栏目权限</desc>
+          <index>55</index>
+          <type>Channel</type>
+		  <depends>
+				<!--operation-name>Channel_browse</operation-name-->
+		  </depends>	
+      </operation>
+	  <operation name="Channel_setTemplate">
+          <disp-name>设置栏目模板</disp-name>
+          <desc>设置栏目模板</desc>
+          <index>9</index>
+          <type>Channel</type>	
+		  <depends>
+			  <operation-name>template_browse</operation-name>
+		  </depends>
+      </operation>
+	  <operation name="Channel_mgrRegion">
+          <disp-name>管理栏目导读</disp-name>
+          <desc>管理栏目导读</desc>
+          <index>48</index>
+          <type>Channel</type>	
+      </operation>
+
+
+	<operation name="Template_add">
+		<disp-name>新建模板</disp-name>
+		<desc>新建模板</desc>
+		<index>21</index>
+		<type>Template</type>
+		<depends>
+			<operation-name>template_check</operation-name>
+			<operation-name>template_browse</operation-name>
+		</depends>
+	</operation>      
+	<operation name="Template_edit">
+		<disp-name>修改模板</disp-name>
+		<desc>修改模板</desc>
+		<index>23</index>
+		<type>Template</type>
+		<depends>
+			<operation-name>template_browse</operation-name>
+			<operation-name>template_check</operation-name>
+		</depends>
+	</operation>
+	<operation name="Template_del">
+		<disp-name>删除模板</disp-name>
+		<desc>删除模板</desc>
+		<index>22</index>
+		<type>Template</type>
+		<depends>
+			<operation-name>template_browse</operation-name>
+		</depends>
+	</operation>
+	<operation name="template_browse">
+		<disp-name>查看模板</disp-name>
+		<desc>查看模板</desc>
+		<index>24</index>
+		<type>Template</type>
+	</operation>	  
+	<operation name="template_check">
+		<disp-name>校验模板</disp-name>
+		<desc>校验模板</desc>
+		<index>25</index>
+		<type>Template</type>
+		<depends>
+			<operation-name>template_browse</operation-name>
+		</depends>
+	</operation>	   
+	<operation name="Template_preview">
+		<disp-name>模板预览</disp-name>
+		<desc>模板预览</desc>
+		<index>24</index>
+		<type>Template</type>
+		<depends>
+			<operation-name>template_browse</operation-name>
+		</depends>
+	</operation>	  
+	<operation name="Template_import">
+		<disp-name>导入模板</disp-name>
+		<desc>导入模板</desc>
+		<index>21</index>
+		<type>Template</type>
+		<depends>
+			<operation-name>template_check</operation-name>
+			<operation-name>template_browse</operation-name>
+		</depends>
+	</operation>
+	<operation name="Template_export">
+		<disp-name>导出模板</disp-name>
+		<desc>导出模板</desc>
+		<index>24</index>
+		<type>Template</type>
+		<depends>
+			<operation-name>template_browse</operation-name>
+		</depends>
+	</operation>           
+	<operation name="Template_syn_appendix">
+		<disp-name>同步模板附件</disp-name>
+		<desc>同步模板附件</desc>
+		<index>28</index>
+		<type>Template</type>
+		<depends>
+			<operation-name>template_browse</operation-name>
+			<operation-name>template_check</operation-name>
+		</depends>
+	</operation>	        
+	   
+      
+	<operation name="Document_add">
+		<disp-name>新建文档</disp-name>
+		<desc>新建文档</desc>
+		<index>31</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_outline</operation-name>
+		</depends>
+	</operation>
+	<operation name="Document_edit">
+		<disp-name>编辑文档</disp-name>
+		<desc>编辑文档</desc>
+		<index>32</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_outline</operation-name>
+			<operation-name>Document_browse</operation-name>
+		</depends>
+	</operation>
+	<operation name="Document_positionset">
+		<disp-name>调整顺序</disp-name>
+		<desc>调整顺序</desc>
+		<index>62</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_outline</operation-name>
+			<operation-name>Document_browse</operation-name>
+		</depends>
+	</operation>
+	<operation name="Document_canceltop">
+		<disp-name>设置置顶</disp-name>
+		<desc>设置置顶</desc>
+		<index>62</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_outline</operation-name>
+			<operation-name>Document_browse</operation-name>
+		</depends>
+	</operation>
+	<operation name="Document_del">
+		<disp-name>删除文档</disp-name>
+		<desc>删除文档</desc>
+		<index>33</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_restore</operation-name>
+			<operation-name>Document_outline</operation-name>
+			<operation-name>Document_browse</operation-name>
+		</depends>
+	</operation>
+	<operation name="Document_restore">
+		<disp-name>恢复文档</disp-name>
+		<desc>恢复被删除文档</desc>
+		<index>33</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_del</operation-name>
+			<operation-name>Document_outline</operation-name>
+			<operation-name>Document_browse</operation-name>
+		</depends>
+	</operation>
+	<operation name="Document_outline">
+		<disp-name>查看列表</disp-name>
+		<desc>查看文档列表</desc>
+		<index>30</index>
+		<type>Document</type>
+		<depends>
+			<!--operation-name>Channel_browse</operation-name-->
+		</depends>
+		  <reverse-cancel>
+				<!--operation-name>Channel_browse</operation-name-->
+		  </reverse-cancel>
+	</operation>
+	<operation name="Document_browse">
+		<disp-name>查看文档</disp-name>
+		<desc>查看文档</desc>
+		<index>34</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_outline</operation-name>
+		</depends>
+	</operation>
+	<operation name="Document_preview">
+		<disp-name>预览文档</disp-name>
+		<desc>预览文档</desc>
+		<index>38</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_outline</operation-name>
+			<operation-name>Document_browse</operation-name>
+		</depends>
+	</operation>
+	<operation name="Document_publish">
+		<disp-name>发布文档</disp-name>
+		<desc>发布文档</desc>
+		<index>39</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_outline</operation-name>
+			<operation-name>Document_browse</operation-name>
+		</depends>
+	</operation>
+	<operation name="Document_copy">
+		<disp-name>复制文档</disp-name>
+		<desc>复制文档</desc>
+		<index>34</index>
+		<type>Document_Virtual</type>
+		<depends>
+			<operation-name>Document_outline</operation-name>
+		</depends>
+	</operation>		
+	<operation name="Document_mirror">
+		<disp-name>镜像引用文档</disp-name>
+		<desc>镜像引用文档</desc>
+		<index>34</index>
+		<type>Document_Virtual</type>
+		<depends>
+			<operation-name>Document_outline</operation-name>
+		</depends>
+	</operation>		
+	<operation name="Document_quote">
+		<disp-name>链接引用文档</disp-name>
+		<desc>链接引用文档</desc>
+		<index>34</index>
+		<type>Document_Virtual</type>
+		<depends>
+			<operation-name>Document_outline</operation-name>
+		</depends>
+	</operation>
+	<operation name="Document_newedit">
+		<disp-name>置为新稿..</disp-name>
+		<desc>置为新稿或已编</desc>
+		<index>35</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_outline</operation-name>
+			<operation-name>Document_browse</operation-name>
+		</depends>
+	</operation>
+	<operation name="Document_again">
+		<disp-name>置为已否..</disp-name>
+		<desc>置为已否或返工</desc>
+		<index>36</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_newedit</operation-name>
+			<operation-name>Document_outline</operation-name>
+			<operation-name>Document_browse</operation-name>
+		</depends>
+	</operation>
+	<operation name="Document_sign">
+		<disp-name>置为已签..</disp-name>
+		<desc>置为已签或正审</desc>
+		<index>37</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_newedit</operation-name>
+			<operation-name>Document_outline</operation-name>
+			<operation-name>Document_browse</operation-name>
+		</depends>
+	</operation>
+	<operation name="Document_move">
+		<disp-name>移动文档</disp-name>
+		<desc>移动文档</desc>
+		<index>33</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_browse</operation-name>
+			<operation-name>Document_outline</operation-name>
+			<!--<operation-name>Document_del</operation-name>-->
+		</depends>
+	</operation>
+	<operation name="Document_moveAll">
+		<disp-name>移动所有文档</disp-name>
+		<desc>移动所有文档</desc>
+		<index>56</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_browse</operation-name>
+			<operation-name>Document_outline</operation-name>
+			<operation-name>Document_del</operation-name>
+			<!--<operation-name>Document_move</operation-name>//-->
+		</depends>
+	</operation>
+	<operation name="Document_copyAll">
+		<disp-name>复制所有文档</disp-name>
+		<desc>复制所有文档</desc>
+		<index>57</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_browse</operation-name>
+			<operation-name>Document_outline</operation-name>
+		</depends>
+	</operation>
+	<operation name="Document_setRight">
+		<disp-name>设置文档权限</disp-name>
+		<desc>设置文档权限</desc>
+		<index>61</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_outline</operation-name>
+			<operation-name>Document_browse</operation-name>
+		</depends>
+	</operation>
+      <operation name="Document_comment">
+		<disp-name>管理评论</disp-name>
+		<desc>管理评论</desc>
+		<index>8</index>
+		<type>Document</type>
+		<depends>
+			<operation-name>Document_outline</operation-name>
+		</depends>
+      </operation>
+
+      <operation name="Flow_add">
+          <disp-name>新建工作流</disp-name>
+          <desc>新建工作流</desc>
+          <index>41</index>
+          <type>Flow</type>
+      </operation>
+      <operation name="Flow_edit">
+          <disp-name>编辑工作流</disp-name>
+          <desc>编辑工作流</desc>
+          <index>42</index>
+          <type>Flow</type>
+      </operation>
+      <operation name="Flow_del">
+          <disp-name>删除工作流</disp-name>
+          <desc>删除工作流</desc>
+          <index>43</index>
+          <type>Flow</type>
+      </operation>
+      
+      <operation name="Flow_export">
+          <disp-name>导出工作流</disp-name>
+          <desc>导出工作流</desc>
+          <index>44</index>
+          <type>Flow</type>
+      </operation>
+      
+      <operation name="Flow_import">
+          <disp-name>导入工作流</disp-name>
+          <desc>导入工作流</desc>
+          <index>45</index>
+          <type>Flow</type>
+      </operation>
+      
+      <!--<operation name="Flow_mon">
+          <disp-name>工作流监控</disp-name>
+          <desc>工作流监控</desc>
+          <index>46</index>
+          <type>Flow</type>
+      </operation>
+
+      <operation name="Flow_stat">
+          <disp-name>工作流统计</disp-name>
+          <desc>工作流统计</desc>
+          <index>47</index>
+          <type>Flow</type>
+      </operation>-->
+      	  
+		<operation name="user_save">
+			<desc>保存用户</desc>
+			<index>11</index>
+			<type>System_Virtual</type>
+		</operation>
+		
+		<operation name="user_del">
+			<desc>删除用户</desc>
+			<index>12</index>
+			<type>System_Virtual</type>
+		</operation>
+		
+		<operation name="group_save">
+			<desc>保存组织</desc>
+			<index>11</index>
+			<type>System_Virtual</type>
+		</operation>
+		
+		<operation name="group_del">
+			<desc>删除组织</desc>
+			<index>12</index>
+			<type>System_Virtual</type>
+		</operation>
+		
+		<operation name="group_add_user">
+			<desc>添加组织用户</desc>
+			<index>13</index>
+			<type>System_Virtual</type>
+		</operation>
+		
+		<operation name="group_del_user">
+			<desc>从组织中删除用户</desc>
+			<index>14</index>
+			<type>System_Virtual</type>
+		</operation>
+		
+		<operation name="role_save">
+			<desc>保存角色</desc>
+			<index>11</index>
+			<type>System_Virtual</type>
+		</operation>
+		
+		<operation name="role_del">
+			<desc>删除角色</desc>
+			<index>12</index>
+			<type>System_Virtual</type>
+		</operation>
+		
+		<operation name="role_add_user">
+			<desc>添加角色用户</desc>
+			<index>13</index>
+			<type>System_Virtual</type>
+		</operation>
+		
+		<operation name="role_del_user">
+			<desc>从角色中删除用户</desc>
+			<index>14</index>
+			<type>System_Virtual</type>
+		</operation>
+		
+		<operation name="obj_access">
+			<desc>访问对象的权限</desc>
+			<index>64</index>
+			<type>System_Virtual</type>
+		</operation>
+		
+		<operation name="sys_docsource">
+			<desc>维护文档来源</desc>
+			<index>46</index>
+			<type>System_Virtual</type>
+		</operation>
+		
+		<operation name="sys_docstatus">
+			<desc>维护文档状态</desc>
+			<index>47</index>
+			<type>System_Virtual</type>
+		</operation>
+		
+		<operation name="sys_wcmbean">
+			<desc>管理发布组件</desc>
+			<index>48</index>
+			<type>System_Virtual</type>
+		</operation>
+    
+		<operation name="sys_eventtype">
+			<desc>管理日程事件类型</desc>
+			<index>49</index>
+			<type>System_Virtual</type>
+		</operation>
+    
+		<operation name="sys_security">
+			<desc>管理安全级别</desc>
+			<index>50</index>
+			<type>System_Virtual</type>
+		</operation>
+    
+		<operation name="sys_rightdef">
+			<desc>管理权限定义</desc>
+			<index>51</index>
+			<type>System_Virtual</type>
+		</operation>
+    
+		<operation name="sys_opertype">
+			<desc>管理操作类型</desc>
+			<index>52</index>
+			<type>System_Virtual</type>
+		</operation>
+		<operation name="sys__statistic">
+			<desc>统计分析</desc>
+			<index>60</index>
+			<type>System_statistic</type>
+		</operation>
+		
+		<operation name="plugin_comment">
+			<desc>在线评论</desc>
+			<index>53</index>
+			<type>plugin</type>
+		</operation>
+
+		<operation name="plugin_investment">
+			<desc>问卷调查</desc>
+			<index>54</index>
+			<type>plugin</type>
+		</operation>
+
+		<operation name="plugin_admanage">
+			<desc>广告管理</desc>
+			<index>55</index>
+			<type>plugin</type>
+		</operation>
+
+		<operation name="plugin_aptitude">
+			<desc>智能信息处理</desc>
+			<index>56</index>
+			<type>plugin</type>
+		</operation>
+
+		<operation name="plugin_infoview">
+			<desc>表单维护</desc>
+			<index>57</index>
+			<type>plugin</type>
+		</operation>
+
+		<operation name="plugin_infogate">
+			<desc>数据网关</desc>
+			<index>58</index>
+			<type>plugin</type>
+		</operation>
+
+		<operation name="plugin_subscribe">
+			<desc>邮件订阅</desc>
+			<index>59</index>
+			<type>plugin</type>
+		</operation>
+
+		<operation name="plugin_interview">
+			<desc>嘉宾访谈</desc>
+			<index>60</index>
+			<type>plugin</type>
+		</operation>
+		
+	</extension>
+	<!--Config For Operation END-->
+	
+	<extension element-class="com.trs.cms.auth.config.OperationDefineOnCurrChannelConfig"
+		id="OperationDefineOnCurrChannelConfigs">
+		<operations-define-on-current-channel name="系统默认根据当前栏目设置的权限进行的操作">
+			<operation-name>Document_positionset</operation-name>
+			<operation-name>Document_canceltop</operation-name>
+			<operation-name>Document_browse</operation-name>
+			
+			<operation-name>Document_copy</operation-name>
+			<operation-name>Document_mirror</operation-name>
+			<operation-name>Document_quote</operation-name>	
+			
+			<operation-name>Document_del</operation-name>											
+			<operation-name>Document_restore</operation-name>											
+			
+			<operation-name>Document_preview</operation-name>
+			<operation-name>Document_publish</operation-name>	
+			
+			<operation-name>Document_newedit</operation-name>											
+			<operation-name>Document_again</operation-name>											
+			<operation-name>Document_sign</operation-name>											
+			<operation-name>Channel_recycle</operation-name>
+
+		</operations-define-on-current-channel>
+	</extension>		
+</plugin>

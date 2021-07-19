@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="主从表[主表通过导航按钮，维护子表信息]" page="master-detail-table-2.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="multi-table-2.gif"/>
+  <struts name="exc_que_reg.xml" app-path="/dw/aic/bj/exc/" app-name="exc_que_reg" description="非企业" template="master-detail-table-2.xml"/>
+  <table name="exc_que_reg.xml" app-name="exc_que_reg" app-desc="非企业" delete-action="delete" description="非企业" class-name="com.gwssi.dw.aic.bj.exc.que.txn.TxnExcQueReg" template="master-detail-table-2.master.java" dao-class-template="single-table.java" type="master">
+	  <jsp page-name="query-exc_que_reg.jsp" txn-code="60114001" description="查询非企业列表" template="master-detail-2/master-table-query.jsp">
+	    <button type="button" name="增加非企业" path="insert-exc_que_reg.jsp" description="增加非企业" func-name="addRecord"/>
+	    <button type="button" name="修改非企业" path="/txn60114004.do" description="修改非企业" func-name="updateRecord"/>
+	    <button type="button" name="删除非企业" path="/txn60114005.do" description="删除非企业" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60114001.do" description="查询非企业信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-exc_que_reg.jsp" txn-code="60114003" description="增加非企业信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60114003.do" description="保存非企业信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60114003.do" description="保存非企业信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60114001.do" description="保存非企业信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60114001.do" description="返回到非企业明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-exc_que_reg.jsp" txn-code="60114002" description="修改非企业信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60114001.do" description="修改非企业信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60114001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-exc_que_reg.jsp" txn-code="60114001" description="查询非企业列表">
+	    <forward error-code="success" path="query-exc_que_reg.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-exc_que_reg.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-exc_que_reg.jsp" txn-code="60114002" description="修改非企业信息">
+	    <forward error-code="success" path="update-exc_que_reg.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-exc_que_reg.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-exc_que_reg.jsp" txn-code="60114003" description="增加非企业信息">
+	    <forward error-code="success" path="insert-exc_que_reg.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-exc_que_reg.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-exc_que_reg.jsp" txn-code="60114004" description="查询非企业用于修改">
+	    <forward error-code="success" path="update-exc_que_reg.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-exc_que_reg.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-exc_que_reg.jsp" txn-code="60114005" description="删除非企业信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.exc.que.vo.ExcQueRegContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.exc.que.vo.VoExcQueReg" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.exc.que.vo.VoExcQueRegSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.exc.que.vo.VoExcQueRegPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="exc_que_auth.xml" app-name="exc_que_auth" app-desc="编办" delete-action="delete" description="编办扩展信息" class-name="com.gwssi.dw.aic.bj.exc.que.txn.TxnExcQueAuth" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60114011">
+	  <jsp page-name="exc_que_auth/query-exc_que_auth.jsp" txn-code="60114011" description="查询编办列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加编办" path="exc_que_auth/insert-exc_que_auth.jsp" description="增加编办" func-name="addRecord"/>
+	    <button type="button" name="修改编办" path="/txn60114014.do" description="修改编办" func-name="updateRecord"/>
+	    <button type="button" name="删除编办" path="/txn60114015.do" description="删除编办" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60114001.do" description="返回到非企业明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60114011.do" description="查询编办信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="exc_que_auth/insert-exc_que_auth.jsp" txn-code="60114013" description="增加编办信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60114013.do" description="保存编办信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60114013.do" description="保存编办信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60114011.do" description="保存编办信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60114011.do" description="返回到编办明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="exc_que_auth/update-exc_que_auth.jsp" txn-code="60114012" description="修改编办信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60114011.do" description="修改编办信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60114011.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="exc_que_auth/query-exc_que_auth.jsp" txn-code="60114011" description="查询编办列表">
+	    <forward error-code="success" path="exc_que_auth/query-exc_que_auth.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="exc_que_auth/query-exc_que_auth.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="exc_que_auth/update-exc_que_auth.jsp" txn-code="60114012" description="修改编办信息">
+	    <forward error-code="success" path="exc_que_auth/update-exc_que_auth.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="exc_que_auth/update-exc_que_auth.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="exc_que_auth/insert-exc_que_auth.jsp" txn-code="60114013" description="增加编办信息">
+	    <forward error-code="success" path="exc_que_auth/insert-exc_que_auth.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="exc_que_auth/insert-exc_que_auth.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="exc_que_auth/query-exc_que_auth.jsp" txn-code="60114014" description="查询编办用于修改">
+	    <forward error-code="success" path="exc_que_auth/update-exc_que_auth.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="exc_que_auth/update-exc_que_auth.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="exc_que_auth/query-exc_que_auth.jsp" txn-code="60114015" description="删除编办信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.exc.que.vo.ExcQueAuthContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.exc.que.vo.VoExcQueAuth" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.exc.que.vo.VoExcQueAuthSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.exc.que.vo.VoExcQueAuthPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="exc_que_civ.xml" app-name="exc_que_civ" app-desc="事业单位" delete-action="delete" description="民政局扩展信息" class-name="com.gwssi.dw.aic.bj.exc.que.txn.TxnExcQueCiv" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60114021">
+	  <jsp page-name="exc_que_civ/query-exc_que_civ.jsp" txn-code="60114021" description="查询事业单位列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加事业单位" path="exc_que_civ/insert-exc_que_civ.jsp" description="增加事业单位" func-name="addRecord"/>
+	    <button type="button" name="修改事业单位" path="/txn60114024.do" description="修改事业单位" func-name="updateRecord"/>
+	    <button type="button" name="删除事业单位" path="/txn60114025.do" description="删除事业单位" func-name="deleteRecord"/>
+	    <button type="button" name="返 回" path="/txn60114001.do" description="返回到非企业明细窗口" func-name="goBackNoUpdate"/>
+	    <button type="button" name="查 询" path="/txn60114021.do" description="查询事业单位信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="exc_que_civ/insert-exc_que_civ.jsp" txn-code="60114023" description="增加事业单位信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60114023.do" description="保存事业单位信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60114023.do" description="保存事业单位信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60114021.do" description="保存事业单位信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60114021.do" description="返回到事业单位明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="exc_que_civ/update-exc_que_civ.jsp" txn-code="60114022" description="修改事业单位信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60114021.do" description="修改事业单位信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60114021.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="exc_que_civ/query-exc_que_civ.jsp" txn-code="60114021" description="查询事业单位列表">
+	    <forward error-code="success" path="exc_que_civ/query-exc_que_civ.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="exc_que_civ/query-exc_que_civ.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="exc_que_civ/update-exc_que_civ.jsp" txn-code="60114022" description="修改事业单位信息">
+	    <forward error-code="success" path="exc_que_civ/update-exc_que_civ.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="exc_que_civ/update-exc_que_civ.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="exc_que_civ/insert-exc_que_civ.jsp" txn-code="60114023" description="增加事业单位信息">
+	    <forward error-code="success" path="exc_que_civ/insert-exc_que_civ.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="exc_que_civ/insert-exc_que_civ.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="exc_que_civ/query-exc_que_civ.jsp" txn-code="60114024" description="查询事业单位用于修改">
+	    <forward error-code="success" path="exc_que_civ/update-exc_que_civ.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="exc_que_civ/update-exc_que_civ.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="exc_que_civ/query-exc_que_civ.jsp" txn-code="60114025" description="删除事业单位信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.exc.que.vo.ExcQueCivContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.exc.que.vo.VoExcQueCiv" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.exc.que.vo.VoExcQueCivSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.exc.que.vo.VoExcQueCivPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+</resource>

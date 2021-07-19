@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="mon_yc_statu.xml" app-path="/dw/aic/bj/mon/" app-name="mon_yc_statu" description="年检测试" template="single-table.xml"/>
+  <table name="mon_yc_statu.xml" app-name="mon_yc_statu" app-desc="年检" delete-action="delete" description="年检测试" class-name="com.gwssi.dw.aic.bj.mon.yc.txn.TxnMonYcStatu" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-mon_yc_statu.jsp" txn-code="60121001" description="查询年检列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加年检" path="insert-mon_yc_statu.jsp" description="增加年检" func-name="addRecord"/>
+	    <button type="button" name="修改年检" path="/txn60121004.do" description="修改年检" func-name="updateRecord"/>
+	    <button type="button" name="删除年检" path="/txn60121005.do" description="删除年检" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60121001.do" description="查询年检信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-mon_yc_statu.jsp" txn-code="60121003" description="增加年检信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60121003.do" description="保存年检信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60121003.do" description="保存年检信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60121001.do" description="保存年检信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60121001.do" description="返回到年检明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-mon_yc_statu.jsp" txn-code="60121002" description="修改年检信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60121001.do" description="修改年检信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60121001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-mon_yc_statu.jsp" txn-code="60121001" description="查询年检列表">
+	    <forward error-code="success" path="query-mon_yc_statu.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-mon_yc_statu.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-mon_yc_statu.jsp" txn-code="60121002" description="修改年检信息">
+	    <forward error-code="success" path="update-mon_yc_statu.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-mon_yc_statu.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-mon_yc_statu.jsp" txn-code="60121003" description="增加年检信息">
+	    <forward error-code="success" path="insert-mon_yc_statu.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-mon_yc_statu.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-mon_yc_statu.jsp" txn-code="60121004" description="查询年检用于修改">
+	    <forward error-code="success" path="update-mon_yc_statu.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-mon_yc_statu.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-mon_yc_statu.jsp" txn-code="60121005" description="删除年检信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.yc.vo.MonYcStatuContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.yc.vo.VoMonYcStatu" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.yc.vo.VoMonYcStatuSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mon.yc.vo.VoMonYcStatuPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

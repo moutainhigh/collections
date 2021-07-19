@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-Type" content="text/html; charset=utf-8">
+<title>北京工商网上登记申请平台全程电子化</title>
+<link href="../../../static/css/jquery-ui-1.9.2.custom.css"
+	rel="stylesheet" type="text/css" />
+<link href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css"
+	rel="stylesheet" type="text/css" />
+<link href="../../../static/css/common.css" rel="stylesheet"
+	type="text/css" />
+<style>
+.wrapper {
+	margin-top: -20px;
+}
+
+.content {
+	border: 0;
+	clear: both;
+}
+
+.categoryPic {
+	float: left;
+	margin-left: 20px;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.contentNew {
+	width: 883px;
+	/* height:100%; */
+	border: 1px solid #dae5eb;
+	margin: 0 auto;
+	overflow: hidden;
+	margin-top: 15px;
+}
+
+.contentEnterprise {
+	width: 883px;
+	border: 1px solid #71b0e0;
+	margin: -10px auto 0px;
+	overflow: hidden;
+}
+
+.content-top {
+	width: 100%;
+	height: 35px;
+	background-color: #71b0e0;
+}
+
+.content-top span {
+	line-height: 35px;
+	color: #fff;
+	text-align: center;
+}
+
+.previes-investors td {
+	padding-left: 20px;
+	vertical-align: middle;
+	font-family:"songit";
+}
+
+.previes-investors th {
+	text-align: left;
+	padding-left: 20px;
+	/* font-weight: bold; */
+	font-family:"songit";
+	
+}
+
+.previes-investors tr {
+	margin-top: 5px;
+}
+
+.previes-members td {
+	padding-left: 40px;
+	font-family:'songti';
+}
+
+.previes-members th {
+	text-align: left;
+	padding-left: 40px;
+	/* font-weight: bold; */
+	font-family:"songti";
+	
+}
+
+.previes-members tr {
+	margin-top: 5px;
+}
+
+#showPicDiv {
+	display: none;
+	z-index: 777;
+	position: fixed;
+	top: 100px;
+	left: 300px;
+	width: 650px;
+	height: 400px;
+	overflow: scroll;
+	border: solid 1px #000;
+	text-align: center;
+	vertical-align: middle;
+	background-color: #fff;
+}
+</style>
+</head>
+<body>	﻿
+	<article class="wrapper">
+		<div class="main">
+			﻿
+			<div class="contentEnterprise">
+				<div class="content-top">
+					<img src="../../../static/image/img/icon/info-white.png"> <span>企业账户信息</span>
+				</div>
+				<div vtype="formpanel" name="accountDetail_Form"
+					dataview="true" titleDisplay="false" title="企业基本信息" width="100%"
+					showborder="false" dataurl="" layout="table"
+					layoutconfig="{cols:2, columnwidth: ['50%','50%']}"
+					labelstyleclass="labelstyle">
+					<div name="entName" vtype="textfield" label="账户名" 
+						labelwidth="140" labelalign="right" width="400"></div>
+					<div name="accoutState" vtype="textfield" label="账户状态"
+						labelwidth="140" labelalign="right" width="400"></div>
+					<div name="legName" vtype="textfield" label="法人代表姓名"
+						labelwidth="140" labelalign="right" width="400"></div>
+					<div name="legMobile" vtype="textfield" label="法人移动电话"
+						labelwidth="140" labelalign="right" width="400"></div>
+					<div name="legCerType" vtype="textfield" label="法人证件类型"
+						labelwidth="140" labelalign="right" width="400"></div>
+					<div name="legCerNo" vtype="textfield" label="法人证件号"
+						labelwidth="140" labelalign="right" width="400"></div>
+					<div name="legIdentityState" vtype="textfield" label="法人身份认证状态"
+						labelwidth="140" labelalign="right" width="400"></div>
+					<div name="uniScid" vtype="textfield" label="统一社会信用代码"
+						labelwidth="140" labelalign="right" width="400"></div>
+				</div>
+			</div>
+
+			<div class="btn-box">
+				<div id="backButton" class="commonBt">返回</div>
+			</div>
+
+		</div>
+	</article>
+
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" data-main="apply/ent_account/entApplyDetail.js"
+		src="../../../static/lib/require.js"></script>
+
+</body>
+</html>

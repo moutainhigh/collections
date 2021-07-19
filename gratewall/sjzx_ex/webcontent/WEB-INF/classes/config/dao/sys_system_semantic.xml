@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="sys_system_semantic" class-name="com.gwssi.dw.metadata.datadict.dao.SysSystemSemantic" check-flag="false" backup-flag="false">
+    <description>业务系统</description>
+  </table-info>
+
+  <column name="sys_no" data-type="varchar" length="10" not-null="false" unique="true" value-from="input" description="系统编码"/>
+  <column name="sys_name" data-type="varchar" length="100" not-null="true" value-from="input" description="系统名称"/>
+  <column name="sys_simple" data-type="varchar" length="1000" not-null="false" value-from="input" description="备注"/>
+  <column name="sys_order" data-type="integer" length="10" not-null="false" value-from="input" description="检索顺序"/>
+  <column name="sys_id" data-type="varchar" length="32" not-null="true" empty-is-null="false" unique="true" value-from="generate" func-name="getUUID" description="系统ID"/>
+  <primary-key name="p_key_1" column-list="sys_id"/>
+  <index name="sql080418142101820" index-type="unique" cluster="other" column-list="sys_id"/>
+  <index name="idx_ywxt_jssx" index-type="other" cluster="other" column-list="sys_order"/>
+  <function func-name="select sys_system_semantic list" func-type="rowset" column-list="sys_name, sys_simple, sys_order, sys_id" sort-columns="sys_name" max-record="10">
+    <filter-column column-name="sys_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_simple" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="select one sys_system_semantic" func-type="select" column-list="sys_name,sys_simple,sys_order,sys_id">
+    <filter-column column-name="sys_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_system_semantic" func-type="insert" column-list="sys_name,sys_simple,sys_order,sys_id">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_system_semantic" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_system_semantic" func-type="update" column-list="sys_name, sys_simple, sys_order">
+    <filter-column column-name="sys_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="业务系统代码对照表" func-type="rowset" column-list="sys_id as codevalue, sys_name as codename" sort-columns="sys_name" max-record="-1">
+    <description>多记录查询</description>
+  </function>
+</table>
+

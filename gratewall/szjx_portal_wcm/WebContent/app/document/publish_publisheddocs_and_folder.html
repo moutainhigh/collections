@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> New Document </title>
+	<style type="text/css">
+		html,body{
+			height:100%:
+			width:100%:
+			padding:0px;
+			margin:0px;
+			overflow:hidden;
+		}
+		body,div{
+			font-size:14px;
+		}
+		.containerbox{
+			padding:10px;
+		}
+		.iteminfo{
+			margin:10px;
+			color:green;
+		}
+		.content{
+			margin-left:10px;
+		}
+		.spcontainer{
+			margin-bottom:10px;
+		}
+		.calendarShow{width:24px;height:18px;line-height:18px;}
+		.calendarShow img{margin:-5px 0 2px -9px!important;margin:-2px 0 0 -1px;}
+	</style>
+	<link rel="stylesheet" type="text/css" href="../../app/js/resource/widget.css">
+	<link rel="stylesheet" type="text/css" href="../../app/css/wcm-common.css">
+	<link href="../../app/js/easyversion/resource/calendar.css" rel="stylesheet" type="text/css" />
+</head>
+<script src="../js/easyversion/lightbase.js"></script>
+<script src="../js/easyversion/extrender.js"></script>
+<script src="../js/easyversion/elementmore.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../js/data/locale/template.js"></script>
+<script src="../js/data/locale/system.js"></script>
+<script src="../js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../app/js/easyversion/calendar3.js"></script>
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<script src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></script>
+<script src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></script>
+<!--wcm-dialog end-->
+<script language="javascript">
+<!--
+	function init(){
+		wcm.TRSCalendar.get({
+			input : 'StartTime',
+			handler : 'startTimeButton',
+			withtime:true,
+			dtFmt:'yyyy-mm-dd HH:MM:ss'
+		});
+		wcm.TRSCalendar.get({
+			input : 'EndTime',
+			handler : 'EndTimeButton',
+			withtime:true,
+			dtFmt:'yyyy-mm-dd HH:MM:ss'
+		});
+		$('StartTime').value = new Date().format("yyyy-mm-dd HH:MM:ss"); 
+		$('EndTime').value = new Date().format("yyyy-mm-dd HH:MM:ss"); 
+	}
+	window.m_cbCfg = {
+		btns : [
+			{
+				id : 'btnSubmit',
+				text : '确定',
+				cmd : function(){
+					return submit(); 
+				}
+			},{
+				text : '取消'
+			}
+		]
+	};
+	function submit(){
+		var startTime = $('StartTime').value;
+		var endTime = $('EndTime').value;
+		if(startTime == '' || endTime == ''){
+			Ext.Msg.alert("文档创建开始时间和结束时间都不能为空！", function(){
+				$('StartTime').focus();
+			});
+			return false;
+		}
+		var args = {
+			starttime:startTime,
+			endtime:endTime
+		}
+		var cbr = wcm.CrashBoarder.get("publish_published_docs");
+		cbr.notify(args);
+		return false;
+	}
+//-->
+</script>
+<body>
+<div class="containerbox">
+	<div class="iteminfo" WCMAnt:param="publish_publisheddocs_and_folder.html.publishdoc">
+		发布概览以及以下时间范围内创建的已发文档：
+	</div>
+	<div class="content" id="content">
+		<span class="spcontainer"><span WCMAnt:param="publish_publisheddocs_and_folder.html.starttime">开始时间：</span><input type="text" elname="开始时间" name="StartTime" id="StartTime" value="" style="WIDTH: 140px"/>
+		<button id="startTimeButton" class="calendarShow" type="button"><IMG alt="" src="../images/icon/TRSCalendar.gif" border=0></button>
+		</span>
+		<br>
+		<span class="spcontainer">
+		<span WCMAnt:param="publish_publisheddocs_and_folder.html.overtime">结束时间：</span><input type="text" elname="结束时间" name="EndTime" id="EndTime" value="" style="WIDTH: 140px"/>
+		<button id="EndTimeButton" class="calendarShow" type="button"><IMG alt="" src="../images/icon/TRSCalendar.gif" border=0></button>
+		</span>
+	</div>
+
+</div>
+</body>
+</html>

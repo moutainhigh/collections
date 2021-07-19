@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0" id="components.infoview.db">
+	<beans>
+		<bean id="InfoViewDBStoreServer" 
+			class="com.trs.components.infoview.db.InfoViewDBStoreServer" 
+			singleton="true"/>
+		<bean id="DocumentLCListenerForInfoViewDB" 
+			class="com.trs.components.infoview.db.DocumentLCListenerForInfoViewDB" 
+			singleton="true" />	
+		<bean id="ChnlDocLCListenerForInfoViewDB" 
+			class="com.trs.components.infoview.db.ChnlDocLCListenerForInfoViewDB" 
+			singleton="true" />	
+	</beans>
+</plugin>

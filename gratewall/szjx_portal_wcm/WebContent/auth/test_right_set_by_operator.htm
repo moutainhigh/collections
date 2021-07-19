@@ -1,0 +1,376 @@
+
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>TRS WCM 5.2 权限设置::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::</TITLE>
+<base target="_self">
+<LINK href="../style/style.css" rel="stylesheet" type="text/css">
+
+
+<script src="../js/CTRSHTMLElement.js"></script>
+<script src="../js/CTRSHTMLTr.js"></script>  
+
+<script src="../js/CTRSSimpleTab.js"></script>
+
+<script src="../js/CTRSArray.js"></script>
+
+<SCRIPT LANGUAGE="JavaScript" src="../js/CWCMObj.js"></SCRIPT>
+<SCRIPT LANGUAGE="JavaScript" src="../js/CWCMObjHelper.js"></SCRIPT>
+
+<SCRIPT LANGUAGE="JavaScript" src="../js/CTRSButton.js"></script>  
+
+<script src="../js/CTRSHashtable.js"></script>
+<script src="../js/CTRSRequestParam.js"></script>
+<script src="../js/CTRSAction.js"></script>
+<script src="./UserRightHelper.js"></script>
+<script>
+
+
+	RightSetHelper.addRightDef("修改站点", "",1);
+
+	RightSetHelper.addRightDef("删除站点", "",2);
+
+	RightSetHelper.addRightDef("预览站点", "",3);
+
+	RightSetHelper.addRightDef("高级发布站点", "",4);
+
+	RightSetHelper.addRightDef("快速发布站点", "",5);
+
+	RightSetHelper.addRightDef("设定站点用户", "",6);
+
+	RightSetHelper.addRightDef("新建频道", "",11);
+
+	RightSetHelper.addRightDef("新建频道", "",11);
+
+	RightSetHelper.addRightDef("删除频道", "",12);
+
+	RightSetHelper.addRightDef("删除频道", "",12);
+
+	RightSetHelper.addRightDef("修改频道", "",13);
+
+	RightSetHelper.addRightDef("修改频道", "",13);
+
+	RightSetHelper.addRightDef("浏览频道", "",14);
+
+	RightSetHelper.addRightDef("浏览频道", "",14);
+
+	RightSetHelper.addRightDef("预览频道", "",15);
+
+	RightSetHelper.addRightDef("预览频道", "",15);
+
+	RightSetHelper.addRightDef("高级发布频道", "",16);
+
+	RightSetHelper.addRightDef("高级发布频道", "",16);
+
+	RightSetHelper.addRightDef("快速发布频道", "",17);
+
+	RightSetHelper.addRightDef("快速发布频道", "",17);
+
+	RightSetHelper.addRightDef("管理回收站", "",18);
+
+	RightSetHelper.addRightDef("管理回收站", "",18);
+
+	RightSetHelper.addRightDef("扩展字段", "",19);
+
+	RightSetHelper.addRightDef("扩展字段", "",19);
+
+	RightSetHelper.addRightDef("新建模板", "",21);
+
+	RightSetHelper.addRightDef("新建模板", "",21);
+
+	RightSetHelper.addRightDef("删除模板", "",22);
+
+	RightSetHelper.addRightDef("删除模板", "",22);
+
+	RightSetHelper.addRightDef("编辑模板", "",23);
+
+	RightSetHelper.addRightDef("编辑模板", "",23);
+
+	RightSetHelper.addRightDef("导入模板", "",24);
+
+	RightSetHelper.addRightDef("导入模板", "",24);
+
+	RightSetHelper.addRightDef("导出模板", "",25);
+
+	RightSetHelper.addRightDef("导出模板", "",25);
+
+	RightSetHelper.addRightDef("预览模板", "",29);
+
+	RightSetHelper.addRightDef("模板预览", "",29);
+
+	RightSetHelper.addRightDef("查看文档列表", "可以在频道上设置浏览文档权限",30);
+
+	RightSetHelper.addRightDef("查看文档列表", "可以在站点上设置浏览文档权限",30);
+
+	RightSetHelper.addRightDef("新建文档", "",31);
+
+	RightSetHelper.addRightDef("新建文档", "",31);
+
+	RightSetHelper.addRightDef("新建文档", "",31);
+
+	RightSetHelper.addRightDef("编辑文档", "",32);
+
+	RightSetHelper.addRightDef("编辑文档", "",32);
+
+	RightSetHelper.addRightDef("编辑文档", "",32);
+
+	RightSetHelper.addRightDef("删除文档", "",33);
+
+	RightSetHelper.addRightDef("删除文档", "",33);
+
+	RightSetHelper.addRightDef("删除文档", "",33);
+
+	RightSetHelper.addRightDef("查看文档", "",34);
+
+	RightSetHelper.addRightDef("查看文档", "",34);
+
+	RightSetHelper.addRightDef("查看文档", "",34);
+
+	RightSetHelper.addRightDef("置为新稿或已编", "",35);
+
+	RightSetHelper.addRightDef("置为新稿或已编", "",35);
+
+	RightSetHelper.addRightDef("置为新稿或已编", "",35);
+
+	RightSetHelper.addRightDef("置为已否或返工", "",36);
+
+	RightSetHelper.addRightDef("置为已否或返工", "",36);
+
+	RightSetHelper.addRightDef("置为已否或返工", "",36);
+
+	RightSetHelper.addRightDef("置为已签或正审", "",37);
+
+	RightSetHelper.addRightDef("置为已签或正审", "",37);
+
+	RightSetHelper.addRightDef("置为已签或正审", "",37);
+
+	RightSetHelper.addRightDef("预览文档", "",38);
+
+	RightSetHelper.addRightDef("预览文档", "",38);
+
+	RightSetHelper.addRightDef("预览文档", "",38);
+
+	RightSetHelper.addRightDef("发布文档", "",39);
+
+	RightSetHelper.addRightDef("发布文档", "",39);
+
+	RightSetHelper.addRightDef("发布文档", "",39);
+
+	RightSetHelper.addRightDef("设置文档权限", "给单篇文档设置权限的权限",40);
+
+	RightSetHelper.addRightDef("新建工作流", "",41);
+
+	RightSetHelper.addRightDef("新建工作流", "",41);
+
+	RightSetHelper.addRightDef("编辑工作流", "",42);
+
+	RightSetHelper.addRightDef("编辑工作流", "",42);
+
+	RightSetHelper.addRightDef("删除工作流", "",43);
+
+	RightSetHelper.addRightDef("删除工作流", "",43);
+
+	RightSetHelper.addRightDef("导出工作流", "",44);
+
+	RightSetHelper.addRightDef("导入工作流", "",45);
+
+	RightSetHelper.addRightDef("维护文档来源", "维护文档来源",46);
+
+	RightSetHelper.addRightDef("维护文档状态", "维护文档状态",47);
+
+	RightSetHelper.addRightDef("管理发布组件", "管理发布组件",48);
+
+	RightSetHelper.addRightDef("管理日程类型", "管理日程类型",49);
+
+	RightSetHelper.addRightDef("管理安全级别", "管理安全级别",50);
+
+	RightSetHelper.addRightDef("维护权限定义", "维护权限定义",51);
+
+	RightSetHelper.addRightDef("维护操作类型", "维护操作类型",52);
+
+	RightSetHelper.addRightDef("管理在线评论", "管理在线评论",53);
+
+	RightSetHelper.addRightDef("管理问卷调查", "管理问卷调查",54);
+
+	RightSetHelper.addRightDef("广告管理", "进行广告管理",55);
+
+	RightSetHelper.addRightDef("智能信息处理", "智能信息处理",56);
+
+
+
+	RightSetHelper.addRight(101, 1, "外文稿件[频道-1]", "11111110000000000000", 5);	
+
+	RightSetHelper.addRight(101, 4, "新闻中心[频道-4]", "11111111110000000000011111111100000000000", 14);	
+
+	RightSetHelper.addRight(101, 7, "财经新闻[频道-7]", "11111111110000000000011111111100000000000", 23);	
+
+	RightSetHelper.addRight(101, 8, "体育新闻[频道-8]", "11111111110000000000011111111100000000000", 26);	
+
+	RightSetHelper.addRight(101, 9, "娱乐新闻[频道-9]", "11111111110000000000011111111100000000000", 29);	
+
+	RightSetHelper.addRight(101, 10, "IT新闻[频道-10]", "11111111110000000000011111111100000000000", 32);	
+
+	RightSetHelper.addRight(101, 22, "混合频道[频道-22]", "11111110000000000000", 68);	
+
+	RightSetHelper.addRight(101, 23, "韩文[频道-23]", "11111110000000000000", 71);	
+
+	RightSetHelper.addRight(101, 24, "日本语[频道-24]", "11111110000000000000", 74);	
+
+	RightSetHelper.addRight(101, 25, "阿拉伯文[频道-25]", "11111110000000000000", 77);	
+
+	RightSetHelper.addRight(101, 26, "图片新闻[频道-26]", "11111110000000000000", 80);	
+
+	RightSetHelper.addRight(101, 27, "滚动新闻[频道-27]", "11111111110000000000011111111100000000000", 95);	
+
+	RightSetHelper.addRight(103, 1, "演示站点[站点-1]", "1001100", 2);	
+
+
+	function init(){				
+		try{
+			RightSetHelper.draw(0, 10,"id_TRSSimpleTab0");
+			RightSetHelper.draw(11, 19, "id_TRSSimpleTab1");
+			RightSetHelper.draw(21, 29, "id_TRSSimpleTab2");
+			RightSetHelper.draw(30, 40, "id_TRSSimpleTab3");
+		}catch(e){
+			alert(e.description);
+		}		
+	}	
+	
+	window.onload = init;
+</script>
+
+<script>
+//覆盖删除的通知函数，以便刷新页面
+UserRightHelper.prototype.notifyRemove = function(eleOnEvent){
+	init();
+}
+
+
+
+function onOK(){	
+	alert("close window");
+	window.close();
+}
+
+</script>
+</HEAD>
+
+<BODY>
+<form name="frmAction" method="post" action="right_set_by_operator_dowith.jsp">
+	<INPUT TYPE="hidden" name="ObjType" value="204">
+	<INPUT TYPE="hidden" name="ObjId" value="3">
+	<INPUT TYPE="hidden" name="RightsXML" value="">
+</form>
+
+<!--~== Dialog Head TABLE ==~-->
+	<script src="../js/CWCMDialogHead.js"></script>
+	<script>WCMDialogHead.draw("权限设置");</script>
+<!--~- END Dialog Head TABLE -~-->
+
+<TABLE width="100%" height="90%" border="0" cellpadding="0" cellspacing="0">
+<!--~--- ROW5 ---~-->
+<TR>
+  <TD align="center" valign="top" class="tanchu_content_td">
+  <!--~== TABLE4 ==~-->
+  <TABLE width="100%" border="0" cellspacing="0" cellpadding="0">
+  <!--~--- ROW6 ---~-->
+  <TR>
+    <TD>
+		
+    </TD>
+  </TR>
+  <!--~- END ROW6 -~-->
+  <!--~-- ROW10 --~-->
+  <TR>
+    <TD>
+		<!--~== TABLE1 ==~-->
+		<TABLE width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+		<!--~--- ROW1 ---~-->
+		<TR>
+		  <TD height="25">
+				<!--开始标签列表-->
+				<script>					
+					TRSSimpleTab.nCurrIndex = 0;
+					TRSSimpleTab.addItem("站点类操作权限");
+					TRSSimpleTab.addItem("频道类操作权限");
+					TRSSimpleTab.addItem("模板类操作权限");				
+					TRSSimpleTab.addItem("文档类操作权限");
+					TRSSimpleTab.draw();
+				</script>
+				<!--结束标签列表-->	
+		  </TD>
+		</TR>
+		<!--~- END ROW1 -~-->
+		<TR>
+		  <TD  bgcolor="#FFFFFF" style="BORDER-left: #a6a6a6 1px solid; BORDER-right: #a6a6a6 1px solid; BORDER-bottom: #a6a6a6 1px solid" align=left valign="middle">
+			<script>
+				var oButtons = new CTRSButtons("bt_table_noborder");
+
+				oButtons.addTRSButton("添加用户", "addUser();", "../images/icon_user.gif","添加用户");
+				oButtons.addTRSButton("添加用户组", "addGroup();", "../images/icon_group.gif","添加用户组");
+				oButtons.addTRSButton("添加角色", "addRole();", "../images/icon_role.gif","添加角色");
+				oButtons.addTRSButton("全部删除", "WCMRightHelper.removeAll();", "../images/button_delete.gif","删除全部设置");			
+	
+				oButtons.draw();			
+			</script>
+			</TD>
+		</TR>
+		<!--~-- ROW10 --~-->
+		<TR>
+		  <TD  bgcolor="#FFFFFF" style="BORDER-left: #a6a6a6 1px solid; BORDER-right: #a6a6a6 1px solid; BORDER-bottom: #a6a6a6 1px solid" align=center valign="top">
+			
+			<BR>		  
+				<div id="id_TRSSimpleTab0" style="display:inline;">
+					
+				</div>				
+				<div id="id_TRSSimpleTab1" style="display:none">
+					
+				</div>
+				<div id="id_TRSSimpleTab2" style="display:none">
+					
+				</div>			
+				<div id="id_TRSSimpleTab3" style="display:none">
+					
+				</div>			
+						
+				<BR>
+		  </TD>
+		</TR>
+		<!--~ END ROW10 ~-->
+		</TABLE>
+		<!--~ END TABLE1 ~-->
+		
+    </TD>
+  </TR>
+  <!--~ END ROW10 ~-->
+  <!--~-- ROW18 --~-->
+  <TR>
+    <TD align=center height="10">&nbsp;</TD>
+  </TR>
+  <TR>
+    <TD align=center>
+		<SCRIPT SRC="../js/CTRSButton.js"></SCRIPT>
+		<script>
+			//定义一个TYPE_ROMANTIC_BUTTON按钮
+			var oTRSButtons = new CTRSButtons();
+			
+			oTRSButtons.cellSpacing = "0";
+			oTRSButtons.nType = TYPE_ROMANTIC_BUTTON;
+
+			oTRSButtons.addTRSButton("确定", "onOK()");
+			oTRSButtons.addTRSButton("取消", "window.close();");
+			
+			oTRSButtons.draw();
+		</script>
+    </TD>
+  </TR>
+  <!--~ END ROW18 ~-->
+  </TABLE>
+  <!--~ END TABLE4 ~-->
+  </TD>
+</TR>
+<!--~- END ROW5 -~-->
+</TABLE>
+<!--~ END TABLE1 ~-->
+</BODY>
+</HTML>

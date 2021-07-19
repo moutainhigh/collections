@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.wcm.epress.EPressServiceProvider">
+	<method name="checkUUID">
+		<parameter name="UUID" desc="报纸标识" type="string" required="true"/>		
+	</method>
+	
+	<method name="createEPress" desc="创建电子报栏目" logger="com.trs.components.wcm.epress.EPressChannelCreateLogger">
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>		
+		<parameter name="ParentId" desc="父栏目ID" type="int" required="false"/>		
+		<parameter name="ChnlOrder" desc="栏目次序" type="int" required="false"/>		
+		<parameter name="PageCount" desc="报纸版面数" type="int" required="true"/>		
+		<parameter name="ChnlName" desc="栏目名称" type="string" required="true"/>		
+		<parameter name="ChnlDesc" desc="栏目唯一标识" type="string" required="true"/>		
+		<parameter name="EPressUUID" desc="报纸标识" type="string" required="true"/>		
+	</method>
+	
+	<method name="publishHistoryIndex" desc="发布电子报历史索引" logger="com.trs.components.wcm.epress.EPressHistoryPubLogger">
+		<parameter  name="ChannelId" desc="栏目ID" type="int" required="true"/>
+		<parameter  name="PublishDate" desc="历史日期" type="string" required="false"/>
+	</method>
+	
+	<method name="existsSimilarName">
+		<parameter name="siteid" desc="站点编号" type="int" required="true"/>		
+		<parameter name="ChannelName" desc="栏目名称" type="string" required="true"/>
+	</method>
+	
+</service>

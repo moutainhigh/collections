@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+	<title>deferred测试</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<SCRIPT language=JavaScript src="jquery-1.8.3.js"></SCRIPT>	
+	<style type="text/css">
+		.test{
+			width: 200px;
+			height: 200px;
+/* 			margin: 50px 0px 0px 500px; */
+		}
+	</style>
+	<script>
+		function test(){
+			/**
+			* 写法1 ： 采用.done().fail();
+			*
+			*/
+			 $.ajax("../../../bjca/test.do?gid=9999")
+			 .done(
+					 function(){
+						 alert("哈哈，test成功了！"); 
+						 $.ajax("../../../bjca/test1.do?gid=9999")
+						 .done(
+								 function(){
+									 alert("哈哈，test1成功了！");  
+								 }
+						 ).fail(
+								 function(){
+									 alert("test1出错啦！");
+								 }
+						 )
+					 }
+			).fail(
+					function(){
+						alert("test出错啦！"); 
+					}
+			); 
+		}
+		/**
+		*写法二：post.then(function(){}).then(function(){});
+		$.ajax( url1, { dataType: "json" } )
+		.then(function( data ) {
+		    return $.ajax( url2, { data: { user: data.userId } } );
+		}).done(function( data ) {
+		  // 从url2获取的数据
+		});
+		*/
+		
+		function test1(){
+			
+			var url1 = "../../../bjca/test.do";
+			var url2 = "../../../bjca/test1.do";
+			var dfd  = $.Deferred;
+			var postObj = $.post(url1,{gid:"8888"});
+			
+			postObj.then(
+						function(data){
+							console.log(data);
+							 alert("哈哈，test成功了！"); 
+							 $.post( url2, { gid:"8888" } ).then(
+										function(data){
+											console.log(data);
+											alert("哈哈，test1成功了！"); 
+										},
+										function(){
+											alert("test1出错啦！");
+										}
+								);
+// 							 return $.post( url2, { gid:"8888" } );
+						},
+						function(){
+							alert("test出错啦！");
+						}
+					);
+		}
+		
+		/**
+			第三种写法：
+		*/
+		function test2(){
+			var gid = "6666";
+			var postObj1 = $.post("../../../bjca/test.do",{gid:gid});
+			$.when(postObj1).then(testSuccess,testError).then(test1Success,test1Error);
+		}
+	
+		function testSuccess(data){
+			alert("哈哈，test成功了！");
+			var obj = $.post("../../../bjca/test1.do",{gid:data});
+			return obj;
+		}
+		
+		function testError(){
+			alert("test出错啦！");
+		}
+		
+		function test1Success(data){
+			alert("哈哈，test1成功了！");
+		}
+		
+		function test1Error(){
+			alert("test1出错啦！");
+		}
+		
+		/**
+			按步骤执行：
+			
+			1、执行规则准备（搬库）；rulePrepare
+			
+			2、执行规则；runRule
+			
+			3、执行核准逻辑；submit
+			
+			4、生成电子文书并签名；doc
+			
+			5、生成企业账号.
+		*/
+		function deferredApprove(){
+			var gid = "440fccc1c94e494ba0575d669babeeb8";//没有进行辅助审查的数据
+			var prepareUrl = $.post("../../../approve/doapprove/rulePrepare.do",{gid:gid});
+			$.when(prepareUrl)
+ 			.then(prepareSuccess,prepareError)//核准环节-点击核准  规则准备、搬库
+			.then(runRuleSuccess,runRuleError)//核准环节-点击核准  审批 跑规则
+			.then(submitSuccess,submitError)//核准环节-点击核准 提交操作。
+			.then(docSuccess,docError)//核准环节-点击核准  生成文书并且返回文书哈希码给客户端
+			.then(entAccountSuccess,entAccountError);//核准环节-点击核准  生成企业账户   
+		}
+		
+		/**
+			1.规则准备、搬库成功后，执行的方法
+		*/
+		function prepareSuccess(data){
+			console.log(data);
+			var gid = "440fccc1c94e494ba0575d669babeeb8";//没有进行辅助审查的数据
+			alert("规则准备成功，并且搬库成功。");
+			var obj = $.post("../../../approve/doapprove/runRule.do",{gid:gid});
+			return obj;
+		}
+		
+		/**
+			规则准备、搬库失败后，执行的方法
+		*/
+		function prepareError(){
+			alert("规则准备失败，并且搬库失败。");
+		}
+		
+		/**
+			2、执行规则成功后，执行的方法
+		*/
+		function runRuleSuccess(data){
+			alert("执行规则成功。");
+			console.log(data);
+			var gid = "440fccc1c94e494ba0575d669babeeb8";
+			var obj = $.post("../../../approve/doapprove/submit.do",{gid:gid});
+			return obj;
+		}
+		/**
+			执行规则失败后，执行的方法
+		*/
+		function runRuleError(){
+			alert("执行规则失败，并且搬库失败。");
+		}
+		
+		/**
+			3、核准成功后，执行的方法
+		*/
+		function submitSuccess(data){
+			alert("核准成功。");
+			console.log(data);
+			var gid = "440fccc1c94e494ba0575d669babeeb8";
+			var obj = $.post("../../../approve/doapprove/doc.do",{gid:gid});
+			return obj;
+		}
+		/**
+			核准失败后，执行的方法
+		*/
+		function submitError(){
+			alert("核准失败。");
+		}
+		
+		/**
+			4、生成文书并且返回文书哈希码给客户端成功后，执行的方法
+		*/
+		function docSuccess(data){
+			console.log(data);
+			alert("生成文书并且返回文书哈希码给客户端成功。");
+// 			var obj = $.post("../../../approve/doapprove/test.do",{gid:gid});
+// 			return obj;
+		}
+		/**
+			生成文书并且返回文书哈希码给客户端失败后，执行的方法
+		*/
+		function docError(){
+			alert("生成文书并且返回文书哈希码给客户端失败。");
+		}
+		
+		/**
+			5、生成企业账户成功后，执行的方法
+		*/
+		function entAccountSuccess(data){
+			alert("生成企业账户成功。");
+			console.log(data);
+		}
+		/**
+			生成企业账户失败后，执行的方法
+		*/
+		function entAccountError(){
+			alert("生成企业账户失败。");
+		}
+		
+	</script>
+	
+</head>
+<body>
+	<input class="test" id='test' type="button" value="test" onclick="test()" />
+	<input class="test" id='test1' type="button" value="test1" onclick="test1()" />
+	<input class="test" id='test2' type="button" value="test2" onclick="test2()" />
+	<input class="test" id='test3' type="button" value="核准" onclick="deferredApprove()" />
+</body>
+</html>

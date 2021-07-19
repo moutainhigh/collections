@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>tttt</menu-name>
+  <menu-path>/homepage/</menu-path>
+  <description>tttt</description>
+  <form-beans>
+    <form-bean name="WorkStatusRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="scour_table_name" type="string" size="30" description="源表名"/>
+      <form-property prefix="select-key" name="scour_table_key_col" type="string" size="32" description="源表主键ID"/>
+      <form-property prefix="select-key" name="work_status_name" type="string" size="200" description="待办任务名称"/>
+      <form-property prefix="ws-query" name="scour_table_name" type="string" size="30" description="源表名"/>
+      <form-property prefix="ws-query" name="scour_table_key_col" type="string" size="32" description="源表主键ID"/>
+      <form-property prefix="ws-query" name="work_status_name" type="string" size="200" description="待办任务名称"/>
+      <form-property prefix="record" name="work_status_id" type="string" size="32" cannull="false" description="工作状态ID"/>
+      <form-property prefix="record" name="work_status_name" type="string" size="200" cannull="true" description="待办任务名称"/>
+      <form-property prefix="record" name="work_status_content" type="string" size="200" cannull="true" description="待办任务内容"/>
+      <form-property prefix="record" name="initiator_id" type="string" size="60" cannull="true" description="发起人ID"/>
+      <form-property prefix="record" name="initiator_name" type="string" size="32" cannull="true" description="发起人名称"/>
+      <form-property prefix="record" name="initiator_agen_id" type="string" size="32" cannull="true" description="发起人机构ID"/>
+      <form-property prefix="record" name="initiator_agen_name" type="string" size="60" cannull="true" description="发起人机构名称"/>
+      <form-property prefix="record" name="initiator_date" type="string" size="10" cannull="true" description="发起日期"/>
+      <form-property prefix="record" name="initiator_time" type="string" size="8" cannull="true" description="发起时间"/>
+      <form-property prefix="record" name="link_url" type="string" size="2000" cannull="true" description="链接地址"/>
+      <form-property prefix="record" name="txncode" type="string" size="32" cannull="true" description="交易代码"/>
+      <form-property prefix="record" name="isvalid" type="string" size="1" cannull="true" description="是否有效"/>
+      <form-property prefix="record" name="scour_table_name" type="string" size="30" cannull="true" description="源表名"/>
+      <form-property prefix="record" name="scour_table_key_col" type="string" size="32" cannull="true" description="源表主键ID"/>
+      <form-property prefix="record" name="bak_col_1" type="string" size="200" cannull="true" description="预留1"/>
+      <form-property prefix="record" name="bak_col_2" type="string" size="200" cannull="true" description="预留2"/>
+      <form-property prefix="record" name="bak_col_3" type="string" size="200" cannull="true" description="预留3"/>
+      <form-property prefix="record" name="bak_col_4" type="string" size="200" cannull="true" description="预留4"/>
+      <form-property prefix="record" name="bak_col_5" type="string" size="200" cannull="true" description="预留5"/>
+      <form-property prefix="record" name="apply_count" type="long" cannull="true" description="申请条数"/>
+      <form-property prefix="ws-record" name="work_status_id" type="string" size="32" cannull="false" description="工作状态ID"/>
+	  <form-property prefix="ws-record" name="work_status_name" type="string" size="200" cannull="true" description="待办任务名称"/>
+      <form-property prefix="ws-record" name="work_status_content" type="string" size="200" cannull="true" description="待办任务内容"/>
+	  <form-property prefix="ws-record" name="initiator_id" type="string" size="60" cannull="true" description="发起人ID"/>
+	  <form-property prefix="ws-record" name="initiator_name" type="string" size="32" cannull="true" description="发起人名称"/>
+	  <form-property prefix="ws-record" name="initiator_agen_id" type="string" size="32" cannull="true" description="发起人机构ID"/>
+	  <form-property prefix="ws-record" name="initiator_agen_name" type="string" size="60" cannull="true" description="发起人机构名称"/>
+      <form-property prefix="ws-record" name="initiator_date" type="string" size="10" cannull="true" description="发起日期"/>
+	  <form-property prefix="ws-record" name="initiator_time" type="string" size="8" cannull="true" description="发起时间"/>
+	  <form-property prefix="ws-record" name="link_url" type="string" size="2000" cannull="true" description="链接地址"/>
+	  <form-property prefix="ws-record" name="txncode" type="string" size="32" cannull="true" description="交易代码"/>
+	  <form-property prefix="ws-record" name="isvalid" type="string" size="1" cannull="true" description="是否有效"/>
+	  <form-property prefix="ws-record" name="scour_table_name" type="string" size="30" cannull="true" description="源表名"/>
+	  <form-property prefix="ws-record" name="scour_table_key_col" type="string" size="32" cannull="true" description="源表主键ID"/>
+	  <form-property prefix="ws-record" name="bak_col_1" type="string" size="200" cannull="true" description="预留1"/>
+	  <form-property prefix="ws-record" name="bak_col_2" type="string" size="200" cannull="true" description="预留2"/>
+	  <form-property prefix="ws-record" name="bak_col_3" type="string" size="200" cannull="true" description="预留3"/>
+	  <form-property prefix="ws-record" name="bak_col_4" type="string" size="200" cannull="true" description="预留4"/>
+	  <form-property prefix="ws-record" name="bak_col_5" type="string" size="200" cannull="true" description="预留5"/>
+	  <form-property prefix="ws-record" name="apply_count" type="long" cannull="true" description="申请条数"/>
+    </form-bean>
+
+    <form-bean name="WorkStatusUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="work_status_id" type="string" size="32" cannull="false" description="工作状态ID"/>
+      <form-property prefix="record" name="work_status_id" type="string" size="32" cannull="false" description="工作状态ID"/>
+      <form-property prefix="record" name="work_status_name" type="string" size="200" cannull="true" description="待办任务名称"/>
+      <form-property prefix="record" name="work_status_content" type="string" size="200" cannull="true" description="待办任务内容"/>
+      <form-property prefix="record" name="initiator_id" type="string" size="60" cannull="true" description="发起人ID"/>
+      <form-property prefix="record" name="initiator_name" type="string" size="32" cannull="true" description="发起人名称"/>
+      <form-property prefix="record" name="initiator_agen_id" type="string" size="32" cannull="true" description="发起人机构ID"/>
+      <form-property prefix="record" name="initiator_agen_name" type="string" size="60" cannull="true" description="发起人机构名称"/>
+      <form-property prefix="record" name="initiator_date" type="string" size="10" cannull="true" description="发起日期"/>
+      <form-property prefix="record" name="initiator_time" type="string" size="8" cannull="true" description="发起时间"/>
+      <form-property prefix="record" name="link_url" type="string" size="2000" cannull="true" description="链接地址"/>
+      <form-property prefix="record" name="txncode" type="string" size="32" cannull="true" description="交易代码"/>
+      <form-property prefix="record" name="isvalid" type="string" size="1" cannull="true" description="是否有效"/>
+      <form-property prefix="record" name="scour_table_name" type="string" size="30" cannull="true" description="源表名"/>
+      <form-property prefix="record" name="scour_table_key_col" type="string" size="32" cannull="true" description="源表主键ID"/>
+      <form-property prefix="record" name="bak_col_1" type="string" size="200" cannull="true" description="预留1"/>
+      <form-property prefix="record" name="bak_col_2" type="string" size="200" cannull="true" description="预留2"/>
+      <form-property prefix="record" name="bak_col_3" type="string" size="200" cannull="true" description="预留3"/>
+      <form-property prefix="record" name="bak_col_4" type="string" size="200" cannull="true" description="预留4"/>
+      <form-property prefix="record" name="bak_col_5" type="string" size="200" cannull="true" description="预留5"/>
+      <form-property prefix="record" name="apply_count" type="long" cannull="true" description="申请条数"/>
+    </form-bean>
+
+    <form-bean name="WorkStatusDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="work_status_id" type="string" size="32" cannull="false" description="工作状态ID"/>
+    </form-bean>
+  </form-beans>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-work_status.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/sa/insert-work_status.jsp" description="增加待办任务信息"/>
+    <resource-file type="jsp" file-name="/sa/update-work_status.jsp" description="修改待办任务信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.aic.bj.homepage.vo.WorkStatusContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.aic.bj.homepage.vo.VoWorkStatus" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.aic.bj.homepage.vo.VoWorkStatusSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.aic.bj.homepage.vo.VoWorkStatusPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

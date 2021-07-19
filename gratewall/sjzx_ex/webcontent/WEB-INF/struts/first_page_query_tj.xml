@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>用户登录统计表</menu-name>
+  <menu-path>/page/sysmgr/yhdltj/</menu-path>
+  <description>用户登录统计表</description>
+  <form-beans>
+    <form-bean name="FirstPageQueryRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="query_date" type="string" size="10" description="登录日期"/>
+      <form-property prefix="select-key" name="opername" type="string" size="24" description="用户"/>
+      <form-property prefix="select-key" name="orgid" type="string" size="32" description="科室"/>
+      <form-property prefix="select-key" name="sjjgid" type="string" size="32" description="分局"/>
+      <form-property prefix="select-key" name="query_date_start" type="string" size="10" description="登录日期"/>
+      <form-property prefix="select-key" name="query_date_end" type="string" size="10" description="登录日期"/>
+      <form-property prefix="select-key" name="orgcode" type="string" size="32" description="登录用户机构"/>
+      
+      <form-property prefix="record" name="first_page_query_id" type="string" size="32" cannull="false" description="first_page_query_id"/>
+      <form-property prefix="record" name="first_cls" type="string" size="100" cannull="true" description="first_cls"/>
+      <form-property prefix="record" name="second_cls" type="string" size="100" cannull="true" description="second_cls"/>
+      <form-property prefix="record" name="count" type="long" cannull="true" description="count"/>
+      <form-property prefix="record" name="num" type="long" cannull="true" description="num"/>
+      <form-property prefix="record" name="query_date" type="string" size="30" cannull="true" description="query_date"/>
+      <form-property prefix="record" name="query_time" type="string" size="30" cannull="true" description="query_time"/>
+      <form-property prefix="record" name="username" type="string" size="24" cannull="true" description="username"/>
+      <form-property prefix="record" name="opername" type="string" size="24" cannull="true" description="opername"/>
+      <form-property prefix="record" name="orgid" type="string" size="32" cannull="true" description="orgid"/>
+      <form-property prefix="record" name="orgname" type="string" size="64" cannull="true" description="orgname"/>
+      <form-property prefix="record" name="ipaddress" type="string" size="16" cannull="true" description="ipaddress"/>
+      <form-property prefix="record" name="sjjgid" type="string" size="64" cannull="true" description="sjjgid"/>
+      <form-property prefix="record" name="sjjgname" type="string" size="64" cannull="true" description="sjjgname"/>
+      <form-property prefix="record" name="no" type="string" size="64" cannull="true" description="no"/>
+    </form-bean>
+
+    <form-bean name="FirstPageQueryUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      
+      <form-property prefix="select-key" name="query_date" type="string" size="10" description="登录日期"/>
+      <form-property prefix="select-key" name="opername" type="string" size="24" description="用户"/>
+      <form-property prefix="select-key" name="username" type="string" size="24" description="用户账号"/>
+      <form-property prefix="select-key" name="orgid" type="string" size="32" description="科室"/>
+      <form-property prefix="select-key" name="query_date_start" type="string" size="10" description="登录日期"/>
+      <form-property prefix="select-key" name="query_date_end" type="string" size="10" description="登录日期"/>
+            
+      <form-property prefix="record" name="first_page_query_id" type="string" size="32" cannull="false" description="first_page_query_id"/>
+      <form-property prefix="record" name="query_date" type="string" size="10" cannull="true" description="query_date"/>
+      <form-property prefix="record" name="query_time" type="string" size="30" cannull="true" description="query_time"/>
+      <form-property prefix="record" name="username" type="string" size="24" cannull="true" description="username"/>
+      <form-property prefix="record" name="opername" type="string" size="24" cannull="true" description="opername"/>
+    </form-bean>
+
+    <form-bean name="FirstPageQueryDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="first_page_query_id" type="string" size="32" cannull="false" description="first_page_query_id"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-first_page_query.jsp" name="FirstPageQueryRowsetForm" txn-code="61000001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询用户登录统计列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnFirstPageQuery" func-name="txn61000001" input-node="select-key" output-node="record" description="查询用户登录统计列表"/>
+      <forward error-code="success" path="query-first_page_query.jsp"/>
+      <forward error-code="failure" path="query-first_page_query.jsp"/>
+    </action>
+
+    <action input="detail-first_page_query.jsp" name="FirstPageQueryUpdateForm" txn-code="61000002" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>用户登录信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnFirstPageQuery" func-name="txn61000002" input-node="select-key" output-node="record" description="用户登录信息"/>
+      <forward error-code="success" path="detail-first_page_query.jsp"/>
+      <forward error-code="failure" path="detail-first_page_query.jsp"/>
+    </action>
+
+    <action input="query-first_page_query-fj.jsp" name="FirstPageQueryRowsetForm" txn-code="61000003" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询分局登录统计列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnFirstPageQuery" func-name="txn61000003" input-node="select-key" output-node="record" description="查询用户登录统计列表"/>
+      <forward error-code="success" path="query-first_page_query-fj.jsp"/>
+      <forward error-code="failure" path="query-first_page_query-fj.jsp"/>
+    </action>
+
+    <action input="query-first_page_query-ks.jsp" name="FirstPageQueryRowsetForm" txn-code="61000004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询科室登录统计列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnFirstPageQuery" func-name="txn61000004" input-node="select-key" output-node="record" description="查询用户登录统计列表"/>
+      <forward error-code="success" path="query-first_page_query-ks.jsp"/>
+      <forward error-code="failure" path="query-first_page_query-ks.jsp"/>
+    </action>
+
+    <action input="query-first_page_query.jsp" name="FirstPageQueryDeleteForm" txn-code="61000005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除first_page_query信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.txn.TxnFirstPageQuery" func-name="txn61000005" input-node="primary-key" description="删除first_page_query信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-first_page_query.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/sysmgr/yhdltj/query-first_page_query.jsp" description="查询first_page_query列表"/>
+    <resource-file type="jsp" file-name="/page/sysmgr/yhdltj/insert-first_page_query.jsp" description="增加first_page_query信息"/>
+    <resource-file type="jsp" file-name="/page/sysmgr/yhdltj/update-first_page_query.jsp" description="修改first_page_query信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.vo.FirstPageQueryContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.vo.VoFirstPageQuery" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.vo.VoFirstPageQuerySelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.vo.VoFirstPageQueryPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

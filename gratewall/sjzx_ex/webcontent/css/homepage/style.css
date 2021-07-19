@@ -1,0 +1,210 @@
+@charset "utf-8";
+/* CSS Document */
+body{ margin:0; padding:0; background:#CCCCCC; font-family:Arial,"宋体"; font-size:14px; color:#333;}
+table{ /* width:100%;  */border-collapse:collapse; font-size:14px;}
+table td{ padding:0;}
+ul,li{list-style-type:none; padding:0; margin:0;}
+.index{width: 100%;}
+.index .left {
+	vertical-align: top;
+	width: 200px;
+	background: #f8f9fb;
+	border-right: 1px solid #ccf;
+	overflow-x: hidden;
+}
+
+.index .left h2 {
+	color: #4698e6;
+	font-size: 14px;
+	margin: 5px;
+}
+
+.index .left .list{
+	width: 100%;
+}
+
+.index .left .list ul{
+	width: 100%;/* 
+	list-style-image:url('/css/homepage/images/list.gif');
+    list-style-type:square; */
+}
+.index .left .list ul li{
+	font-size: 10pt;
+	margin-bottom: 5px;
+	background: url(images/list.png) 0 2px no-repeat;
+	padding-left: 15px;
+}
+
+.Calendar {
+	font-family: Verdana;
+	font-size: 12px;
+	text-align: center;
+	width: 100%;/* 
+	padding: 10px; */
+}
+.Calendar table {
+	width: 100%;
+	/* background-color: #6699ff; */
+}
+.Calendar table td {
+	font-size: 13px;/* 
+	background-color: #e4ebf4; */
+}
+.Calendar div.head{
+	height: 30px;
+	background-color: #f8f9fb;
+	line-height: 24px;
+	text-align: left;
+}
+.Calendar #nowYear, .Calendar #nowMonth{
+	font-size: 18px;
+	font-weight: bold;
+	color: #39f;
+	width: 48px;
+	height: 24px;
+	padding-bottom: 6px;
+	overflow:hidden;
+	display: inline-block;
+	text-align: center;
+}
+.Calendar #nowMonth{
+	width: 24px;
+}
+
+.Calendar .query{
+	background: url(images/query.png) 50% 50% no-repeat;
+	overflow:hidden;
+	display: inline-block;
+	text-align: center;
+	width: 24px;
+	height: 24px;
+	padding-bottom: 6px;
+}
+
+.Calendar td div.normal, .Calendar td div.today{
+	width: 18px;
+	text-align: center;
+	height: 18px;
+	color: #333;
+	float: left;
+}
+.Calendar #idCalendar{
+	border-collapse: collapse;
+}
+.Calendar #idCalendar td{
+/* 	border: 1px solid #ccf;
+ */}
+
+.Calendar td div.today{
+	color: #C60;
+	fontWeight: bold;
+}
+table.calTable {
+	/*border: 1px solid #6699FF;*/
+	width: 95%;
+}
+.selectedDateDisplayValueSpancls {
+	font-size: 18px;
+	width:95%;
+	text-align: center;
+	padding: 5px 10px;
+}
+#resultContainer {
+	width: 100%;
+	text-align: left;
+	height: 100%;
+	margin-top: 1em;
+}
+.selected{
+	width: 100px;
+	height:24px;
+	line-height: 24px;
+}
+#idCalendarYear{
+	_width: 60px;
+}
+.nexty, .prey{
+	background:url(images/prev.png) 50% 50% no-repeat;
+	width: 16px;
+	height: 24px;
+	display: inline-block;
+	padding-bottom: 8px;
+	cursor: hand;
+}
+.nexty{
+	background:url(images/next.png) 50% 50% no-repeat;
+}
+h2.rcb{background:url(images/jhrqb.png) 0px 0px no-repeat;padding-left: 20px;}
+h2.jhgg{background:url(images/jhgg.png) 0px 0px no-repeat;padding-left: 20px;}
+.daybg, daynow{
+	background:url(images/tdbg.png) 50% 50% no-repeat;
+	height: 28px;
+	text-align: center;
+}
+.daynow, .today{background:url(images/tdselected.png) 50% 50% no-repeat; color: white; font-weight: bold;text-align: center;}
+.right{
+	vertical-align: top;
+}
+.right .wrap{
+	/* background: url(images/rightbg.png) 0 0 repeat; */
+	height: 400px;
+	width: 100%;
+}
+.right .wrap td{
+	vertical-align: top;
+	color: white;
+	font-size: 10pt;
+}
+.normal, .busy, .jam{
+	/* display: inline; */
+	height: 32px;
+	width: 15px;
+	background:url(images/bg.png) 50% top no-repeat;
+	padding-right:3px;
+	display: inline-block;
+}
+/* .normal {
+	background-color: #ccc;
+}
+.busy{
+	background-color: #f93;
+}
+.jam{
+	background-color: #c66;
+} */
+.right_list{
+	width: 100%;
+}
+.right_list li{
+	/*background: url(images/item.png) 0 0 no-repeat;*/
+	height: 40px;
+	width: 49.8%;
+	float: left;
+	color: #666;
+	/* line-height: 34px; */
+	text-align: center;
+}
+.right .wrap .right_list li table td{height:40px;color:#666;vertical-align:middle;
+	background: #fcfcfc; border:1px solid #f1f1f1;}
+.right .wrap .right_list li.more{
+	background: url(images/more.png) 0 0 no-repeat;
+	width: 70px;
+	height: 28px;
+	cursor: hand;
+}
+
+.right .wrap table.grid{
+	border-collapse: collapse;
+	width: 100%;
+}
+.right .wrap table.grid tr.grid-head, .right .wrap table.grid tr.grid-row{
+	height: 32px;
+	background: #f2f2f2;
+	color: #333;
+}
+.right .wrap table.grid tr.grid-head td, .right .wrap table.grid tr.grid-row td{
+	border: 1px solid #ccf;
+	color: #333;
+	vertical-align: middle;
+}
+

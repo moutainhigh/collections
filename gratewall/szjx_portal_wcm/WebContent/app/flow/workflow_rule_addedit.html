@@ -1,0 +1,101 @@
+<HTML>
+<HEAD>
+<TITLE>multi-selector for outline-template</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!--my import-->
+<script src="../js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/flow.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.workflow/WorkFlow.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/lang/cn.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<link rel="stylesheet" type="text/css" href="../../app/css/wcm-common.css">
+<!--page scrop-->
+<script src="../../app/js/source/wcmlib/com.trs.workflow/WorkFlow.js"></script>
+<script src="./workflow_rule_addedit.js"></script>
+<link href="../css/workflow.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Inner Start -->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Inner End -->
+<!-- dialog  Start -->
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT> 
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<!-- dialog  End -->
+<script language="javascript">
+<!--
+    window.m_cbCfg = {
+        btns : [
+            {
+                text : wcm.LANG['FLOW_CONFIRM'] || '确定',
+                cmd : function(){
+						submitData();
+						return false;
+					}
+            },
+            {
+                text : wcm.LANG['FLOW_CANCEL'] || '取消'
+            }
+        ]
+    };
+//-->
+</script>
+<style type="text/css">
+	body{
+		margin: 0;
+		padding: 0;
+		background: #ffffff;
+	}
+	body, table{
+		font-size: 12px;
+	}
+	.single_text{
+		height: 18px;
+		line-height: 18px;
+	}
+</style>
+</head>
+<body>
+<center>
+	<div style="width: 100%; padding: 5px; height: 50px;">
+	<table border="0" cellspacing="0" cellpadding="3" width="100%">
+	<tbody>
+		<tr>
+			<td width="30%" style="border-bottom: solid 1px #efefef" WCMAnt:param="workflow_rule_addedit.html.ruletype">触发时机:</td>
+			<td width="70%" align="left" style="border-bottom: solid 1px #efefef">
+				<select id="selRuleType">
+					<option value="5" WCMAnt:param="workflow_rule_addedit.html.before">收到前</option>
+					<option value="0" WCMAnt:param="workflow_rule_addedit.html.after">收到后</option>
+					<option value="1" WCMAnt:param="workflow_rule_addedit.html.assign">签收后</option>
+					<option value="2" WCMAnt:param="workflow_rule_addedit.html.dealing">处理中</option>
+					<option value="3" WCMAnt:param="workflow_rule_addedit.html.aftersubmit">处理后</option>
+					<option value="4" WCMAnt:param="workflow_rule_addedit.html.backto">返工后</option>
+					<option value="6" WCMAnt:param="workflow_rule_addedit.html.refuse">拒绝后</option>
+					<option value="7" WCMAnt:param="workflow_rule_addedit.html.fightback">打回后</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td width="30%" WCMAnt:param="workflow_rule_addedit.html.rulename">规则名:</td>
+			<td width="70%" align="left" id="divHeader">
+				<input type="text" id="txtRuleName" value="" validation="type:'string',required:'true',max_len:'50',desc:'规则名'" validation_desc="规则名" WCMAnt:paramattr="validation_desc:workflow_rule_addedit.html.rulenamedesc" /><span class="spFieldReqiredTip">*</span>&nbsp;&nbsp;	
+			</td>
+		</tr>
+	</tbody>
+	</table>		
+	</div>
+</center>
+</body>
+</html>

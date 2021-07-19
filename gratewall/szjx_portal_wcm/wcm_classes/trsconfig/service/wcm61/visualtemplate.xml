@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.common.publish.widget.VisualTemplateServiceProvider">
+	<method name="parseTemplate" desc="将模板的内容解析成可视化编辑的内容">
+		<parameter name="objectId" desc="对象（站点/栏目）ID" type="int" required="true"/>
+		<parameter name="objectType" desc="对象（站点/栏目）类型" type="int" required="true"/>	
+		<parameter name="TemplateId" desc="模板ID" type="int" required="true"/>
+	</method>
+	<method name="parseWidgetInstance" desc="将资源块实例对象解析成可视化编辑的内容">
+		<parameter name="objectId" desc="对象（站点/栏目）ID" type="int" required="true"/>
+		<parameter name="objectType" desc="对象（站点/栏目）类型" type="int" required="true"/>	
+		<parameter name="WidgetInstanceId" desc="资源块实例的id" type="int" required="true"/>
+	</method>
+	<method name="saveToTemplate" desc="将可视化编辑的内容保存为模板的内容">
+		<parameter name="objectId" desc="对象（站点/栏目）ID" type="int" required="false"/>
+		<parameter name="objectType" desc="对象（站点/栏目）类型" type="int" required="false"/>	
+		<parameter name="TemplateId" desc="模板ID" type="int" required="true"/>
+	</method>
+	<method name="synchronizeWidgetInstances" desc="同步可视化模板的内容与资源实例的关系，清除垃圾资源实例">
+		<parameter name="TemplateId" desc="模板ID" type="int" required="true"/>
+	</method>
+	<method name="preview" desc="获取指定栏目或文档对象在指定模板内容下的预览内容">
+		<parameter name="objectId" desc="对象（站点/栏目/文档）ID" type="int" required="true"/>
+		<parameter name="objectType" desc="对象（站点/栏目/文档）类型" type="int" required="true"/>	
+		<parameter name="html" desc="可视化模板的编辑内容" type="string" required="true"/>
+	</method>
+	<method name="save" desc="保存模板">
+		<parameter name="HostType" desc="对象（站点/栏目）类型" type="int" required="false"/>
+		<parameter name="HostId" desc="对象（站点/栏目）ID" type="int" required="false"/>	
+		<parameter name="ObjectId" desc="模板ID" type="int" required="false" default="0"/>
+		<parameter name="MasterId" desc="母版ID" type="int" required="false" default="0"/>
+	</method>
+	<method name="saveWidgetInstance" desc="保存资源实例">
+		<parameter name="widgetId" desc="资源ID" type="int" required="true"/>
+		<parameter name="templateId" desc="模板ID" type="int" required="false"/>
+	</method>
+	<method name="saveWidgetInstParameters" desc="保存资源变量实例">
+		<parameter name="widgetInstanceId" desc="资源实例ID" type="int" required="true"/>
+		<parameter name="bAdd" desc="是否是新建" type="boolean" required="false"/>
+	</method>
+	<method name="copyWidgetInstance" desc="类似创建资源实例，并且返回创建后资源实例的ID">
+		<parameter name="objectId" desc="原始资源实例的ID" type="int" required="true"/>
+	</method>
+	<method name="copyVisualTemplate" desc="在指定栏目上类似创建可视化模板，并且返回创建后的模板ID">
+		<parameter name="ToChannelIds" desc="要创建模板的栏目Id" type="string" required="true"/>
+		<parameter name="TemplateId" desc="模板Id" type="int" required="true"/>
+	</method>
+	<method name="syncWidgetInstancesToChildChnl" desc="把资源实例同步到当前栏目的子栏目中">
+		<parameter name="WidgetInstanceId" desc="资源实例的ID" type="int" required="true"/>
+		<parameter name="ChnlId" desc="栏目的ID" type="int" required="true"/>
+	</method>
+	<method name="createWidgetInstanceFromWidgetAcceptor" desc="通过选择器创建可视化模板实例，并返回解析后的html">
+		<parameter name="objectId" desc="对象（站点/栏目）ID" type="int" required="true"/>
+		<parameter name="objectType" desc="对象（站点/栏目）类型" type="int" required="true"/>	
+		<parameter name="TemplateId" desc="模板ID" type="int" required="true"/>
+		<parameter name="channelid" desc="当前选择的栏目ID" type="int" required="true"/>
+		<parameter name="left" desc="当前拖动区域的左边坐标" type="int" default="0" required="true"/>	
+		<parameter name="top" desc="当前拖动区域的顶部坐标" type="int" default="0" required="true"/>	
+		<parameter name="width" desc="当前拖动区域的宽度" type="int" default="980" required="true"/>	
+	</method>	
+</service>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="list_demo.html.resourcelistpage"> 资源列表页面 </title>
+
+	<link href="../css/common.css" rel="stylesheet" type="text/css" />
+	<link href="../css/list.css" rel="stylesheet" type="text/css" />
+	<link href="list.css" rel="stylesheet" type="text/css" />
+	<script src="../../js/easyversion/lightbase.js"></script>
+	<script src="../../js/easyversion/extrender.js"></script>
+	<script src="../../js/easyversion/elementmore.js"></script>
+	<script src="../js/adapter4Top.js"></script>
+	<script src="../js/PageContext.js"></script>
+	<script src="list_demo.js"></script>
+</head>
+
+<body>
+<div class="container">
+	<div class="header">
+		<div class="toolbar" id="toolbar">
+			<li class="add-widget" cmd="showCrashBoard"></li>
+			<li class="import" cmd="showDialog"></li>
+			<li class="export" cmd="showTabPanel"></li>
+			<li class="delete" cmd="delete"></li>
+		</div>
+		<div class="search" id="search"></div>
+	</div>
+	<div class="content" id="list-data"></div>
+	<div class="footer">
+		<div class="page-nav" id="list_navigator" WCMAnt:param="list_demo.html.togetherpagesandresources">共26页，53个资源，8个/页</div>
+	</div>
+	<div id="objectNotFound" style="display:none;"><div class="no_object_found" WCMAnt:param="list_demo.html.sorrynotfindobjectfit">不好意思, 没有找到符合条件的对象!</div></div>
+</div>
+</body>
+</html>

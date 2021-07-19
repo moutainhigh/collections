@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.ProcessService">
+	<method name="save">
+	</method>
+	<method name="findById"/>
+	<method name="jFindById" truename="findById"  convertor="uri:/app/iflowcontent/iflowcontent_findbyid.jsp"/>
+	<method name="query">
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>		
+		<!--文档过滤器-->
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" required="false"/>
+		<!-- 检索相关配置 BEGIN -->
+		<!-- 检索相关配置 END -->
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>			
+	</method>
+	<method name="getContentsOfUser" desc="获取当前登录用户与工作流相关的内容">			
+		<parameter name="ViewType" desc="视图类型（需要处理、已处理、发起）" type="int" required="true" default="1"/>
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>	
+	</method>
+	<method name="jQuery" truename="getContentsOfUser"  convertor="uri:/app/iflowcontent/iflowcontent_query.jsp"/>
+</service>

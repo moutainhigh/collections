@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>采集数据项表</menu-name>
+  <menu-path>/page/resource/colres/colTable/</menu-path>
+  <description>采集数据项表</description>
+  <form-beans>
+    <form-bean name="ResCollectDataitemRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="collect_table_id" type="string" size="32" description="采集数据表ID"/>
+      <form-property prefix="primary-key" name="collect_table_id" type="string" size="32" cannull="false" description="采集数据表ID"/>
+      <form-property prefix="select-key" name="dataitem_name_en" type="string" size="100" description="数据项名称"/>
+      <form-property prefix="select-key" name="dataitem_name_cn" type="string" size="100" description="数据项中文名称"/>
+      <form-property prefix="select-key" name="dataitem_type" type="string" size="20" description="数据项类型"/>
+      <form-property prefix="select-key" name="code_table" type="string" size="32" description="对应代码表"/>
+      <form-property prefix="record" name="collect_dataitem_id" type="string" size="32" cannull="false" description="采集数据项ID"/>
+      <form-property prefix="record" name="collect_table_id" type="string" size="32" cannull="true" description="采集数据表ID"/>
+      <form-property prefix="record" name="dataitem_name_en" type="string" size="100" cannull="true" description="数据项名称"/>
+      <form-property prefix="record" name="dataitem_name_cn" type="string" size="100" cannull="true" description="数据项中文名称"/>
+      <form-property prefix="record" name="dataitem_type" type="string" size="20" cannull="true" description="数据项类型"/>
+      <form-property prefix="record" name="dataitem_long" type="string" size="4" cannull="true" description="数据项长度"/>
+      <form-property prefix="record" name="is_key" type="string" size="1" cannull="true" description="是否主键"/>
+      <form-property prefix="record" name="is_code_table" type="string" size="1" cannull="true" description="是否代码表"/>
+      <form-property prefix="record" name="code_table" type="string" size="32" cannull="true" description="对应代码表"/>
+      <form-property prefix="record" name="dataitem_long_desc" type="string" size="2000" cannull="true" description="数据项描述"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="有效标记"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人ID"/>
+      <form-property prefix="record" name="created_time" type="string" size="19" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="19" cannull="true" description="最后修改时间"/>
+      <form-property prefix="record" name="name_nums" type="string" size="11" cannull="true" description="重名数"/>
+       <form-property prefix="record" name="dataitem_state" type="string" size="11" cannull="true" description="物理表是否已生成该字段"/>
+    </form-bean>
+
+    <form-bean name="ResCollectDataitemUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="collect_dataitem_id" type="string" size="32" cannull="false" description="采集数据项ID"/>
+      <form-property prefix="primary-key" name="collect_table_id" type="string" size="32" cannull="false" description="采集数据表ID"/>
+      <form-property prefix="primary-key" name="dataitem_name_en" type="string" size="100" cannull="false" description="数据项名称"/>
+      <form-property prefix="select-key" name="collect_dataitem_id" type="string" size="32" cannull="false" description="采集数据项ID"/>
+      <form-property prefix="select-key" name="collect_table_id" type="string" size="32" cannull="false" description="采集数据表ID"/>
+      <form-property prefix="select-key" name="dataitem_name_en" type="string" size="100" cannull="false" description="数据项名称"/>
+      <form-property prefix="record" name="collect_dataitem_id" type="string" size="32" cannull="false" description="采集数据项ID"/>
+      <form-property prefix="record" name="collect_table_id" type="string" size="32" cannull="true" description="采集数据表ID"/>
+      <form-property prefix="record" name="dataitem_name_en" type="string" size="100" cannull="true" description="数据项名称"/>
+      <form-property prefix="record" name="dataitem_name_cn" type="string" size="100" cannull="true" description="数据项中文名称"/>
+      <form-property prefix="record" name="dataitem_type" type="string" size="20" cannull="true" description="数据项类型"/>
+      <form-property prefix="record" name="dataitem_long" type="string" size="4" cannull="true" description="数据项长度"/>
+      <form-property prefix="record" name="is_key" type="string" size="1" cannull="true" description="是否主键"/>
+      <form-property prefix="record" name="is_code_table" type="string" size="1" cannull="true" description="是否代码表"/>
+      <form-property prefix="record" name="code_table" type="string" size="32" cannull="true" description="对应代码表"/>
+      <form-property prefix="record" name="dataitem_long_desc" type="string" size="2000" cannull="true" description="数据项描述"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="有效标记"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人ID"/>
+      <form-property prefix="record" name="created_time" type="string" size="19" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="19" cannull="true" description="最后修改时间"/>
+      <form-property prefix="record" name="name_nums" type="string" size="11" cannull="true" description="重名数"/>
+      <form-property prefix="record" name="dataitem_state" type="string" size="11" cannull="true" description="物理表是否已生成该字段"/>
+    </form-bean>
+
+    <form-bean name="ResCollectDataitemDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="collect_dataitem_id" type="string" size="32" cannull="false" description="采集数据项ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+  
+   <action input="query-res_collect_dataitem.jsp" name="ResCollectDataitemRowsetForm" txn-code="20202000" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>查询数据项名称是否重复</description>
+      <step index="10" bean-name="com.gwssi.resource.collect.txn.TxnResCollectDataitem" func-name="txn20202000" input-node="primary-key" output-node="record" description="查询表名称是否重复"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletesuccess.jsp"/>
+    </action>
+ 
+    <action input="query-res_collect_dataitem.jsp" name="ResCollectDataitemRowsetForm" txn-code="20202001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询采集数据项表列表</description>
+      <step index="10" bean-name="com.gwssi.resource.collect.txn.TxnResCollectDataitem" func-name="txn20202001" input-node="select-key" output-node="record" description="查询采集数据项表列表"/>
+      <forward error-code="success" path="query-res_collect_dataitem.jsp"/>
+      <forward error-code="failure" path="query-res_collect_dataitem.jsp"/>
+    </action>
+
+    <action input="update-res_collect_dataitem.jsp" name="ResCollectDataitemUpdateForm" txn-code="20202002" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改采集数据项信息</description>
+      <step index="10" bean-name="com.gwssi.resource.collect.txn.TxnResCollectDataitem" func-name="txn20202002" input-node="record" description="修改采集数据项表信息"/>
+      <forward error-code="success" path="update-res_collect_dataitem.jsp"/>
+      <forward error-code="failure" path="update-res_collect_dataitem.jsp"/>
+    </action>
+
+    <action input="insert-res_collect_dataitem.jsp" name="ResCollectDataitemUpdateForm" txn-code="20202003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加采集数据项信息</description>
+      <step index="10" bean-name="com.gwssi.resource.collect.txn.TxnResCollectDataitem" func-name="txn20202003" input-node="record" description="增加采集数据项表信息"/>
+      <forward error-code="success" path="insert-res_collect_dataitem.jsp"/>
+      <forward error-code="failure" path="insert-res_collect_dataitem.jsp"/>
+    </action>
+
+    <action input="query-res_collect_dataitem.jsp" name="ResCollectDataitemUpdateForm" txn-code="20202004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询采集数据项表用于修改</description>
+      <step index="10" bean-name="com.gwssi.resource.collect.txn.TxnResCollectDataitem" func-name="txn20202004" input-node="primary-key" output-node="record" description="查询采集数据项表用于修改"/>
+      <forward error-code="success" path="update-res_collect_dataitem.jsp"/>
+      <forward error-code="failure" path="update-res_collect_dataitem.jsp"/>
+    </action>
+
+    <action input="query-res_collect_dataitem.jsp" name="ResCollectDataitemDeleteForm" txn-code="20202005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除采集数据项信息</description>
+      <step index="10" bean-name="com.gwssi.resource.collect.txn.TxnResCollectDataitem" func-name="txn20202005" input-node="primary-key" description="删除采集数据项表信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  
+  
+   <action input="show-res_collect_dataitem.jsp" name="ResCollectDataitemUpdateForm" txn-code="20202006" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>查看采集数据项信息</description>
+      <step index="10" bean-name="com.gwssi.resource.collect.txn.TxnResCollectDataitem" func-name="txn20202006" input-node="primary-key" output-node="record" description="查看采集数据项表信息"/>
+      <forward error-code="success" path="show-res_collect_dataitem.jsp"/>
+      <forward error-code="failure" path="show-res_collect_dataitem.jsp"/>
+    </action>
+    <action input="insert-res_collect_dataitem.jsp" name="ResCollectDataitemUpdateForm" txn-code="20202007" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询采集数据项表用于新增</description>
+      <step index="10" bean-name="com.gwssi.resource.collect.txn.TxnResCollectDataitem" func-name="txn20202007" input-node="primary-key" output-node="record" description="查询采集数据项表用于新增"/>
+      <forward error-code="success" path="insert-res_collect_dataitem.jsp"/>
+      <forward error-code="failure" path="insert-res_collect_dataitem.jsp"/>
+    </action>
+     <action input="insert-res_collect_dataitem.jsp" name="ResCollectDataitemUpdateForm" txn-code="20202008" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>保存采集数据项表信息</description>
+      <step index="10" bean-name="com.gwssi.resource.collect.txn.TxnResCollectDataitem" func-name="txn20202008" input-node="record" description="保存采集数据项表信息"/>
+      <forward error-code="success" path="insert-res_collect_dataitem.jsp"/>
+      <forward error-code="failure" path="insert-res_collect_dataitem.jsp"/>
+    </action>
+     <action input="insert-res_collect_dataitem.jsp" name="ResCollectDataitemUpdateForm" txn-code="20202009" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>保存采集数据项表信息</description>
+      <step index="10" bean-name="com.gwssi.resource.collect.txn.TxnResCollectDataitem" func-name="txn20202009" input-node="record" description="保存采集数据项表信息"/>
+      <forward error-code="success" path="insert-res_collect_dataitem.jsp"/>
+      <forward error-code="failure" path="insert-res_collect_dataitem.jsp"/>
+    </action>
+    
+    </action-mappings>
+  
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-res_collect_dataitem.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/resource/colRes/colTable/query-res_collect_dataitem.jsp" description="查询采集数据项表列表"/>
+    <resource-file type="jsp" file-name="/page/resource/colRes/colTable/insert-res_collect_dataitem.jsp" description="增加采集数据项表信息"/>
+    <resource-file type="jsp" file-name="/page/resource/colRes/colTable/update-res_collect_dataitem.jsp" description="修改采集数据项表信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.collect.vo.ResCollectDataitemContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.collect.vo.VoResCollectDataitem" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.collect.vo.VoResCollectDataitemSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.collect.vo.VoResCollectDataitemPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

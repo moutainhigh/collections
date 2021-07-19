@@ -1,0 +1,12 @@
+<!--是否-->
+<script language="javascript">
+<!--
+	new com.trs.ui.XRadio({
+		disabled : ${NOTEDIT},
+		name : '<TRS_ViewField field="DBFieldName" filterForJs="true" />',
+		value : '<%=CMyString.filterForJs(getValue(obj, "${FieldName}", "<TRS_ViewField field="DefaultValue" filterForJava="true" />"))%>',
+		items : wcm.LANG.trueorfalse_101 || '是`1~否`0',
+		validation:"type:'string',required:'${NotNull}',max_len:'20',desc:'<TRS_ViewField field="AnotherName" filterForJs="true" doubleFilter="true" />'"
+	}).render();
+//-->
+</script>

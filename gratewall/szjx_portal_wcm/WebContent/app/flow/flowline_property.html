@@ -1,0 +1,317 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title WCMAnt:param="flowline_property.html.flowAttributeTitle">工作流属性页面</title>
+<link href="../css/workflow.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+	.options_box{
+		width: 370px!important;
+	}
+	.column_tip{
+		white-space: nowrap; 
+	}
+</style>
+<!--my import-->
+<script src="../js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/flow.js"></script>
+<script src="../../app/js/data/locale/system.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/lang/cn.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.workflow/WorkFlow.js"></script>
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog end-->
+<script language="javascript" src="../system/status_create.jsp" type="text/javascript"></script>
+<script language="Jscript">
+function init(){
+	/**WCM提醒类别：Email提醒 */
+	var REMIND_ONLINE  = Math.pow(2, 0);
+	/**WCM提醒类别：在线提醒 */
+	var REMIND_BYEMAIL   = Math.pow(2, 1);
+	/**WCM提醒类别：手机提醒 */
+	var REMIND_BYMOBILE = Math.pow(2, 2);
+
+	var flowLine = window.top.getDialogArguments();
+	if(flowLine != null){
+		window.document.all.startNode.value = flowLine.start;
+		window.document.all.endNode.value = flowLine.end;
+		window.document.all.bName.value = flowLine.bName || '';
+	}
+	var nType = flowLine.notifyType;
+	//邮件
+	if((flowLine.notifyType & REMIND_BYEMAIL) != 0){
+		$("chk_REMIND_BYEMAIL").checked = true;
+	}
+	//短消息
+	if((flowLine.notifyType & REMIND_ONLINE) != 0){
+		$("chk_REMIND_ONLINE").checked = true;
+	}
+	//手机
+	if((flowLine.notifyType & REMIND_BYMOBILE) != 0){
+		$("chk_REMIND_BYMOBILE").checked = true;
+	}
+	if(window.document.all.endNode.value !=   (wcm.LANG['FLOW_FINISH'] || '结束')){
+		for(var i = 0; i < lineStatus.options.length; i++){
+			if(lineStatus.options[i].value == 10){
+				lineStatus.options.remove(i);
+				break;
+			}
+		}
+	}
+	if(window.document.all.endNode.value == (wcm.LANG['FLOW_FINISH'] || '结束')){
+		window.document.all.NotifyMethod.style.display = "none";
+		
+		window.document.all.bName.readOnly = true;
+		window.document.all.bName.value = (wcm.LANG['FLOW_FINISH_PROCESS']  || '结束流转');
+		window.document.all.bName.className = 'readonly_text';
+	}else{
+		window.document.all.bName.select();
+		window.document.all.bName.focus();	
+	}
+
+	//ge gfc add @ 2007-10-18 17:28 增加操作标签
+	var operationMark = $('txtOperationMark');
+	if(flowLine.operationMarkEnable == 1) {
+		operationMark.readOnly = false;
+		operationMark.className = '';	
+		operationMark.value = (flowLine.operationMark.trim() == '') ?
+			$('bName').value : flowLine.operationMark;
+		$('chkOperationMark').checked = true;
+	}
+	$('buttonDiv').style.display = '';
+
+}
+//确定
+function doOK(){
+	if(!ValidationHelper.doValid('tdOptionName')) {
+		return;
+	}
+	var sOptionName = $('bName').value;
+	var specialChars = checkSpecialChars(sOptionName);
+	if(specialChars){
+		Ext.Msg.alert(String.format("您输入的操作名称不能包含以下特殊字符 {0}",specialChars ), function(){
+			$('bName').focus();
+			$('bName').select();
+		});
+		return false;
+	}
+	if($('txtOperationMark')){
+		var stxtOperationMark = $('txtOperationMark').value;
+		var specialChars = checkSpecialChars(stxtOperationMark);
+		if(specialChars){
+			Ext.Msg.alert(String.format("您输入的操作标签名称不能包含以下特殊字符 {0}",specialChars), function(){
+				$('txtOperationMark').focus();
+				$('txtOperationMark').select();
+			});
+			return false;
+		}
+		if(byteLength($('txtOperationMark').value) > 50){
+			Ext.Msg.alert(wcm.LANG.FLOW_75 || "操作标签名称的长度不能大于50");
+			return;
+		}
+	}
+	//获得设置的文档状态
+	var flowLine = window.top.getDialogArguments();
+	for(var i = 0; i < lineStatus.options.length; i++){
+		if(lineStatus.options[i].selected == true){
+			flowLine.status = lineStatus.options[i].value;
+			flowLine.statusDesc = lineStatus.options[i].text;
+			break;
+		}
+	}
+	if(flowLine.statusDesc == ""){
+		flowLine.statusDesc = "1";
+	}
+	//
+	flowLine.notifyType = 0;
+	if(NotifyMethod.style.display != "none"){
+		if($("chk_REMIND_ONLINE").checked == true)
+			flowLine.notifyType |= 1;
+		if($("chk_REMIND_BYEMAIL").checked == true)
+			flowLine.notifyType |= 2;
+		if($("chk_REMIND_BYMOBILE").checked == true)
+			flowLine.notifyType |= 4;
+	}
+	//gfc add @ 2007-6-18 19:48 操作名称
+	flowLine.bName = $('bName').value;
+
+	//ge gfc add @ 2007-10-18 17:28 增加操作标签
+	flowLine.operationMark = $('txtOperationMark').value;
+	if($('chkOperationMark').checked) {
+		flowLine.operationMarkEnable = 1;
+	}else{
+		flowLine.operationMarkEnable = 0;
+	}
+	
+
+	//重新创建通知方式对象
+	window.returnValue = true;
+	window.close();
+}
+function doCancel(){
+	window.close();
+}
+//设置全局操作
+Event.onDOMReady(init);
+
+document.onreadystatechange=fnStartInit;
+//设置初始状态
+function fnStartInit(){
+	if(document.readyState == "complete"){
+		//设置状态
+		var selStatus = $('lineStatus');
+		var eOptions = selStatus.options;
+		window.setTimeout(function(){
+			var arAllStatus = com.trs.wcm.AllDocStatus;
+			if(arAllStatus && arAllStatus.length >0) {
+				for (var iStatusIndex = 0; iStatusIndex < arAllStatus.length; iStatusIndex++){
+					var status = arAllStatus[iStatusIndex];
+					if(status.value == 10) {//排除”已发“
+						continue;
+					}
+					// 排除不在工作流中显示的状态
+					if(status.type == 0 || status.type == 1){
+						continue;
+					}
+					//else
+					var eOption = document.createElement("OPTION");
+					eOptions.add(eOption);
+					eOption.value = status.value;
+					eOption.innerText = status.label;
+				}
+				var flowLine = window.top.getDialogArguments();
+				selStatus.value = (flowLine.status == 10) ? 1 : flowLine.status;
+			}
+		}, 100);
+	}
+}
+function switchOperationMark(_chk){
+	var operationMark = $('txtOperationMark');
+	if(!_chk.checked) {
+		operationMark.readOnly = true;
+		operationMark.className = 'readonly_text';
+	}else{
+		operationMark.readOnly = false;
+		operationMark.className = '';	
+		if(operationMark.value.trim() == '') {
+			operationMark.value = $('bName').value;
+		}
+		operationMark.select();
+		operationMark.focus();
+	}
+}
+function byteLength(str){
+	var length = 0;
+	str.replace(/[^\x00-\xff]/g,function(){length++;});
+	return str.length+length;
+}
+function checkSpecialChars(_sCode) {
+	var regExp = /[<>\[\]{}#*%$%&^!~\-`]/g;
+	var sResult = _sCode.match(regExp);
+	return Array_distinct(sResult);
+}
+function Array_distinct(_array){
+	if(!_array || !_array.length) return _array;
+	var newArray = new Array();
+	for(var i=0; i<_array.length; i++){
+		var oEl = _array[i];
+		if(!oEl || Array_isExist(newArray, oEl)) continue;
+		newArray[newArray.length] = oEl;
+	}
+	return newArray;
+}
+function Array_isExist(_array, _element){
+	if(!_array || !_element) return false;
+	if(!_array.length){
+		return (_array == _element);
+	}
+	for(var i=0; i<_array.length; i++){
+		if(_element == _array[i]) return true;
+	}
+	return false;
+}
+</script>
+</head>
+<body align="center">
+<center>
+<div style="width: 100%; margin-top: -5px; height: 88%;">
+  <div class="options_box">
+	<div>
+	<span class="box_header_left"></span>
+	<span class="box_header_center" style="width:40%;" WCMAnt:param="flowline_property.html.flowinfo">基本信息</span>
+	<span class="box_header_right" style="width:50%;"></span>
+	</div>
+	<div class="box_body">
+		<table border="0" cellspacing="0" cellpadding="3">
+		<tbody>
+			<tr>
+				<td align="center" width="20%" class="column_tip" WCMAnt:param="flowline_property.html.process">流转状态：</td>
+				<td align="left" width="80%">
+					<select id="lineStatus"></select>				
+				</td>
+			</tr>
+			<tr>
+				<td align="center" width="20%" class="column_tip" WCMAnt:param="flowline_property.html.startNode">起始节点：</td>
+				<td align="left" width="80%"><input id="startNode" class="readonly_text" size=30 readonly></td>
+			</tr>
+			<tr>
+				<td align="center" width="20%" class="column_tip" WCMAnt:param="flowline_property.html.endNode">迄止节点：</td>
+				<td align="left" width="80%"><input id="endNode" class="readonly_text" size=30 readonly></td>
+			</tr>
+			<tr>
+				<td align="center" width="20%" class="column_tip" WCMAnt:param="flowline_property.html.operName">操作名称：</td>
+				<td align="left" width="80%" id="tdOptionName">
+					<input id="bName" size=30  validation="type:'string',required:'true',max_len:'50',desc:'操作名称'" validation_desc="操作名称" WCMAnt:paramattr="validation_desc:flowline_property.html.operNameDesc"><span class="spFieldReqiredTip">*</span>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" style="padding-top: 5px; border-top: 0px solid silver; height: 25px; line-height: 25px">
+					<input id="chkOperationMark" type="checkbox" name="" value="" onclick="switchOperationMark(this)">&nbsp;<span WCMAnt:param="flowline_property.html.inuse">启用文档操作标签：</span>
+					<input class="readonly_text" readonly id="txtOperationMark" size=19  validation="type:'string',required:'true',max_len:'50',desc:'操作标签名称'" WCMAnt:paramattr="validation_desc:flowline_property.html.flowOperNameDesc" validation_desc="操作标签名称" />		
+				</td>
+			</tr>
+		</tbody>
+		</table>	
+	</div>
+  </div>
+  <div class="options_box" id="NotifyMethod">
+	<div>
+	<span class="box_header_left"></span>
+	<span class="box_header_center" style="width:40%;" WCMAnt:param="flowline_property.html.notifyWay">通知方法</span>
+	<span class="box_header_right" style="width:50%;"></span>
+	</div>
+	<div class="box_body">
+		<table border="0" cellspacing="0" cellpadding="3" width="80%">
+		<tbody>
+			<tr>
+				<td><input type="checkbox" id="chk_REMIND_ONLINE"><span WCMAnt:param="flowline_property.html.onlineSms">在线短消息</span></td>
+				<td><input type="checkbox" id="chk_REMIND_BYEMAIL"><span WCMAnt:param="flowline_property.html.email">邮件</span></td>
+				<td><input type="checkbox" id="chk_REMIND_BYMOBILE"><span WCMAnt:param="flowline_property.html.phoneSms">手机短信</span></td>
+			</tr>
+		</tbody>
+		</table>	
+	</div>
+  </div>
+</div>
+<div style="width: 100%; margin-top: 8px;display:none;" id="buttonDiv">
+<table border="0" cellspacing="0" cellpadding="0" style="width: 100%;">
+<tbody>
+	<tr>
+		<td align="center"><span><button type="button" onclick="doOK()"><span WCMAnt:param="flowline_property.html.confirm">确定</span></button></span>&nbsp;&nbsp;<span><button type="button" onclick="doCancel()"><span WCMAnt:param="flowline_property.html.cancel">取消</span></button></span></td>
+	</tr>
+</tbody>
+</table>
+</div>
+</center>
+</body>
+</html>

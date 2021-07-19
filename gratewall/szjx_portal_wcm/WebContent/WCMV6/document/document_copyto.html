@@ -1,0 +1,154 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="" xmlns:TRS_UI="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc">文档复制到...</title>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script>
+	$import('com.trs.wcm.FloatPanel');
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.ProcessBar');
+</script>
+<script>
+	var myActualTop = (top.actualTop||top);
+	FloatPanel.addCloseCommand();
+	FloatPanel.addCommand('okBtn', '确定', 'getSeletedIds', null);
+//	Event.observe(window,'unload',function(){
+//		FloatPanel.removeCommand('okBtn');
+//		FloatPanel.removeCloseCommand();
+//	});
+	//gfc 来自于不同栏目
+	var sChannelIds = getParameter("channelids");
+
+	var sObjectids = getParameter("objectids");
+
+	function getSeletedIds(){
+		var modes = document.getElementsByName("mode");
+		var sSelIds = null;
+		var sTreeIframeId = 'allTreeNav';
+		if(modes[0].checked){
+			sTreeIframeId = 'customizeTreeNav';
+		}
+		else if(modes[1].checked){
+			sTreeIframeId = 'allTreeNav';
+		}
+		else{
+			$alert('没选中任何模式');
+			return false;
+		}
+		try{
+			sSelIds = $(sTreeIframeId).contentWindow.getCheckValues();
+		}catch(err){
+			sSelIds = '';
+		}
+		if(!sSelIds||sSelIds.length==0) {
+			$alert('请选择当前文档要复制到的目标栏目!');
+			return false;
+		}
+		//else
+		ProcessBar.init('执行进度，请稍候...');
+		ProcessBar.addState('正在提交数据');
+		ProcessBar.addState('成功执行完成');
+		ProcessBar.start();
+		var oPostData = {
+			"ObjectIds" : sObjectids,
+			"FromChannelId" : sChannelIds,
+			"ToChannelIds" : sSelIds.join(',')
+		}
+		var func =  null;
+		if(sChannelIds.indexOf(',')==-1&&sSelIds.include(sChannelIds)){
+			func = function(){
+				$MessageCenter.sendMessage('main', 'PageContext.RefreshList', 'PageContext');
+				FloatPanel.close(true);
+			}
+		}
+		else{
+			func = function(){
+				$MessageCenter.sendMessage('main', 'PageContext.RefreshSearchList', 'PageContext');
+				FloatPanel.close(true);
+			}
+		}
+		var oHelper = new com.trs.web2frame.BasicDataHelper();
+		oHelper.Call('wcm6_viewdocument',(sObjectids=='0')?'copyAll':'copy',oPostData,true,
+			function(_transport,_json){
+				ProcessBar.exit();
+				myActualTop.ReportsDialog.show(_json,'文档复制结果', func);
+				FloatPanel.close();
+			},
+			function(_transport,_json){
+				$render500Err(_transport,_json);
+				FloatPanel.close(true);
+			}
+		);
+		return false;
+	}
+	function changeViewer(_i){
+		switch(parseInt(_i)){
+			case 1:
+				Element.show($('customize_channels'));
+				Element.hide($('all_channels_tree'));
+				break;
+			case 2:
+				Element.hide($('customize_channels'));
+				Element.show($('all_channels_tree'));
+				break;
+		}
+	}
+</SCRIPT>
+<style type="text/css">
+	.iframe_container{
+		width:380px;
+		height:300px;
+		padding:10px;
+	}
+</style>
+</HEAD>
+
+<BODY>
+<DIV style="line-height:36px; height:36px;text-align:center;font-size:14px;color:#010101;border-bottom:1px solid gray;">
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" value="1">个人定制的栏目
+	</SPAN>
+	<SPAN>
+		<INPUT type="radio" name="mode" onclick="changeViewer(this.value)" checked value="2">所有可用的栏目
+	</SPAN>
+</DIV>
+<DIV id="all_channels_tree" class="iframe_container">
+	<DIV style="height:100%;">
+		<iframe id="allTreeNav" src="../include/blank.html" style="width:100%;height:100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<DIV id="customize_channels" class="iframe_container" style="display:none">
+	<DIV style="height:100%;">
+		<iframe id="customizeTreeNav" src="about:blank" style="width:100%;height:100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+	</DIV>
+</DIV>
+<script language="javascript">
+<!--
+	var sURL = "?IsRadio=0&MultiSites=1&ExcludeSelf=0&ExcludeTop=1&ExcludeVirtual=1&RightIndex=31&ShowOneType=1";
+	//gfc 来自于不同栏目
+	if(sChannelIds != null && sChannelIds != ''){
+		var arChnlIds = sChannelIds.split(',');
+		if(arChnlIds.length == 1) {
+			sURL += "&CurrChannelId=" + arChnlIds[0];
+		}else if(arChnlIds.length > 1) {
+			sURL  += "&NotSelect=1&SelectedChannelIds="+sChannelIds; //TODO
+		}
+	}
+	var sExpandSiteId = getParameter("siteids");
+	if(sExpandSiteId != null && sExpandSiteId.length>0 && sExpandSiteId != "0"){
+		sURL += "&ExpandSiteId="+sExpandSiteId;
+	}
+
+	$('allTreeNav').src = "../nav_tree/nav_tree_select.jsp"+sURL;
+	$('customizeTreeNav').src = "../nav_tree/nav_tree_select_individual.jsp"+sURL;
+//-->
+</script>
+</BODY>
+</HTML>

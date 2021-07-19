@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1">
+<title>个人账户列表页</title>
+<link rel="stylesheet" href="../../../static/css/index.css">
+<link rel="stylesheet" href="../../../static/css/common.css">
+<link href="../../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" rel="stylesheet" type="text/css" />
+<link rel="Shortcut Icon" href="../../../static/image/img/verify.png" type="image/x-icon">
+<style>
+#hint-box {
+	height: 250px;
+}
+
+.hint-boxtop {
+	height: 175px;
+}
+
+.jazz-grid-cell {
+	border-left: 5px solid #fff;
+}
+
+.jazz-gridtable-even {
+	background: #fff;
+}
+
+.query {
+	background: #eff7fd;
+	/* height: 96px; */
+	border: 1px solid #bfe0f9;
+}
+
+.query-panel {
+	display: none;
+	/* 	position: absolute;
+		    z-index: 3000; */
+	width: 750px;
+	left: 25px;
+}
+
+#filtrate img {
+	vertical-align: middle;
+	transform: rotate(180deg);
+}
+
+.createOpr,.detailOpr,.submitOpr,.authOpr,.leSubmit,.deleteOpr,.stopOpr,.getLicenseOpr
+	{
+	background: url("../../../static/image/img/icon/24.png");
+	color: #fff;
+	padding: 0px 8px;
+	background-position-y: 1px;
+	font-size: 12px;
+	margin: 2px 2px;
+}
+
+.editOpr {
+	background: url("../../../static/image/img/icon/25.png") no-repeat;
+	color: #fff;
+	padding: 0px 10px;
+	font-size: 12px;
+}
+
+#conditionEntName {
+	border-left: 1px solid #bfe0f9;
+	border-right: 1px solid #bfe0f9;
+	width: 748px;
+	padding: 5px 0px;
+}
+
+#newestEntName {
+	cursor: default;
+}
+
+.applicantfont {
+	display: inline;
+}
+
+.noticeInfo {
+	text-indent: 2em;
+}
+
+#validate-name img {
+	height: 12px;
+}
+.jazz-grid-tables{
+	overflow-x:hidden;
+}
+.jazz-grid-cell{
+	border-right:1px #fff;
+}
+
+/*最新办理业务没有数据时，显示无，已商讨*/
+.noData{
+	display: block;
+	text-align: center;
+}
+</style>
+</head>
+
+<body>
+	<div id="top-line"></div>
+	<article style="height: 542px;">
+		<!--article中左边内容-->
+		<div class="wrapContent">
+			<aside class="sidebar">
+				<div class="sidebar-top">
+					<div class="sidebar-topheader"></div>
+					<div class="sidebar-top-circle">
+						<img src="../../../static/image/img/bgCenter.png" class="circle2">
+					</div>
+					<span id="name">您好,<span id="currentUserNameSpan"></span>!
+					</span><br> <span id="validate-name"> <span><img
+							src="../../../static/image/img/icon/checkname.png">&nbsp;</span>已实名验证
+					</span>
+				</div>
+
+				<div class="sidebar-mid">
+					<div class="business">
+						<span>常办业务</span>
+					</div>
+					<div class="company-establish">
+						<div class="company-establishleft" onclick=""
+							style='cursor: pointer;'>
+							<div class="circle">
+								<img src="../../../static/image/img/icon/21.png" alt="">
+							</div>
+							<a href='../setup/enter.html' class='set-in'>公司设立</a>
+						</div>
+						<div class="company-establishright" style='cursor: pointer;'>
+							<div class="circle">
+								<img src="../../../static/image/img/icon/20.png" alt="">
+							</div>
+							<a class='set-in'>业务委托</a>
+							<div id="circle3" class="circle3">
+								<p id="messages"></p>
+							</div>
+						</div>
+						<!-- 业务委托列表显示 -->
+						<div name="authPersonPanel" id="authPersonPanel" hideheader="true"
+							vtype="gridpanel" isshowselecthelper="false" showborder="false"
+							lineno=true linenowidth="0" titledisplay=false selecttype="0"
+							width="750"
+							style="display: none; background: #fff; position: absolute; left: 235px; top: 0px; z-index: 1; border: 1px solid #85c2e7; min-height: 100px;">
+							<div name="myBusiGrid_column" vtype="gridcolumn" hideheader=true>
+								<div>
+									<div name="auth-person-content" text="自定义"></div>
+								</div>
+							</div>
+							<div vtype="gridtable" id="authPerson_table" name="authPerson_table"></div>
+							<div vtype="paginator" name="authPerson_paginator" theme="1"
+								pagerows="3" classname='jazz-paginator-grid'
+								tablename="authPerson_table" align="left"></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="sidebar-bottom">
+					<div class="business">
+						<span>最新办理业务</span>
+					</div>
+					<ul>
+						<li class="font-blue"><img
+							src="../../../static/image/img/icon/26.png" alt="">
+							<div id="newestEntName" class="omit" title=""></div></li>
+						<li><img src="../../../static/image/img/icon/29.png" alt="">
+							业务类型&nbsp;:&nbsp; <span class="date-font" id="newestOptype"></span></li>
+						<li><img src="../../../static/image/img/icon/28.png" alt="">
+							申请日期&nbsp;:&nbsp;<span class="date-font" id="newestAppDate"></span></li>
+						<li><img src="../../../static/image/img/icon/27.png" alt="">
+							当前状态&nbsp;:&nbsp;<span class="back" id="newestState"></span></li>
+						<li id="li5"><a id="modify" href=""></a></li>
+					</ul>
+				</div>
+			</aside>
+
+
+
+			<!--article中右边内容-->
+			<div class="person-content">
+				<div class="top-bar person-bar">
+					<span id="my-business">我的业务</span> <span id="filtrate">按条件筛选&nbsp;&nbsp;<img
+						src="../../../static/image/img/icon/19.png"></span> <span
+						id="triangle-up" style="display: none;"></span>
+
+				</div>
+
+				<!-- 查询条件 -->
+				<div class="query-panel">
+					<div id="conditionEntName" style="background: #f9f9f9;">
+						<div id="queryEntName">
+							<div
+								style="border: 1px solid #ccccce; width: 650px; margin-left: 20px; background: #fff;">
+								<input id="name-input" vtype="text" placeholder="公司名称"
+									style="border: 0 none; height: 18px; width: 600px; padding: 10px;" />
+								<img id="query-img" src="../../../static/image/img/icon/94.png"
+									style="vertical-align: middle;" />
+							</div>
+						</div>
+						<!-- <div id="queryEntName" vtype="textfield"  name=queryEntName label="公司名称" labelwidth="100px" width="600px"></div> -->
+						<!-- <span class="condition-item">查询</span> -->
+					</div>
+					<div class="query">
+						<div id="busiState" class="query-condition">
+							<label class="condition-title">业务状态：</label> <span id="00"
+								class="condition-item selected">全部</span> <span id="1"
+								class="condition-item">未提交</span> <span id="17"
+								class="condition-item">待确认</span> <span id="2"
+								class="condition-item">等待审查</span> <span id="15"
+								class="condition-item">审查中</span>
+							<!-- 	    		<span id="3" class="condition-item">通过</span> -->
+							<span id="4" class="condition-item">未通过</span> <span id="8"
+								class="condition-item">已核准</span> <span id="9"
+								class="condition-item">已驳回</span> <span id="12"
+								class="condition-item">已终止</span>
+						</div>
+						<div class="dotted-line"></div>
+						<div id="operType" class="query_condition">
+							<label class="condition-title">业务类型：</label> <span id="00"
+								class="condition-item">全部</span> <span id="10"
+								class="condition-item">设立</span> <span id="20"
+								class="condition-item">变更</span> <span id="40"
+								class="condition-item">备案</span> <span id="50"
+								class="condition-item">注销</span> <span id="65"
+								class="condition-item">增减补换证照</span> <span id="92"
+								class="condition-item">股权出质</span>
+						</div>
+					</div>
+				</div>
+				<!-- 业务列表 -->
+
+				<div name="myBusiGridPanel" id="myBusiGridPanel" hideheader="true"
+					vtype="gridpanel" width="750" height="500"
+					isshowselecthelper="false" showborder="false" lineno=true
+					linenowidth="0" titledisplay=false selecttype="0"
+					style="font-family: 微软雅黑;">
+					<div name="myBusiGrid_column" vtype="gridcolumn" hideheader=true>
+						<div>
+							<!-- 				    <div name="entName" text="entName" width="200px"></div> -->
+							<!-- 				    <div name="appDate" text="appDate" width="150px"></div> -->
+							<!-- 				    <div name="flag" text="flag" width="100px" ></div> -->
+							<!-- 				    <div name="state" text="state" width="100px" ></div> -->
+							<div name="custom" text="自定义"></div>
+						</div>
+					</div>
+					<div vtype="gridtable" id="myBusiGrid_table"
+						name="myBusiGrid_table"></div>
+					<div vtype="paginator" name="myBusiGrid_paginator" theme="2"
+						pagerows="5" tablename="myBusiGrid_table"></div>
+				</div>
+
+			</div>
+		</div>
+	</article>
+
+	<div id="bottom-line"></div>
+
+
+	<!--点击安全中心后弹出-->
+	<div id="bg"></div>
+	<div id="hint-box">
+		<div class="hint-boxtop">
+			<span class="applicantfont"></span>
+			<p class="noticeInfo">欢迎您登录系统，在您办理业务之前，需要先完善个人信息。具体内容如下:</p>
+			<p class="noticeInfo"></p>
+			<span class="notice" id="notice-todo"></span>
+		</div>
+		<div class="full-line"></div>
+		<div class="enter">
+			<span id="enter-font" class="enter-font" style="cursor: pointer">进入个人中心</span>
+		</div>
+	</div>
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" src="../../../static/lib/require.js" data-main="apply/personalHome.js"></script>
+</body>
+</html>

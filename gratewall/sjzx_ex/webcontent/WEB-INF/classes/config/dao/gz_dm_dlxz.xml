@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>csdb</sort-name>
+  <table-info name="gz_dm_dlxz" class-name="cn.gwssi.csdb.ysjgl.dao.GzDmDlxz" check-flag="false" backup-flag="false">
+    <description>地理区域行政区划关联表</description>
+  </table-info>
+
+  <column name="gl_id" data-type="varchar" length="36" not-null="true" value-from="generate" func-name="getUUID" description="地理区域行政区划关联ID"/>
+  <column name="dlqy_dm" data-type="char" length="2" not-null="false" value-from="input" description="地理区域代码"/>
+  <column name="xzqh_id" data-type="varchar" length="36" not-null="false" empty-is-null="false" unique="false" value-from="input" description="行政区划ID"/>
+  <primary-key name="p_gl_id" column-list="gl_id"/>
+  <index name="p_gl_id" index-type="unique" cluster="other" column-list="gl_id"/>
+  <foreign-key foreign-table="gz_dm_xzqh" foreign-type="many-to-one" on-delete="none" on-update="none" column-names="xzqh_nm" foreign-names="xzqh_nm"/>
+  <function func-name="select one gz_dm_dlxz" func-type="select" column-list="gl_id,dlqy_dm,xzqh_id">
+    <filter-column column-name="gl_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select gz_dm_dlxz list" func-type="rowset" column-list="gl_id,dlqy_dm,xzqh_id" max-record="10">
+    <filter-column column-name="xzqh_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="dlqy_dm" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one gz_dm_dlxz" func-type="insert" column-list="gl_id,dlqy_dm,xzqh_id">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one gz_dm_dlxz" func-type="delete">
+    <filter-column column-name="gl_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one gz_dm_dlxz" func-type="update" column-list="gl_id,dlqy_dm,xzqh_id">
+    <filter-column column-name="gl_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="isHaveXzqhidAndDlqydm" func-type="rowset" column-list="gl_id" max-record="10">
+    <filter-column column-name="dlqy_dm" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="xzqh_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>是否已经含有相同的“行政区划ID与地理区域代码”的记录</description>
+  </function>
+
+  <function func-name="list gz_dm_dlxz in one xzqh_id" func-type="rowset" column-list="xzqh_id,dlqy_dm" max-record="-1">
+    <filter-column column-name="xzqh_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>列出某一行政区划对应的地理区域</description>
+  </function>
+</table>
+

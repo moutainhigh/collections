@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>共享服务测试</menu-name>
+  <menu-path>/page/share/svrtest/</menu-path>
+  <description>共享服务测试</description>
+  <form-beans>
+    <form-bean name="SysSvrTestUserRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="primary-key" name="sys_svr_config_id" type="string" size="32" cannull="false" description="共享服务配置编码"/>
+      <form-property prefix="primary-key" name="table_no" type="string" size="32" cannull="false" description="共享服务配置编码"/>
+      <form-property prefix="primary-key" name="column_no" type="string" size="32" cannull="false" description="共享服务配置编码"/>
+      
+      <form-property prefix="select-key" name="sys_svr_user_id" type="string" size="10" cannull="true" description="服务对象编号"/>
+      <form-property prefix="select-key" name="sys_svr_service_id" type="string" size="32" cannull="false" description="共享服务编号"/>
+      <form-property prefix="select-key" name="sys_svr_config_id" type="string" size="32" cannull="false" description="共享服务配置编号"/>
+      <form-property prefix="select-key" name="login_name" type="string" size="20" cannull="true" description="用户名"/>
+      <form-property prefix="select-key" name="user_type" type="string" size="10" cannull="true" description="用户类型"/>
+      <form-property prefix="select-key" name="svr_code" type="string" size="20" cannull="true" description="调查制度父节点代码"/>
+      <form-property prefix="select-key" name="svr_name" type="string" size="20" description="共享服务名称"/>
+      <form-property prefix="select-key" name="create_date_from" type="string" size="10" description="创建日期自"/>
+      <form-property prefix="select-key" name="create_date_to" type="string" size="10" description="创建日期至"/>      
+      <form-property prefix="select-key" name="state" type="string" size="32" cannull="false" description="用户状态"/>
+      <form-property prefix="select-key" name="service_id" type="string" size="32" cannull="true" description="服务ID"/>
+      <form-property prefix="select-key" name="file_map" type="string" size="2000" cannull="true" description="文件输入参数"/>
+      
+      <form-property prefix="record" name="txtUrl" type="string" size="500" cannull="true" description="记事本路径"/>
+      <form-property prefix="record" name="excelUrl" type="string" size="500" cannull="true" description="excel路径"/>
+      <form-property prefix="record" name="result" type="string" size="2" cannull="true" description="生成文件结果"/>
+      
+      <form-property prefix="record" name="sys_svr_service_id" type="string" size="32" cannull="false" description="共享服务编号"/>
+      <form-property prefix="record" name="create_date" type="string" size="10" cannull="true" description="创建日期"/>
+      <form-property prefix="record" name="create_by" type="string" size="32" cannull="true" description="创建人"/>
+      
+      <form-property prefix="record" name="svr_name" type="string" size="20" cannull="false" description="共享服务名称"/>
+      <form-property prefix="record" name="svr_desc" type="string" size="1000" cannull="true" description="备注"/>
+      <form-property prefix="record" name="svr_code" type="string" size="20" cannull="false" description="服务代码"/>
+      <form-property prefix="record" name="svr_type" type="string" size="10" cannull="false" description="服务类型"/>
+      <form-property prefix="record" name="create_date" type="string" size="10" cannull="false" description="创建日期"/>
+      <form-property prefix="record" name="create_by" type="string" size="32" cannull="false" description="创建人"/>
+      <form-property prefix="record" name="max_records" type="int" cannull="false" description="最大记录数"/>
+      <form-property prefix="record" name="params" type="string" size="100" cannull="false" description="服务参数"/>
+      
+      <form-property prefix="config-inf" name="permit_column_en_array" type="string" size="4000" cannull="false" description="配置字段英文名"/>
+      <form-property prefix="config-inf" name="permit_column_cn_array" type="string" size="4000" cannull="false" description="配置字段中文名"/>
+      <form-property prefix="config-inf" name="service_no" type="string" size="20" cannull="false" description="共享服务号"/>
+      <form-property prefix="config-inf" name="username" type="string" size="400" cannull="true" description="用户名"/>
+	  <form-property prefix="config-inf" name="password" type="string" size="400" cannull="true" description="密码"/>
+      
+      <form-property prefix="svr-params" name="params" type="string" size="100" cannull="false" description="服务参数"/>
+      <form-property prefix="svr-params" name="sys_svr_service_param_id" type="string" size="100" cannull="false" description="服务参数编号"/>
+      
+      <form-property prefix="config-param" name="params" type="string" size="100" cannull="false" description="配置参数"/>
+      <form-property prefix="config-params" name="sys_svr_config_param_id" type="string" size="100" cannull="false" description="配置参数编号"/>
+      <form-property prefix="config-params" name="param_type" type="string" size="100" cannull="false" description="配置参数类型"/>
+      
+      
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_svr_test_user.jsp" name="SysSvrTestUserRowsetForm" txn-code="50204001" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务对象列表</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrTest" func-name="txn50204001" input-node="select-key" output-node="record" description="查询服务对象列表"/>
+      <forward error-code="success" path="query-sys_svr_config.jsp"/>
+      <forward error-code="failure" path="query-sys_svr_config.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_test_user.jsp" name="SysSvrTestUserRowsetForm" txn-code="50204002" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询服务对象的服务</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrTest" func-name="txn50204002" input-node="select-key" output-node="record" description="查询服务对象的服务"/>
+      <forward error-code="success" path="detail-sys_svr_service.jsp"/>
+      <forward error-code="failure" path="detail-sys_svr_service.jsp"/>
+    </action>
+
+    <action input="query-sys_svr_test_service.jsp" name="SysSvrTestUserRowsetForm" txn-code="50204003" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>测试共享服务</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrTest" func-name="txn50204003" input-node="select-key" output-node="record" description="测试共享服务"/>
+      <forward error-code="success" path="detail-sys_svr_service.jsp"/>
+      <forward error-code="failure" path="detail-sys_svr_service.jsp"/>
+    </action>
+    
+    <action input="query-sys_svr_test_service.jsp" name="SysSvrTestUserRowsetForm" txn-code="50204004" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>生成共享文件</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrTest" func-name="txn50204004" input-node="select-key" output-node="record" description="生成共享文件"/>
+      <forward error-code="success" path="detail-sys_svr_service.jsp"/>
+      <forward error-code="failure" path="detail-sys_svr_service.jsp"/>
+    </action>
+
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_svr_user.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/dw/runmgr/services/svrtest/query-sys_svr_user.jsp" description="查询服务对象列表"/>
+    <resource-file type="jsp" file-name="/dw/runmgr/services/svrtest/insert-sys_svr_user.jsp" description="增加服务对象信息"/>
+    <resource-file type="jsp" file-name="/dw/runmgr/services/svrtest/update-sys_svr_user.jsp" description="修改服务对象信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.SysSvrUserContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrUser" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrUserSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrUserPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

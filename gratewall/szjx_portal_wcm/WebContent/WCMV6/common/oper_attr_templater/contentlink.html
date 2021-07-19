@@ -1,0 +1,23 @@
+<textarea id="template_contentlink" select="ChannelContentLink">
+	<div class="attribute_row">
+		<TRS_UI:editPanel value="{#LINKNAME}" class="attr_detail_value_doctitle" inputClass="attr_detail_value_doctitle" _fieldName="LINKNAME" rightindex="30" validation="type:'string',required:'true',desc:'内容',max_len:30">
+		</TRS_UI:editPanel>
+	</div>
+	<div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<span class="attribute_name">描述:</span>
+		<span class="attribute_value"><pre>{#LINKTITLE}</pre></span>
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">链接:</span>
+		<span class="attribute_value"><a href="{#LINKURL}" target="_blank" class="docpuburl" title='{#LINKURL}'>{#LINKURL}</a></span>
+	</div>
+	<div class="attribute_row_sep"></div>		
+ </textarea>
+
+ <textarea id="template_contentlinks">
+	<div class="attribute_row">
+		当前共选中<span class="objects_num">{#Num}</span>个热词.
+	</div>
+ </textarea>
+

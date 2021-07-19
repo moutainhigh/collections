@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxws="http://cxf.apache.org/jaxws" 
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs"  
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://cxf.apache.org/jaxws   
+      	http://cxf.apache.org/schemas/jaxws.xsd
+      	http://cxf.apache.org/jaxrs
+    	http://cxf.apache.org/schemas/jaxrs.xsd
+	  	http://www.springframework.org/schema/aop
+	  	http://www.springframework.org/schema/aop/spring-aop-3.2.xsd"
+	default-autowire="byName">
+	<!-- <import resource="classpath:quartz-spring.xml" />  -->
+	<import resource="classpath:META-INF/cxf/cxf.xml" />  
+<!--<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />  -->
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" /> 
+	<context:component-scan base-package="com.gwssi" />
+	<context:component-scan base-package="cn.gwssi" />
+	<!-- 加载配置文件 -->
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:*.properties</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- jndi方式DataSource -->
+	<!-- <bean id="defaultDataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
+		<property name="jndiName"> <value>java:comp/env/jdbc/base</value> </property> 
+		</bean> -->
+
+	<bean id="defaultDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>com.sybase.jdbc3.jdbc.SybDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:sybase:Tds:10.1.2.110:7220/datacenter?charset=cp936</value>
+		</property>
+		<property name="username">
+			<value>sa</value>
+		</property>
+		<property name="password">
+			<value>123456</value>
+		</property>
+	</bean>
+
+	<!-- iq库数据源 -->
+	<bean id="iqDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>com.sybase.jdbc3.jdbc.SybDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:sybase:Tds:10.1.2.118:2110/datacenteriq</value>
+		</property>
+		<property name="username">
+			<value>dba</value>
+		</property>
+		<property name="password">
+			<value>sql</value>
+		</property>
+	</bean>
+
+
+	<bean id="dataSourceshare" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName">
+			<value>com.sybase.jdbc3.jdbc.SybDriver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:sybase:Tds:10.1.2.110:7220/datacentershare?charset=cp936</value>
+		</property>
+		<property name="username">
+			<value>sa</value>
+		</property>
+		<property name="password">
+			<value>123456</value>
+		</property>
+	</bean>
+
+
+	<!-- 配置connectionFactory -->
+	<!-- <bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory" -->
+	<!-- destroy-method="stop"> -->
+	<!-- <property name="connectionFactory"> -->
+	<!-- <bean class="org.apache.activemq.ActiveMQConnectionFactory"> -->
+	<!-- <property name="brokerURL"> -->
+	<!-- <value>tcp://198.168.1.154:61616</value> -->
+	<!-- </property> -->
+	<!-- </bean> -->
+	<!-- </property> -->
+	<!-- <property name="maxConnections" value="100"></property> -->
+	<!-- </bean> -->
+
+	<!-- Spring JMS Template -->
+	<!-- <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate"> -->
+	<!-- <property name="connectionFactory"> -->
+	<!-- <ref local="jmsFactory" /> -->
+	<!-- </property> -->
+	<!-- <property name="defaultDestinationName" value="subject" /> -->
+	<!-- 区别它采用的模式为false是p2p为true是订阅 -->
+	<!-- <property name="pubSubDomain" value="true" /> -->
+	<!-- </bean> -->
+
+	<!-- 发送消息的目的地（一个队列） -->
+	<!-- <bean id="destination" class="org.apache.activemq.command.ActiveMQTopic"> -->
+	<!-- 设置消息队列的名字 -->
+	<!-- <constructor-arg index="0" value="subject" /> -->
+	<!-- </bean> -->
+
+	<!-- 消息监听 <bean id="listenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer"> 
+		<property name="concurrentConsumers" value="10" /> <property name="connectionFactory" 
+		ref="jmsFactory" /> <property name="destinationName" value="subject" /> <property 
+		name="messageListener" ref="messageReceiver" /> <property name="pubSubNoLocal" 
+		value="false"></property> </bean> -->
+	<!-- <bean id="messageReceiver" class="com.gwssi.test.jms.ProxyJMSConsumer"> 
+		class="edu.sjtu.erplab.springactivemq.ProxyJMSConsumer"> <property name="jmsTemplate" 
+		ref="jmsTemplate"></property> </bean> -->
+	<bean class="com.gwssi.optimus.core.persistence.datasource.DataSourceManager">
+		<property name="dataSourceRefs">
+			<list>
+				<bean class="com.gwssi.optimus.core.persistence.datasource.DataSourceRef">
+					<property name="dataSourceKey" value="defaultDataSource" />
+					<property name="dataSource" ref="defaultDataSource" />
+					<property name="dbType" value="sybase" />
+				</bean>
+				<bean class="com.gwssi.optimus.core.persistence.datasource.DataSourceRef">
+					<property name="dataSourceKey" value="iqDataSource" />
+					<property name="dataSource" ref="iqDataSource" />
+					<property name="dbType" value="sybase" />
+				</bean>
+				
+				<bean class="com.gwssi.optimus.core.persistence.datasource.DataSourceRef">
+					<property name="dataSourceKey" value="dataSourceshare" />
+					<property name="dataSource" ref="dataSourceshare" />
+					<property name="dbType" value="sybase" />
+				</bean>
+			</list>
+		</property>
+		<property name="defaultDataSourceKey">
+			<value>defaultDataSource</value>
+		</property>
+	</bean>
+
+	<!--事务管理DataSourceTransactionManager -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="defaultDataSource" />
+	</bean>
+	<bean id="iqtxManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="iqDataSource" />
+	</bean>
+	<bean id="sharetxManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceshare" />
+	</bean>
+	
+	
+	<!-- 针对注解声明式的事物 -->
+	<tx:annotation-driven transaction-manager="txManager" />
+	<tx:annotation-driven transaction-manager="iqtxManager" />
+	<tx:annotation-driven transaction-manager="sharetxManager" />
+	<aop:config>
+		<!-- <aop:pointcut id="baseServiceMethods" expression="execution(* com.gwssi.*.service..*.*(..))" 
+			/> -->
+		<aop:pointcut id="baseServiceMethods"
+			expression="target(com.gwssi.optimus.core.service.BaseService)" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="baseServiceMethods" />
+	</aop:config>
+
+	<tx:advice id="txAdvice" transaction-manager="txManager">
+		<tx:attributes>
+			<tx:method name="select*" read-only="true" propagation="SUPPORTS"
+				rollback-for="Exception" />
+			<tx:method name="find*" read-only="true" propagation="SUPPORTS"
+				rollback-for="Exception" />
+			<tx:method name="do*" propagation="REQUIRED" isolation="READ_COMMITTED"
+				rollback-for="Exception" />
+			<tx:method name="insert*" propagation="REQUIRED" isolation="READ_COMMITTED"
+				rollback-for="Exception" />
+			<tx:method name="update*" propagation="REQUIRED" isolation="READ_COMMITTED"
+				rollback-for="Exception" />
+			<tx:method name="add*" propagation="REQUIRED" isolation="READ_COMMITTED"
+				rollback-for="Exception" />
+			<tx:method name="delete*" propagation="REQUIRED" isolation="READ_COMMITTED"
+				rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+
+	<bean name="sessionCacheClient"
+		class="com.gwssi.optimus.core.web.session.client.redis.RedisSessionCacheClient"></bean>
+	<bean name="sessionManager"
+		class="com.gwssi.optimus.core.web.session.manager.CatalinaSessionManager"></bean>
+	<bean name="authManager" class="cn.gwssi.plugin.auth.OptimusAuthManager"></bean>
+
+	<!-- 
+	<bean id="gfg" class="cn.gwssi.cxf.test.TestService" /> -->
+	<!-- 2:通过jaxws:server方式来配置webservice 
+    <jaxws:server serviceClass="cn.gwssi.cxf.test.IService" address="/sayHello">
+        <jaxws:serviceBean>
+             <ref bean="gfg" />
+        </jaxws:serviceBean>
+    </jaxws:server> -->
+
+	<!-- soap -->
+	<!-- <bean id="helloWorldImpl" class="cn.gwssi.cxf.test.HelloWorldImpl" />-->
+	<!--2:通过jaxws:server方式来配置webservice
+    <jaxws:server serviceClass="cn.gwssi.cxf.test.HelloWorldDao" address="/helloworld">
+        <jaxws:serviceBean>
+            <bean id="helloWorldImpl" class="cn.gwssi.cxf.HelloWorldImpl" /> 
+             <ref bean="helloWorldImpl" />
+        </jaxws:serviceBean>
+    </jaxws:server> -->
+	<!-- restful 
+	 <jaxrs:server id="userExit" serviceClass="cn.gwssi.cxf.restful.test.UserExitImpl" address="/api"></jaxrs:server>
+	 <bean id="restSample" class="cn.gwssi.cxf.restful.test.RESTSampleSource"/>-->
+	<!-- 这里的地址很重要，客户端需要通过这个地址来访问WebService 
+	<jaxrs:server id="restServiceContainer" address="/rest">
+	    <jaxrs:serviceBeans>
+	        <ref bean="restSample" />
+	    </jaxrs:serviceBeans>
+	    <jaxrs:extensionMappings>
+	        <entry key="json" value="application/json" />
+	        <entry key="xml" value="application/xml" />
+	    </jaxrs:extensionMappings>
+	    <jaxrs:languageMappings>
+	           <entry key="en" value="en-gb"/>  
+	    </jaxrs:languageMappings>
+	</jaxrs:server>-->
+	
+	<!-- 服务鉴权
+	<bean id="authRespService" class="cn.gwssi.cxf.restful.AuthRespService"/> -->
+	<!-- 这里的地址很重要，客户端需要通过这个地址来访问WebService 
+	<jaxrs:server id="authServiceContainer" address="/auth">
+	    <jaxrs:serviceBeans>
+	        <ref bean="authRespService" />
+	    </jaxrs:serviceBeans>
+	    <jaxrs:extensionMappings>
+	        <entry key="json" value="application/json" />
+	        <entry key="xml" value="application/xml" />
+	    </jaxrs:extensionMappings>
+	    <jaxrs:languageMappings>
+	           <entry key="en" value="en-gb"/>  
+	    </jaxrs:languageMappings>
+	</jaxrs:server>-->
+	
+	<!-- 服务
+	<bean id="responseService" class="cn.gwssi.cxf.restful.ResponseService"/> -->
+	<!-- 这里的地址很重要，客户端需要通过这个地址来访问WebService 
+	<jaxrs:server id="responseServiceContainer" address="/service">
+	    <jaxrs:serviceBeans>
+	        <ref bean="responseService" />
+	    </jaxrs:serviceBeans>
+	    <jaxrs:extensionMappings>
+	        <entry key="json" value="application/json" />
+	        <entry key="xml" value="application/xml" />
+	    </jaxrs:extensionMappings>
+	    <jaxrs:languageMappings>
+	           <entry key="en" value="en-gb"/>  
+	    </jaxrs:languageMappings>
+	</jaxrs:server>-->
+</beans>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.GroupServiceProvider">
+
+	<method name="saveGroups" desc="保存用户信息">
+		<parameter name="UserId" desc="获取用户的ID" type="string" required="true"/>
+		<parameter name="CurrGroupIds" desc="获取用户现有组织ID" type="string" required="false"/>
+		<parameter name="OrigGroupIds" desc="获取用户原有组织ID" type="string" required="false"/>
+	</method>	
+		
+	<method name="getGroupsForCurrUser" desc="获取当前登录用户可以管理的组织">
+	</method>		
+	
+	<method name="getGroupsForRole" desc="获取指定角色关联的组织">
+		<parameter name="RoleId" desc="角色ID" type="int" required="true"/>
+	</method>	
+	<method name="query" desc="查询系统组织">
+		<parameter name="PageSize" desc="组织列表分页大小" type="int" required="false" default="20"/>
+		<parameter name="CurrPage" desc="当前组织列表第几页" type="int" required="false" default="1"/>
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="CrTime Desc" required="false"/>
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="GName" desc="组织名称" type="string" required="false"
+			search="true" search-operator="like" search-field="GNAME"/>
+		<parameter name="GDesc" desc="组织描述" type="string" required="false"
+			search="true" search-operator="like" search-field="GDESC"/>			
+		<parameter name="ParentId" desc="父组织" type="string" required="false" search="true"
+			search-operator="="/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="="/>
+	</method>	
+</service>

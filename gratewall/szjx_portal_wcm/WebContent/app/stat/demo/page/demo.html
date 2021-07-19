@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> New Document </title>
+	<script language="javascript" src="common.js" type="text/javascript"></script>
+	<script language="javascript" src="page.js" type="text/javascript"></script>
+	<link href="page.css" rel="stylesheet" type="text/css" />
+	
+</head>
+
+<body>
+<div id="list_navigator" class="list_navigator"></div>
+<script language="javascript">
+<!--
+	drawNavigator({
+		PageIndex : 3,
+		PageSize : 20,
+		PageCount : Math.ceil(105/20),
+		Num : 100
+	});
+	PageNav.go = function(pageIndex, pageCount, pageSize){
+		if(pageIndex < 1) pageIndex = 1;
+		if(pageIndex > pageCount) pageIndex = pageCount;
+		var sUrl = "xxx_list.jsp?pageIndex="+(pageIndex-1);
+		if(pageSize){
+			sUrl += "&pageSize=" + pageSize;
+		}
+		location.href = sUrl;
+	}
+//-->
+</script>
+
+</body>
+</html>

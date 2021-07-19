@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1">
+<link rel="stylesheet" href="../../../static/css/common.css">
+<link href="../../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+.main2-font4 {
+	font-size: 14px;
+	/* color: #69BF3E; */
+	color: red;
+	font-weight: bold;
+}
+
+.selectCover {
+	z-index: 1002;
+	color: white;
+	top: -50px;
+}
+
+.img {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.titlePerson, .titleCp, .executive, .pageCp {
+	display: none;
+}
+
+.dotted {
+	width: 92%;
+	margin: 0 auto;
+}
+
+.title span:nth-child(1) {
+	margin-left: 45px;
+}
+
+.radio {
+	width: 92%;
+	margin: 0 auto 0 45px;
+}
+
+.info-setup {
+	clear: both;
+}
+
+.info-setup img {
+	margin: 0 0 0 10px;
+	margin-bottom: -7px;
+}
+
+.directors, .managers, .conductors {
+	margin-left: 30px;
+}
+
+.jazz-field-comp-label {
+	font-family: "Microsoft YaHei";
+}
+
+/*隐藏advice*/
+.advice{
+	display: none;
+}
+</style>
+</head>
+<body>
+	<!-- header区域 -->
+	<!-- article内容 -->
+	<article class="wrapper">
+
+		<div class="main">
+			<div class="content-top">
+				<img src="../../../static/image/img/icon/mbr-white.png">
+				<span>主要人员信息</span>
+			</div>
+			<!--第一行-->
+			<div class="title">
+				<span>董事&nbsp;</span>
+				<span class="notice">(&nbsp;公司根据情况选择是否成立董事会&nbsp;)</span>
+				<div class="dotted">
+					<div class="dotted-line"></div>
+				</div>
+			</div>
+			<!--单选按钮-->
+			<div class="radio" id="executive">
+				<input type="radio" name="executive" id="noSet" value="0">
+				<label for="noSet">不设董事会,仅设立执行董事1人</label>
+				<br />
+				<input type="radio" name="executive" id="yesSet" value="1">
+				<label for="yesSet">设立董事会,董事成员为3-13人,其中董事长1人</label>
+			</div>
+			<!--第三行-->
+			<div name="directorsGridPanel" id="directorsGridPanel" hideheader="true" vtype="gridpanel" width="0" isshowselecthelper="false" showborder="false" lineno=true linenowidth="0" titledisplay=false selecttype="0" style="font-family: 微软雅黑;">
+				<div name="nameListGrid_column" vtype="gridcolumn" hideheader=true>
+					<div></div>
+				</div>
+				<div vtype="gridtable" id="directorsGrid_table" name="directorsGrid_table" style="font-family: 微软雅黑; display: none;"></div>
+				<div vtype="paginator" name="directorsGrid_paginator" theme="1" pagerows="50" classname='jazz-paginator-grid' tablename="directorsGrid_table" align="left" style="clear: both" class="executive"></div>
+			</div>
+
+
+
+			<!--经理-->
+			<div class="title">
+				<span>经理&nbsp;</span>
+				<span class="notice">(&nbsp;仅为1人,&nbsp;可由董事长,&nbsp;执行董事,&nbsp;董事兼任&nbsp;)</span>
+				<div class="dotted">
+					<div class="dotted-line"></div>
+				</div>
+			</div>
+
+			<div name="managersGridPanel" id="managersGridPanel" hideheader="true" vtype="gridpanel" width="0" isshowselecthelper="false" showborder="false" lineno=true linenowidth="0" titledisplay=false selecttype="0" style="font-family: 微软雅黑; display: none;">
+				<div name="nameListGrid_column" vtype="gridcolumn" hideheader=true>
+					<div>
+						<!-- <div name="entmemberId" text="自定义" width="280px"></div>
+								<div name="custom" text="自定义" width="280px"></div> -->
+					</div>
+				</div>
+				<div vtype="gridtable" id="managersGrid_table" name="managersGrid_table"></div>
+				<div vtype="paginator" name="managersGrid_paginator" theme="1" pagerows="50" classname='jazz-paginator-grid' tablename="managersGrid_table" align="left"></div>
+			</div>
+
+			<!-- 法定代表人行 -->
+			<div class="title">
+				<span>法定代表人&nbsp;</span>
+				<span class="notice" id="fddbrNotice"></span>
+				<div class="dotted">
+					<div class="dotted-line"></div>
+				</div>
+			</div>
+			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<div name="name" id="fddbr" vtype="comboxfield" label="法定代表人" labelwidth="120" labelalign="right" width="350" tooltip="" rule="must" dataUrl=""></div>
+			</br> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			<!-- <div name="mobile" id="mobile" vtype="textfield" label="移动电话" labelwidth="120" labelalign="right" width="350" tooltip="请填入法定代表人的正确移动电话号码!" rule="must_cellphone"></div> -->
+
+			<!--监事行-->
+			<div class="title">
+				<span>监事&nbsp;</span>
+				<span class="notice">(&nbsp;公司需根据情况选择是否成立监事会；监事，必须为董事长（执行董事）、董事、经理、财务之外的人员&nbsp;)</span>
+				<div class="dotted">
+					<div class="dotted-line"></div>
+				</div>
+			</div>
+			<!--单选按钮-->
+			<div id="supervisorId" class="radio">
+				<input type="radio" name="supervisor" id="supervisorNotSet" value='0'>
+				<label for="supervisorNotSet">不设立监事会,监事人数1-2人</label>
+				</br>
+				<input type="radio" name="supervisor" id="supervisorYesSet" value='1'>
+				<label for="supervisorYesSet">设立监事会,监事人数至少为3人,其中设监事会主席1人</label>
+			</div>
+
+			<div name="supervisorsGridPanel" id="supervisorsGridPanel" hideheader="true" vtype="gridpanel" width="0" isshowselecthelper="false" showborder="false" lineno=true linenowidth="0" titledisplay=false selecttype="0" style="font-family: 微软雅黑; display: none;">
+				<div name="nameListGrid_column" vtype="gridcolumn" hideheader=true>
+					<div>
+						<!-- <div name="custom" text="自定义" width="280px"></div> -->
+					</div>
+				</div>
+				<div vtype="gridtable" id="supervisorsGrid_table" name="supervisorsGrid_table"></div>
+				<div vtype="paginator" name="supervisorsGrid_paginator" theme="1" pagerows="50" classname='jazz-paginator-grid' tablename="supervisorsGrid_table" align="left"></div>
+			</div>
+
+		</div>
+		<section class="wrapAdvice">
+			<section class="advice">
+				<section class="adviceTop">
+					<span>退回修改意见</span>
+					<img src='../../../static/image/img/icon/minus.png' name="back">
+				</section>
+				<section class="tips">
+					<!-- <p>1.技术开发,技术转让,技术咨询,技术服务;销售计算机软件辅助设备;电子产品,机械设备</p>
+					<p>2.通讯设备,五金交电,安技术防范产品,化工产品(不含危险化学品及一类易制毒化学品)金属</p>
+					<p>3.材料,非金属矿石,金属石;货物进出口,代理进出口</p> -->
+				</section>
+			</section>
+			<section class="modifyBack" id="#modifyBack">
+				<img src="../../../static/image/img/icon/plusign.png">
+				<p>退回修改意见</p>
+			</section>
+		</section>
+		<!--主要信息展示区域结束-->
+		<!--按钮样式-->
+		<!--保存按钮与下一步按钮结束-->
+
+		<div name="applySetupBasicToolbar" vtype="toolbar" location="bottom" align="center">
+			<div name="applySetupBasic_back_button" id="applySetupBasic_back_button" class="commonBt">上一步</div>
+			<div name="applySetupBasic_save_button" id="applySetupBasic_save_button" class="commonBt">保存</div>
+			<div name="applySetupBasic_forward_button" id="applySetupBasic_forward_button" class="commonBt">下一步</div>
+		</div>
+		</div>
+	</article>
+	<!-- footer区域 -->
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" src="../../../static/lib/require.js" data-main="apply/setupMember.js"></script>
+</body>
+</html>

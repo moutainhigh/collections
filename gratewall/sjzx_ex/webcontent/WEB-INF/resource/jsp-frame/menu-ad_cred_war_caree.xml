@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="ad_cred_war_caree.xml" app-path="/dw/aic/bj/ad/syfr/" app-name="ad_cred_war_caree" description="事业警示信息" template="single-table.xml"/>
+  <table name="ad_cred_war_caree.xml" app-name="ad_cred_war_caree" app-desc="事业警示信息" delete-action="delete" description="事业警示信息" class-name="com.gwssi.dw.aic.bj.ad.txn.TxnAdCredWarCaree" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-ad_cred_war_caree.jsp" txn-code="60188101" description="查询事业警示信息列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加事业警示信息" path="insert-ad_cred_war_caree.jsp" description="增加事业警示信息" func-name="addRecord"/>
+	    <button type="button" name="修改事业警示信息" path="/txn60188104.do" description="修改事业警示信息" func-name="updateRecord"/>
+	    <button type="button" name="删除事业警示信息" path="/txn60188105.do" description="删除事业警示信息" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60188101.do" description="查询事业警示信息信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-ad_cred_war_caree.jsp" txn-code="60188103" description="增加事业警示信息信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60188103.do" description="保存事业警示信息信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60188103.do" description="保存事业警示信息信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60188101.do" description="保存事业警示信息信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60188101.do" description="返回到事业警示信息明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-ad_cred_war_caree.jsp" txn-code="60188102" description="修改事业警示信息信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60188101.do" description="修改事业警示信息信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60188101.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-ad_cred_war_caree.jsp" txn-code="60188101" description="查询事业警示信息列表">
+	    <forward error-code="success" path="query-ad_cred_war_caree.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-ad_cred_war_caree.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-ad_cred_war_caree.jsp" txn-code="60188102" description="修改事业警示信息信息">
+	    <forward error-code="success" path="update-ad_cred_war_caree.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-ad_cred_war_caree.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-ad_cred_war_caree.jsp" txn-code="60188103" description="增加事业警示信息信息">
+	    <forward error-code="success" path="insert-ad_cred_war_caree.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-ad_cred_war_caree.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-ad_cred_war_caree.jsp" txn-code="60188104" description="查询事业警示信息用于修改">
+	    <forward error-code="success" path="update-ad_cred_war_caree.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-ad_cred_war_caree.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-ad_cred_war_caree.jsp" txn-code="60188105" description="删除事业警示信息信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.vo.AdCredWarCareeContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.vo.VoAdCredWarCaree" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.vo.VoAdCredWarCareeSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.vo.VoAdCredWarCareePrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

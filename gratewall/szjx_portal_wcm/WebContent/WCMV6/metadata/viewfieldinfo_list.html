@@ -1,0 +1,262 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>视图字段列表</title>
+
+<!-- ~Common CSS Begin~ -->
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/wcm_list_abstract.css" rel="stylesheet" type="text/css" />
+<!-- ~Common CSS End~ -->
+
+<!-- ~Imports Begin~    -->
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+</script>
+<script label="Imports">
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.util.CommonHelper');
+    $import('com.trs.wcm.SheetChanger');
+	$import('com.trs.wcm.QuickKey');
+	$import('com.trs.wcm.SimpleDragger');
+	$import('com.trs.wcm.Grid');
+	$import('com.trs.wcm.PageFilter');
+	$import('com.trs.wcm.BubblePanel');		
+	$import('com.trs.wcm.PopTip');		
+    $import('com.trs.wcm.domain.ViewInfoMgr');
+    $import('com.trs.wcm.domain.ViewFieldInfoMgr');
+	$import('com.trs.wcm.SimpleQuery');
+    $import('com.trs.crashboard.CrashBoarder');
+    $import("com.trs.drag.SimpleDragger");
+	$import('com.trs.validator.Validator');
+</script>
+<!-- ~Imports END~    -->
+
+<!-- ~PageJavaScript Begin~    -->
+<script language="javascript" src="key_words.js" type="text/javascript"></script>
+<script src="../common/wcm_list_abstract.js" label="PageScope"></script>
+<script src="viewfieldinfo_list.js" label="PageScope" desc="页面的描述文件"></script>
+<!-- ~PageJavaScript END~    -->
+<style type="text/css">
+    *{
+        font-size:12px;
+    }
+    .viewInfo{
+        float:left;
+        margin:0px 5px 0px 10px;
+        height:100%;
+        padding-top:8px;
+    }
+    .operatorContainer{
+        float:left;
+        height:100%;
+    }
+    .returnTableInfoList,   .addViewOperator,
+    .setViewOperator,       .selectFieldsOperator, .selectDBFieldsOperator,
+    .setAsTitleOperator,    .setAsRetrieveOperator, .generateOperator,
+    .deleteOperator{
+        float:left;
+        margin:0px 3px;
+        height:100%;
+        padding-left:18px;
+        cursor:pointer;    
+        line-height:25px;
+    }
+    .returnTableInfoList{
+        background:url(../images/metadata/back.gif) 0px center no-repeat;
+    }
+    .addViewOperator{
+		background:url(../images/icon/New.png) 0 center no-repeat;
+    }
+    .setViewOperator{
+		background:url(../images/metadata/setView.png) 0 center no-repeat;
+    }
+    .selectFieldsOperator{
+		background:url(../images/icon/Add.png) 0 center no-repeat;
+    }
+    .selectDBFieldsOperator{
+		background:url(../images/icon/Add.png) 0 center no-repeat;
+    }
+    .setAsTitleOperator{
+		background:url(../images/metadata/setAsTitle.png) 0 center no-repeat;
+    }
+    .setAsRetrieveOperator{
+		background:url(../images/metadata/setAsTitle.png) 0 center no-repeat;
+        display:none;
+    }
+    .generateOperator{
+		background:url(../images/metadata/generate.gif) 0 center no-repeat;
+    }
+    .deleteOperator{
+		background:url(../images/metadata/delete.gif) 0 center no-repeat;
+    }   
+    .titleField{
+		background:url(../images/metadata/titlefield.gif) 0 center no-repeat;
+    }   
+</style>
+<style label="PageScope">
+	.ObjectDesc{
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        color:blue;
+	}
+	.ObjectType{
+		padding-left:0!important;
+		padding-left:2px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+	}
+
+	/**页面自己的样式**/
+	.object_edit{
+        background:url(../images/metadata/edit.gif) center center no-repeat;
+	}
+	.object_save{
+        background:url(../images/icon/Save.png) center center no-repeat;
+	}
+	.object_delete{
+        background:url(../images/metadata/delete.gif) center center no-repeat;
+	}
+	.object_cancel{
+        background:url(../images/metadata/cancel.gif) center center no-repeat;
+	}
+    .input_text{
+        border:1px solid silver;
+        margin:2px 3px;
+        width:100%;
+        overflow:hidden;
+    }
+    #grid_data select{
+        border:1px solid silver;
+        margin:2px 3px;
+        height:16px;
+        overflow:hidden;
+    }
+    #grid_data A{
+        color:blue;
+    }   
+    .grid_column{
+        text-align:left;
+        padding-left:5px;
+    }
+	.no_right{
+		filter:gray;
+		cursor:not-allowed
+	}
+</style>
+</head>
+<body>
+<script>
+</script>
+<div id="dy_list_adjust"></div>
+<table id="table_body" class="wcm_table_layout" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="wcm_list_view">
+			<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+			<tbody>
+				<tr class="list_pageinfo">
+					<td colSpan="3">
+						<div class="pageinfo">
+							<div class="pageinfo_left"></div>
+							<div class="returnTableInfoList" id="returnTableInfoId" style="display:none;padding-top:4px;">返回</div>
+							<div class="viewInfo" id="viewInfo" style="display:none;font-weight:bold;"></div>
+                            <div class="pageinfo_right"></div>
+                            <div style="float:right;position:absolute;right:0px;" id="query_box"></div>  
+						</div> 
+					</td>
+				</tr>
+                <tr style="height:25px;">
+					<td class="list_view_border"></td>
+                    <td style="background:#D3D3D3;border-top:1px outset gray;border-bottom:1px inset gray;">
+                        <div id="operatorContainer" class="operatorContainer" style="display:none;width:100%;">
+                            <div key='addView' id="addViewOperator" class="addViewOperator">新建视图(V)</div>
+                            <div key='setView' id="setViewOperator" class="setViewOperator">设置视图(S)</div>
+                            <div key='selectFields' id="selectFieldsOperator" class="selectFieldsOperator no_right" disabled>维护字段(C)</div>
+                            <div key='selectDBFields' id="selectDBFieldsOperator" class="selectDBFieldsOperator no_right" disabled title="维护元数据字段">维护物理字段</div>
+                            <div key='generate' id="generateOperator" class="generateOperator no_right" disabled>生成应用(G)</div>
+                            <div key='setAsTitle' id="setAsTitleOperator" class="setAsTitleOperator no_right" disabled>设为标题(T)</div>
+                            <div key='setAsRetrieve' id="setAsRetrieveOperator" class="setAsRetrieveOperator no_right" disabled>设为检索(R)</div>
+                            <div key='_delete' id="deleteOperator" class="deleteOperator no_right" disabled>删除(D)</div>
+                        </div>                    
+                    </td>
+					<td class="list_view_border"></td>
+                </tr>
+				<tr class="list_view">
+					<td class="list_view_border"></td>
+					<td valign="top">
+						<DIV id='objects_grid' class="grid">
+							<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+								<tr style="height:29px">
+									<td>
+										<DIV class="grid_head" id="grid_head">
+											<!--列表头模板-->
+											<SPAN class="grid_head_column" onclick="Grid.toggleAllRows();" style="width:30px;">
+												全选
+											</SPAN>
+                                            <SPAN class="grid_head_column" style="width:30px">
+												操作
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:100px;" grid_sortby="fieldName" title="视图字段名称">
+												英文名称
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:110px;" title="视图字段描述">
+												中文名称
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:100px;" grid_sortby="dbfieldName" title="元数据字段英文名称">
+												物理字段名称
+											</SPAN>
+											<SPAN class="grid_head_column ObjectType" grid_dywidth="ObjectType,1.0">
+												类型
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:70px;">
+												概览显示
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:80px;">
+												库中类型
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:30px;border-right:0">
+												操作
+											</SPAN>
+										</DIV>
+									</td>
+								</tr>
+								<tr>
+									<td valign="top">
+										<div id="grid_data" class="grid_data"></div>
+									</td>
+								</tr>
+							</table>
+						</DIV>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+                <!--
+				<tr class="list_navigator">
+					<td class="list_view_border"></td>
+					<td>
+						<DIV id="list_navigator" class="list_navigator_div">
+						</DIV>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+                //-->
+			</tbody>
+			</table>
+		</td>
+	</tr>
+</table>
+<textarea id="objects_template" select="ViewFieldInfos" style='display:none'>{#HTML}</textarea>
+<div id="divNoObjectFound" style="display:none;">
+	<div class="no_object_found">不好意思, 没有找到符合条件的对象..-____-|||</div>
+</div>
+<script language="javascript">
+<!--
+	PageContext.LoadPage();
+//-->
+</script>
+</body>
+</html>

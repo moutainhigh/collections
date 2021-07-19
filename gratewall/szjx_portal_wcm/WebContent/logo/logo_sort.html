@@ -1,0 +1,74 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script>
+function init(_args) {
+	if(_args == null || _args.length<2){
+		alert("参数["+_args+"]传入的不对!");
+		return;
+	}
+	
+	var nMaxSize = _args[0];
+	var nCurrentIndex = _args[1];
+
+	var oSelect = document.getElementById("LogoOrder");
+	oSelect.innerHTML = '';
+	for(var i=1; i<=nMaxSize; i++){
+		var oOption = document.createElement("OPTION");
+		oSelect.options.add(oOption);
+		oOption.innerText = "处于第["+i+"]位";
+		oOption.value = i;
+
+		if(i == nCurrentIndex){
+			oOption.selected = true;
+		}
+	}
+
+}
+function submitData(_oForm){
+	if (window.parent){
+		var oReturnValue = _oForm.LogoOrder.value;
+		window.parent.notifyParent2CloseMe(document.FRAME_NAME);
+		window.parent.notifyParentOnFinished(document.FRAME_NAME, oReturnValue);
+	}
+}
+
+function closeframe(){
+	if (window.parent){
+		window.parent.notifyParent2CloseMe(document.FRAME_NAME);
+	}
+}
+
+</script>
+
+</head>
+
+<body style="background-color: transparent;">  
+<form id="addedit" onsubmit="return false;">
+	<table align="center" cellspacing="1" cellpadding="2" style="marging-top:10px; font-size:12px">
+		<!--~--- ROW4 ---~-->
+		<tr>
+			<td align="right" nowrap> 新的顺序:  </td> 
+			<td>
+				<select name="LogoOrder" id="LogoOrder">
+				</select>
+			</td>
+		</tr>		
+		<!--~- END ROW4 -~-->
+		<!--~--- ROW5 ---~-->
+		<tr>
+			<td align="center" colspan="2" height="5px">&nbsp; </td>
+		<tr>
+		<!--~- END ROW5 -~-->
+		<!--~--- ROW6 ---~-->
+		<tr>
+			<td align="center" colspan="2">
+				<input type="submit" value="确定" onclick="submitData(this.form);">
+				<input type="button" value="取消" onclick="closeframe(); return false;">
+			</td>
+		</tr>
+		<!--~- END ROW6 -~-->
+	</table>
+</form>
+</body>
+</html>

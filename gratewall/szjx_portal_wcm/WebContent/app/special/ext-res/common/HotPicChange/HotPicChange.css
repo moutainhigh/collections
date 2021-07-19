@@ -1,0 +1,60 @@
+﻿.xh_focus{
+	position:relative;border:0px;
+}
+.xh_focus img{
+	border:0px;
+};
+.xh_focus a{
+	border:0px;
+}
+.FocusImg {
+	position:relative;
+	/*z-index:19999;*/
+}
+.FocusImg .BigPic {
+	text-align:center;
+}
+.FocusImg .BigPic img {
+	display:block;
+	margin:0 auto;
+	FILTER: revealTrans(duration=1,transition=23);
+}
+.FocusImg .TitleBg {
+	width:100%;
+	position:absolute;
+	bottom:0px;
+	left:0;
+	background:#000;
+	filter:Alpha(Opacity=80);
+	opacity:0.8;
+	background:#000;
+	/*z-index:10;*/
+}
+.FocusImg .TitleBox {
+	position:absolute;
+	bottom:0px;color:#fff;
+	/*z-index:20;*/
+}
+.FocusImg a:link, .FocusImg a:visited {
+	color:#fff;
+	text-decoration:none;
+}
+.FocusImg a:hover {
+	color:#fff;
+	text-decoration:underline;
+}
+.xh_focus .SmallPics {
+	zoom:1; 
+	position:absolute; 
+	/*z-index:20000;*/
+}
+.xh_focus .SmallPics span { 
+	display:inline-block; width:9px; height:9px; overflow:hidden;text-align:center;margin-right:13px; cursor:pointer;background:url(./red.png) no-repeat;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=scale,src='red.png');
+	_background:none;
+}
+.xh_focus .SmallPics span.selected{
+	background:url(./gray.png) no-repeat;
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true,sizingMethod=scale,src='gray.png');
+	_background:none;
+}

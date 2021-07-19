@@ -1,0 +1,279 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>文档高级检索</title>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+</script>
+<script>
+	$import('com.trs.logger.Logger');
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.wcm.ProcessBar');
+	$import('com.trs.wcm.SheetChanger');
+    $import('wcm52.calendar.Calendar');
+</script>
+<script language="javascript" src="./document_advance_search.js"></script>
+<style type="text/css">
+	.td_row_tip{
+		height: 25px;
+		padding: 1px;
+	}
+	.sp_row_tip, .sp_row_tip_unfoldable{
+		cursor:hand;
+		padding: 2px;
+		padding-left: 5px;
+		background: aliceblue;
+		width: 100%;
+		font-family: Courier New;
+		font-weight: bold;
+		font-size: 12px;
+		border-top: solid 1px #efefef;
+		border-bottom: solid 1px #efefef;
+	}
+	.sp_row_tip_unfoldable{/*不需要展开的*/
+		cursor:auto;
+	}
+	.td_row_value{
+		padding: 2px;
+		padding-left: 5px;
+		padding-bottom: 8px;
+		width: 100%;
+		font-family: Courier New;
+	}
+	.div_block{
+		padding: 5px;
+		font-size: 12px;
+	}
+	.div_inner{
+		padding-left: 20px;
+		padding-top: 3px;
+	}
+	.sp_title{
+		font-size: 12px;
+		height: 25px;
+		line-height: 25px;
+		text-decoration: none;
+		width: 80px;
+		padding-left: 5px;
+	}
+	.spColumn{
+		width: 50%;
+		padding-left: 10px;
+	}
+	.divAdvancedItem{
+		border-bottom: 1px solid #efefef;
+		padding-bottom: 5px;
+	}
+	body{
+		background: #ffffff;
+		padding: 0;
+		margin: 0;
+		width: 100%;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
+	.divContainer{
+		width: 190px; 
+	}
+</style>
+</head>
+
+<body>
+<form id="frmData" method=post onsubmit="PageContext.render(); return false;" style="width: 190px;">
+<div class="divContainer">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td class="td_row_tip" width="100%">
+			<span class="sp_row_tip_unfoldable">完整或部分文档标题:</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="td_row_value">
+			<input type="text" name="DocTitle" id="txtDocTitle" value="" style="width: 160px;">
+		</td>
+	</tr>
+	<tr>
+		<td class="td_row_tip">
+			<span class="sp_row_tip_unfoldable">发稿人:</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="td_row_value">
+			<input type="text" name="CrUser" id="txtCrUser" value="" style="width: 160px;">
+		</td>
+	</tr>
+	<tr>
+		<td class="td_row_tip">
+			<span class="sp_row_tip_unfoldable">作者:</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="td_row_value">
+			<input type="text" name="CrUser" id="txtDocAuthor" value="" style="width: 160px;">
+		</td>
+	</tr>
+	<tr>
+		<td class="td_row_tip">
+			<span class="sp_row_tip_unfoldable">在这里检索(<img src="../images/icon/SitesChannels.gif" align="absmiddle" onclick="PageContext.selectRegion();" alt="从列表和导航栏中选择" style="cursor: pointer; ">):</span>
+		</td>
+	</tr>
+	<tr>
+		<td class="td_row_value">
+			<input type="hidden" id="hdSiteIds" name="SiteIds" value="1">
+			<input type="hidden" id="hdChannelIds" name="ChanneldIds" value="">
+			<select id="selSearchRegion" multiple size="5" style="width: 160px;"></select>
+		</td>
+	</tr>
+	<tr>
+		<td class="td_row_tip">
+			<span class="sp_row_tip" onclick="displayBlock('CrTime'); repositionPubMask()">>>什么时候创建的？</span>
+			<div id="divCrTime" class="div_block" style="display: none;">
+				<div><input type="radio" name="CrTimeInterval" value="0" checked>&nbsp;不记得</div>
+				<div><input type="radio" name="CrTimeInterval" value="5">&nbsp;三天内</div>
+				<div><input type="radio" name="CrTimeInterval" value="6">&nbsp;一周内</div>
+				<div><input type="radio" name="CrTimeInterval" value="7">&nbsp;一月内</div>
+				<div><input type="radio" name="CrTimeInterval" value="-1">&nbsp;指定日期</div>
+				<div id="divCrTimeInterval" width="150px; height: 80px;">
+					<div class="div_inner">
+						<span>从</span>
+						<span>
+							<script language="javascript">
+							<!--
+								CanlenderHelper.drawApdatedTime('StartDate');
+							//-->
+							</script>
+						</span>
+					</div>
+					<div class="div_inner">
+						<span>至</span>
+						<span>
+							<script language="javascript">
+							<!--
+								CanlenderHelper.drawApdatedTime('EndDate', true);
+							//-->
+							</script>
+						</span>
+					</div>
+				</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="td_row_tip">
+			<span class="sp_row_tip" onclick="displayBlock('PubTime')">>>什么时候发布的？</span>
+			<div id="divPubTime" class="div_block" style="display: none;">
+				<div><input type="radio" name="PubTimeInterval" value="0" checked>&nbsp;不记得</div>
+				<div><input type="radio" name="PubTimeInterval" value="5">&nbsp;三天内</div>
+				<div><input type="radio" name="PubTimeInterval" value="6">&nbsp;一周内</div>
+				<div><input type="radio" name="PubTimeInterval" value="7">&nbsp;一月内</div>
+				<div><input type="radio" name="PubTimeInterval" value="-1">&nbsp;指定日期</div>
+				<div id="divPubTimeInterval" width="150px; height: 80px;">
+					<div class="div_inner">
+						<span>从</span>
+						<span>
+							<script language="javascript">
+							<!--
+								CanlenderHelper.drawApdatedTime('StartPubDate');
+							//-->
+							</script>
+						</span>
+					</div>
+					<div class="div_inner">
+						<span>至</span>
+						<span>
+							<script language="javascript">
+							<!--
+								CanlenderHelper.drawApdatedTime('EndPubDate', true);
+							//-->
+							</script>
+						</span>
+					</div>
+				</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td class="td_row_tip">
+			<span class="sp_row_tip" onclick="displayAdvItems()">>>更多高级选项</span>
+			<div id="divAdvanced" class="div_block" style="display: none;">
+				<div class="divAdvancedItem">
+					<span class="sp_title"><li></li>文档来源:</span>
+					<span style="border:1px solid gray;width:89px;height:18px;margin-top:2px;">
+					<input name="txtDocSource" style="float:left;width:71px;height:18px;border:0" value="">
+					<span id="doc_source" style="float:left;overflow:hidden;width:16px;height:19px;marign-top:-2px;"></span>
+					</span>
+					<textarea id="template_docsource" style="display: none">
+						<select name="selDocSource" id="selDocSource" style="width: 90px;margin-left:-72px;height:18px;" onclick="DocSourceHelper.NotifySelect();" onchange="DocSourceHelper.NotifyInput();">
+							<option value="">--请选择--</option>
+							<for select=".">
+								<option value="{#label}" title="{#title, }">{#title}</option>
+							</for>
+						</select>
+					</textarea>
+				</div>
+				<div class="divAdvancedItem">
+					<span class="sp_title"><li></li>文档状态:</span><br>
+					<div id="doc_status" class="div_inner"></div>
+					<textarea id="template_status" style="display: none">
+						<for select=".">
+							<span class="spColumn" title="{#title, }">
+								<input type="checkbox" name="DocStatus" value="{#value}" _label="{#label}" checked>&nbsp;{#label}
+							</span>
+						</for>
+					</textarea>
+				</div>
+				<div class="divAdvancedItem">
+					<span class="sp_title" style="width: 100%"><li></li><input type="checkbox" name="ContainsChildren" id="chkContainsChildren">&nbsp;检索子栏目</span>
+				</div>
+				<div class="divAdvancedItem">
+					<span class="sp_title"><li></li>关键词:</span>
+					<div id="doc_keywords" class="div_inner">
+						<input type="text" style="width: 140px;" id="txtDocKeywords" name="DocKeywords" value="">
+					</div>
+				</div>
+			</div>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" style="padding-right: 5px; padding-top: 10px;">
+			<input type="submit" name="" value="开始检索">
+		</td>
+	</tr>
+</table>
+</div>
+</form>
+<div id="divMaskCrTimeInterval" style="position: absolute; -moz-opacity:80; filter:alpha(opacity=40); background: silver; display: none">&nbsp;</div>
+<div id="divMaskPubTimeInterval" style="position: absolute; -moz-opacity:80; filter:alpha(opacity=40); background: silver; display: none">&nbsp;</div>
+<script language="javascript">
+<!--
+	PageContext.loadPage();
+	setTimeout(function(){
+		BasicDataHelper.JspRequest('../system/source_create.jsp',
+			null, false, 
+			function(_transport,_json){
+				eval(_transport.responseText);
+				PageContext.setSource();
+			}
+		);
+		BasicDataHelper.JspRequest('../system/status_create.jsp',
+			null, false, 
+			function(_transport,_json){
+				eval(_transport.responseText);
+				PageContext.setStatus();
+			}
+		);
+	}, 500);
+
+	function displayAdvItems(){
+		displayBlock('Advanced', true);
+	}
+
+//-->
+</script>
+</body>
+</html>

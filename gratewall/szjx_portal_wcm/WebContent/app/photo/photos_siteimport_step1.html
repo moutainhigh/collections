@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title id="tlDoc" WCMAnt:param="photos_siteimport_step1.html.title">新建文档到...</title>
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/photo.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+	<!--wcm-dialog end-->
+<!--FloatPanel Inner Start-->
+<script src="../../app/js/source/wcmlib/com.trs.floatpanel/FloatPanelAdapter.js"></script>
+<link rel="stylesheet" type="text/css" href="../../app/css/wcm-common.css">
+<script>
+	window.m_fpCfg = {
+		m_arrCommands : [{		
+		name : wcm.LANG.PHOTO_CONFIRM_1 || '确定',
+		cmd  : 'getSeletedIds'
+	}],
+	withclose : false,
+	size : [290, 280]
+	};	
+	var iSiteId = getParameter("SiteId");
+	var sObjectids = getParameter("DocumentIds");
+
+	function getSeletedIds(){
+		var sChannelNames = '';
+		try{
+			sSelIds = $('allTreeNav').contentWindow.getCheckValues();
+			sChannelNames = $('allTreeNav').contentWindow.getCheckNames();
+		}catch(err){
+			sSelIds = '';
+			sChannelNames = '';
+		}
+		if(!sSelIds||sSelIds.length==0) {
+			Ext.Msg.alert(wcm.LANG.PHOTO_CONFIRM_112 || '选择要批量导入图片的栏目');
+			return false;
+		}
+		var oParams = {
+			DocumentId : 0,
+			ChannelId : sSelIds.join(','),
+			SiteId : iSiteId
+		}
+		notifyFPCallback({
+			src : WCMConstants.WCM6_PATH +
+				'photo/photos_import.jsp?'+$toQueryStr(oParams),
+			title : String.format('批量上传图片到栏目[{0}]',sChannelNames)
+		});
+		return false;
+	}
+</SCRIPT>
+<style type="text/css">
+	.iframe_container{width:330px;height:290px;padding:10px;}
+	.ext-strict .iframe_container{width:320px;height:270px;padding:0px;}
+</style>
+</HEAD>
+
+<BODY>
+<DIV id="all_channels_tree" class="iframe_container">
+	<iframe id="allTreeNav" src="../include/blank.html" style="width:80%;height:100%" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+</DIV>
+<script language="javascript">
+<!--
+	$('allTreeNav').src = "../nav_tree/nav_tree_select.jsp?IsRadio=1&MultiSites=0&ExcludeSelf=0&ExcludeVirtual=1&CurrSiteId="+iSiteId+"&RightIndex=31";
+//-->
+</script>
+</BODY>
+</HTML>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>机构管理</menu-name>
+  <menu-path>/page/sysmgr/org/</menu-path>
+  <description>机构管理</description>
+  <form-beans>
+    <form-bean name="Xt_zzjg_jgRowsetForm">
+      <description>机构管理多记录查询表单</description>
+      <form-property prefix="record" name="jgid_pk" type="string" size="32" cannull="false" description="机构ID"/>
+      <form-property prefix="record" name="sjjgid_fk" type="string" size="32" cannull="true" description="上级机构ID"/>
+      <form-property prefix="record" name="sjjgname" type="string" size="60" cannull="true" description="上级机构名称"/>
+      <form-property prefix="record" name="jgbh" type="string" size="20" cannull="false" description="机构编号"/>
+      <form-property prefix="record" name="jgmc" type="string" size="60" cannull="false" description="机构名称"/>
+      <form-property prefix="record" name="jgjc" type="string" size="60" cannull="true" description="机构简称"/>
+      <form-property prefix="record" name="jglx" type="string" size="2" cannull="true" description="机构类型"/>
+      <form-property prefix="record" name="jgfzr" type="string" size="60" cannull="true" description="机构负责人"/>
+      <form-property prefix="record" name="sfyx" type="string" size="2" cannull="false" description="是否有效"/>
+      <form-property prefix="record" name="plxh" type="string" size="10" cannull="true" description="排列序号"/>
+      <form-property prefix="record" name="bz" type="string" size="255" cannull="true" description="备注"/>
+    </form-bean>
+
+    <form-bean name="TreeQueryForm">
+      <description>树形数据查询表单</description>
+      <form-property prefix="select-key" name="jgid_pk" type="string" size="32" cannull="false" description="编号"/>
+      <form-property prefix="select-key" name="sjjgid_fk" type="string" size="32" cannull="false" description="父级编号"/>
+      <form-property prefix="select-key" name="jgmc" type="string" size="60" cannull="true" description="名称"/>
+      <form-property prefix="select-key" name="selectedid" type="string" size="60" cannull="true" description="被选中id值"/>
+    </form-bean>
+
+    <form-bean name="Xt_zzjg_jgUpdateForm">
+      <description>机构管理单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="jgid_pk" type="string" size="32" cannull="false" description="机构ID"/>
+      <form-property prefix="record" name="jgid_pk" type="string" size="32" cannull="false" description="机构ID"/>
+      <form-property prefix="record" name="sjjgid_fk" type="string" size="32" cannull="true" description="上级机构ID"/>
+      <form-property prefix="record" name="sjjgname" type="string" size="60" cannull="true" description="上级机构名称"/>
+      <form-property prefix="record" name="jgbh" type="string" size="20" cannull="false" description="机构编号"/>
+      <form-property prefix="record" name="jgmc" type="string" size="60" cannull="false" description="机构名称"/>
+      <form-property prefix="record" name="jgjc" type="string" size="60" cannull="true" description="机构简称"/>
+      <form-property prefix="record" name="jglx" type="string" size="2" cannull="true" description="机构类型"/>
+      <form-property prefix="record" name="jgfzr" type="string" size="60" cannull="true" description="机构负责人"/>
+      <form-property prefix="record" name="sfyx" type="string" size="2" cannull="false" description="是否有效"/>
+      <form-property prefix="record" name="plxh" type="string" size="10" cannull="true" description="排列序号"/>
+      <form-property prefix="record" name="bz" type="string" size="255" cannull="true" description="备注"/>
+	    <form-property prefix="select-key" name="jgid_pk" type="string" size="32" cannull="false" description="编号"/>
+      <form-property prefix="select-key" name="sjjgid_fk" type="string" size="32" cannull="false" description="父级编号"/>
+      <form-property prefix="select-key" name="jgmc" type="string" size="60" cannull="true" description="名称"/>
+    </form-bean>
+
+    <form-bean name="Xt_zzjg_jgDeleteForm">
+      <description>机构管理多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="jgid_pk" type="string" size="32" cannull="false" description="机构ID"/>
+      <form-property prefix="primary-key" name="jgmc" type="string" size="60" cannull="false" description="机构名称"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="tree-jggl.jsp" name="TreeQueryForm" txn-code="806001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询机构列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.org.txn.TxnXt_zzjg_jg" func-name="txn806001" input-node="select-key" output-node="select-key"/>
+      <forward error-code="success" path="tree-jggl.jsp" redirect="false"/>
+      <forward error-code="failure" path="tree-jggl.jsp" redirect="false"/>
+    </action>
+
+    <action input="update-jggl.jsp" name="Xt_zzjg_jgUpdateForm" txn-code="806002" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>修改机构资料</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.org.txn.TxnXt_zzjg_jg" func-name="txn806002" input-node="record" output-node="primary-key"/>
+      <forward error-code="success" path="update-jggl.jsp" redirect="false"/>
+      <forward error-code="failure" path="update-jggl.jsp" redirect="false"/>
+
+    </action>
+    
+    <action input="insert-jggl.jsp" name="Xt_zzjg_jgUpdateForm" txn-code="806007" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加机构资料</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.org.txn.TxnXt_zzjg_jg" func-name="txn806007" input-node="record" output-node="primary-key"/>
+      <forward error-code="success" path="insert-jggl.jsp" redirect="false"/>
+      <forward error-code="failure" path="insert-jggl.jsp" redirect="false"/>
+    </action>
+
+    <action input="insert-jggl.jsp" name="Xt_zzjg_jgUpdateForm" txn-code="806003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>保存机构资料</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.org.txn.TxnXt_zzjg_jg" func-name="txn806003" input-node="record" output-node="primary-key"/>
+      <forward error-code="success" path="insert-jggl.jsp" redirect="false"/>
+      <forward error-code="failure" path="insert-jggl.jsp" redirect="false"/>
+    </action>
+
+    <action input="query-jggl.jsp" name="Xt_zzjg_jgUpdateForm" txn-code="806004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询机构用于修改</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.org.txn.TxnXt_zzjg_jg" func-name="txn806004" input-node="primary-key" output-node="record"/>
+      <forward error-code="success" path="update-jggl.jsp" redirect="false"/>
+      <forward error-code="failure" path="update-jggl.jsp" redirect="false"/>
+    </action>
+
+    <action input="query-jggl.jsp" name="Xt_zzjg_jgDeleteForm" txn-code="806005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除机构信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.org.txn.TxnXt_zzjg_jg" func-name="txn806005" input-node="primary-key" output-node="primary-key"/>
+      <forward error-code="success" path="forwardparent.jsp" redirect="false"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp" redirect="false"/>
+    </action>
+
+    <action input="query-jggl.jsp" name="Xt_zzjg_jgUpdateForm" txn-code="806006" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询机构用于修改</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.org.txn.TxnXt_zzjg_jg" func-name="txn806006" input-node="primary-key" output-node="select-key"/>
+      <forward error-code="success" path="info-jggl.jsp" redirect="false"/>
+      <forward error-code="failure" path="info-jggl.jsp" redirect="false"/>
+    </action>
+	
+	<action input="tree-jggl.jsp" name="TreeQueryForm" txn-code="9803001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>功能权限</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.org.txn.TxnXt_zzjg_jg" func-name="txn9803001" input-node="select-key" output-node="select-key"/>
+      <forward error-code="success" path="tree-jggl.jsp" redirect="false"/>
+      <forward error-code="failure" path="tree-jggl.jsp" redirect="false"/>
+    </action>
+  </action-mappings>
+
+  <jsp-pages>
+    <jsp-page name="query-jggl.jsp" txn-code="806001" width="650" height="350" description="查询机构列表">
+      <frame frame-name="record" frame-type="grid" caption="机构管理列表" keylist="record:jgid_pk" width="95%" property="navbar=bottom,fixrow=true">
+        <button button-name="record_addRecord" function-name="addRecord" caption="增加机构" next-page="insert-jggl.jsp" hint="增加机构" txn-code="806003" property="enablerule=0,hotkey=ADD"/>
+        <button button-name="record_updateRecord" function-name="updateRecord" caption="修改机构" next-page="/txn806004.do" hint="修改机构" page-variable="primary-key:jgid_pk" value-list="record:jgid_pk" txn-code="806004" property="enablerule=1,hotkey=UPDATE"/>
+        <button button-name="record_deleteRecord" function-name="deleteRecord" caption="删除机构" next-page="/txn806005.do" hint="删除机构" page-variable="primary-key:jgid_pk" value-list="record:jgid_pk" txn-code="806005" property="enablerule=2,hotkey=DELETE"/>
+        <field field-name="jgid_pk" field-type="cell" caption="机构ID" property="style=width:10%,datatype=string,maxlength=32"/>
+        <field field-name="sjjgid_fk" field-type="cell" caption="上级机构ID" property="style=width:10%,datatype=string,maxlength=32"/>
+        <field field-name="jgbh" field-type="cell" caption="机构编号" property="style=width:10%,datatype=string,maxlength=20"/>
+        <field field-name="jgmc" field-type="cell" caption="机构名称" property="style=width:10%,datatype=string,maxlength=60"/>
+        <field field-name="jgjc" field-type="cell" caption="机构简称" property="style=width:10%,datatype=string,maxlength=60"/>
+        <field field-name="jglx" field-type="cell" caption="机构类型" property="style=width:10%,datatype=string,maxlength=2"/>
+        <field field-name="jgfzr" field-type="cell" caption="机构负责人" property="style=width:10%,datatype=string,maxlength=60"/>
+        <field field-name="sfyx" field-type="cell" caption="是否有效" property="style=width:10%,datatype=string,maxlength=2"/>
+        <field field-name="plxh" field-type="cell" caption="排列序号" property="style=width:10%,datatype=string,maxlength=10"/>
+        <field field-name="bz" field-type="cell" caption="备注" property="style=width:10%,datatype=string,maxlength=255"/>
+      </frame>
+
+    </jsp-page>
+
+    <jsp-page name="insert-jggl.jsp" txn-code="806003" width="650" height="350" description="增加机构信息">
+      <frame frame-name="record" frame-type="block" caption="增加机构管理" width="95%">
+        <button button-name="record_saveRecord" function-name="saveRecord" caption="保 存" next-page="/txn806003.do" hint="保存机构信息" txn-code="806003" property="hotkey=SAVE"/>
+        <button button-name="record_saveAndContinue" function-name="saveAndContinue" caption="保存并继续" next-page="/txn806003.do" hint="保存机构信息并继续" txn-code="806003" property="hotkey=SAVE_CONTINUE"/>
+        <button button-name="record_saveAndExit" function-name="saveAndExit" caption="保存并关闭" next-page="/txn806003.do" hint="保存机构信息并返回" txn-code="806003" property="hotkey=SAVE_CLOSE"/>
+        <button button-name="record_goBack" function-name="goBack" caption="返 回" next-page="/txn806001.do" hint="返回到机构明细窗口" property="hotkey=CLOSE"/>
+        <field field-name="jgid_pk" field-type="hidden" caption="机构ID" property="style=width:90%,datatype=string,maxlength=32,minlength=1"/>
+        <field field-name="sjjgid_fk" field-type="text" caption="上级机构" property="style=width:90%,datatype=string,maxlength=32"/>
+        <field field-name="jgbh" field-type="text" caption="机构编号" property="style=width:90%,datatype=string,maxlength=20,minlength=1"/>
+        <field field-name="jgmc" field-type="text" caption="机构名称" property="style=width:90%,datatype=string,maxlength=60,minlength=1"/>
+        <field field-name="jgjc" field-type="text" caption="机构简称" property="style=width:90%,datatype=string,maxlength=60"/>
+        <field field-name="jglx" field-type="select" caption="机构类型" value-set="orgtype" property="style=width:90%,datatype=string,maxlength=2,data=value,show=name"/>
+        <field field-name="jgfzr" field-type="browsebox" caption="机构负责人" value-set="人员信息" property="style=width:90%,datatype=string,maxlength=60"/>
+        <field field-name="sfyx" field-type="select" caption="是否有效" value-set="orgstatus" property="style=width:90%,datatype=string,maxlength=2,minlength=1"/>
+        <field field-name="plxh" field-type="text" caption="排列序号" property="style=width:90%,datatype=string,maxlength=10"/>
+        <field field-name="bz" field-type="textarea" caption="备注" property="style=width:90%,datatype=string,maxlength=255,rows=5"/>
+      </frame>
+
+    </jsp-page>
+
+    <jsp-page name="update-jggl.jsp" txn-code="806002" width="650" height="350" description="修改机构信息">
+      <frame frame-name="primary-key" frame-type="frame" width="95%">
+        <field field-name="jgid_pk" field-type="hidden" caption="机构ID" property="style=width:90%,datatype=string,maxlength=32"/>
+      </frame>
+
+      <frame frame-name="record" frame-type="block" caption="修改机构管理" width="95%">
+        <button button-name="record_saveAndExit" function-name="saveAndExit" caption="保 存" next-page="/txn806002.do" hint="修改机构信息" txn-code="806002" property="hotkey=SAVE"/>
+        <button button-name="record_goBack" function-name="goBack" caption="返 回" next-page="/txn806001.do" hint="返回到明细窗口" property="hotkey=CLOSE"/>
+        <field field-name="jgid_pk" field-type="hidden" caption="机构ID" property="style=width:90%,datatype=string,maxlength=32"/>
+        <field field-name="sjjgid_fk" field-type="text" caption="上级机构ID" property="style=width:90%,datatype=string,maxlength=32"/>
+        <field field-name="jgbh" field-type="text" caption="机构编号" property="style=width:90%,datatype=string,maxlength=20,minlength=1"/>
+        <field field-name="jgmc" field-type="text" caption="机构名称" property="style=width:90%,datatype=string,maxlength=60,minlength=1"/>
+        <field field-name="jgjc" field-type="text" caption="机构简称" property="style=width:90%,datatype=string,maxlength=60"/>
+        <field field-name="jglx" field-type="text" caption="机构类型" property="style=width:90%,datatype=string,maxlength=2"/>
+        <field field-name="jgfzr" field-type="text" caption="机构负责人" property="style=width:90%,datatype=string,maxlength=60"/>
+        <field field-name="sfyx" field-type="text" caption="是否有效" property="style=width:90%,datatype=string,maxlength=2,minlength=1"/>
+        <field field-name="plxh" field-type="text" caption="排列序号" property="style=width:90%,datatype=string,maxlength=10"/>
+        <field field-name="bz" field-type="text" caption="备注" property="style=width:90%,datatype=string,maxlength=255"/>
+      </frame>
+
+    </jsp-page>
+
+    <jsp-page name="info-jggl.jsp" txn-code="806001" description="机构详细信息">
+      <frame frame-name="select-key" frame-type="block" width="95%"/>
+      <sub-page caption="机构信息" page-name="/txn806004.do" page-variable="primary-key:jgid_pk" value-list="select-key:jgid_pk"/>
+      <sub-page caption="人员信息" page-name="/txn806001.do" value-list="select-key:jgid_pk"/>
+    </jsp-page>
+  </jsp-pages>
+</struts-config>
+

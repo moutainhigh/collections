@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>采集服务</sort-name>
+  <table-info name="collect_webservice_patameter" class-name="com.gwssi.collect.webservice.dao.CollectWebservicePatameter" check-flag="false" backup-flag="false">
+    <description>参数表</description>
+  </table-info>
+
+  <column name="webservice_patameter_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="参数ID"/>
+  <column name="webservice_task_id" data-type="varchar" length="32" not-null="false" value-from="input" description="webservice任务ID"/>
+  <column name="patameter_type" data-type="varchar" length="20" not-null="false" value-from="input" description="参数类型"/>
+  <column name="patameter_name" data-type="varchar" length="100" not-null="false" value-from="input" description="参数名"/>
+  <column name="patameter_value" data-type="varchar" length="1000" not-null="false" value-from="input" description="参数值"/>
+  <column name="patameter_style" data-type="varchar" length="20" not-null="false" value-from="input" description="参数格式"/>
+  <primary-key name="pk_collect_webservice_patamete" column-list="webservice_patameter_id"/>
+  <index name="pk_collect_webservice_patamete" index-type="unique" cluster="cluster" column-list="webservice_patameter_id"/>
+  <function func-name="select one collect_webservice_patameter" func-type="select" column-list="webservice_patameter_id,webservice_task_id,patameter_type,patameter_name,patameter_value,patameter_style">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select collect_webservice_patameter list" func-type="rowset" column-list="webservice_patameter_id,webservice_task_id,patameter_type,patameter_name,patameter_value,patameter_style" max-record="10">
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one collect_webservice_patameter" func-type="insert" column-list="webservice_patameter_id,webservice_task_id,patameter_type,patameter_name,patameter_value,patameter_style">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one collect_webservice_patameter" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one collect_webservice_patameter" func-type="update" column-list="patameter_type,patameter_name,patameter_value,patameter_style">
+    <description>修改记录</description>
+  </function>
+</table>
+

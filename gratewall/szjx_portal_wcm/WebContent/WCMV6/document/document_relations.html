@@ -1,0 +1,365 @@
+<HTML xmlns:TRS_UI>
+<HEAD>
+  <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <TITLE>TRS WCM V6 相关文档管理</TITLE>
+  <link href="../css/common.css" rel="stylesheet" type="text/css" />
+	<style>
+		.simpletab{
+			padding-bottom:23px;
+			border-bottom:1px solid gray;
+			font-size:12px;
+		}
+		div.simpletab_item{
+			float:left;
+			width:50px;
+			height:20px;
+			background:gray;
+			margin-left:4px;
+			border:1px solid gray;
+			padding:4px;
+			text-align:center;
+		}
+		.simpletab_item a,.simpletab_item a:link,.simpletab_item a:visited,.simpletab_item a:hover{
+			text-decoration: none;
+			color:white;
+		}
+		div.simpletab_item_active{
+			float:left;
+			width:50px;
+			height:21px;
+			background:#ffffff;
+			margin-left:4px;
+			border:1px solid gray;
+			border-bottom:0;
+			padding:4px;
+			padding-bottom:5px;
+			text-align:center;
+		}
+		.simpletab_item_active a,.simpletab_item_active a:link,.simpletab_item_active a:visited,.simpletab_item_active a:hover{
+			text-decoration: none;
+			color:black;
+		}
+		.simpletab_item_before{
+			float:left;
+			padding-left:20px;
+		}
+		.message {
+			font-family: "宋体", "Arial", "Courier New";
+			font-size: 12px;
+			float:left;
+			height:18px;
+			line-height:18px;
+		}
+		.input_file{
+			float:left;
+			width:220px;
+			height:20px;
+			border:1px solid black;
+		}
+		.input_text{
+			float:left;
+			width:180px;
+			height:20px;
+			border:1px solid black;
+		}
+		.input_button{
+			float:left;
+			width:60px;
+			height:20px;
+			border:1px solid black;
+		}
+		.ui_editpanel_text_blank{
+			border:0;
+		}
+		.ui_editpanel_text_hover{
+			border:1px solid gray;
+		}
+		.simple_editpanel{
+			margin:1px 1px 0;
+			width:98%;height:23px;line-height:23px;font-size:14px;
+			overflow:hidden;
+			text-overflow:clip;
+		}
+		.row_delete{
+			float:left;
+			width:100%;
+			height:100%;
+			background:url(../images/icon/Delete_2.gif) no-repeat center center;
+			cursor:pointer;
+		}
+		.relations_grid{
+			font-size:12px;
+			background:#646464;
+		}
+		.grid_head{
+			height:25px;
+			background:#d3e6fa;
+			color:#133151;
+		}
+		.grid_row{
+			height:25px;background:#FFFFFF;
+		}
+		.tbody_dragging{
+			background-color:#FFFFDD;
+		}
+		.tbody_drag_icon{
+			width:20px;
+			height:20px;
+			background:url(../images/document_addedit/icon/Accessories.png) no-repeat center center;
+		}
+	</style>
+	<script src="../js/com.trs.util/Common.js"></script>
+	<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.util.JSON');
+	$import('com.trs.dialog.Dialog');
+	</script>
+	<script label="UITransformer">
+		$import('com.trs.util.UITransformer');
+	</script>
+	<script>
+		$import('com.trs.wcm.FloatPanel');
+		$import('com.trs.wcm.MessageCenter');
+		$import('com.trs.wcm.ProcessBar');
+		$import('com.trs.wcm.ui.Buttons');
+		$import('com.trs.wcm.SimpleDragger');
+		$import('com.trs.wcm.util.FileUploadHelper');
+		$import('com.trs.util.YUIConnection');
+	</script>
+	<script>
+		var myActualTop = (top.actualTop||top);
+		FloatPanel.addCloseCommand('关闭');
+//		Event.observe(window,'unload',function(){
+//			FloatPanel.removeCloseCommand();
+//		});
+		var Relations = myActualTop.Relations;
+		var CurrDocId = myActualTop.CurrDocId;
+		var CurrChannelId = myActualTop.CurrChannelId;
+	function getRelationsArray(relations){
+		var arr = com.trs.util.JSON.array(relations,"RELATIONS.RELATION");
+		if(arr==null){
+			arr = relations["RELATIONS"]["RELATION"] = new myActualTop.Array();
+		}
+		else if(!Array.isArray(arr)){
+			var tmpArr = appendixes["RELATIONS"]["RELATION"] = new myActualTop.Array();
+			tmpArr.push(arr);
+			arr = tmpArr;
+		}
+		return arr;
+	}
+	function DeleteRelationById(_RelDocId){
+		var relations = myActualTop.Relations;
+		var arr = getRelationsArray(relations);
+		for(var i=0;i<arr.length;i++){
+			if(_RelDocId==com.trs.util.JSON.value(arr[i],"RELDOC.ID")){
+				arr._remove(i);
+				break;
+			}
+		}
+		relations["RELATIONS"]["RELATION"] = arr;
+		var tBody = $('ralations_tbody');
+		var rows = tBody.rows;
+		for(var i=0;i<rows.length;i++){
+			if(_RelDocId==rows[i].getAttribute("grid_rowid",2)){
+				tBody.deleteRow(i);
+				break;
+			}
+		}
+		loadRelations(true);
+	}
+	function AddRelation(_Relation){
+		var relations = myActualTop.Relations;
+		var arr = getRelationsArray(relations);
+		var nRelDocId = _Relation["RelDocId"];
+		for(var i=0;i<arr.length;i++){
+			if(nRelDocId==com.trs.util.JSON.value(arr[i],"RELDOC.ID")){
+				return;
+			}
+		}
+		var oRelation = new myActualTop.Object();
+		oRelation["RELDOC"] = new myActualTop.Object();
+		oRelation["RELDOC"]["ID"] = nRelDocId;
+		oRelation["RELDOC"]["CHANNELID"] = _Relation["RelDocChannelId"];
+		oRelation["RELDOC"]["TITLE"] = _Relation["RelDocTitle"];
+		oRelation["RELATIONID"] = 0;
+		arr.push(oRelation);
+		loadRelations(true);
+	}
+	function DeleteRelation(_Element){
+		var RelDocId = _Element.getAttribute("grid_rowid",2);
+		if(RelDocId==null){
+			alert('删除列上未指定属性"grid_rowid"');
+			return;
+		}
+		var row = _Element.parentNode.parentNode;
+		row.parentNode.deleteRow(row.rowIndex-1);
+		var sDelChannelId = null;
+		var relations = myActualTop.Relations;
+		var arr = getRelationsArray(relations);
+		for(var i=0;i<arr.length;i++){
+			if(RelDocId==com.trs.util.JSON.value(arr[i],"RELDOC.ID")){
+				sDelChannelId = com.trs.util.JSON.value(arr[i],"RELDOC.ChannelId");
+				arr._remove(i);
+				break;
+			}
+		}
+		relations["RELATIONS"]["RELATION"] = arr;
+		var iframe = $('channel_doc_list');
+		if(iframe.contentWindow&&iframe.contentWindow.PageContext
+			&&iframe.contentWindow.PageContext.refresh){
+			if(iframe.contentWindow.PageContext.params["channelid"]){
+				iframe.contentWindow.PageContext.refresh("channelid="
+				+iframe.contentWindow.PageContext.params["channelid"]);
+			}else if(iframe.contentWindow.PageContext.params["siteid"]){
+				iframe.contentWindow.PageContext.refresh("siteid="
+				+iframe.contentWindow.PageContext.params["siteid"]);
+			}
+		}
+		loadRelations(true);
+	}
+	function SaveOrders(_TbodyId){
+		var tBody = $(_TbodyId);
+		var relations = myActualTop.Relations;
+		var arr = getRelationsArray(relations);
+		if(arr==null||arr.length==0)return;
+		var newArr = new myActualTop.Array();
+		var rows = tBody.rows;
+		for(var i=0;i<rows.length;i++){
+			var iOldOrder = rows[i].getAttribute("relation_order",2);
+			if(iOldOrder==null){
+				alert('TBODY"'+this.tbodyId+'"的模板Row上未指定属性"appendix_order"');
+				return false;
+			}
+			iOldOrder = parseInt(iOldOrder);
+			newArr.push(arr[iOldOrder-1]);
+		}
+		relations["RELATIONS"]["RELATION"] = newArr;
+		newArr = null;
+		arr = null;
+		loadRelations(true);
+	}
+	Object.extend(com.trs.wcm.TBodyDragger.prototype,{
+		_move : function(_eCurr,_iPosition,_eTarget){
+			//_iPosition表示当前元素相对于目标元素的位置,1表示之前,0表示之后
+			return SaveOrders(this.tbodyId);
+		}
+	});
+	function loadRelations(_bReload){
+		if(_bReload){
+			$('curr_relations').inited = false;
+		}
+		if(!$('curr_relations').inited){
+			var sValue = TempEvaler.evaluateTemplater('template_relations', Relations,{});
+			Element.update($('curr_relations'),sValue);
+			setTimeout(function(){
+				var eRows = $('ralations_tbody').rows;
+				for(var i=0;i<eRows.length;i++){
+					var element = eRows[i];
+					var d = new com.trs.wcm.TBodyDragger(element);
+					d.tbodyId = 'ralations_tbody';
+				}
+			},10);
+			$('curr_relations').inited = true;
+		}
+	}
+	function doSearch(){
+		var sFieldName = $('FieldName').value;
+		window.SearchData = {};
+		for (var i = 0; i < $('FieldName').options.length; i++){
+			window.SearchData[$('FieldName').options[i].value] = '';
+		}
+		window.SearchData[sFieldName] = $('SearchWord').value;
+		$MessageCenter.sendMessage('channel_doc_list', 'PageContext.RefreshList', 'PageContext', null);
+	}
+	function loadKeyWords(){
+		var sKeyWords = myActualTop.$('DOCKEYWORDS').value;
+		if(sKeyWords.trim()!=''){
+			$('FieldName').value = 'DocKeywords';
+			$('SearchWord').value = sKeyWords;
+			doSearch();
+		}
+	}
+  </SCRIPT>
+</HEAD>
+
+<BODY style="margin:0;padding:0;">
+	<TABLE width="700" height="100%" border="0" cellpadding="0" cellspacing="0">
+		<TR>
+			<TD valign="top">
+				<DIV id="search" style="background:#FFFFFF;height:22px;overflow:hidden;font-size:12px;">
+					<SPAN style="float:right;height:22px;margin-right:20px;">
+					<select name="FieldName" id="FieldName" style="float:left;width:60px;height:18px;overflow:hidden;marign:-2px 4px 0 0;">
+						<option value="DocTitle">标题</option>
+						<option value="CrUser">发稿人</option>
+						<option value="DocKeywords">关键词</option>
+					</select>
+					<input id="SearchWord" type='text' class="input_text" style="float:left;border-color:gray;height:18px;width:100px;margin:2px 3px 0;">
+					<SPAN style="float:left;border:1px solid gray;height:16px;margin-top:2px;padding:1 4px;cursor:pointer" tabIndex="1" onclick="doSearch();">检索</SPAN></SPAN>
+				</DIV>
+				<DIV id="docs_explorer" style="background:#FFFFFF;padding:2px;height:350px;overflow:auto;">
+					<TABLE width="682" height="340px" border="0" cellpadding="0" cellspacing="1" style="font-size:12px">
+						<TR>
+							<TD width="200">
+								<iframe src="../include/blank.html" id="treeNav" allowtransparency="true" scrolling="no" frameborder="0" style="width:200px;height:340px;"></iframe>
+							</TD>
+							<TD width="480">
+								<iframe name="channel_doc_list" id='channel_doc_list' src="about:blank" allowtransparency="true" scrolling="no" frameborder="0" style="width:100%;height:100%"></iframe>
+							</TD>
+						</TR>
+					</TABLE>
+				</DIV>
+				<DIV style="background:#FFFFFF;padding:0 4px;height:23px;line-height:23px;overflow:hidden;font-size:14px;color:blue;">
+					已设置的相关文档...
+				</DIV>
+				<DIV id="curr_relations" style="background:#FFFFFF;padding:0 4px;height:150px;width:692px;overflow:auto;">
+				</DIV>
+			</TD>
+		</TR>
+	</TABLE>
+	<textarea id="template_relations" style="display:none">
+		<TABLE width="666" border="0" cellpadding="0" cellspacing="1" class="relations_grid">
+			<THEAD align="center" valign="middle" class="grid_head">
+				<TD width="60">序号</TD>
+				<TD width="568">相关文档标题</TD>
+				<TD width="38">删除</TD>
+			</THEAD>
+			<TBODY id="ralations_tbody">
+		    <for select="Relations.Relation" blankRef="noObjectFound">
+			<TR align="center" valign="middle" class="grid_row" grid_rowid="{#RELDOC.Id}" relation_order="{$$INDEX}">
+				<TD>
+					<TABLE width="64" height="100%" BORDER=0 CELLSPACING=0 CELLPADDING=0>
+						<TR>
+							<TD align="right" width="24">
+								<!--<input type="checkbox" name="RELDOCIDS" value="{#RELDOC.Id}">-->
+							</TD>
+							<TD align="left" width="40">{$$INDEX}</TD>
+						</TR>
+					</TABLE>
+				</TD>
+				<TD align="left">
+					<div style="overflow:hidden;width:100%;height:100%;line-height:25px;padding-left:2px">{@$transHtml(#RELDOC.Title)}</div>
+				</TD>
+				<TD>
+					<SPAN class="row_delete" onClick="DeleteRelation(this);" grid_rowid="{#RELDOC.Id}">
+					</SPAN>
+				</TD>
+			</TR>
+			</for>
+			</TBODY>
+		</TABLE>
+	</textarea>
+	<TABLE style="display:none">
+	<TBODY id="noObjectFound">
+		<TR class="grid_row">
+			<TD></TD><TD></TD><TD></TD>
+		</TR>
+	</TBODY>
+	</TABLE>
+<script>
+	$('treeNav').src = '../nav_tree/nav_tree_4_document_relation_select.html?showType=0&ChannelId='+CurrChannelId;
+	loadRelations();
+	loadKeyWords();
+</script>
+</BODY>
+</HTML>

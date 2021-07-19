@@ -1,0 +1,85 @@
+*{
+	margin:0px;
+	padding:0px;
+}
+html, body{
+	overflow:hidden;
+	width:100%;
+	height:100%;
+}
+.container{
+	position:relative;
+	width:100%;
+	height:100%;
+}
+.ext-ie6 .container{
+	padding-top:88px;
+}
+.container .header{
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:100%;
+	height:88px;
+	background:url(images/logo-bg.gif) center center repeat-x;
+}
+.ext-ie6 .container .main{
+	height:100%;
+	height:100%;
+}
+.ext-ie7 .container .main iframe{
+	position:absolute;
+}
+.ext-strict .container .main{
+	position:absolute;
+	top:88px;
+	left:0px;
+	bottom:0px;
+	right:0px;
+}
+.container .header .logo{
+	float:left;
+	width:282px;
+	background:url(images/logo.png) left center no-repeat;
+	height:100%;
+}
+.container .header .info{
+	position:absolute;
+	right:20px;
+	top:10px;
+	font-size:12px;
+}
+.container .header .exit{
+	width:16px;
+	display:inline-block;
+	text-decoration:none;
+	background:url(images/exit.png) center center no-repeat;
+}
+.lnk_main_corner{
+	text-decoration:none;
+}
+.container .header A:hover { text-decoration:underline;}
+.container .header .nav-tabs{
+	position:absolute;
+	bottom:0px;
+	right:30px;
+}
+.container .header .nav-tabs .nav-tab{
+	float:left;
+	list-style-type:none;
+	width:92px;
+	height:24px;
+	text-align:center;
+	padding-top:10px;
+	cursor:pointer;
+	font-size:12px;
+	font-weight:bold;
+	color:#1561DE;
+}
+.ext-ie6 .container .header .nav-tabs .nav-tab{
+	height:34px;
+}
+.container .header .nav-tabs .active{
+	color:white;
+	background:url(images/tab.png) center center no-repeat;
+}

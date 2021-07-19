@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../js/runtime/myext-debug.js"></script>
+<script src="../js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../js/source/wcmlib/WCMConstants.js"></script>
+<script src="../js/data/locale/system.js"></script>
+<script type="text/javascript" src="fckeditor.js"></script>
+<!-- CarshBoard Inner Start -->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></SCRIPT>
+<script src="editor/lang/cn.js" WCMAnt:locale="lang/$locale$.js"></script>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Inner End -->
+<style type="text/css">
+	body{
+		margin:0;
+		padding:0;
+		overflow:hidden;
+	}
+</style>
+<script language="javascript">
+	function GetEditor(){
+		var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+		return oEditor;
+	}
+	function GetTrueEditor(){
+		return FCKeditorAPI.editorWindow;
+	}
+	function SetHTML(_sHtml){
+		var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+		oEditor.SetHTML(_sHtml);
+	}
+	function GetHtml(){
+		var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+		return oEditor.QuickGetHtml();
+	}
+	function GetText(){
+		var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+		return oEditor.GetText();
+	}
+	window.m_cbCfg = {
+		btns : [
+			{
+				text : wcm.LANG.SURE || '确定',
+				cmd : function(){
+					this.notify([GetHtml(), GetText()]);
+				}
+			},
+			{text : wcm.LANG.CLOSE || '关闭'}
+		]
+	};
+	function init(params){
+		var m_nDocumentId = getParameter("CurrDocId");
+		var m_nChannelId = getParameter("ChannelId");
+		params = params || {};
+		var oFCKeditor = new FCKeditor( 'TRS_Editor' ) ;
+		oFCKeditor.BasePath	= './';
+		oFCKeditor.ToolbarSet = params.Toolbar || 'Abstract';
+		oFCKeditor.Height = '100%' ;
+		oFCKeditor.editorPage = 'simple_fckeditor.html';
+		oFCKeditor.Value = params.html || '';
+		oFCKeditor.MoreParams = {
+			'CurrDocId'	:	m_nDocumentId,
+			'ChannelId'	:	m_nChannelId,
+			'Version' : params.Version || '1.0.0.1',
+			'ConfigEx' : '../simp_fckconfig.js',
+			'Css' : params.Css || 'simple.css'
+		};
+		document.body.innerHTML = oFCKeditor.CreateHtml();
+	}
+	Ext.ns('PgC', 'editorCfg');
+	Ext.apply(editorCfg, {
+		basePath : WCMConstants.WCM6_PATH + 'document/'
+	});
+</script>
+</head>
+<body>
+</body>
+</html>

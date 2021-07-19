@@ -1,0 +1,113 @@
+{
+	"data" : [{
+		"data" : {
+			"rows" : [{
+				"busiTypeCo" : "20",
+				"changeItem" : "12,69",
+				"docName" : "执行董事决定",
+				"docTemplateUrl" : "1100/bg_chapter1100_B22.doc",
+				"entTypeCategoryCo" : "1100",
+				"expr" : "{\"12\":\"IsDismissBoard(entId,rsEntId)==false && IsNewSetupBoard(entId,rsEntId)==false && IsSetupBoardBefore(entId,rsEntId)==false\",\n \"69\":\"IsDismissBoard(entId,rsEntId)==false && IsNewSetupBoard(entId,rsEntId)==false && IsSetupBoardBefore(entId,rsEntId)==false && \nManagerChange(entId,rsEntId)==true\"}",
+				"flag" : "1",
+				"reqdocId" : "1100-BG-022",
+				"timestamp" : "2015-01-26 09:00:00",
+				"useType" : "1"
+			}, {
+				"busiTypeCo" : "20",
+				"changeItem" : "10,12,23,70,69",
+				"docDesc" : "根据章程规定，同意公司法定代表人变更的股东决议（应符合章程规定的表决比例）；根据章程规定，同意公司董事（含副董事长）、经理、监事变更的股东会决议（应符合章程规定的表决比例）；",
+				"docDetailName" : "原股东会决议-有限公司",
+				"docName" : "股东会决议",
+				"docTemplateUrl" : "1100/bg_chapter1100_B02.doc",
+				"entTypeCategoryCo" : "1100",
+				"expr" : "{\"12\":\"IsNewSetupBoard(entId,rsEntId)==true || IsDismissBoard(entId,rsEntId)==true || \n(IsSetupBoardBefore(entId,rsEntId)==true && \nBoardChange(entId,rsEntId)==true)\",\n\"23\":\"InvestorMoneyChange(entId,rsEntId)==true && InvestorMemberChange(entId,rsEntId)==false\"}",
+				"flag" : "1",
+				"groupSn" : "12.1",
+				"reqdocId" : "1100-BG-B02",
+				"timestamp" : "2019-11-17 12:00:15",
+				"useType" : "1"
+			}, {
+				"busiTypeCo" : "20",
+				"changeItem" : "12,69",
+				"docDesc" : "根据章程规定，同意公司法定代表人变更的董事会决议（应符合章程规定的表决比例；根据章程规定，同意公司董事（含副董事长）、经理、监事变更的董事会决议（应符合章程规定的表决比例）；",
+				"docDetailName" : "原董事会决议",
+				"docName" : "董事会决议",
+				"docTemplateUrl" : "1100/bg_chapter1100_B04.doc",
+				"entTypeCategoryCo" : "1100",
+				"expr" : "{\"12\":\"IsSetupBoardBefore(entId,rsEntId)==true && IsDismissBoard(entId,rsEntId)==false\",\n \"69\":\"IsDismissBoard(entId,rsEntId)==true || BoardChange(entId,rsEntId)==false\"}",
+				"flag" : "1",
+				"groupSn" : "12.1",
+				"reqdocId" : "1100-BG-B04",
+				"timestamp" : "2019-11-17 12:00:15",
+				"useType" : "1"
+			}, {
+				"busiTypeCo" : "20",
+				"changeItem" : "69",
+				"docDesc" : "根据章程规定，同意公司董事（含副董事长）、经理、监事变更的董事会决议（应符合章程规定的表决比例）；",
+				"docDetailName" : "新董事会决议",
+				"docName" : "董事会决议",
+				"docTemplateUrl" : "1100/bg_chapter1100_B05.doc",
+				"entTypeCategoryCo" : "1100",
+				"expr" : "{\"69\":\"IsNewSetupBoard(entId,rsEntId)==true || BoardChange(entId,rsEntId)==true\"}",
+				"flag" : "1",
+				"reqdocId" : "1100-BG-B05",
+				"timestamp" : "2019-11-17 12:00:15",
+				"useType" : "1"
+			}, {
+				"busiTypeCo" : "20",
+				"changeItem" : "10,11,12,13,21,22,23,24,70,69,74,77,95",
+				"docName" : "《指定（委托）书》",
+				"docTemplateUrl" : "1100/bg_chapter1100_B06.doc",
+				"entTypeCategoryCo" : "1100",
+				"flag" : "1",
+				"reqdocId" : "1100-BG-B06",
+				"timestamp" : "2019-11-17 12:00:15",
+				"useType" : "1"
+			}, {
+				"busiTypeCo" : "20",
+				"changeItem" : "10,11,12,13,21,22,23,24",
+				"docName" : "《企业法人营业执照》正、副本",
+				"docTemplateUrl" : "1100/bg_chapter1100_B07.doc",
+				"entTypeCategoryCo" : "1100",
+				"flag" : "1",
+				"reqdocId" : "1100-BG-B07",
+				"timestamp" : "2019-11-17 12:00:15",
+				"useType" : "0"
+			}, {
+				"busiTypeCo" : "20",
+				"changeItem" : "70,69,74,77",
+				"docDesc" : "加盖公司公章；",
+				"docName" : "《企业法人营业执照》复印件",
+				"docTemplateUrl" : "1100/bg_chapter1100_B15.doc",
+				"entTypeCategoryCo" : "1100",
+				"flag" : "1",
+				"reqdocId" : "1100-BG-B15",
+				"timestamp" : "2019-11-17 12:00:15",
+				"useType" : "0"
+			}, {
+				"busiTypeCo" : "20",
+				"docName" : "补充信息登记表",
+				"docTemplateUrl" : "1100/EntSnd.pdf",
+				"entTypeCategoryCo" : "1100",
+				"filePath" : "1100/bg_chapter1100_B22.doc",
+				"flag" : "1",
+				"reqdocId" : "ALL-BG-023",
+				"timestamp" : "2015-01-26 09:00:00",
+				"useType" : "1"
+			}, {
+				"busiTypeCo" : "20",
+				"changeItem" : "10,11,12,13,21,22,23,24,70,69,74,77",
+				"docName" : "《公司变更（改制）登记申请书（公司备案申请书）》",
+				"docTemplateUrl" : "1100/bg_chapter1100_B01.doc",
+				"entTypeCategoryCo" : "1100",
+				"flag" : "1",
+				"groupSn" : "fffff",
+				"reqdocId" : "ALL-BG-B01",
+				"timestamp" : "2019-11-17 12:00:15",
+				"useType" : "1"
+			}]
+		},
+		"name" : "uploadGridpanel",
+		"vtype" : "gridpanel"
+	}]
+}

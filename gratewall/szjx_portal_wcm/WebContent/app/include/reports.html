@@ -1,0 +1,156 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE WCMAnt:param="reports.html.title">TRS WCM 系统信息 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::</TITLE>
+<LINK href="../../style/style.css" rel="stylesheet" type="text/css">
+<style>
+.style5 {font-size: 18px}
+</style>
+<script type="text/javascript" src="../js/data/locale/wcm52.js"></script>
+<SCRIPT src="../js/wcm52/CWCMDialogHead.js"></SCRIPT>
+<script src="../js/data/locale/include.js"></script>
+<SCRIPT>
+var m_oDialogArguments = window.parent.getDialogArguments();
+
+function copyToClipboard(){
+	var sDetailMsg = document.getElementById("spMsg").innerText;
+	try{
+		window.clipboardData.setData("Text", sDetailMsg);
+	}catch(err){
+	}
+	alert(wcm.LANG.INCLUDE_ALERT_1 || "已经复制到剪切板中！");
+}
+
+function showDetailWarn(_nIndex){
+	var objSpan = document.getElementById("spanDetailWarn_"+_nIndex);
+	if( objSpan==null ) return;
+
+	var bCurrShowed = ( objSpan.style.display=="inline" );
+	var sDisplay, sTitle;
+	if( bCurrShowed ){
+		sDisplay = "none";
+		sTitle = wcm.LANG.INCLUDE_TITLE_4 || "查看详细警告信息";
+	}
+	else{
+		sDisplay = "inline";
+		sTitle = wcm.LANG.INCLUDE_TITLE_5 || "隐藏详细警告信息"
+	}
+
+	objSpan.style.display = sDisplay;  //显示或隐藏
+
+	//更改链接标题
+	var objLink = document.getElementById("anchorDetailWarn_"+_nIndex);
+	if( objLink!=null ) {
+		objLink.innerText = sTitle;
+	}
+}
+
+function showDetailError(_nIndex){
+	var objSpan = document.getElementById("spanDetailError_"+_nIndex);
+	if( objSpan==null ) return;
+
+	var bCurrShowed = ( objSpan.style.display=="inline" );
+	var sDisplay, sTitle;
+	if( bCurrShowed ){
+		sDisplay = "none";
+		sTitle = wcm.LANG.INCLUDE_TITLE_6 || "查看详细错误信息";
+	}
+	else{
+		sDisplay = "inline";
+		sTitle = wcm.LANG.INCLUDE_TITLE_7 || "隐藏详细错误信息"
+	}
+
+	objSpan.style.display = sDisplay;  //显示或隐藏
+
+	//更改链接标题
+	var objLink = document.getElementById("anchorDetailError_"+_nIndex);
+	if( objLink!=null ) {
+		objLink.innerText = sTitle;
+	}
+}
+
+var sImgSrc = "warning.gif";
+var bInfo = false;
+if(m_oDialogArguments && m_oDialogArguments.IsInfo){
+	bInfo = true;
+	sImgSrc = "succeed.gif";
+}
+</SCRIPT>
+</HEAD>
+
+<BODY>
+<TABLE width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+<TR>
+<TD height="25">
+	<SCRIPT LANGUAGE="JavaScript">
+		WCMDialogHead.draw(wcm.LANG.INCLUDE_TITLE_1 || "系统信息", true);
+	</SCRIPT>
+</TD>
+</TR>
+<TR>
+<TD align="left" valign="top" class="tanchu_content_td">
+	<TABLE width="100%" border="0" cellspacing="0" cellpadding="0">
+	<TR>
+	<TD>
+		<TABLE width="98%" border="0" cellpadding="5" cellspacing="1" bgcolor="a6a6a6">
+		<TR>
+		<TD valign="top" bgcolor="#FFFFFF">
+			<TABLE width="100%" border="0" align="center" cellpadding="3" cellspacing="0">
+			<TR>
+			<TD width="100%">
+				<TABLE width="100%" border="0" cellspacing="5" cellpadding="0">
+				<TR>
+					<TD width="60" valign=top><script>document.write('<IMG src="../images/'+sImgSrc+'" width="60" height="60">');</script></TD>
+					<TD width="10">&nbsp;</TD>
+					<TD align=left><span class="font_bluebold style5"><script>document.write(bInfo?(wcm.LANG.INCLUDE_TITLE_3 || "提示信息"):(wcm.LANG.INCLUDE_TITLE_8 || "警告信息"));</script></span><BR><BR>
+					<SCRIPT LANGUAGE="JavaScript">
+					<!--
+					if(m_oDialogArguments && m_oDialogArguments.InfoHTML){
+						document.write("<span id=\"spMsg\">" + m_oDialogArguments.InfoHTML + "</span>");
+					}
+					//-->
+					</SCRIPT>
+					
+					</TD>
+				</TR>
+				</TABLE>
+			</TD>
+			</TR>
+			</TABLE>
+		</TD>
+		</TR>
+		</TABLE>
+	</TD>
+	</TR>
+	<TR>
+	<TD align="center" height=10>&nbsp;</TD>
+	</TR>
+
+	<TR>
+	<TD align="center">
+		<script src="../js/wcm52/CTRSButton.js"></script>
+		<script>
+		//定义一个TYPE_ROMANTIC_BUTTON按钮
+		var oTRSButtons = new CTRSButtons();
+		
+		oTRSButtons.cellSpacing = "0";
+		oTRSButtons.nType = TYPE_ROMANTIC_BUTTON;
+
+		oTRSButtons.addTRSButton(wcm.LANG.INCLUDE_BUTTON_3 || "复制到剪切板", "copyToClipboard()");
+		oTRSButtons.addTRSButton(wcm.LANG.INCLUDE_BUTTON_4 || "关闭窗口", "window.close()");
+
+		oTRSButtons.draw();
+		</script>
+	</TD>
+	</TR>
+	</TABLE>
+</TD>
+</TR>
+</TABLE>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+window.setTimeout("window.location.reload(true);", 100000);
+//-->
+</SCRIPT>
+</BODY>
+</HTML>

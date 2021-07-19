@@ -1,0 +1,67 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="../js/runtime/myext-debug.js"></script>
+<script type="text/javascript" src="fckeditor.js"></script>
+<style type="text/css">
+	body{
+		margin:0;
+		padding:0;
+		overflow:hidden;
+	}
+</style>
+<script language="javascript">
+	function FCKeditor_OnComplete(){
+		if(parent!=window&&parent.FCKeditor_OnComplete){
+			parent.FCKeditor_OnComplete();
+		}
+		window.FCKeditor_OnComplete = null;
+	}
+	function GetEditor(){
+		var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+		return oEditor;
+	}
+	function GetTrueEditor(){
+		return FCKeditorAPI.editorWindow;
+	}
+	function SetHTML(_sHtml){
+		var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+		oEditor.SetHTML(_sHtml);
+	}
+	function GetHtml(){
+		var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+		return oEditor.QuickGetHtml();
+	}
+	function GetText(){
+		var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+		return oEditor.GetText();
+	}
+	function init(){
+		var params = {};
+		try{
+			if(parent!=window && parent.window.m_editorCfg){
+				params = parent.window.m_editorCfg;
+			}
+			if(params.autoinit===false)return;
+		}catch(err){
+			params = {};
+		}
+		var oFCKeditor = new FCKeditor( 'TRS_Editor' ) ;
+		oFCKeditor.BasePath	= './';
+		oFCKeditor.ToolbarSet = params.Toolbar || 'Abstract';
+		oFCKeditor.Height = '100%' ;
+		oFCKeditor.editorPage = 'simple_fckeditor.html';
+		oFCKeditor.Value = params.html || '';
+		oFCKeditor.MoreParams = {
+			'Version' : params.Version || '1.0.0.1',
+			'ConfigEx' : '../simp_fckconfig.js',
+			'Css' : params.Css || 'simple.css'
+		};
+		document.body.innerHTML = oFCKeditor.CreateHtml();
+	}
+	Event.observe(window, 'load', init);
+</script>
+</head>
+<body>
+</body>
+</html>

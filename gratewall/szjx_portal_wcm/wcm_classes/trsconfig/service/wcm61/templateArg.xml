@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.TemplateServiceProvider">
+	<method name="save">
+	</method>
+	<method name="queryArgs">
+		<parameter name="HostType" desc="对象（站点/栏目）类型" type="int" required="true"/>
+		<parameter name="HostId" desc="对象（站点/栏目）ID" type="int" required="true"/>		
+	</method>
+	<method name="jQuery" truename="queryArgs"  convertor="uri:/app/template/template_arg_query.jsp"/>
+</service>

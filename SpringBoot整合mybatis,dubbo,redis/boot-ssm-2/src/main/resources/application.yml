@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql:///testdb?useSSL=true
+    username: root
+    password: 123
+mapper:
+  identity: MYSQL
+  not-empty: true
+  mappers:
+    - tk.mybatis.mapper.common.Mapper
+    - tk.mybatis.mapper.common.MySqlMapper
+#启用日志打印SQL语句
+logging:
+  level:
+    com.example.bootssm2.mapper:  debug

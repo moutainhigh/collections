@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.common.publish.widget.PageStyleServiceProvider">
+	<method name="delete" desc="删除指定的风格">
+		<parameter name="ObjectIds" desc="等待删除的风格ID串" type="string" required="true"/>
+	</method>
+
+	<method name="query" desc="查询系统中符合指定条件的风格">
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" required="false" default="crtime desc"/>
+		<!--排序字段及方式-->
+		<parameter name="StyleDesc" desc="风格显示名称即中文名称" type="string" required="false" search="true"
+			search-operator="like"/>	
+		<parameter name="StyleName" desc="风格名称即英文名称" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="SelectFields" desc="需要提取的字段列表,以逗号分隔各个字段" type="string" required="false" default="*"/>	
+	</method>
+
+	<method name="save" desc="保存风格">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>
+		<parameter name="StyleName" desc="风格名称即英文名称" type="string" required="true"/>
+		<parameter name="StyleDesc" desc="风格显示名称即中文名称" type="string" required="false"/>
+	</method>
+
+	<method name="previewStyle" desc="预览页面基本特性">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>		
+		<parameter name="StyleItemXML" desc="需要保存的风格项内容(是一个xml串)" type="string" required="true"/>
+	</method>
+	<method name="saveBaseStyle" desc="保存风格的页面特性">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>		
+		<parameter name="StyleItemXML" desc="需要保存的风格项内容(是一个xml串)" type="string" required="true"/>
+	</method>
+	
+	<method name="saveCustomStyle" desc="保存风格的自定义风格">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>
+		<parameter name="CustomStyle" desc="自定义风格内容（自己定制添加的样式）" type="string" required="true"/>
+	</method>
+	
+	 <method name="saveStyleThumb" desc="保存上传的风格示意图">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>
+		<parameter name="StyleThumb" desc="风格缩略图名称" type="string" required="true"/>		
+	</method>
+	
+	<method name="findById" desc="获取指定Id的风格">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>
+	</method>
+	
+	<method name="exportPageStyleZip" desc="导出风格">
+		<parameter name="ObjectIds" desc="风格Id串" type="string" required="true"/>
+	</method>
+	
+	<method name="makeCssFile" desc="生成风格的样式文件(生成一个风格英文名称+.css的文件到wcmdata下的template/style/style_css)">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>
+	</method>
+	
+	<method name="copy" desc="类似创建风格">
+		<parameter name="SourcePageStyleId" desc="拷贝的源风格Id" type="int" required="true"/>
+		<parameter name="StyleName" desc="待创建风格的英文名称" type="string" required="true"/>
+		<parameter name="StyleDesc" desc="待创建风格的显示名称" type="string" required="true"/>
+	</method>
+	
+	<method name="checkStyleName" desc="检查风格名称是否唯一">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>
+		<parameter name="StyleName" desc="风格名" type="string" required="true"/>
+	</method>
+
+	<method name="checkStyleDesc" desc="检查风格描述是否唯一">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>
+		<parameter name="StyleDesc" desc="风格描述" type="string" required="true"/>
+	</method>
+	
+	<method name="findStyleImageDir" desc="获取风格中上传的图片路径(服务器端的物理地址)">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>
+	</method>
+
+	<method name="queryPageStyles" desc="获取系统所有可供选择的系统风格">
+	</method>
+
+	<method name="importPageStyleZip" desc="导入风格">
+		<parameter name="PageStyleZipFile" desc="导入的页面风格的zip文件" type="string" required="true"/>
+	</method>
+
+	<method name="checkExistPageStyle" desc="检查导入的zip包中的页面风格名称">
+		<parameter name="PageStyleZipFile" desc="导入的页面风格的zip文件" type="string" required="true"/>
+	</method>
+
+	<method name="queryUploadImageFileList" desc="获取一个页面风格上传的图片的文件列表">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>
+		<parameter name="FilterExts" desc="需要过滤的文件扩展名,不传则展示全部上传的文件" type="string" required="false"/>
+	</method>
+
+	<method name="deleteUploadImages" desc="删除一个页面风格中上传的指定名称的">
+		<parameter name="ObjectId" desc="风格Id" type="int" required="true"/>
+		<parameter name="DeleteImgNames" desc="要删除的图片名称集合，多个以逗号隔开,如imge1.jpg,imge2.gif" type="string" required="true"/>
+	</method>
+
+	<method name="jQuery" truename="query"  convertor="uri:/app/special/style/pagestyle_query.jsp"/>
+	<method name="sQuery" truename="query"  convertor="uri:/app/special/style/pagestyle_select_top_query.jsp"/>
+	<method name="tQuery" truename="query"  convertor="uri:/app/special/style/pagestyle_select_query.jsp"/>
+</service>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="sys_svr_limit.xml" app-path="/dw/runmgr/services/svrlimit/" app-name="sys_svr_limit" description="用户服务限制" template="single-table.xml"/>
+  <table name="sys_svr_limit.xml" app-name="sys_svr_limit" app-desc="用户服务限制" delete-action="delete" description="用户服务限制" class-name="com.gwssi.dw.runmgr.services.txn.TxnSysSvrLimit" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-sys_svr_limit.jsp" txn-code="50011701" description="查询用户服务限制列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加用户服务限制" path="insert-sys_svr_limit.jsp" description="增加用户服务限制" func-name="addRecord"/>
+	    <button type="button" name="修改用户服务限制" path="/txn50011704.do" description="修改用户服务限制" func-name="updateRecord"/>
+	    <button type="button" name="删除用户服务限制" path="/txn50011705.do" description="删除用户服务限制" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn50011701.do" description="查询用户服务限制信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-sys_svr_limit.jsp" txn-code="50011703" description="增加用户服务限制信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn50011703.do" description="保存用户服务限制信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn50011703.do" description="保存用户服务限制信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn50011701.do" description="保存用户服务限制信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn50011701.do" description="返回到用户服务限制明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-sys_svr_limit.jsp" txn-code="50011702" description="修改用户服务限制信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn50011701.do" description="修改用户服务限制信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn50011701.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-sys_svr_limit.jsp" txn-code="50011701" description="查询用户服务限制列表">
+	    <forward error-code="success" path="query-sys_svr_limit.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-sys_svr_limit.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-sys_svr_limit.jsp" txn-code="50011702" description="修改用户服务限制信息">
+	    <forward error-code="success" path="update-sys_svr_limit.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-sys_svr_limit.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-sys_svr_limit.jsp" txn-code="50011703" description="增加用户服务限制信息">
+	    <forward error-code="success" path="insert-sys_svr_limit.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-sys_svr_limit.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-sys_svr_limit.jsp" txn-code="50011704" description="查询用户服务限制用于修改">
+	    <forward error-code="success" path="update-sys_svr_limit.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-sys_svr_limit.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-sys_svr_limit.jsp" txn-code="50011705" description="删除用户服务限制信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.runmgr.services.vo.SysSvrLimitContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrLimit" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrLimitSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.runmgr.services.vo.VoSysSvrLimitPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

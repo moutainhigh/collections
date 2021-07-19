@@ -1,0 +1,48 @@
+<textarea id="template_docSynCol" select="ChannelSyn" >
+	<div class="attribute_row">
+		<span class="attribute_name">来源栏目:</span>
+        <span class="attribute_value wcm_readonly">{#TOCHANNEL.NAME}</span>
+	</div>
+    <div class="attribute_row_sep"></div>
+    <div class="attribute_row"><span class="attribute_name">执行时间</span></div>
+	<div class="attribute_row">
+		<span class="attribute_name">开始时间:</span>
+        <TRS_UI:editPanel value="{@DocSynColMgr.formartDateTime(#SDATE)}" class="" id="SDATE" inputClass="" _fieldName="SDATE" rightindex="13" validation="type:'string',required:'',desc:'执行开始时间'"></TRS_UI:editPanel>
+        {@TRSCalendar.getHTMLWithoutTime(SDATETop,#SDATE)}
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">结束时间:</span>
+        <TRS_UI:editPanel value="{@DocSynColMgr.formartDateTime(#EDATE)}" class="" id="EDATE" inputClass="" _fieldName="EDATE" rightindex="13" validation="type:'string',required:'',desc:'执行结束时间'"></TRS_UI:editPanel>
+        {@TRSCalendar.getHTMLWithoutTime(EDATETop,#EDATE)}
+	</div>
+    <div class="attribute_row_sep"></div>
+    <div class="attribute_row"><span class="attribute_name">文档时间</span></div>
+	<div class="attribute_row">
+		<span class="attribute_name">开始时间:</span>
+        <TRS_UI:editPanel value="{@DocSynColMgr.formartDateTime(#DOCSDATE)}" class="" id="DOCSDATE" inputClass="" _fieldName="DOCSDATE" rightindex="13" validation="type:'string',required:'',desc:'文档开始时间'"></TRS_UI:editPanel>
+        {@TRSCalendar.getHTMLWithoutTime(DOCSDATETop,#DOCSDATE)}
+	</div>
+	<div class="attribute_row">
+		<span class="attribute_name">结束时间:</span>
+        <TRS_UI:editPanel value="{@DocSynColMgr.formartDateTime(#DOCEDATE)}" class="" id="DOCEDATE" inputClass="" _fieldName="DOCEDATE" rightindex="13" validation="type:'string',required:'',desc:'文档结束时间'"></TRS_UI:editPanel>
+        {@TRSCalendar.getHTMLWithoutTime(DOCEDATETop,#DOCEDATE)}
+	</div>
+    <div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<span class="attribute_name">汇总模式:</span>
+        <TRS_UI:select label="{@DocSynColMgr.getTransmitDesc(#ATTRIBUTE.TransmitType)}" id='TransmitType' options="{'value':'1',label:'复制'},{'value':'2',label:'引用'},{'value':'3',label:'镜像'}" _fieldName="TransmitType" onChange="setTransmitType(this.$postdata);">
+	    </TRS_UI:select>
+	</div>
+    <div class="attribute_row_sep"></div>
+	<div class="attribute_row">
+		<span class="attribute_name">检索条件:</span>
+        <TRS_UI:editPanel value="{#WHERESQL}" class="" inputClass="" _fieldName="WHERESQL" rightindex="13" validation="type:'string',desc:'检索条件'" id='WHERESQL'></TRS_UI:editPanel>
+	</div>  
+	<div class="attribute_row_sep"></div>
+ </textarea>
+
+ <textarea id="template_docSynCols">
+	<div class="attribute_row">
+		当前共选中<span class="objects_num">{#Num}</span>个栏目汇总.
+	</div>
+ </textarea>

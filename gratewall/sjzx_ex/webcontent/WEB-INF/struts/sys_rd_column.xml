@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>已认领表字段表</menu-name>
+  <menu-path>/page/resource/res/rd/metadata/datastructure/claim/</menu-path>
+  <description>已认领表字段表</description>
+  <form-beans>
+    <form-bean name="SysRdColumnRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="sys_rd_table_id" type="string" size="32" description="字段ID"/>
+      <form-property prefix="select-key" name="sys_rd_column_id" type="string" size="32" description="字段ID"/>
+      <form-property prefix="select-key" name="table_code" type="string" size="100" description="物理表"/>
+      <form-property prefix="select-key" name="table_name" type="string" size="100" description="物理表中文名"/>
+      <form-property prefix="select-key" name="column_code" type="string" size="100" description="字段名"/>
+      <form-property prefix="select-key" name="column_name" type="string" size="100" description="字段中文名"/>
+      <form-property prefix="select-key" name="column_type" type="string" size="200" description="字段类型"/>
+      <form-property prefix="select-key" name="column_codeindex" type="string" size="100" description="系统代码集名称"/>
+      <form-property prefix="select-key" name="show_all" type="string" size="2" description="是否全部显示"/>
+      <form-property prefix="select-key" name="column_no" type="string" size="100" description="字段号"/>
+      <form-property prefix="record" name="content" type="string" size="200" cannull="true" description="引用情况"/>
+      <form-property prefix="record" name="sys_rd_column_id" type="string" size="32" cannull="false" description="字段ID"/>
+      <form-property prefix="record" name="sys_rd_table_id" type="string" size="32" cannull="true" description="物理表ID"/>
+      <form-property prefix="record" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="数据源ID"/>
+      <form-property prefix="record" name="table_code" type="string" size="100" cannull="true" description="物理表名"/>
+      <form-property prefix="record" name="column_code" type="string" size="100" cannull="true" description="字段名"/>
+      <form-property prefix="record" name="column_name" type="string" size="100" cannull="true" description="字段中文名"/>
+      <form-property prefix="record" name="column_type" type="string" size="50" cannull="true" description="字段类型"/>
+      <form-property prefix="record" name="column_length" type="long" cannull="true" description="字段长度"/>
+      <form-property prefix="record" name="alia_name" type="string" size="100" cannull="true" description="字段别名"/>
+      <form-property prefix="record" name="code_name" type="string" size="100" cannull="true" description="系统代码名"/>
+      <form-property prefix="record" name="standard_status" type="string" size="1" cannull="true" description="合标状态"/>
+      <form-property prefix="record" name="column_codeindex" type="string" size="200" cannull="true" description="系统代码集名称"/>
+      <form-property prefix="record" name="is_extra_col" type="string" size="2" cannull="true" description="是否为必查字段"/>
+      <form-property prefix="record" name="sys_column_type" type="string" size="2" cannull="true" description="字段类型"/>
+      <form-property prefix="record" name="jc_data_element" type="string" size="10" cannull="true" description="基础数据元"/>
+      <form-property prefix="record" name="jc_data_index" type="string" size="10" cannull="true" description="基础代码集"/>
+      <form-property prefix="record" name="domain_value" type="string" size="10" cannull="true" description="值域"/>
+      <form-property prefix="record" name="unit" type="string" size="32" cannull="true" description="计量单位"/>
+      <form-property prefix="record" name="claim_operator" type="string" size="32" cannull="true" description="认领人"/>
+      <form-property prefix="record" name="claim_date" type="string" size="10" cannull="true" description="认领时间"/>
+      <form-property prefix="record" name="default_value" type="string" size="64" cannull="true" description="缺省值"/>
+      <form-property prefix="record" name="is_null" type="string" size="1" cannull="true" description="是否为空"/>
+      <form-property prefix="record" name="is_primary_key" type="string" size="1" cannull="true" description="是否主键"/>
+      <form-property prefix="record" name="is_index" type="string" size="1" cannull="true" description="是否索引"/>
+      <form-property prefix="record" name="changed_status" type="string" size="1" cannull="true" description="字段变化状态"/>
+      <form-property prefix="record" name="sync_sign" type="string" size="20" cannull="true" description="同步标识串"/>
+      <form-property prefix="record" name="description" type="string" size="2000" cannull="true" description="说明"/>
+      <form-property prefix="record" name="column_level" type="string" size="10" cannull="true" description="字段级别"/>
+      <form-property prefix="record" name="basic_flag" type="string" size="50" cannull="true" description="基础字段标识"/>
+      <form-property prefix="record" name="data_from" type="string" size="50" cannull="true" description="数据来源"/>
+      <form-property prefix="record" name="data_from_column" type="string" size="50" cannull="true" description="数据来源字段"/>
+      <form-property prefix="record" name="transform_desp" type="string" size="200" cannull="true" description="数据转换描述"/>
+      <form-property prefix="record" name="sort" type="long" cannull="true" description="排序"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+      <form-property prefix="record" name="column_no" type="string" size="100" cannull="true" description="字段号"/>
+      <form-property prefix="record" name="typename" type="string" size="100" cannull="true" description="字段类型名称"/>
+      <form-property prefix="record" name="table_name" type="string" size="100" cannull="true" description="表中文名"/>
+    </form-bean>
+
+    <form-bean name="SysRdColumnUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_rd_column_id" type="string" size="32" cannull="false" description="字段ID"/>
+      <form-property prefix="record" name="sys_rd_column_id" type="string" size="32" cannull="false" description="字段ID"/>
+      <form-property prefix="record" name="sys_rd_table_id" type="string" size="32" cannull="true" description="物理表ID"/>
+      <form-property prefix="record" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="数据源ID"/>
+      <form-property prefix="record" name="table_code" type="string" size="100" cannull="true" description="物理表名"/>
+      <form-property prefix="record" name="column_code" type="string" size="100" cannull="true" description="字段名"/>
+      <form-property prefix="record" name="column_name" type="string" size="100" cannull="true" description="字段中文名"/>
+      <form-property prefix="record" name="column_type" type="string" size="50" cannull="true" description="字段类型"/>
+      <form-property prefix="record" name="column_length" type="long" cannull="true" description="字段长度"/>
+      <form-property prefix="record" name="alia_name" type="string" size="100" cannull="true" description="字段别名"/>
+      <form-property prefix="record" name="code_name" type="string" size="100" cannull="true" description="系统代码名"/>
+      <form-property prefix="record" name="standard_status" type="string" size="1" cannull="true" description="合标状态"/>
+      <form-property prefix="record" name="column_codeindex" type="string" size="200" cannull="true" description="系统代码集名称"/>
+      <form-property prefix="record" name="is_extra_col" type="string" size="2" cannull="true" description="是否为必查字段"/>
+      <form-property prefix="record" name="sys_column_type" type="string" size="2" cannull="true" description="字段类型"/>
+      <form-property prefix="record" name="jc_data_element" type="string" size="10" cannull="true" description="基础数据元"/>
+      <form-property prefix="record" name="jc_data_index" type="string" size="10" cannull="true" description="基础代码集"/>
+      <form-property prefix="record" name="domain_value" type="string" size="10" cannull="true" description="值域"/>
+      <form-property prefix="record" name="unit" type="string" size="32" cannull="true" description="计量单位"/>
+      <form-property prefix="record" name="claim_operator" type="string" size="32" cannull="true" description="认领人"/>
+      <form-property prefix="record" name="claim_date" type="string" size="10" cannull="true" description="认领时间"/>
+      <form-property prefix="record" name="default_value" type="string" size="64" cannull="true" description="缺省值"/>
+      <form-property prefix="record" name="is_null" type="string" size="1" cannull="true" description="是否为空"/>
+      <form-property prefix="record" name="is_primary_key" type="string" size="1" cannull="true" description="是否主键"/>
+      <form-property prefix="record" name="is_index" type="string" size="1" cannull="true" description="是否索引"/>
+      <form-property prefix="record" name="changed_status" type="string" size="1" cannull="true" description="字段变化状态"/>
+      <form-property prefix="record" name="sync_sign" type="string" size="20" cannull="true" description="同步标识串"/>
+      <form-property prefix="record" name="description" type="string" size="2000" cannull="true" description="说明"/>
+      <form-property prefix="record" name="column_level" type="string" size="10" cannull="true" description="字段级别"/>
+      <form-property prefix="record" name="basic_flag" type="string" size="50" cannull="true" description="基础字段标识"/>
+      <form-property prefix="record" name="data_from" type="string" size="50" cannull="true" description="数据来源"/>
+      <form-property prefix="record" name="data_from_column" type="string" size="50" cannull="true" description="数据来源字段"/>
+      <form-property prefix="record" name="transform_desp" type="string" size="200" cannull="true" description="数据转换描述"/>
+      <form-property prefix="record" name="sort" type="long" cannull="true" description="排序"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+	  <form-property prefix="record" name="use_type" type="string" size="32" cannull="true" description="是否有效"/>
+	  
+    </form-bean>
+    
+    <form-bean name="SysRdColumnViewForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_rd_column_id" type="string" size="32" cannull="false" description="字段ID"/>
+      <form-property prefix="record" name="sys_rd_column_id" type="string" size="32" cannull="false" description="字段ID"/>
+      <form-property prefix="record" name="sys_rd_table_id" type="string" size="32" cannull="true" description="物理表ID"/>
+      <form-property prefix="record" name="sys_rd_data_source_id" type="string" size="32" cannull="true" description="数据源ID"/>
+      <form-property prefix="record" name="table_code" type="string" size="100" cannull="true" description="物理表名"/>
+      <form-property prefix="record" name="column_code" type="string" size="100" cannull="true" description="字段名"/>
+      <form-property prefix="record" name="column_name" type="string" size="100" cannull="true" description="字段中文名"/>
+      <form-property prefix="record" name="column_type" type="string" size="50" cannull="true" description="字段类型"/>
+      <form-property prefix="record" name="column_length" type="long" cannull="true" description="字段长度"/>
+      <form-property prefix="record" name="alia_name" type="string" size="100" cannull="true" description="字段别名"/>
+      <form-property prefix="record" name="code_name" type="string" size="100" cannull="true" description="系统代码名"/>
+      <form-property prefix="record" name="standard_status" type="string" size="1" cannull="true" description="合标状态"/>
+      <form-property prefix="record" name="column_codeindex" type="string" size="200" cannull="true" description="系统代码集名称"/>
+      <form-property prefix="record" name="is_extra_col" type="string" size="2" cannull="true" description="是否为必查字段"/>
+      <form-property prefix="record" name="sys_column_type" type="string" size="2" cannull="true" description="字段类型"/>
+      <form-property prefix="record" name="jc_data_element" type="string" size="10" cannull="true" description="基础数据元"/>
+      <form-property prefix="record" name="jc_data_index" type="string" size="10" cannull="true" description="基础代码集"/>
+      <form-property prefix="record" name="domain_value" type="string" size="10" cannull="true" description="值域"/>
+      <form-property prefix="record" name="unit" type="string" size="32" cannull="true" description="计量单位"/>
+      <form-property prefix="record" name="claim_operator" type="string" size="32" cannull="true" description="认领人"/>
+      <form-property prefix="record" name="claim_date" type="string" size="10" cannull="true" description="认领时间"/>
+      <form-property prefix="record" name="default_value" type="string" size="64" cannull="true" description="缺省值"/>
+      <form-property prefix="record" name="is_null" type="string" size="1" cannull="true" description="是否为空"/>
+      <form-property prefix="record" name="is_primary_key" type="string" size="1" cannull="true" description="是否主键"/>
+      <form-property prefix="record" name="is_index" type="string" size="1" cannull="true" description="是否索引"/>
+      <form-property prefix="record" name="changed_status" type="string" size="1" cannull="true" description="字段变化状态"/>
+      <form-property prefix="record" name="sync_sign" type="string" size="20" cannull="true" description="同步标识串"/>
+      <form-property prefix="record" name="description" type="string" size="2000" cannull="true" description="说明"/>
+      <form-property prefix="record" name="column_level" type="string" size="10" cannull="true" description="字段级别"/>
+      <form-property prefix="record" name="basic_flag" type="string" size="50" cannull="true" description="基础字段标识"/>
+      <form-property prefix="record" name="data_from" type="string" size="50" cannull="true" description="数据来源"/>
+      <form-property prefix="record" name="data_from_column" type="string" size="50" cannull="true" description="数据来源字段"/>
+      <form-property prefix="record" name="transform_desp" type="string" size="200" cannull="true" description="数据转换描述"/>
+      <form-property prefix="record" name="sort" type="long" cannull="true" description="排序"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+    </form-bean>
+
+    <form-bean name="SysRdColumnDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_rd_column_id" type="string" size="32" cannull="false" description="字段ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_rd_column.jsp" name="SysRdColumnRowsetForm" txn-code="80002501" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询已认领表字段表列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdColumn" func-name="txn80002501" input-node="select-key" output-node="record" description="查询已认领表字段表列表"/>
+      <forward error-code="success" path="query-sys_rd_column.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_column.jsp"/>
+    </action>
+    
+    <action input="query-sys_rd_column.jsp" name="SysRdColumnRowsetForm" txn-code="80003501" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询已认领表字段表列表用于概览页面</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdColumn" func-name="txn80003501" input-node="select-key" output-node="record" description="查询已认领表字段表列表"/>
+      <forward error-code="success" path="query-sys_rd_column_pre.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_column_pre.jsp"/>
+    </action>
+    
+    <action input="query-sys_rd_column.jsp" name="SysRdColumnRowsetForm" txn-code="80002507" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询已认领表字段表列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdColumn" func-name="txn80002507" input-node="select-key" output-node="record" description="查询已认领表字段表列表"/>
+      <forward error-code="success" path="query-sys_rd_column.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_column.jsp"/>
+    </action>
+
+    <action input="update-sys_rd_column.jsp" name="SysRdColumnUpdateForm" txn-code="80002502" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改已认领表字段表信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdColumn" func-name="txn80002502" input-node="record" description="修改已认领表字段表信息"/>
+      <forward error-code="success" path="update-sys_rd_column.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_column.jsp"/>
+    </action>
+
+    <action input="insert-sys_rd_column.jsp" name="SysRdColumnUpdateForm" txn-code="80002503" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加已认领表字段表信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdColumn" func-name="txn80002503" input-node="record" description="增加已认领表字段表信息"/>
+      <forward error-code="success" path="insert-sys_rd_column.jsp"/>
+      <forward error-code="failure" path="insert-sys_rd_column.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_column.jsp" name="SysRdColumnUpdateForm" txn-code="80002504" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询已认领表字段表用于修改</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdColumn" func-name="txn80002504" input-node="primary-key" output-node="record" description="查询已认领表字段表用于修改"/>
+      <forward error-code="success" path="update-sys_rd_column.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_column.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_column.jsp" name="SysRdColumnDeleteForm" txn-code="80002505" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除已认领表字段表信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdColumn" func-name="txn80002505" input-node="primary-key" description="删除已认领表字段表信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+     <action input="query-sys_rd_column.jsp" name="SysRdColumnViewForm" txn-code="80002506" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询已认领表字段表用于视图</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdColumn" func-name="txn80002506" input-node="primary-key" output-node="record" description="查询规范用于视图"/>
+      <forward error-code="success" path="view-sys_rd_column.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_column.jsp"/>
+    </action>
+    
+     <action input="query-sys_rd_column.jsp" name="SysRdColumnRowsetForm" txn-code="8000601" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据元管理列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.metadata.txn.TxnSysRdColumn" func-name="txn8000601" input-node="select-key" output-node="record" description="查询已认领表字段表列表"/>
+      <forward error-code="success" path="query-sys_rd_metadata_column.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_metadata_column.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_rd_column.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/dw/rd/metadata/datastructure/claim/query-sys_rd_column.jsp" description="查询已认领表字段表列表"/>
+    <resource-file type="jsp" file-name="/dw/rd/metadata/datastructure/claim/insert-sys_rd_column.jsp" description="增加已认领表字段表信息"/>
+    <resource-file type="jsp" file-name="/dw/rd/metadata/datastructure/claim/update-sys_rd_column.jsp" description="修改已认领表字段表信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.SysRdColumnContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.VoSysRdColumn" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.VoSysRdColumnSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.metadata.vo.VoSysRdColumnPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

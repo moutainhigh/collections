@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="operrolefun" class-name="com.gwssi.sysmgr.priv.func.dao.Operrolefun" check-flag="false" backup-flag="false">
+    <description>角色功能权限</description>
+  </table-info>
+
+  <column name="roleaccid" data-type="long" length="19" not-null="true" value-from="sequence" value-set="flowid" description="角色权限代码"/>
+  <column name="roleid" data-type="integer" length="10" not-null="true" value-from="input" description="角色编号"/>
+  <column name="txncode" data-type="varchar" length="52" not-null="false" value-from="input" description="交易代码"/>
+  <column name="dataaccrule" data-type="char" length="1" not-null="true" value-from="input" description="数据权限认证规则"/>
+  <primary-key name="role_pk" column-list="roleaccid"/>
+  <index name="role_pk" index-type="unique" cluster="other" column-list="roleaccid"/>
+  <index name="role_u_index" index-type="unique" cluster="other" column-list="roleid,txncode"/>
+  <function func-name="insert one operrolefun" func-type="insert" column-list="roleaccid,roleid,txncode,dataaccrule">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one operrolefun" func-type="delete">
+    <filter-column column-name="roleaccid" operator="eq" value-from="input" empty-flag="null"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="select operrolefun list" func-type="rowset" column-list="roleaccid,roleid,txncode,dataaccrule" max-record="-1">
+    <filter-column column-name="roleid" operator="eq" value-from="input" empty-flag="null"/>
+    <filter-column column-name="txncode" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="按角色删除" func-type="delete">
+    <filter-column column-name="roleid" operator="eq" value-from="input" empty-flag="null"/>
+    <description>删除记录</description>
+  </function>
+</table>
+

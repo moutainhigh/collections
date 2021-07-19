@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="view_sys_count_log.xml" app-path="/dw/rd/log/" app-name="view_sys_count_log" description="分类视图统计" template="single-table.xml"/>
+  <table name="view_sys_count_log.xml" app-name="view_sys_count_log" app-desc="数据增长" delete-action="delete" description="分类视图统计" class-name="cn.gwssi.dw.rd.log.txn.TxnViewSysCountLog" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-view_sys_count_log.jsp" txn-code="620100301" description="查询数据增长列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加数据增长" path="insert-view_sys_count_log.jsp" description="增加数据增长" func-name="addRecord"/>
+	    <button type="button" name="修改数据增长" path="/txn620100304.do" description="修改数据增长" func-name="updateRecord"/>
+	    <button type="button" name="删除数据增长" path="/txn620100305.do" description="删除数据增长" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn620100301.do" description="查询数据增长信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-view_sys_count_log.jsp" txn-code="620100303" description="增加数据增长信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn620100303.do" description="保存数据增长信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn620100303.do" description="保存数据增长信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn620100301.do" description="保存数据增长信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn620100301.do" description="返回到数据增长明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-view_sys_count_log.jsp" txn-code="620100302" description="修改数据增长信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn620100301.do" description="修改数据增长信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn620100301.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-view_sys_count_log.jsp" txn-code="620100301" description="查询数据增长列表">
+	    <forward error-code="success" path="query-view_sys_count_log.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-view_sys_count_log.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-view_sys_count_log.jsp" txn-code="620100302" description="修改数据增长信息">
+	    <forward error-code="success" path="update-view_sys_count_log.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-view_sys_count_log.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-view_sys_count_log.jsp" txn-code="620100303" description="增加数据增长信息">
+	    <forward error-code="success" path="insert-view_sys_count_log.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-view_sys_count_log.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-view_sys_count_log.jsp" txn-code="620100304" description="查询数据增长用于修改">
+	    <forward error-code="success" path="update-view_sys_count_log.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-view_sys_count_log.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-view_sys_count_log.jsp" txn-code="620100305" description="删除数据增长信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="cn.gwssi.dw.rd.log.vo.ViewSysCountLogContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="cn.gwssi.dw.rd.log.vo.VoViewSysCountLog" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="cn.gwssi.dw.rd.log.vo.VoViewSysCountLogSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="cn.gwssi.dw.rd.log.vo.VoViewSysCountLogPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

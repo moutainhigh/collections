@@ -1,0 +1,204 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script language="javascript">
+<!--
+    var isReadMode = true; //标识当前为阅读模式
+
+    /*
+    if((top.actualTop||top).getAttrPanelStatus()){
+        (top.actualTop||top).showHideAttrPanel(false, false);
+    }
+    */
+//-->
+</script>
+<title>阅读模式</title>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/document_readmode_index.css" rel="stylesheet" type="text/css" />
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.logger.Logger');
+	$import('com.trs.dialog.Dialog');
+</script>
+<script label="DataSource">
+//	$import('com.trs.wcm.datasource.document.PageInfo');
+//	$import('com.trs.wcm.datasource.document.Documents');
+</script>
+<script>
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.util.CommonHelper');
+	$import('com.trs.wcm.QuickKey');
+	$import('com.trs.wcm.Grid');
+	$import('com.trs.wcm.PageFilter');
+	$import('com.trs.wcm.domain.DocumentMgr');
+	$import('com.trs.wcm.domain.PublishMgr');
+    $import('com.trs.wcm.SheetChanger');
+    $import("com.trs.suggestion.suggestion");
+</script>
+
+<script src="document_readmode_index.js" label="PageScope"></script>
+</head>
+<body>
+<script language="javascript">
+<!--
+	if((top.actualTop || top).RotatingBar) {
+		(top.actualTop || top).RotatingBar.stop();
+	}	
+	if((top.actualTop||top).isNavAdvanced()){
+		(top.actualTop||top).toggleNav();
+	}
+//-->
+</script>
+<table style="height:100%; width:100%;" border="0" cellpadding="0" cellspacing="0">
+	<tr><td style="height:29px;">
+        <div class="document_list_pageinfo" style="overflow:visible">
+            <div class="document_list_pageinfo_left"></div>
+            <div class="document_list_pageinfo_right"></div>
+            <div style="float:left;padding-top:3px;padding-left:5px;">
+                <table border=0 cellspacing=0 cellpadding=0>
+                	<tr>
+                		<td style="font-size:12px;">当前位置:</td>
+                        <td><input type="text" name="locationTxt" id="locationTxt" value="" style="width:250px;"></td>
+                        <td style="background:url(../images/document_readmode_index/goToParent.gif) no-repeat center center; width:16px; height:16px;cursor:pointer;" title="向上" id="goToParent"></td>
+                	</tr>
+                </table>
+            </div>
+            <script language="javascript" id="jsPath"></script>
+            <div class="document_mode_switcher" title="当前为文档阅读模式&#13;单击转为文档列表模式">
+                <div class="document_mode_active">
+                    <div class="wcm_pointer document_mode_normal" onclick='PageContext.doChangeListView();'></div>
+                </div>
+            </div>
+            <span id="pageinfo"></span>
+			<textarea id="pageinfo_template" select="PageInfo" style='display:none'>
+				<table height="28" border="0" cellpadding="0" cellspacing="0">
+					<tr height="28">
+						<td align="left" valign="center">
+							<div height="28" class="pagefilter_container">
+								<for select="Filters.Filter">
+								<span class="pagefilter {#IsDefault,,PageFilter.filterClass}" pagefilter_type="{#Type}">
+									<table border="0" cellpadding="0" cellspacing="0">
+										<tr height="23">
+											<td class="left" width="7"></td>
+											<td class="middle" nowrap="nowrap" valign="middle">
+												<a href="#" onclick="return false">{#Name}</a>
+											</td>
+											<td class="right" width="7"></td>
+										</tr>
+									</table>
+								</span>
+								</for>
+								<span class="wcm_pointer pagefilter_more_btn" id="pagefilter_more_btn"></span>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</textarea>				
+        </div>
+    </td></tr>
+    <tr><td>
+        <table style="width:100%; height:100%;" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+                <td class="list_view_border"></td>
+                <td style="width:5px;"></td>
+                <td style="width:226px;padding-top:3px;" valign="top" align="center" height="100%">
+                    <div class="document_list_grid">
+                        <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+                            <tr><td style="height:20px;">
+                                <div class="document_list_header">
+                                    <div class="document_list_orderable" id="document_list_orderable">
+                                        <span class="wcm_pointer document_list_curr_fieldname" style="color:blue;text-decoration:underline;" id="orderBtn" title="单击显示排序菜单">排序方式:</span>
+                                        <span id="document_list_curr_fieldname" class="document_list_curr_fieldname" style="color:black;margin-top:2px;">默认</span>                                        
+                                        <span class="document_list_curr_orderasc" id="document_list_curr_order" style="display:none;"></span>
+                                    </div>
+                                    <div class="document_list_orders_btn"></div>              
+                                </div>
+                            </td></tr>
+                            <tr><td>
+                                <textarea id="documents_template" style='display:none'>                                
+                                    <for select="ViewDocument" blankref="divNoDocumentFound"> 
+                                    <DIV class="wcm_pointer document_list_row document_row_outer" _docid="{#DocId}" _recid="{#RecId}" _right="{#right}" id="_row_{#RecId}" _channelid="{#DocChannel.Id}">
+                                        <table border="0" align="center" cellpadding="0" cellspacing="0" style="width:100%;height:100%">
+                                            <tr style="padding:2px 0;" align="center" valign="top" title="{#DocTitle}">
+                                                <td align="left">
+                                                    <DIV class="document_row_title"><strong id="indexId_{#RecId}">{$$INDEX}</strong>.{#DocTitle}</DIV>
+                                                    <DIV style="width:100%;height:20px;line-height:20px">
+                                                        <SPAN class="document_row_ccs">{#CRUSER}--{#CRTime}--<div id="status_{#RecId}" style="position:absolute;">{#DOCSTATUS.Name}</div></SPAN>
+                                                        <SPAN class="document_row_doctype document_list_doctype_{#DocType.Type}"></SPAN>
+                                                    </DIV>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </DIV>
+                                    </for>
+                                </textarea>  
+                                <textarea id="document_template" style='display:none'>                                                                    
+                                    <table border="0" align="center" cellpadding="0" cellspacing="0" style="width:100%;height:100%">
+                                        <tr style="padding:2px 0;" align="center" valign="top" title="{#DocTitle}">
+                                            <td align="left">
+                                                <DIV class="document_row_title"><strong id="indexId_{#RecId}"></strong>.{#DocTitle}</DIV>
+                                                <DIV style="width:100%;height:20px;line-height:20px">
+                                                    <SPAN class="document_row_ccs">{#CRUSER}--{#CRTime}--<div id="status_{#DocId}" style="position:absolute;">{#DOCSTATUS.Name}</div></SPAN>
+                                                    <SPAN class="document_row_doctype document_list_doctype_{#DocType.Type}"></SPAN>
+                                                </DIV>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </textarea>                                 
+                                <div id="contentDiv"  class="leftListScrollBar" style="width:100%; height:100%; margin:0; padding:0; overflow-y:scroll; background-color:#fff;">
+                                    <div id="documents" style="padding:0;margin:0;">                                   	
+                                    </div>   
+                                </div>
+                            </td></tr>
+                            <tr style="height:16px;margin:0;padding:0;">
+                                <td align="center" valign="middle" title="滚动鼠标或者点击键盘方向键获取更多文档">
+                                    <span id="docTotalNum" style="float:right;color:red;font-size:12px;padding-right:20px;"></span>
+                                    <img style="float:right; padding-right:50px; cursor:hand; display:none;" src="../images/document_readmode_index/forward.png" id="forwardImg" border=0 alt="" title="向下获取更多文档">
+                                    <img style="float:right; padding-right:20px; cursor:hand; display:none;" src="../images/document_readmode_index/backward.png" id="backwardImg" border=0 alt="" title="向上获取更多文档">
+                                </td>
+                            </tr>
+                        </table>
+					</div>
+                </td>
+				<td align="center" valign="top" style="padding:3px 4px 0 8px;">
+					<table class="table_document_detail" style="width:100%; height:100%;" border="0" cellspacing="5" cellpadding="0">
+					<tr><td bgcolor="#ffffff">
+						<iframe id='document_detail' src="document_detail.html" scrolling="no" frameborder="0" allowtransparency="true" style="z-index:10;"></iframe>
+					</td></tr></table>
+				</td>
+                <td class="list_view_border"></td>
+            </tr>
+        </table>
+    </td></tr>
+</table>
+
+<div id="divNoDocumentFound" style="display:none; height:100%; width:100%;">
+	<div class="no_object_found"></div>
+</div>
+
+
+<div id="document_list_orders" class="document_list_orders" style="display:none;" onclick="PageContext.dealMenuOrder(event);return false;">
+    <div class="document_list_orders_inner">
+        <li class="document_list_order_item wcm_pointer" _FieldName="wcmdocument.CrUser">
+            <a href="#">发稿人</a>
+        </li>
+        <li class="document_list_order_item wcm_pointer"  _FieldName="wcmdocument.CrTime">
+            <a href="#">创建时间</a>
+        </li>
+        <li class="document_list_order_item wcm_pointer" _FieldName="wcmdocument.Docstatus">
+            <a href="#">状态</a>
+        </li>
+        <li class="document_list_order_item wcm_pointer" _FieldName="wcmdocument.DocType">
+            <a href="#">类型</a>
+        </li>
+        <li class="document_list_order_item wcm_pointer" _FieldName="wcmdocument.DocTitle">
+            <a href="#">标题</a>
+        </li>
+    </div>
+</div>
+</body>
+</html>

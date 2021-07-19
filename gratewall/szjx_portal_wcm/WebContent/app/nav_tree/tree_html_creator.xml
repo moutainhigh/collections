@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="GB2312"?>
+<parameters>	
+	<parameter name="Type"  desc="取数据的行为"  type="string" required="false" default="0"/>
+	<parameter name="forIndividual"  desc="是否进行自定义站点过滤"  type="int" required="false" default="0"/>
+	<parameter name="SearchMobile"  desc="是否仅显示移动站点"  type="int" required="false" default="0"/>
+	<parameter name="isView"  desc="是否是来自权限设置的查看页面"  type="int" required="false" default="0"/>
+	
+	<parameter name="SiteTypes"  desc="站点类别序列"  type="string" required="false"/>
+	<parameter name="SiteType"  desc="默认展开的站点类型"  min-value="0" type="int" required="false"/>
+
+	<parameter name="ParentType"  desc="父对象类型"  type="string" required="false"/>
+	<parameter name="ParentId"  desc="父对象ID"  min-value="1" type="int" required="false"/>
+
+	<parameter name="NodeIds"  desc="路径的描述，以逗号分隔"  type="string" required="false"/>
+
+	<parameter name="ChannelIds"  desc="返回的结果需要包含的栏目ID序列"  type="string" required="false"/>	
+
+	<parameter name="OperatorType"  desc="操作者对象类型"  min-value="0" type="int" required="false"/>
+	<parameter name="OperatorId"  desc="操作者对象ID"  min-value="0" type="int" required="false"/>
+
+	<parameter name="ViewerIsCurrUser"  desc="树的显示是否依据于当前登录用户"  type="boolean" required="false" default="0"/>
+	<parameter name="InRightSetPage"  desc="表示当前请求是否来自权限页"  type="boolean" required="false" default="0"/>
+	<parameter name="FromSelect"  desc="来源于选择树"  type="int" required="false" default="0"/>
+	<parameter name="MultiSites"  desc="跨站点"  type="int" required="false" default="1"/>
+	<parameter name="ExcludeSelf"  desc="排除自己"  type="int" required="false" default="0"/>
+	<parameter name="ExcludeTop"  desc="排除头条和图片"  type="int" required="false" default="0"/>
+	<parameter name="ExcludeInfoview"  desc="排除表单栏目"  type="int" required="false" default="1"/>
+	<parameter name="ExcludeParent"  desc="排除父"  type="int" required="false" default="0"/>
+	<parameter name="ExcludeChildren"  desc="排除当前栏目所有的子"  type="int" required="false" default="0"/>
+	<parameter name="ExcludeParentIds"  desc="排除指定栏目列表所有的子"  type="string" required="false"/>
+	<parameter name="ExcludeVirtual"  desc="排除虚栏目"  type="int" required="false" default="0"/>
+	<parameter name="ExcludeOnlySearch"  desc="排除仅检索和链接栏目"  type="int" required="false" default="0"/>
+	<parameter name="ExcludeChannelIds"  desc="排除指定的栏目"  type="string" required="false" default="0"/>
+	<parameter name="ExcludeLink"  desc="排除链接"  type="int" required="false" default="0"/>
+	
+	<parameter name="ExpandSiteId"  desc="需要定位的站点Id"  type="int" required="false" default="0"/>
+	
+	<parameter name="CurrChannelId"  desc="当前的栏目Id"  type="int" required="false" default="0"/>
+	<parameter name="CurrSiteId"  desc="当前的站点Id"  type="int" required="false" default="0"/>
+	<parameter name="CurrSiteType"  desc="当前的站点类型"  type="int" required="false" default="-1"/>
+	<parameter name="RightIndex"  desc="权限值"  type="int" required="false" default="-1"/>
+
+
+	<parameter name="SelectedChannelIds"  desc="当前选中的栏目Id序列"  type="string" required="false"/>
+	<parameter name="SelectedSiteIds"  desc="当前选中的站点Id序列"  type="string" required="false"/>
+	<parameter name="SelectedSiteTypes"  desc="当前选中的站点类别"  type="string" required="false"/>
+	<parameter name="OnlyMyChildren"  desc="只显示自身和子"  type="boolean" required="false" default="0"/>
+
+	<parameter name="InViewOperSetPage"  desc="表示当前请求是否来自可访问可操作设置页"  type="boolean" required="false" default="0"/>
+	<parameter name="GetAllChildren"  desc="是否获取所有的子"  type="boolean" required="false" default="0"/>
+</parameters>

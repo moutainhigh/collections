@@ -1,0 +1,351 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>document_list</title>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/wcm_list_abstract.css" rel="stylesheet" type="text/css" />
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+</script>
+<script label="Imports">
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.util.CommonHelper');
+    $import('com.trs.wcm.SheetChanger');
+	$import('com.trs.wcm.SimpleDragger');
+	$import('com.trs.wcm.Grid');
+	$import('com.trs.wcm.PageFilter');
+	$import('com.trs.wcm.BubblePanel');
+	$import('com.trs.crashboard.CrashBoarder');
+	//Import Mgrs
+	$import('com.trs.wcm.domain.DocumentMgr');
+	$import('com.trs.wcm.domain.ChnlDocMgr');
+	$import('com.trs.wcm.domain.PublishMgr');
+</script>
+<script src="../common/wcm_list_abstract.js" label="PageScope"></script>
+<script src="document_normal_index.js" label="PageScope"></script>
+
+<link href="../js/com.trs.wcm/SimpleMenu.css" rel="stylesheet" type="text/css" />
+<script src="../js/com.trs.wcm/SimpleMenu.js" label="PageScope"></script>
+<link href="document_menu.css" rel="stylesheet" type="text/css" />
+<script src="document_menu.js" label="PageScope"></script>
+
+<style label="PageScope">
+	.doctitle{
+		text-align:left;
+		padding-left:0!important;
+		padding-left:2px;
+	}
+	.object_preview{
+		background-image:url(../images/icon/Preview.png);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	.objectcannot_preview{
+		background-image:url(../images/icon/CannotPreview.png);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	.document_switcher{
+		float: right;
+		height: 29px;
+		width: 28px;
+		margin-right:5px;
+		overflow:hidden;
+	}
+	.document_mode_active{
+		float:left;
+		width:27px;
+		height:29px;
+		background:url(../images/document_normal_index/ico-bg1.png) no-repeat center center;
+	}
+	.document_mode_deactive{
+		float:left;
+		width:27px;
+		height:29px;
+		background:url(../images/document_normal_index/ico-bg.png) no-repeat center center;
+	}
+	.document_mode_normal{
+		float:left;
+		width:27px;
+		height:29px;
+		background:url(../images/icon/list.png) no-repeat center center;
+	}
+	.document_mode_read{
+		float:left;
+		width:27px;
+		height:29px;
+		background:url(../images/icon/file.png) no-repeat center center;
+	}
+	/*HTML*/
+	.doctype_10{
+		background-image:url(../images/document_normal_index/type_text.gif);
+		background-repeat:no-repeat;
+		background-position:4px center;
+	}
+	.doctype_20{
+		background-image:url(../images/document_normal_index/type_html.gif);
+		background-repeat:no-repeat;
+		background-position:4px center;
+	}
+	.doctype_30{
+		background-image:url(../images/document_normal_index/type_link.gif);
+		background-repeat:no-repeat;
+		background-position:4px center;
+	}
+	.doctype_40{
+		background-image:url(../images/document_normal_index/type_file.gif);
+		background-repeat:no-repeat;
+		background-position:4px center;
+	}
+	.cannot_doctype_10{
+		background-image:url(../images/document_normal_index/type_text_2.gif);
+		background-repeat:no-repeat;
+		background-position:4px center;
+	}
+	.cannot_doctype_20{
+		background-image:url(../images/document_normal_index/type_html_2.gif);
+		background-repeat:no-repeat;
+		background-position:4px center;
+	}
+	.cannot_doctype_30{
+		background-image:url(../images/document_normal_index/type_link_2.gif);
+		background-repeat:no-repeat;
+		background-position:4px center;
+	}
+	.cannot_doctype_40{
+		background-image:url(../images/document_normal_index/type_file_2.gif);
+		background-repeat:no-repeat;
+		background-position:4px center;
+	}
+	.grid_row_hint{
+		position:absolute;
+		padding:2px 10px;
+		width:30px;
+		height:30px;
+		line-height:26px;
+		font-size:12px;
+		border:1px solid gray;
+		white-space:nowrap;
+		overflow:visible;
+		background:#FFFFEF;
+	}
+	.forbid_sort{
+		background-image:url(../images/icon/Forbid.gif);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	/*置顶*/
+	.document_attachpic{
+		width:16px;
+		background-image:url(../images/icon/ImageSmall.png);
+		background-repeat:no-repeat;
+		background-position:0 center;
+	}
+	.document_topped{
+		width:16px;
+		background-image:url(../images/document_normal_index/topdoc.gif);
+		background-repeat:no-repeat;
+		background-position:0 center;
+	}
+	.document_modal_2{
+		width:14px;
+		background-image:url(../images/document_normal_index/shortcutdoc2.gif);
+		background-repeat:no-repeat;
+		background-position:0 bottom;
+	}
+	.document_modal_3{
+		width:14px;
+		background-image:url(../images/document_normal_index/shortcutdoc3.gif);
+		background-repeat:no-repeat;
+		background-position:0 bottom;
+	}
+	.grid_row_curr{
+		background:#d5e6fe;
+	}
+    .linkto{
+		width:16px;
+		background-image:url(../images/document_normal_index/shortcutdoc2_1.gif);
+		background-repeat:no-repeat;
+		background-position:0 bottom;
+    }
+    .mirrorto{
+		width:16px;
+		background-image:url(../images/document_normal_index/shortcutdoc3_1.gif);
+		background-repeat:no-repeat;
+		background-position:0 bottom;
+    }
+    .linktomirrorto{
+		width:32px;
+		background-image:url(../images/document_normal_index/shortcutdoc_1.gif);
+		background-repeat:no-repeat;
+		background-position:0 bottom;
+    }
+</style>
+</head>
+
+<body>
+<div id="dy_list_adjust"></div>
+<table id="table_body" class="wcm_table_layout" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="wcm_list_view">
+			<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+			<tbody>
+				<tr class="list_pageinfo">
+					<td colSpan="3">
+						<div class="pageinfo">
+							<div class="pageinfo_left"></div>
+							<div class="pageinfo_right"></div>
+							<div id="document_switcher" class="document_switcher" title="当前为文档列表模式&#13;单击转为文档阅读模式" style="display:none;">
+								<div class="document_mode_active">
+									<div class="wcm_pointer document_mode_read" onclick='PageContext.switchReadMode();'></div>
+								</div>
+							</div>
+							<div id="divSearchClue" style="display: none; font-size: 14px; float: right; padding-left:5px; height: 30px; line-height: 30px; color: #789; font-weight: bold; padding-right: 10px;">文档检索结果</div>
+							<span id="pageinfo"></span>
+							<!--PageInfo模板-->
+							<textarea id="pageinfo_template" select="PageInfo" style='display:none'>
+								<table height="28" border="0" cellpadding="0" cellspacing="0">
+									<tr height="28">
+										<td align="left" valign="center">
+											<div height="28" class="pagefilter_container" id="pagefilter_container">
+												<for select="Filters.Filter">
+												<span class="pagefilter {#IsDefault;#Type,,PageFilter.filterClass}" pagefilter_type="{#Type}">
+													<table border="0" cellpadding="0" cellspacing="0">
+														<tr height="23">
+															<td class="left" width="7"></td>
+															<td class="middle" nowrap="nowrap" valign="middle">
+																<a href="#" onclick="return false">{#Name}</a>
+															</td>
+															<td class="right" width="7"></td>
+														</tr>
+													</table>
+												</span>
+												</for>
+												<span class="wcm_pointer pagefilter_more_btn" id="pagefilter_more_btn"></span>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</textarea>
+					</td>
+				</tr>
+				<tr class="list_view">
+					<td class="list_view_border"></td>
+					<td valign="top">
+						<DIV id='objects_grid' class="grid">
+							<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+								<tr style="height:29px">
+									<td>
+										<DIV class="grid_head" id="grid_head">
+											<!--列表头模板-->
+											<SPAN class="grid_head_column" onclick="Grid.toggleAllRows();" style="width:50px">
+												全选
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:30px; cursor: auto;">
+												预览
+											</SPAN>
+											<SPAN class="grid_head_column doctitle" grid_dywidth="doctitle,1.0" grid_sortby="wcmdocument.doctitle" style="text-align:center">
+												文档标题
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:60px" grid_sortby="wcmdocument.crtime">
+												创建时间
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:55px" grid_sortby="wcmdocument.cruser">
+												发稿人
+											</SPAN>
+											<!--SPAN class="grid_head_column" style="width:65px" grid_sortby="wcmdocument.doceditor">
+												最后修改人
+											</SPAN-->
+											<SPAN class="grid_head_column" style="width:65px" grid_sortby="wcmdocument.docchannel" id="ss_location">
+												所属栏目
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:30px" grid_sortby="wcmdocument.docstatus">
+												状态
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:30px;border-right:0;" grid_sortby="wcmdocument.doctype">
+												查看
+											</SPAN>
+										</DIV>
+									</td>
+								</tr>
+								<tr>
+									<td valign="top">
+										<div id="grid_data" class="grid_data"></div>
+										<!--Objects列表数据模板-->
+										<textarea id="objects_template" select="ViewDocuments" style='display:none'>
+											{#HTML}
+										</textarea>
+										<textarea id="objects_template1" select="ViewDocuments.ViewDocument" style='display:none'>
+											<for select="." blankRef="divNoObjectFound" justReplace="true" noRecord="false">
+											<DIV class="grid_row {@Grid.DealWithRight(#Right,row_detail)}" grid_rowid="{#RecId}" right="{#Right}" doctype="{#DocType.Type}" isTopped="{#Topped}" channelid="{#DocChannel.Id}" currchnlid="{#ChnlId}" docid='{#DocId}' sortableRightIndex="32" >
+												<SPAN class="grid_column" style="width:50px">
+													<input type="checkbox" class="grid_checkbox" name="RecId" value="{#RecId}" {@Grid.DealWithRight(#Right,cb_detail)}/><span class="grid_index">{$$INDEX}</span>
+												</SPAN>
+												<SPAN class="grid_column {@Grid.DealWithRight(#Right,preview)}" style="width:30px" grid_function="preview" right_index="38">
+													
+												</SPAN>
+												<SPAN class="grid_column_autowrap doctitle" style="font-size:14px" align="left">
+													<a href="#" onclick="return false;" grid_function="chnldoc_edit" title="[文档-{#DocId}]" id="doctitle_{#RecId}" right_index="32"><span class="{@PageContext.isTopped(#Topped)}"></span><span class="document_modal_{#Modal}"></span>{#DocTitle}</a>
+												</SPAN>
+												<SPAN class="grid_column" style="width:60px">
+													{#CrTime}
+												</SPAN>
+												<SPAN class="grid_column" style="width:55px" title="{#CRUSER}">
+													{#CRUSER}
+												</SPAN>
+												<SPAN class="grid_column" style="width:65px" title="[{#DocChannel.Id}]{#DocChannel.Name}">
+													<a href="#" onclick="return false;" grid_function="open_channel" ext_channelid="{#DocChannel.Id}" channelType="{#DocChannel.ChannelType}" rightValue="{#DocChannel.RightValue}">{#DocChannel.Name}</a>
+												</SPAN>
+												<SPAN class="grid_column" style="width:30px"  id="docstatus_{#RecId}">
+													{#DOCSTATUS.Name}
+												</SPAN>
+												<SPAN class="grid_column doctype_{#DocType.Type}" title="{#DocType.Name}" style="width:30px;border-right:0;cursor:pointer" grid_function="chnldoc_view" right_index="30">
+												</SPAN>
+											</DIV>
+											</for>
+										</textarea>
+									</td>
+								</tr>
+							</table>
+						</DIV>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+				<tr class="list_navigator">
+					<td class="list_view_border"></td>
+					<td>
+						<!--
+						<DIV id="list_othermore" class="list_othermore_div">
+							<label for="rollids_pages">跨页复制</label>
+							<input type="checkbox" id="rollids_pages">
+						</DIV>
+						<DIV id="list_othermore2" class="list_othermore_div" style="border:0;">
+							<span id="rollids_pages_clearhistory" style="margin-top:5px;height:24px;">清除跨页记录</span>
+						</DIV>
+						-->
+						<DIV id="list_navigator" class="list_navigator_div">
+						</DIV>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+</table>
+<div id="divNoObjectFound" style="display:none;">
+	<div class="no_object_found">不好意思, 没有找到符合条件的对象..-____-|||</div>
+</div>
+<script language="javascript">
+<!--
+	if(window.location.href.indexOf('disable_sheet=1') == -1) {
+		PageContext.LoadPage();
+	}
+//-->
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="../../../file/pdf_template/css/pdf-template.css" rel="stylesheet" type="text/css" />
+
+<title>电子文书查看</title>
+<style>
+html, body, div,span,
+h1, h2, h3, h4, h5, h6, p {
+    margin:0;
+    padding:0;
+    border:0;
+    outline:0;
+    font-size:100%;
+    vertical-align:baseline;
+    background:transparent;
+}
+body {
+    font-family: SimSun;
+    height: auto;
+    width: 100%;
+}
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table; 
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1;
+}
+td{
+    vertical-align:middle;
+}
+.content{
+   /*  text-align:center; */
+}
+
+.fixed_title{
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    width:100%;
+}
+#fixed_content{
+    margin:0 auto;
+    text-align:left;
+}
+.fixed_title a{
+    display:inline-block;
+    *display:inline;
+    *zoom:1;
+    background-color:#F5F5F5;
+    overflow: hidden;
+    padding: 2px 14px;
+    text-align: center;
+    width: 220px;
+    color:#666;
+    font: 14px/2em simsun;
+    text-decoration: none;
+}
+.fixed_title a.selected{
+    background-color:#62CF66;
+    color:#fff;
+}
+.content_main{
+    width:620px;
+    margin:10px auto;
+}
+#contentMain{
+	margin-top:2100px;
+}
+#basic,#person_inv,#mbr,#contact,#domicile,#aoc00,#inform,#shareholder,#promise {
+	padding-top: 100px;
+}
+</style>
+
+</head>
+<body>
+		<div id="fixedTitle" class="fixed_title"><div id="fixed_content"><span id="chapter"></span></div></div>
+		<div id="contentMain" class="content_main"></div>
+
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" src="../../../static/lib/require.js" data-main="approve/approveDoc.js"></script>
+</body>
+</html>

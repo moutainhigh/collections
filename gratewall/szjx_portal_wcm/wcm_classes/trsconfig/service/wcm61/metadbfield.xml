@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.metadata.service.MetaDataDefServiceProvider">	
+	<method name="findDBFieldInfoById">		
+		<parameter name="ObjectId" desc="元数据字段ID" type="int" required="true"/>		
+	</method>
+	<method name="jFindById" truename="findDBFieldInfoById"  convertor="uri:/app/metadbfield/metadbfield_findbyid.jsp"/>
+	<method name="queryDBFieldInfos">		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="queryAnotherName" desc="元数据别名" type="string" required="false"
+			search="true" search-operator="like" search-field="AnotherName"/>
+		<parameter name="queryName" desc="元数据名称" type="string" required="false"
+			search="true" search-operator="like" search-field="FieldName"/>			
+		<parameter name="fieldInfoId" desc="id" type="string" required="false"
+			search="true" search-operator="like" search-field="dbfieldInfoId"/>			
+		<parameter name="ClassId" desc="查询创建者" type="int" required="false"
+			search="true" search-operator="=" search-field="ClassId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>				
+		<!-- 检索相关配置 END -->
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="CrTime Asc" required="false"/>	
+	</method>
+	<method name="jQuery" truename="queryDBFieldInfos"  convertor="uri:/app/metadbfield/metadbfield_query.jsp"/>
+	<method name="jSelectQuery" truename="queryDBFieldInfos"  convertor="uri:/app/metadbfield/metadbfield_select_query.jsp"/>
+	<method name="saveDBFieldInfo">		
+		<parameter name="ObjectId" desc="元数据字段ID" type="int" required="true"/>		
+		<parameter name="TableInfoId" desc="元数据表ID" type="int" required="false"/>
+		<parameter name="FieldName" desc="物理字段名" type="string" required="false" max-length="50"/>				
+		<parameter name="AnotherName" desc="别名" type="string" required="false" max-length="100"/>					 		
+		<parameter name="FieldType" desc="字段逻辑类型"	 type="int" required="fasle"/>				
+		<parameter name="DBType" desc="物理字段类型" type="int" required="fasle"/>				
+		<parameter name="DBLength" desc="物理字段长度" type="int" required="fasle"/>				
+		<parameter name="DBScale" desc="小数位"	 type="int" required="fasle"/>
+		<parameter name="NotNull" desc="是否允许空"	 type="boolean" required="fasle"/>							 
+		<parameter name="DefaultValue" desc="默认值" type="string" required="false" max-length="200"/>				 
+		<parameter name="EnumValue" desc="默认值" type="string" required="false" max-length="200"/>
+		<parameter name="ClassId" desc="所属分类法"	 type="int" required="fasle"/>			 
+	</method>
+	<method name="deleteDBFieldInfo">		
+		<parameter name="ObjectIds" desc="待删除元数据字段ID序列" type="string" required="true"/>
+	</method>
+</service>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>选择机构</menu-name>
+  <menu-path>/page/sysmgr/choice/orgchoice/</menu-path>
+  <description>选择机构</description>
+  <form-beans>
+    <form-bean name="JgxzRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="jgid_pk" type="string" size="32" cannull="false" description="机构ID"/>
+      <form-property prefix="select-key" name="sjjgid_fk" type="string" size="32" cannull="true" description="上级机构ID"/>
+      <form-property prefix="select-key" name="jgmc" type="string" size="60" cannull="false" description="机构名称"/>
+      <form-property prefix="select-key" name="jgjc" type="string" size="60" cannull="true" description="机构描述"/>
+      <form-property prefix="select-key" name="sjjgname" type="string" size="60" cannull="true" description="上级机构名称"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="no.jsp" name="JgxzRowsetForm" txn-code="808001" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>实现树形机构选择</description>
+      <step index="808001" bean-name="com.gwssi.sysmgr.choice.TxnJgxz" func-name="txn808001" output-node="select-key"/>
+      <forward error-code="success" path="tree.jsp" redirect="false"/>
+      <forward error-code="failure" path="tree.jsp" redirect="false"/>
+    </action>
+  </action-mappings>
+</struts-config>
+

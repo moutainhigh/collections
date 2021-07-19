@@ -1,0 +1,708 @@
+<HTML xmlns:TRS_UI>
+<HEAD>
+  <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <TITLE>TRS WCM V6 附件管理</TITLE>
+  <link href="../../../css/common.css" rel="stylesheet" type="text/css" />
+	<style>
+		.simpletab{
+			padding-bottom:23px;
+			border-bottom:1px solid gray;
+			font-size:12px;
+		}
+		div.simpletab_item{
+			float:left;
+			width:50px;
+			height:20px;
+			background:#d1d0d0;
+			margin-left:4px;
+			border:1px solid #808080;
+			padding:4px;
+			text-align:center;
+		}
+		.simpletab_item a,.simpletab_item a:link,.simpletab_item a:visited,.simpletab_item a:hover{
+			text-decoration: none;
+			color:#404040;
+		}
+		div.simpletab_item_active{
+			float:left;
+			width:50px;
+			height:21px;
+			background:#ffffff;
+			margin-left:4px;
+			border:1px solid gray;
+			border-bottom:0;
+			padding:4px;
+			padding-bottom:5px;
+			text-align:center;
+		}
+		.simpletab_item_active a,.simpletab_item_active a:link,.simpletab_item_active a:visited,.simpletab_item_active a:hover{
+			text-decoration: none;
+			color:black;
+		}
+		.simpletab_item_before{
+			float:left;
+			padding-left:20px;
+		}
+		.message {
+			font-family: "宋体", "Arial", "Courier New";
+			font-size: 12px;
+			float:left;
+			height:18px;
+			line-height:18px;
+		}
+		.input_file{
+			float:left;
+			width:220px;
+			height:20px;
+			border:1px solid black;
+		}
+		.file_cover{
+			margin-left:-70px;
+			width:70px;
+		}
+		.input_text{
+			float:left;
+			width:180px;
+			height:20px;
+			border:1px solid black;
+		}
+		.input_button{
+			float:left;
+			width:70px;
+			height:20px;
+			border:1px solid black;
+			background-color:#fff9d4;
+		}
+		.ui_editpanel_text_blank{
+			border:0;
+		}
+		.ui_editpanel_text_hover{
+			border:1px solid gray;
+		}
+		.simple_editpanel{
+			margin:1px 1px 0;
+			width:98%;height:23px;line-height:23px;font-size:14px;
+			overflow:hidden;
+			text-overflow:clip;
+		}
+		.row_delete{
+			float:left;
+			width:100%;
+			height:100%;
+			background:url(../../../images/icon/Delete_2.gif) no-repeat center center;
+			cursor:pointer;
+		}
+		.appendix_grid{
+			font-size:12px;
+			background:#646464;
+		}
+		.grid_head{
+			height:25px;
+			background:#d3e6fa;
+			color:#133151;
+		}
+		.grid_row{
+			height:25px;background:#FFFFFF;
+		}
+		.grid_container{
+			height:100%;
+			overflow:auto;
+		}
+		.tbody_dragging{
+			background-color:#FFFFDD;
+		}
+		.tbody_drag_icon{
+			width:20px;
+			height:20px;
+			background:url(../../../images/document_addedit/icon/Accessories.png) no-repeat center center;
+		}
+	</style>
+	<script src="../../../js/com.trs.util/Common.js"></script>
+	<script label="TagParser">
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.util.JSON');
+	$import('com.trs.dialog.Dialog');
+	</script>
+	<script label="UITransformer">
+		$import('com.trs.util.UITransformer');
+	</script>
+	<script>
+		$import('com.trs.dialog.Dialog');
+		$import('com.trs.wcm.FloatPanel');
+		$import('com.trs.wcm.MessageCenter');
+		$import('com.trs.wcm.ProcessBar');
+		$import('com.trs.wcm.ui.SimpleTab');
+		$import('com.trs.validator.Validator');
+		$import('com.trs.wcm.SimpleDragger');
+		$import('com.trs.wcm.util.FileUploadHelper');
+		$import('com.trs.util.YUIConnection');
+	</script>
+    <script src="../js/attachments_relations.js" label="PageScope"></script>
+	<script>
+		Appendixs = {
+			Type_10:{},
+			Type_20:{},
+			Type_40:{}
+		}
+
+		//FloatPanel.addCloseCommand('关闭');
+		var myActualTop = (top.actualTop||top);
+//		var Appendixs = myActualTop.Appendixs;
+		/** 附件类型标识：文档附件 */
+		var FLAG_DOCAPD = 10; //文档附件:Document Appendix
+		/** 附件类型标识：文档图片 */
+		var FLAG_DOCPIC = 20; //文档图片:Document Picture
+		/** 附件类型标识：链接附件 */
+		var FLAG_LINK = 40; //链接附件:Link
+		var FLAG_ALL = -1;
+	
+		var isSSL = location.href.indexOf("https://")!=-1;
+		var nIncreasingId = 1;
+	function UploadPic(){
+		var sFileName = $("PicUpload").value;
+		if(!FileUploadHelper.validFileExt(sFileName, "jpg,gif,png,bmp",function(s){
+			$alert(s,function(){
+				$("PicUpload").focus();
+				$dialog().hide();
+			});
+		})){
+			return false;
+		}
+		ProcessBar.init('执行进度，请稍候...');
+		ProcessBar.addState('正在上传文件:'+sFileName);
+		ProcessBar.addState('上传完成,加入附件列表');
+		ProcessBar.addState('执行完成');
+		ProcessBar.start();
+		var callBack = {
+			"upload":function(_transport){
+				var sResponseText = _transport.responseText;
+				FileUploadHelper.fileUploadedAlert(sResponseText,function(){
+					var fileNames = null;
+					eval("fileNames="+sResponseText);
+					var sUploadFileName = fileNames[0];
+					var sShowName = fileNames[1];
+					ProcessBar.next();
+					AddAppendix(20,
+						{"AppFile":sUploadFileName,"SrcFile":sShowName,"AppDesc":sShowName,"AppLinkAlt":"","FileUrl":sFileName});
+					ProcessBar.next();
+					setTimeout(function(){
+						ProcessBar.next();
+					},10);
+					$('fm_pic').reset();
+				});
+			}
+		}
+		YUIConnect.setForm('fm_pic',true,isSSL);
+		YUIConnect.asyncRequest('POST','../../../system/file_upload_dowith.jsp?ResponseType=2&FileParamName=PicUpload',callBack);
+		return false;
+	}
+	function UploadFile(){
+		var sFileName = $("FileUpload").value;
+		if(!FileUploadHelper.validFileExt(sFileName, ".*",function(s){
+			$alert(s,function(){
+				$("FileUpload").focus();
+				$dialog().hide();
+			});
+		})){
+			return false;
+		}
+		ProcessBar.init('执行进度，请稍候...');
+		ProcessBar.addState('正在上传文件:'+sFileName);
+		ProcessBar.addState('上传完成,加入附件列表');
+		ProcessBar.addState('执行完成');
+		ProcessBar.start();
+		var callBack = {
+			"upload":function(_transport){
+				var sResponseText = _transport.responseText;
+				FileUploadHelper.fileUploadedAlert(sResponseText,function(){
+					var fileNames = null;
+					eval("fileNames="+sResponseText);
+					var sUploadFileName = fileNames[0];
+					var sShowName = fileNames[1];
+					ProcessBar.next();
+					AddAppendix(10,
+						{"AppFile":sUploadFileName,"SrcFile":sShowName,"AppDesc":sShowName,"AppLinkAlt":"","FileUrl":sFileName});
+					ProcessBar.next();
+					setTimeout(function(){
+						ProcessBar.next();
+					},10);
+					$('fm_file').reset();
+				});
+			}
+		}
+		YUIConnect.setForm('fm_file',true,isSSL);
+		YUIConnect.asyncRequest('POST','../../../system/file_upload_dowith.jsp?ResponseType=2&FileParamName=FileUpload',callBack);
+		return false;
+	}
+	function AddLink(){
+		var sLinkUrl = $("Link").value;
+		if(!sLinkUrl.match(/(http|ftp|https|file):(\/){2}.+/)){
+			$alert('输入的URL地址不符合规范(http|ftp|https|file)://...',function(){
+				$("Link").focus();
+				$dialog().hide();
+			});
+			return false;
+		}
+		AddAppendix(40,
+			{"AppFile":sLinkUrl,"SrcFile":sLinkUrl,"AppDesc":sLinkUrl,"AppLinkAlt":"","FileUrl":sLinkUrl});
+		$("Link").value = '';
+	}
+	function ShowPicThumb(event,_Td){
+		event = event || window.event;
+		var eDiv = document.createElement("DIV");
+		eDiv.id = 'picthumb_'+_Td.parentNode.rowIndex;
+		eDiv.innerHTML = '<img src="'+_Td.getAttribute("PicUrl",2)+'" border="0" onload="if(this.width>200)this.width=200;"/>';
+		eDiv.style.position = 'absolute';
+		eDiv.style.left = Event.pointerX(event)+4;
+		if(_Td.parentNode.rowIndex<=5){
+			eDiv.style.top = Event.pointerY(event)-eDiv.offsetHeight/2+4;
+		}
+		else{
+			eDiv.style.bottom = Element.getDimensions(document.body).height-Event.pointerY(event)-4;
+		}
+		document.body.appendChild(eDiv);
+	}
+	function HidePicThumb(event,_Td){
+		var eDiv = $('picthumb_'+_Td.parentNode.rowIndex);
+		if(eDiv){
+			$removeNode(eDiv);
+		}
+	}
+	function getAppendixArray(appendixes){
+		var arr = com.trs.util.JSON.value(appendixes,"APPENDIXES.APPENDIX");
+		if(arr==null){
+			arr = appendixes["APPENDIXES"]["APPENDIX"] = new myActualTop.Array();
+		}
+		else if(!Array.isArray(arr)){
+			var tmpArr = appendixes["APPENDIXES"]["APPENDIX"] = new myActualTop.Array();
+			tmpArr.push(arr);
+			arr = tmpArr;
+		}
+		return arr;
+	}
+	function AddAppendix(_iAppendixType,_Appendix){
+		var appendixes = myActualTop.Appendixs["Type_"+_iAppendixType];
+		var arr = getAppendixArray(appendixes);
+		var oAppendix = new myActualTop.Object();
+		if(_iAppendixType=='20'){
+			oAppendix["APPFILE"] = new myActualTop.Object();
+			oAppendix["APPFILE"]["FILENAME"] = _Appendix["AppFile"];
+			oAppendix["APPFILE"]["URL"] = _Appendix["FileUrl"];
+		}
+		else{
+			oAppendix["APPFILE"] = _Appendix["AppFile"];
+		}
+		oAppendix["SRCFILE"] = _Appendix["SrcFile"];
+		oAppendix["APPDESC"] = _Appendix["AppDesc"];
+		oAppendix["APPLINKALT"] = _Appendix["AppLinkAlt"];
+		oAppendix["APPFLAG"] = _iAppendixType;
+		oAppendix["APPENDIXID"] = "0_" + (nIncreasingId++);
+		arr.push(oAppendix);
+		switch(_iAppendixType){
+			case 10:
+				showFilesGrid(true);
+				break;
+			case 20:
+				if(myActualTop.setAttachPic)myActualTop.setAttachPic();
+				showPicsGrid(true);
+				break;
+			case 40:
+				showLinksGrid(true);
+				break;
+		}
+	}
+	function DeleteAppendix(_Element){
+		var appendixId = _Element.getAttribute("grid_rowid",2);
+		if(appendixId==null){
+			alert('删除列上未指定属性"grid_rowid"');
+			return;
+		}
+		var iAppendixType = _Element.getAttribute("appendix_type",2);
+		if(iAppendixType==null){
+			alert('删除列上未指定属性"appendix_type"');
+			return;
+		}
+		var row = _Element.parentNode.parentNode;
+		row.parentNode.deleteRow(row.rowIndex-1);
+		var appendixes = myActualTop.Appendixs["Type_"+iAppendixType];
+		var arr = getAppendixArray(appendixes);
+		for(var i=0;arr&&i<arr.length;i++){
+			if(appendixId==com.trs.util.JSON.value(arr[i],"APPENDIXID")){
+				arr._remove(i);
+				break;
+			}
+		}
+		appendixes["APPENDIXES"]["APPENDIX"] = arr;
+		switch(parseInt(iAppendixType)){
+			case 10:
+				showFilesGrid(true);
+				break;
+			case 20:
+				showPicsGrid(true);
+				break;
+			case 40:
+				showLinksGrid(true);
+				break;
+		}
+	}
+	function SaveValue(_Element){
+		var appendixId = _Element.getAttribute("grid_rowid",2);
+		if(appendixId==null){
+			alert('SimpleEditPanel控件上未指定属性"grid_rowid"');
+			return;
+		}
+		var sFieldName = _Element.getAttribute("_fieldName",2);
+		if(sFieldName==null){
+			alert('SimpleEditPanel控件上未指定属性"_fieldName"');
+			return;
+		}
+		var iAppendixType = _Element.getAttribute("appendix_type",2);
+		if(iAppendixType==null){
+			alert('SimpleEditPanel控件上未指定属性"appendix_type"');
+			return;
+		}
+		sFieldName = sFieldName.toUpperCase().trim();
+		var appendixes = myActualTop.Appendixs["Type_"+iAppendixType];
+		var arr = getAppendixArray(appendixes);
+		for(var i=0;i<arr.length;i++){
+			if(appendixId==com.trs.util.JSON.value(arr[i],"APPENDIXID")){
+				arr[i][sFieldName] = _Element.getAttribute("title",2);
+                break;
+			}
+		}
+	}
+	function SaveOrders(_TbodyId){
+		var tBody = $(_TbodyId);
+		var iAppendixType = tBody.getAttribute("appendix_type",2);
+		if(iAppendixType==null){
+			alert('TBODY"'+this.tbodyId+'"上未指定属性"appendix_type"');
+			return false;
+		}
+		var appendixes = myActualTop.Appendixs["Type_"+iAppendixType];
+		var arr = getAppendixArray(appendixes);
+		var newArr = new myActualTop.Array();
+		var rows = tBody.rows;
+		for(var i=0;i<rows.length;i++){
+			var iOldOrder = rows[i].getAttribute("appendix_order",2);
+			if(iOldOrder==null){
+				alert('TBODY"'+this.tbodyId+'"的模板Row上未指定属性"appendix_order"');
+				return false;
+			}
+			iOldOrder = parseInt(iOldOrder);
+			newArr.push(arr[iOldOrder-1]);
+		}
+		appendixes["APPENDIXES"]["APPENDIX"] = newArr;
+		newArr = null;
+		arr = null;
+		switch(parseInt(iAppendixType)){
+			case 10:
+				showFilesGrid(true);
+				break;
+			case 20:
+				showPicsGrid(true);
+				break;
+			case 40:
+				showLinksGrid(true);
+				break;
+		}
+	}
+	Object.extend(com.trs.wcm.TBodyDragger.prototype,{
+		_move : function(_eCurr,_iPosition,_eTarget){
+			//_iPosition表示当前元素相对于目标元素的位置,1表示之前,0表示之后
+			return SaveOrders(this.tbodyId);
+		}
+	});
+	Object.extend(UISimpleEditPanel,{
+		onUpdate : 'SaveValue(this);'
+	});
+	function onClickAppType(_nType){
+		$("AppPicUpload").style.display = (_nType==1?"":"none");
+		$("AppFileUpload").style.display = (_nType==2?"":"none");
+		$("AppLink").style.display = (_nType==3?"":"none");
+		$("curr_pics").style.display = (_nType==1?"":"none");
+		$("curr_files").style.display = (_nType==2?"":"none");
+		$("curr_links").style.display = (_nType==3?"":"none");
+		if(_nType==1)showPicsGrid(true);
+		else if (_nType==2)showFilesGrid(true);
+		else showLinksGrid(true);
+		return false;
+	}
+	function showPicsGrid(_bReload){
+		if(_bReload){
+			$('curr_pics').inited = false;
+		}
+		if(!$('curr_pics').inited){
+			var sValue = TempEvaler.evaluateTemplater('template_pics', Appendixs["Type_20"],{});
+			Element.update($('curr_pics'),sValue);
+			setTimeout(function(){
+				UITransformer.transformAll($('curr_pics'));
+				var eRows = $('appendix_tbody_20').rows;
+				for(var i=0;i<eRows.length;i++){
+					var element = eRows[i];
+					var d = new com.trs.wcm.TBodyDragger(element);
+					d.tbodyId = 'appendix_tbody_20';
+				}
+			},10);
+			$('curr_pics').inited = true;
+		}
+		Element.hide($('curr_files'));
+		Element.hide($('curr_links'));
+		Element.show($('curr_pics'));
+	}
+	function showFilesGrid(_bReload){
+		if(_bReload){
+			$('curr_files').inited = false;
+		}
+		if(!$('curr_files').inited){
+			var sValue = TempEvaler.evaluateTemplater('template_files', Appendixs["Type_10"],{});
+			Element.update($('curr_files'),sValue);
+			setTimeout(function(){
+				UITransformer.transformAll($('appendix_tbody_10'));
+				var eRows = $('appendix_tbody_10').rows;
+				for(var i=0;i<eRows.length;i++){
+					var element = eRows[i];
+					var d = new com.trs.wcm.TBodyDragger(element);
+					d.tbodyId = 'appendix_tbody_10';
+				}
+			},10);
+			$('curr_files').inited = true;
+		}
+		Element.hide($('curr_links'));
+		Element.hide($('curr_pics'));
+		Element.show($('curr_files'));
+	}
+	function showLinksGrid(_bReload){
+		if(_bReload){
+			$('curr_links').inited = false;
+		}
+		if(!$('curr_links').inited){
+			var sValue = TempEvaler.evaluateTemplater('template_links', Appendixs["Type_40"],{});
+			Element.update($('curr_links'),sValue);
+			setTimeout(function(){
+				UITransformer.transformAll($('appendix_tbody_40'));
+				var eRows = $('appendix_tbody_40').rows;
+				for(var i=0;i<eRows.length;i++){
+					var element = eRows[i];
+					var d = new com.trs.wcm.TBodyDragger(element);
+					d.tbodyId = 'appendix_tbody_40';
+				}
+			},10);
+			$('curr_links').inited = true;
+		}
+		Element.hide($('curr_pics'));
+		Element.hide($('curr_files'));
+		Element.show($('curr_links'));
+	}
+  </SCRIPT>
+</HEAD>
+
+<BODY style="margin:0;padding:0;">
+	<TABLE width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+		<TR height="35" valign="bottom">
+		  <TD>
+				<script>
+					var simpleTab = new SimpleTab('test_tab',0);
+					simpleTab.addItem(new SimpleTabItem("图片","onClickAppType(1)"));
+					simpleTab.addItem(new SimpleTabItem("文件","onClickAppType(2)"));
+					simpleTab.addItem(new SimpleTabItem("链接","onClickAppType(3)"));
+					simpleTab.draw();
+					setTimeout(function(){simpleTab.bindEvent();},100);
+				</script>
+		  </TD>
+		</TR>
+		<TR>
+			<TD>
+				<DIV style="width:100%;height:100%;background:#FFFFFF;border:1px solid gray;border-top:0;padding:5px;">
+					<TABLE width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+						<TR id="AppPicUpload" height="25">
+							<TD align="center" valign="middle"> 
+								<span class="message">选择图片文件：</span> 
+								<form id="fm_pic" name="fm_pic" style="margin:0;" enctype='multipart/form-data' onsubmit="UploadPic();return false;">
+									<input type="file" class="input_file" id="PicUpload" name="PicUpload" value="">
+									<input type="button" class="input_button" style="margin-left:5px;" value="上传" onclick="UploadPic();">
+								</form>
+							</TD>
+						</TR>
+						<TR id="AppFileUpload" height="25" style="display:none">
+							<TD align="center" valign="middle" bgcolor="#FFFFFF">
+								<span class="message">选择文件：</span> 
+								<form id="fm_file" name="fm_file" style="margin:0;" enctype='multipart/form-data' onsubmit="UploadFile();return false;">
+									<input type="file" class="input_file" id="FileUpload" name="FileUpload" value="">
+									<input type="button" class="input_button" style="margin-left:5px;" value="上传" onclick="UploadFile();">
+								</form>
+							</TD>
+						</TR>
+						<TR id="AppLink" height="25" style="display:none">
+							<TD bgcolor="#FFFFFF" align="center" valign="middle">
+								<span class="message">输入地址：</span> 
+								<form id="fm_link" style="margin:0;" onsubmit="AddLink();return false;">
+									<input type="text" class="input_text" id="Link" name="Link" value="">
+									<input type="button" class="input_button" style="margin-left:5px;" value="添加" onclick="AddLink();">
+								</form>
+							</TD>
+						</TR>
+						<TR>
+						  <TD bgcolor="#FFFFFF" align="center" valign="top">
+							<div id="curr_pics" class="grid_container" style="display:none"></div>
+							<div id="curr_files" class="grid_container" style="display:none"></div>
+							<div id="curr_links" class="grid_container" style="display:none"></div>
+						  </TD>
+						</TR>
+					</TABLE>
+				</DIV>
+			</TD>
+		</TR>
+		<TR height="35" valign="bottom" style="background-color:#E0DEDF;">
+		  <TD align="center" valign="middle">
+            <button onclick="onOk();" style="width:50px;">确定</button>&nbsp;&nbsp;
+            <button onclick="onCancel();" style="width:50px;">取消</button>
+		  </TD>
+		</TR>
+	</TABLE>
+	<textarea id="template_pics" style="display:none">
+		<TABLE width="670" border="0" cellpadding="0" cellspacing="1" class="appendix_grid">
+			<THEAD align="center" valign="middle" class="grid_head">
+				<TD width="27">序号</TD>
+				<TD width="150">文件名</TD>
+				<TD width="150">原文件名</TD>
+				<TD width="166">显示名称</TD>
+				<TD width="150">提示信息</TD>
+				<TD width="27">删除</TD>
+			</THEAD>
+			<TBODY id="appendix_tbody_20" appendix_type="20">
+		    <for select="Appendixes.Appendix" blankRef="noObjectFound">
+			<TR align="center" valign="middle" class="grid_row" grid_rowid="{#APPENDIXID}" appendix_order="{$$INDEX}">
+				<TD>{$$INDEX}</TD>
+				<TD onmouseover="ShowPicThumb.bindAsEventListener(null,this)();" onmouseout="HidePicThumb.bindAsEventListener(null,this)();" PicUrl="{#APPFILE.URL}" title="{#APPFILE.FileName}">
+				<div style="overflow:hidden;width:100%;height:100%;line-height:25px;">{#APPFILE.FileName}</div>
+				</TD>
+				<TD>
+					<div style="overflow:hidden;width:100%;height:100%">
+					<TRS_UI:SimpleEditPanel value="{#SRCFILE}" _fieldName="srcfile" grid_rowid="{#APPENDIXID}" class="simple_editpanel" appendix_type="{#APPFLAG}" validation="max_len:'200',type:'string',required:true,desc:'原文件名'">
+					</TRS_UI:SimpleEditPanel>
+					</div>
+				</TD>
+				<TD>
+					<div style="overflow:hidden;width:100%;height:100%">
+					<TRS_UI:SimpleEditPanel value="{#AppDesc}" _fieldName="appdesc" grid_rowid="{#APPENDIXID}" class="simple_editpanel" appendix_type="{#APPFLAG}" validation="max_len:'255',type:'string',required:true,desc:'显示名称'">
+					</TRS_UI:SimpleEditPanel>
+					</div>
+				</TD>
+				<TD>
+					<div style="overflow:hidden;width:100%;height:100%">
+					<TRS_UI:SimpleEditPanel value="{#APPLINKALT}" _fieldName="applinkalt" grid_rowid="{#APPENDIXID}" class="simple_editpanel" appendix_type="{#APPFLAG}" validation="max_len:'255',type:'string',desc:'提示信息'">
+					</TRS_UI:SimpleEditPanel>
+					</div>
+				</TD>
+				<TD>
+					<SPAN class="row_delete" onClick="DeleteAppendix(this);" grid_rowid="{#APPENDIXID}" appendix_type="{#APPFLAG}">
+					</SPAN>
+				</TD>
+			</TR>
+			</for>
+			</TBODY>
+		</TABLE>
+	</textarea>
+	<textarea id="template_files" style="display:none">
+		<TABLE width="670" border="0" cellpadding="0" cellspacing="1" class="appendix_grid">
+			<THEAD align="center" valign="middle" class="grid_head">
+				<TD width="27">序号</TD>
+				<TD width="150">文件名</TD>
+				<TD width="150">原文件名</TD>
+				<TD width="166">显示名称</TD>
+				<TD width="150">提示信息</TD>
+				<TD width="27">删除</TD>
+			</THEAD>
+			<TBODY id="appendix_tbody_10" appendix_type="10">
+		    <for select="Appendixes.Appendix" blankRef="noObjectFound">
+			<TR align="center" valign="middle" class="grid_row" grid_rowid="{#APPENDIXID}" appendix_order="{$$INDEX}">
+				<TD>{$$INDEX}</TD>
+				<TD title="{#APPFILE}">
+					<div style="overflow:hidden;width:100%;height:100%;line-height:25px;">{#APPFILE}</div>
+				</TD>
+				<TD>
+					<div style="overflow:hidden;width:100%;height:100%">
+					<TRS_UI:SimpleEditPanel value="{#SRCFILE}" _fieldName="srcfile" grid_rowid="{#APPENDIXID}" class="simple_editpanel" appendix_type="{#APPFLAG}" validation="max_len:'200',type:'string',required:true,desc:'原文件名'">
+					</TRS_UI:SimpleEditPanel>
+					</div>
+				</TD>
+				<TD>
+					<div style="overflow:hidden;width:100%;height:100%">
+					<TRS_UI:SimpleEditPanel value="{#AppDesc}" _fieldName="appdesc" grid_rowid="{#APPENDIXID}" class="simple_editpanel" appendix_type="{#APPFLAG}" validation="max_len:'255',type:'string',required:true,desc:'显示名称'">
+					</TRS_UI:SimpleEditPanel>
+					</div>
+				</TD>
+				<TD>
+					<div style="overflow:hidden;width:100%;height:100%">
+					<TRS_UI:SimpleEditPanel value="{#APPLINKALT}" _fieldName="applinkalt" grid_rowid="{#APPENDIXID}" class="simple_editpanel" appendix_type="{#APPFLAG}" validation="max_len:'255',type:'string',desc:'提示信息'">
+					</TRS_UI:SimpleEditPanel>
+					</div>
+				</TD>
+				<TD>
+					<SPAN class="row_delete" onClick="DeleteAppendix(this);" grid_rowid="{#APPENDIXID}" appendix_type="{#APPFLAG}">
+					</SPAN>
+				</TD>
+			</TR>
+			</for>
+			</TBODY>
+		</TABLE>
+	</textarea>
+	<textarea id="template_links" style="display:none">
+		<TABLE width="670" border="0" cellpadding="0" cellspacing="1" class="appendix_grid">
+			<THEAD align="center" valign="middle" class="grid_head">
+				<TD width="27">序号</TD>
+				<TD width="256">链接地址</TD>
+				<TD width="160">显示名称</TD>
+				<TD width="200">提示信息</TD>
+				<TD width="27">删除</TD>
+			</THEAD>
+			<TBODY id="appendix_tbody_40" appendix_type="40">
+		    <for select="Appendixes.Appendix" blankRef="noObjectFound2">
+			<TR align="center" valign="middle" class="grid_row" grid_rowid="{#APPENDIXID}" appendix_order="{$$INDEX}">
+				<TD>{$$INDEX}</TD>
+				<TD title="{#APPFILE}">
+					<div style="overflow:hidden;width:100%;height:100%;line-height:25px;">{#APPFILE}</div>
+				</TD>
+				<TD>
+					<div style="overflow:hidden;width:100%;height:100%">
+					<TRS_UI:SimpleEditPanel value="{#AppDesc}" _fieldName="appdesc" grid_rowid="{#APPENDIXID}" class="simple_editpanel" appendix_type="{#APPFLAG}" validation="max_len:'255',type:'string',required:true,desc:'显示名称'">
+					</TRS_UI:SimpleEditPanel>
+					</div>
+				</TD>
+				<TD>
+					<div style="overflow:hidden;width:100%;height:100%">
+					<TRS_UI:SimpleEditPanel value="{#APPLINKALT}" _fieldName="applinkalt" grid_rowid="{#APPENDIXID}" class="simple_editpanel" appendix_type="{#APPFLAG}" validation="max_len:'255',type:'string',desc:'提示信息'">
+					</TRS_UI:SimpleEditPanel>
+					</div>
+				</TD>
+				<TD>
+					<SPAN class="row_delete" onClick="DeleteAppendix(this);" grid_rowid="{#APPENDIXID}" appendix_type="{#APPFLAG}">
+					</SPAN>
+				</TD>
+			</TR>
+			</for>
+			</TBODY>
+		</TABLE>
+	</textarea>
+	<TABLE style="display:none">
+	<TBODY id="noObjectFound">
+		<TR class="grid_row">
+			<TD></TD><TD></TD><TD></TD><TD></TD><TD></TD><TD></TD>
+		</TR>
+	</TBODY>
+	<TBODY id="noObjectFound2">
+		<TR class="grid_row">
+			<TD></TD><TD></TD><TD></TD><TD></TD><TD></TD>
+		</TR>
+	</TBODY>
+	</TABLE>
+<script>
+	//showPicsGrid();
+
+    function init(){
+        window.Appendixs = myActualTop.Appendixs;
+        showPicsGrid();
+    }
+</script>
+</BODY>
+</HTML>

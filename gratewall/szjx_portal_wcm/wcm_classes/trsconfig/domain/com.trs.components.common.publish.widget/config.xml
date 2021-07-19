@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin name="WCM内容组件" version="1.0" id="components.common.publish.widget">
+	<!--Config For ObjectLCMonitor BEGIN-->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		-1：新增前
+		1：新增
+		2：修改后
+		3：删除前
+		4、删除后
+		5、修改前
+		多个以逗号隔开
+	-->
+	<extension 
+		element-class="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		id="components.wcm.content.ObjectLCMonitor">
+
+		<monitor-host name="可视化模板" 
+			class-name="com.trs.components.common.publish.persistent.template.Template">
+			<listener bean-id="TemplateLCListenerVisualTemplate" event-type="-1,5,4"/>
+		</monitor-host>
+
+		<!-- 修改或删除资源块时，如果该资源块含有特殊处理的Js，同时调整JS命名 -->
+		<monitor-host name="资源块" 
+			class-name="com.trs.components.common.publish.widget.Widget">
+			<listener bean-id="AdjustJsLCListenerWidget" event-type="4,5"/>
+		</monitor-host>
+		<!-- 新建或修改资源块时，如果该资源块内容中没有包含固定的资源变量，则在指定位置添加资源变量  -->
+		<monitor-host name="资源块" 
+			class-name="com.trs.components.common.publish.widget.Widget">
+			<listener bean-id="WidgetLCListenerForWidgetFixedParam" event-type="-1,5"/>
+		</monitor-host>
+	</extension>
+</plugin>

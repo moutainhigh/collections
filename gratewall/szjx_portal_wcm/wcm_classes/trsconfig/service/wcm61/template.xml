@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.TemplateServiceProvider">
+	<method name="save" desc="保存指定模板的信息">
+		<parameter name="HostType" desc="对象（站点/栏目）类型" type="int" required="false"/>
+		<parameter name="HostId" desc="对象（站点/栏目）ID" type="int" required="false"/>	
+		<parameter name="ObjectId" desc="模板ID" type="int" required="false" default="0"/>
+	</method>
+	<method name="synTemplates" desc="同步指定模板的信息" logger="com.trs.ajaxservice.logger.TemplateSyncLogger">
+		<parameter name="HostType" desc="对象（站点/栏目）类型" type="int" required="false"/>
+		<parameter name="HostId" desc="对象（站点/栏目）ID" type="int" required="false"/>	
+		<parameter name="ObjectIds" desc="对象（站点/栏目）IDs" type="string" required="true"/>
+	</method>
+	<method name="findById"/>
+	<method name="jFindById" truename="findById"  convertor="uri:/app/template/template_findbyid.jsp"/>
+	<method name="query">
+		<parameter name="ChannelIds" desc="检索的栏目ID序列" type="string" required="false"/>
+		<parameter name="SiteIds" desc="检索的站点ID序列" type="string" required="false"/>	
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>		
+		<!--文档过滤器-->
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" required="false"/>
+
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="TempName" desc="查询的模板名称" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="TempDesc" desc="查询的模板描述" type="string" required="false" search="true"
+			search-operator="like"/>	
+		<parameter name="CrUser" desc="查询的模板创建者" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="lastModifiedUser" desc="查询的模板最近修改人" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="TempId" desc="查询的模板Id" type="int" required="false" search="true"
+			search-operator="=" exclude-value="-1"/>
+		<parameter name="ExcludeTempId" desc="需要排除的模板Id" type="int" required="false" search="true"
+			search-operator="&lt;&gt;" exclude-value="0" search-field="TempId"/>			
+		<!-- 检索相关配置 END -->
+	</method>
+	<method name="jQuery" truename="query"  convertor="uri:/app/template/template_query.jsp"/>
+	<!--获取指定对象可选择的模板列表-->
+	<method name="getOptionalTemplates">
+		<parameter name="ObjectType" desc="对象（站点/栏目/文档）类型" type="int" required="true" min-value="1"/>
+		<parameter name="ObjectId" desc="对象（站点/栏目/文档）ID" type="int" required="true" min-value="1"/>	
+		<parameter name="TemplateType" desc="模板类型" type="int" required="true"  min-value="-99"/>			
+		
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="lastModifiedTime Desc" required="false"/>	
+				
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="TempName" desc="查询的模板名称" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="TempDesc" desc="查询的模板描述" type="string" required="false" search="true"
+			search-operator="like"/>	
+		<parameter name="CrUser" desc="查询的模板创建者" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="lastModifiedUser" desc="查询的模板最近修改人" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="TempId" desc="查询的模板Id" type="int" required="false" search="true"
+			search-operator="=" exclude-value="-1"/>
+		<!-- 检索相关配置 END -->		
+		
+		<parameter name="SelectFields" desc="获取的字段列表" type="string" required="false"  default="TempId, TempName ,TempDesc, TempType, CrUser, CrTime, FolderType, FolderId,lastModifiedTime,lastModifiedUser"/>			
+		
+	</method>
+	<method name="sQuery" truename="getOptionalTemplates"  convertor="uri:/app/template/template_select_query.jsp"/>
+	<method name="selQuery" truename="query"  convertor="uri:/app/template/template_select_query.jsp"/>
+	<method name="queryEmployers" desc="获取指定模板的使用情况">
+		<parameter name="ObjectId" desc="模板ID" type="int" required="true" min-value="1"/>	
+		<!-- 取消分页 -->
+		<parameter name="PageSize" desc="分页大小" type="int" required="false" default="-1"/>			
+	</method>
+	<method name="squeryEmployers" truename="queryEmployers"  convertor="uri:/app/template/template_employers_query.jsp"/>
+	<method name="existNestedTemplate" desc="查找是否存在已被嵌套的模板">
+		<parameter name="ObjectIds" desc="模板ID序列" type="string" required="true"/>	
+	</method>
+
+	<method name="queryForSpecial">
+		<parameter name="HostId" desc="对象Id" type="int" required="true"/>
+		<parameter name="HostType" desc="对象类型" type="int" required="true"/>	
+		<parameter name="ContainsChildren" desc="是否包含子栏目中的模板" type="boolean" required="false" default="0"/>
+		<parameter name="IncludingThoseInParent" desc="是否包含父对象中的模板" type="boolean" required="false" default="1"/>
+		<parameter name="TemplateType" desc="模板类型" type="int" required="false" default="-1"/>	
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>		
+		<!--文档过滤器-->
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" required="false"/>
+
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="TempName" desc="查询的模板名称" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="TempDesc" desc="查询的模板描述" type="string" required="false" search="true"
+			search-operator="like"/>	
+		<parameter name="CrUser" desc="查询的模板创建者" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="lastModifiedUser" desc="查询的模板最近修改人" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="TempId" desc="查询的模板Id" type="int" required="false" search="true"
+			search-operator="=" exclude-value="-1"/>
+		<parameter name="ExcludeTempId" desc="需要排除的模板Id" type="int" required="false" search="true"
+			search-operator="&lt;&gt;" exclude-value="0" search-field="TempId"/>
+		<parameter name="Visual" desc="是否是可视化模板" type="int" required="false" search="true"
+			search-operator="="/>
+		<parameter name="TempType" desc="模板类型" type="int" required="false" search="true"
+			search-operator="="/>
+		<!-- 检索相关配置 END -->
+	</method>
+	<method name="jQueryForSpecial" truename="queryForSpecial"  desc="为专题获取模板列表" convertor="uri:/app/special/template_query.jsp"/>
+	<method name="jQueryForTemplateSelect" truename="queryForSpecial"  desc="专题设计页面切换模板列表" convertor="uri:/app/special/switchTemplate/template_query.jsp"/>
+</service>

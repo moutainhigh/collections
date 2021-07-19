@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>test</menu-name>
+  <menu-path>/page/resource/res/runmgr/etl/etlsvr/</menu-path>
+  <description>test</description>
+  <form-beans>
+    <form-bean name="OpbSubjectRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="subj_name" type="string" size="240" description="文件夹名称"/>
+      <form-property prefix="record" name="subj_name" type="string" size="240" cannull="true" description="文件夹名称"/>
+      <form-property prefix="record" name="subj_desc" type="string" size="2000" cannull="true" description="文件夹描述"/>
+      <form-property prefix="record" name="subj_id" type="long" cannull="false" description="文件夹主键"/>
+    </form-bean>
+
+    <form-bean name="OpbSubjectUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="subj_id" type="long" cannull="false" description="文件夹主键"/>
+      <form-property prefix="record" name="subj_name" type="string" size="240" cannull="true" description="文件夹名称"/>
+      <form-property prefix="record" name="subj_desc" type="string" size="2000" cannull="true" description="文件夹描述"/>
+      <form-property prefix="record" name="subj_id" type="long" cannull="false" description="文件夹主键"/>
+    </form-bean>
+
+    <form-bean name="OpbSubjectDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="subj_id" type="long" cannull="false" description="文件夹主键"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-opb_subject.jsp" name="OpbSubjectDeleteForm" txn-code="50105005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除测试信息</description>
+      <step index="10" bean-name="com.gwssi.dw.runmgr.etl.txn.TxnOpbSubject" func-name="txn50105005" input-node="primary-key" description="删除测试信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-opb_subject.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/resource/res/runmgr/etl/etlsvr/query-opb_subject.jsp" description="查询测试列表"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.OpbSubjectContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoOpbSubject" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoOpbSubjectSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.runmgr.etl.vo.VoOpbSubjectPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

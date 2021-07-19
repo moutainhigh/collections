@@ -1,0 +1,410 @@
+<!--
+  intinput.htc
+  Copyright (c) 2002 Ma Bingyao. All rights reserved.
+  Version 2.0.20021209
+-->
+
+<public:component tagName="intinput" lightweight="true">
+<public:property name="autocomplete" get="getautocomplete" put="putautocomplete" id="propautocomplete" />
+<public:property name="classname" get="getclassname" put="putclassname" id="propclassname" />
+<public:property name="csstext" get="getcsstext" put="putcsstext" id="propcsstext" />
+<public:property name="direction" get="getdirection" put="putdirection" id="propdirection" />
+<public:property name="enabled" get="getenabled" put="putenabled" id="propenabled" />
+<public:property name="height" get="getheight" put="putheight" id="propheight" />
+<public:property name="hotkey" get="gethotkey" put="puthotkey" id="prophotkey" />
+<public:property name="maxlength" get="getmaxlength" put="putmaxlength" id="propmaxlength" />
+<public:property name="maxvalue" get="getmaxvalue" put="putmaxvalue" id="propmaxvalue" />
+<public:property name="minvalue" get="getminvalue" put="putminvalue" id="propminvalue" />
+<public:property name="name" get="getname" put="putname" id="propname" />
+<public:property name="step" get="getstep" put="putstep" id="propstep" />
+<public:property name="taborder" get="gettaborder" put="puttaborder" id="proptaborder" />
+<public:property name="tooltip" get="gettooltip" put="puttooltip" id="proptooltip" />
+<public:property name="value" get="getvalue" put="putvalue" id="propvalue" />
+<public:property name="wheelonly" get="getwheelonly" put="putwheelonly" id="propwheelonly" />
+<public:property name="width" get="getwidth" put="putwidth" id="propwidth" />
+<public:event name="onchange" id="eventchange" />
+<public:event name="onwheel" id="eventwheel" />
+<public:attach event="oncontentready" onevent="init()" />
+<public:attach event="onpropertychange" onevent="changeProperty()" />
+<script language="JavaScript">
+//<![CDATA[
+
+  var oContainer = null;
+  var oInput = null;
+  var oUpButton = null;
+  var oDownButton = null;
+
+  var _autocomplete = null;
+  var _classname = null;
+  var _csstext = null;
+  var _direction = null;
+  var _enabled = null;
+  var _height = 20;
+  var _hotkey = null;
+  var _maxlength = null;
+  var _maxvalue = Infinity;
+  var _minvalue = -Infinity;
+  var _name = null;
+  var _step = 1;
+  var _taborder = null;
+  var _tooltip = null;
+  var _value = 0;
+  var _wheelonly = null;
+  var _width = 132;
+  var _isReady = false;
+  var _intervalid = null;
+
+  function getautocomplete() {
+    return _autocomplete;
+  }
+
+  function putautocomplete(vAutocomplete) {
+    _autocomplete = vAutocomplete;
+    setautocomplete();
+  }
+
+  function setautocomplete() {
+    if (_autocomplete != null && _isReady) oInput.autocomplete = _autocomplete;
+  }
+
+  function getclassname() {
+    return _classname;
+  }
+
+  function putclassname(vClassName) {
+    _classname = vClassName;
+    setclassname();
+  }
+
+  function setclassname() {
+    if (_classname != null && _isReady) oInput.className = _classname;
+  }
+
+  function getcsstext() {
+    return _csstext;
+  }
+
+  function putcsstext(vCssText) {
+    _csstext = vCssText;
+    setcsstext();
+  }
+
+  function setcsstext() {
+    if (_isReady) {
+      if (_csstext != null) oInput.style.cssText = _csstext;
+      oInput.style.width = "100%";
+    }
+  }
+
+  function getdirection() {
+    return _direction;
+  }
+
+  function putdirection(vDirection) {
+    _direction = vDirection;
+    setdirection();
+  }
+
+  function setdirection() {
+    if (_direction != null && _isReady) oInput.dir = _direction;
+  }
+
+  function getenabled() {
+    return _enabled;
+  }
+
+  function putenabled(vEnabled) {
+    _enabled = eval(vEnabled);
+    setenabled();
+  }
+
+  function setenabled() {
+    if (_enabled != null && _isReady) oInput.disabled = oUpButton.disabled = oDownButton.disabled = !(_enabled);
+  }
+
+  function getheight() {
+    return _height;
+  }
+
+  function putheight(vHeight) {
+    _height = parseInt(vHeight, 10);
+    setheight();
+  }
+
+  function setheight() {
+    if (_isReady) {
+      oContainer.style.pixelHeight = oInput.style.pixelHeight = _height;
+      oButtonContainer.style.pixelWidth = Math.round(_height * 0.81);
+      oDownButton.style.fontSize = oUpButton.style.fontSize = Math.round(_height * 0.34);
+      oUpButton.style.pixelHeight = oDownButton.style.pixelHeight = Math.round(_height / 2);
+      oInputContainer.style.pixelWidth = oContainer.style.pixelWidth - oButtonContainer.style.pixelWidth;
+    }
+  }
+
+  function gethotkey() {
+    return _hotkey;
+  }
+
+  function puthotkey(vHotkey) {
+    _hotkey = vHotkey;
+    sethotkey();
+  }
+
+  function sethotkey() {
+    if (_hotkey != null && _isReady) oInput.accessKey = _hotkey;
+  }
+
+  function getmaxlength() {
+    return _maxlength;
+  }
+
+  function putmaxlength(vMaxlength) {
+    _maxlength = parseInt(vMaxlength, 10);
+    setmaxlength();
+  }
+
+  function setmaxlength() {
+    if (_maxlength != null && _isReady) oInput.maxLength = _maxlength;
+  }
+
+  function getmaxvalue() {
+    return _maxvalue;
+  }
+
+  function putmaxvalue(vMaxvalue) {
+    if(!_isReady) _maxvalue = parseInt(vMaxvalue, 10);
+  }
+
+  function getminvalue() {
+    return _minvalue;
+  }
+
+  function putminvalue(vMinvalue) {
+    if(!_isReady) _minvalue = parseInt(vMinvalue, 10);
+  }
+
+  function getname() {
+    return _name;
+  }
+
+  function putname(vName) {
+    _name = vName;
+    setname();
+  }
+
+  function setname() {
+    if (_name != null && _isReady) oInput.name = _name;
+  }
+
+  function getstep() {
+    return _step;
+  }
+
+  function putstep(vStep) {
+    if(!_isReady) _step = parseInt(vStep, 10);
+  }
+
+  function gettaborder() {
+    return _taborder;
+  }
+
+  function puttaborder(vTabOrder) {
+    _taborder = parseInt(vTabOrder, 10);
+    settaborder();
+  }
+
+  function settaborder() {
+    if (_taborder != null && _isReady) oInput.tabIndex = _taborder;
+  }
+
+  function gettooltip() {
+    return _tooltip;
+  }
+
+  function puttooltip(vToolTip) {
+    _tooltip = vToolTip;
+    settooltip();
+  }
+
+  function settooltip() {
+    if (_tooltip != null && _isReady) oInput.title = _tooltip;
+  }
+
+  function getvalue() {
+    return _value;
+  }
+
+  function putvalue(vValue) {
+    vValue = parseInt(vValue, 10);
+    if (_value != vValue) {
+      _value = vValue;
+      setvalue();
+    }
+  }
+
+  function setvalue() {
+    if (_isReady) oInput.value = _value;
+  }
+
+  function getwheelonly() {
+    return _wheelonly;
+  }
+
+  function putwheelonly(vWheelOnly) {
+    _wheelonly = eval(vWheelOnly);
+    setwheelonly();
+  }
+
+  function setwheelonly() {
+    if (_wheelonly != null && _isReady) oInput.readOnly = _wheelonly;
+  }
+
+  function getwidth() {
+    return _width;
+  }
+
+  function putwidth(vWidth) {
+    _width = parseInt(vWidth, 10);
+    setwidth();
+  }
+
+  function setwidth() {
+    if (_isReady) {
+      oContainer.style.pixelWidth = _width;
+      oInputContainer.style.pixelWidth = oContainer.style.pixelWidth - oButtonContainer.style.pixelWidth;
+    }
+  }
+
+  function doinc() {
+    if (parseInt(oInput.value, 10) < _maxvalue) {
+      oInput.value = _value = parseInt(oInput.value, 10) + _step;
+      eventchange.fire();
+      var oEvent = createEventObject();
+      oEvent.wheelstate = "up";
+      eventwheel.fire(oEvent);
+    }
+  }
+
+  function dodec() {
+    if (parseInt(oInput.value, 10) > _minvalue) {
+      oInput.value = _value = parseInt(oInput.value, 10) - _step;
+      eventchange.fire();
+      var oEvent = createEventObject();
+      oEvent.wheelstate = "down";
+      eventwheel.fire(oEvent);
+    }
+  }
+
+  function docancelevent() {
+    event.returnValue = false;
+  }
+
+  function docheckinput() {
+    if (isNaN(oInput.value) || isNaN(parseInt(oInput.value, 10)) || parseInt(oInput.value, 10) < _minvalue || parseInt(oInput.value, 10) > _maxvalue) setvalue();
+    else {
+      _value = parseInt(oInput.value, 10);
+      eventchange.fire();
+    }
+  }
+
+  function dokeydown() {
+    if (event.keyCode == 38) doinc();
+    else if (event.keyCode == 40) dodec();
+  }
+
+  function dokeypress() {
+    docheckinput();
+    if ((event.keyCode < 48 || event.keyCode > 57) && event.keyCode != 45 && event.keyCode != 43) docancelevent();
+  }
+
+  function domousewheel() {
+    if (event.wheelDelta >= 120) doinc();
+    else if (event.wheelDelta <= -120) dodec(); 
+  }
+
+  function dofocus() {
+    event.srcElement.blur();
+  }
+
+  function dointervalclick() {
+    if (event.button == 1 && _intervalid == null) _intervalid = window.setInterval(event.srcElement.id + ".click()", 150);
+  }
+
+  function dostopclick() {
+    if (_intervalid != null) {
+      clearInterval(_intervalid);
+      _intervalid = null;
+    }
+  }
+
+  function init() {
+    oContainer = element.document.createElement("span");
+    oContainer.style.fontSize = 0;
+    oInputContainer = oContainer.appendChild(oContainer.cloneNode());
+    oButtonContainer = oContainer.appendChild(oContainer.cloneNode());
+    oInput = element.document.createElement("input");
+    oInput.type = "text";
+    oInput.style.imeMode = "disabled";
+    oInput.style.width = "100%";
+    oInputContainer.appendChild(oInput);
+    oUpButton = element.document.createElement("input");
+    oUpButton.type = "button";
+    oUpButton.value = "5";
+    oUpButton.tabIndex = -1;
+    oUpButton.id = uniqueID + "up";
+    oUpButton.style.backgroundColor = "buttonface";
+    oUpButton.style.color = "buttontext";
+    oUpButton.style.fontFamily = "Webdings";
+    oUpButton.style.width = "100%";
+    oUpButton.style.lineHeight = "50%";
+    oButtonContainer.appendChild(oUpButton);
+    oDownButton = oUpButton.cloneNode();
+    oDownButton.value = "6";
+    oDownButton.id = uniqueID + "down";
+    oButtonContainer.appendChild(oDownButton);
+    _isReady = true;
+
+    setautocomplete();
+    setclassname();
+    setcsstext();
+    setdirection();
+    setenabled();
+    setheight();
+    sethotkey();
+    setmaxlength();
+    settaborder();
+    settooltip();
+    setvalue();
+    setwheelonly();
+    setwidth();
+
+    oInput.attachEvent("onblur", docheckinput);
+    oInput.attachEvent("ondrop", docancelevent);
+    oInput.attachEvent("onkeydown", dokeydown);
+    oInput.attachEvent("onkeypress", dokeypress);
+    oInput.attachEvent("onkeyup", docheckinput);
+    oInput.attachEvent("onpaste", docancelevent);
+    oInput.attachEvent("onmousewheel", domousewheel);
+
+    oUpButton.attachEvent("onclick", doinc);
+    oUpButton.attachEvent("oncontextmenu", docancelevent);
+    oUpButton.attachEvent("onfocus", dofocus);
+    oUpButton.attachEvent("onmousedown", dointervalclick);
+    oUpButton.attachEvent("onmousemove", dointervalclick);
+    oUpButton.attachEvent("onmouseup", dostopclick);
+    oUpButton.attachEvent("onmouseout", dostopclick);
+
+    oDownButton.attachEvent("onclick", dodec);
+    oDownButton.attachEvent("oncontextmenu", docancelevent);
+    oDownButton.attachEvent("onfocus", dofocus);
+    oDownButton.attachEvent("onmousedown", dointervalclick);
+    oDownButton.attachEvent("onmousemove", dointervalclick);
+    oDownButton.attachEvent("onmouseup", dostopclick);
+    oDownButton.attachEvent("onmouseout", dostopclick);
+
+    insertAdjacentElement("afterEnd", oContainer);
+  }
+
+//]]>
+</script>
+</public:component>

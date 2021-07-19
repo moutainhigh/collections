@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+
+$.ajax({
+    type: "post",
+    url: "preconticket/savep?row="+row+"&name1="+name1,
+    //data: "row="+row&"name1="+name1,
+    async: true,
+    dataType: "data",
+    success: function (res) {$('.cover').hide();
+        if(res.status == "SUCCESS"){
+            refreshTable();
+        } else {
+            alert(res.message);
+        }
+    }
+
+
+</script>
+
+<script>
+$.ajax({
+    type: "post",
+    url: "preconticket/savep,
+    data:{"row":row,"name1":name1},
+    async: true,
+    dataType: "data",
+    success: function (res) {$('.cover').hide();
+        if(res.status == "SUCCESS"){
+            refreshTable();
+        } else {
+            alert(res.message);
+        }
+    }
+
+
+</script>
+
+</body>
+</html>

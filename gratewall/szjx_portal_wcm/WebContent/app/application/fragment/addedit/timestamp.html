@@ -1,0 +1,14 @@
+<!--时间-->
+<script language="javascript">
+<!--
+	new com.trs.ui.XCalendar({
+		disabled : ${NOTEDIT},
+		name : '<TRS_ViewField field="DBFieldName" filterForJs="true" />',
+		elname : '<TRS_ViewField field="AnotherName" filterForJs="true" />',
+		value : '<%=CMyString.filterForJs(getCalendar(obj, "${FieldName}", "<TRS_ViewField field="DefaultValue" filterForJava="true" />", "${FIELDTYPE}"))%>',
+		withtime: (${FIELDTYPE} == 1 ? true : false),
+		dtFmt: (${FIELDTYPE} == 1 ? 'yyyy-mm-dd HH:MM:ss' : 'yyyy-mm-dd'),
+		validation:"type:'string',required:'${NotNull}',desc:'<TRS_ViewField field="AnotherName" filterForJs="true" doubleFilter="true" />'"
+	}).render();
+//-->
+</script>

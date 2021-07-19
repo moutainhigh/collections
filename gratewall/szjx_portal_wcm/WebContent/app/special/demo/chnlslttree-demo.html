@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> New Document </title>
+	<script src="../../js/easyversion/lightbase.js"></script>
+	<script src="../../js/easyversion/extrender.js"></script>
+	<script src="../js/adapter4Top.js"></script>
+<script language="javascript">
+<!--
+		//选择栏目
+	function selectChnl(event){
+		Event.stop(window.event || event);
+		var selectedChannelIds = "3,6";
+		wcm.CrashBoarder.get("Chnl_Slt").show({
+			title : "选择栏目",
+			src : WCMConstants.WCM6_PATH+'include/channel_select_forCB.html',
+			width: '400px',
+			height: '450px',
+			maskable : true,
+			/**栏目选择树的参数较多，这里只给出本例中使用的参数说明。要详细了解栏目选择页面的其他参数，请参考《TRSWCM6.5二次开发-004-属性组件》
+			*/
+			params:{
+				isRadio:0,//是否为单选
+				ExcludeSelf:1,//排除自己
+				SelectedChannelIds:selectedChannelIds,//已经选中的栏目Id
+				ExcludeTop:1,//是否排除图片和头条栏目
+				ExcludeVirtual:1,//是否排除虚栏目
+				MultiSiteType:1,//是否显示多个站点类别
+				SiteTypes:'0,1,2,4'//站点类别
+			},
+			callback : function(params){
+				alert(params[0]);
+            }
+
+		});
+	}
+//-->
+</script>
+</head>
+
+<body>
+<button onclick="selectChnl()" WCMAnt:param="chnlslttree-demo.html.chnlselecttree">栏目选择树</button>
+</body>
+</html>

@@ -1,0 +1,425 @@
+<!--
+  colorselector.htc
+  Copyright (c) 2002 Ma Bingyao. All rights reserved.
+  Version 2.2.20021209
+-->
+
+<public:component tagName="colorselector" lightweight="true">
+<public:property name="name" get="getname" />
+<public:property name="palette" get="getpalette" put="putpalette" />
+<public:property name="size" get="getsize" put="putsize" />
+<public:property name="value" get="getvalue" put="putvalue" />
+<public:event name="onchange" id="eventchange" />
+<public:attach event="oncontentready" onevent="init()" />
+<script language="JavaScript">
+//<![CDATA[
+
+  var aPalettes = new Array();
+  var oPalettes = new Array();
+  var oSelColor = null;
+  var _name = "";
+  var _palette = "16colors";
+  var _size = 16;
+  var _value = "";
+  var _isReady = false;
+
+  function parseColor(vValue) {
+    var oColorParser = element.document.createElement("td");
+    oColorParser.bgColor = vValue;
+    return oColorParser.removeNode().bgColor;
+  }
+
+  function getname() {
+    return _name;
+  }
+
+  function getpalette() {
+    return _palette;
+  }
+
+  function putpalette(sPalette) {
+    sPalette = sPalette.toLowerCase();
+    if ((sPalette == "16colors") || (sPalette == "140colors") || (sPalette == "216colors") || (sPalette == "syscolors")) {
+      if (_isReady) {
+        oPalettes[_palette].style.display = "none";
+        oPalettes[sPalette].style.display = "";
+      }
+      _palette = sPalette;
+      setvalue();
+    }
+  }
+
+  function getsize() {
+    return _size;
+  }
+
+  function putsize(vSize) {
+    if (!_isReady) _size = parseInt(vSize);
+  }
+
+  function getvalue() {
+    return _value;
+  }
+
+  function putvalue(vValue) {
+    vValue = parseColor(vValue);
+    if ((vValue) && _value != vValue) {
+      _value = vValue;
+      _name = "";
+      setvalue();
+      eventchange.fire();
+    }
+  }
+
+  function setvalue() {
+    if (_isReady) {
+      if (oSelColor) {
+        upout(oSelColor);
+        oSelColor = null;
+      }
+      var aPalette = aPalettes[_palette];
+      for (var i = 0; i < aPalette.length; i++) {
+        if (aPalette[i][0] == _value) {
+          if (oSelColor != null) upout(oSelColor);
+          oSelColor = oPalettes[_palette].childNodes[i];
+          downout(oSelColor);
+          _value = oSelColor.firstChild.style.backgroundColor;
+          _name = oSelColor.firstChild.title;
+        }
+      }
+    }
+  }
+
+  function uphover(Button) {
+    with(Button.style) {
+      borderTopColor = borderLeftColor = "buttonhighlight";
+      borderBottomColor = borderRightColor = "buttonshadow";
+      backgroundColor = "buttonface";
+    }
+  }
+
+  function downhover(Button) {
+    with(Button.style) {
+      borderTopColor = borderLeftColor = "buttonshadow";
+      borderBottomColor = borderRightColor = "buttonhighlight";
+      backgroundColor = "buttonface";
+    }
+  }
+
+  function upout(Button) {
+    with(Button.style) borderColor = backgroundColor = "buttonface";
+  }
+
+  function downout(Button) {
+    with(Button.style) {
+      borderTopColor = borderLeftColor = "buttonshadow";
+      borderBottomColor = borderRightColor = "buttonhighlight";
+      backgroundColor = "whitesmoke";
+    }
+  }
+
+  function domousemove() {
+    if (oSelColor != this && event.button == 0) uphover(this);
+    else downhover(this);
+  }
+
+  function domouseout() {
+    if (oSelColor != this) upout(this);
+    else downout(this);
+  }
+
+  function domousedown() {
+    if (oSelColor != this) downhover(this);
+  }
+
+  function domouseup() {
+    if (oSelColor != this) {
+      if (oSelColor != null) upout(oSelColor);
+      oSelColor = this;
+      _value = oSelColor.firstChild.style.backgroundColor;
+      _name = oSelColor.firstChild.title;
+      eventchange.fire();
+    }
+  }
+
+  function docancelevent() {
+    event.returnValue = false;
+  }
+
+  function createPalette(aPalette) {
+    var oPalette = element.document.createElement("span");
+    with(oPalette.style) {
+      fontSize = 0;
+      pixelWidth = _size * 14;
+      pixelHeight = Math.ceil(aPalette.length / _size) * 14;
+      textAlign = "left";
+      display = "none";
+    }
+    oPalette.attachEvent("oncontextmenu", docancelevent);
+    oPalette.attachEvent("ondragstart", docancelevent);
+    insertAdjacentElement("AfterEnd", oPalette);
+    var oColorButton = element.document.createElement("span");
+    with(oColorButton.style) {
+      fontSize = 0;
+      pixelWidth = pixelHeight = 14;
+      padding = "1px";
+      border = "1px solid buttonface";
+      backgroundColor = "buttonface";
+    }
+    var oColorBox = element.document.createElement("span");
+    with(oColorBox.style) {
+      fontSize = 0;
+      pixelWidth = pixelHeight = 10;
+      border = "1px solid buttonshadow";
+    }
+    for(i = 0; i < aPalette.length; i++) {
+      oColorButton.onmousemove = domousemove;
+      oColorButton.onmouseout = domouseout;
+      oColorButton.onmousedown = domousedown;
+      oColorButton.onmouseup = domouseup;
+      oColorBox.style.backgroundColor = aPalette[i][0];
+      oColorBox.title = aPalette[i][1];
+      oColorButton.appendChild(oColorBox);
+      oPalette.appendChild(oColorButton);
+      oColorButton = oColorButton.cloneNode();
+      oColorBox = oColorBox.cloneNode();
+    }
+    return oPalette;
+  }
+
+  function init16colors() {
+    aPalettes["16colors"] = new Array();
+    aPalettes["16colors"][0] = new Array("#000000", "black");
+    aPalettes["16colors"][1] = new Array("#c0c0c0", "silver");
+    aPalettes["16colors"][2] = new Array("#808080", "gray");
+    aPalettes["16colors"][3] = new Array("#ffffff", "white");
+    aPalettes["16colors"][4] = new Array("#000080", "navy");
+    aPalettes["16colors"][5] = new Array("#0000ff", "blue");
+    aPalettes["16colors"][6] = new Array("#800080", "purple");
+    aPalettes["16colors"][7] = new Array("#ff00ff", "magenta");
+    aPalettes["16colors"][8] = new Array("#008000", "green");
+    aPalettes["16colors"][9] = new Array("#00ff00", "lime");
+    aPalettes["16colors"][10] = new Array("#008080", "teal");
+    aPalettes["16colors"][11] = new Array("#00ffff", "cyan");
+    aPalettes["16colors"][12] = new Array("#800000", "maroon");
+    aPalettes["16colors"][13] = new Array("#ff0000", "red");
+    aPalettes["16colors"][14] = new Array("#808000", "olive");
+    aPalettes["16colors"][15] = new Array("#ffff00", "yellow");
+    oPalettes["16colors"] = createPalette(aPalettes["16colors"]);
+  }
+
+  function init140colors() {
+    aPalettes["140colors"] = new Array();
+    aPalettes["140colors"][0] = new Array("#f0f8ff", "aliceblue");
+    aPalettes["140colors"][1] = new Array("#faebd7", "antiquewhite");
+    aPalettes["140colors"][2] = new Array("#00ffff", "aqua");
+    aPalettes["140colors"][3] = new Array("#7fffd4", "aquamarine");
+    aPalettes["140colors"][4] = new Array("#f0ffff", "azure");
+    aPalettes["140colors"][5] = new Array("#f5f5dc", "beige");
+    aPalettes["140colors"][6] = new Array("#ffe4c4", "bisque");
+    aPalettes["140colors"][7] = new Array("#000000", "black");
+    aPalettes["140colors"][8] = new Array("#ffebcd", "blanchedalmond");
+    aPalettes["140colors"][9] = new Array("#0000ff", "blue");
+    aPalettes["140colors"][10] = new Array("#8a2be2", "blueviolet");
+    aPalettes["140colors"][11] = new Array("#a52a2a", "brown");
+    aPalettes["140colors"][12] = new Array("#deb887", "burlywood");
+    aPalettes["140colors"][13] = new Array("#5f9ea0", "cadetblue");
+    aPalettes["140colors"][14] = new Array("#7fff00", "chartreuse");
+    aPalettes["140colors"][15] = new Array("#d2691e", "chocolate");
+    aPalettes["140colors"][16] = new Array("#ff7f50", "coral");
+    aPalettes["140colors"][17] = new Array("#6495ed", "cornflower");
+    aPalettes["140colors"][18] = new Array("#fff8dc", "cornsilk");
+    aPalettes["140colors"][19] = new Array("#dc143c", "crimson");
+    aPalettes["140colors"][20] = new Array("#00ffff", "cyan");
+    aPalettes["140colors"][21] = new Array("#00008b", "darkblue");
+    aPalettes["140colors"][22] = new Array("#008b8b", "darkcyan");
+    aPalettes["140colors"][23] = new Array("#b8860b", "darkgoldenrod");
+    aPalettes["140colors"][24] = new Array("#a9a9a9", "darkgray");
+    aPalettes["140colors"][25] = new Array("#006400", "darkgreen");
+    aPalettes["140colors"][26] = new Array("#bdb76b", "darkkhaki");
+    aPalettes["140colors"][27] = new Array("#8b008b", "darkmagenta");
+    aPalettes["140colors"][28] = new Array("#556b2f", "darkolivegreen");
+    aPalettes["140colors"][29] = new Array("#ff8c00", "darkorange");
+    aPalettes["140colors"][30] = new Array("#9932cc", "darkorchid");
+    aPalettes["140colors"][31] = new Array("#8b0000", "darkred");
+    aPalettes["140colors"][32] = new Array("#e9967a", "darksalmon");
+    aPalettes["140colors"][33] = new Array("#8fbc8b", "darkseagreen");
+    aPalettes["140colors"][34] = new Array("#483d8b", "darkslateblue");
+    aPalettes["140colors"][35] = new Array("#2f4f4f", "darkslategray");
+    aPalettes["140colors"][36] = new Array("#00ced1", "darkturquoise");
+    aPalettes["140colors"][37] = new Array("#9400d3", "darkviolet");
+    aPalettes["140colors"][38] = new Array("#ff1493", "deeppink");
+    aPalettes["140colors"][39] = new Array("#00bfff", "deepskyblue");
+    aPalettes["140colors"][40] = new Array("#696969", "dimgray");
+    aPalettes["140colors"][41] = new Array("#1e90ff", "dodgerblue");
+    aPalettes["140colors"][42] = new Array("#b22222", "firebrick");
+    aPalettes["140colors"][43] = new Array("#fffaf0", "floralwhite");
+    aPalettes["140colors"][44] = new Array("#228b22", "forestgreen");
+    aPalettes["140colors"][45] = new Array("#ff00ff", "fuchsia");
+    aPalettes["140colors"][46] = new Array("#dcdcdc", "gainsboro");
+    aPalettes["140colors"][47] = new Array("#f8f8ff", "ghostwhite");
+    aPalettes["140colors"][48] = new Array("#ffd700", "gold");
+    aPalettes["140colors"][49] = new Array("#daa520", "goldenrod");
+    aPalettes["140colors"][50] = new Array("#808080", "gray");
+    aPalettes["140colors"][51] = new Array("#008000", "green");
+    aPalettes["140colors"][52] = new Array("#adff2f", "greenyellow");
+    aPalettes["140colors"][53] = new Array("#f0fff0", "honeydew");
+    aPalettes["140colors"][54] = new Array("#ff69b4", "hotpink");
+    aPalettes["140colors"][55] = new Array("#cd5c5c", "indianred");
+    aPalettes["140colors"][56] = new Array("#4b0082", "indigo");
+    aPalettes["140colors"][57] = new Array("#fffff0", "ivory");
+    aPalettes["140colors"][58] = new Array("#f0e68c", "khaki");
+    aPalettes["140colors"][59] = new Array("#e6e6fa", "lavender");
+    aPalettes["140colors"][60] = new Array("#fff0f5", "lavenderblush");
+    aPalettes["140colors"][61] = new Array("#7cfc00", "lawngreen");
+    aPalettes["140colors"][62] = new Array("#fffacd", "lemonchiffon");
+    aPalettes["140colors"][63] = new Array("#add8e6", "lightblue");
+    aPalettes["140colors"][64] = new Array("#f08080", "lightcoral");
+    aPalettes["140colors"][65] = new Array("#e0ffff", "lightcyan");
+    aPalettes["140colors"][66] = new Array("#fafad2", "lightgoldenrodyellow");
+    aPalettes["140colors"][67] = new Array("#90ee90", "lightgreen");
+    aPalettes["140colors"][68] = new Array("#d3d3d3", "lightgray");
+    aPalettes["140colors"][69] = new Array("#ffb6c1", "lightpink");
+    aPalettes["140colors"][70] = new Array("#ffa07a", "lightsalmon");
+    aPalettes["140colors"][71] = new Array("#20b2aa", "lightseagreen");
+    aPalettes["140colors"][72] = new Array("#87cefa", "lightskyblue");
+    aPalettes["140colors"][73] = new Array("#778899", "lightslategray");
+    aPalettes["140colors"][74] = new Array("#b0c4de", "lightsteelblue");
+    aPalettes["140colors"][75] = new Array("#ffffe0", "lightyellow");
+    aPalettes["140colors"][76] = new Array("#00ff00", "lime");
+    aPalettes["140colors"][77] = new Array("#32cd32", "limegreen");
+    aPalettes["140colors"][78] = new Array("#faf0e6", "linen");
+    aPalettes["140colors"][79] = new Array("#ff00ff", "magenta");
+    aPalettes["140colors"][80] = new Array("#800000", "maroon");
+    aPalettes["140colors"][81] = new Array("#66cdaa", "mediumaquamarine");
+    aPalettes["140colors"][82] = new Array("#0000cd", "mediumblue");
+    aPalettes["140colors"][83] = new Array("#ba55d3", "mediumorchid");
+    aPalettes["140colors"][84] = new Array("#9370db", "mediumpurple");
+    aPalettes["140colors"][85] = new Array("#3cb371", "mediumseagreen");
+    aPalettes["140colors"][86] = new Array("#7b68ee", "mediumslateblue");
+    aPalettes["140colors"][87] = new Array("#00fa9a", "mediumspringgreen");
+    aPalettes["140colors"][88] = new Array("#48d1cc", "mediumturquoise");
+    aPalettes["140colors"][89] = new Array("#c71585", "mediumvioletred");
+    aPalettes["140colors"][90] = new Array("#191970", "midnightblue");
+    aPalettes["140colors"][91] = new Array("#f5fffa", "mintcream");
+    aPalettes["140colors"][92] = new Array("#ffe4e1", "mistyrose");
+    aPalettes["140colors"][93] = new Array("#ffe4b5", "moccasin");
+    aPalettes["140colors"][94] = new Array("#ffdead", "navajowhite");
+    aPalettes["140colors"][95] = new Array("#000080", "navy");
+    aPalettes["140colors"][96] = new Array("#fdf5e6", "oldlace");
+    aPalettes["140colors"][97] = new Array("#808000", "olive");
+    aPalettes["140colors"][98] = new Array("#6b8e23", "olivedrab");
+    aPalettes["140colors"][99] = new Array("#ffa500", "orange");
+    aPalettes["140colors"][100] = new Array("#ff4500", "orangered");
+    aPalettes["140colors"][101] = new Array("#da70d6", "orchid");
+    aPalettes["140colors"][102] = new Array("#eee8aa", "palegoldenrod");
+    aPalettes["140colors"][103] = new Array("#98fb98", "palegreen");
+    aPalettes["140colors"][104] = new Array("#afeeee", "paleturquoise");
+    aPalettes["140colors"][105] = new Array("#db7093", "palevioletred");
+    aPalettes["140colors"][106] = new Array("#ffefd5", "papayawhip");
+    aPalettes["140colors"][107] = new Array("#ffdab9", "peachpuff");
+    aPalettes["140colors"][108] = new Array("#cd853f", "peru");
+    aPalettes["140colors"][109] = new Array("#ffc0cb", "pink");
+    aPalettes["140colors"][110] = new Array("#dda0dd", "plum");
+    aPalettes["140colors"][111] = new Array("#b0e0e6", "powderblue");
+    aPalettes["140colors"][112] = new Array("#800080", "purple");
+    aPalettes["140colors"][113] = new Array("#ff0000", "red");
+    aPalettes["140colors"][114] = new Array("#bc8f8f", "rosybrown");
+    aPalettes["140colors"][115] = new Array("#4169e1", "royalblue");
+    aPalettes["140colors"][116] = new Array("#8b4513", "saddlebrown");
+    aPalettes["140colors"][117] = new Array("#fa8072", "salmon");
+    aPalettes["140colors"][118] = new Array("#f4a460", "sandybrown");
+    aPalettes["140colors"][119] = new Array("#2e8b57", "seagreen");
+    aPalettes["140colors"][120] = new Array("#fff5ee", "seashell");
+    aPalettes["140colors"][121] = new Array("#a0522d", "sienna");
+    aPalettes["140colors"][122] = new Array("#c0c0c0", "silver");
+    aPalettes["140colors"][123] = new Array("#87ceeb", "skyblue");
+    aPalettes["140colors"][124] = new Array("#6a5acd", "slateblue");
+    aPalettes["140colors"][125] = new Array("#708090", "slategray");
+    aPalettes["140colors"][126] = new Array("#fffafa", "snow");
+    aPalettes["140colors"][127] = new Array("#00ff7f", "springgreen");
+    aPalettes["140colors"][128] = new Array("#4682b4", "steelblue");
+    aPalettes["140colors"][129] = new Array("#d2b48c", "tan");
+    aPalettes["140colors"][130] = new Array("#008080", "teal");
+    aPalettes["140colors"][131] = new Array("#d8bfd8", "thistle");
+    aPalettes["140colors"][132] = new Array("#ff6347", "tomato");
+    aPalettes["140colors"][133] = new Array("#40e0d0", "turquoise");
+    aPalettes["140colors"][134] = new Array("#ee82ee", "violet");
+    aPalettes["140colors"][135] = new Array("#f5deb3", "wheat");
+    aPalettes["140colors"][136] = new Array("#ffffff", "white");
+    aPalettes["140colors"][137] = new Array("#f5f5f5", "whitesmoke");
+    aPalettes["140colors"][138] = new Array("#ffff00", "yellow");
+    aPalettes["140colors"][139] = new Array("#9acd32", "yellowgreen");
+    aPalettes["140colors"].sort();
+    oPalettes["140colors"] = createPalette(aPalettes["140colors"]);
+  }
+
+  function init216colors() {
+    var RGB = new Array("00", "33", "66", "99", "cc", "ff");
+    aPalettes["216colors"] = new Array();
+    for(r = 0; r < 6; r++) {
+      for (g = 0; g < 6; g++) {
+        for (b = 0; b < 6; b++) {
+          aPalettes["216colors"][r * 36 + g * 6 + b] = new Array("#" + RGB[r] + RGB[g] + RGB[b], "");
+        }
+      }
+    }
+    aPalettes["216colors"][0][1] = "black";
+    aPalettes["216colors"][5][1] = "blue";
+    aPalettes["216colors"][30][1] = "lime";
+    aPalettes["216colors"][35][1] = "cyan";
+    aPalettes["216colors"][180][1] = "red";
+    aPalettes["216colors"][185][1] = "magenta";
+    aPalettes["216colors"][210][1] = "yellow";
+    aPalettes["216colors"][215][1] = "white";
+    oPalettes["216colors"] = createPalette(aPalettes["216colors"]);
+  }
+
+  function initsyscolors() {
+    aPalettes["syscolors"] = new Array();
+    aPalettes["syscolors"][0] = new Array("activeborder", "activeborder");
+    aPalettes["syscolors"][1] = new Array("activecaption", "activecaption");
+    aPalettes["syscolors"][2] = new Array("appworkspace", "appworkspace");
+    aPalettes["syscolors"][3] = new Array("background", "background");
+    aPalettes["syscolors"][4] = new Array("buttonface", "buttonface");
+    aPalettes["syscolors"][5] = new Array("buttonhighlight", "buttonhighlight");
+    aPalettes["syscolors"][6] = new Array("buttonshadow", "buttonshadow");
+    aPalettes["syscolors"][7] = new Array("buttontext", "buttontext");
+    aPalettes["syscolors"][8] = new Array("captiontext", "captiontext");
+    aPalettes["syscolors"][9] = new Array("graytext", "graytext");
+    aPalettes["syscolors"][10] = new Array("highlight", "highlight");
+    aPalettes["syscolors"][11] = new Array("highlighttext", "highlighttext");
+    aPalettes["syscolors"][12] = new Array("inactiveborder", "inactiveborder");
+    aPalettes["syscolors"][13] = new Array("inactivecaption", "inactivecaption");
+    aPalettes["syscolors"][14] = new Array("inactivecaptiontext", "inactivecaptiontext");
+    aPalettes["syscolors"][15] = new Array("infobackground", "infobackground");
+    aPalettes["syscolors"][16] = new Array("infotext", "infotext");
+    aPalettes["syscolors"][17] = new Array("menu", "menu");
+    aPalettes["syscolors"][18] = new Array("menutext", "menutext");
+    aPalettes["syscolors"][19] = new Array("scrollbar", "scrollbar");
+    aPalettes["syscolors"][20] = new Array("threeddarkshadow", "threeddarkshadow");
+    aPalettes["syscolors"][21] = new Array("threedface", "threedface");
+    aPalettes["syscolors"][22] = new Array("threedhighlight", "threedhighlight");
+    aPalettes["syscolors"][23] = new Array("threedlightshadow", "threedlightshadow");
+    aPalettes["syscolors"][24] = new Array("threedshadow", "threedshadow");
+    aPalettes["syscolors"][25] = new Array("transparent", "transparent");
+    aPalettes["syscolors"][26] = new Array("window", "window");
+    aPalettes["syscolors"][27] = new Array("windowframe", "windowframe");
+    aPalettes["syscolors"][28] = new Array("windowtext", "windowtext");
+    oPalettes["syscolors"] = createPalette(aPalettes["syscolors"]);
+  }
+
+  function init() {
+  
+    init16colors();
+    init140colors();
+    init216colors();
+    initsyscolors();
+    _isReady = true;
+    oPalettes[_palette].style.display = "";
+    if (_value) setvalue();
+  }
+
+//]]>
+</script>
+</public:component>

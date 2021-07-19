@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.ExtendFieldServiceProvider">
+	<method name="save">		
+		<parameter name="HostType" desc="对象类型" type="int" required="true"/>
+		<parameter name="HostId" desc="对象ID" type="int" required="true"/>
+		<parameter name="ContainsChildren" desc="是否将当前操作传递给子对象" type="boolean" required="false"/>
+	</method>
+	<method name="findById"/>
+	<method name="jFindById" truename="findById"  convertor="uri:/app/contentextfield/contentextfield_findbyid.jsp"/>
+	<method name="query">
+		<parameter name="ChannelIds" desc="检索的栏目ID序列" type="string" required="false"/>
+		<parameter name="SiteIds" desc="检索的站点ID序列" type="string" required="false"/>	
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>		
+		<!--文档过滤器-->
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" required="false"/>
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="LOGICFIELDDESC" desc="扩展字段显示名称" type="string" required="false" search="true"
+			search-operator="like"/>
+		<parameter name="DBFieldName" desc="扩展字段物理名称名称" type="string" required="false" search="true"
+			search-operator="like"  search-field="WCMExtField.FieldName"/>
+		<!-- 检索相关配置 END -->
+	</method>
+	<method name="jQuery" truename="query"  convertor="uri:/app/contentextfield/contentextfield_query.jsp"/>
+	<method name="tQuery" truename="query"  convertor="uri:/app/contentextfield/extfield_select_query.jsp">
+		<parameter name="validRight" desc="校验权限" type="boolean" required="false"  default="0"/>
+	</method>
+	<method name="inhertSpecificFromParent">		
+		<parameter name="HostType" desc="父对象类型" type="int" required="true"/>
+		<parameter name="HostId" desc="父对象ID" type="int" required="true"/>
+		<parameter name="SelectedIds" desc="选择的Id序列" type="string" required="false"/>
+	</method>
+</service>

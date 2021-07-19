@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>帮助中心</menu-name>
+  <menu-path>/page/help/</menu-path>
+  <description>帮助中心</description>
+  <form-beans>
+    <form-bean name="HelpForm">
+      </form-bean>
+  </form-beans>
+  <action-mappings>
+    <action input="" name="HelpForm" txn-code="7100001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>跳转到平台介绍</description>
+      <step index="10" bean-name="com.gwssi.help.txn.TxnHelp" func-name="txn7100001" input-node="primary-key" output-node="record" description="跳转到平台介绍"/>
+      <forward error-code="success" path=""/>
+      <forward error-code="failure" path=""/>
+    </action>
+   <action input="" name="HelpForm" txn-code="7100002" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>跳转到使用说明</description>
+      <step index="10" bean-name="com.gwssi.help.txn.TxnHelp" func-name="txn7100002" input-node="primary-key" output-node="record" description="跳转到使用说明"/>
+      <forward error-code="success" path=""/>
+      <forward error-code="failure" path=""/>
+    </action>
+    
+    <action input="" name="HelpForm" txn-code="7100004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>跳转到服务对象职能、角色介绍</description>
+      <step index="10" bean-name="com.gwssi.help.txn.TxnHelp" func-name="txn7100004" input-node="primary-key" output-node="record" description="跳转到服务对象职能、角色介绍"/>
+      <forward error-code="success" path=""/>
+      <forward error-code="failure" path=""/>
+    </action>
+    <action input="" name="HelpForm" txn-code="7100005" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>跳转到采集服务流程</description>
+      <step index="10" bean-name="com.gwssi.help.txn.TxnHelp" func-name="txn7100005" input-node="primary-key" output-node="record" description="跳转到采集服务流程"/>
+      <forward error-code="success" path=""/>
+      <forward error-code="failure" path=""/>
+    </action>
+    <action input="" name="HelpForm" txn-code="7100006" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>跳转到共享服务流程</description>
+      <step index="10" bean-name="com.gwssi.help.txn.TxnHelp" func-name="txn7100006" input-node="primary-key" output-node="record" description="跳转到共享服务流程"/>
+      <forward error-code="success" path=""/>
+      <forward error-code="failure" path=""/>
+    </action>
+    <action input="" name="HelpForm" txn-code="7100007" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>跳转到交换平台部署</description>
+      <step index="10" bean-name="com.gwssi.help.txn.TxnHelp" func-name="txn7100007" input-node="primary-key" output-node="record" description="跳转到交换平台部署"/>
+      <forward error-code="success" path=""/>
+      <forward error-code="failure" path=""/>
+    </action>
+    <action input="" name="HelpForm" txn-code="7100008" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>跳转到交换流程</description>
+      <step index="10" bean-name="com.gwssi.help.txn.TxnHelp" func-name="txn7100008" input-node="primary-key" output-node="record" description="跳转到交换流程"/>
+      <forward error-code="success" path=""/>
+      <forward error-code="failure" path=""/>
+    </action>
+  <action input="" name="HelpForm" txn-code="9000001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>系统概览</description>
+      <step index="10" bean-name="com.gwssi.help.txn.TxnHelp" func-name="txn9000001" input-node="primary-key" output-node="record" description="系统概览"/>
+      <forward error-code="success" path=""/>
+      <forward error-code="failure" path=""/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="vo-bean" file-name="com.gwssi.help.vo.HelpContext" description="应用对应的数据上下文对象"/>
+  </resource>
+</struts-config>
+

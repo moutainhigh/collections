@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.wcm.filter.FilterCenterServiceProvider">
+	<method name="queryFilterOptionGroupsByFilter" desc="获取指定筛选器下的所有选项组">			
+		<parameter name="ObjectId" desc="筛选器id" type="int" required="true" min-value="1"/>
+	</method>
+	<method name="queryFilterOptionsByGroup" desc="获取指定选项组下选项">			
+		<parameter name="ObjectId" desc="选项组id" type="int" required="true" min-value="1"/>
+	</method>
+	
+	<method name="saveFilter" desc="保存筛选器">			
+		<parameter name="ObjectId" desc="筛选器id" type="int" required="true"/>
+		<parameter name="disabledOptions" desc="被禁用的选项组id序列" type="string" required="false"/>
+	</method>
+	
+	<method name="saveFilterOptionGroup" desc="保存选项组">			
+		<parameter name="ObjectId" desc="选项组id" type="int" required="true"/>
+		<parameter name="FilterId" desc="筛选器id" type="int" required="false"/>
+	</method>
+	<method name="saveFilterOption" desc="保存选项">			
+		<parameter name="ObjectId" desc="选项ID" type="int" required="true"/>
+		<parameter name="GroupId" desc="选项组ID" type="int" required="false"/>
+	</method>
+	<method name="deleteFilter" desc="删除筛选器对象">			
+		<parameter name="FilterIds" desc="需要删除的筛选器id序列" type="string" required="false"/>
+	</method>
+	<method name="deleteFilterOptionGroup" desc="删除选项组">			
+		<parameter name="ObjectId" desc="选项组id" type="int" required="true"/>
+	</method>
+	<method name="deleteFilterOption" desc="删除选项">			
+		<parameter name="ObjectId" desc="选项id" type="int" required="true"/>
+	</method>
+	<method name="createXMLForFilter" desc="生成筛选器xml文件以及资源图片到栏目的发布目录下">			
+		<parameter name="ChannelId" desc="当前栏目ID" type="int" required="true" min-value="1"/>
+		<parameter name="FilterIds" desc="需要分发的筛选器id序列" type="string" required="false"/>
+	</method>
+	<method name="queryOtherOptions" desc="获取指定选项所在筛选器的其他选项集合">			
+		<parameter name="OptionId" desc="当前选项id" type="int" required="true" min-value="1"/>
+	</method>
+	<method name="queryOptionsByFilter" desc="获取指定筛选器下的选项集合">			
+		<parameter name="FilterId" desc="当前筛选器id" type="int" required="true" min-value="1"/>
+	</method>
+	
+	<method name="copy" desc="将筛选器复制到指定的栏目下">			
+		<parameter name="ChannelIds" desc="栏目ID序列" type="string" required="true"/>
+		<parameter name="FilterIds" desc="需要分发的筛选器id序列" type="string" required="true"/>
+	</method>
+	
+	<method name="export" desc="导出指定的筛选器">			
+		<parameter name="FilterIds" desc="需要导出的筛选器id序列" type="string" required="true"/>
+	</method>
+	
+	<method name="importFilters" desc="将筛选器导入到指定的栏目下">			
+		<parameter name="ChannelId" desc="栏目ID" type="string" required="true"/>
+		<parameter name="ImportFile" desc="需要导入的文件" type="string" required="true"/>
+		<parameter name="ImportToCurrChnl" desc="是否导入当前栏目" type="boolean" required="false"/>
+	</method>
+	
+</service>

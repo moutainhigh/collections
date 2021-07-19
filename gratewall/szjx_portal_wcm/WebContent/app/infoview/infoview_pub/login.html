@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+  <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <TITLE WCMAnt:param="infoview_pub_upfile_login.html.title">上传文件</TITLE>
+</HEAD>
+<script language="javascript">
+var m_cb = null;
+
+function init(_args, cb) {
+	var src = _args.src;
+	document.getElementById('_inner_iframe_').src = 
+		[src, src.indexOf('?')!=-1?'&':'?', 'LastURI=',
+			encodeURIComponent(location.href.replace(/\/login\.html/, '/login_ok.html'))
+		].join('');
+	m_cb = cb;
+}
+function Ok() {
+	if(!m_cb)return;
+	if(m_cb.callback)m_cb.callback();
+	m_cb.close();
+}
+</script>
+</head>
+<body style="padding:0;margin:0;">
+<iframe id="_inner_iframe_" src="about:blank" style="width:100%;height:100%" frameborder="0" scrolling="no">
+</iframe>
+</body>
+</HTML>

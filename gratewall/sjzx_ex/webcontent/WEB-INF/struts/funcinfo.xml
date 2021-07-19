@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>功能权限维护</menu-name>
+  <menu-path>/page/sysmgr/priv/func/info/</menu-path>
+  <description>功能权限维护</description>
+<form-beans>
+  <form-bean name="FuncinfoRowsetForm">
+    <description>功能权限维护多记录查询表单</description>
+    <form-property prefix="select-key" name="roleid" type="long" size="12" cannull="false" description="角色编号"/>
+    <form-property prefix="select-key" name="regname" type="string" size="24" cannull="false" description="注册用户"/>
+    <form-property prefix="select-key" name="parentcode" type="string" size="36" cannull="false" description="上级功能代码"/>
+    <form-property prefix="select-key" name="funccode" type="string" size="36" description="功能代码"/>
+  
+    <form-property prefix="record" name="funccode" type="string" size="36" description="功能代码"/>
+    <form-property prefix="record" name="funcname" type="string" size="256" description="功能名称"/>
+    <form-property prefix="record" name="parentcode" type="string" size="36" cannull="false" description="上级功能代码"/>
+    <form-property prefix="record" name="groupname" type="string" size="32" cannull="false" description="功能组名称"/>
+    <form-property prefix="record" name="status" type="string" size="1" cannull="false" description="状态"/>
+    <form-property prefix="record" name="memo" type="string" size="256" cannull="false" description="备注信息"/>   
+    <form-property prefix="record" name="src" type="string" size="256" cannull="false" description="信息"/>
+  </form-bean>
+
+  <form-bean name="FuncinfoUpdateForm">
+    <description>功能权限维护单记录处理：查询、修改、增加</description>
+    <form-property prefix="primary-key" name="funccode" type="string" size="36" description="功能代码"/>
+    <form-property prefix="record" name="funccode" type="string" size="36" description="功能代码"/>
+    <form-property prefix="record" name="funcname" type="string" size="256" description="功能名称"/>
+    <form-property prefix="record" name="parentcode" type="string" size="36" cannull="false" description="上级功能代码"/>
+    <form-property prefix="record" name="groupname" type="string" size="32" cannull="false" description="功能组名称"/>
+    <form-property prefix="record" name="status" type="string" size="1" cannull="false" description="状态"/>
+    <form-property prefix="record" name="memo" type="string" size="256" cannull="false" description="备注信息"/>
+  </form-bean>
+
+  <form-bean name="FuncinfoDeleteForm">
+    <description>功能权限维护多记录和单记录删除</description>
+    <form-property prefix="primary-key" name="funccode" type="string" size="36" description="功能代码"/>
+  </form-bean>
+  
+  <form-bean name="ExportFuncinfoForm">
+    <description>导出功能信息</description>
+    <form-property prefix="select-key" name="funccode" type="string" size="36" description="功能代码"/>
+    <form-property prefix="record" name="sqldata" type="string" cannull="false" description="功能和交易信息"/>
+  </form-bean>
+     
+  <form-bean name="FuncinfoTxnForm">
+    <description>交易信息</description>
+    <form-property prefix="select-key" name="funccode" type="string" size="36" description="功能代码"/>
+    <form-property prefix="select-key" name="roleid" type="long" size="12" cannull="false" description="角色编号"/>
+    <form-property prefix="select-key" name="regname" type="string" size="24" cannull="false" description="注册用户"/>
+    <form-property prefix="select-key" name="parentcode" type="string" size="36" cannull="false" description="上级功能代码"/>
+    
+    <form-property prefix="record" name="id" type="string" size="36" description="代码"/>
+    <form-property prefix="record" name="text" type="string" size="36" description="名称"/>
+    <form-property prefix="record" name="expand" type="string" size="5" cannull="true" description="是否展开"/>
+    <form-property prefix="record" name="funccode" type="string" size="36" description="功能代码"/>
+    <form-property prefix="record" name="funcname" type="string" size="256" description="功能名称"/>
+    <form-property prefix="record" name="parentcode" type="string" size="36" cannull="false" description="上级功能代码"/>
+    <form-property prefix="record" name="groupname" type="string" size="32" cannull="false" description="功能组名称"/>  
+    <form-property prefix="record" name="src" type="string" size="256" cannull="false" description="信息"/>  
+    <form-property prefix="record" name="funclist" type="string" size="1024" cannull="true" description="功能列表"/>
+  </form-bean>
+  
+</form-beans>
+<action-mappings>
+  <action input="query-funcinfo.jsp" name="FuncinfoRowsetForm" txn-code="980301" check-type="check" re-entry="true">
+    <description>查询功能信息列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFuncinfo" func-name="txn980301" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="query-funcinfo.jsp"/>
+      <forward error-code="failure" path="query-funcinfo.jsp"/>
+  </action>
+
+  <action input="update-funcinfo.jsp" name="FuncinfoUpdateForm" txn-code="980302" check-type="check">
+    <description>修改功能信息资料</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFuncinfo" func-name="txn980302" input-node="record">
+      </step>
+      <forward error-code="success" path="update-funcinfo.jsp"/>
+      <forward error-code="failure" path="update-funcinfo.jsp"/>
+  </action>
+
+  <action input="insert-funcinfo.jsp" name="FuncinfoUpdateForm" txn-code="980303" check-type="check">
+    <description>增加功能信息资料</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFuncinfo" func-name="txn980303" input-node="record">
+      </step>
+      <forward error-code="success" path="insert-funcinfo.jsp"/>
+      <forward error-code="failure" path="insert-funcinfo.jsp"/>
+  </action>
+
+  <action input="query-funcinfo.jsp" name="FuncinfoUpdateForm" txn-code="980304" re-entry="true" check-type="check">
+    <description>查询功能信息用于修改</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFuncinfo" func-name="txn980304" input-node="primary-key" output-node="record">
+      </step>
+      <forward error-code="success" path="update-funcinfo.jsp"/>
+      <forward error-code="failure" path="update-funcinfo.jsp"/>
+  </action>
+
+  <action input="query-funcinfo.jsp" name="FuncinfoDeleteForm" txn-code="980305" check-type="check">
+    <description>删除功能信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFuncinfo" func-name="txn980305" input-node="primary-key">
+      </step>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+  </action>
+
+  <action input="query-funcinfo.jsp" name="FuncinfoUpdateForm" txn-code="980307" check-type="check">
+    <description>移动功能节点/修改上级节点的功能代码</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFuncinfo" func-name="txn980307" input-node="record">
+      </step>
+      <forward error-code="success" path="/script/call-success.jsp"/>
+      <forward error-code="failure" path="/script/call-failure.jsp"/>
+  </action>
+
+  <action input="query-funcinfo.jsp" name="ExportFuncinfoForm" txn-code="980308" check-type="check" container="default" re-entry="true" log-flag="false">
+    <description>生成功能的交易列表文档</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFuncinfo" func-name="txn980308" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="export-data.jsp"/>
+      <forward error-code="failure" path="export-data.jsp"/>
+  </action>
+  
+  <action input="query-funcinfo.jsp" name="ExportFuncinfoForm" txn-code="980309" check-type="check">
+    <description>导出功能信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFuncinfo" func-name="txn980309" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="export-data.jsp"/>
+      <forward error-code="failure" path="export-data.jsp"/>
+  </action>
+  
+  <action input="query-funcinfo.jsp" name="FuncinfoTxnForm" txn-code="9803101" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+    <description>查询树第一层节点</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFuncinfo" func-name="txn9803101" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="query-funcinfo.jsp"/>
+      <forward error-code="failure" path="query-funcinfo.jsp"/>
+  </action>
+  
+  <action input="query-funcinfo.jsp" name="FuncinfoTxnForm" txn-code="9803102" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+    <description>查询子节点</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFuncinfo" func-name="txn9803102" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="query-funcinfo.jsp"/>
+      <forward error-code="failure" path="query-funcinfo.jsp"/>
+  </action>
+
+  <action input="query-funcinfo.jsp" name="FuncinfoTxnForm" txn-code="9803103" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+    <description>查询子节点</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.func.txn.TxnFuncinfo" func-name="txn9803103" input-node="select-key" output-node="record">
+      </step>
+      <forward error-code="success" path="query-funcinfo.jsp"/>
+      <forward error-code="failure" path="query-funcinfo.jsp"/>
+  </action>      
+
+</action-mappings>
+<jsp-pages>
+  <jsp-page name="query-funcinfo.jsp" txn-code="980301" width="350" height="250" description="查询功能信息列表">
+      <frame frame-name="record" frame-type="grid" caption="功能权限维护列表" keylist="record:funccode" width="95%" property="navbar=bottom,fixrow=true">
+        <button button-name="record_addRecord" function-name="addRecord" caption="增加功能信息" next-page="insert-funcinfo.jsp" hint="增加功能信息" txn-code="980303" property="enablerule=0,hotkey=ADD"/>
+        <button button-name="record_updateRecord" function-name="updateRecord" caption="修改功能信息" next-page="/txn980304.do" hint="修改功能信息" page-variable="primary-key:funccode" value-list="record:funccode" txn-code="980304" property="enablerule=1,hotkey=UPDATE"/>
+        <button button-name="record_deleteRecord" function-name="deleteRecord" caption="删除功能信息" next-page="/txn980305.do" hint="删除功能信息" page-variable="primary-key:funccode" value-list="record:funccode" txn-code="980305" property="enablerule=2,hotkey=DELETE"/>
+        <field field-name="funccode" field-type="cell" caption="功能代码" property="style=width:10%,datatype=string,maxlength=6"/>
+        <field field-name="funcname" field-type="cell" caption="功能名称" property="style=width:10%,datatype=string,maxlength=256"/>
+        <field field-name="parentcode" field-type="cell" caption="上级功能代码" property="style=width:10%,datatype=string,maxlength=6"/>
+        <field field-name="groupname" field-type="cell" caption="功能组名称" property="style=width:10%,datatype=string,maxlength=32"/>
+        <field field-name="status" field-type="cell" caption="状态" property="style=width:10%,datatype=string,maxlength=1"/>
+        <field field-name="memo" field-type="cell" caption="备注信息" property="style=width:10%,datatype=string,maxlength=256"/>
+      </frame>
+  </jsp-page>
+
+  <jsp-page name="insert-funcinfo.jsp" txn-code="980303" width="350" height="250" description="增加功能信息信息">
+      <frame frame-name="record" frame-type="block" caption="增加功能权限维护" width="95%">
+        <button button-name="record_saveRecord" function-name="saveRecord" caption="保 存" next-page="/txn980303.do" hint="保存功能信息信息" txn-code="980303" property="hotkey=SAVE"/>
+        <button button-name="record_saveAndContinue" function-name="saveAndContinue" caption="保存并继续" next-page="/txn980303.do" hint="保存功能信息信息并解析" txn-code="980303" property="hotkey=SAVE_CONTINUE"/>
+        <button button-name="record_saveAndExit" function-name="saveAndExit" caption="保存并关闭" next-page="/txn980303.do" hint="保存功能信息信息并返回" txn-code="980303" property="hotkey=SAVE_CLOSE"/>
+        <button button-name="record_goBack" function-name="goBack" caption="返 回" next-page="/txn980301.do" hint="返回到功能信息明细窗口" property="hotkey=CLOSE"/>
+        <field field-name="parentcode" field-type="text" caption="上级功能" property="style=width:100%,datatype=string,maxlength=6,readonly=true"/>
+        <field field-name="funccode" field-type="text" caption="功能代码" property="newline=true,style=width:100%,datatype=string,maxlength=6,minlength=1"/>
+        <field field-name="funcname" field-type="text" caption="功能名称" property="newline=true,style=width:100%,datatype=string,maxlength=256,minlength=1"/>
+        <field field-name="groupname" field-type="hidden" caption="功能组名称" property="style=width:100%,datatype=string,maxlength=32"/>
+        <field field-name="status" field-type="hidden" caption="状态" property="style=width:100%,datatype=string,maxlength=1"/>
+        <field field-name="memo" field-type="textarea" caption="备注信息" property="style=width:95%,datatype=string,maxlength=256,colspan=2,rows=4"/>
+      </frame>
+  </jsp-page>
+
+  <jsp-page name="update-funcinfo.jsp" txn-code="980302" width="350" height="250" description="修改功能信息信息">
+      <frame frame-name="primary-key" frame-type="frame" width="95%">
+        <field field-name="funccode" field-type="hidden" caption="功能代码" property="style=width:90%,datatype=string,maxlength=6"/>
+      </frame>
+      <frame frame-name="record" frame-type="block" caption="修改功能权限维护" width="95%">
+        <button button-name="record_saveAndExit" function-name="saveAndExit" caption="保 存" next-page="/txn980302.do" hint="修改功能信息信息" txn-code="980302" property="hotkey=SAVE"/>
+        <button button-name="record_goBack" function-name="goBack" caption="返 回" next-page="/txn980301.do" hint="返回到明细窗口" property="hotkey=CLOSE"/>
+        <field field-name="parentcode" field-type="text" caption="上级功能" property="style=width:100%,datatype=string,maxlength=6,readonly=true"/>
+        <field field-name="funccode" field-type="text" caption="功能代码" property="newline=true,style=width:100%,datatype=string,maxlength=6,readonly=true"/>
+        <field field-name="funcname" field-type="text" caption="功能名称" property="newline=true,style=width:100%,datatype=string,maxlength=256,minlength=1"/>
+        <field field-name="groupname" field-type="hidden" caption="功能组名称" property="style=width:100%,datatype=string,maxlength=32"/>
+        <field field-name="status" field-type="hidden" caption="状态" property="style=width:100%,datatype=string,maxlength=1"/>
+        <field field-name="memo" field-type="textarea" caption="备注信息" property="style=width:95%,datatype=string,maxlength=256,colspan=2,rows=4"/>
+      </frame>
+  </jsp-page>
+
+</jsp-pages>
+</struts-config>

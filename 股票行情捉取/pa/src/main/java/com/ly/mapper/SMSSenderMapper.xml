@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 
+	例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ly.dao.SMSSenderDao">
+
+	<select id="getList" resultType="SMSSender">
+		select * from sms_sender t where t.times > 0 
+	</select>
+
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from sms_sender t where t.appId = #{appId}
+		</selectKey>
+		<if test="count > 0">
+			update sms_sender
+			<trim prefix="set" suffixOverrides=",">
+				<if test="appId != null">appId = #{appId, jdbcType=VARCHAR},</if>
+				<if test="appKey != null">appKey = #{appKey, jdbcType=VARCHAR},</if>
+				<if test="sign != null">sign = #{sign, jdbcType=VARCHAR},</if>
+				<if test="templateIdForBuy != null">templateIdForBuy = #{templateIdForBuy, jdbcType=VARCHAR},</if>
+				<if test="templateIdForSell != null">templateIdForSell = #{templateIdForSell, jdbcType=VARCHAR},</if>
+				<if test="times != null">times = #{times, jdbcType=VARCHAR},</if>
+			</trim>
+			where appId = #{appId}
+		</if>
+		<if test="count == 0">
+			insert into sms_sender
+			(
+			appId,
+			appKey,
+			sign,
+			templateIdForBuy,
+			templateIdForSell,
+			times,
+			)
+			values
+			(
+			#{appId,jdbcType=VARCHAR},
+			#{appKey, jdbcType=VARCHAR},
+			#{sign, jdbcType=VARCHAR},
+			#{templateIdForBuy, jdbcType=VARCHAR},
+			#{templateIdForSell, jdbcType=VARCHAR},
+			#{times, jdbcType=VARCHAR}
+			)
+		</if>
+	</insert>
+	
+	
+	<update id="updateSms">
+		update sms_sender set  times = 100
+	
+	</update>
+</mapper>
+

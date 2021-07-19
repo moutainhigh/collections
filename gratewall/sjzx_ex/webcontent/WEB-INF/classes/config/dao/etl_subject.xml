@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>采集服务</sort-name>
+  <table-info name="etl_subject" class-name="com.gwssi.collect.etl.dao.EtlSubject" check-flag="false" backup-flag="false">
+    <description>etl任务表</description>
+  </table-info>
+
+  <column name="etl_id" data-type="varchar" length="33" not-null="false" value-from="generate" func-name="getUUID" description="主键ID"/>
+  <column name="res_target_id" data-type="varchar" length="32" not-null="false"  description="服务对象ID"/>
+  <column name="subj_name" data-type="varchar" length="240" not-null="false" value-from="input" description="工作包名称"/>
+  <column name="subj_desc" data-type="varchar" length="2000" not-null="false" value-from="input" description="工作包描述"/>
+  <column name="show_order" data-type="long" length="10" not-null="false" value-from="input" value-set="是否设置" description="是否显示"/>
+  <column name="start_time" data-type="varchar" length="240" not-null="false" value-from="input" description="开始执行时间"/>
+  <column name="inteval" data-type="varchar" length="240" not-null="false" value-from="input" description="运行周期"/>
+  <column name="add_type" data-type="varchar" length="240" not-null="false" value-from="input" value-set="资源管理_采集方式" description="数据处理类型"/>
+  <column name="is_markup" data-type="varchar" length="240" not-null="false" value-from="input" value-set="资源管理_采集方式" description="数据处理类型"/>
+  <column name="schedule_json" data-type="varchar" length="4000" not-null="false" value-from="input" description="运行周期原始数据"/>
+  <primary-key name="etl_id" column-list="etl_id"/>
+  <function func-name="insert one etl_subject" func-type="insert" column-list="etl_id,res_target_id,subj_name,subj_desc,show_order,start_time,inteval,add_type,is_markup,schedule_json">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="select one etl_subject" func-type="select" column-list="etl_id,res_target_id,subj_name,subj_desc,show_order,start_time,inteval,add_type,is_markup,schedule_json">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="update one etl_subject" func-type="update" column-list="res_target_id,subj_name,inteval,start_time,add_type,show_order,subj_desc,is_markup,schedule_json">
+    <filter-column column-name="etl_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="delete one etl_subject" func-type="delete">
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="select etl_subject list" func-type="rowset" column-list="etl_id,res_target_id,subj_name,subj_desc,show_order,start_time,inteval,add_type,is_markup" sort-columns="subj_sort,start_time" max-record="10">
+    <filter-column column-name="is_show" operator="eq" value-from="default" default="1"/>
+    <description>多记录查询</description>
+  </function>
+</table>
+

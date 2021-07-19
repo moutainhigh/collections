@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Document</title>
+  <style>
+	*{padding:0px;margin:0px;}
+	body{font-size:14px;font-family:"微软雅黑";background:#141414;padding:50px 500px;}
+	.box{width:100px;height:100px;border-radius:50px;color:#fff;text-align:center;line-height:100px;margin-top:20px;transition: all 0.3s linear;font-size:18px;}
+	.box:hover{background:yellow;color:#111;transform:scale(0.5) }
+	.box img{max-width:100%;border-radius:100%;}
+	.red{background:red}
+	.green{background:linear-gradient(10deg,red,pink);}
+	.blue{background:pink}
+	@keyframes keke{
+		from{background:yellow;transform:rotate(0deg);box-shadow:0px 0px 1em #fff;}
+		to{background:green;transform:rotate(360deg);box-shadow:0px 0px 10em red;}
+	}
+	.kk{animation:keke 2s infinite linear;}
+
+  </style>
+ </head>
+ <body>
+	
+	<div class="box red kk">
+		<img src="201503281839532.jpg">
+	</div>
+	
+	<div class="box green kk">
+		02
+	</div>
+	<div class="box blue kk">
+		03
+	</div>
+ </body>
+</html>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ly.dao.BuyDao">
+
+	<!--resultMap注释 http://www.cnblogs.com/kenhome/p/7764398.html -->
+
+	<select id="getBuyByParam" resultType="Buy">
+		select * from buy t
+	</select>
+
+	<select id="getBuyTotalByParam" resultType="Integer">
+		select count(1) from buy t
+	</select>
+
+	<select id="getBuyList" resultType="Buy">
+		select * from buy t
+	</select>
+
+	<select id="getNonNameList" resultType="Buy">
+		select * from buy t where name is null
+	</select>
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from buy t where t.code = #{code}
+		</selectKey>
+		<if test="count > 0">
+			update buy
+			<trim prefix="set" suffixOverrides=",">
+				<if test="code != null">code = #{code, jdbcType=VARCHAR},</if>
+				<if test="name != null">name = #{name, jdbcType=VARCHAR},</if>
+				<if test="weituoprice != null">weituoprice = #{weituoprice, jdbcType=VARCHAR},</if>
+			</trim>
+			where code = #{code}
+		</if>
+		<if test="count == 0">
+			insert into buy
+			(
+			code,
+			name,
+			weituoprice
+			)
+			values
+			(
+			#{code,
+			jdbcType=VARCHAR},
+			#{name, jdbcType=VARCHAR},
+			#{weituoprice, jdbcType=VARCHAR}
+			)
+		</if>
+	</insert>
+
+	<delete id="del">
+		delete from buy where code = #{code}
+	</delete>
+</mapper>

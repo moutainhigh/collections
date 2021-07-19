@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="GB2312"?>
+<parameters>
+	<parameter name="DocumentId" desc="文档ID" type="int"  required="true"  min-value="0" default="0" />
+	<parameter name="InfoViewId" desc="表单ID" type="int"  required="fasle" min-value="1" />
+	<parameter name="ChannelId"  desc="实际的栏目ID" type="int"  required="true"  min-value="1" />
+	<parameter name="CurrChannelId"  desc="当前的栏目ID" type="int"  required="false"  min-value="0" default="0"/>
+	<parameter name="ChnlDocId"  desc="栏目文档" type="int" required="false"  min-value="0" default="0"/>
+	<parameter name="DocTitle"  desc="文档标题" type="string" required="false" />
+	<parameter name="ObjectXML"  desc="文档" type="string" required="true" />
+	<parameter name="FlowDocPostXMLData" desc="将表单投入流转所用的提交数据" type="string" required="false" />
+	<parameter name="NewFlowDocMapData" desc="新建时，将表单投入流转时所需信息" type="string" required="false" />
+	<parameter name="FlowDocId" desc="流转文档ID,冗余数据" type="int" required="fasle" min-value="1" />
+	<parameter name="SkipDocSaving" desc="是否需要略过文档保存" type="boolean" required="fasle"/>
+</parameters>

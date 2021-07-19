@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.1//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> New Document </title>
+	<script src="../../js/easyversion/lightbase.js"></script>
+	<script src="../../js/easyversion/extrender.js"></script>
+	<script src="../js/adapter4Top.js"></script>
+<script language="javascript">
+<!--
+	function openDocList(event){
+		wcm.CrashBoarder.get('doc_slt_list').show({
+			title : '文档选择页面',
+			src : 'document/document_select_forCB.html',
+			width:'820px',
+			height:'400px',
+			params :{
+				RecIds:'487,488',//已经选中的文档的RecId
+				DocChannelId:'15'
+			},
+			callback : function(params){
+				//this.close();
+				alert("receive the params:\n" + params.ids);
+			}
+		});		
+	}
+//-->
+</script>
+</head>
+
+<body>
+<button onclick="openDocList()" WCMAnt:param="doclist-demo.html.doclist">文档列表</button>
+</body>
+</html>

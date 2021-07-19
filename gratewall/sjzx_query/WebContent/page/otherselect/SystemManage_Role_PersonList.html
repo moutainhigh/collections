@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<title>系统管理-角色管理-所属人员管理</title>
+<link rel="stylesheet" href="../../static/css/common.css">
+<link href="../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.jazz-field-comp-input{
+	line-height: 22px;
+	_line-height: 22px;
+}
+
+#openWin{
+	position:absolute; 
+	top:80px; 
+	left:425px;
+	z-index: 9999;
+	}
+	
+#winContent{
+	border-style:solid;
+    border-width:3px;
+}
+</style>
+
+
+</head>
+<body>
+<script>
+
+</script>
+<body style="overflow-x:hidden">
+<!-- 构建页面==开始 -->
+<div>
+<!-- 查询条件 -->
+<div name="RolePersonListPanel" id="RoleQueryListPanel"
+	vtype="formpanel" width="100%" layout="table"  style="text-align: center;"
+	layoutconfig="{cols:2, columnwidth: ['50%','50%']}" 
+	labelstyleclass="labelstyle" title="所属人员管理" 
+	titledisplay="true" showborder="false" >
+	<div name="userId" vtype="textfield" label="用户账号" labelwidth="150" labelalign="right" width="400" valuetip="请输入用户账号……"
+	 tooltip="" rule="" ></div>
+	<div name="userName" vtype="textfield" label="用户姓名" labelwidth="150" labelalign="right" width="400" valuetip="请输入用户账号……"
+	 tooltip="" rule="" ></div>
+    <div id="toolbar" name="toolbar" vtype="toolbar" location="bottom"
+				align="center" width="100%">
+				<div name="add_button" id="add_button" vtype="button" text="添加"
+					icon="../query/queryssuo.png"></div>
+				<div name="save_button" id="save_button" vtype="button" text="查询"
+					icon="../query/queryssuo.png"></div>
+				<div name="reset_button" id="reset_button" vtype="button" text="重置"
+					icon="../query/queryssuo.png"></div>
+    </div>
+</div> 
+<!-- 数据展现 -->
+		<div name="RolePersonListGrid" id="RolePersonListGrid" vtype="gridpanel" titleDisplay="false" title="详情信息"   isshowselecthelper="false"
+		  showborder=true width="100%" >
+	<div name="functionConfigGrid_column" vtype="gridcolumn">
+				<div>
+					<div name='userId' text="用户账号" textalign="left" width="20%"></div>
+					<div name="userName" text="用户姓名" textalign="left" width="20%"></div>
+					<div name='name' text="部门名称" textalign="left" width='50%'></div>
+					<div name='opt' text="操作" textalign="left" width='10%'></div>
+				</div>
+			</div>
+			<div vtype="gridtable" name="grid_table"></div>
+		    <div vtype="paginator" name="grid_paginator" theme="2" pagerows="10"></div> 
+			<div class="nodata" style="display: none;"></div>
+		</div>
+</div>
+
+<div id="openWin">
+	<iframe id="winContent" src="" frameborder="no" border="0"  style="display: none;"></iframe>
+</div>
+
+<!-- 构建页面==结束 -->
+<script type="text/javascript" src="../../static/js/config.js"></script>
+<script type="text/javascript" data-main="other/SystemManage_Role_PersonList.js" src="../../static/lib/require.js"></script>
+</body>
+</html>

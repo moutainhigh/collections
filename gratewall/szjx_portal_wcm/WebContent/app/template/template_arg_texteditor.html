@@ -1,0 +1,107 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>text editor for param-value</title>
+<link href="../css/workflow.css" rel="stylesheet" type="text/css" />
+<script src="../js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<script src="../../app/js/data/locale/templatearg.js"></script>
+<!-- CarshBoard Inner Start -->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Inner End -->
+<script src="../../app/js/source/wcmlib/com.trs.validator/lang/cn.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<link href="../../app/js/source/wcmlib/com.trs.validator/css/validator.css" rel="stylesheet" type="text/css" />
+
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<script language="javascript">
+<!--
+    window.m_cbCfg = {
+        btns : [
+            {
+                text : wcm.LANG['TEMPLATEARG_9'] || '确定',
+                cmd : function(){
+					submitData();
+					return false;			
+				}
+            },
+            {
+                text : wcm.LANG['TEMPLATEARG_10'] || '取消',
+				cmd : function(){
+					 var cbr = wcm.CrashBoarder.get("Text_Editor");
+					cbr.notify({text:null});
+					return false;			
+				}
+            }
+        ]
+    };
+    
+//-->
+</script>
+<style type="text/css">
+	body{
+		margin: 0;
+		padding: 0;
+		background: #ffffff;
+		overflow: hidden;
+	}
+	body, table{
+		font-size: 12px;
+	}
+</style>
+<script language="javascript">
+//for cb
+function init(_args){
+	$('txtContent').value = _args.text;	
+	$('txtContent').select();
+	$('txtContent').focus();
+}
+function submitData(){
+		// 长度校验
+		var dom=$('txtContent');
+		var validInfo = ValidatorHelper.valid(dom);
+		if(validInfo && !validInfo.isValid()){
+			Ext.Msg.warn(validInfo.getWarning(), function(){
+				try{
+					dom.select();
+					dom.focus();
+					}catch(error){
+					}
+			});
+			return;
+		}
+		//更新text值
+		var cbr = wcm.CrashBoarder.get("Text_Editor");
+		cbr.notify({text: $('txtContent').value});
+		cbr.hide();
+}
+</script>
+</head>
+
+<body>
+<center>
+	<div class="block_box" style="text-align: center; margin: 4px;">
+		<textarea id="txtContent" style="width:100%;height:190px;overflow-y:auto;overflow-x:hidden" 
+		validation="type:string,max_len:500,no_desc:true"></textarea>
+	</div>
+</center>	
+</body>
+</html>

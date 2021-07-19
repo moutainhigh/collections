@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="sys_rd_standard_codedata" class-name="cn.gwssi.dw.rd.standard.dao.SysRdStandardCodedata" check-flag="false" backup-flag="false">
+    <description>基础代码</description>
+  </table-info>
+
+  <column name="id" data-type="varchar" length="32" not-null="true" value-from="input" description="代码值ID"/>
+  <column name="sys_rd_standar_codeindex" data-type="varchar" length="10" not-null="false" value-from="input" description="代码标识符"/>
+  <column name="sys_rd_standard_codevalue" data-type="varchar" length="20" not-null="false" value-from="input" description="代码值"/>
+  <column name="sys_rd_standard_codename" data-type="varchar" length="1000" not-null="false" value-from="input" description="代码内容"/>
+  <column name="description" data-type="varchar" length="2000" not-null="false" value-from="input" description="说明"/>
+  <primary-key name="pk_jc_standard_code" column-list="id"/>
+  <index name="pk_jc_standard_code" index-type="unique" cluster="cluster" column-list="id"/>
+  <function func-name="select one sys_rd_standard_codedata" func-type="select" column-list="id,sys_rd_standar_codeindex,sys_rd_standard_codevalue,sys_rd_standard_codename,description">
+    <filter-column column-name="id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_rd_standard_codedata list" func-type="rowset" column-list="id,sys_rd_standar_codeindex,sys_rd_standard_codevalue,sys_rd_standard_codename,description" max-record="10">
+    <filter-column column-name="sys_rd_standar_codeindex" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_rd_standard_codevalue" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_rd_standard_codename" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_rd_standard_codedata" func-type="insert" column-list="id,sys_rd_standar_codeindex,sys_rd_standard_codevalue,sys_rd_standard_codename,description">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_rd_standard_codedata" func-type="delete">
+    <filter-column column-name="id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_rd_standard_codedata" func-type="update" column-list="id,sys_rd_standar_codeindex,sys_rd_standard_codevalue,sys_rd_standard_codename,description">
+    <filter-column column-name="id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

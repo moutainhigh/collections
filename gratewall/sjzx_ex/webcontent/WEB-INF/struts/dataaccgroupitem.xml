@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>数据权限分组项</menu-name>
+  <menu-path>/page/sysmgr/priv/datapriv/dataacc/</menu-path>
+  <description>数据权限分组项</description>
+  <form-beans>
+    <form-bean name="DataaccgroupitemRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="dataaccgrpid" type="long" description="数据权限分组ID"/>
+      <form-property prefix="record" name="dataaccgrpid" type="long" cannull="false" description="数据权限分组ID"/>
+      <form-property prefix="record" name="objectid" type="long" cannull="false" description="数据权限类型代码"/>
+      <form-property prefix="record" name="dataaccid" type="string" size="200" cannull="false" description="数据权限内码"/>
+    </form-bean>
+
+    <form-bean name="DataaccgroupitemUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="dataaccgrpid" type="long" cannull="false" description="数据权限分组ID"/>
+      <form-property prefix="primary-key" name="dataaccid" type="string" size="200" cannull="false" description="数据权限内码"/>
+      <form-property prefix="primary-key" name="objectid" type="long" cannull="false" description="数据权限类型代码"/>
+      <form-property prefix="record" name="dataaccgrpid" type="long" cannull="false" description="数据权限分组ID"/>
+      <form-property prefix="record" name="objectid" type="long" cannull="false" description="数据权限类型代码"/>
+      <form-property prefix="record" name="dataaccid" type="string" size="200" cannull="false" description="数据权限内码"/>
+    </form-bean>
+
+    <form-bean name="DataaccgroupitemDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="dataaccgrpid" type="long" cannull="false" description="数据权限分组ID"/>
+      <form-property prefix="primary-key" name="dataaccid" type="string" size="200" cannull="false" description="数据权限内码"/>
+      <form-property prefix="primary-key" name="objectid" type="long" cannull="false" description="数据权限类型代码"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-dataaccgroupitem.jsp" name="DataaccgroupitemRowsetForm" txn-code="103061" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据权限分组项列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccgroupitem" func-name="txn103061" input-node="select-key" output-node="record" description="查询数据权限分组项列表"/>
+      <forward error-code="success" path="query-dataaccgroupitem.jsp"/>
+      <forward error-code="failure" path="query-dataaccgroupitem.jsp"/>
+    </action>
+
+    <action input="update-dataaccgroupitem.jsp" name="DataaccgroupitemUpdateForm" txn-code="103062" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改数据权限分组项信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccgroupitem" func-name="txn103062" input-node="record" description="修改数据权限分组项信息"/>
+      <forward error-code="success" path="update-dataaccgroupitem.jsp"/>
+      <forward error-code="failure" path="update-dataaccgroupitem.jsp"/>
+    </action>
+
+    <action input="insert-dataaccgroupitem.jsp" name="DataaccgroupitemUpdateForm" txn-code="103063" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加数据权限分组项信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccgroupitem" func-name="txn103063" input-node="record" description="增加数据权限分组项信息"/>
+      <forward error-code="success" path="insert-dataaccgroupitem.jsp"/>
+      <forward error-code="failure" path="insert-dataaccgroupitem.jsp"/>
+    </action>
+
+    <action input="query-dataaccgroupitem.jsp" name="DataaccgroupitemUpdateForm" txn-code="103064" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据权限分组项用于修改</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccgroupitem" func-name="txn103064" input-node="primary-key" output-node="record" description="查询数据权限分组项用于修改"/>
+      <forward error-code="success" path="update-dataaccgroupitem.jsp"/>
+      <forward error-code="failure" path="update-dataaccgroupitem.jsp"/>
+    </action>
+
+    <action input="query-dataaccgroupitem.jsp" name="DataaccgroupitemDeleteForm" txn-code="103065" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除数据权限分组项信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccgroupitem" func-name="txn103065" input-node="primary-key" description="删除数据权限分组项信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-dataaccgroupitem.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/csdb/xtgl/query-dataaccgroupitem.jsp" description="查询数据权限分组项列表"/>
+    <resource-file type="jsp" file-name="/csdb/xtgl/insert-dataaccgroupitem.jsp" description="增加数据权限分组项信息"/>
+    <resource-file type="jsp" file-name="/csdb/xtgl/update-dataaccgroupitem.jsp" description="修改数据权限分组项信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.DataaccgroupitemContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.VoDataaccgroupitem" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.VoDataaccgroupitemSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.csdb.xtgl.vo.VoDataaccgroupitemPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

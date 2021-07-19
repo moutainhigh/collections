@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="../../static/script/jazz.js" type="text/javascript"></script>
+<script>
+	
+	$(function() {
+		var urlId = jazz.util.getParameter("urlId");
+		if(urlId == null){
+			
+		}else{
+			$('div[name="formpanel"]').formpanel('option', 'dataurl',rootPath+
+				'/auth/urlDetail.do?urlId='+urlId);
+			$('div[name="formpanel"]').formpanel('reload');
+		}
+	});
+
+	function save() {
+		var params = {
+			url : rootPath+'/auth/saveUrl.do',
+			components : [ 'formpanel' ],
+			callback : function(data, r, res) {
+				if (res.getAttr("back") == 'success') {
+					parent.queryUrl();
+					//jazz.info("保存成功");
+					parent.win.window("close");
+				} else {
+					jazz.info("新增白名单操作失败");
+				}
+			}
+		};
+		$.DataAdapter.submit(params);
+	}
+	
+	function closeWin(){
+		parent.win.window("close");
+	}
+</script>
+</head>
+<body>
+
+	<div id="formpanel" name="formpanel" vtype="formpanel"
+		tableStyleClass="tablecss" titledisplay="false" showborder="false"
+		width="100%" layout="table"
+		layoutconfig="{cols:1, columnwidth: ['500px']}" height="250"
+		dataurl="">
+
+		<div name='urlId' vtype="hiddenfield" label="URLID" labelAlign="right"
+			width="300"></div>
+		<div name='urlMc' vtype="textfield" label="URL名称" labelAlign="right"
+			rule="must" width="450"></div>
+		<div name='url' vtype="textfield" label="URL" labelAlign="right"
+			rule="must" width="450"></div>
+
+		<div id="toolbar" name="toolbar" vtype="toolbar" location="bottom"
+			align="center">
+			<div id="btn1" name="btn1" vtype="button" text="保存"
+				icon="../../../style/default/images/save.png" click="save()"></div>
+			<div id="btn2" name="btn2" vtype="button" text="返回"
+				icon="../../../style/default/images/fh.png" click="closeWin()"></div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.DistributeServiceProvider">
+	<method name="save">
+	</method>
+	<method name="findById"/>
+	<method name="jFindById" truename="findById"  convertor="uri:/app/publishdistribution/publishdistribution_findbyid.jsp"/>
+	<method name="query">
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>		
+		<!--文档过滤器-->
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" required="false"/>
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="TARGETTYPE" desc="分发类型" type="string" required="false" search="true"
+		search-operator="like"/>
+		<parameter name="TARGETSERVER" desc="接受分发服务器地址" type="string" required="false" search="true"
+		search-operator="like"/>
+		<parameter name="DATAPATH" desc="接受分发路径" type="string" required="false" search="true"
+		search-operator="like"/>
+		<!-- 检索相关配置 END -->
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="MM-dd HH:mm"/>			
+	</method>
+	<method name="jQuery" truename="query"  convertor="uri:/app/publishdistribution/publishdistribution_query.jsp"/>
+</service>

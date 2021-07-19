@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="GB2312"?>
+<mapping>
+	<description>***-components config mapping</description>
+	<!--Mapping for Publish Server Config BEGIN-->
+	<class
+		name="com.trs.components.common.publish.config.persistent.PublishServerConfig">
+		<map-to xml="publish-server" />
+		<field name="detailPageSeperateTo51Style" type="boolean">
+			<bind-xml name="detail-page-seperate-to-51style" node="element"></bind-xml>
+		</field>
+		<field name="publishInRootPath" type="boolean">
+			<bind-xml name="publish-in-root-path" node="element"></bind-xml>
+		</field>
+		<field name="dirDividedByDate" type="boolean">
+			<bind-xml name="dir-divided-by-date" node="element"></bind-xml>
+		</field>
+		<field name="dirDividedByDateFormat">
+			<bind-xml name="dir-divided-by-date-format"
+				node="element">
+			</bind-xml>
+		</field>
+		<field name="loadBatchContentsPageSize">
+			<bind-xml name="load-batch-contents-pagesize"
+				node="element">
+			</bind-xml>
+		</field>		
+		<field name="sendWarningIfFileNotFound" type="boolean">
+			<bind-xml name="send-warning-if-file-not-found"
+				node="element">
+			</bind-xml>
+		</field>
+		<field name="ignoreIfHostNotFound" type="boolean">
+			<bind-xml name="ignore-if-host-not-found" node="element"></bind-xml>
+		</field>
+		<field name="autoPublishDocInHomeWhenNeeded" type="boolean">
+			<bind-xml name="auto-publish-doc-in-home-when-needed"
+				node="element">
+			</bind-xml>
+		</field>
+		<field name="defaultEncoding">
+			<bind-xml name="default-encoding" node="element"></bind-xml>
+		</field>
+		<field name="folderTypes" collection="collection"
+			type="com.trs.components.common.publish.config.persistent.FolderTypeConfig"
+			container="false">
+			<bind-xml name="folder-types"></bind-xml>
+		</field>
+		<field name="contentTypes" collection="collection"
+			type="com.trs.components.common.publish.config.persistent.ContentTypeConfig"
+			container="false">
+			<bind-xml name="content-types"></bind-xml>
+		</field>
+		<field name="tagFormatters" collection="collection"
+			type="com.trs.components.common.publish.config.persistent.TagFormatterConfig"
+			container="false">
+			<bind-xml name="tag-formatters"></bind-xml>
+		</field>
+		<field name="laborResource"
+			type="com.trs.components.common.publish.config.persistent.LaborResourceConfig">
+			<bind-xml name="labor-resource" reference="true" />
+		</field>
+		<field name="templateParse"
+			type="com.trs.components.common.publish.config.persistent.TemplateParseConfig">
+			<bind-xml name="template-parse" reference="true" />
+		</field>
+		<field name="publishDistribution"
+			type="com.trs.components.common.publish.config.persistent.PublishDistributionConfig">
+			<bind-xml name="publish-distribution" reference="true" />
+		</field>
+	</class>
+	<class
+		name="com.trs.components.common.publish.config.persistent.FolderTypeConfig"
+		auto-complete="true" identity="className">
+		<field name="name">
+			<bind-xml name="name" node="attribute" />
+		</field>
+		<field name="className">
+			<bind-xml name="class-name" node="attribute" />
+		</field>
+	</class>
+	<class
+		name="com.trs.components.common.publish.config.persistent.ContentTypeConfig"
+		auto-complete="true" identity="className">
+		<field name="name">
+			<bind-xml name="name" node="attribute" />
+		</field>
+		<field name="className">
+			<bind-xml name="class-name" node="attribute" />
+		</field>
+	</class>
+	<class
+		name="com.trs.components.common.publish.config.persistent.LaborResourceConfig"
+		auto-complete="true">
+		<field name="highPriorityLaborsMax">
+			<bind-xml name="high-priority-labors-max" node="element" />
+		</field>
+		<field name="lowPriorityLaborsMax">
+			<bind-xml name="low-priority-labors-max" node="element" />
+		</field>
+		<field name="eachTaskLaborsMax">
+			<bind-xml name="each-task-labors-max" node="element" />
+		</field>
+		<field name="retryTimeLimit">
+			<bind-xml name="retry-time-limit" node="element" />
+		</field>
+		<field name="retryInterval">
+			<bind-xml name="retry-interval" node="element" />
+		</field>
+	</class>
+	<class
+		name="com.trs.components.common.publish.config.persistent.TemplateParseConfig"
+		auto-complete="true">
+		<field name="tagsHavingSrc">
+			<bind-xml name="tags-having-src" node="element" />
+		</field>
+		<field name="tagSrcAttributeNames">
+			<bind-xml name="tag-src-attribute-names" node="element" />
+		</field>
+		<field name="supportedExts">
+			<bind-xml name="supported-exts" node="element" />
+		</field>
+		<field name="supportedApdExts">
+			<bind-xml name="supported-apd-exts" node="element" />
+		</field>
+		<field name="nameCacheMaxSize">
+			<bind-xml name="name-cache-max-size" node="element" />
+		</field>
+		<field name="domCacheMaxSize">
+			<bind-xml name="dom-cache-max-size" node="element" />
+		</field>
+		<field name="wcmOutlineContentsMaxNum">
+			<bind-xml name="wcm-outline-contents-max-num"
+				node="element" />
+		</field>
+	</class>
+	<class
+		name="com.trs.components.common.publish.config.persistent.PublishDistributionConfig"
+		auto-complete="true">
+		<field name="targetTypes" collection="collection"
+			type="com.trs.components.common.publish.config.persistent.TargetTypeConfig"
+			container="false">
+			<bind-xml name="target-types"></bind-xml>
+		</field>
+		<field name="maxTargetsEachFolder">
+			<bind-xml name="max-targets-each-folder" node="element" />
+		</field>
+	</class>
+	<class
+		name="com.trs.components.common.publish.config.persistent.TargetTypeConfig">
+		<field name="name">
+			<bind-xml name="name" node="element" />
+		</field>
+		<field name="desc">
+			<bind-xml name="desc" node="element" />
+		</field>
+		<field name="distributor">
+			<bind-xml name="distributor" node="element" />
+		</field>
+		<field name="parameters">
+			<bind-xml name="parameters" node="element" />
+		</field>
+	</class>
+	<class
+		name="com.trs.components.common.publish.config.persistent.TagFormatterConfig">
+		<field name="tagName">
+			<bind-xml name="tag-name" node="attribute" />
+		</field>
+		<field name="className">
+			<bind-xml name="class-name" node="attribute" />
+		</field>
+	</class>
+	<!--Mapping for Publish Server Config END-->
+
+	<!--Mapping for Publish File Naming BEGIN-->
+	<class
+		name="com.trs.components.common.publish.config.persistent.FileNamedStyle">
+		<map-to xml="file-naming" />
+		<field name="pattern">
+			<bind-xml name="pattern" node="element" />
+		</field>
+		<field name="prefix">
+			<bind-xml name="prefix" node="element" />
+		</field>
+		<field name="token">
+			<bind-xml name="token" node="element" />
+		</field>
+		<field name="adden">
+			<bind-xml name="adden" node="element" />
+		</field>
+	</class>
+	<!--Mapping for Publish File Naming END-->
+</mapping>

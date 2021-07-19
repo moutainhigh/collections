@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="reg_bus_par_ent.xml" app-path="/dw/aic/bj/bizqry/ent/" app-name="reg_bus_par_ent" description="隶属企业机构" template="single-table.xml"/>
+  <table name="reg_bus_par_ent.xml" app-name="reg_bus_par_ent" app-desc="隶属企业机构" delete-action="delete" description="隶属企业机构" class-name="cn.gwssi.bjaic.bizqry.txn.TxnRegBusParEnt" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-reg_bus_par_ent.jsp" txn-code="200109001" description="查询隶属企业机构列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加隶属企业机构" path="insert-reg_bus_par_ent.jsp" description="增加隶属企业机构" func-name="addRecord"/>
+	    <button type="button" name="修改隶属企业机构" path="/txn200109004.do" description="修改隶属企业机构" func-name="updateRecord"/>
+	    <button type="button" name="删除隶属企业机构" path="/txn200109005.do" description="删除隶属企业机构" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn200109001.do" description="查询隶属企业机构信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-reg_bus_par_ent.jsp" txn-code="200109003" description="增加隶属企业机构信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn200109003.do" description="保存隶属企业机构信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn200109003.do" description="保存隶属企业机构信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn200109001.do" description="保存隶属企业机构信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn200109001.do" description="返回到隶属企业机构明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-reg_bus_par_ent.jsp" txn-code="200109002" description="修改隶属企业机构信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn200109001.do" description="修改隶属企业机构信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn200109001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-reg_bus_par_ent.jsp" txn-code="200109001" description="查询隶属企业机构列表">
+	    <forward error-code="success" path="query-reg_bus_par_ent.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-reg_bus_par_ent.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-reg_bus_par_ent.jsp" txn-code="200109002" description="修改隶属企业机构信息">
+	    <forward error-code="success" path="update-reg_bus_par_ent.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-reg_bus_par_ent.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-reg_bus_par_ent.jsp" txn-code="200109003" description="增加隶属企业机构信息">
+	    <forward error-code="success" path="insert-reg_bus_par_ent.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-reg_bus_par_ent.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-reg_bus_par_ent.jsp" txn-code="200109004" description="查询隶属企业机构用于修改">
+	    <forward error-code="success" path="update-reg_bus_par_ent.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-reg_bus_par_ent.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-reg_bus_par_ent.jsp" txn-code="200109005" description="删除隶属企业机构信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="cn.gwssi.bjaic.bizqry.vo.RegBusParEntContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="cn.gwssi.bjaic.bizqry.vo.VoRegBusParEnt" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="cn.gwssi.bjaic.bizqry.vo.VoRegBusParEntSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="cn.gwssi.bjaic.bizqry.vo.VoRegBusParEntPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

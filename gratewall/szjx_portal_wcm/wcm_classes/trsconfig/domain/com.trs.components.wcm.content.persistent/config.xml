@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin name="文档字段配置" version="1.0">
+	<!--Config For Document Fields Publish Fields BEGIN-->
+	<!--
+		desc   : 文档字段描述
+		fields : 文档字段名称
+		type   : 文档字段类型
+					该扩展信息保存文档导出时字段的选择信息：
+					1 类型：导出的字段但不显示；
+					2 类型：选择导出的字段；
+					3 类型：不会导出的字段；
+					4 类型：导出的字段并显示；
+		import  : 导入时映射文件配置中的属性
+					1 可以配置导入
+					0 不配置导入
+	-->
+	<extension element-class="com.trs.components.wcm.content.persistent.DocumentFieldConfig" 
+		id="DocumentFieldConfig">
+		<document-field-config desc="编号"
+			fields="DOCID" type="1" import="0" />
+		<document-field-config desc="所属栏目"
+			fields="DOCCHANNEL" type="2" import="1" />
+		<document-field-config desc="版本号"
+			fields="DOCVERSION" type="1" import="0" />
+		<document-field-config desc="序号"
+			fields="DOCORDER" type="3" import="0" />
+		<document-field-config desc="类型"
+			fields="DOCTYPE" type="1" import="0" />
+		<document-field-config desc="标题"
+			fields="DOCTITLE" type="4" import="1" />
+		<document-field-config desc="首页标题"
+			fields="DOCPEOPLE" type="2" import="1" />
+		<!--document-field-config desc="来源"
+			fields="DOCSOURCE" type="2" import="1" /-->
+		<document-field-config desc="来源"
+			fields="DOCSOURCENAME" type="2" import="1" />
+		<document-field-config desc="安全级别"
+			fields="DOCSECURITY" type="3" import="0" />
+		<document-field-config desc="状态"
+			fields="DOCSTATUS" type="2" import="0" />
+		<document-field-config desc="分类"
+			fields="DOCKIND" type="3" import="0" />
+		<document-field-config desc="发布时间"
+			fields="DOCPUBTIME" type="1" import="0" />
+		<!--仅用在文档导出 start-->
+		<document-field-config desc="正文"
+			fields="DOCCONTENT,DOCHTMLCON,DOCWORDSCOUNT" type="4" import="0" />
+		<!--仅用在文档导出 end-->
+		<!--仅用在文档导入 start-->
+		<document-field-config desc="正文内容"
+			fields="DOCCONTENT" type="3" import="1" />
+		<document-field-config desc="HTML内容"
+			fields="DOCHTMLCON" type="3" import="0" />
+		<document-field-config desc="正文字数统计"
+			fields="DOCWORDSCOUNT" type="3" import="0" />
+		<!--仅用在文档导入 ent-->
+		<document-field-config desc="摘要"
+			fields="DOCABSTRACT" type="2" import="1" />
+		<document-field-config desc="关键词"
+			fields="DOCKEYWORDS" type="2" import="1" />
+		<document-field-config desc="相关词"
+			fields="DOCRELWORDS" type="3" import="0" />
+		<document-field-config desc="文档涉及的人物"
+			fields="DOCPEOPLE" type="3" import="0" />
+		<document-field-config desc="文档涉及的地点"
+			fields="DOCPLACE" type="3" import="0" />
+		<document-field-config desc="作者"
+			fields="DOCAUTHOR" type="2" import="1" />
+		<document-field-config desc="编辑"
+			fields="DOCEDITOR" type="3" import="0" />
+		<document-field-config desc="输入"
+			fields="DOCOUTUPID" type="3" import="0" />
+		<document-field-config desc="有效时间"
+			fields="DOCVALID" type="3" import="0" />
+		<document-field-config desc="发布URL"
+			fields="DOCPUBURL" type="3" import="0" />
+		<document-field-config desc="发布时间"
+			fields="DOCPUBTIME" type="3" import="0" />
+		<document-field-config desc="撰写时间"
+			fields="DOCRELTIME" type="2" import="1" />
+		<document-field-config desc="创建用户"
+			fields="CRUSER" type="1" import="0" />
+		<document-field-config desc="创建时间"
+			fields="CRTIME" type="1" import="0" />
+		<document-field-config desc="属性"
+			fields="DOCPRO" type="3" import="0" />
+		<document-field-config desc="独立权限设置"
+			fields="RIGHTDEFINED" type="3" import="0" />
+		<document-field-config desc="标题颜色"
+			fields="TITLECOLOR" type="2" import="1" />
+		<document-field-config desc="计划发布任务编号"
+			fields="SCHEDULE" type="3" import="0" />
+		<document-field-config desc="标记"
+			fields="DOCFLAG" type="1" import="1" />
+		<document-field-config desc="附加属性"
+			fields="ATTRIBUTE" type="1" import="0" />
+		<document-field-config desc="点击率"
+			fields="HitsCount" type="3" import="0" />
+		<document-field-config desc="发布的正文"
+			fields="DOCPUBHTMLCON" type="3" import="0" />
+		<document-field-config desc="副标题"
+			fields="SubDocTitle" type="2" import="1" />
+		<document-field-config desc="是否附属图片"
+			fields="ATTACHPIC" type="1" import="0" />
+		<document-field-config desc="链接地址"
+			fields="DOCLINK" type="1" import="0" />
+		<document-field-config desc="外部文件名"
+			fields="DOCFILENAME" type="1" import="0" />
+	</extension>
+	<!--Config For Document Fields Publish Fields END-->
+
+	<!--Object Types BEGIN-->
+	<extension element-class="com.trs.infra.persistent.ObjectTypeConfig" id="ObjectTypes">
+		<object-type ObjectType="10000" name="扩展字段" ObjectClassName="com.trs.components.wcm.content.persistent.ContentExtField"/>
+		<object-type ObjectType="105" name="替换内容" ObjectClassName="com.trs.components.wcm.content.persistent.Replace"/>
+		<object-type ObjectType="106" name="内容超链接" ObjectClassName="com.trs.components.wcm.content.persistent.ContentLink"/>
+	</extension>
+	<!--Object Types END-->
+	<!--Config For the ShowField of Document List Begin-->
+	<extension element-class="com.trs.components.wcm.content.persistent.DocumentShowFieldConfig" 
+		id="DocumentShowFieldConfig">
+		<document-showfield-config desc="文档标题" fieldname="WCMDocument.DOCTITLE" write="false" read="true"/>		
+		
+		<document-showfield-config desc="副标题" fieldname="WCMDocument.SUBDOCTITLE" write="true" read="true"/>
+		<document-showfield-config desc="首页标题" fieldname="WCMDocument.DOCPEOPLE" write="true" read="true"/>
+		
+		<document-showfield-config desc="文档引用" fieldname="DOCQUOTE" write="true" read="true"/>
+
+		<document-showfield-config desc="状态" fieldname="WCMCHNLDOC.DOCSTATUS" write="false" read="true"/>
+		<document-showfield-config desc="撰写时间" fieldname="WCMCHNLDOC.DOCRELTIME" write="true" read="true"/>
+		<document-showfield-config desc="发稿人" fieldname="WCMCHNLDOC.CRUSER" write="false" read="true"/>
+		<document-showfield-config desc="创建时间" fieldname="WCMCHNLDOC.CRTIME" write="false" read="true"/>
+		<document-showfield-config desc="文档发布时间" fieldname="WCMCHNLDOC.DOCPUBTIME" write="false" read="true"/>
+
+		<document-showfield-config desc="最后的操作人" fieldname="WCMCHNLDOC.OPERUSER" write="false" read="true"/>
+		<document-showfield-config desc="最后的操作时间" fieldname="WCMCHNLDOC.OPERTIME" write="false" read="true"/>
+
+		<document-showfield-config desc="发布地址" fieldname="WCMCHNLDOC.DOCPUBURL" write="false" read="true"/>
+		<document-showfield-config desc="所在栏目" fieldname="WCMCHNLDOC.DOCCHANNEL" write="true" read="true"/>
+		<document-showfield-config desc="关键词" fieldname="WCMDocument.DOCKEYWORDS" write="true" read="true"/>
+
+		<document-showfield-config desc="来源" fieldname="WCMDocument.DOCSOURCENAME" write="true" read="true"/>
+		<document-showfield-config desc="作者" fieldname="WCMDocument.DOCAUTHOR" write="true" read="true"/>
+		<document-showfield-config desc="字数" fieldname="WCMDocument.DOCWORDSCOUNT" write="false" read="true"/>	
+		
+		<document-showfield-config desc="摘要" fieldname="WCMDocument.DOCABSTRACT" write="true" read="false"/>
+		<document-showfield-config desc="引用到的栏目" fieldname="REFTOCHANNEL" write="true" read="false"/>
+		<document-showfield-config desc="置顶" fieldname="ORDERPRI" write="true" read="false"/>
+		<document-showfield-config desc="发布设置" fieldname="PUBCONFIG" write="true" read="false"/>
+	</extension>
+	<!--Config For the ShowField of Document List END-->
+</plugin>

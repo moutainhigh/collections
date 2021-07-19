@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>日志查询</sort-name>
+  <table-info name="first_page_query" class-name="com.gwssi.log.systemlog.dao.FirstPageQuery" check-flag="false" backup-flag="false">
+    <description>系统日志</description>
+  </table-info>
+
+  <column name="first_page_query_id" data-type="varchar" length="100" not-null="false" empty-is-null="false" unique="false" value-from="input" description="主键"/>
+  <column name="count" data-type="long" length="0" not-null="false" value-from="input" description="数量"/>
+  <column name="num" data-type="long" length="0" not-null="false" value-from="input" description="总数"/>
+  <column name="query_date" data-type="varchar" length="10" not-null="false" value-from="input" description="操作日期"/>
+  <column name="query_time" data-type="varchar" length="30" not-null="false" value-from="input" description="操作时间"/>
+  <column name="username" data-type="varchar" length="24" not-null="false" value-from="input" description="用户名"/>
+  <column name="opername" data-type="varchar" length="24" not-null="false" value-from="input" description="操作名称"/>
+  <column name="orgid" data-type="varchar" length="32" not-null="false" value-from="input" description="组织ID"/>
+  <column name="orgname" data-type="varchar" length="64" not-null="false" value-from="input" description="组织名称"/>
+  <column name="ipaddress" data-type="varchar" length="16" not-null="false" value-from="input" description="ip地址"/>
+  <column name="first_cls" data-type="varchar" length="100" not-null="false" empty-is-null="false" unique="false" value-from="input"/>
+  <column name="second_cls" data-type="varchar" length="100" not-null="false" empty-is-null="false" unique="false" value-from="input"/>
+  <column name="operfrom" data-type="varchar" length="2" not-null="false" empty-is-null="false" unique="false" value-from="input"/>
+  <primary-key name="pk_first_page_query" column-list="first_page_query_id"/>
+  <index name="pk_first_page_query" index-type="unique" cluster="cluster" column-list="first_page_query_id"/>
+  <function func-name="select one first_page_query_sl" func-type="select" column-list="first_page_query_id,count,num,query_date,query_time,username,opername,orgid,orgname,ipaddress,first_cls,second_cls,operfrom">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select first_page_query_sl list" func-type="rowset" column-list="first_page_query_id,count,num,query_date,query_time,username,opername,orgid,orgname,ipaddress,first_cls,second_cls,operfrom" max-record="10">
+    <filter-column column-name="query_time" operator="between" value-from="input" value-item="creat_start_time" value-item2="creat_end_time" empty-flag="skip"/>
+    <filter-column column-name="username" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="opername" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="orgname" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="operfrom" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one first_page_query_sl" func-type="insert" column-list="first_page_query_id,count,num,query_date,query_time,username,opername,orgid,orgname,ipaddress,first_cls,second_cls,operfrom">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one first_page_query_sl" func-type="delete">
+    <filter-column column-name="first_page_query_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one first_page_query_sl" func-type="update" column-list="first_page_query_id,count,num,query_date,query_time,username,opername,orgid,orgname,ipaddress,first_cls,second_cls,operfrom">
+    <filter-column column-name="first_page_query_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<!-- <link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" /> -->
+<link href="../../../static/lib/JAZZ-UI/demos/classic/imageview/clsc/jazz-all/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/approvalCommon.css" rel="stylesheet" type="text/css" />
+<style>
+<style>
+.jazz-imageview-wrap .jazz-imageview-toolbar{
+	/* background-color:transparent;  */
+    }
+.pic{
+	background: #EAF3F9;
+    width:510px;
+    height:536px;
+    float: left;
+   /* margin-top: 0; */
+}
+aside{
+	width:380px;
+    height:564px;
+    background: #F2F2F2;
+    float: left;
+}
+.data_detail{
+	background: #fff;
+    width:100%;
+    border-bottom: 1px solid #c6c6c6;
+    display:none;
+}
+.suggest{
+	background: #fff;
+    margin:6px auto 6px auto;
+    border:1px solid #B4CAE9;
+    height:220px;
+}
+.suggestion{
+	background: #fff;
+    margin:6px auto 6px auto;
+    border:1px solid #B4CAE9;
+    height:150px;
+}
+.suggest-top{
+	width:100%;
+    height:28px;
+    line-height:28px;
+    background:#B4CAE9;
+}
+#btn-box{
+	width:100%;
+	text-align: center;
+ /*    height:26px;
+    line-height:26px; */
+}
+#commonBt{
+	width:70px;
+    margin:0 4px 5px 4px;
+}
+
+.suggest-top span{
+	padding:0 4px;
+}
+ textarea{
+	border:none;
+	font: 12px/1.5em simsun;
+	height: 120px;
+    width: 100%;
+}
+textarea:focus{
+	border:none;
+    outline:0;
+}
+.zoompic{
+          
+}
+.sliderbox{
+	width:500px;
+    margin:0 auto;
+}
+
+.sliderbox li{
+	float: left;
+	position:relative;
+    list-style: outside none none;
+    margin: 0 4px;
+    cursor:pointer;
+}
+.sliderbox li.selected{
+    bottom:10px;
+}
+img{
+    display:inline;
+    padding:0;
+    margin:0;
+}
+.state0{
+    border:3px solid #4B7FF6;
+}
+.state1{
+    border:3px solid #F6BB4B;
+}
+.state4{
+    border:3px solid #F54A4A;
+}
+.state3{
+    border:3px solid #7BAF4E;
+}
+.slider img{
+	width:50px;
+    height: 48px;
+    border:1px solid blue;
+    margin-left: 2px;
+    float: left;     
+}
+
+.jazz-imageview-wrap{
+     /* border:1px solid #000; */
+     margin:0 auto;
+     background:#eee;
+ }
+ .omit{
+    background-color: #2e9ee4;
+    width: 80px;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    display: inline-block;
+    /* margin: 16px 5px 0; */
+    cursor: pointer;
+    margin-left:25px;
+    margin-bottom:-5px;
+    *display:inline;
+    *zoom:1;
+}
+.omit:hover{
+    background-color:#2488c7;
+}
+.imgPostion{
+	text-align: center;
+}
+.topBar{
+	padding:5px;
+	color:#2e9ee4;
+}
+.detailInfo{
+	margin:10px;
+	height:190px;
+	overflow:auto;
+}
+.detailInfo div{
+ height:25px;
+}
+.bottomBar{
+	color:#2e9ee4;
+	margin-left:10px;
+	margin-top:5px;
+}
+.shortContent{
+    height:80px;
+    overflow:auto;
+}
+.slide_content{
+    overflow:hidden;
+    float:left;
+    width:450px;
+    padding: 10px 0;
+    margin-top:18px;
+}
+.slide_left{
+    float:left;
+    width:21px;
+    height:22px;
+    margin-top: 40px;
+    background:url(../../../static/image/approve/leftarrow.png) no-repeat 0 0;
+}
+.slide_right{
+    float:left;
+    width:21px;
+    height:22px;
+    margin-top: 40px;
+    background:url(../../../static/image/approve/rightarrow.png) no-repeat 0 0;
+}
+.leftInfo{
+	float:left;
+	margin:15px;
+}
+.rightInfo img{
+	/* margin:-90px 10px 0 100px; */
+	width:100px;
+	height:100px;
+	border:1px solid #B4CAE9;
+	float:right;
+	
+}
+
+/*将当前选中的图片向上移动一小步*/
+.sliderbox li.selected{
+    bottom:10px;
+}
+#zrr,#fzrr{display: none;}
+</style>
+
+</head>
+<body>
+    <div style="width: 850px;background: #f2f2f2;height: 536px;margin:0 auto">
+        <div class="pic">
+            <div class="zoompic">
+            <div id="bigimage" vtype="imageviewer" imagesrc="" name="imgviewer" watermarkurl=""
+               isshowtoolbar="true" ismovetocenter="true" iszoom="true" isrotate="true" width="500" height="400">
+            </div> 
+            <input type="hidden" id="fileId" value="">   
+            <input type="hidden" id="bizId" value="">  
+            </div>
+            <div class="sliderbox clearfix">
+<!--                 <div class="slide_left"></div> -->
+                <div class="slide_content">
+                    <ul id='imgList' style="position: relative;left:0;">
+                    </ul>
+                </div>
+<!--                 <div class="slide_right"></div> -->
+            </div>
+        </div>
+        <div style="float:right;width:340px;">
+    		<div id="zrr" class="suggest">
+            	<div class="suggest-top">
+            		<span>用户信息</span>
+            	</div>
+            	<div class="detailInfo">
+            	    <div>姓名：<span id="name"></span></div>
+            	    <div>证件号码：<span id="codeId"></span></div>
+            	</div>
+            </div>
+            <div id="fzrr" class="suggest">
+            	<div class="suggest-top">
+            		<span>法人股东</span>
+            	</div>
+            	<div class="detailInfo">
+            	    <div>名称：<span id="entName"></span></div>
+            	    <div>注册号/统一社会信用代码：<span id="uniScid"></span></div>
+            	    <div></div>
+            	    <div>企业联系人：<span id="contactName"></span></div>
+            	    <div>证件号码：<span id="contactCerNo"></span></div>
+            	    <div>移动电话：<span id="mobile"></span></div>
+            	</div>
+            </div>
+            <div class="suggestion">
+                <div class="suggest-top">
+                    <span>审查意见</span>
+                </div>
+                <textarea id="suggestion" rows="4" cols="50"></textarea> 
+            </div>
+            <div class="btn-box" id="btn-box">
+                <div class="middleBt" id="pass">通过</div>
+                <div class="middleBt" id="nopass">不通过</div>
+                <div class="middleBt"  id="close_button">关闭</div>
+            </div>
+        </div>
+    </div>
+
+
+<script type="text/javascript" src="../../../static/lib/jquery-1.8.3.js"></script> 
+<script type="text/javascript" src="../../../static/lib/jquery-ui-1.9.2.custom.js"></script>
+<script type="text/javascript" src="../../../static/lib/JAZZ-UI/demos/classic/imageview/clsc/jazz-all/jazz-all.js"></script>
+<script type="text/javascript" src="../../../static/js/approve/liveIdentityCheckTorch.js"></script> 
+</body>
+</html>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的 
+	例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀) -->
+<mapper namespace="com.ly.dao.SellDao">
+
+	<!--resultMap注释 http://www.cnblogs.com/kenhome/p/7764398.html  -->
+
+	<select id="getSellList"  resultType="Sell">
+		select * from  sell t
+	</select>
+	
+	
+		<select id="getSellByParam"  resultType="Sell">
+		select * from  sell t
+	</select>
+	
+	
+		<select id="getSellTotalByParam"  resultType="Integer">
+		select count(1) from  sell t
+	</select>
+	
+
+	<insert id="save">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from sell t where t.code = #{code}
+		</selectKey>
+		<if test="count > 0">
+			update sell
+			<trim prefix="set" suffixOverrides=",">
+				<if test="code != null">code = #{code, jdbcType=VARCHAR},</if>
+				<if test="name != null">name = #{name, jdbcType=VARCHAR},</if>
+				<if test="weiTuoBuyPrice != null">weiTuoBuyPrice = #{weiTuoBuyPrice, jdbcType=VARCHAR},</if>
+				<if test="weiTuoBuyNum != null">weiTuoBuyNum = #{weiTuoBuyNum, jdbcType=VARCHAR},</if>
+				<if test="buyDate != null">buyDate = #{buyDate, jdbcType=VARCHAR},</if>
+				<if test="weiTuoTodaySellPrice != null">weiTuoTodaySellPrice = #{weiTuoTodaySellPrice, jdbcType=VARCHAR},</if>
+			</trim>
+			where code = #{code}
+		</if>
+		<if test="count == 0">
+		insert into sell
+		(
+		code,
+		name,
+		weiTuoBuyPrice,
+		weiTuoBuyNum,
+		buyDate,
+		weiTuoTodaySellPrice
+		)
+		values
+		(
+		#{code, jdbcType=VARCHAR},
+		#{name, jdbcType=VARCHAR},
+		#{weiTuoBuyPrice, jdbcType=VARCHAR},
+		#{weiTuoBuyNum, jdbcType=VARCHAR},
+		#{buyDate, jdbcType=VARCHAR},
+		#{weiTuoTodaySellPrice, jdbcType=VARCHAR}
+		)
+		</if>
+	</insert>
+	
+	<delete id="del">
+		delete from  sell  where code = #{code}
+	</delete>
+	
+	
+	<!-- <insert id="save">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(1) from sell t where t.code = #{code}
+		</selectKey>
+		<if test="count > 0">
+			update sell
+			<trim prefix="set" suffixOverrides=",">
+				<if test="code != null">code = #{code, jdbcType=VARCHAR},</if>
+				<if test="name != null">name = #{name, jdbcType=VARCHAR},</if>
+				<if test="costPrice != null">costPrice = #{costPrice, jdbcType=VARCHAR},</if>
+				<if test="weiTuoBuyPrice != null">weiTuoBuyPrice = #{weiTuoBuyPrice, jdbcType=VARCHAR},</if>
+				<if test="weiTuoBuyNum != null">weiTuoBuyNum = #{weiTuoBuyNum, jdbcType=VARCHAR},</if>
+				<if test="buyDate != null">buyDate = #{buyDate, jdbcType=VARCHAR},</if>
+			</trim>
+			where code = #{code}
+		</if>
+		<if test="count == 0">
+			insert into sell
+			(
+			code,
+			name,
+			costPrice,
+			weiTuoBuyPrice,
+			weiTuoBuyNum,
+			buyDate
+			)
+			values
+			(
+			#{code, jdbcType=VARCHAR},
+			#{name, jdbcType=VARCHAR},
+			#{costPrice, jdbcType=VARCHAR},
+			#{weiTuoBuyPrice, jdbcType=VARCHAR},
+			#{weiTuoBuyNum, jdbcType=VARCHAR},
+			#{buyDate, jdbcType=VARCHAR}
+			)
+		</if>
+	</insert> -->
+</mapper>

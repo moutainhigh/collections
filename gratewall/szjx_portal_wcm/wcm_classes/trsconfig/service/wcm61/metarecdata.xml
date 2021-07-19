@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.metadata.service.MetaDataCenterServiceProvider">
+	<method name="saveMetaViewData">
+		<parameter name="ObjectId" desc="要保存的视图数据ID" type="int"
+			required="true" />
+
+		<parameter name="ViewId" desc="视图ID（新增是否必须传入）" type="int"
+			required="false" min-value="0" />
+		<parameter name="ChannelId" desc="所属栏目ID（新增是否必须传入）" type="int"
+			required="false" min-value="0" />
+	</method>
+
+	<method name="findViewDataById">
+		<parameter name="ObjectId" desc="视图数据ID" type="int"
+			required="true" />
+
+		<parameter name="ViewId" desc="视图ID（优先级大于栏目ID）" type="int"
+			required="false" min-value="0" />
+		<parameter name="ChannelId" desc="所属栏目ID（优先级小于视图ID）" type="int"
+			required="false" min-value="0" search-field="true" />
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string"
+			required="false" default="yyyy-MM-dd" />
+	</method>
+
+	<method name="findById" provider="com.trs.ajaxservice.ViewDocumentServiceProvider"  convertor="uri:/app/metarecdata/metarecdata_findbyid.jsp">
+		<parameter name="ObjectId" desc="ChnlDoc中的RecID" type="int" required="true"/>
+		<parameter name="ChannelId" desc="栏目ID" type="int" required="false"/>
+		<parameter name="SiteId" desc="站点ID" type="int" required="false"/>	
+		<parameter name="SelectFieldsOfChnlDoc" default="DocStatus,CrTime,CrUser,RecId,DOCID,ChnlId" desc="提取的ChnlDoc字段列表" type="string" required="false"/>
+		<parameter name="SelectFieldsOfDocument" default="DOCID,CrTime,DocTitle,DocType,DocKeyWords,DocPeople,SubDocTitle,DocChannel,DocSource,DocSourceName,CrUser" desc="提取的Document字段列表" type="string" required="false"/>		                 
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+	</method>
+
+	<method name="queryViewDatas">
+		<parameter name="ViewId" desc="视图ID（优先级大于栏目ID）" type="int"
+			required="false" min-value="0" />
+		<parameter name="ChannelId" desc="所属栏目ID（优先级小于视图ID）" type="int"
+			required="false" min-value="0" />
+
+		<!--排序字段及方式-->
+		<parameter name="OrderBy" desc="排序字段及方式" type="string"
+			required="false" />
+
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string"
+			required="false" default="yyyy-MM-dd" />
+		<parameter name="ChnlDocSelectFields" desc="ChnlDoc提取的字段列表"
+			type="string" required="false"
+			default="WCMChnlDoc.DOCID,WCMChnlDoc.ChnlId,WCMChnlDoc.DocStatus,WCMChnlDoc.DocChannel,WCMChnlDoc.DocOrderPri,WCMChnlDoc.Modal,WCMChnlDoc.RecId" />
+	</method>
+
+	<method name="jQuery" truename="queryViewDatas"  convertor="uri:/app/metarecdata/metarecdata_query.jsp"/>
+</service>

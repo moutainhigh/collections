@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>采集服务</sort-name>
+  <table-info name="sys_clt_log" class-name="com.gwssi.dw.runmgr.services.dao.SysCltLog" check-flag="false" backup-flag="false">
+    <description>采集日志</description>
+  </table-info>
+
+  <column name="sys_clt_log_id" data-type="varchar" length="32" not-null="true" value-from="input" description="主键"/>
+  <column name="sys_clt_user_id" data-type="varchar" length="32" not-null="true" value-from="input" description="采集策略外键"/>
+  <column name="clt_startdate" data-type="varchar" length="10" not-null="true" value-from="input" description="采集数据开始日期"/>
+  <column name="clt_enddate" data-type="varchar" length="10" not-null="true" value-from="input" description="采集数据结束日期"/>
+  <column name="exc_starttime" data-type="varchar" length="20" not-null="true" value-from="input" description="采集执行开始时间"/>
+  <column name="exc_endtime" data-type="varchar" length="20" not-null="true" value-from="input" description="采集执行结束时间"/>
+  <column name="state" data-type="char" length="1" not-null="true" value-from="input" description="采集状态（0表示失败1表示成功）"/>
+  <column name="logdesc" data-type="varchar" length="200" not-null="false" value-from="input" description="日志描述"/>
+  <primary-key name="sys_c008568" column-list="sys_clt_log_id"/>
+  <index name="sys_c008568" index-type="unique" cluster="cluster" column-list="sys_clt_log_id"/>
+  <function func-name="select sys_clt_log list" func-type="rowset" column-list="sys_clt_log_id, sys_clt_user_id, clt_startdate, clt_enddate, exc_starttime, exc_endtime, state, logdesc" sort-columns="clt_startdate desc,clt_enddate desc" max-record="10">
+    <filter-column column-name="sys_clt_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>查询日志</description>
+  </function>
+</table>
+

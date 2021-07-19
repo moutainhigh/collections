@@ -1,0 +1,2364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="gz_dm_jcdm_fx" class-name="com.gwssi.dw.metadata.basecode.dao.GzDmJcdmFx" check-flag="false" backup-flag="false">
+    <description>基础代码分项表</description>
+  </table-info>
+
+  <column name="jcsjfx_id" data-type="varchar" length="36" not-null="true" value-from="generate" func-name="getUUID" description="基础数据分项ID"/>
+  <column name="jc_dm_id" data-type="varchar" length="36" not-null="true" value-from="input" description="基础代码ID"/>
+  <column name="jcsjfx_dm" data-type="varchar" length="36" not-null="false" value-from="input" description="基础数据分项代码"/>
+  <column name="jcsjfx_mc" data-type="varchar" length="255" not-null="false" value-from="input" description="基础数据分项名称"/>
+  <column name="jcsjfx_cjm" data-type="varchar" length="36" not-null="false" value-from="input" description="基础数据分项层级码"/>
+  <column name="jcsjfx_fjd" data-type="varchar" length="36" not-null="false" value-from="input" description="基础数据分项父节点代码"/>
+  <column name="szcc" data-type="char" length="2" not-null="false" value-from="input" description="所在层次"/>
+  <column name="xssx" data-type="integer" length="10" not-null="false" value-from="input" description="显示顺序"/>
+  <column name="sfmx" data-type="char" length="1" not-null="false" value-from="input" description="是否明细"/>
+  <column name="fx_ms" data-type="varchar" length="4096" not-null="false" value-from="input" description="分项描述"/>
+  <column name="sy_zt" data-type="char" length="1" not-null="false" value-from="input" description="使用状态"/>
+  <primary-key name="p_jcsjfx_id" column-list="jcsjfx_id"/>
+  <index name="p_jcsjfx_id" index-type="unique" cluster="other" column-list="jcsjfx_id"/>
+  <index name="fxlfx_fk" index-type="other" cluster="other" column-list="jc_dm_id"/>
+  <function func-name="select one gz_dm_jcdm_fx" func-type="select" column-list="jcsjfx_id,jc_dm_id,jcsjfx_dm,jcsjfx_mc,jcsjfx_cjm,jcsjfx_fjd,szcc,xssx,sfmx,fx_ms,sy_zt">
+    <filter-column column-name="jcsjfx_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_id, jc_dm_id, jcsjfx_dm, jcsjfx_mc, jcsjfx_cjm, jcsjfx_fjd, szcc, xssx, sfmx, fx_ms, sy_zt" sort-columns="jcsjfx_dm" max-record="10">
+    <filter-column column-name="jcsjfx_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="jcsjfx_dm" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="jcsjfx_mc" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sy_zt" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one gz_dm_jcdm_fx" func-type="insert" column-list="jcsjfx_id, jc_dm_id, jcsjfx_dm, jcsjfx_mc, jcsjfx_fjd, szcc, xssx, sfmx, fx_ms, sy_zt">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one gz_dm_jcdm_fx" func-type="delete">
+    <filter-column column-name="jcsjfx_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one gz_dm_jcdm_fx" func-type="update" column-list="jc_dm_id,jcsjfx_dm,jcsjfx_mc,szcc,xssx,fx_ms">
+    <filter-column column-name="jcsjfx_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="select BZZD02 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100100"/>
+    <description>标志位字段（1-是，0-否）</description>
+  </function>
+
+  <function func-name="select BZZD01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100141"/>
+    <description>标志字段（1-是，0-否）</description>
+  </function>
+
+  <function func-name="select CA02 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150002"/>
+    <description>国别(地区)代码CA02</description>
+  </function>
+
+  <function func-name="select DFCI10 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072802"/>
+    <description>国别代码DFCI10</description>
+  </function>
+
+  <function func-name="select DFCI11 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072803"/>
+    <description>省市代码DFCI11</description>
+  </function>
+
+  <function func-name="select CB17 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150034"/>
+    <description>性别代码CB17</description>
+  </function>
+
+  <function func-name="select CA01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150001"/>
+    <description>行政区划代码CA01</description>
+  </function>
+
+  <function func-name="select DFCA40 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903250001"/>
+    <description>部门代码表DFCA40原100142，现修改为SJZXDEPT</description>
+  </function>
+
+  <function func-name="select DFCA40 gz_dm_jcdm_fx list new" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150075"/>
+    <description>股权质押注销原因DFCA40</description>
+  </function>
+
+  <function func-name="select DFCA41 gz_dm_jcdm_fx list new" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150076"/>
+    <description>出质状态DFCA41</description>
+  </function>
+
+  <function func-name="select DFCA42 gz_dm_jcdm_fx list new" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150077"/>
+    <description>出质登记操作状态DFCA42</description>
+  </function>
+
+  <function func-name="select DFCA43 gz_dm_jcdm_fx list new" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150078"/>
+    <description>企业联系人类型DFCA43</description>
+  </function>
+
+  <function func-name="select DFCD16 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100139"/>
+    <description>问题类型</description>
+  </function>
+
+  <function func-name="select CA16 gz_dm_jcdm_fx list reg_01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150007"/>
+    <description>企业(机构)类型代码ENT_TYPE</description>
+  </function>
+
+  <function func-name="select DFCA25 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903130005"/>
+    <description>名称企业类型代码DFCA25</description>
+  </function>
+
+  <function func-name="select DFCA04 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903130006"/>
+    <description>名称授权类型代码DFCA04</description>
+  </function>
+
+  <function func-name="select DFCA05 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903270001"/>
+    <description>名称核准类型代码DFCA05</description>
+  </function>
+
+  <function func-name="select DFMC02 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903130004"/>
+    <description>名称类型代码DFMC02</description>
+  </function>
+
+  <function func-name="select DFODJ01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="15072812"/>
+    <description>企业(机构)类型代码DFODJ01</description>
+  </function>
+
+  <function func-name="select CA05 gz_dm_jcdm_fx list reg_02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150004"/>
+    <description>行业门类代码INDUSTRY_PHY</description>
+  </function>
+
+  <function func-name="select CA06 gz_dm_jcdm_fx list reg_03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150005"/>
+    <description>国民经济行业代码INDUSTRY_CO</description>
+  </function>
+
+  <function func-name="select CA44 gz_dm_jcdm_fx list reg_04" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150016"/>
+    <description>住所产权代码CA44</description>
+  </function>
+
+  <function func-name="select CD10 gz_dm_jcdm_fx list reg_05" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150045"/>
+    <description>设立方式代码INS_FORM</description>
+  </function>
+
+  <function func-name="select CD14 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150047"/>
+    <description>清算完结情况代码CD14</description>
+  </function>
+
+  <function func-name="select DFCA42 gz_dm_jcdm_fx list reg_06" func-type="rowset" column-list="jcsjfx_dm as codevalue, jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150031"/>
+    <filter-column column-name="jcsjfx_dm" operator="ne" value-from="default" empty-flag="skip" default="WB"/>
+    <description>企业分类ENT_SORT</description>
+  </function>
+
+  <function func-name="select CA46 gz_dm_jcdm_fx list reg_app07" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150017"/>
+    <description>隶属关系代码HYPOTAXIS</description>
+  </function>
+
+  <function func-name="select CB16 gz_dm_jcdm_fx list reg_mem08" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150033"/>
+    <description>证件类型代码CB16</description>
+  </function>
+
+  <function func-name="select CA63 gz_dm_jcdm_fx list reg_mem09" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150020"/>
+    <description>发照原因代码REP_STATE</description>
+  </function>
+
+  <function func-name="select CB18 gz_dm_jcdm_fx list reg_mem10" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_mc" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150035"/>
+    <description>职务代码POSITION(新登记修改，原15072814)</description>
+  </function>
+
+  <function func-name="select CB19 gz_dm_jcdm_fx list reg_mem11" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150036"/>
+    <description>职务产生方式代码POS_BR_FORM</description>
+  </function>
+
+  <function func-name="select CB30 gz_dm_jcdm_fx list reg_mem12" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150037"/>
+    <description>政治面貌代码CB30</description>
+  </function>
+
+  <function func-name="select CB32 gz_dm_jcdm_fx list reg_mem13" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150038"/>
+    <description>民族代码CB32</description>
+  </function>
+
+  <function func-name="select DFCE34 gz_dm_jcdm_fx list cas_cas01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100120"/>
+    <description>当事人类型DFCE34</description>
+  </function>
+
+  <function func-name="select CB33 gz_dm_jcdm_fx list cas_cas02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150039"/>
+    <description>文化程度CB33</description>
+  </function>
+
+  <function func-name="select DFCE24 gz_dm_jcdm_fx list cas_cas03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100110"/>
+    <description>案件系统用户表DFCE24</description>
+  </function>
+
+  <function func-name="select DFCE13 gz_dm_jcdm_fx list cas_cas04" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100099"/>
+    <description>核审类别代码DFCE13</description>
+  </function>
+
+  <function func-name="select DFCE16 gz_dm_jcdm_fx list cas_cas05" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100102"/>
+    <description>案件密级DFCE16</description>
+  </function>
+
+  <function func-name="select DFCE39 gz_dm_jcdm_fx list cas_cas06" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100125"/>
+    <description>案件状态DFCE39</description>
+  </function>
+
+  <function func-name="select DFCE12 gz_dm_jcdm_fx list cas_cas07" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100098"/>
+    <description>广告主体类型代码DFCE12</description>
+  </function>
+
+  <function func-name="select DFCH37 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="ec24bdc9a9cf4f6197ec964d436d1085"/>
+    <description>广告案件承办单位DFCH37</description>
+  </function>
+
+  <function func-name="select DFCE30 gz_dm_jcdm_fx list cas_cas08" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100116"/>
+    <description>合同种类DFCE30</description>
+  </function>
+
+  <function func-name="select DFCE25 gz_dm_jcdm_fx list cas_cas09" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100111"/>
+    <description>销案类型DFCE25</description>
+  </function>
+
+  <function func-name="select DFCE23 gz_dm_jcdm_fx list cas_cas10" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100109"/>
+    <description>特殊案件DFCE23</description>
+  </function>
+
+  <function func-name="select DFCE32 gz_dm_jcdm_fx list cas_cas11" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100118"/>
+    <description>强制措施DFCE32</description>
+  </function>
+
+  <function func-name="select DFCE20 gz_dm_jcdm_fx list cas_cas12" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100106"/>
+    <description>处罚权限DFCE20</description>
+  </function>
+
+  <function func-name="select DFCE26 gz_dm_jcdm_fx list cas_cas13" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100112"/>
+    <description>广告形式DFCE26</description>
+  </function>
+
+  <function func-name="select DFCE28 gz_dm_jcdm_fx list cas_cas14" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100114"/>
+    <description>案件性质DFCE28</description>
+  </function>
+
+  <function func-name="select DFCE01 gz_dm_jcdm_fx list cas_cas15" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100087"/>
+    <description>案件类别字典DFCE01</description>
+  </function>
+
+  <function func-name="select DFCE02 gz_dm_jcdm_fx list cas_cas15" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100088"/>
+    <description>不立案原因DFCE02</description>
+  </function>
+
+  <function func-name="select DFCE03 gz_dm_jcdm_fx list cas_cas15" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100089"/>
+    <description>案件处罚依据DFCE03</description>
+  </function>
+
+  <function func-name="select DFCE06 gz_dm_jcdm_fx list cas_cas16" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100092"/>
+    <description>案件性质大类字典DFCE06</description>
+  </function>
+
+  <function func-name="select DFCE21 gz_dm_jcdm_fx list cas_cas17" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100107"/>
+    <description>举报(投诉)方式DFCE21</description>
+  </function>
+
+  <function func-name="select DFCE19 gz_dm_jcdm_fx list cas_cas18" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100105"/>
+    <description>状态代码DFCE19</description>
+  </function>
+
+  <function func-name="select DFCE07 gz_dm_jcdm_fx list cas_cas19" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100093"/>
+    <description>案件系统部门代码DFCE07</description>
+  </function>
+
+  <function func-name="select DFCE04 gz_dm_jcdm_fx list cas_cas20" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100090"/>
+    <description>处罚依据类别字典DFCE04</description>
+  </function>
+
+  <function func-name="select DFCE33 gz_dm_jcdm_fx list cas_cas21" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100119"/>
+    <description>强制执行结果DFCE33</description>
+  </function>
+
+  <function func-name="select DFCE08 gz_dm_jcdm_fx list cas_clue01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903250001"/>
+    <description>案件系统部门代码DFCE08原100094，现修改为SJZXDEPT</description>
+  </function>
+
+  <function func-name="select DFCE29 gz_dm_jcdm_fx list cas_clue02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100115"/>
+    <description>案件来源DFCE29</description>
+  </function>
+
+  <function func-name="select DFCE40 gz_dm_jcdm_fx list cas_clue03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100126"/>
+    <description>案件类型DFCE40</description>
+  </function>
+
+  <function func-name="select DFCE11 gz_dm_jcdm_fx list cas_mat01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100097"/>
+    <description>罚没物品状态DFCE11</description>
+  </function>
+
+  <function func-name="select DFCE05 gz_dm_jcdm_fx list cas_mat02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100091"/>
+    <description>商品物资字典DFCE05</description>
+  </function>
+
+  <function func-name="select DFCE15 gz_dm_jcdm_fx list cas_rev01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100101"/>
+    <description>听证结果代码DFCE15</description>
+  </function>
+
+  <function func-name="select DFCE10 gz_dm_jcdm_fx list cas_rev02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100096"/>
+    <description>听证类型DFCE10</description>
+  </function>
+
+  <function func-name="select DFCE38 gz_dm_jcdm_fx list cas_rev03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100124"/>
+    <description>复议类别DFCE38</description>
+  </function>
+
+  <function func-name="select DFCE17 gz_dm_jcdm_fx list cas_rev04" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100103"/>
+    <description>复议申请与受理方式代码DFCE17</description>
+  </function>
+
+  <function func-name="select DFCE09 gz_dm_jcdm_fx list cas_rev05" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100095"/>
+    <description>一审结果DFCE09</description>
+  </function>
+
+  <function func-name="select DFCE31 gz_dm_jcdm_fx list cas_rev06" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100117"/>
+    <description>诉讼受理法院DFCE31</description>
+  </function>
+
+  <function func-name="select DFCE22 gz_dm_jcdm_fx list cas_rev07" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100108"/>
+    <description>二审结果DFCE22</description>
+  </function>
+
+  <function func-name="select DFCD04 gz_dm_jcdm_fx list new_reg" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150089"/>
+    <description>变更备案事项DFCD04</description>
+  </function>
+
+  <function func-name="select DFCD05 gz_dm_jcdm_fx list mon_ent01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150090"/>
+    <description>登记业务类型DFCD05</description>
+  </function>
+
+  <function func-name="select DFCZ02 gz_dm_jcdm_fx list new_reg" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150094"/>
+    <description>进入系统方式DFCZ02</description>
+  </function>
+
+  <function func-name="select DFCE14 gz_dm_jcdm_fx list new_reg" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150091"/>
+    <description>是否标志位DFCE14</description>
+  </function>
+
+  <function func-name="select DFCA41 gz_dm_jcdm_fx list mon_ent03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="15062701"/>
+    <description>行业大类代码DFCA41</description>
+  </function>
+
+  <function func-name="select CA50 gz_dm_jcdm_fx list reg_lic01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150018"/>
+    <description>证照类型代码CA50</description>
+  </function>
+
+  <function func-name="select CA61 gz_dm_jcdm_fx list reg_lic02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150019"/>
+    <description>证照状态代码CA61</description>
+  </function>
+
+  <function func-name="select CA75 gz_dm_jcdm_fx list reg_cap01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150026"/>
+    <description>外资产业代码CA75</description>
+  </function>
+
+  <function func-name="select DFCA07 gz_dm_jcdm_fx list reg_cap02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150057"/>
+    <description>外国企业主营行业DFCA07</description>
+  </function>
+
+  <function func-name="select CA76 gz_dm_jcdm_fx list reg_cap03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150027"/>
+    <description>中西部优势产业代码CA76</description>
+  </function>
+
+  <function func-name="select CA04 gz_dm_jcdm_fx list reg_cap04" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150003"/>
+    <description>币种代码CA04</description>
+  </function>
+
+  <function func-name="select DFCA10 gz_dm_jcdm_fx list reg_cap05" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100066"/>
+    <description>深圳市产业功能区DFCA10</description>
+  </function>
+
+  <function func-name="select CA70 gz_dm_jcdm_fx list reg_cap06" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150022"/>
+    <description>经营活动类型代码CA70</description>
+  </function>
+
+  <function func-name="select CA80 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150028"/>
+    <description>质权人类别代码CA80</description>
+  </function>
+
+  <function func-name="select CA90 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150029"/>
+    <description>申请方式代码CA90</description>
+  </function>
+
+  <function func-name="select CD01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903130009"/>
+    <description>业务类型代码CD01</description>
+  </function>
+
+  <function func-name="select CA92 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903250001"/>
+    <description>登记机关代码CA92原200901150031，现修改为SJZXDEPT</description>
+  </function>
+
+  <function func-name="select CA92A gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903240001"/>
+    <description>管辖区县代码CA92A</description>
+  </function>
+
+  <function func-name="select CA93 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150032"/>
+    <description>变更类型代码CA93</description>
+  </function>
+
+  <function func-name="select CA24 gz_dm_jcdm_fx list reg_inv01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150010"/>
+    <description>投资人类型代码CA24</description>
+  </function>
+
+  <function func-name="select DFCA16 gz_dm_jcdm_fx list reg_inv02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150066"/>
+    <description>承担责任方式DFCA16</description>
+  </function>
+
+  <function func-name="select DFCA17 gz_dm_jcdm_fx list reg_inv03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100077"/>
+    <description>户口性质DFCA17</description>
+  </function>
+
+  <function func-name="select DFCA46 gz_dm_jcdm_fx list reg_inv03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903240002"/>
+    <description>正副本标识DFCA46</description>
+  </function>
+
+  <function func-name="select CA25 gz_dm_jcdm_fx list reg_lic03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150011"/>
+    <description>许可文件类型代码CA25</description>
+  </function>
+
+  <function func-name="select CA26 gz_dm_jcdm_fx list reg_lic04" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150012"/>
+    <description>许可文件状态代码CA26</description>
+  </function>
+
+  <function func-name="select DFCA08 gz_dm_jcdm_fx list reg_bas01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150058"/>
+    <description>开业类别DFCA08</description>
+  </function>
+
+  <function func-name="select CA27 gz_dm_jcdm_fx list reg_bas02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150013"/>
+    <description>组成形式代码CA27</description>
+  </function>
+
+  <function func-name="select CD16 gz_dm_jcdm_fx list reg_bas03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150048"/>
+    <description>注销原因代码CD16</description>
+  </function>
+
+  <function func-name="select CZ01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150053"/>
+    <description>新登记增加-执行状态代码CZ01</description>
+  </function>
+
+  <function func-name="select CZ04 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150055"/>
+    <description>新登记增加-冻结标志代码CZ04</description>
+  </function>
+
+  <function func-name="select DFCB01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150079"/>
+    <description>新登记增加-外事服务派出机构DFCB01</description>
+  </function>
+
+  <function func-name="select DFCB02 gz_dm_jcdm_fx list reg_par01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150080"/>
+    <description>人员类型DFCB02</description>
+  </function>
+
+  <function func-name="select DFCB03 gz_dm_jcdm_fx list reg_par02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150081"/>
+    <description>健康状况DFCB03</description>
+  </function>
+
+  <function func-name="select DFCB07 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150082"/>
+    <description>户口性质DFCB07</description>
+  </function>
+
+  <function func-name="select DFCB09 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150083"/>
+    <description>港澳证件1类型DFCB09</description>
+  </function>
+
+  <function func-name="select DFCB05 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903230001"/>
+    <description>代表证类型DFCB05</description>
+  </function>
+
+  <function func-name="select DFCA45 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903180001"/>
+    <description>是否实缴代码DFCA45</description>
+  </function>
+
+  <function func-name="select DFCA33 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903180003"/>
+    <description>企业类型说明DFCA33</description>
+  </function>
+
+  <function func-name="企业状态代码对照表" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150062"/>
+    <description>企业状态代码对照表</description>
+  </function>
+
+  <function func-name="select DFCI29 gz_dm_jcdm_fx list foo_cred_01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072523"/>
+    <description>信用级别(CODE)DFCI29</description>
+  </function>
+
+  <function func-name="select DFCI30 gz_dm_jcdm_fx list foo_cred_02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072524"/>
+    <description>暂停销售类别(CODE)DFCI30</description>
+  </function>
+
+  <function func-name="select DFCI46 gz_dm_jcdm_fx list foo_butch01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072540"/>
+    <description>病畜处理方式代码DFCI46</description>
+  </function>
+
+  <function func-name="select DFCI45 gz_dm_jcdm_fx list foo_eater01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072539"/>
+    <description>集体食堂类型DFCI45</description>
+  </function>
+
+  <function func-name="select DFCI43 gz_dm_jcdm_fx list foo_marke01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072537"/>
+    <description>商场超市类型DFCI43</description>
+  </function>
+
+  <function func-name="select DFCI44 gz_dm_jcdm_fx list foo_res01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072538"/>
+    <description>餐饮企业类型DFCI44</description>
+  </function>
+
+  <function func-name="select DFCI01 gz_dm_jcdm_fx list foo_ent01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072501"/>
+    <description>备案状态代码(CODE)DFCI01</description>
+  </function>
+
+  <function func-name="select DFCI02 gz_dm_jcdm_fx list foo_ent02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072502"/>
+    <description>业态代码(CODE)DFCI02</description>
+  </function>
+
+  <function func-name="select DFCI03 gz_dm_jcdm_fx list foo_ent03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072503"/>
+    <description>分级编号DFCI03</description>
+  </function>
+
+  <function func-name="select DFCI04 gz_dm_jcdm_fx list foo_ent04" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072504"/>
+    <description>备案来源代码(CODE)DFCI04</description>
+  </function>
+
+  <function func-name="select DFCI05 gz_dm_jcdm_fx list foo_ent05" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072505"/>
+    <description>生存状态代码(CODE)DFCI05</description>
+  </function>
+
+  <function func-name="select DFCI07 gz_dm_jcdm_fx list foo_ent06" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072506"/>
+    <description>监控方式DFCI07</description>
+  </function>
+
+  <function func-name="select DFCI12 gz_dm_jcdm_fx list foo_ent08" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072507"/>
+    <description>特殊信息类型DFCI12</description>
+  </function>
+
+  <function func-name="select DFCI13 gz_dm_jcdm_fx list foo_rec02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072508"/>
+    <description>食品大类(CODE)DFCI13</description>
+  </function>
+
+  <function func-name="select DFCI14 gz_dm_jcdm_fx list foo_rec03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072509"/>
+    <description>食品分类代码(CODE)DFCI14</description>
+  </function>
+
+  <function func-name="select DFCI16 gz_dm_jcdm_fx list foo_test02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072511"/>
+    <description>样品等级编码(CODE)DFCI16</description>
+  </function>
+
+  <function func-name="select DFCI15 gz_dm_jcdm_fx list foo_test03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072510"/>
+    <description>检测来源代码DFCI15</description>
+  </function>
+
+  <function func-name="select DFCI17 gz_dm_jcdm_fx list foo_test03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072512"/>
+    <description>环节DFCI17</description>
+  </function>
+
+  <function func-name="select DFCI18 gz_dm_jcdm_fx list foo_test04" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072513"/>
+    <description>检验结论DFCI18</description>
+  </function>
+
+  <function func-name="select DFCI2 gz_dm_jcdm_fx list foo_test05" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072514"/>
+    <description>品种大类(CODE)DFCI20</description>
+  </function>
+
+  <function func-name="select DFCI31 gz_dm_jcdm_fx list foo_test06" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072525"/>
+    <description>企业退市处理方式代码(CODE)DFCI31</description>
+  </function>
+
+  <function func-name="select DFCI32 gz_dm_jcdm_fx list foo_con01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072526"/>
+    <description>企业退市代码(CODE)DFCI32</description>
+  </function>
+
+  <function func-name="select DFCI34 gz_dm_jcdm_fx list foo_eme01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072528"/>
+    <description>突发事件状态代码(CODE)DFCI34</description>
+  </function>
+
+  <function func-name="select DFCI35 gz_dm_jcdm_fx list foo_eme02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072529"/>
+    <description>突发事件级别代码(CODE)DFCI35</description>
+  </function>
+
+  <function func-name="select DFCI36 gz_dm_jcdm_fx list foo_eme03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072530"/>
+    <description>突发事件性质代码(CODE)DFCI36</description>
+  </function>
+
+  <function func-name="select DFCI37 gz_dm_jcdm_fx list foo_eme04" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072531"/>
+    <description>影响范围代码(CODE)DFCI37</description>
+  </function>
+
+  <function func-name="select DFCI38 gz_dm_jcdm_fx list foo_eme05" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072532"/>
+    <description>密级代码(CODE)DFCI38</description>
+  </function>
+
+  <function func-name="select DFCI39 gz_dm_jcdm_fx list foo_eme06" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072533"/>
+    <description>突发事件来源代码(CODE)DFCI39</description>
+  </function>
+
+  <function func-name="select DFCI40 gz_dm_jcdm_fx list foo_eme07" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072534"/>
+    <description>中毒因素代码(CODE)DFCI40</description>
+  </function>
+
+  <function func-name="select DFCI42 gz_dm_jcdm_fx list foo_eme09" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072536"/>
+    <description>中毒场所类型代码(CODE)DFCI42</description>
+  </function>
+
+  <function func-name="select DFCI48 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072542"/>
+    <description>食品用区县代码</description>
+  </function>
+
+  <function func-name="select DFODJ07 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="15072818"/>
+    <description>职务产生方式</description>
+  </function>
+
+  <function func-name="select DFCE37 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100123"/>
+    <description>复议结果DFCE37</description>
+  </function>
+
+  <function func-name="select DFMC03 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903130003"/>
+    <description>名称状态DFMC03</description>
+  </function>
+
+  <function func-name="select DFODJ08 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="15072819"/>
+    <description>币种DFODJ08</description>
+  </function>
+
+  <function func-name="select DFCA22 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100079"/>
+    <description>老登记-出资方式DFCA22</description>
+  </function>
+
+  <function func-name="select DFCA38 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150070"/>
+    <description>出质人类型DFCA38</description>
+  </function>
+
+  <function func-name="select DFCA39 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150071"/>
+    <description>股权类型DFCA39</description>
+  </function>
+
+  <function func-name="select CA22 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150008"/>
+    <description>新登记增加-出资方式CA22</description>
+  </function>
+
+  <function func-name="select DFODJ11 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150069"/>
+    <description>个体经营方式DFODJ11</description>
+  </function>
+
+  <function func-name="select DFCA09 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100065"/>
+    <description>经营场所产权DFCA09</description>
+  </function>
+
+  <function func-name="select DFCI06 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16072801"/>
+    <description>食品企业分类代码DFCI06</description>
+  </function>
+
+  <function func-name="select DFODJ06 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="15072817"/>
+    <description>证件类型DFODJ06</description>
+  </function>
+
+  <function func-name="select gz_dm_jcdm_fx list for jcdmFilter" func-type="rowset" column-list="jcsjfx_dm,jcsjfx_mc,sy_zt" max-record="10">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="input" empty-flag="empty"/>
+    <filter-column column-name="jcsjfx_dm" operator="eq" value-from="input" empty-flag="empty"/>
+    <description>查询代码集是否存在输入代码</description>
+  </function>
+
+  <function func-name="select DFCI49 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16082201"/>
+    <description>食品企业类型DFCI49</description>
+  </function>
+
+  <function func-name="select DFOC01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103101"/>
+    <description>城市属性表DFOC01</description>
+  </function>
+
+  <function func-name="select DFOC02 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103102"/>
+    <description>深圳币种属性表DFOC02</description>
+  </function>
+
+  <function func-name="select DFOC03 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103103"/>
+    <description>深圳成员职务属性表DFOC03</description>
+  </function>
+
+  <function func-name="select DFOC04 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103104"/>
+    <description>深圳出资方式属性表DFOC04</description>
+  </function>
+
+  <function func-name="select DFOC05 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103105"/>
+    <description>深圳年检结果状态代码表DFOC05</description>
+  </function>
+
+  <function func-name="select DFOC06 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103106"/>
+    <description>深圳企业类别属性表DFOC06</description>
+  </function>
+
+  <function func-name="select DFOC07 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103107"/>
+    <description>深圳行政区属性表DFOC07</description>
+  </function>
+
+  <function func-name="select DFOC08 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103108"/>
+    <description>深圳证件类型代码表DFOC08</description>
+  </function>
+
+  <function func-name="select DFOC09 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103109"/>
+    <description>天津币种属性表DFOC09</description>
+  </function>
+
+  <function func-name="select DFOC10 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103110"/>
+    <description>天津成员职务属性表DFOC10</description>
+  </function>
+
+  <function func-name="select DFOC11 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103111"/>
+    <description>天津出资方式属性表DFOC11</description>
+  </function>
+
+  <function func-name="select DFOC12 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103112"/>
+    <description>天津年检结果状态代码表DFOC12</description>
+  </function>
+
+  <function func-name="select DFOC13 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103113"/>
+    <description>天津企业类别属性表DFOC13</description>
+  </function>
+
+  <function func-name="select DFOC14 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103114"/>
+    <description>天津企业状态属性表DFOC14</description>
+  </function>
+
+  <function func-name="select DFOC15 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103115"/>
+    <description>天津行政区属性表DFOC15</description>
+  </function>
+
+  <function func-name="select DFOC16 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103116"/>
+    <description>深圳企业类型属性表DFOC16</description>
+  </function>
+
+  <function func-name="select DFOC17 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103117"/>
+    <description>天津企业类型属性表DFOC17</description>
+  </function>
+
+  <function func-name="select DFCA11 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150061"/>
+    <description>城乡标记DFCA11</description>
+  </function>
+
+  <function func-name="select DFTAX01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090101"/>
+    <description>地税登记注册类型DFTAX01</description>
+  </function>
+
+  <function func-name="select DFTAX02 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090102"/>
+    <description>地税证件类型DFTAX02</description>
+  </function>
+
+  <function func-name="select DFTAX03 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090103"/>
+    <description>地税税务登记类型DFTAX03</description>
+  </function>
+
+  <function func-name="select DFTAX04 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090104"/>
+    <description>地税国家标准行业DFTAX04</description>
+  </function>
+
+  <function func-name="select DFTAX05 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090105"/>
+    <description>地税纳税人状态DFTAX05</description>
+  </function>
+
+  <function func-name="select DFTAX06 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090106"/>
+    <description>地税变更项目DFTAX06</description>
+  </function>
+
+  <function func-name="select DFTAX07 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090107"/>
+    <description>地税返回DFTAX07</description>
+  </function>
+
+  <function func-name="select DFTAX08 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090108"/>
+    <description>地税组织机构DFTAX08</description>
+  </function>
+
+  <function func-name="select DFXB01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091703"/>
+    <description>12315_案件类型编码表DFXB01</description>
+  </function>
+
+  <function func-name="select DFXB02 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091704"/>
+    <description>12315_案件来源编码表DFXB02</description>
+  </function>
+
+  <function func-name="select DFXB03 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091705"/>
+    <description>12315_案件难以结案、执行原因DFXB03</description>
+  </function>
+
+  <function func-name="select DFXB04 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091706"/>
+    <description>12315_案件性质编码表DFXB04</description>
+  </function>
+
+  <function func-name="select DFXB05 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091707"/>
+    <description>12315_案件执行情况编码表DFXB05</description>
+  </function>
+
+  <function func-name="select DFXB06 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091708"/>
+    <description>12315_调解处理结果编码表DFXB06</description>
+  </function>
+
+  <function func-name="select DFXB07 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091709"/>
+    <description>12315_补充资料编码表DFXB07</description>
+  </function>
+
+  <function func-name="select DFXB08 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091710"/>
+    <description>12315_品牌编码表DFXB08</description>
+  </function>
+
+  <function func-name="select DFXB09 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091711"/>
+    <description>12315_不受理原因编码表DFXB09</description>
+  </function>
+
+  <function func-name="select DFXB10 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091712"/>
+    <description>12315_立案适用程序编码表DFXB10</description>
+  </function>
+
+  <function func-name="select DFXB11 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091713"/>
+    <description>12315_处罚方式编码表DFXB11</description>
+  </function>
+
+  <function func-name="select DFXB12 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091714"/>
+    <description>12315_处理依据编码表DFXB12</description>
+  </function>
+
+  <function func-name="select DFXB13 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091715"/>
+    <description>12315_典型案件编码表DFXB13</description>
+  </function>
+
+  <function func-name="select DFXB14 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091716"/>
+    <description>12315_举报内容级别DFXB14</description>
+  </function>
+
+  <function func-name="select DFXB15 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091717"/>
+    <description>12315_级别细分编码表DFXB15</description>
+  </function>
+
+  <function func-name="select DFXB16 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091718"/>
+    <description>12315_举报人要求编码表DFXB16</description>
+  </function>
+
+  <function func-name="select DFXB17 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091719"/>
+    <description>12315_假冒伪劣物资编码表DFXB17</description>
+  </function>
+
+  <function func-name="select DFXB18 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091720"/>
+    <description>12315_媒体名称编码表DFXB18</description>
+  </function>
+
+  <function func-name="select DFXB19 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091721"/>
+    <description>12315_农资案件编码表DFXB19</description>
+  </function>
+
+  <function func-name="select DFXB20 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091722"/>
+    <description>12315_人员身份编码表DFXB20</description>
+  </function>
+
+  <function func-name="select DFXB21 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091723"/>
+    <description>12315_人员职业编码表DFXB21</description>
+  </function>
+
+  <function func-name="select DFXB22 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091724"/>
+    <description>12315_性别编码表DFXB22</description>
+  </function>
+
+  <function func-name="select DFXB23 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091725"/>
+    <description>12315_诉讼成功编码表DFXB23</description>
+  </function>
+
+  <function func-name="select DFXB24 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091726"/>
+    <description>12315_申诉内容分类编码表DFXB24</description>
+  </function>
+
+  <function func-name="select DFXB25 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091727"/>
+    <description>12315_属实情况编码表DFXB25</description>
+  </function>
+
+  <function func-name="select DFXB26 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091728"/>
+    <description>12315_申诉人要求编码表DFXB26</description>
+  </function>
+
+  <function func-name="select DFXB27 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091729"/>
+    <description>12315_系统行政区划编码表DFXB27</description>
+  </function>
+
+  <function func-name="select DFXB28 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091730"/>
+    <description>12315_调解方式编码表DFXB28</description>
+  </function>
+
+  <function func-name="select DFXB29 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091731"/>
+    <description>12315_调解依据DFXB29</description>
+  </function>
+
+  <function func-name="select DFXB30 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091732"/>
+    <description>12315_商品服务类别编码表DFXB30</description>
+  </function>
+
+  <function func-name="select DFXB31 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091733"/>
+    <description>12315_违反法规编码表DFXB31</description>
+  </function>
+
+  <function func-name="select DFXB32 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091734"/>
+    <description>12315_信息来源编码表DFXB32</description>
+  </function>
+
+  <function func-name="select DFXB33 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091735"/>
+    <description>12315_机构编码表DFXB33</description>
+  </function>
+
+  <function func-name="select DFXB34 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091736"/>
+    <description>12315_责令改正，罚款金额，违法所得，没收金额DFXB34</description>
+  </function>
+
+  <function func-name="select DFXB35 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091737"/>
+    <description>12315_是否编码表DFXB35</description>
+  </function>
+
+  <function func-name="select DFXB36 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091738"/>
+    <description>12315_应急预案编码表DFXB36</description>
+  </function>
+
+  <function func-name="select DFXB37 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091739"/>
+    <description>12315_支持诉讼编码表DFXB37</description>
+  </function>
+
+  <function func-name="select DFXB38 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091740"/>
+    <description>12315_重大投诉编码表DFXB38</description>
+  </function>
+
+  <function func-name="select GXFW gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090109"/>
+    <description>共享服务用户状态GXFW</description>
+  </function>
+
+  <function func-name="select DFSP22 gz_dm_jcdm_fx list_sp01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091801"/>
+    <description>商品检测状态编码DFSP22</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp05" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090905"/>
+    <description>省市DFSP05</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp06" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090906"/>
+    <description>区县DFSP06</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp07" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090913"/>
+    <description>商品分类DFSP13</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090914"/>
+    <description>特殊企业分类DFSP14</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090909"/>
+    <description>企业分类DFSP09</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp04" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090904"/>
+    <description>国别DFSP04</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp09" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090902"/>
+    <description>抽样场所DFSP02</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp10" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090903"/>
+    <description>监测结果DFSP03</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp11" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090907"/>
+    <description>监测来源DFSP07</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp12" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091701"/>
+    <description>市场类别DFSP20</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp13" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16091702"/>
+    <description>所在区域DFSP21</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp15" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090908"/>
+    <description>检验类别DFSP08</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp16" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090919"/>
+    <description>管辖工商所DFSP19</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp17" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090912"/>
+    <description>建筑形式DFSP12</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp18" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090917"/>
+    <description>规划审批情况DFSP17</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp19" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090916"/>
+    <description>消防专项审批情况DFSP16</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp20" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090915"/>
+    <description>土地审批情况DFSP15</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp21" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090901"/>
+    <description>车型DFSP01</description>
+  </function>
+
+  <function func-name="select DFSP gz_dm_jcdm_fx list_sp23" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16090918"/>
+    <description>召回方式DFSP18</description>
+  </function>
+
+  <function func-name="select DFCH05 gz_dm_jcdm_fx list_ggjg01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092405"/>
+    <description>社团性质DFCH05</description>
+  </function>
+
+  <function func-name="select DFCH06 gz_dm_jcdm_fx list_ggjg02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092406"/>
+    <description>社团性质DFCH06</description>
+  </function>
+
+  <function func-name="select DFCH07 gz_dm_jcdm_fx list_ggjg03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092407"/>
+    <description>业务主管单位DFCH07</description>
+  </function>
+
+  <function func-name="select DFCH08 gz_dm_jcdm_fx list_ggjg06" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092408"/>
+    <description>执行单位DFCH08</description>
+  </function>
+
+  <function func-name="select DFCH13 gz_dm_jcdm_fx list_ggjg04" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092413"/>
+    <description>换证情况DFCH13</description>
+  </function>
+
+  <function func-name="select DFCH09 gz_dm_jcdm_fx list_ggjg05" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092409"/>
+    <description>事业法人类型DFCH09</description>
+  </function>
+
+  <function func-name="select DFCH01 gz_dm_jcdm_fx list_ggjg07" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092401"/>
+    <description>提示信息DFCH01</description>
+  </function>
+
+  <function func-name="select DFCH02 gz_dm_jcdm_fx list_ggjg08" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092402"/>
+    <description>警示信息DFCH02</description>
+  </function>
+
+  <function func-name="select DFCH11 gz_dm_jcdm_fx list_ggjg09" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092411"/>
+    <description>广告类型DFCH11</description>
+  </function>
+
+  <function func-name="select DFCH12 gz_dm_jcdm_fx list_ggjg10" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092412"/>
+    <description>活动类型DFCH12</description>
+  </function>
+
+  <function func-name="select DFCH10 gz_dm_jcdm_fx list_ggjg11" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092410"/>
+    <description>获奖单位类型DFCH10</description>
+  </function>
+
+  <function func-name="select DFCH16 gz_dm_jcdm_fx list_ggjg16" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092416"/>
+    <description>广告主类型DFCH16</description>
+  </function>
+
+  <function func-name="select DFCH17 gz_dm_jcdm_fx list_ggjg17" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092417"/>
+    <description>广告经营者类型DFCH17</description>
+  </function>
+
+  <function func-name="select DFCH18 gz_dm_jcdm_fx list_ggjg18" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092418"/>
+    <description>商品(服务)类别DFCH18</description>
+  </function>
+
+  <function func-name="select DFCH19 gz_dm_jcdm_fx list_ggjg19" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092419"/>
+    <description>商品(服务)大类DFCH19</description>
+  </function>
+
+  <function func-name="select DFCH20 gz_dm_jcdm_fx list_ggjg20" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092420"/>
+    <description>商品(服务)中类DFCH20</description>
+  </function>
+
+  <function func-name="select DFCH21 gz_dm_jcdm_fx list_ggjg21" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092421"/>
+    <description>商品(服务)小类DFCH21</description>
+  </function>
+
+  <function func-name="select DFCH27 gz_dm_jcdm_fx list_ggjg22" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092448"/>
+    <description>处罚大类DFCH27</description>
+  </function>
+
+  <function func-name="select DFCH29 gz_dm_jcdm_fx list_ggjg23" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092450"/>
+    <description>处罚小类DFCH29</description>
+  </function>
+
+  <function func-name="select DFCH22 gz_dm_jcdm_fx list_ggjg24" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092443"/>
+    <description>发布形式DFCH22</description>
+  </function>
+
+  <function func-name="select DFCH23 gz_dm_jcdm_fx list_ggjg25" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092444"/>
+    <description>广告形式DFCH23</description>
+  </function>
+
+  <function func-name="select DFCH24 gz_dm_jcdm_fx list_ggjg26" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092445"/>
+    <description>类别DFCH24</description>
+  </function>
+
+  <function func-name="select DFCH26 gz_dm_jcdm_fx list_ggjg27" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092447"/>
+    <description>案件来源DFCH26</description>
+  </function>
+
+  <function func-name="select DFCH30 gz_dm_jcdm_fx list_ggjg28" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092451"/>
+    <description>案件状态DFCH30</description>
+  </function>
+
+  <function func-name="select DFCH31 gz_dm_jcdm_fx list_ggjg29" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092452"/>
+    <description>媒体类型DFCH31</description>
+  </function>
+
+  <function func-name="select DFCH32 gz_dm_jcdm_fx list_ggjg30" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092453"/>
+    <description>变更项DFCH32</description>
+  </function>
+
+  <function func-name="select DFCE36 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100122"/>
+    <description>复议部门DFCE36</description>
+  </function>
+
+  <function func-name="select DFCH33 gz_dm_jcdm_fx list_ggjg31" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092455"/>
+    <description>广告来源DFCH33</description>
+  </function>
+
+  <function func-name="select DFCI50 gz_dm_jcdm_fx list_spzj24" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092454"/>
+    <description>食品检测项目DFCI50</description>
+  </function>
+
+  <function func-name="select DFCH34 gz_dm_jcdm_fx list_spzj34" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16103118"/>
+    <description>诊疗科目DFCH34</description>
+  </function>
+
+  <function func-name="select DFFR01 gz_dm_jcdm_fx list_fq01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092456"/>
+    <description>组织机构类型DFFR01</description>
+  </function>
+
+  <function func-name="select DFFR02 gz_dm_jcdm_fx list_fq02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092457"/>
+    <description>行业类别DFFR02</description>
+  </function>
+
+  <function func-name="select DFFR03 gz_dm_jcdm_fx list_fq03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092458"/>
+    <description>单位类型DFFR03</description>
+  </function>
+
+  <function func-name="select DFNJ01 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903250001"/>
+    <description>部门代码DFNJ01</description>
+  </function>
+
+  <function func-name="select DFNJ02 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092423"/>
+    <description>经济性质DFNJ02</description>
+  </function>
+
+  <function func-name="select DFNJ03 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092424"/>
+    <description>区县代码DFNJ03</description>
+  </function>
+
+  <function func-name="select DFNJ04 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092425"/>
+    <description>经营时限DFNJ04</description>
+  </function>
+
+  <function func-name="select DFNJ05 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092426"/>
+    <description>企业状况DFNJ05</description>
+  </function>
+
+  <function func-name="select DFNJ06 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092427"/>
+    <description>省市代码DFNJ06</description>
+  </function>
+
+  <function func-name="select DFNJ07 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092428"/>
+    <description>处理结果DFNJ07</description>
+  </function>
+
+  <function func-name="select DFNJ08 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092429"/>
+    <description>欠缴出资原因DFNJ08</description>
+  </function>
+
+  <function func-name="select DFNJ09 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092430"/>
+    <description>行业小类DFNJ09</description>
+  </function>
+
+  <function func-name="select DFNJ10 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092431"/>
+    <description>外资企业类别DFNJ10</description>
+  </function>
+
+  <function func-name="select DFNJ11 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092432"/>
+    <description>亏损原因DFNJ11</description>
+  </function>
+
+  <function func-name="select DFNJ12 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092433"/>
+    <description>个体组成形式DFNJ12</description>
+  </function>
+
+  <function func-name="select DFNJ13 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092434"/>
+    <description>经营者身份DFNJ13</description>
+  </function>
+
+  <function func-name="select DFNJ14 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092435"/>
+    <description>年检状态DFNJ14</description>
+  </function>
+
+  <function func-name="select DFNJ15 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092436"/>
+    <description>年检审查范围DFNJ15</description>
+  </function>
+
+  <function func-name="select DFNJ16 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092437"/>
+    <description>年检结果DFNJ16</description>
+  </function>
+
+  <function func-name="select DFNJ17 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092438"/>
+    <description>合同类型DFNJ17</description>
+  </function>
+
+  <function func-name="select DFNJ18 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092439"/>
+    <description>是否无标志DFNJ18</description>
+  </function>
+
+  <function func-name="select DFNJ19 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092440"/>
+    <description>党组织建制DFNJ19</description>
+  </function>
+
+  <function func-name="select DFNJ20 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16092441"/>
+    <description>党组织组建类型DFNJ20</description>
+  </function>
+
+  <function func-name="select DFNJ21 gz_dm_jcdm_fx list mon_res01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16120901"/>
+    <description>申报方式DFNJ21</description>
+  </function>
+
+  <function func-name="select DFNJ22 gz_dm_jcdm_fx list mon_res01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16120902"/>
+    <description>问题种类DFNJ22</description>
+  </function>
+
+  <function func-name="select DFNJ23 gz_dm_jcdm_fx list mon_res01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="xssx" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16120903"/>
+    <description>年检事项DFNJ23</description>
+  </function>
+
+  <function func-name="select DFNJ24 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16122202"/>
+    <description>个体处理结果DFNJ24</description>
+  </function>
+
+  <function func-name="select DFNJ25 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16122203"/>
+    <description>个体年经营情况DFNJ25</description>
+  </function>
+
+  <function func-name="select DFFR05 gz_dm_jcdm_fx list_fq04" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16110701"/>
+    <description>编办审批机关DFFR05</description>
+  </function>
+
+  <function func-name="select DFFR06 gz_dm_jcdm_fx list_fq05" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16110702"/>
+    <description>民政发证机关DFFR06</description>
+  </function>
+
+  <function func-name="select DFFR07 gz_dm_jcdm_fx list_fq06" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16110703"/>
+    <description>质监发证机关DFFR07</description>
+  </function>
+
+  <function func-name="select DFFR08 gz_dm_jcdm_fx list_fq07" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16110704"/>
+    <description>状态代码DFFR08</description>
+  </function>
+
+  <function func-name="select DFFR09 gz_dm_jcdm_fx list_fq08" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16110705"/>
+    <description>年检代码DFFR09</description>
+  </function>
+
+  <function func-name="select DFFR10 gz_dm_jcdm_fx list_fq09" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16110706"/>
+    <description>行政区划代码DFFR10</description>
+  </function>
+
+  <function func-name="select XJG04 gz_dm_jcdm_fx list_dfnj" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111704"/>
+    <description>国别(地区)XJG04</description>
+  </function>
+
+  <function func-name="select XJG49 gz_dm_jcdm_fx list_mon" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111749"/>
+    <description>商标类型XJG49</description>
+  </function>
+
+  <function func-name="select XJG28 gz_dm_jcdm_fx list_mon" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111728"/>
+    <description>商标类别XJG28</description>
+  </function>
+
+  <function func-name="select XJG11 gz_dm_jcdm_fx list_mon" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111711"/>
+    <description>检查类别XJG11</description>
+  </function>
+
+  <function func-name="select XJG26 gz_dm_jcdm_fx list_mon" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111726"/>
+    <description>任务状态XJG26</description>
+  </function>
+
+  <function func-name="select XJG10 gz_dm_jcdm_fx list_mon" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111710"/>
+    <description>检查结果XJG10</description>
+  </function>
+
+  <function func-name="select XJG34 gz_dm_jcdm_fx list_mon" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111734"/>
+    <description>问题处理方式XJG34</description>
+  </function>
+
+  <function func-name="select XJG05 gz_dm_jcdm_fx list_mon" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111705"/>
+    <description>回查结果XJG05</description>
+  </function>
+
+  <function func-name="select XJG50 gz_dm_jcdm_fx list_mon" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111750"/>
+    <description>擅迁处理方式XJG50</description>
+  </function>
+
+  <function func-name="select XJG15 gz_dm_jcdm_fx list_mon" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111715"/>
+    <description>迁入/出时间XJG15</description>
+  </function>
+
+  <function func-name="select XJG45 gz_dm_jcdm_fx list_jg45" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903250001"/>
+    <description>管辖部门XJG45原16111745，现修改为SJZXDEPT</description>
+  </function>
+
+  <function func-name="select XJG45 gz_dm_jcdm_fx list_jg45 for wcre" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903250001"/>
+    <description>合同信用发布部门XJG45原16111745，现修改为SJZXDEPT</description>
+  </function>
+
+  <function func-name="select XJG33 gz_dm_jcdm_fx list_jg33" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111733"/>
+    <description>网格类型XJG33</description>
+  </function>
+
+  <function func-name="select XJG32 gz_dm_jcdm_fx list_jg32" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111732"/>
+    <description>网格属性XJG32</description>
+  </function>
+
+  <function func-name="select XJG23 gz_dm_jcdm_fx list_jg23" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111723"/>
+    <description>主体类型XJG23</description>
+  </function>
+
+  <function func-name="select XJG19 gz_dm_jcdm_fx list_jg19" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111719"/>
+    <description>无照类型XJG19</description>
+  </function>
+
+  <function func-name="select XJG21 gz_dm_jcdm_fx list_jg21" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111721"/>
+    <description>当前状态XJG21</description>
+  </function>
+
+  <function func-name="select XJG18 gz_dm_jcdm_fx list_jg18" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111718"/>
+    <description>场所类型XJG18</description>
+  </function>
+
+  <function func-name="select XJG11 gz_dm_jcdm_fx list_jg11" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111711"/>
+    <description>检查类型XJG11</description>
+  </function>
+
+  <function func-name="select XJG20 gz_dm_jcdm_fx list_jg20" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111720"/>
+    <description>无照原因XJG20</description>
+  </function>
+
+  <function func-name="select XJG41 gz_dm_jcdm_fx list_jg41" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111741"/>
+    <description>重点地区XJG41</description>
+  </function>
+
+  <function func-name="select XJG42 gz_dm_jcdm_fx list_jg42" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111742"/>
+    <description>重点行业XJG42</description>
+  </function>
+
+  <function func-name="select XJG17 gz_dm_jcdm_fx list_jg17" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111717"/>
+    <description>处理方式XJG17</description>
+  </function>
+
+  <function func-name="select XJG10 gz_dm_jcdm_fx list_jg10" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111710"/>
+    <description>处理状态XJG10</description>
+  </function>
+
+  <function func-name="select XJG43 gz_dm_jcdm_fx list_jg43" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111743"/>
+    <description>主体级别XJG43</description>
+  </function>
+
+  <function func-name="select XJG03 gz_dm_jcdm_fx list_jg03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111703"/>
+    <description>风险度级别XJG03</description>
+  </function>
+
+  <function func-name="select XJG38 gz_dm_jcdm_fx list_jg38" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111738"/>
+    <description>信用度XJG38</description>
+  </function>
+
+  <function func-name="select XJG06 gz_dm_jcdm_fx list_jg06" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111706"/>
+    <description>行业大类XJG06</description>
+  </function>
+
+  <function func-name="select XJG08 gz_dm_jcdm_fx list_jg08" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111708"/>
+    <description>行业小类XJG08</description>
+  </function>
+
+  <function func-name="select XJG36 gz_dm_jcdm_fx list_jg36" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111736"/>
+    <description>巡查级别XJG36</description>
+  </function>
+
+  <function func-name="select XJG31 gz_dm_jcdm_fx list_jg31" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111731"/>
+    <description>是否非法迁出XJG31</description>
+  </function>
+
+  <function func-name="select XJG39 gz_dm_jcdm_fx list_jg39" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111739"/>
+    <description>商务楼宇等级XJG39</description>
+  </function>
+
+  <function func-name="select XJG44 gz_dm_jcdm_fx list_jg44" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111744"/>
+    <description>主体类型XJG44</description>
+  </function>
+
+  <function func-name="select XJG53 gz_dm_jcdm_fx list_jg53" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121903"/>
+    <description>经营者籍贯XJG53</description>
+  </function>
+
+  <function func-name="select XJG16 gz_dm_jcdm_fx list_mon" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111716"/>
+    <description>擅迁问题类型XJG16</description>
+  </function>
+
+  <function func-name="select XJG54 gz_dm_jcdm_fx list_htjg_01" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121904"/>
+    <description>经济人类型XJG54-29begain</description>
+  </function>
+
+  <function func-name="select XJG55 gz_dm_jcdm_fx list_htjg_02" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121905"/>
+    <description>证件名称XJG55</description>
+  </function>
+
+  <function func-name="select XJG56 gz_dm_jcdm_fx list_htjg_03" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121906"/>
+    <description>抵押人类型XJG56</description>
+  </function>
+
+  <function func-name="select XJG57 gz_dm_jcdm_fx list_htjg_04" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121907"/>
+    <description>主债权类型XJG57</description>
+  </function>
+
+  <function func-name="select XJG58 gz_dm_jcdm_fx list_htjg_05" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121908"/>
+    <description>是否注销XJG58</description>
+  </function>
+
+  <function func-name="select XJG59 gz_dm_jcdm_fx list_htjg_06" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121909"/>
+    <description>投诉事由类别XJG59</description>
+  </function>
+
+  <function func-name="select XJG60 gz_dm_jcdm_fx list_htjg_07" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121910"/>
+    <description>诉求类别XJG60</description>
+  </function>
+
+  <function func-name="select XJG61 gz_dm_jcdm_fx list_htjg_08" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121911"/>
+    <description>处理结果XJG61</description>
+  </function>
+
+  <function func-name="select XJG62 gz_dm_jcdm_fx list_htjg_09" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121912"/>
+    <description>荣誉称号XJG62</description>
+  </function>
+
+  <function func-name="select XJG63 gz_dm_jcdm_fx list_htjg_10" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121913"/>
+    <description>是否公示XJG63</description>
+  </function>
+
+  <function func-name="select XJG64 gz_dm_jcdm_fx list_htjg_11" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121914"/>
+    <description>合同类别XJG64</description>
+  </function>
+
+  <function func-name="select XJG65 gz_dm_jcdm_fx list_htjg_12" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121915"/>
+    <description>拍卖方式XJG65</description>
+  </function>
+
+  <function func-name="select XJG66 gz_dm_jcdm_fx list_htjg_13" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121916"/>
+    <description>拍品种类XJG66</description>
+  </function>
+
+  <function func-name="select XJG67 gz_dm_jcdm_fx list_htjg_14" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121916"/>
+    <description>良好种类XJG67</description>
+  </function>
+
+  <function func-name="select XJG68 gz_dm_jcdm_fx list_htjg_15" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121918"/>
+    <description>性别XJG68</description>
+  </function>
+
+  <function func-name="select XJG69 gz_dm_jcdm_fx list_htjg_16" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121919"/>
+    <description>是否外埠XJG69</description>
+  </function>
+
+  <function func-name="select XJG70 gz_dm_jcdm_fx list_htjg_17" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16121920"/>
+    <description>身份证件类型XJG70-29end</description>
+  </function>
+
+  <function func-name="select XJG71 gz_dm_jcdm_fx list_htjg_18" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903090001"/>
+    <description>学历XJG71</description>
+  </function>
+
+  <function func-name="select XJG48 gz_dm_jcdm_fx list_mon" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="16111748"/>
+    <description>区域划分XJG48</description>
+  </function>
+
+  <function func-name="select CC02 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903130008"/>
+    <description>名称商标类型CC02</description>
+  </function>
+
+  <function func-name="select DFCA18 gz_dm_jcdm_fx list new" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200902270001"/>
+    <description>集团状态DFCA18</description>
+  </function>
+
+  <function func-name="select DFCA24 gz_dm_jcdm_fx list new" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="ef55842207324d338530cc2fb3f2deae"/>
+    <description>成员类型DFCA24</description>
+  </function>
+
+  <function func-name="select DFJS01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200907020001"/>
+    <description>执照类型DFJS01</description>
+  </function>
+
+  <function func-name="select DFJS02 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200907020002"/>
+    <description>违法行为DFJS02</description>
+  </function>
+
+  <function func-name="select DFJS03 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200907020003"/>
+    <description>限制类别DFJS03</description>
+  </function>
+
+  <function func-name="select DFJS04 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200907020004"/>
+    <description>锁入部门DFJS04</description>
+  </function>
+
+  <function func-name="select DFHMD01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200907020005"/>
+    <description>证件类型（黑名单）DFHMD01</description>
+  </function>
+
+  <function func-name="select DFCE35 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="100121"/>
+    <description>案件处罚方式DFCE35</description>
+  </function>
+
+  <function func-name="select ZJCA01 gz_dm_jcdm_fx list for zjhp" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="a02fbb2ceb9a439bab917ec95871ca63"/>
+    <description>国家总局行政区划ZJCA01</description>
+  </function>
+
+  <function func-name="select ZJCA11 gz_dm_jcdm_fx list for zjhp" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="047675aa2397425c83a97b591eb9c56f"/>
+    <description>国家总局登记机关ZJCA11</description>
+  </function>
+
+  <function func-name="select ZJCA14 gz_dm_jcdm_fx list for zjhp" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="36b5535fbeea442888b1275c7c0426e1"/>
+    <description>国家总局企业分类ZJCA14</description>
+  </function>
+
+  <function func-name="select ZJCB31 gz_dm_jcdm_fx list for zjhp" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="a9aa0987a7f3489b8dc74ed41f468fd4"/>
+    <description>国家总局一人有限公司文化程序ZJCB31</description>
+  </function>
+
+  <function func-name="select ZJCE02 gz_dm_jcdm_fx list for zjhp" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="54c2056ad1854986b4dc8952c50cf7a8"/>
+    <description>国家总局吊销原因ZJCE02</description>
+  </function>
+
+  <function func-name="select ZJEX01 gz_dm_jcdm_fx list for zjhp" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="23abc7825d87499bbfc457080780cb5d"/>
+    <description>国家总局经营者主体特征ZJEX01</description>
+  </function>
+
+  <function func-name="select ZJEX02 gz_dm_jcdm_fx list for zjhp" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="a73b263973704a24a2f5c06969335863"/>
+    <description>国家总局是否标志ZJEX02</description>
+  </function>
+
+  <function func-name="select DFCH35 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="1beeb229bb994e5fa96b093beccb062b"/>
+    <description>外资广告审批企业类别DFCH35</description>
+  </function>
+
+  <function func-name="select DFCH36 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="3c4ed839b7814927a7c5596a244b39a8"/>
+    <description>外资广告审批变更项DFCH36</description>
+  </function>
+
+  <function func-name="select DFXY02 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="7f7c0f4b173f4a87b7279c2e2785a966"/>
+    <description>信用来源单位DFXY02</description>
+  </function>
+
+  <function func-name="select DFXY01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="0b009f2cea0646deb900398803a32d3d"/>
+    <description>信用身份信息类别DFXY01</description>
+  </function>
+
+  <function func-name="select DFFL01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="2faf38109a914683bca1ba9bb3b1df41"/>
+    <description>食品许可证状态DFFL01</description>
+  </function>
+
+  <function func-name="select DFFL02 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="0a70f1d41e734e48a26ac6b6baa2180c"/>
+    <description>食品许可证主体类型DFFL02</description>
+  </function>
+
+  <function func-name="select DFFL03 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="cd7e814806f94ab494071747686fee08"/>
+    <description>食品许可证许可经营方式DFFL03</description>
+  </function>
+
+  <function func-name="select DFFL04 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="1e650500dcce46458c80e6b560b2da79"/>
+    <description>食品许可证许可经营种类DFFL04</description>
+  </function>
+
+  <function func-name="select DFFL05 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="fe2ebecda4a04c10b3f85294f3310ea0"/>
+    <description>食品许可证经营人员职务DFFL05</description>
+  </function>
+
+  <function func-name="select DFFL06 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="65bd5dcbe6b046a999c922e178aa9979"/>
+    <description>食品许可证经营人员类型DFFL06</description>
+  </function>
+
+  <function func-name="select CA92B gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200906110001"/>
+    <description>食品许可证发证机关CA92B</description>
+  </function>
+
+  <function func-name="select DFCA12 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200901150062"/>
+    <description>企业状态(新登记)DFCA12</description>
+  </function>
+
+  <function func-name="select DFCS01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200903130003"/>
+    <description>名称状态(新登记)DFCS01</description>
+  </function>
+
+  <function func-name="select CD35 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="96943235cd934e3ab139a92ac643c0b6"/>
+    <description>撤销登记类型代码CD35</description>
+  </function>
+
+  <function func-name="select CD30 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="c28447e71d2a4d1fb4ad2ba3214dca73"/>
+    <description>撤销原因代码CD30</description>
+  </function>
+
+  <function func-name="select CA01A gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="200904220001"/>
+    <description>行政区划代码CA01A</description>
+  </function>
+
+  <function func-name="select CF01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201005120035"/>
+    <description>信用等级CF01</description>
+  </function>
+
+  <function func-name="select CA71 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201005120018"/>
+    <description>项目类型代码（总局登记）CA71</description>
+  </function>
+
+  <function func-name="select ZJDJCA04 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201005120003"/>
+    <description>币种代码（总局登记）ZJDJCA04</description>
+  </function>
+
+  <function func-name="select ZJDJEX09 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201005120039"/>
+    <description>是否注销（总局登记）ZJDJEX09</description>
+  </function>
+
+  <function func-name="select ZJDJCD16 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201005120028"/>
+    <description>注销原因代码（总局登记）ZJDJCD16</description>
+  </function>
+
+  <function func-name="select ZJDJBZ gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201005120043"/>
+    <description>总局登记标志位（总局登记）</description>
+  </function>
+
+  <function func-name="select ZJDJEX14 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201005120041"/>
+    <description>执行合伙事务标志（总局登记）</description>
+  </function>
+
+  <function func-name="select ZJDJCD22 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201005120031"/>
+    <description>年检结果代码（总局登记）ZJDJCD22</description>
+  </function>
+
+  <function func-name="select ZJDJCD20 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201005120029"/>
+    <description>年检类型代码（总局登记）ZJDJCD20</description>
+  </function>
+
+  <function func-name="select ZJDJEX10 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201005120040"/>
+    <description>年检方式代码（总局登记）ZJDJEX10</description>
+  </function>
+
+  <function func-name="select ZJDJCD24 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201005120032"/>
+    <description>营运状况（总局登记）ZJDJCD24</description>
+  </function>
+
+  <function func-name="select ZJDJCD21 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201005120030"/>
+    <description>年检核对事项代码（总局登记）ZJDJCD21</description>
+  </function>
+
+  <function func-name="select ZJDJCD25 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201005120033"/>
+    <description>盈亏状况（总局登记）ZJDJCD25</description>
+  </function>
+
+  <function func-name="select ZJDJCB18 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201005120044"/>
+    <description>人员职务（总局登记）ZJDJCB18</description>
+  </function>
+
+  <function func-name="select DFAT72 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100020"/>
+    <description>12315咨询部门DFAT72</description>
+  </function>
+
+  <function func-name="select DFAT73 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100021"/>
+    <description>12315不受理原因类别DFAT73</description>
+  </function>
+
+  <function func-name="select DFAT54 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100001"/>
+    <description>12315信息来源一级DFAT54</description>
+  </function>
+
+  <function func-name="select DFAT56 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100003"/>
+    <description>12315接收方式DFAT56</description>
+  </function>
+
+  <function func-name="select DFAT58 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100005"/>
+    <description>12315人员类别DFAT58</description>
+  </function>
+
+  <function func-name="select DFAT57 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100004"/>
+    <description>12315人员身份DFAT57</description>
+  </function>
+
+  <function func-name="select DFAT66 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100013"/>
+    <description>12315商品服务分类DFAT66</description>
+  </function>
+
+  <function func-name="select DFAT70 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100017"/>
+    <description>12315处理结果细分DFAT70</description>
+  </function>
+
+  <function func-name="select DFAT81 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100029"/>
+    <description>12315受理情况DFAT81</description>
+  </function>
+
+  <function func-name="select DFAT61 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100008"/>
+    <description>12315主体类别DFAT61</description>
+  </function>
+
+  <function func-name="select DFAT62 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100009"/>
+    <description>12315行业类别DFAT62</description>
+  </function>
+
+  <function func-name="select DFAT65 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100012"/>
+    <description>12315商品服务类别DFAT65</description>
+  </function>
+
+  <function func-name="select DFAT71 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100018"/>
+    <description>12315业务类型DFAT71</description>
+  </function>
+
+  <function func-name="select DFAT68 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100015"/>
+    <description>12315问题大类DFAT68</description>
+  </function>
+
+  <function func-name="select DFAT83 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100031"/>
+    <description>12315性别DFAT83</description>
+  </function>
+
+  <function func-name="select DFAT82 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100030"/>
+    <description>12315销案理由DFAT82</description>
+  </function>
+
+  <function func-name="select DFAT84 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100032"/>
+    <description>12315事件级别DFAT84</description>
+  </function>
+
+  <function func-name="select DFAT85 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100033"/>
+    <description>12315举报人要求DFAT85</description>
+  </function>
+
+  <function func-name="select DFAT86 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100034"/>
+    <description>12315是否属实 DFAT86</description>
+  </function>
+
+  <function func-name="select DFAT87 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100035"/>
+    <description>12315立案适应程序 DFAT87</description>
+  </function>
+
+  <function func-name="select DFAT88 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100036"/>
+    <description>12315案件性质DFAT88</description>
+  </function>
+
+  <function func-name="select DFAT90 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100038"/>
+    <description>12315执行类别DFAT90</description>
+  </function>
+
+  <function func-name="select DFAT91 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100039"/>
+    <description>12315年龄DFAT91</description>
+  </function>
+
+  <function func-name="select DFAT92 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100040"/>
+    <description>12315业务分类DFAT92</description>
+  </function>
+
+  <function func-name="select DFAT93 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100041"/>
+    <description>12315涉及问题DFAT93</description>
+  </function>
+
+  <function func-name="select DFAT95 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100043"/>
+    <description>12315是否重点关注DFAT95</description>
+  </function>
+
+  <function func-name="select DFAT94 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100042"/>
+    <description>12315系统类型DFAT94</description>
+  </function>
+
+  <function func-name="select DFAT115 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100062"/>
+    <description>12315非工商单位二级DFAT115</description>
+  </function>
+
+  <function func-name="select DFAT114 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100061"/>
+    <description>12315非工商单位一级DFAT114</description>
+  </function>
+
+  <function func-name="select DFAT89 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100037"/>
+    <description>12315处罚方式DFAT89</description>
+  </function>
+
+  <function func-name="select DFAT116 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100063"/>
+    <description>12315移送原因DFAT116</description>
+  </function>
+
+  <function func-name="select DFAT102 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100049"/>
+    <description>12315移送机关大小类DFAT102</description>
+  </function>
+
+  <function func-name="select DFAT106 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100053"/>
+    <description>12315行政方式DFAT106</description>
+  </function>
+
+  <function func-name="select DFAT100 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100047"/>
+    <description>12315违法行为大类DFAT100</description>
+  </function>
+
+  <function func-name="select DFAT117 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100064"/>
+    <description>12315业务分类2DFAT117</description>
+  </function>
+
+  <function func-name="select DFAT67 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100014"/>
+    <description>12315品牌类型DFAT67</description>
+  </function>
+
+  <function func-name="select DFAT110 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100057"/>
+    <description>12315系统类型DFAT110</description>
+  </function>
+
+  <function func-name="select DFAT63 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201012100010"/>
+    <description>12315状态DFAT63</description>
+  </function>
+
+  <function func-name="select FLAG2 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="FLAG2"/>
+    <description>标志字段(1是2否)FLAG2</description>
+  </function>
+
+  <function func-name="select FLAG3 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201210081539"/>
+    <description>标志字段(Y是N否)FLAG3</description>
+  </function>
+
+  <function func-name="select DFNJ28 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201102240002"/>
+    <description>机构前置许可类别DFNJ28</description>
+  </function>
+
+  <function func-name="select DFNJ27 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201102240001"/>
+    <description>营业性活动类别DFNJ27</description>
+  </function>
+
+  <function func-name="select DFCB06 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201103040001"/>
+    <description>资金来源DFCB06</description>
+  </function>
+
+  <function func-name="select CD12 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" sort-columns="jcsjfx_dm" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="201205290001"/>
+    <description>股权转让类型CD12</description>
+  </function>
+
+  <function func-name="select DFEB01 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue, jcsjfx_mc as codename" max-record="-1">
+    <description>电子商务发证单位</description>
+  </function>
+
+  <function func-name="select DFEB02 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <description>电子商务关注等级</description>
+  </function>
+
+  <function func-name="select DFEB03 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <description>从事电子商务的经营模式</description>
+  </function>
+
+  <function func-name="select DFEB04 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="c3e79257bd3c41ffa02e0328a813f8f3"/>
+    <description>电子商务判定内容</description>
+  </function>
+
+  <function func-name="select DFEB05 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <description>电子商务取证方式</description>
+  </function>
+
+  <function func-name="select DFEB06 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <description>电子商务网站类型</description>
+  </function>
+
+  <function func-name="select DFEB07 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <description>电子商务许可证信息</description>
+  </function>
+
+  <function func-name="select DFEB08 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <description>电子商务信息等级</description>
+  </function>
+
+  <function func-name="select DFEB09 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <description>电子商务与客户的主要纠纷</description>
+  </function>
+
+  <function func-name="select DFEB10 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <description>电子商务活动的主要内容</description>
+  </function>
+
+  <function func-name="select DFEB11 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="d04e5200c0734607a6261a2db6ed6a4f"/>
+    <description>电子商务信息来源</description>
+  </function>
+
+  <function func-name="select DFEB12 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="8a5bc21691ca4db082fbd03d4da76f9b"/>
+    <description>电子商务送入研判机制</description>
+  </function>
+
+  <function func-name="select DFEB13 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="83a525f54c094de5a723849091368c81"/>
+    <description>电子商务审批意见</description>
+  </function>
+
+  <function func-name="select DFEB14 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <description>电子商务处理状态</description>
+  </function>
+
+  <function func-name="select DFEB15 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="88bc5819e6ed48a18aa883ab4d139e7a"/>
+    <description>电子商务检查类别</description>
+  </function>
+
+  <function func-name="select DFEB16 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="d0931c32ec13413e8b2d4755e14b7959"/>
+    <description>电子商务任务状态</description>
+  </function>
+
+  <function func-name="select DFEB17 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="7e127d298db148a380b675c8ea126ac2"/>
+    <description>电子商务检查结果</description>
+  </function>
+
+  <function func-name="select DFEB18 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <filter-column column-name="jc_dm_id" operator="eq" value-from="default" empty-flag="skip" default="b6543c8dd8c74ba0948912a863261ebe"/>
+    <description>电子商务判定标识</description>
+  </function>
+
+  <function func-name="select DFEB19 gz_dm_jcdm_fx list" func-type="rowset" column-list="jcsjfx_dm as codevalue,jcsjfx_mc as codename" max-record="-1">
+    <description>电子商务确认标识</description>
+  </function>
+</table>
+

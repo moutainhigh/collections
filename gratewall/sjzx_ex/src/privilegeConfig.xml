@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PrivilegeConfig>
+<DataPrivilegeClass>
+	<Data name="统计制度" class="com.gwssi.sysmgr.priv.datapriv.BaseDataPurviewItem">
+		<Param name="table" value="GZ_ZB_DCZD" />
+		<Param name="nameField" value="DCZD_MC" />
+		<Param name="idField" value="DCZD_DM" />
+		<Param name="codeField" value="DCZD_DM" />
+		<Param name="parentCodeField" value="DCZD_FJD" />
+		<Param name="rootCode" value="" />
+		<Param name="sortField" value="DCZD_MC" />
+	</Data >
+	<Data name="机构" class="com.gwssi.sysmgr.priv.datapriv.BaseDataPurviewItem">
+		<Param name="table" value="XT_ZZJG_JG" />
+		<Param name="nameField" value="JGMC" />
+		<Param name="idField" value="JGID_PK" />
+		<Param name="codeField" value="JGBH" />
+		<Param name="parentCodeField" value="SJJGID_FK" />
+		<Param name="rootCode" value="" />
+		<Param name="sortField" value="JGMC" />
+	</Data >
+</DataPrivilegeClass>
+<DataSource>gwssi</DataSource>
+</PrivilegeConfig>

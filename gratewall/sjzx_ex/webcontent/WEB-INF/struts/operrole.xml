@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>业务角色维护</menu-name>
+  <menu-path>/page/sysmgr/role/</menu-path>
+  <description>业务角色维护</description>
+  <form-beans>
+    <form-bean name="OperroleRowsetForm">
+      <description>业务角色维护多记录查询表单</description>
+      <form-property prefix="select-key" name="rolename" type="string" size="32" cannull="false" description="角色名称"/>
+      <form-property prefix="select-key" name="description" type="string" size="256" cannull="true" description="角色描述"/>
+      <form-property prefix="select-key" name="funclist" type="string" size="1024" cannull="true" description="功能列表"/>
+      <form-property prefix="select-key" name="groupname" type="string" size="32" cannull="true" description="角色所属的功能组"/>
+      <form-property prefix="select-key" name="rolescope" type="string" size="3" cannull="true" description="使用范围"/>
+      <form-property prefix="record" name="roleid" type="long" size="12" cannull="true" description="角色编号"/>
+      <form-property prefix="record" name="rolename" type="string" size="32" cannull="false" description="角色名称"/>
+      <form-property prefix="record" name="description" type="string" size="256" cannull="true" description="角色描述"/>
+      <form-property prefix="record" name="funclist" type="string" size="1024" cannull="true" description="功能列表"/>   
+      <form-property prefix="record" name="rolescope" type="string" size="3" cannull="true" description="角色使用范围"/>
+      <form-property prefix="record" name="groupname" type="string" size="32" cannull="true" description="角色所属的功能组"/>
+      <form-property prefix="record" name="homepage" type="string" size="128" cannull="true" description="主页面"/>
+      <form-property prefix="record" name="layout" type="string" size="64" cannull="true" description="页面布局"/>
+      <form-property prefix="record" name="roletype" type="string" size="3" cannull="true" description="角色类型：保留"/>
+      <form-property prefix="record" name="roletype2" type="string" size="3" cannull="true" description="角色类型：保留"/>
+      <form-property prefix="record" name="status" type="string" size="1" cannull="true" description="有效标志"/>
+      <form-property prefix="record" name="memo" type="string" size="256" cannull="true" description="备注"/>
+      <form-property prefix="record" name="regname" type="string" size="24" cannull="true" description="注册用户"/>
+      <form-property prefix="record" name="regdate" type="string" size="8" cannull="true" description="注册日期"/>
+      <form-property prefix="record" name="modname" type="string" size="24" cannull="true" description="修改用户"/>
+      <form-property prefix="record" name="moddate" type="string" size="8" cannull="true" description="修改日期"/>
+      <form-property prefix="record" name="maxcount" type="long" cannull="true" description="最大查询记录数"/>
+    </form-bean>
+
+    <form-bean name="OperroleUpdateForm">
+      <description>业务角色维护单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="roleid" type="long" size="12" cannull="false" description="角色编号"/>
+      <form-property prefix="primary-key" name="rolename" type="string" size="32" cannull="false" description="角色名称"/>
+      <form-property prefix="primary-key" name="funclist" type="string" size="1024" cannull="true" description="功能列表"/>
+      <form-property prefix="record" name="roleid" type="long" size="12" cannull="true" description="角色编号"/>
+      <form-property prefix="record" name="rolename" type="string" size="32" cannull="false" description="角色名称"/>
+      <form-property prefix="record" name="description" type="string" size="256" cannull="true" description="角色描述"/>
+      <form-property prefix="record" name="funclist" type="string" size="1024" cannull="true" description="功能列表"/>
+      <form-property prefix="record" name="rolescope" type="string" size="3" cannull="true" description="角色使用范围"/>
+      <form-property prefix="record" name="groupname" type="string" size="32" cannull="true" description="角色所属的功能组"/>
+      <form-property prefix="record" name="homepage" type="string" size="128" cannull="true" description="主页面"/>
+      <form-property prefix="record" name="layout" type="string" size="64" cannull="true" description="页面布局"/>
+      <form-property prefix="record" name="roletype" type="string" size="3" cannull="true" description="角色类型：保留"/>
+      <form-property prefix="record" name="roletype2" type="string" size="3" cannull="true" description="角色类型：保留"/>
+      <form-property prefix="record" name="status" type="string" size="1" cannull="true" description="有效标志"/>
+      <form-property prefix="record" name="memo" type="string" size="256" cannull="true" description="备注"/>
+      <form-property prefix="record" name="regname" type="string" size="24" cannull="true" description="注册用户"/>
+      <form-property prefix="record" name="regdate" type="string" size="8" cannull="true" description="注册日期"/>
+      <form-property prefix="record" name="modname" type="string" size="24" cannull="true" description="修改用户"/>
+      <form-property prefix="record" name="moddate" type="string" size="8" cannull="true" description="修改日期"/>
+      <form-property prefix="record" name="maxcount" type="long" cannull="true" description="最大查询记录数"/>
+    </form-bean>
+
+    <form-bean name="OperroleDeleteForm">
+      <description>业务角色维护多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="roleid" type="long" size="12" cannull="false" description="角色编号"/>
+      <form-property prefix="primary-key" name="rolename" type="string" size="32" cannull="false" description="角色名称"/>
+    </form-bean>
+    
+    <form-bean name="OperroleCopyForm">
+      <form-property prefix="record" name="roleid" type="long" size="12" cannull="true" description="角色编号"/>
+      <form-property prefix="record" name="rolename" type="string" size="32" cannull="false" description="角色名称"/>
+      <form-property prefix="record" name="description" type="string" size="256" cannull="true" description="角色描述"/>
+      
+      <form-property prefix="record" name="roleid_target" type="long" size="12" cannull="true" description="目标角色编号"/>
+      <form-property prefix="record" name="rolename_target" type="string" size="32" cannull="false" description="目标角色名称"/>
+      <form-property prefix="record" name="description_target" type="string" size="256" cannull="true" description="目标角色描述"/>
+    </form-bean>
+    
+
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-operrole.jsp" name="OperroleRowsetForm" txn-code="980321" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询业务角色列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.role.txn.TxnOperrole" func-name="txn980321" input-node="select-key" output-node="record"/>
+      <forward error-code="success" path="query-operrole.jsp" redirect="false"/>
+      <forward error-code="failure" path="query-operrole.jsp" redirect="false"/>
+    </action>
+
+    <action input="update-operrole.jsp" name="OperroleUpdateForm" txn-code="980322" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改业务角色资料</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.role.txn.TxnOperrole" func-name="txn980322" input-node="record"/>
+      <forward error-code="success" path="update-operrole.jsp" redirect="false"/>
+      <forward error-code="failure" path="update-operrole.jsp" redirect="false"/>
+    </action>
+
+    <action input="insert-operrole.jsp" name="OperroleUpdateForm" txn-code="980323" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加业务角色资料</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.role.txn.TxnOperrole" func-name="txn980323" input-node="record"/>
+      <forward error-code="success" path="insert-operrole.jsp" redirect="false"/>
+      <forward error-code="failure" path="insert-operrole.jsp" redirect="false"/>
+    </action>
+
+    <action input="query-operrole.jsp" name="OperroleUpdateForm" txn-code="980324" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询业务角色用于修改</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.role.txn.TxnOperrole" func-name="txn980324" input-node="primary-key" output-node="record"/>
+      <forward error-code="success" path="update-operrole.jsp" redirect="false"/>
+      <forward error-code="failure" path="update-operrole.jsp" redirect="false"/>
+      <forward name="status" error-code="success" path="status-operrole.jsp" redirect="false"/>
+      <forward name="status" error-code="failure" path="status-operrole.jsp" redirect="false"/>
+      <forward name="priv" error-code="success" path="set-operrole-func.jsp" redirect="false"/>
+      <forward name="priv" error-code="failure" path="set-operrole-func.jsp" redirect="false"/>
+      
+      <forward name="copy" error-code="success" path="copy-operrole.jsp" redirect="false"/>
+      <forward name="copy" error-code="failure" path="copy-operrole.jsp" redirect="false"/>
+    </action>
+
+    <action input="query-operrole.jsp" name="OperroleDeleteForm" txn-code="980325" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除业务角色信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.role.txn.TxnOperrole" func-name="txn980325" input-node="primary-key" output-node="record" />
+      <forward error-code="success" path="/script/deletesuccess.jsp" redirect="false"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp" redirect="false"/>
+    </action>
+
+    <action input="status-operrole.jsp" name="OperroleUpdateForm" txn-code="980326" check-type="check" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>设置角色的状态</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.role.txn.TxnOperrole" func-name="txn980326" input-node="record"/>
+      <forward error-code="success" path="status-operrole.jsp" redirect="false"/>
+      <forward error-code="failure" path="status-operrole.jsp" redirect="false"/>
+    </action>
+
+    <action input="set-operrole-func.jsp" name="OperroleUpdateForm" txn-code="980327" check-type="check" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>设置角色的权限信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.role.txn.TxnOperrole" func-name="txn980327" input-node="record" output-node="record"/>
+      <forward error-code="success" path="set-operrole-func.jsp"/>
+      <forward error-code="failure" path="set-operrole-func.jsp"/>
+    </action>
+
+	<action input="copy-operrole.jsp" name="OperroleCopyForm" txn-code="980328" check-type="check" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>角色复制</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.role.txn.TxnOperrole" func-name="txn980328" input-node="record" output-node="record" />
+      <forward error-code="success" path="txn980321.do"/>
+      <forward error-code="failure" path="copy-operrole.jsp"/>
+    </action>
+    
+    <action input="query-operrole.jsp" name="OperroleRowsetForm" txn-code="980329" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询业务角色列表，不分页</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.role.txn.TxnOperrole" func-name="txn980329" input-node="select-key" output-node="record"/>
+      <forward error-code="success" path="query-operrole.jsp" redirect="false"/>
+      <forward error-code="failure" path="query-operrole.jsp" redirect="false"/>
+    </action>
+    
+	<action input="query-operrole.jsp" name="OperroleUpdateForm" txn-code="980330" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>禁用角色</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.role.txn.TxnOperrole" func-name="txn980330" input-node="primary-key" output-node="record" />
+      <forward error-code="success" path="/txn980321.do" redirect="false"/>
+      <forward error-code="failure" path="/txn980321.do" redirect="false"/>
+    </action>
+    
+    <action input="query-operrole.jsp" name="OperroleUpdateForm" txn-code="980331" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>启用角色</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.role.txn.TxnOperrole" func-name="txn980331" input-node="primary-key" output-node="record"/>
+      <forward error-code="success" path="/txn980321.do" redirect="false"/>
+      <forward error-code="failure" path="/txn980321.do" redirect="false"/>
+    </action>        
+
+  </action-mappings>
+
+  <jsp-pages>
+    <jsp-page name="query-operrole.jsp" txn-code="980321" width="350" height="250" description="查询业务角色列表">
+      <frame frame-name="select-key" frame-type="query" caption="查询条件" width="95%">
+        <field field-name="rolename" field-type="text" caption="角色名称" property="style=width:90%,datatype=string,maxlength=32"/>
+        <field field-name="description" field-type="text" caption="角色描述" property="style=width:90%,datatype=string,maxlength=256"/>
+        <field field-name="funclist" field-type="text" caption="功能代码" property="style=width:90%,datatype=string,maxlength=1024"/>
+        <field field-name="groupname" field-type="hidden" caption="角色所属的功能组" property="style=width:90%,datatype=string,maxlength=32"/>
+        <field field-name="rolescope" field-type="select" caption="使用范围" value-set="角色使用范围" property="style=width:90%,maxlength=3,datatype=string"/>
+      </frame>
+
+      <frame frame-name="record" frame-type="grid" caption="业务角色维护列表" keylist="record:rolename" width="95%" property="navbar=bottom,fixrow=true,multiselect=false">
+        <button button-name="record_addRecord" function-name="addRecord" caption="增加业务角色" next-page="insert-operrole.jsp" hint="增加业务角色" txn-code="980323" property="enablerule=0,hotkey=ADD"/>
+        <button button-name="record_updateRecord" function-name="updateRecord" caption="修改业务角色" next-page="/txn980324.do" hint="修改业务角色" page-variable="primary-key:rolename" value-list="record:rolename" txn-code="980324" property="enablerule=1,hotkey=UPDATE"/>
+        <button button-name="record_updateStatus" function-name="updateRecord" caption="修改角色状态" next-page="/txn980324.do" hint="修改业务角色的状态" page-variable="primary-key:rolename" value-list="record:rolename" txn-code="980324" property="enablerule=1,hotkey=UPDATE"/>
+        <button button-name="record_deleteRecord" function-name="deleteRecord" caption="删除业务角色" next-page="/txn980325.do" hint="删除业务角色" page-variable="primary-key:rolename" value-list="record:rolename" txn-code="980325" property="enablerule=2,hotkey=DELETE"/>
+        <button button-name="record_setFuncList" function-name="goPage" caption="角色权限维护" next-page="/txn980324.do" hint="查询业务角色用于修改" page-variable="primary-key:rolename" value-list="record:rolename" txn-code="980324" property="enablerule=2"/>
+        <field field-name="roleid" field-type="cell" caption="角色名称" property="style=width:20%,datatype=long,maxlength=12,visible=false"/>
+        <field field-name="rolename" field-type="cell" caption="角色名称" property="style=width:20%,datatype=string,maxlength=32"/>
+        <field field-name="description" field-type="cell" caption="角色描述" property="style=width:25%,datatype=string,maxlength=256"/>
+        <field field-name="funclist" field-type="cell" caption="功能列表" property="style=width:10%,datatype=string,maxlength=1024,visible=false"/>
+        <field field-name="rolescope" field-type="cell" caption="角色使用范围" value-set="角色使用范围" property="style=width:20%,datatype=string,maxlength=3"/>
+        <field field-name="groupname" field-type="cell" caption="角色所属的功能组" property="style=width:10%,datatype=string,maxlength=32,visible=false"/>
+        <field field-name="homepage" field-type="cell" caption="主页面" property="style=width:25%,datatype=string,maxlength=128"/>
+        <field field-name="layout" field-type="cell" caption="页面布局" property="style=width:10%,datatype=string,maxlength=64,visible=false"/>
+        <field field-name="roletype" field-type="cell" caption="角色类型：保留" property="style=width:10%,datatype=string,maxlength=3,visible=false"/>
+        <field field-name="roletype2" field-type="cell" caption="角色类型：保留" property="style=width:10%,datatype=string,maxlength=3,visible=false"/>
+        <field field-name="status" field-type="cell" caption="有效标志" value-set="有效标志" property="style=width:10%,datatype=string,maxlength=1"/>
+        <field field-name="memo" field-type="cell" caption="备注" property="style=width:10%,datatype=string,maxlength=256,visible=false"/>
+        <field field-name="regname" field-type="cell" caption="注册用户" property="style=width:10%,datatype=string,maxlength=24,visible=false"/>
+        <field field-name="regdate" field-type="cell" caption="注册日期" property="style=width:10%,datatype=string,maxlength=8,visible=false"/>
+        <field field-name="modname" field-type="cell" caption="修改用户" property="style=width:10%,datatype=string,maxlength=24,visible=false"/>
+        <field field-name="moddate" field-type="cell" caption="修改日期" property="style=width:10%,datatype=string,maxlength=8,visible=false"/>
+      </frame>
+
+    </jsp-page>
+
+    <jsp-page name="insert-operrole.jsp" txn-code="980323" width="350" height="250" description="增加业务角色信息">
+      <frame frame-name="record" frame-type="block" caption="增加业务角色维护" width="95%" property="columns=1,captionWidth=0.25">
+        <button button-name="record_saveRecord" function-name="saveRecord" caption="保 存" next-page="/txn980323.do" hint="保存业务角色信息" txn-code="980323" property="hotkey=SAVE"/>
+        <button button-name="record_saveAndContinue" function-name="saveAndContinue" caption="保存并继续" next-page="/txn980323.do" hint="保存业务角色信息并解析" txn-code="980323" property="hotkey=SAVE_CONTINUE"/>
+        <button button-name="record_saveAndExit" function-name="saveAndExit" caption="保存并关闭" next-page="/txn980323.do" hint="保存业务角色信息并返回" txn-code="980323" property="hotkey=SAVE_CLOSE"/>
+        <button button-name="record_goBack" function-name="goBack" caption="返 回" next-page="/txn980321.do" hint="返回到业务角色明细窗口" property="hotkey=CLOSE"/>
+        <field field-name="rolename" field-type="text" caption="角色名称" property="style=width:90%,datatype=string,maxlength=32,minlength=1"/>
+        <field field-name="description" field-type="text" caption="角色描述" property="style=width:90%,datatype=string,maxlength=256"/>
+        <field field-name="rolescope" field-type="select" caption="使用范围" value-set="角色使用范围" property="style=width:90%,datatype=string,maxlength=3"/>
+        <field field-name="groupname" field-type="text" caption="角色所属的功能组" property="style=width:90%,datatype=string,maxlength=32"/>
+        <field field-name="homepage" field-type="text" caption="主页面" property="style=width:90%,datatype=string,maxlength=128"/>
+        <field field-name="layout" field-type="text" caption="页面布局" property="style=width:90%,datatype=string,maxlength=64"/>
+        <field field-name="roletype" field-type="hidden" caption="角色类型：保留" property="style=width:90%,datatype=string,maxlength=3"/>
+        <field field-name="roletype2" field-type="hidden" caption="角色类型：保留" property="style=width:90%,datatype=string,maxlength=3"/>
+        <field field-name="memo" field-type="hidden" caption="备注" property="style=width:90%,datatype=string,maxlength=256"/>
+      </frame>
+
+    </jsp-page>
+
+    <jsp-page name="update-operrole.jsp" txn-code="980322" width="350" height="250" description="修改业务角色信息">
+      <frame frame-name="primary-key" frame-type="frame" width="95%">
+        <field field-name="roleid" field-type="hidden" caption="角色编号" property="style=width:90%,datatype=long,maxlength=12"/>
+        <field field-name="rolename" field-type="hidden" caption="角色名称" property="style=width:90%,datatype=string,maxlength=32"/>
+      </frame>
+	  
+      <frame frame-name="record" frame-type="block" caption="修改业务角色维护" width="95%" property="columns=1,captionWidth=0.25">
+        <button button-name="record_saveAndExit" function-name="saveAndExit" caption="保 存" next-page="/txn980322.do" hint="修改业务角色信息" txn-code="980322" property="hotkey=SAVE"/>
+        <button button-name="record_goBack" function-name="goBack" caption="返 回" next-page="/txn980321.do" hint="返回到明细窗口" property="hotkey=CLOSE"/>
+        <field field-name="rolename" field-type="text" caption="角色名称" property="style=width:90%,datatype=string,maxlength=32,readonly=true"/>
+        <field field-name="description" field-type="text" caption="角色描述" property="style=width:90%,datatype=string,maxlength=256"/>
+        <field field-name="rolescope" field-type="select" caption="角色使用范围" value-set="角色使用范围" property="style=width:90%,datatype=string,maxlength=3"/>
+        <field field-name="groupname" field-type="text" caption="角色所属的功能组" property="style=width:90%,datatype=string,maxlength=32"/>
+        <field field-name="homepage" field-type="text" caption="主页面" property="style=width:90%,datatype=string,maxlength=128"/>
+        <field field-name="layout" field-type="text" caption="页面布局" property="style=width:90%,datatype=string,maxlength=64"/>
+        <field field-name="roletype" field-type="hidden" caption="角色类型：保留" property="style=width:90%,datatype=string,maxlength=3"/>
+        <field field-name="roletype2" field-type="hidden" caption="角色类型：保留" property="style=width:90%,datatype=string,maxlength=3"/>
+        <field field-name="status" field-type="hidden" caption="有效标志" property="style=width:90%,datatype=string,maxlength=1"/>
+        <field field-name="memo" field-type="hidden" caption="备注" property="style=width:90%,datatype=string,maxlength=256"/>
+      </frame>
+    </jsp-page>
+
+    <jsp-page name="status-operrole.jsp" txn-code="980326" width="350" height="250" description="设置角色的状态">
+      <frame frame-name="primary-key" frame-type="frame" width="95%">
+        <field field-name="roleid" field-type="hidden" caption="角色编号" property="style=width:90%,datatype=long,maxlength=12"/>
+        <field field-name="rolename" field-type="hidden" caption="角色名称" property="style=width:90%,datatype=string,maxlength=32"/>
+      </frame>
+
+      <frame frame-name="record" frame-type="block" caption="修改业务角色维护" width="95%" property="columns=1,captionWidth=0.2">
+        <button button-name="record_saveAndExit" function-name="saveAndExit" caption="保 存" next-page="/txn980322.do" hint="修改业务角色信息" txn-code="980322" property="hotkey=SAVE"/>
+        <button button-name="record_goBack" function-name="goBack" caption="返 回" next-page="/txn980321.do" hint="返回到明细窗口" property="hotkey=CLOSE"/>
+        <field field-name="rolename" field-type="text" caption="角色名称" property="style=width:90%,datatype=string,maxlength=32,readonly=true"/>
+        <field field-name="description" field-type="text" caption="角色描述" property="style=width:90%,datatype=string,maxlength=256,readonly=true"/>
+        <field field-name="rolescope" field-type="select" caption="角色使用范围" value-set="角色使用范围" property="style=width:90%,datatype=string,maxlength=3,readonly=true"/>
+        <field field-name="status" field-type="radio" caption="有效标志" value-set="有效标志" property="style=width:30%,datatype=string,maxlength=1"/>
+        <field field-name="memo" field-type="textarea" caption="备注" property="style=width:90%,datatype=string,maxlength=256,valign=center,cols=60,rows=5"/>
+      </frame>
+
+    </jsp-page>
+
+    <jsp-page name="set-operrole-func.jsp" width="350" height="250" description="设置业务角色的功能信息"/>
+  </jsp-pages>
+
+</struts-config>
+

@@ -1,0 +1,212 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>分发服务列表</title>
+
+<!-- ~Common CSS Begin~ -->
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../css/wcm_list_abstract.css" rel="stylesheet" type="text/css" />
+<!-- ~Common CSS End~ -->
+
+<!-- ~Imports Begin~    -->
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+</script>
+<script label="Imports">
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.util.CommonHelper');
+   $import('com.trs.wcm.SheetChanger');
+	$import('com.trs.wcm.QuickKey');
+	$import('com.trs.wcm.SimpleDragger');
+	$import('com.trs.wcm.Grid');
+	$import('com.trs.wcm.PageFilter');
+	$import('com.trs.wcm.BubblePanel');		
+</script>
+<!-- ~Imports END~    -->
+
+<!-- ~PageJavaScript Begin~    -->
+<script src="../common/wcm_list_abstract.js" label="PageScope"></script>
+<script src="js/DistributionMgr.js" label="PageScope" desc="业务对象"></script>
+<script src="distribution_list.js" label="PageScope" desc="页面的描述文件"></script>
+<!-- ~PageJavaScript END~    -->
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+	function getEnableDesc(_nEnabled){
+		if(_nEnabled == "0"){
+			return "未启用";
+		}
+		return "已启用";
+	}
+//-->
+</SCRIPT>
+
+<style label="PageScope">
+	/*可变的列[文档标题]所使用的样式*/
+	.DataPath{
+		text-align:left;
+		padding-left:0!important;
+		padding-left:2px;
+	}
+
+	/**页面自己的样式**/
+	.object_edit{
+		background-image:url(../images/icon/Update.png);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+	.object_delete{
+		background-image:url(../images/icon/Delete.png);
+		background-repeat:no-repeat;
+		background-position:center center;
+	}
+</style>
+</head>
+
+<body>
+<script>
+</script>
+<div id="dy_list_adjust"></div>
+<table id="table_body" class="wcm_table_layout" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" class="wcm_list_view">
+			<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+			<tbody>
+				<tr class="list_pageinfo">
+					<td colSpan="3">
+						<div class="pageinfo">
+							<div class="pageinfo_left"></div>
+							<div class="pageinfo_right"></div>
+							<span id="pageinfo"></span>
+							<!--PageInfo模板-->
+							<textarea id="pageinfo_template" select="PageInfo" style='display:none'>
+								<table height="28" border="0" cellpadding="0" cellspacing="0">
+									<tr height="28">
+										<td align="left" valign="center">
+											<div height="28" class="pagefilter_container">
+												<for select="Filters.Filter">
+												<span class="pagefilter {#IsDefault,,PageFilter.filterClass}" pagefilter_type="{#Type}">
+													<table border="0" cellpadding="0" cellspacing="0">
+														<tr height="23">
+															<td class="left" width="7"></td>
+															<td class="middle" nowrap="nowrap" valign="middle">
+																<a href="#" onclick="return false">{#Name}</a>
+															</td>
+															<td class="right" width="7"></td>
+														</tr>
+													</table>
+												</span>
+												</for>
+												<span class="wcm_pointer pagefilter_more_btn" id="pagefilter_more_btn"></span>
+											</div>
+										</td>
+									</tr>
+								</table>
+							</textarea>
+						</div> 
+					</td>
+				</tr>
+				<tr class="list_view">
+					<td class="list_view_border"></td>
+					<td valign="top">
+						<DIV id='objects_grid' class="grid">
+							<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+								<tr style="height:29px">
+									<td>
+										<DIV class="grid_head" id="grid_head">
+											<!--列表头模板-->
+											<SPAN class="grid_head_column" onclick="Grid.toggleAllRows();" style="width:30px;">
+												全选
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:30px">
+												修改
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:50px" grid_sortby="Enabled">
+												状态
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:60px" grid_sortby="TargetType">
+												分发类型
+											</SPAN>
+											<SPAN class="grid_head_column DataPath" grid_dywidth="DataPath,1.0" grid_sortby="DataPath">
+												存放目录
+											</SPAN>											
+											<SPAN class="grid_head_column" style="width:80px" grid_sortby="TargetServer">
+												服务器地址
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:60px" grid_sortby="LoginUser">
+												用户名
+											</SPAN>
+											<SPAN class="grid_head_column" style="width:30px;border-right:0">
+												删除
+											</SPAN>
+										</DIV>
+									</td>
+								</tr>
+								<tr>
+									<td valign="top">
+										<div id="grid_data" class="grid_data"></div>
+										<!--Objects列表数据模板-->
+										<textarea id="objects_template" select="PublishDistributions.PublishDistribution" style='display:none'>
+											<for select="." blankRef="divNoObjectFound">
+											<DIV class="grid_row wcm_pointer" grid_rowid="{#PUBLISHDISTRIBUTIONID}">
+												<SPAN class="grid_column" style="width:30px">
+													<input type="checkbox" class="wcm_pointer grid_checkbox" name="PUBLISHDISTRIBUTIONID" grid_function="multi" value="{#PUBLISHDISTRIBUTIONID}"/>
+												</SPAN>
+												<SPAN class="grid_column object_edit"  style="width:30px" grid_function="edit">
+													&nbsp;
+												</SPAN>
+												<SPAN class="grid_column" style="width:50px">
+													{@getEnableDesc(#Enabled)}
+												</SPAN>
+												<SPAN class="grid_column" style="width:60px">
+													{#TargetType}
+												</SPAN>
+												<SPAN class="grid_column_autowrap DataPath" style="font-size:14px;" align="left">
+													{#DataPath}
+												</SPAN>
+												<SPAN class="grid_column" style="width:80px">
+													{#TargetServer}
+												</SPAN>
+												<SPAN class="grid_column" style="width:60px">
+													{#LoginUser}
+												</SPAN>
+												<SPAN class="grid_column object_delete"  style="width:30px;border-right:0" grid_function="delete">
+													&nbsp;
+												</SPAN>
+											</DIV>
+											</for>
+										</textarea>
+									</td>
+								</tr>
+							</table>
+						</DIV>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+				<tr class="list_navigator">
+					<td class="list_view_border"></td>
+					<td>
+						<DIV id="list_navigator" class="list_navigator_div">
+						</DIV>
+					</td>
+					<td class="list_view_border"></td>
+				</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+</table>
+<div id="divNoObjectFound" style="display:none;">
+	<div class="no_object_found">不好意思, 没有找到符合条件的对象..-____-|||</div>
+</div>
+<script language="javascript">
+<!--
+	PageContext.LoadPage();
+//-->
+</script>
+</body>
+</html>

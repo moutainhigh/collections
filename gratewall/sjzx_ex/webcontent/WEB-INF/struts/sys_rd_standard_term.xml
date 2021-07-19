@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>术语定义管理</menu-name>
+  <menu-path>/page/resource/res/rd/standard/sydygl/</menu-path>
+  <description>术语定义管理</description>
+  <form-beans>
+    <form-bean name="SysRdStandardTermRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="standard_term_cn" type="string" size="32" description="术语中文名"/>
+      <form-property prefix="select-key" name="standard_term_en" type="string" size="32" description="术语英文名"/>
+      <form-property prefix="record" name="sys_rd_standar_term_id" type="string" size="32" cannull="false" description="术语ID"/>
+      <form-property prefix="record" name="standard_term_cn" type="string" size="64" cannull="true" description="术语名称"/>
+      <form-property prefix="record" name="standard_term_en" type="string" size="64" cannull="true" description="英文名称"/>
+      <form-property prefix="record" name="standard_term_definition" type="string" size="1024" cannull="true" description="术语定义"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="备注"/>
+    </form-bean>
+
+    <form-bean name="SysRdStandardTermUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_rd_standar_term_id" type="string" size="32" cannull="false" description="术语ID"/>
+      <form-property prefix="record" name="sys_rd_standar_term_id" type="string" size="32" cannull="false" description="术语ID"/>
+      <form-property prefix="record" name="standard_term_cn" type="string" size="64" cannull="true" description="术语名称"/>
+      <form-property prefix="record" name="standard_term_en" type="string" size="64" cannull="true" description="英文名称"/>
+      <form-property prefix="record" name="standard_term_definition" type="string" size="1024" cannull="true" description="术语定义"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="备注"/>
+    </form-bean>
+    
+    <form-bean name="SysRdStandardTermViewForm">
+      <description>单记录处理：查询</description>
+      <form-property prefix="primary-key" name="sys_rd_standar_term_id" type="string" size="32" cannull="false" description="术语ID"/>
+      <form-property prefix="record" name="sys_rd_standar_term_id" type="string" size="32" cannull="false" description="术语ID"/>
+      <form-property prefix="record" name="standard_term_cn" type="string" size="64" cannull="true" description="术语名称"/>
+      <form-property prefix="record" name="standard_term_en" type="string" size="64" cannull="true" description="英文名称"/>
+      <form-property prefix="record" name="standard_term_definition" type="string" size="1024" cannull="true" description="术语定义"/>
+      <form-property prefix="record" name="memo" type="string" size="2000" cannull="true" description="备注"/>
+    </form-bean>
+
+    <form-bean name="SysRdStandardTermDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_rd_standar_term_id" type="string" size="32" cannull="false" description="术语ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_rd_standard_term.jsp" name="SysRdStandardTermRowsetForm" txn-code="7000101" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询术语列表</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardTerm" func-name="txn7000101" input-node="select-key" output-node="record" description="查询术语列表"/>
+      <forward error-code="success" path="query-sys_rd_standard_term.jsp"/>
+      <forward error-code="failure" path="query-sys_rd_standard_term.jsp"/>
+    </action>
+
+    <action input="update-sys_rd_standard_term.jsp" name="SysRdStandardTermUpdateForm" txn-code="7000102" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改术语信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardTerm" func-name="txn7000102" input-node="record" description="修改术语信息"/>
+      <forward error-code="success" path="update-sys_rd_standard_term.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_standard_term.jsp"/>
+    </action>
+
+    <action input="insert-sys_rd_standard_term.jsp" name="SysRdStandardTermUpdateForm" txn-code="7000103" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加术语信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardTerm" func-name="txn7000103" input-node="record" description="增加术语信息"/>
+      <forward error-code="success" path="insert-sys_rd_standard_term.jsp"/>
+      <forward error-code="failure" path="insert-sys_rd_standard_term.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_standard_term.jsp" name="SysRdStandardTermUpdateForm" txn-code="7000104" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询术语用于修改</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardTerm" func-name="txn7000104" input-node="primary-key" output-node="record" description="查询术语用于修改"/>
+      <forward error-code="success" path="update-sys_rd_standard_term.jsp"/>
+      <forward error-code="failure" path="update-sys_rd_standard_term.jsp"/>
+    </action>
+
+    <action input="query-sys_rd_standard_term.jsp" name="SysRdStandardTermDeleteForm" txn-code="7000105" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除术语信息</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardTerm" func-name="txn7000105" input-node="primary-key" description="删除术语信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    
+     <action input="query-sys_rd_standard_term.jsp" name="SysRdStandardTermViewForm" txn-code="7000106" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询术语用于视图</description>
+      <step index="10" bean-name="cn.gwssi.dw.rd.standard.txn.TxnSysRdStandardTerm" func-name="txn7000106" input-node="primary-key" output-node="record" description="查询术语用于修改"/>
+      <forward error-code="success" path="view-sys_rd_standard_term.jsp"/>
+      <forward error-code="failure" path="view-sys_rd_standard_term.jsp"/>
+    </action>
+    
+
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_rd_standard_term.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/dw/rd/standard/sydygl/query-sys_rd_standard_term.jsp" description="查询术语列表"/>
+    <resource-file type="jsp" file-name="/dw/rd/standard/sydygl/insert-sys_rd_standard_term.jsp" description="增加术语信息"/>
+    <resource-file type="jsp" file-name="/dw/rd/standard/sydygl/update-sys_rd_standard_term.jsp" description="修改术语信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.SysRdStandardTermContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardTerm" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardTermSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.standard.vo.VoSysRdStandardTermPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

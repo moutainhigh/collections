@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.scm.service.SCMAccountServiceProvider">
+	<method name="delete" desc="删除账号">
+		<parameter name="ObjectIds" desc="账号id串" type="string" required="true"/>
+	</method>
+	
+	<method name="query" desc="获取账号集合">
+		<parameter name="OrderBy" desc="账号排序字段及方式" type="string" required="false"/>	
+		<parameter name="AccountName" desc="账号名称" type="string" required="false"
+			search="true" search-operator="like" search-field="AccountName"/>
+		<parameter name="PlatForm" desc="平台名称" type="string" required="false"
+			search="true" search-operator="like" search-field="PlatForm"/>			
+		<parameter name="CrUser" desc="创建者" type="string" required="false"
+			search="true" search-operator="like" search-field="CrUser"/>
+		<parameter name="Status" desc="创建者" type="int" required="false"
+			search="true" search-operator="=" search-field="Status"/>			
+	</method>
+	
+	<method name="save" desc="添加或修改账号">			
+		<parameter name="ObjectId" desc="账号id" type="int" required="true" />
+		<parameter name="SCMGroupId" desc="组Id" type="int" required="false" />
+		<parameter name="AccessToken" desc="访问令牌" type="string" required="true" />
+		<parameter name="AccessSecret" desc="访问密钥" type="string" required="false" />
+		<parameter name="Platform" desc="平台" type="string" required="true" />
+	</method>
+	
+	<method name="findAccountsOfUser" desc="获取指定用户可以管理的账号">			
+		<parameter name="UserId" desc="用户id" type="int" required="true"/>
+	</method>	
+	
+	<method name="findAccountsOfGroup" desc="获取指定分组下的账号集合">			
+		<parameter name="SCMGroupId" desc="组id" type="int" required="true"/>
+	</method>  
+	  
+	<method name="findById" desc="根据账号Id获取账号对象">			
+		<parameter name="ObjectId" desc="账号id" type="int" required="true"/>
+	</method>  
+	<method name="findByIds" desc="根据账号Id序列获取账号集合">			
+		<parameter name="ObjectIds" desc="多个账号id字符串" type="string" required="true"/>
+	</method>
+</service>

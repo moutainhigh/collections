@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+	<!-- MVC注解驱动 -->
+	<mvc:annotation-driven />
+
+	<!-- 配置扫描器，使得@Controller注解生效 -->
+	<!-- <context:component-scan base-package="com.ly.controller" /> -->
+	<context:component-scan base-package="com.ly.vuecontroller" />
+
+	<!-- 定义视图解析器 -->
+	<!-- prefix="/WEB-INF/jsp/", suffix=".jsp", viewname="test" -> "/WEB-INF/jsp/test.jsp" -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 前缀 -->
+		<property name="prefix" value="/WEB-INF/pages/" />
+		<!-- 后缀 -->
+		<property name="suffix" value=".html" />
+	</bean>
+
+	<!-- 处理静态资源被“/”所拦截的问题 -->
+	<mvc:default-servlet-handler />
+	<mvc:resources mapping="/admin/**" location="/,/admin/" />
+	<mvc:resources mapping="/statics/**" location="/,/statics/" />
+	<mvc:resources mapping="/plugins/**" location="/,/plugins/" />
+	<mvc:resources mapping="/uploadFiles/**" location="/,/uploadFiles/" />
+
+
+	<!-- https://blog.csdn.net/lishirong/article/details/54946241 -->
+	<!-- https://blog.csdn.net/a_short_tail_rabbit/article/details/79000817 -->
+	<!-- https://www.cnblogs.com/cielosun/p/6741307.html -->
+	<!-- API 接口跨域配置 -->
+	<!-- <mvc:cors>
+		<mvc:mapping path="/**" allowed-origins="*"
+			allowed-methods="POST,GET,OPTIONS,DELETE,PUT"
+			allowed-headers="Origin,X-Mx-ReqToken,x-requested-with,userName,passWord,Authorization,Accept,content-type,Access-Control-Allow-Origin"
+			allow-credentials="true" />
+	</mvc:cors> -->
+
+
+	<mvc:annotation-driven />
+
+<bean id="exceptionResolver" class="com.ly.exception.MyExceptionResolver"></bean>
+
+	 <!--  <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/loginCheck.do"/>
+            <mvc:exclude-mapping path="/login.do"/>
+            <mvc:exclude-mapping path="/wait/**"/>
+            <bean class="com.ly.intercepter.MyInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors> -->
+ 
+
+
+</beans>

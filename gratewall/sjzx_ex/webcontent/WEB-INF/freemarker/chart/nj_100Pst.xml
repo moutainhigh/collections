@@ -1,0 +1,19 @@
+<chart palette="2" caption="年检信息"  showBorder="0" xAxisName="" yAxisName="" 
+captionPadding="1" chartTopMargin="1" chartBottomMargin="5" chartLeftMargin="5" showLabels="0"
+numberPrefix="" showValues="0" stack100Percent="1" showPercentValues="0">
+<categories>
+	<category label="企业" />
+	<category label="个体" />
+	<category label="机构" />
+</categories>
+<dataset seriesName="已检总数" color="B1D1DC" >
+	<set value="${ent_yc_yes_total_num!}" />
+	<set value="${gt_yc_yes_total_num!}"/>
+	<set value="${jg_yc_yes_total_num!}" />
+</dataset>
+<dataset seriesName="未检总数" color="C8A1D1" >
+	<set value="${ent_yc_no_total_num!}"/>
+	<set value="${gt_yc_no_total_num!}"/>
+	<set value="${jg_yc_no_total_num!}" />
+</dataset>
+</chart> 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="单表数据库操作" page="single-table.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="single-table.gif"/>
+  <struts name="mds_ent_ent_inf.xml" app-path="/dw/aic/bj/mds/ent/" app-name="mds_ent_ent_inf" description="企业信息" template="single-table.xml"/>
+  <table name="mds_ent_ent_inf.xml" app-name="mds_ent_ent_inf" app-desc="企业" delete-action="delete" description="企业信息" class-name="com.gwssi.dw.aic.bj.mds.txn.TxnMdsEntEntInf" template="single-table.java" dao-class-template="single-table.java">
+	  <jsp page-name="query-mds_ent_ent_inf.jsp" txn-code="60151001" description="查询企业列表" template="single/single-table-query.jsp">
+	    <button type="button" name="增加企业" path="insert-mds_ent_ent_inf.jsp" description="增加企业" func-name="addRecord"/>
+	    <button type="button" name="修改企业" path="/txn60151004.do" description="修改企业" func-name="updateRecord"/>
+	    <button type="button" name="删除企业" path="/txn60151005.do" description="删除企业" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60151001.do" description="查询企业信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-mds_ent_ent_inf.jsp" txn-code="60151003" description="增加企业信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60151003.do" description="保存企业信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60151003.do" description="保存企业信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60151001.do" description="保存企业信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60151001.do" description="返回到企业明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="detail-mds_ent_ent_inf.jsp" txn-code="60151002" description="修改企业信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60151001.do" description="修改企业信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60151001.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="query-mds_ent_ent_inf.jsp" txn-code="60151001" description="查询企业列表">
+	    <forward error-code="success" path="query-mds_ent_ent_inf.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-mds_ent_ent_inf.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-mds_ent_ent_inf.jsp" txn-code="60151002" description="修改企业信息">
+	    <forward error-code="success" path="query-mds_ent_ent_inf.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="query-mds_ent_ent_inf.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-mds_ent_ent_inf.jsp" txn-code="60151003" description="增加企业信息">
+	    <forward error-code="success" path="insert-mds_ent_ent_inf.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-mds_ent_ent_inf.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-mds_ent_ent_inf.jsp" txn-code="60151004" description="查询企业用于修改">
+	    <forward error-code="success" path="update-mds_ent_ent_inf.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-mds_ent_ent_inf.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-mds_ent_ent_inf.jsp" txn-code="60151005" description="删除企业信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mds.vo.MdsEntEntInfContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mds.vo.VoMdsEntEntInf" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mds.vo.VoMdsEntEntInfSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.mds.vo.VoMdsEntEntInfPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+</resource>

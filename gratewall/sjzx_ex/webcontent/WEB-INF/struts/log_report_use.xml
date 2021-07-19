@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>日志报告使用情况</menu-name>
+  <menu-path>/page/log/report/</menu-path>
+  <description>日志报告使用情况</description>
+  <form-beans>
+    <form-bean name="LogReportUseRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="log_report_use_id" type="string" size="32" description="日志报告操作id"/>
+      <form-property prefix="select-key" name="browser_date" type="string" size="10" description="浏览日期"/>
+      <form-property prefix="select-key" name="report_name" type="string" size="1000" description="报告名称"/>
+      <form-property prefix="select-key" name="creator" type="string" size="1000" description="上传人"/>
+      <form-property prefix="select-key" name="created_time" type="string" size="32" description="操作日期"/>
+      <form-property prefix="select-key" name="create_date_start" type="string" size="32" description="查询时间起"/>
+      <form-property prefix="select-key" name="create_date_end" type="string" size="32" description="查询时间止"/>
+      <form-property prefix="select-key" name="publish_date_start" type="string" size="32" description="查询时间起"/>
+      <form-property prefix="select-key" name="publish_date_end" type="string" size="32" description="查询时间止"/>
+      <form-property prefix="record" name="log_report_use_id" type="string" size="32" cannull="false" description="日志报告操作id"/>
+      <form-property prefix="record" name="log_report_create_id" type="string" size="32" cannull="true" description="日志报告生成id"/>
+      <form-property prefix="record" name="browser_person" type="string" size="100" cannull="true" description="浏览人"/>
+      <form-property prefix="record" name="browser_date" type="string" size="10" cannull="true" description="浏览日期"/>
+      <form-property prefix="record" name="operate" type="string" size="1" cannull="true" description="操作"/>
+      <form-property prefix="record" name="filename" type="string" size="1000" cannull="true" description="文件名"/>
+      <form-property prefix="record" name="path" type="string" size="4000" cannull="true" description="路径"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+    </form-bean>
+
+    <form-bean name="LogReportUseUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="log_report_use_id" type="string" size="32" cannull="false" description="日志报告操作id"/>
+      <form-property prefix="record" name="log_report_use_id" type="string" size="32" cannull="false" description="日志报告操作id"/>
+      <form-property prefix="record" name="log_report_create_id" type="string" size="32" cannull="true" description="日志报告生成id"/>
+      <form-property prefix="record" name="browser_person" type="string" size="100" cannull="true" description="浏览人"/>
+      <form-property prefix="record" name="browser_date" type="string" size="10" cannull="true" description="浏览日期"/>
+      <form-property prefix="record" name="operate" type="string" size="1" cannull="true" description="操作"/>
+      <form-property prefix="record" name="filename" type="string" size="1000" cannull="true" description="文件名"/>
+      <form-property prefix="record" name="path" type="string" size="4000" cannull="true" description="路径"/>
+      <form-property prefix="record" name="timestamp" type="string" size="32" cannull="true" description="时间戳"/>
+    </form-bean>
+
+    <form-bean name="LogReportUseDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="log_report_use_id" type="string" size="32" cannull="false" description="日志报告操作id"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-log_report_use.jsp" name="LogReportUseRowsetForm" txn-code="620200201" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询报告操作情况列表</description>
+      <step index="10" bean-name="com.gwssi.log.report.txn.TxnLogReportUse" func-name="txn620200201" input-node="select-key" output-node="record" description="查询报告操作情况列表"/>
+      <forward error-code="success" path="query-log_report_use.jsp"/>
+      <forward error-code="failure" path="query-log_report_use.jsp"/>
+    </action>
+ 
+
+    <action input="insert-log_report_use.jsp" name="LogReportUseUpdateForm" txn-code="620200203" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加报告操作情况信息</description>
+      <step index="10" bean-name="com.gwssi.log.report.txn.TxnLogReportUse" func-name="txn620200203" input-node="record" description="增加报告操作情况信息"/>
+      <forward error-code="success" path="insert-log_report_use.jsp"/>
+      <forward error-code="failure" path="insert-log_report_use.jsp"/>
+    </action>
+
+
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-log_report_use.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/log/report/query-log_report_use.jsp" description="查询报告操作情况列表"/>
+    <resource-file type="jsp" file-name="/page/log/report/insert-log_report_use.jsp" description="增加报告操作情况信息"/>
+    <resource-file type="jsp" file-name="/pagelo/log/report/update-log_report_use.jsp" description="修改报告操作情况信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.log.vo.LogReportUseContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.log.vo.VoLogReportUse" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.log.vo.VoLogReportUseSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.dw.rd.log.vo.VoLogReportUsePrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

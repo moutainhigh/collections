@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="sys_rd_table" class-name="cn.gwssi.dw.rd.metadata.dao.SysRdTable" check-flag="false" backup-flag="false">
+    <description>已认领表</description>
+  </table-info>
+
+  <column name="sys_rd_table_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="数据表ID"/>
+  <column name="sys_rd_system_id" data-type="varchar" length="32" not-null="false" value-from="input" description="业务主体ID"/>
+  <column name="sys_no" data-type="varchar" length="20" not-null="false" value-from="input" description="业务主体编号"/>
+  <column name="sys_name" data-type="varchar" length="100" not-null="false" value-from="input" description="主体名称"/>
+  <column name="sys_rd_data_source_id" data-type="varchar" length="32" not-null="false" value-from="input" description="数据源ID"/>
+  <column name="table_code" data-type="varchar" length="100" not-null="false" value-from="input" description="数据表名"/>
+  <column name="table_name" data-type="varchar" length="100" not-null="false" value-from="input" description="数据表中文名"/>
+  <column name="table_no" data-type="varchar" length="20" not-null="false" value-from="input" description="数据表编号"/>
+  <column name="table_sql" data-type="varchar" length="3000" not-null="false" value-from="input" description="数据表sql"/>
+  <column name="table_sort" data-type="varchar" length="100" not-null="false" value-from="input" description="排序字段"/>
+  <column name="table_dist" data-type="varchar" length="100" not-null="false" value-from="input" description="区县字段"/>
+  <column name="table_time" data-type="varchar" length="100" not-null="false" value-from="input" description="时间字段"/>
+  <column name="parent_table" data-type="varchar" length="100" not-null="false" value-from="input" description="父表名"/>
+  <column name="parent_pk" data-type="varchar" length="100" not-null="false" value-from="input" description="父表主键名"/>
+  <column name="table_fk" data-type="varchar" length="100" not-null="false" value-from="input" description="与父表关联列名"/>
+  <column name="first_record_count" data-type="long" length="22" not-null="false" value-from="input" description="初期数据量"/>
+  <column name="last_record_count" data-type="long" length="22" not-null="false" value-from="input" description="最后一次同步数据量"/>
+  <column name="table_type" data-type="varchar" length="1" not-null="false" value-from="input" description="表类型"/>
+  <column name="table_primary_key" data-type="varchar" length="100" not-null="false" value-from="input" description="表主键"/>
+  <column name="table_index" data-type="varchar" length="100" not-null="false" value-from="input" description="表索引"/>
+  <column name="table_use" data-type="varchar" length="100" not-null="false" value-from="input" description="用途"/>
+  <column name="gen_code_column" data-type="varchar" length="30" not-null="false" value-from="input" description="总局代码字段"/>
+  <column name="prov_code_column" data-type="varchar" length="30" not-null="false" value-from="input" description="省局代码字段"/>
+  <column name="city_code_column" data-type="varchar" length="30" not-null="false" value-from="input" description="市局代码字段"/>
+  <column name="content" data-type="varchar" length="30" not-null="false" value-from="input" description="代码字段内容"/>
+  <column name="claim_operator" data-type="varchar" length="32" not-null="false" value-from="input" description="认领人"/>
+  <column name="claim_date" data-type="varchar" length="10" not-null="false" value-from="input" description="认领日期"/>
+  <column name="changed_status" data-type="varchar" length="1" not-null="false" value-from="input" description="变化状态"/>
+  <column name="object_schema" data-type="varchar" length="36" not-null="false" value-from="input" description="表模式"/>
+  <column name="memo" data-type="varchar" length="2000" not-null="false" value-from="input" description="备注"/>
+  <column name="is_query" data-type="varchar" length="1" not-null="false" value-from="input" description="是否可查询"/>
+  <column name="is_trans" data-type="varchar" length="1" not-null="false" value-from="input" description="是否可共享"/>
+  <column name="is_download" data-type="varchar" length="1" not-null="false" value-from="input" description="是否可下载"/>
+  <column name="sort" data-type="long" length="5" not-null="false" value-from="input" description="排序"/>
+  <column name="timestamp" data-type="varchar" length="32" not-null="false" value-from="input" description="时间戳"/>
+  <primary-key name="pk_jc_table" column-list="sys_rd_table_id"/>
+  <index name="pk_jc_table" index-type="unique" cluster="cluster" column-list="sys_rd_table_id"/>
+  <function func-name="insert one sys_rd_table" func-type="insert" column-list="sys_rd_table_id,sys_rd_system_id,sys_no,sys_name,sys_rd_data_source_id,table_code,table_name,table_no,table_sql,table_sort,table_dist,table_time,parent_table,parent_pk,table_fk,first_record_count,last_record_count,table_type,table_primary_key,table_index,table_use,gen_code_column,prov_code_column,city_code_column,content,claim_operator,claim_date,changed_status,object_schema,memo,is_query,is_trans,is_download,sort,timestamp">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="select one sys_rd_table" func-type="select" column-list="sys_rd_table_id,sys_rd_system_id,sys_no,sys_name,sys_rd_data_source_id,table_code,table_name,table_no,table_sql,table_sort,table_dist,table_time,parent_table,parent_pk,table_fk,first_record_count,last_record_count,table_type,table_primary_key,table_index,table_use,gen_code_column,prov_code_column,city_code_column,content,claim_operator,claim_date,changed_status,object_schema,memo,is_query,is_trans,is_download,sort,timestamp">
+    <filter-column column-name="sys_rd_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_rd_table list" func-type="rowset" column-list="sys_rd_table_id,sys_rd_system_id,sys_no,sys_name,sys_rd_data_source_id,table_code,table_name,table_no,table_sql,table_sort,table_dist,table_time,parent_table,parent_pk,table_fk,first_record_count,last_record_count,table_type,table_primary_key,table_index,table_use,gen_code_column,prov_code_column,city_code_column,content,claim_operator,claim_date,changed_status,object_schema,memo,is_query,is_trans,is_download,sort,timestamp" sort-columns="sys_rd_data_source_id,table_code" max-record="10">
+    <filter-column column-name="sys_rd_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_rd_data_source_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="table_code" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="table_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="table_type" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_rd_system_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="delete one sys_rd_table" func-type="delete">
+    <filter-column column-name="sys_rd_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_rd_table" func-type="update" column-list="sys_rd_system_id,sys_no,sys_name,sys_rd_data_source_id,table_code,table_name,table_no,table_sql,table_sort,table_dist,table_time,parent_table,parent_pk,table_fk,first_record_count,last_record_count,table_type,table_primary_key,table_index,table_use,gen_code_column,prov_code_column,city_code_column,content,claim_operator,claim_date,changed_status,object_schema,memo,is_query,is_trans,is_download,sort,timestamp">
+    <filter-column column-name="sys_rd_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

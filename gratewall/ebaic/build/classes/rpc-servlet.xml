@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/aop
+	    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+
+	<bean name="/aboutMe" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="aboutMeServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.mobile.api.AboutMeService"></property>
+	</bean>
+	
+	<bean name="/common" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="commonServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.mobile.api.CommonService"></property>
+	</bean>
+	
+	<bean name="/confirm" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="confirmServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.mobile.api.ConfirmService"></property>
+	</bean>
+	
+	<bean name="/elicArch" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="elicArchServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.mobile.api.ElicArchService"></property>
+	</bean>
+	
+	<bean name="/elicCert" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="elicCertServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.mobile.api.ElicCertService"></property>
+	</bean>
+	
+	<bean name="/elicEntAuth" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="elicEntAuthServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.mobile.api.ElicEntAuthService"></property>
+	</bean>
+	
+	<bean name="/elicLegMobile" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="elicLegMobileServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.mobile.api.ElicLegMobileService"></property>
+	</bean>
+	
+	<bean name="/elicMgr" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="elicMgrServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.mobile.api.ElicMgrService"></property>
+	</bean>
+	
+	<bean name="/elicMyBusi" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="elicMyBusiServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.mobile.api.ElicMyBusiService"></property>
+	</bean>
+	
+	<bean name="/guide" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="guideServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.mobile.api.GuideService"></property>
+	</bean>
+	
+	<bean name="/identityAuth" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="identityServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.mobile.api.IdentityAuthService"></property>
+	</bean>
+	
+	<bean name="/login" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="loginServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.mobile.api.LoginService"></property>
+	</bean>
+	
+	<bean name="/myBusi" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="myBusiServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.mobile.api.MyBusiService"></property>
+	</bean>
+	
+	<bean name="/quickMsg" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="quickMsgServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.mobile.api.QuickMsgService"></property>
+	</bean>
+	
+	<bean name="/user" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="userServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.mobile.api.UserService"></property>
+	</bean>
+	
+	<bean name="/entAuthCredit" class="org.springframework.remoting.caucho.HessianServiceExporter">
+		<property name="service" ref="entAuthCreditServiceImpl"></property>
+		<property name="serviceInterface" value="com.gwssi.ebaic.apply.entaccount.interfac.api.EntAuthCreditService"></property>
+	</bean>
+	
+</beans>

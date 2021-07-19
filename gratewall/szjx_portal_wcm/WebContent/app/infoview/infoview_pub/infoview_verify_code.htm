@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title WCMAnt:param="infoview_verify_code.htm.verifycode">校验码</title>
+<script>
+var m_cb = null;
+var sValidVerifyCodeUrl = null;
+var sVerifyURL = null;
+var sVerifyCode = null;
+function init(_params, cb) {
+	var oImage = document.getElementById("VerifyCodeImage");
+	sVerifyURL = _params.VerifyURL;
+	oImage.src = sVerifyURL;
+	sValidVerifyCodeUrl = _params.ValidVerifycodeURL;
+	oImage.style.display = '';
+	document.getElementById('VerifyCode').focus();
+	m_cb = cb;
+}
+function doSubmit() {
+	sVerifyCode = document.getElementById("VerifyCode").value;
+	sVerifyCode = sVerifyCode.replace(/^\s*/g, "").replace(/\s*$/g, "");
+	if(sVerifyCode == "") {
+		alert("请输入校验码！");
+		return false;
+	}
+	return sVerifyCode;
+}
+function doValidVerifyCode(validResult){
+	var oImage = document.getElementById("VerifyCodeImage"); 
+	if(validResult.ErrorMsg){
+		alert(result["ErrorMsg"]);
+		oImage.src = sVerifyURL + '?version=' + new Date().getTime();
+		return false;
+	}else if(validResult.VerifyCode && sVerifyCode != validResult.VerifyCode){
+		 alert("您输入的验证码有误！请重新输入！");
+		 //oImage.src = sVerifyURL;
+		 return false;
+	}else{
+		m_cb.callback(sVerifyCode);
+		m_cb.close();
+	}
+}
+function onOk(){
+	var sVerifyCode = doSubmit();
+	if(sVerifyCode == false) return false;
+	var el = document.createElement("SCRIPT");
+	el.src = sValidVerifyCodeUrl;
+	document.body.appendChild(el);
+	return false;
+}
+function changeVerifyCode(){
+	var oImage = document.getElementById("VerifyCodeImage"); 
+	oImage.src = sVerifyURL + '?version=' + new Date().getTime();
+	//oImage.setAttribute("src", sVerifyURL + '?version=' + new Date().getTime());
+}
+</script>
+<style type="text/css">
+	*{
+		font-size: 12px;
+	}
+	table,td{
+		padding:0px;
+		margin:0px;
+	}
+</style>
+</HEAD>
+<BODY style="margin-left:8px;margin-bottom:3;margin-top:2;font-size:9pt;bgcolor:gray;overflow:hidden;">
+<form method=post onsubmit="doSubmit(); return false;">
+<table width="100%" height="100%" border="0" cellspacing="2" cellpadding="3" table-layout="fixed">
+	<tr>
+		<td align="left">
+			<img id="VerifyCodeImage" border="0" cellspacing="0" cellpadding="0" width="100" height="30" style="display: none">&nbsp;
+			<a href="#" id="reShowVerifyCode" onclick="changeVerifyCode(); return false;" WCMAnt:param="infoview_verify_code.htm.notsee">(看不清?)</a>
+		</td>
+	</tr>
+	<tr>
+		<td align="left">
+			<input type="text" name="VerifyCode" id="VerifyCode" size="20">
+		</td>
+	</tr>
+</table>
+</form>
+</BODY>
+</HTML>

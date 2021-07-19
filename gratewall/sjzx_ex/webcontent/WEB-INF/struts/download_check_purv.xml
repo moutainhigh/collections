@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>下载审批权限表</menu-name>
+  <menu-path>/dw/aic/download/check_purv/</menu-path>
+  <description>下载审批权限表</description>
+  <form-beans>
+    <form-bean name="DownloadCheckPurvRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="download_purv_id" type="string" size="32" cannull="true" description="下载权限设置ID"/>
+      <form-property prefix="record" name="download_check_purv_id" type="string" size="32" cannull="false" description="下载审批权限ID"/>
+      <form-property prefix="record" name="roleid" type="long" cannull="true" description="角色ID"/>
+      <form-property prefix="record" name="max_size" type="long" cannull="true" description="上限阀值"/>
+      <form-property prefix="record" name="min_size" type="long" cannull="true" description="下限阀值"/>
+      <form-property prefix="record" name="download_purv_id" type="string" size="32" cannull="true" description="下载权限设置ID"/>
+      <form-property prefix="record" name="multi_download_check" type="string" size="1" cannull="true" description="重复下载审批"/>
+    </form-bean>
+
+    <form-bean name="DownloadCheckPurvUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="download_check_purv_id" type="string" size="32" cannull="false" description="下载审批权限ID"/>
+      <form-property prefix="record" name="download_check_purv_id" type="string" size="32" cannull="false" description="下载审批权限ID"/>
+      <form-property prefix="record" name="roleid" type="long" cannull="true" description="角色ID"/>
+      <form-property prefix="record" name="max_size" type="long" cannull="true" description="上限阀值"/>
+      <form-property prefix="record" name="min_size" type="long" cannull="true" description="下限阀值"/>
+      <form-property prefix="record" name="download_purv_id" type="string" size="32" cannull="true" description="下载权限设置ID"/>
+      <form-property prefix="record" name="multi_download_check" type="string" size="1" cannull="true" description="重复下载审批"/>
+    </form-bean>
+
+    <form-bean name="DownloadCheckPurvDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="download_check_purv_id" type="string" size="32" cannull="false" description="下载审批权限ID"/>
+    </form-bean>
+  </form-beans>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-download_check_purv.xml" description="模板文件"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.aic.download.vo.DownloadCheckPurvContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.aic.download.vo.VoDownloadCheckPurv" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.aic.download.vo.VoDownloadCheckPurvSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.dw.aic.download.vo.VoDownloadCheckPurvPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

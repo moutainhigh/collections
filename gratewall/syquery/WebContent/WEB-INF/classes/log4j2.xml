@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="trace">
+
+	<Appenders>
+		<GSSyslog name="syslog" host="127.0.0.1" port="22222">
+		</GSSyslog>
+	</Appenders>
+	<Loggers>
+		<Root level="trace">
+			<AppenderRef ref="syslog"></AppenderRef>
+		</Root>
+	</Loggers>
+</configuration>

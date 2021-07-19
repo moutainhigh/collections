@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="sys_rd_unclaim_table" class-name="cn.gwssi.dw.rd.metadata.dao.SysRdUnclaimTable" check-flag="false" backup-flag="false">
+    <description>未认领表</description>
+  </table-info>
+
+  <column name="sys_rd_unclaim_table_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="未认领表ID"/>
+  <column name="sys_rd_data_source_id" data-type="varchar" length="32" not-null="false" value-from="input" description="数据源名称"/>
+  <column name="object_schema" data-type="varchar" length="36" not-null="false" value-from="input" description="用户"/>
+  <column name="unclaim_table_code" data-type="varchar" length="100" not-null="false" value-from="input" description="物理表"/>
+  <column name="unclaim_table_name" data-type="varchar" length="100" not-null="false" value-from="input" description="物理表中文名"/>
+  <column name="tb_index_name" data-type="varchar" length="32" not-null="false" value-from="input" description="索引名称"/>
+  <column name="tb_index_columns" data-type="varchar" length="2000" not-null="false" value-from="input" description="索引字段"/>
+  <column name="tb_pk_name" data-type="varchar" length="32" not-null="false" value-from="input" description="主键名"/>
+  <column name="tb_pk_columns" data-type="varchar" length="2000" not-null="false" value-from="input" description="主键字段"/>
+  <column name="cur_record_count" data-type="long" length="22" not-null="false" value-from="input" description="当前记录数量"/>
+  <column name="remark" data-type="varchar" length="2000" not-null="false" value-from="input" description="备注"/>
+  <column name="data_object_type" data-type="varchar" length="1" not-null="false" value-from="input" description="数据对象类型"/>
+  <column name="timestamp" data-type="varchar" length="32" not-null="false" value-from="input" description="时间戳"/>
+  <column name="object_script" data-type="binary" not-null="false" value-from="input" description="数据库对象脚本"/>
+  
+  <primary-key name="pk_sys_rd_unclaim_table" column-list="sys_rd_unclaim_table_id"/>
+  <index name="pk_sys_rd_unclaim_table" index-type="unique" cluster="cluster" column-list="sys_rd_unclaim_table_id"/>
+  <function func-name="select one sys_rd_unclaim_table" func-type="select" column-list="sys_rd_unclaim_table_id,sys_rd_data_source_id,unclaim_table_code,unclaim_table_name,object_schema,tb_index_name,tb_index_columns,tb_pk_name,tb_pk_columns,cur_record_count,remark,data_object_type,timestamp,object_script">
+    <filter-column column-name="sys_rd_unclaim_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_rd_unclaim_table list" func-type="rowset" column-list="sys_rd_unclaim_table_id,sys_rd_data_source_id,unclaim_table_code,unclaim_table_name,object_schema,tb_index_name,tb_index_columns,tb_pk_name,tb_pk_columns,cur_record_count,remark,data_object_type,timestamp,object_script" sort-columns="unclaim_table_name" max-record="10">
+    <filter-column column-name="sys_rd_data_source_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="unclaim_table_code" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="unclaim_table_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="object_schema" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_rd_table" func-type="insert" column-list="sys_rd_unclaim_table_id, sys_rd_data_source_id, unclaim_table_code, unclaim_table_name, object_schema, tb_index_name, tb_index_columns, tb_pk_name, tb_pk_columns, cur_record_count, remark, data_object_type, timestamp,object_script">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_rd_unclaim_table" func-type="delete">
+    <filter-column column-name="sys_rd_unclaim_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_rd_unclaim_table" func-type="update" column-list="sys_rd_unclaim_table_id,sys_rd_data_source_id,unclaim_table_code,unclaim_table_name,object_schema,tb_index_name,tb_index_columns,tb_pk_name,tb_pk_columns,cur_record_count,remark,data_object_type,timestamp,object_script">
+    <filter-column column-name="sys_rd_unclaim_table_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

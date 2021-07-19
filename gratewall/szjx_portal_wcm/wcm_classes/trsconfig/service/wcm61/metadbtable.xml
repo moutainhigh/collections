@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.components.metadata.service.MetaDataDefServiceProvider">
+	<method name="queryDBTableInfos">		
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="queryTableAnotherName" desc="元数据别名" type="string" required="false"
+			search="true" search-operator="like" search-field="AnotherName"/>
+		<parameter name="queryTableName" desc="元数据名称" type="string" required="false"
+			search="true" search-operator="like" search-field="TableName"/>			
+		<parameter name="queryTableDesc" desc="元数据描述" type="string" required="false"
+			search="true" search-operator="like" search-field="TableDesc"/>			
+		<parameter name="queryTableId" desc="元数据ID" type="int" required="false"
+			search="true" search-operator="=" search-field="TableInfoId"/>
+		<parameter name="CrUser" desc="查询创建者" type="string" required="false" search="true"
+			search-operator="like"/>				
+		<!-- 检索相关配置 END -->
+		<parameter name="OrderBy" desc="排序字段及方式" type="string" default="CrTime asc" required="false"/>	
+	</method>	
+	<method name="saveDBTableInfo">		
+		<parameter name="ObjectId" desc="元数据表ID" type="int" required="true"/>		
+		<parameter name="TableName" desc="物理表名"	 type="string" required="false" max-length="50"/>		
+		<parameter name="AnotherName" desc="别名" type="string" required="false" max-length="100"/>				 
+		<parameter name="TableDesc" desc="描述"	 type="string" required="false" max-length="200"/>			 
+	</method>	
+	<method name="findDBTableInfoById">		
+		<parameter name="ObjectId" desc="元数据结构ID" type="int" required="true"/>		
+	</method>
+	<method name="jFindById" truename="findDBTableInfoById"  convertor="uri:/app/metadbtable/metadbtable_findbyid.jsp"/>	
+	<method name="jQuery" truename="queryDBTableInfos"  convertor="uri:/app/metadbtable/metadbtable_query.jsp"/>
+	<method name="jThumbQuery" truename="queryDBTableInfos"  convertor="uri:/app/metadbtable/metadbtable_thumb_query.jsp"/>
+	<method name="deleteDBTableInfo">		
+		<parameter name="ObjectIds" desc="待删除元数据表ID序列" type="string" required="true"/>
+	</method>
+	<method name="findDBTableInfosByIds">		
+		<parameter name="ObjectIds" desc="元数据结构ID序列" type="string" required="true"/>
+	</method>
+</service>

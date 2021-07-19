@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.DefaultFormatServiceProvider">
+	<method name="saveDefaultFormat">
+		<parameter name="ObjId" desc="当前栏目或站点ID" type="int" required="true"/>
+		<parameter name="ObjType" desc="栏目或者站点" type="int" required="true"/>
+		<parameter name="Status" desc="是否开启默认排版" type="boolean" required="true"/>
+		<parameter name="Inherit" desc="继承方式" type="int" required="true"/>
+		<parameter name="ForWord" desc="粘贴word时是否开启" type="boolean" required="true"/>
+		<parameter name="Attribute" desc="默认排版属性值" type="string" required="false"/>
+	</method>
+	<method name="getDefaultFormatAttributes">
+		<parameter name="ObjId" desc="当前栏目或站点ID" type="int" required="true"/>
+	</method>
+</service>

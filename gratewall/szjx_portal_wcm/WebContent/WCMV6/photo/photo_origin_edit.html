@@ -1,0 +1,298 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:TRS="">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>图片编辑</title>
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="../js/opensource/tabpane/css/wcmcustom/tab.css"/>
+<script type="text/javascript" src="../js/opensource/tabpane/js/tabpane.js"></script>
+<script src="../js/wcm52/CTRSColorPicker.js"></script>
+<style>
+	.theader{
+		height:29px;
+		background-image:url(../images/document_normal_index/button-bg.png);	
+		font-size:14px;
+		padding-left:10px;
+	}
+	button{
+		height: 22px;
+		background: #eeeeee;
+		border: solid 1px silver;
+		font-size: 12px;
+		padding:0px 3px;
+		margin:10px 10px;
+		cursor:hand;
+	}
+	legend{
+		font:bold 12px;
+		padding:3px;
+	}
+	label{
+		cursor:hand;
+	}
+	.input_text{
+		border:1px solid black;
+		width:90px;
+		height:18px;
+	}
+	.attr_name{
+		font:bold 12px;
+	}
+</style>
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+	$import('com.trs.dialog.Dialog');
+	$import('com.trs.logger.Logger');
+</script>
+<script label="Imports">
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.util.CommonHelper');
+    $import('com.trs.wcm.QuickKey');
+	$import('com.trs.validator.Validator');	
+	$import('com.trs.wcm.ProcessBar');
+</script>
+<script src="photo_origin_edit.js"></script>
+</head>
+
+<body>
+<table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+<tbody>
+	<tr>
+		<td class="theader">编辑图片</td>
+	</tr>
+	<tr>
+		<td width="100%" height="100%">
+			<table border="0" cellspacing="0" cellpadding="10" width="100%" height="100%">
+			<tbody>
+				<tr>
+					<td style="width:70%;height:100%;background-color:#fff;border:1px solid #c3c3c3;" valign="middle" align="center">						
+						<div style="height:100%;width:100%;overflow:auto;">						
+							<img id="imageElement" src="../images/loading.gif" align="absmiddle"  id="imageBlock">
+						</div>						
+					</td>
+					<td style="width:30%;height:100%;">
+						<div style="height:100%;width:100%;overflow:auto;">						
+							<fieldset><legend>图片编辑</legend>
+							<div style="font-size:12px;padding:10px 10px;margin-bottom:8px">
+								<label for="suiteSize">
+									<input type="radio" name="imagesize" id="suiteSize" onclick="setSuiteSize();" checked="true">适合大小
+								</label>
+								<label for="originalSize">
+									<input type="radio" name="imagesize" id="originalSize" onclick="setOriginSize();" >原始大小
+								</label>
+							</div>
+							<div class="tab-pane">
+								<div class="tab-page"  id="tab-imgscale" actiontype="scaleImage">
+									<h2  class="tab">缩放</h2>
+									<div style="margin:0px 20px;padding:5px 5px;">
+										<div  style="margin:5px 5px">
+											<span>
+											<label for="scaletype_pixel">
+												<input type="radio" name="scaletype" id="scaletype_pixel" onclick="changeScaleType();" checked>像素
+											</label>
+											</span><br />
+											<span style="margin:10px 20px;">
+											<label for="scalewidth_pixel">
+												宽度：
+												<input type="text" class="input_text" name="scalewidth_pixel" id="scalewidth_pixel" onkeyup="changeScaleValue('width_pixel')" validation="type:'int',required:'true',desc:'宽度',value_range:'75,2000',showid:'validate_tip'" forceValid="true" value="">
+											</label>
+											</span><br/>
+											<span style="margin:10px 20px;">
+											<label for="scaleheight_pixel">
+												高度：
+												<input type="text" class="input_text"  name="scaleheight_pixel" id="scaleheight_pixel" onkeyup="changeScaleValue('height_pixel')"  validation="type:'int',required:'true',desc:'高度',value_range:'75,2000',showid:'validate_tip'" forceValid="true" value="">
+											</label>
+											</span>
+										</div>
+										<div  style="margin:5px 5px">
+											<span>
+											<label for="scaletype_percent">
+												<input type="radio" name="scaletype" id="scaletype_percent"  onclick="changeScaleType();">百分比
+											</label>
+											</span><br />
+											<span style="margin:10px 20px;">
+											<label for="scalewidth_percent">
+												宽度：
+												<input type="text" class="input_text" name="scalewidth_percent" id="scalewidth_percent" onkeyup="changeScaleValue('width_percent')"  value="100" validation="type:'int',required:'true',value_range:'1,100',desc:'宽度',showid:'validate_tip'">
+											</label>
+											</span><br/>
+											<span style="margin:10px 20px;">
+											<label for="scaleheight_percent">
+												高度：
+												<input type="text" class="input_text"  name="scaleheight_percent" id="scaleheight_percent" onkeyup="changeScaleValue('height_percent')" value="100" validation="type:'int',required:'true',value_range:'1,100',desc:'宽度',showid:'validate_tip'">
+											</label>
+											</span>
+										</div>
+										<div>
+											<label for="keepscaleratio">
+												<input type="checkbox" name="keepscaleratio" id="keepscaleratio" onclick="setKeepScacleRatio()" checked="true">保持宽高比
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="tab-page" id="tab-imgrotate"  actiontype="rotateImage">
+									<h2  class="tab">旋转</h2>
+									<div style="margin:0px 20px;padding:5px 5px;">
+										<div  style="margin:5px 5px">
+											方向：
+											<label for="rotate_clockwise">
+												<input type="radio" name="rotatetype" id="rotate_clockwise" checked>
+												顺时针
+											</label>
+											<label for="rotate_anticlockwise">
+												<input type="radio" name="rotatetype" id="rotate_anticlockwise">
+												逆时针
+											</label>
+										</div>
+										<div  style="margin:5px 5px">
+											<label for="rotate_degree">
+												角度：
+												<input type="text" class="input_text"  name="rotate_degree" id="rotate_degree" value=""  validation="type:'int',required:'true',value_range:'1,360',desc:'旋转角度',showid:'validate_tip'">
+												度
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="tab-page" id="tab-imgborder"  actiontype="addBorder">
+									<h2  class="tab">边框</h2>
+									<div style="margin:0px 20px;padding:5px 5px;">
+										<div  style="margin:5px 5px">											
+											<span style="margin:10px 0px;">
+											<label for="borderwidth">
+												宽度：
+												<input type="text" class="input_text" name="borderwidth" id="borderwidth" onkeyup="changeBorderValue('width');" validation="type:'int',required:'true',desc:'边框宽度',value_range:'0,100',showid:'validate_tip'" value="1">
+												像素
+											</label>
+											</span><br/>
+											<span style="margin:10px 0px;">
+											<label for="borderheight">
+												高度：
+												<input type="text" class="input_text"  name="borderheight" id="borderheight" onkeyup="changeBorderValue('height');" validation="type:'int',required:'true',desc:'边框高度',value_range:'0,100',showid:'validate_tip'" value="1">
+												像素
+											</label>
+											</span>
+										</div>
+										<div  style="margin:5px 5px">		
+											<span style="margin:10px 0px;">
+											<table border="0" cellspacing="0" cellpadding="0">
+											<tbody>
+												<tr>
+													<td style="font-size:12px;">颜色：</td>
+													<td>
+														<script>
+															TRSColorPicker.create("bordercolor", "#000000");
+														</script>
+													</td>
+												</tr>
+											</tbody>
+											</table>
+											</span>
+										</div>
+										<div>
+											<label for="keepbordereq">
+												<input type="checkbox" name="keepbordereq" id="keepbordereq" onclick="setKeepBorderWidthAndHeight();" checked="true">
+												保持边框的宽高相等
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="tab-page"  id="tab-imgraise"  actiontype="raiseImage">
+									<h2  class="tab">浮雕</h2>
+									<div style="margin:0px 20px;padding:5px 5px;">
+										<div  style="margin:5px 5px">
+											类型：
+											<label for="raise_up">
+												<input type="radio" name="raisetype" id="raise_up" checked>
+												凸出
+											</label>
+											<label for="raise_down">
+												<input type="radio" name="raisetype" id="raise_down">
+												凹下
+											</label>
+										</div>
+										<div  style="margin:5px 5px">											
+											<span style="margin:10px 0px;">
+											<label for="raisewidth">
+												宽度：
+												<input type="text" class="input_text" name="raisewidth" id="raisewidth" onkeyup="changeRaiseValue('width');" validation="type:'int',required:'true',desc:'浮雕宽度',min:'1',showid:'validate_tip'" value="">
+												像素
+											</label>
+											</span><br/>
+											<span style="margin:10px 0px;">
+											<label for="raiseheight">
+												高度：
+												<input type="text" class="input_text"  name="raiseheight" id="raiseheight" onkeyup="changeRaiseValue();" validation="type:'int',required:'true',desc:'浮雕高度',min:'1',showid:'validate_tip'" value="">
+												像素
+											</label>
+											</span>
+										</div>
+										<div>
+											<label for="keepraiseeq">
+												<input type="checkbox" name="keepraiseeq" id="keepraiseeq" onclick="setKeepRaiseWidthAndHeight()" checked="true">
+												保持宽高相等
+											</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="validate_tip" style="float:left;"></div><br/>
+							<div style="float:right">
+								<button onclick="undo();" id="btnundo" disabled="true">撤销</button>
+								<button onclick="redo();" id="btnredo"  disabled="true">重做</button>
+								<button onclick="applyAction();">应用</button>
+							</div>							
+							</fieldset>
+							<fieldset style="margin-top:20px;"><legend>图片属性</legend>
+							<div style="margin:0px 20px;padding:5px 5px;">
+								<!--div>
+									<span class="attr_name">BMP图片转换格式：</span>
+									<select id="BmpConverTypeSelect">
+										<option value="bmp">不转换</option>
+										<option value="gif">GIF</option>
+										<option value="jpg">JPG</option>
+									</select>
+								</div-->
+								<div>
+									<span class="attr_name">选择水印：</span>					
+									<span id="watermarks"></span>
+									<textarea style="display:none" id="template_watermarks">
+										<select id="selwatermark">
+											<option value="-1">--不添加水印--</option>
+										<for select="Watermarks.Watermark">
+											<option value="{#WATERMARKID}" _picsrc="{#WMPICTURE.MAPNAME}" _picfile="{#WMPICTURE.SRCNAME}">{#WMNAME}</option>
+										</for>
+										</select>
+									</textarea>
+								</div>
+								<div style="margin:10px 10px 10px 60px;display:none" id="watermarkpiccontainer">
+									<img src=""  id="watermarkpic" width="97">
+								</div>
+							</div>
+							<div id="div_watermarkpos" style="display:none;margin:0px 20px;padding:5px 5px;">
+								<span class="attr_name" title="点击全选" style="cursor:hand" onclick="selectAllPos()">水印位置：</span>
+								<span>
+								<label for="LT" class="attr_name">左上<input type="checkbox" id="LT" value="1"/></label>
+								<label for="CM" class="attr_name">居中<input type="checkbox" id="CM" value="2"/></label>
+								<label for="RB" class="attr_name">右下<input type="checkbox" id="RB" value="3" checked="true"/></label>
+							</div>
+							</fieldset>
+						</div>	
+					</td>
+				</tr>
+			</tbody>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td align="center" valign="bottom" height="22px">
+			<button onclick="onOk();">确定</button>
+			<button onclick="window.close();">取消</button>
+		</td>
+	</tr>
+</tbody>
+</table>
+</body>
+</html>
+

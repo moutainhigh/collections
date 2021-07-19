@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.NewChannelServiceProvider" objclass="com.trs.components.wcm.content.persistent.Channel">
+	
+	<method name="save" desc="保存当前栏目">		
+		<parameter name="CHNLNAME" desc="栏目名称" type="string" required="true"/>
+		<parameter name="ParentId" desc="父对象ID" type="int" required="false"/>
+		<parameter name="ParentType" desc="父对象类型" type="int" required="false"/>
+		<parameter name="ObjectId" desc="新建/修改" type="int" required="false"/>
+	</method>	
+
+	<method name="savePro" desc="保存当前栏目">		
+		<parameter name="Fluencexml" desc="流程文件" type="string" required="false"/>
+		<parameter name="ChannelId" desc="栏目Id" type="int" required="false"/>
+	</method>	
+	
+	<method name="list" desc="列出当前栏目下的所有子栏目序列">
+		<parameter name="ParentId" desc="父对象ID" type="int" required="true"/>
+		<parameter name="ParentType" desc="父对象类型" type="int" required="true"/>
+	</method>
+	
+	<method name="savepic" desc="列出当前栏目下的所有子栏目序列">
+		<parameter name="tempId" desc="模板ID" type="int" required="true"/>
+		<parameter name="picName" desc="缩略图名称" type="string" required="true"/>
+	</method>
+</service>

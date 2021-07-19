@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="GB2312"?>
+<!--
+niuzhao@2005-12-21 DocumentLCListenerForAutoDocBak修改为5，修改前监听
+-->
+<plugin name="WCM内容组件" version="1.0" id="wcm.content.domain">
+	<!--Config For ObjectLCMonitor BEGIN-->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		1：新增
+		2：修改后
+		3：删除前
+		4、删除后
+		5、修改前
+		多个以逗号隔开
+	-->
+	<extension 
+		element-class="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		id="components.wcm.content.ObjectLCMonitor">
+		<!--栏目文档-->
+		<monitor-host name="栏目文档"
+			class-name="com.trs.components.wcm.content.persistent.ChnlDoc">  
+			<listener bean-id="ChnlDocLCListenerForRecordNotEntity" event-type="1,3"/>
+		</monitor-host>
+		<!--栏目文档-->
+		<monitor-host name="栏目"
+			class-name="com.trs.components.wcm.content.persistent.Channel">  
+			<listener bean-id="ChannelLCListenerForWebSiteLastModifyTime" event-type="1,2,4"/>
+		</monitor-host>
+		<monitor-host name="栏目logo"
+			class-name="com.trs.components.wcm.publish.logo.Logo">  
+			<listener bean-id="ChannelLCListenerForWebSiteLastModifyTime" event-type="1,2,4"/>
+		</monitor-host>
+	</extension>
+</plugin>

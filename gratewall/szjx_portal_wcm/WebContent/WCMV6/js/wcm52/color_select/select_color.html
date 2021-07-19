@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ie="">
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+  colordialog.html
+  Copyright (c) 2002 Ma Bingyao. All rights reserved. 拓尔思
+  Version 2.1.20021209
+-->
+<title>选择颜色</title>
+<script>
+//if(typeof(dialogArguments) != "undefined"){
+	//document.write("<title>" + dialogArguments.lang["DlgColorTitle"] + "</title>") ;
+//}
+</script>
+<style type="text/css">
+<!--
+  body {
+    border: 0;
+    margin: 0;
+    padding-left: 8px;
+    padding-right: 8px;
+    background-color: buttonface;
+  }
+  body, td {
+    font-size: 12px;
+  }
+  input, select {
+    font: menu;
+  }
+  fieldset {
+    padding: 6px;
+  }
+  legend {
+    font: smallcaption;
+  }
+  @media all {          
+    ie\:colorselector {
+      behavior: url(colorselector.htc);
+    }
+    ie\:customcolor {
+      behavior: url(customcolor.htc);
+    }
+    ie\:colorshower {
+      behavior: url(colorshower.htc);
+    }
+    ie\:colorpicker {
+      behavior: url(colorpicker.htc);
+    }
+    ie\:intinput {
+      behavior: url(intinput.htc);
+    }
+  }
+-->
+</style>
+<script type="text/javascript" src="colordialog.js"></script>
+</head>
+<body scroll="no">
+<table width="540" border="0" cellspacing="0" cellpadding="0">
+  <tr valign="top"> 
+    <td width="250"> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td> 
+            <fieldset><legend>@@{palette}</legend>
+            <table width="100%" border="0" cellspacing="0" cellpadding="4">
+              <tr>
+                <td align="right"> 
+                  <select name="select" id="palette">
+                    <option value="16colors">@@{16colors}</option>
+                    <option value="140colors">@@{140colors}</option>
+                    <option value="216colors" selected="selected">@@{216colors}</option>
+                    <option value="syscolors">@@{syscolors}</option>
+                  </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td height="204" align="center" valign="top"><ie:colorselector id="colorselector" palette="216colors" /></td>
+                </tr>
+              </table>
+            </fieldset>
+          </td>
+        </tr>
+        <tr> 
+          <td>
+            <fieldset><legend>@@{custompalette}</legend>
+              <table width="100%" border="0" cellspacing="0" cellpadding="4">
+                <tr>
+                  <td height="36" align="center"><ie:customcolor id="customcolor" /></td>
+                </tr>
+                <tr>
+                  <td align="center">
+                    <table width="224" border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td width="54"><input type="button" id="addbutton" value="@@{add}" style="width:49px;" /></td>
+                        <td align="center"><input type="button" id="removebutton" value="@@{remove}" style="width:49px;" /></td>
+                        <td align="center"><input type="button" id="sortbutton" value="@@{sort}" style="width:49px;" /></td>
+                        <td width="54" align="right"><input type="button" id="reversebutton" value="@@{reverse}" style="width:49px;" /></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </fieldset>
+          </td>
+        </tr>
+        <tr> 
+          <td>
+            <fieldset><legend>@@{selectedcolor}</legend>
+              <table width="100%" border="0" cellpadding="0" cellspacing="1">
+                <tr> 
+                  <td width="70"><input type="radio" name="colorradio" id="exactcolorradio" checked="checked" /><label> @@{exact}</label></td>
+                  <td width="52" height="50" rowspan="2"><ie:colorshower id="colorshower" /></td>
+                  <td align="center" valign="top"><input type="button" id="morebutton" value="@@{more}" style="width:100px;" /></td>
+                </tr>
+                <tr> 
+                  <td><input type="radio" name="colorradio" id="safecolorradio" /><label> @@{safe}</label></td>
+                  <td align="center" valign="bottom">
+                    <table width="100" border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td><input type="submit" id="okbutton" value="@@{ok}" style="width:46px;" /></td>
+                        <td align="right"><input type="button" id="cancelbutton" value="@@{cancel}" style="width:46px;" /></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </fieldset>
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td> 
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td height="255" align="center"><ie:colorpicker id="colorpicker" /></td>
+        </tr>
+        <tr> 
+          <td align="center">
+            <table width="280" border="0" cellspacing="0" cellpadding="5">
+              <tr>
+                <td> 
+                  <fieldset><legend>@@{color}</legend>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="2">
+                      <tr>
+                        <td align="center"><label>@@{value} </label><input type="text" id="colorvalue" style="width:64px" /></td>
+                        <td align="center"><input type="checkbox" id="isgetname" /><label> @@{name} </label><input type="text" id="colorname" style="width:64px" /></td>
+                      </tr>
+                    </table>
+                  </fieldset>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr> 
+          <td align="center"> 
+            <table width="280" border="0" cellspacing="0" cellpadding="5">
+              <tr> 
+                <td>
+                  <fieldset><legend>RGB@@{model}</legend>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="2">
+                      <tr> 
+                        <td align="right" valign="baseline"><label>@@{red}</label></td>
+                        <td><ie:intinput id="red" width="42" maxlength="3" maxvalue="255" minvalue="0" /></td>
+                      </tr>
+                      <tr> 
+                        <td align="right" valign="baseline"><label>@@{green}</label></td>
+                        <td><ie:intinput id="green" width="42" maxlength="3" maxvalue="255" minvalue="0" /></td>
+                      </tr>
+                      <tr> 
+                        <td align="right" valign="baseline"><label>@@{blue}</label></td>
+                        <td><ie:intinput id="blue" width="42" maxlength="3" maxvalue="255" minvalue="0" /></td>
+                      </tr>
+                    </table>
+                  </fieldset>
+                </td>
+                <td>
+                  <fieldset><legend>HSB@@{model}</legend>
+                    <table width="100%" border="0" cellspacing="0" cellpadding="2">
+                      <tr> 
+                        <td align="right" valign="baseline"><label>@@{hue}(&deg;)</label></td>
+                        <td><ie:intinput id="hue" width="42" maxlength="3" maxvalue="359" minvalue="0" /></td>
+                      </tr>
+                      <tr> 
+                        <td align="right" valign="baseline"><label>@@{saturation}(%)</label></td>
+                        <td><ie:intinput id="saturation" width="42" maxlength="3" maxvalue="100" minvalue="0" /></td>
+                      </tr>
+                      <tr> 
+                        <td align="right" valign="baseline"><label>@@{brightness}(%)</label></td>
+                        <td><ie:intinput id="brightness" width="42" maxlength="3" maxvalue="100" minvalue="0" /></td>
+                      </tr>
+                    </table>
+                  </fieldset>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<script type="text/javascript" src="language.js"></script>
+</body>
+</html>

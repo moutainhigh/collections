@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统管理</sort-name>
+  <table-info name="first_page_query" class-name="com.gwssi.sysmgr.dao.FirstPageQuery" check-flag="false" backup-flag="false">
+    <description>用户登录统计表</description>
+  </table-info>
+
+  <column name="first_page_query_id" data-type="varchar" length="32" not-null="true" value-from="input" description="first_page_query_id"/>
+  <column name="first_cls" data-type="varchar" length="100" not-null="false" value-from="input" description="first_cls"/>
+  <column name="second_cls" data-type="varchar" length="100" not-null="false" value-from="input" description="second_cls"/>
+  <column name="count" data-type="long" length="22" not-null="false" value-from="input" description="count"/>
+  <column name="num" data-type="long" length="22" not-null="false" value-from="input" description="num"/>
+  <column name="query_date" data-type="varchar" length="10" not-null="false" value-from="input" description="query_date"/>
+  <column name="query_time" data-type="varchar" length="30" not-null="false" value-from="input" description="query_time"/>
+  <column name="username" data-type="varchar" length="24" not-null="false" value-from="input" description="username"/>
+  <column name="opername" data-type="varchar" length="24" not-null="false" value-from="input" description="opername"/>
+  <column name="orgid" data-type="varchar" length="32" not-null="false" value-from="input" description="orgid"/>
+  <column name="orgname" data-type="varchar" length="64" not-null="false" value-from="input" description="orgname"/>
+  <column name="ipaddress" data-type="varchar" length="16" not-null="false" value-from="input" description="ipaddress"/>
+  <primary-key name="pk_first_page_query" column-list="first_page_query_id"/>
+  <index name="pk_first_page_query" index-type="unique" cluster="cluster" column-list="first_page_query_id"/>
+  <function func-name="select one first_page_query_tj" func-type="select" column-list="first_page_query_id,first_cls,second_cls,count,num,query_date,query_time,username,opername,orgid,orgname,ipaddress">
+    <filter-column column-name="first_page_query_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select first_page_query_tj list" func-type="rowset" column-list="first_page_query_id,first_cls,second_cls,count,num,query_date,query_time,username,opername,orgid,orgname,ipaddress" max-record="10">
+    <filter-column column-name="query_date" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="opername" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="orgid" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one first_page_query_tj" func-type="insert" column-list="first_page_query_id,first_cls,second_cls,count,num,query_date,query_time,username,opername,orgid,orgname,ipaddress">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one first_page_query_tj" func-type="delete">
+    <filter-column column-name="first_page_query_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one first_page_query_tj" func-type="update" column-list="first_cls,second_cls,count,num,query_date,query_time,username,opername,orgid,orgname,ipaddress">
+    <filter-column column-name="first_page_query_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

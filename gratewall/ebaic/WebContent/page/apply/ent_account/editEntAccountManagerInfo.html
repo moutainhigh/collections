@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1" />
+<title>北京工商网上登记申请平台（全程电子化）</title>
+<link rel="stylesheet" href="../../../static/lib/JAZZ-UI/lib/themes/ebaic/jazz-all.css" type="text/css" />
+<link rel="stylesheet" href="../../../static/css/common.css" />
+<style>
+.sentMobileValidateCode {
+	position: relative;
+	left:55px;
+}
+
+.getCode {
+	width: 150px;
+	position: absolute;
+	top: 2px;
+	left: 625px;
+}
+
+.permissionCheckBox {
+	width: 700px;
+	margin: 10px auto;
+	margin-left: 80px;
+}
+
+/*管理人员权限修改样式*/
+.permissionCheckBox .ckwrap	.wraplist {
+	margin-top: 4px;
+}
+
+.permissionCheckBox .ckwrap {
+	padding-left: 40px;
+	font-size: 14px;
+}
+
+/*同意按钮选项*/
+.agree {
+    font-size: 12px;
+    color: #3892D3;
+    text-align: center;
+    font-family: songti;
+    width: 700px;
+    margin: 0;
+    margin-top: 20px;
+    margin-left:95px;
+}
+
+.content {
+	background-color: #fff;
+	margin-top: 0px;
+	width: 1000px;
+	border: none;
+	margin: 0 auto;
+	margin-top: 21px;
+	overflow: hidden;
+	height:620px;
+}
+
+.description>span {
+	padding-left:100px;
+	
+}
+
+.wrap .title {
+	padding-left: 80px;
+	font-size:16px;
+	color:#71b0e0;
+}
+
+.button {
+	display: block;
+}
+.content-top,.operate,.description{
+	width:952px;
+	border: 1px solid #71b0e0;
+    margin: 0 auto;
+}
+.operate{
+	height:50px;
+	line-height:50px;
+	border-bottom:none;
+}
+.description{
+	border-top:none;
+	border-bottom:none;
+	height: 100px;
+}
+.jazztable {
+    width: 800px;
+    margin-left: -60px;
+}
+.sendCheckNum {
+	width: 96px;
+    height: 32px;
+    line-height:32px;
+    cursor:pointer;
+    color: #fff;
+    margin-left: 85px;
+    margin-top: -2px;
+    background-color: #73c070;
+}
+.h2 {
+    /* font: 14px/1.5em Microsoft YaHei; */
+    margin-left: -360px;
+    padding:0;
+    font-size:14px/1.5em;
+    font-family: "songti";
+}
+#sendCheckNum{
+		position:relative;
+		top:-15px;
+	    padding: 6px 16px;
+	    margin-left: 5px;
+	    font: 12px simsun;
+	    font-weight: bold;
+	    color: #666;
+	}
+.wraplist table{
+	margin-left: 75px;
+	
+}
+.wraplist table td{
+	text-align: left;
+}
+
+
+/*修改了自定义按钮样式*/
+/* td:hover{
+	background: #45A4E0;
+} */
+
+
+
+
+.jazz-formpanel .jazz-toolbar .button-background {
+   background: #45A4E0;
+}
+.jazz-formpanel .jazz-toolbar .jazz-button .button-top-left-fillet-corner {
+    background: #45A4E0;
+}
+.jazz-formpanel .jazz-toolbar .jazz-button .button-top-right-fillet-corner {
+   background: #45A4E0;
+}
+.jazz-formpanel .jazz-toolbar .jazz-button .button-bottom-left-fillet-corner {
+    background: #45A4E0;
+}
+.jazz-formpanel .jazz-toolbar .jazz-button .button-bottom-right-fillet-corner {
+   background: #45A4E0;
+}
+
+.jazz-formpanel .jazz-toolbar .jazz-button:hover .button-background {
+    background: #2488c7;
+}
+.jazz-formpanel .jazz-toolbar .jazz-button:hover .button-top-left-fillet-corner {
+    background: #2488c7;
+}
+.jazz-formpanel .jazz-toolbar .jazz-button:hover .button-top-right-fillet-corner {
+    background: #2488c7;
+}
+.jazz-formpanel .jazz-toolbar .jazz-button:hover .button-bottom-left-fillet-corner {
+   background: #2488c7;
+}
+.jazz-formpanel .jazz-toolbar .jazz-button:hover .button-bottom-right-fillet-corner {
+    background: #2488c7;
+}
+</style>
+</head>
+<body style="overflow-x:hidden">
+<article>
+	<div class="content">
+		<!-- 构建页面==开始 -->
+		<div class="wrap">
+		<!-- <div class="content-top">
+			<img src="../../../static/image/img/icon/info-white.png">
+			<span>企业帐户管理员</span>
+		</div> -->
+			<div class="operate">
+				<span class="title">操作说明：</span>
+			</div>
+			<div class="description">
+				<span>
+				1、企业账户管理员必须是经过企业法定代表人授权的企业内部人员。<br /> </span>
+				<span>2、企业账户管理员是除了法定代表人之外唯一可以操作企业账户的使用者，可以操作企业账户的绝大多数功能。<br /></span>
+				<span>3、企业账户管理员默认为是企业后续办理登记业务的经办人。<br /></span>
+				<div class="dotted-line" style="width:850px;margin:0 auto;margin-top:30px;"></div>
+			</div>
+		</div>
+		﻿
+		<!-- 数据展现 -->
+		<div style="text-align: center;margin:-25px auto 0;border:1px solid #71b0e0;border-top:none" vtype="formpanel" wid="editEntAccountManagerInfo" name="editEntAccountManagerInfo_Form" dataview="false" titleDisplay="false" title="企业管理员账户信息修改" width="954" showborder="true" dataurl="" layout="table" layoutconfig="{cols:1, columnwidth: ['100%']}" labelstyleclass="labelstyle">
+		<div class="jazztable">
+			<div name="managerId" vtype="hiddenfield" label="主键" labelwidth="200" labelalign="right" width="600"></div>
+			<div name="name" vtype="textfield" label="管理员姓名" labelwidth="200" labelalign="right" width="600" tooltip="请输入管理员姓名" rule="must_length;1;20" readonly=""></div>
+			<div name="cerNo" vtype="textfield" label="身份证号码" labelwidth="200" labelalign="right" width="600" tooltip="请输入证件号码" rule="must_idcard_length;0;40" readonly=""></div>
+			<div name="mobile" vtype="textfield" label="移动电话" labelwidth="200" labelalign="right" width="600" tooltip="在此处务必要输入正确的移动电话，否则会影响后续业务办理" rule="must_cellphone" readonly=""></div>
+
+			<div class="sentMobileValidateCode">
+				<div name="mobileCode" vtype="textfield" id="mobileCode" label="验证码" tooltip="请输入接收到的验证码" labelalign="right" labelwidth="200" width="600" rule="must" readonly=""></div>
+				<!-- <div > -->
+					<!-- <button id="sendCheckNum" class="getCode">发送验证码</button> -->
+					<!-- <div id="sendCheckNum" class="sendCheckNum getCode" value="发送验证码">发送验证码</div> -->
+					<input id="sendCheckNum"  type="button" value="发送验证码" autocomplete="off" style="display:true">
+					<!-- <div name="sendCheckNum" id="sendCheckNum" vtype="button" text="发送验证码"></div> -->
+				<!-- </div> -->
+			</div>
+
+
+			<div name="role" vtype="textfield" label="职务" labelwidth="200" labelalign="right" width="600" tooltip="至少要写一种职务" rule="must_length;1;30" readonly=""></div>
+			<div name="accState" vtype="radiofield" label="账号是否启用" labelwidth="200" labelalign="right" width="600" dataurl="[{checked: true,value: '1',text: '是'},{value: '2',text: '否'}]" tooltip="" rule="" readonly=""></div>
+		<div class="permissionCheckBox" style="width: 760px; margin: 10px auto;">
+			<div class="ckwrap">
+				<div class="wraplist" style="margin-left:91px;">
+					<table >
+						<tr>
+							<td class="h2">操作权限：</td>
+							<td><label ><input type="checkbox" value="1">公司变更</label ></td>
+							<td><label ><input type="checkbox" value="2">公司备案</label></td>
+							<!-- <td><label ><input type="checkbox" value="3">股权出质</label></td> -->
+							<td><label><input type="checkbox" value="12">电子营业执照 &nbsp;&nbsp;</label></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<!-- <td><label style="display:none;" id="accountManage"><input type="checkbox" value="8">企业账号管理员</label></td> -->
+							<!-- <td><label ><input type="checkbox" value="9">法定代表人移动电话&nbsp;&nbsp;</label></td> -->
+							<td><label ><input type="checkbox" value="6">企业认证服务&nbsp;&nbsp;</label></td>
+							<td><label ><input type="checkbox" value="10">企业补充信息&nbsp;&nbsp;</label></td>
+							<td><label ><input type="checkbox" value="11">企业联系人</label></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+			<div class="agree">
+				<label>
+					<input id="agree" type="checkbox" value="1">
+					同意企业账户管理员可代为操作企业账户的权利义务
+				</label>
+				
+			</div>
+			</div>
+				<div name="editEntAccountManagerInfoToolbar" vtype="toolbar" location="bottom" align="center" class="button">
+				<!-- <div name="editEntAccountManagerInfo_save_button" vtype="button" text="保存"></div> -->
+				<div name="editEntAccountManagerInfo_save_button" vtype='button'  text = '保存' disabled='true'></div>
+				<div name="editEntAccountManagerInfo_back_button" vtype='button'  text = '返回'></div>
+			</div>
+		
+		</div>
+
+		
+	</div>
+	</article>
+	<!-- 构建页面==结束 -->
+	<script type="text/javascript" src="../../../static/js/config.js"></script>
+	<script type="text/javascript" data-main="torch/editEntAccountManagerInfoTorch.js" src="../../../static/lib/require.js"></script>
+</body>
+</html>

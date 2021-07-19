@@ -1,0 +1,298 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../js/data/locale/nav_tree.js"></script>
+<!--dialog-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--crashboard inner-->
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></SCRIPT>
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<!--AJAX-->
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<!--Suggestion-->
+<SCRIPT src="../../app/js/source/wcmlib/com.trs.suggestion/suggestion.js"></SCRIPT>
+<link href="../../app/js/source/wcmlib/com.trs.suggestion/resource/suggestion.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+<!--
+.button12 {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #333333;
+	text-decoration: none;
+	cursor:pointer;
+    display:inline;
+}
+.button12:link {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #333333;
+	text-decoration: none;
+}
+.button12:hover {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #ff6600;
+	text-decoration: none;
+}
+#quickLocateText{
+    width:200px;
+    height:18px;
+    line-height:18px;
+    display:inline;
+}
+body{
+    margin:0px;
+    padding:0px;
+    font-size:12px;
+    background:#fff;
+    border:1px solid silver;
+    border-top:0px;
+}
+-->
+</style>
+</head>
+<body style="" oncontextmenu="return false;">
+<table border=0 cellspacing=0 cellpadding=0 style="font-size:12px;padding-left:10px;margin-top:5px;">
+    <tr>
+        <td align="right">
+            <select name="queryType" id="queryType" style="height:20px;font-size:12px;" onchange="changeQueryType(this)">
+                <option value="nameAndPath" selected WCMAnt:param="quicklocate.html.chnlNameOrPath">栏目名称或路径</option>
+                <option value="siteId" WCMAnt:param="quicklocate.html.siteId">站点ID</option>
+                <option value="channelId" WCMAnt:param="quicklocate.html.channelId">栏目ID</option>
+            </select>    
+        </td>
+        <td style="padding-left:2px;">
+            <input type='text' name='quickLocateText' id='quickLocateText' style="width:170px; height:25px; line-height:22px;border:1px solid gray" maxlength="100">
+        </td>
+        <td style="padding-left:2px;">
+            <table width='50' height='22' border='0' cellpadding='0' cellspacing='0' class='button12' style='display:inline;'>
+                <tr valign="middle" onclick="onClickOkBtn();return false;" style="cursor:pointer;">
+                    <td width='8'><img src='../images/nav_tree/lkid.gif' width='8' height='22'></td>
+                    <td width='100%' align='center' background='../images/nav_tree/lbg.gif' style='padding-top:3px'>
+                     <span WCMAnt:param="quicklocate.html.ok">确定</span></a></td>
+                    <td width='8' align='right'><img src='../images/nav_tree/rkid.gif' width='8' height='22'></td>
+                </tr>
+            </table>    
+        </td>
+    </tr>
+</table>
+<script>
+    function init(){
+        try{
+            suggestion.oSuggestionRegionElement.style.display = "none";
+            suggestion.oSuggestionRegionShieldElement.style.display = "";
+        }catch(error){}
+    }
+    function changeQueryType(selectObj){
+        if(selectObj.value != "nameAndPath"){
+            var txtObj = suggestion.oRelatedElement;
+            if(isNaN(txtObj.value)){
+                txtObj.value = "";
+            }
+            suggestion.oRelatedElement.removeAttribute("json");
+            suggestion.clearAllItems();
+            suggestion.oSuggestionRegionElement.style.visibility = 'hidden';
+        }else{
+            suggestion.oSuggestionRegionElement.style.visibility = 'visible';
+        }
+    }
+	var suggestion = new com.trs.suggestion.Suggestion('quickLocateText');
+    suggestion.dealWithOnKeyDown = suggestion.dealWithOnKeyUp = function(currSelectObj){
+        if(currSelectObj == null)return;
+        AttributeHelper.setAttribute(suggestion.oRelatedElement, "json", AttributeHelper.getAttribute(currSelectObj, "_oJson"));
+    };
+
+    suggestion.onOptionClick = function(_event, _oJson){
+        AttributeHelper.setAttribute(suggestion.oRelatedElement, "json", _oJson);
+		if(_event.type == 'click'){
+			doOK();
+			return true;
+		}
+		var txtValue = suggestion.oRelatedElement.value;
+		if(_event.type == 'keyup' && _event.keyCode == Event.KEY_RETURN){
+			return false;
+		}
+		return true;
+    };
+    suggestion.dealWithOnKeyReturn = function(currSelectObj){
+        var txtValue = suggestion.oRelatedElement.value;
+        var queryType = $('queryType');
+        if(queryType.value != "nameAndPath"){
+            if(!/^\d{1,}$/.test(txtValue)){
+                Ext.Msg.alert(wcm.LANG.nav_tree_alert_22 || '请输入正整数');
+                if(suggestion.oRelatedElement){
+	                suggestion.oRelatedElement.focus();
+	                suggestion.oRelatedElement.select();
+                }
+                return;
+            }
+            if(parseInt(txtValue, 10) > 0x7fffffff){
+                Ext.Msg.alert(String.format("输入值不能大于{0}",0x7fffffff));
+                return;
+            }
+            if(queryType.value == 'siteId'){
+                var methodName = 'isValidSiteId';
+                var type = 's';
+            }else{
+                var methodName = 'isValidChannelId';
+                var type = 'c';
+            }
+            BasicDataHelper.call('wcm6_system', methodName, {
+                ObjectId : txtValue
+            }, false, function(transport, json){
+                if(transport.responseText.indexOf("true") >= 0){                        
+                    action(type, txtValue);
+                }else{                        
+                    Ext.Msg.alert(type=='s'?String.format("没有找到对应的站点"): String.format("没有找到对应的栏目"));
+					if(suggestion.oRelatedElement){
+	                    suggestion.oRelatedElement.focus();
+	                    suggestion.oRelatedElement.select();
+					}
+                }
+            });
+        }else{            
+            if(txtValue.indexOf("\\") < 0){
+                suggestion.sendRequest(emptyFunction, function(otransport, ojson){
+                    var elements = ojson["ROOT"]["ELEMENT"];
+                    if(elements.length <= 1){
+                        Ext.Msg.alert(wcm.LANG.nav_tree_alert_28 || '没有找到匹配的结果');
+                    }                
+                });
+            }else{
+                var currSelectDom = suggestion.getCurrSelect();
+                if(currSelectDom && currSelectDom.innerHTML == txtValue){
+                    AttributeHelper.setAttribute(suggestion.oRelatedElement, "json", AttributeHelper.getAttribute(currSelectDom, "_oJson"));
+                    doOK();
+                }else{
+                    suggestion.sendRequest(emptyFunction, function(otransport, ojson){
+                        var elements = ojson["ROOT"]["ELEMENT"];
+                        if(elements[0]["PARENTID"] != "-1"){
+                            AttributeHelper.setAttribute(suggestion.oRelatedElement, "json", {type:elements[0]["PARENTTYPE"], id:elements[0]["PARENTID"]});						
+                            doOK();
+                        }else{
+							if(elements.length > 1){
+								for(var i = 1; i < elements.length; i++){
+									if(elements[i]["PATH"].trim() == txtValue.trim()){
+										 AttributeHelper.setAttribute(suggestion.oRelatedElement, "json", {type:elements[i]["TYPE"], id:elements[i]["ID"]});		
+										doOK();
+										return ;
+									}
+								}
+							}
+							var sTip = String.format('不能定位到指定的目标对象[{0}]', suggestion.oRelatedElement.value);
+                            Ext.Msg.alert(sTip);
+                        }                    
+                    });
+                }
+            }        
+        }
+    };
+    function afterRequest(otransport, ojson){
+        var elements = ojson["ROOT"]["ELEMENT"];
+
+        if(elements.length > 1){
+            suggestion.oSuggestionRegionElement.style.display = '';
+            suggestion.oSuggestionRegionShieldElement.style.display = "";
+        }else if(elements.length == 1){
+            AttributeHelper.setAttribute(suggestion.oRelatedElement, "json", {type:elements[0]["TYPE"], id:elements[0]["ID"]});
+            doOK();
+        }else{
+            suggestion.oSuggestionRegionElement.style.display = '';
+            suggestion.oSuggestionRegionShieldElement.style.display = "";
+        }
+
+    }
+	function emptyFunction() {
+	}
+    suggestion.doOnCommonKey = function(nKeyCode){
+        if($('queryType').value != "nameAndPath"){
+            return;
+        }
+        if(nKeyCode != 8 && nKeyCode != 220){// '\' '<-'
+			var txtValue = suggestion.oRelatedElement.value;
+			if(txtValue.indexOf("\\") >= 0){
+				suggestion.hideNotMatch();
+			}
+			suggestion.oSuggestionRegionElement.style.display = "none";
+            return false;
+        }
+        var txtValue = suggestion.oRelatedElement.value;
+        if(/(.)*\\$/.test(txtValue) && !/(.)*\\\\$/.test(txtValue)){//keycode == '\'
+            this.sendRequest();	
+			return true;
+        }
+		suggestion.oSuggestionRegionElement.style.display = "none";
+		return false;
+    };
+    suggestion.sendRequest = function(beforeSend, afterSend){
+		try{
+			suggestion.oSuggestionRegionElement.style.display = "none";
+			if(beforeSend) beforeSend();
+			this.clearAllItems();
+			var oHelper = new com.trs.web2frame.BasicDataHelper();
+			oHelper.Call('wcm6_system', 'findNodesByPath', {
+					Path : suggestion.oRelatedElement.value,
+					fieldsToHtml:'PATH'
+				}, true, function(otransport, ojson){
+					var elements = ojson["ROOT"]["ELEMENT"];
+					for (var i = 1; i < elements.length; i++){
+						suggestion.addItem(elements[i]["PATH"], {type:elements[i]["TYPE"], id:elements[i]["ID"]});			
+					}
+					if(afterSend){
+						afterSend(otransport, ojson);
+					}
+					if(elements.length > 1){
+						suggestion.oSuggestionRegionElement.style.display = "";
+					}
+					if(elements.length == 0){
+						Ext.Msg.alert(wcm.LANG.nav_tree_alert_30 || "没有找到符合条件的对象");
+						if(suggestion.oRelatedElement){
+							suggestion.oRelatedElement.focus();
+							suggestion.oRelatedElement.select();
+						}
+					}
+			},function(otransport, ojson){
+				Ext.Msg.alert(wcm.LANG.nav_tree_alert_30 || "没有找到符合条件的对象");
+			});
+		}catch(error){
+		}
+    };
+
+    function doOK(){
+        var obj = AttributeHelper.getAttribute(suggestion.oRelatedElement, "json");       
+        if(obj){
+            obj.type = obj.type.toLowerCase();
+            var type = (obj.type == 'sitetype' ? 'r' : (obj.type == 'site' ? 's' : 'c'));
+            action(type, obj.id);
+        }
+    }
+
+    function action(type, id){
+        id = parseInt(id, 10);
+        suggestion.oRelatedElement.blur();
+		var cbr = wcm.CrashBoarder.get(window);
+		cbr.notify([type, id]);      
+    }
+
+    function onClickOkBtn(){
+        suggestion.dealWithOnKeyReturn();
+        if(suggestion.oRelatedElement){
+            try{
+        		suggestion.oRelatedElement.focus();
+            }catch(err){
+            }
+        }
+    }
+</script>
+</body>
+</html>

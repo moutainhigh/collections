@@ -1,0 +1,116 @@
+<HTML>
+<HEAD>
+<TITLE>multi-selector for outline-template</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!--my import-->
+<script src="../../app/js/runtime/myext-debug.js"></script>
+<script src="../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../app/js/data/locale/flow.js"></script>
+<script src="../../app/js/data/locale/ajax.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/lang/cn.js"></script>
+<script src="../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<link rel="stylesheet" type="text/css" href="../../app/css/wcm-common.css"> 
+<!--page scrip-->
+<script src="../../app/js/source/wcmlib/com.trs.workflow/WorkFlow.js"></script>
+<script src="./domain/Configurator.js"></script>
+<script src="./workflow_cond_add_edit.js"></script>
+<link href="../css/workflow.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog start-->
+<SCRIPT src="../../app/js/source/wcmlib/Observable.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/Component.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/Dialog.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/dialog/DialogAdapter.js"></SCRIPT>
+<link href="../../app/css/wcm-widget.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/dialog/resource/dlg.css" rel="stylesheet" type="text/css" />
+<link href="../../app/js/source/wcmlib/button/resource/button.css" rel="stylesheet" type="text/css" />
+<!--wcm-dialog end-->
+<!-- CarshBoard Inner Start -->
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoard.js"></SCRIPT>
+<SCRIPT src="../../app/js/source/wcmlib/crashboard/CrashBoardAdapter.js"></SCRIPT>
+<link href="../../app/js/source/wcmlib/crashboard/resource/crashboard.css" rel="stylesheet" type="text/css" />
+<!-- CarshBoard Inner End -->
+<script language="javascript">
+<!--
+    window.m_cbCfg = {
+        btns : [
+            {
+                text : wcm.LANG['FLOW_CONFIRM'] || '确定',
+                cmd : function(){
+					submitData();
+					return false;			
+				}
+            },
+            {
+                text : wcm.LANG['FLOW_CANCEL'] ||'取消'
+            }
+        ]
+    };
+    
+//-->
+</script>
+<style type="text/css">
+	body{
+		margin: 0;
+		padding: 0;
+		background: #ffffff;
+	}
+	body, table{
+		font-size: 12px;
+	}
+	.single_text, readonly_text{
+		height: 20px;
+		line-height: 16px;
+		font-size: 12px;
+	}
+	.block_box{
+		width: 100%; 
+		padding: 2px;
+		border-bottom: solid 1px aliceblue;
+	}
+</style>
+</head>
+<body>
+<center>
+	<div class="block_box" style="text-align: left;">
+		<table border="0" cellspacing="0" cellpadding="3" width="100%">
+		<tbody>
+			<tr>
+				<td align="center"><span WCMAnt:param="workflow.cond.add.html.type">类型:</span>&nbsp;
+					<select id="selHandlers" class="single_text">
+					</select>		
+				</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+	<div class="block_box" id="datafield">
+	<table border="0" cellspacing="2" cellpadding="0">
+	<tbody>
+		<tr>
+			<td style="padding-top: 0px; padding-right: 0px; white-space:nowrap;"><span id="spParamName"></span></td>
+			<td id="field_operators">
+				<span id="text_operators" style="display: none"></span>
+				<select id="sel_operators" style="width: 70px; display: none">
+				</select>
+			</td>
+			<td id="spParamValue">
+				<input type="hidden" id="hdParamName" value="">
+				<input id="txtParamValue" style="width: 55px;" validation="">
+				<span id="field_units">
+					<span id="text_units" style="display: none"></span>
+					<select id="sel_units" style="width: 70px; display: none">
+					</select>				
+				</span>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+</div>
+ </center>
+</body>
+</html>

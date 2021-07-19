@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>例外日期表</menu-name>
+  <menu-path>/page/resource/svrdate/</menu-path>
+  <description>例外日期表</description>
+  <form-beans>
+    <form-bean name="ResExceptionDateRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="record" name="exception_date_id" type="string" size="32" cannull="false" description="例外日期ID"/>
+      <form-property prefix="record" name="exception_date_name" type="string" size="100" cannull="true" description="例外名称"/>
+      <form-property prefix="record" name="exception_type" type="string" size="20" cannull="true" description="例外类型"/>
+      <form-property prefix="record" name="exception_desc" type="string" size="2000" cannull="true" description="例外描述"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="有效标记"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人ID"/>
+      <form-property prefix="record" name="created_time" type="string" size="11" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="11" cannull="true" description="最后修改时间"/>
+      <form-property prefix="record" name="exception_id" type="string" size="32" cannull="true" description="例外编号"/>
+      <form-property prefix="record" name="exception_date" type="string" size="10" cannull="true" description="例外日期"/><!-- 
+      <form-property prefix="select-key" name="start_date" type="string" size="10" cannull="true" description="开始日期"/>
+      <form-property prefix="select-key" name="end_date" type="string" size="10" cannull="true" description="截止日期"/> --> 
+      <form-property prefix="select-key" name="exception_date" type="string" size="10" cannull="true" description="例外日期"/>
+      <form-property prefix="select-key" name="qmonth" type="string" size="10" cannull="true" description="例外日期"/>
+      <form-property prefix="select-key" name="qdate" type="string" size="10" cannull="true" description="例外日期"/>
+      
+      <form-property prefix="record" name="start_time" type="string" size="11" cannull="true" description="计划任务开始时间"/>
+      <form-property prefix="record" name="end_time" type="string" size="11" cannull="true" description="计划任务结束时间"/>
+      <form-property prefix="record" name="task_name" type="string" size="200" cannull="true" description="任务名称" />
+      <form-property prefix="record" name="collect_task_id" type="string" size="32" cannull="true" description="任务ID" />
+      <form-property prefix="record" name="ndate" type="string" size="11" cannull="true" description="日期"/>
+      <form-property prefix="record" name="nday" type="string" size="11" cannull="true" description="星期"/>
+      <form-property name="task_list_str" type="string" size="11" cannull="true" description="任务列表"/>
+      <form-property name="holiday_str" type="string" size="11" cannull="true" description="例外日期列表"/>
+    </form-bean>
+
+    <form-bean name="ResExceptionDateUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="exception_date_id" type="string" size="32" cannull="false" description="例外日期ID"/>
+      <form-property prefix="record" name="exception_date_id" type="string" size="32" cannull="false" description="例外日期ID"/>
+      <form-property prefix="record" name="exception_date_name" type="string" size="100" cannull="true" description="例外名称"/>
+      <form-property prefix="record" name="exception_type" type="string" size="20" cannull="true" description="例外类型"/>
+      <form-property prefix="record" name="exception_desc" type="string" size="2000" cannull="true" description="例外描述"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="有效标记"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人ID"/>
+      <form-property prefix="record" name="created_time" type="string" size="11" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="11" cannull="true" description="最后修改时间"/>
+      <form-property prefix="record" name="exception_id" type="string" size="10" cannull="true" description="例外编号"/>
+      <form-property prefix="record" name="exception_date" type="string" size="10" cannull="true" description="例外日期"/>
+      <form-property prefix="record" name="end_date" type="string" size="10" cannull="true" description="例外结束日期"/>
+    </form-bean>
+
+    <form-bean name="ResExceptionDateDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="exception_date_id" type="string" size="32" cannull="false" description="例外日期ID"/>
+      <form-property prefix="record" name="exception_date" type="string" size="10" cannull="true" description="例外日期"/>
+      <form-property prefix="record" name="end_date" type="string" size="10" cannull="true" description="例外结束日期"/>
+      <form-property prefix="record" name="exception_id" type="string" size="10" cannull="true" description="例外编号"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-res_exception_date.jsp" name="ResExceptionDateRowsetForm" txn-code="205001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询例外日期</description>
+      <step index="10" bean-name="com.gwssi.resource.exception.txn.TxnResExceptionDate" func-name="txn205001" input-node="select-key" output-node="record" description="查询例外日期列表"/>
+      <forward error-code="success" path="query-res_exception_date.jsp"/>
+      <forward error-code="failure" path="query-res_exception_date.jsp"/>
+    </action>
+
+    <action input="query-res_exception_date.jsp" name="ResExceptionDateRowsetForm" txn-code="205009" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询例外日期列表用于日历</description>
+      <step index="10" bean-name="com.gwssi.resource.exception.txn.TxnResExceptionDate" func-name="txn205009" input-node="select-key" output-node="record" description="查询例外日期列表"/>
+      <forward error-code="success" path="query-res_exception_date.jsp"/>
+      <forward error-code="failure" path="query-res_exception_date.jsp"/>
+    </action>
+
+    <action input="query-res_exception_date.jsp" name="ResExceptionDateUpdateForm" txn-code="205010" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改例外日期信息</description>
+      <step index="10" bean-name="com.gwssi.resource.exception.txn.TxnResExceptionDate" func-name="txn205010" input-node="record" description="重置例外日期有效标志"/>
+      <forward error-code="success" path="query-res_exception_date.jsp"/>
+      <forward error-code="failure" path="query-res_exception_date.jsp"/>
+    </action>
+
+    <action input="insert-res_exception_date.jsp" name="ResExceptionDateUpdateForm" txn-code="205003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加例外日期信息</description>
+      <step index="10" bean-name="com.gwssi.resource.exception.txn.TxnResExceptionDate" func-name="txn205003" input-node="record" description="增加例外日期信息"/>
+      <forward error-code="success" path="insert-res_exception_date.jsp"/>
+      <forward error-code="failure" path="insert-res_exception_date.jsp"/>
+    </action>
+
+    <action input="query-res_exception_date.jsp" name="ResExceptionDateUpdateForm" txn-code="205006" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加例外日期</description>
+      <step index="10" bean-name="com.gwssi.resource.exception.txn.TxnResExceptionDate" func-name="txn205006" input-node="record" description="增加多条例外日期信息"/>
+      <forward error-code="success" path="query-res_exception_date.jsp"/>
+      <forward error-code="failure" path="query-res_exception_date.jsp"/>
+    </action>
+
+    <action input="query-res_exception_date.jsp" name="ResExceptionDateDeleteForm" txn-code="205008" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>批量删除例外日期信息</description>
+      <step index="10" bean-name="com.gwssi.resource.exception.txn.TxnResExceptionDate" func-name="txn205008" input-node="record" description="增加多条例外日期信息"/>
+      <forward error-code="success" path="query-res_exception_date.jsp"/>
+      <forward error-code="failure" path="query-res_exception_date.jsp"/>
+    </action>
+
+    <action input="query-res_exception_date.jsp" name="ResExceptionDateDeleteForm" txn-code="205007" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除例外日期</description>
+      <step index="10" bean-name="com.gwssi.resource.exception.txn.TxnResExceptionDate" func-name="txn205007" input-node="record" description="增加多条例外日期信息"/>
+      <forward error-code="success" path="query-res_exception_date.jsp"/>
+      <forward error-code="failure" path="query-res_exception_date.jsp"/>
+    </action>
+
+    <action input="query-res_exception_date.jsp" name="ResExceptionDateUpdateForm" txn-code="205004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询例外日期用于修改</description>
+      <step index="10" bean-name="com.gwssi.resource.exception.txn.TxnResExceptionDate" func-name="txn205004" input-node="primary-key" output-node="record" description="查询例外日期用于修改"/>
+      <forward error-code="success" path="update-res_exception_date.jsp"/>
+      <forward error-code="failure" path="update-res_exception_date.jsp"/>
+    </action>
+
+    <action input="query-res_exception_date.jsp" name="ResExceptionDateDeleteForm" txn-code="205005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除例外日期信息</description>
+      <step index="10" bean-name="com.gwssi.resource.exception.txn.TxnResExceptionDate" func-name="txn205005" input-node="primary-key" description="删除例外日期信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-res_exception_date.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/resource/svrdate/query-res_exception_date.jsp" description="查询例外日期列表"/>
+    <resource-file type="jsp" file-name="/page/resource/svrdate/insert-res_exception_date.jsp" description="增加例外日期信息"/>
+    <resource-file type="jsp" file-name="/page/resource/svrdate/update-res_exception_date.jsp" description="修改例外日期信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.exception.vo.ResExceptionDateContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.exception.vo.VoResExceptionDate" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.exception.vo.VoResExceptionDateSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.resource.exception.vo.VoResExceptionDatePrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

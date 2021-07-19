@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>检索服务</menu-name>
+  <menu-path>/page/search/svr/</menu-path>
+  <description>检索服务</description>
+  <form-beans>
+    <form-bean name="SysSearchSvrRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="record" name="sys_search_svr_id" type="string" size="32" cannull="false" description="检索服务ID"/>
+      <form-property prefix="record" name="svr_name" type="string" size="200" cannull="true" description="服务名称"/>
+      <form-property prefix="record" name="svr_db" type="string" size="4000" cannull="true" description="检索数据库"/>
+      <form-property prefix="record" name="svr_query" type="string" size="4000" cannull="true" description="检索查询串"/>
+      <form-property prefix="record" name="svr_template" type="string" size="4000" cannull="true" description="检索服务模板"/>
+        <form-property prefix="record" name="columns" type="string" size="4000" cannull="true" description="字段列表"/>
+    </form-bean>
+
+    <form-bean name="SysSearchSvrUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="sys_search_svr_id" type="string" size="32" cannull="false" description="检索服务ID"/>
+      <form-property prefix="record" name="sys_search_svr_id" type="string" size="32" cannull="false" description="检索服务ID"/>
+      <form-property prefix="record" name="svr_name" type="string" size="200" cannull="true" description="服务名称"/>
+      <form-property prefix="record" name="svr_db" type="string" size="4000" cannull="true" description="检索数据库"/>
+      <form-property prefix="record" name="svr_query" type="string" size="4000" cannull="true" description="检索查询串"/>
+      <form-property prefix="record" name="svr_template" type="string" size="4000" cannull="true" description="检索服务模板"/>
+      <form-property prefix="record" name="svr_param_str" type="string" size="4000" cannull="true" description="检索服务参数串"/>
+        <form-property prefix="record" name="columns" type="string" size="4000" cannull="true" description="字段列表"/>
+    </form-bean>
+
+    <form-bean name="SysSearchSvrDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="sys_search_svr_id" type="string" size="32" cannull="false" description="检索服务ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-sys_search_svr.jsp" name="SysSearchSvrRowsetForm" txn-code="50010201" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询检索服务列表</description>
+      <step index="10" bean-name="cn.gwssi.search.txn.TxnSysSearchSvr" func-name="txn50010201" input-node="select-key" output-node="record" description="查询检索服务列表"/>
+      <forward error-code="success" path="query-sys_search_svr.jsp"/>
+      <forward error-code="failure" path="query-sys_search_svr.jsp"/>
+    </action>
+
+    <action input="update-sys_search_svr.jsp" name="SysSearchSvrUpdateForm" txn-code="50010202" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改检索服务信息</description>
+      <step index="10" bean-name="cn.gwssi.search.txn.TxnSysSearchSvr" func-name="txn50010202" input-node="record" description="修改检索服务信息"/>
+      <forward error-code="success" path="update-sys_search_svr.jsp"/>
+      <forward error-code="failure" path="update-sys_search_svr.jsp"/>
+    </action>
+
+    <action input="insert-sys_search_svr.jsp" name="SysSearchSvrUpdateForm" txn-code="50010203" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加检索服务信息</description>
+      <step index="10" bean-name="cn.gwssi.search.txn.TxnSysSearchSvr" func-name="txn50010203" input-node="record" description="增加检索服务信息"/>
+      <forward error-code="success" path="insert-sys_search_svr.jsp"/>
+      <forward error-code="failure" path="insert-sys_search_svr.jsp"/>
+    </action>
+
+    <action input="query-sys_search_svr.jsp" name="SysSearchSvrUpdateForm" txn-code="50010204" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询检索服务用于修改</description>
+      <step index="10" bean-name="cn.gwssi.search.txn.TxnSysSearchSvr" func-name="txn50010204" input-node="primary-key" output-node="record" description="查询检索服务用于修改"/>
+      <forward error-code="success" path="update-sys_search_svr.jsp"/>
+      <forward error-code="failure" path="update-sys_search_svr.jsp"/>
+    </action>
+
+    <action input="query-sys_search_svr.jsp" name="SysSearchSvrDeleteForm" txn-code="50010205" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除检索服务信息</description>
+      <step index="10" bean-name="cn.gwssi.search.txn.TxnSysSearchSvr" func-name="txn50010205" input-node="primary-key" description="删除检索服务信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-sys_search_svr.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/search/svr/query-sys_search_svr.jsp" description="查询检索服务列表"/>
+    <resource-file type="jsp" file-name="/page/search/svr/insert-sys_search_svr.jsp" description="增加检索服务信息"/>
+    <resource-file type="jsp" file-name="/page/search/svr/update-sys_search_svr.jsp" description="修改检索服务信息"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.search.vo.SysSearchSvrContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.search.vo.VoSysSearchSvr" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.search.vo.VoSysSearchSvrSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="cn.gwssi.search.vo.VoSysSearchSvrPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

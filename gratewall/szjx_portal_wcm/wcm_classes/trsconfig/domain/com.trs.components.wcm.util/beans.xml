@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin name="对象名称构造器" version="1.0" id="wcm.util">
+	<beans>
+		<!--Mgr BEGIN-->
+		<bean id="INameGenerator" 
+			class="com.trs.components.wcm.util.NameGenerator" 
+			singleton="true"/>
+		<bean id="ICategoryMgr" 
+			class="com.trs.components.wcm.util.CategoryMgr" 
+			singleton="true"/>
+	</beans>
+</plugin>

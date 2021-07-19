@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Chart Demo (using Canvas painter)</title>
+	<script type="text/javascript" src="includes/excanvas.js"></script>
+	<script type="text/javascript" src="includes/chart.js"></script>
+	<script type="text/javascript" src="includes/canvaschartpainter.js"></script>
+	<link rel="stylesheet" type="text/css" href="includes/canvaschart.css" />
+		<style type="text/css">
+			html, body { border: none; padding: 0px; margin: 0px; }
+			.value_panel_pie{
+				padding-left: 5px;
+				padding-right: 5px;
+				position: absolute;
+				border: 0px solid silver;
+				font-size: 9pt;
+				color: gray; 
+				font-size: 14px; 
+				font-family: georgia; 
+				white-space: nowrap;
+				/*color: white;*/
+			}
+			.value_tip{
+				height: 8px;
+				width: 12px;
+				border: 0px solid gray;
+				cursor: pointer;
+			}
+		</style>
+  </head>
+  <body>
+  <br>
+<div id="demo1">
+	<div style="margin-left: 50px; width: 600px; height: 500px; border: 1px solid silver; padding: 15px;">
+		<div id="chart" class="chart" style="width: 500px; height: 400px; margin-left: 80px;"></div>		
+	</div>
+	<script type="text/javascript">
+		var container = document.getElementById('chart');
+		var m_currAngle = 0;
+		function drawSimpleLine(_bShowPointer) {
+			var canvas = document.createElement('canvas');
+			var w = 500, h = 400;
+			canvas.width  = w;
+			canvas.height = h;
+			canvas.style.width  = w + 'px';
+			canvas.style.height = h + 'px';
+			document.getElementById('chart').appendChild(canvas);
+			/* Init explorercanvas emulation for IE */
+			if ((!canvas.getContext) && (typeof G_vmlCanvasManager != "undefined")) {
+				canvas = G_vmlCanvasManager.initElement(canvas);
+			}
+			
+			//alert(canvas.getContext)
+
+			var ctx = canvas.getContext('2d');
+			var x = w/2, y = h/2, r = w * 0.242;
+
+			//处理数据
+			var precision = 0;
+			var data = [['蓖麻油', 10.5, '#FFA928'], ['大豆油', 17, '#FFBA51'], ['菜籽油', 18, '#FFCA7A'], ['花生油', 20, '#FFDBA3'], ['其他', 2, '#FFEBCC']];
+			//var data = [['钙', 2, '#E5B059'], ['铁', 4, 'green'], ['锌', 2, '#E14F14'], ['硒', 3, '#FFA928'], ['VC', 1, '#4F87E9']];
+			var style = {color: '#FFA928', show_value: true, value_style : 1};
+			var totle = 0;
+			for (var i = 0; i < data.length; i++){
+				totle += data[i][1];
+			}
+			//开始绘制
+			for (var i = 0; i < data.length; i++){
+				var entity = data[i];
+				style['color'] = entity[2];
+				var percent = entity[1]/totle;
+				if(percent >= 1) {
+					percent -= percent/Math.pow(10, 4);
+				}
+				var angle = m_currAngle + Math.PI * 2 * (percent);
+				var series = {
+					'style' : style,
+					'name' : entity[0],
+					'value' : parseFloat2(entity[1], precision),
+					'percent' : getPercent(percent, precision)
+				}
+				drawSector(x, y, r, m_currAngle, angle, ctx, series);
+				m_currAngle = angle;
+
+				if(m_currAngle >= Math.PI * 2) {
+					break;
+				}
+			}
+			//重置
+			m_currAngle = 0;
+		}
+		function getPercent(percent, precision){
+			percent *= 100;
+			return parseFloat2(percent, precision) + '%';
+		}
+		function parseFloat2(raw, precision){
+			if(precision == null || precision == 0) {
+				raw = Math.round(raw);
+			}else{
+				var temp = Math.floor(raw);
+				var aparts = raw - temp;
+				if(aparts == 0) {
+					return raw;
+				}
+				aparts = Math.round(Math.pow(10, precision) * aparts);
+				aparts /= Math.pow(10, precision);
+				raw = temp + aparts;
+			}			
+
+			return raw;
+		}
+		function drawSector(x, y, r, sa, ea, ctx, series){
+			var alpha, apart, style;
+			alpha = (sa + ea)/2;
+			apart = r/200;
+			style = series['style'];
+			x = x + apart * (Math.cos(alpha));
+			y = y + apart * (Math.sin(alpha));
+			//alert([x, y])
+			ctx.fillStyle = style['color'];
+			ctx.beginPath();
+			ctx.moveTo(x, y);
+			ctx.lineTo(x, y);
+			ctx.arc(x, y, r, sa, ea); // Outer circle
+			//ctx.lineTo(x, y);
+			//ctx.closePath();
+			//ctx.stroke();
+			ctx.fill();
+			//显示值
+			if(style['show_value'] != true) {
+				return;
+			}
+			//else TODO
+			if(style['value_style'] == 1) {// inner(内部)形式
+				var m = x + r * (Math.cos(alpha));
+				var n = y + r * (Math.sin(alpha));
+				ctx.strokeStyle = 'silver';
+				ctx.lineWidth = 2;
+				ctx.moveTo(m, n);
+				m += r * 0.618 * ( m > x ? 1 : -1);
+				n += ( n > y ? 1 : -1);
+				r += r/15;
+				var p = x + r * (Math.cos(alpha));
+				var q = y + r * (Math.sin(alpha));
+				ctx.lineTo(p, q);
+				p += r*0.425*(m>x?1:-1);
+				ctx.lineTo(p, q);
+				ctx.stroke();
+				embedPieTip(p, q, series['name'], series['percent'], series['value'], 1, false, (m < x));
+			}else{ // 默认为depart(分离)形式
+				var m = x + r * (Math.cos(alpha))/2;
+				var n = y + r * (Math.sin(alpha))/2;
+				embedPieTip(m, n, series['name'], series['percent'], series['value'], 1, true, (m < x), (n > y));
+			}
+			
+		}
+		function embedPieTip(x, y, title, percent, val, flag, bInner, bShrinkedX, bShrinkedY){
+			var id = 'value_panel_pie_' + flag;
+			var alt = document.getElementById(id);
+			if(alt == null) {
+				var alt = document.createElement('span');
+				alt.className = 'value_panel_pie';
+				alt.style.position = 'absolute';
+				container.appendChild(alt);
+			}
+			alt.innerHTML = title + '&nbsp;' + percent + '&nbsp;&nbsp;(' + val + ')';
+			//alert([alt.outerHTML, alt.offsetWidth])
+			if(bInner == true) {
+				alt.style.left = (x + (bShrinkedX ? -1 : -0.5) * alt.offsetWidth / 2) + 'px';
+			}else{
+				alt.style.left = (bShrinkedX ? (x - alt.offsetWidth) : x ) + 'px';
+			}
+			alt.style.top = (y - 10) + 'px';
+			
+			//alert(alt.offsetWidth);
+		}
+		
+		drawSimpleLine(true);
+	</script>
+</div>
+<p>&nbsp;</p>
+<br>
+  </body>
+</html>

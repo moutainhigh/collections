@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title WCMAnt:param="channelcontentlink_list.html.title">WCM通用列表页面-热词管理</title>
+	<link href="../css/common_list.css" rel="stylesheet" type="text/css">
+    <link href="../js/resource/all_widgets.css" rel="stylesheet" type="text/css">
+<link href="../channelcontentlink/channelcontentlink_import_list.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<script src="../../app/js/easyversion/cssrender.js"></script>
+<div class="layout_container">
+	<div class="layout_center_container">
+		<div class="layout_center">
+			<div class="layout_container layout_innercontainer">
+				<div class="layout_north">
+					<div class="search" id="search" style="float:right"></div>
+					<div class="pageinfo" style="display:none">
+						<div class="pageinfo_left"></div>
+						<div class="pageinfo_right"></div>
+						<span id="pageinfo"></span>
+					</div>
+				<span WCMAnt:param="channelcontentlink_import_list.html.class" style="font-size:15">系统热词分类：</span>
+				<span class="selectAll"><input type="checkbox" name="selectAll" id="selectAll" value="" onclick="selectAll();"/><span WCMAnt:param="channelcontentlink_import_list.html.selectall">全选</span></span>
+				<span class="sameNameOpera">
+					<span class="" >发生同名时操作：</span>
+					<input type="radio" name="sameNameOpera" id="cover" value="1" onclick="selectOpera(this);"/><label for="cover">覆盖</label>
+					<input type="radio" name="sameNameOpera" id="nothing" value="0" checked="checked" onclick="selectOpera(this);"/><label for="nothing">忽略</label>
+				</span>
+				</div>
+				<div class="layout_center_container layout_center_innercontainer">
+					<div class="layout_center layout_innercenter">
+						<div class="layout_container table_grid">
+								<div id='wcm_table_grid' class="layout_center_container table_grid_data"></div>
+								<div id="grid_navigator" class="layout_south table_grid_navigator">
+										<div id="list_navigator" class="list_navigator_div">
+										</div>
+								</div>
+						</div>
+					</div>
+				</div>
+				<div id="south_tabs" class="layout_south"></div>
+			</div>
+		</div>
+		<div id="east_opers" class="layout_east"></div>
+	</div>
+</div>
+<script src="../js/runtime/lightlib.js"></script>
+<script src="../js/runtime/core_main.js"></script>
+<script src="../js/runtime/abs_list.js"></script>
+<script src="../js/runtime/data/list.js"></script>
+<script src="../js/runtime/data/oper_channelwebsite.js"></script>
+<script src="../js/runtime/data/oper_cmsobj_channelcontentlink.js"></script>
+<script language="javascript">
+	window.m_fpCfg = {
+		m_arrCommands : [{
+			cmd : 'setLinkType',
+			name : wcm.LANG.CHANNELCONTENTLINK_SURE || '确定'
+		}],
+		size : [550, 200]
+	};
+</script>
+<script src="channelcontentlink_import_list.html.compress.js"></script>
+<script src="channelcontentlink_import_list.js"></script>
+</body>
+</html>

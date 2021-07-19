@@ -1,0 +1,107 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="fckeditor.js"></script>
+<script language="javascript">
+function ExecuteCommand( commandName ){
+	try{
+		var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+		switch(commandName.toLowerCase()){
+			case 'source':
+				var oSourceCommand = oEditor.Commands.GetCommand('Source');
+				if(oEditor.EditMode==FCK_EDITMODE_WYSIWYG){
+					oSourceCommand.Execute();
+				}
+				break;
+			case 'design':
+				var oSourceCommand = oEditor.Commands.GetCommand('Source');
+				if(oEditor.EditMode==FCK_EDITMODE_SOURCE){
+					oSourceCommand.Execute();
+				}
+				break;
+			default:
+			// Execute the command.
+			oEditor.Commands.GetCommand( commandName ).Execute() ;
+		}
+	}catch(err){};
+}
+function GetEditor(){
+	var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+	return oEditor;
+}
+function GetTrueEditor(){
+	return FCKeditorAPI.editorWindow;
+}
+function SetHTML(_sHtml){
+	var oEditor = FCKeditorAPI.GetInstance('TRS_Editor') ;
+	oEditor.SetHTML(_sHtml);
+}
+function FCKeditor_OnComplete(){
+	if(parent!=window&&parent.FCKeditor_OnComplete){
+		parent.FCKeditor_OnComplete();
+	}
+	setTimeout(function(){
+		try{
+			if(oFCKeditor.Value=='')FCKeditorAPI.editorWindow.AutoPaste();
+		}catch(err){
+		}
+		try{
+			FCKeditorAPI.editorWindow.FCK.AttachSaveUserData();
+		}catch(err){
+		}
+	},100);
+	window.FCKeditor_OnComplete = null;
+}
+function GetTitleElement(_sTitle){
+	return parent.document.getElementById('DocTitle');
+}
+function getParameter(_sName, _sQuery){
+	if(!_sName)return '';
+	var query = _sQuery || location.search;
+	if(!query)return '';
+	var arr = query.substring(1).split('&');
+	_sName = _sName.toUpperCase();
+	for (var i=0,n=arr.length; i<n; i++){
+		if(arr[i].toUpperCase().indexOf(_sName+'=')==0){
+			return arr[i].substring(_sName.length + 1);
+		}
+	}
+	return '';
+}
+</script>
+<style type="text/css">
+	body{
+		margin:0;
+		padding:0;
+		background:transparent;
+		overflow:hidden;
+	}
+</style>
+</head>
+<body>
+	<script type="text/javascript">
+		var oFCKeditor = new FCKeditor( 'TRS_Editor' ) ;
+		oFCKeditor.BasePath	= './';
+		oFCKeditor.ToolbarSet = getParameter("ChannelId");//'WCM6';	
+		oFCKeditor.Height = '100%' ;
+		var keyPoint = 44;
+		if(screen.width == 1024) {
+			keyPoint = 31;
+		}
+		oFCKeditor.MoreParams = {
+			'SiteId' : getParameter("SiteId") || 0,
+			'Version' : getParameter('Version')||'1.0.0.2',
+			'ItemCount' : keyPoint,
+			'excludeToolbar' : getParameter('excludeToolbar') || ''
+		};
+		if(parent!=window){
+			var editorValueElId = getParameter("EditorValueElId")||"_editorValue_";			
+			oFCKeditor.Value = parent.document.getElementById(editorValueElId).value ;
+		}
+		else{
+			oFCKeditor.Value = '';
+		}
+		oFCKeditor.Create();
+	</script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-COMPATIBLE" content="IE=edge;chrome=1">
+<title>注册页</title>
+<link href="../../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/lib/JAZZ-UI/lib/themes/default/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/common.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/apply/security/user_reg_agreement.css" rel="stylesheet"	type="text/css" />
+<style>
+.content{
+	background-color:#f8f9fb;
+	margin-top: 0px;
+}
+.login-info{
+	width:1000px;
+	margin:0px auto;
+}
+.user-info-title{
+    color: #438eb9;
+    height: 30px;
+    border-bottom: 1px dashed #C2C2C2;
+    line-height: 30px;
+    font-family: 微软雅黑,黑体;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px 60px 0px 60px;
+    padding-bottom: 10px;
+    }
+#mobilebtn{
+	position: relative;
+    margin-top: 14px;
+    padding: 6px 16px;
+    margin-left: -16px;
+    font: 12px Microsoft YaHei;
+    /* font-weight: bold; */
+    color: #74a7d9;
+
+}
+.apply-security-regToolbar{
+	margin-top: 20px;
+}
+  /*   jazz组件样式的修改       */
+.jazz-field-comp {
+    margin: 15px 40px 5px;
+}
+.jazz-form-text-label {
+    font-size: 14px;
+    font-weight: normal;
+}
+/* .jazz-formpanel-content{
+	background-color:#fff;
+} */
+nav{
+	display:none;
+}
+.forgetPass{
+        	margin-left:10px;
+        }
+</style>
+</head>
+<body>
+<!-- 构建页面==开始 -->
+<article>
+<div class="content">
+ 	<div class="content-top">
+		<span class="forgetPass">用户注册</span>
+	</div>
+﻿<!-- 数据展现 -->
+	<!-- <div class="wrapper"> -->
+		 <div vtype="formpanel" name="userInfo_Form" id="userInfo_Form" wid="apply_security_userinfo" displayrows="1" dataview="false" width="100%" showborder="false" 
+			dataurl="" layout="table" layoutconfig="{cols:1, columnwidth: ['100%']}" labelstyleclass="labelstyle">
+			<div name="login-info" id="login-info" class="login-info">
+				<div class="user-info-title">用户登录信息</div>
+				<div name="loginName" id="login_name" vtype="textfield" label="登录名" labelwidth="200" labelalign="right" width="500" rule="customFunction;ebaic.checkLoginName()"></div>
+				<span class="tooltip">4~16个英文或数字,只做登录用,不做对外显示</span>
+				<div name="userPwd" vtype="passwordfield" label="登录密码" labelwidth="200" labelalign="right" width="500" tooltip="" rule="must_length;6,16_number$character" id="user_pwd"></div>
+				<span class="tooltip">4~16个英文或数字,昵称(笔名)对外显示,6~16个字符，区分大小写</span>
+				<div name="rePwd" vtype="passwordfield" id="rePwd" label="确认密码" labelwidth="200" width="500" rule="must_length;6,16_customFunction;checkRePwd()" id="rePwd"></div>
+				<span class="tooltip">秘密强度(至少六位)</span>
+				<div name="pwdAnswer" vtype="comboxfield" label="密码提示问题" labelwidth="200" labelalign="right" width="500" tooltip="" rule=""
+				dataurl="[{value:'1',text:'您的母亲叫什么名字?'},{value:'2',text:'您的出生地点是哪里?'},{value:'3',text:'您的小学叫什么名字?'},{value:'4',text:'您的出生日期是哪天?'}]"></div>
+				<span class="tooltip">用于找回密码</span>
+				<div name="pwdQuestion" vtype="textfield" label="密码提示问题答案" labelwidth="200" labelalign="right" width="500" tooltip="" rule="length;0,500"></div>
+				<div name="userId" vtype="hiddenfield" label="userid" labelwidth="200" labelalign="right" width="500" tooltip="" rule=""></div>
+			</div>
+			
+			<div name="basic-info" id="basic-info" class="">
+			 	<div class="user-info-title">用户身份信息</div>
+				<div name="userName" vtype="textfield" label="姓名" labelwidth="200" labelalign="right" width="500"
+				 tooltip="" rule="must_length;3,24"></div>
+				 <span class="tooltip">此项注册后不可修改,请务必输入身份证证件上的姓名</span>
+
+				<!-- <div name="sex" vtype="radiofield" label="性别" labelwidth="200" labelalign="right" width="500" dataurl="[{checked: true,value: '1',text: '男'},{value: '2',text: '女'}]" tooltip="" rule="must" ></div> -->
+				<div id="cardType" name="cerType" vtype="hiddenfield" label="证件类型" value="1"></div>
+				<div name="idCard" vtype="hiddenfield" label="" value=""></div>
+				<div name="cerNo" vtype="textfield" label="身份证号码" labelwidth="200" labelalign="right" width="500" tooltip="" rule="must_idcard_length;0;40"></div>
+				<div name="countryCity" vtype="hiddenfield" value="156" id="country_city" label="国别(地区)"></div>
+				
+				<div name="email" vtype="textfield" label="电子邮箱" labelwidth="200" labelalign="right" width="500" tooltip="" rule="must_email_length;0,100"></div>
+				<div name="address" vtype="textfield" label="联系地址" labelwidth="200" labelalign="right" width="500" tooltip="" rule="must_length;0,255"></div>
+
+				<div name="zipCode" vtype="textfield" label="邮政编码" labelwidth="200" labelalign="right"
+				 width="500" tooltip="" rule="postal"></div>
+				 <span class="tooltip">6位数字</span>
+				<div name="mobile" id="mobile" vtype="textfield" label="移动电话" labelwidth="200" 
+				labelalign="right" width="500"
+				 tooltip="" rule="must"></div>
+				 <span class="tooltip">移动电话必须为本人真实手机，否则会影响后续业务办理</span>
+
+		<!-- 		<div name="zipCode" vtype="textfield" label="邮政编码" labelwidth="200" labelalign="right"
+				 width="500" tooltip="6位数字" rule="postal"></div>
+<!-- 				rule="customFunction;ebaic.checkMobile()"
+				<div name="mobile" id="mobile" vtype="textfield" label="移动电话" labelwidth="200" 
+				labelalign="right" width="500" tooltip="移动电话必须为本人真实手机，否则会影响后续业务办理" rule="must"></div>
+>>>>>>> .r23364 --> 
+				<div name="mobileCode" vtype="textfield" id="mobileCode" label="验证码" labelalign="right" labelwidth="200" width="350" rule="must"></div>
+				<input id="mobilebtn"  type="button" value="获取验证码" autocomplete="off"> 
+			</div>
+			<div name="apply_security_regToolbar" class="apply-security-regToolbar" location="bottom" align="center">
+				<div id="apply_security_reg_query_button" name="apply_security_reg_query_button" class="commonBt">提交注册
+				</div>
+				<div name="apply_security_reg_reset_button" class="commonBt">重置
+				</div> 
+				<div name="apply_security_reg_back_button" class="commonBt">返回
+				</div> 
+			</div>
+		</div>
+		
+		
+	<!-- </div> -->
+</div>
+</article>
+<!-- 构建页面==结束 -->
+
+<script>
+
+</script>
+	<script type="text/javascript" src="../../../static/js/config.js"></script> 
+	<script type="text/javascript" src="../../../static/lib/require.js"  data-main="apply/securityReg.js"></script>
+</body>
+</html>

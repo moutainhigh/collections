@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: zk_admin
+  cloud:
+    zookeeper:
+      enabled: true
+      connect-string: 139.196.127.34:2181
+      discovery:
+        instance-host: localhost
+server:
+  port: 10000

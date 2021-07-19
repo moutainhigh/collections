@@ -1,0 +1,625 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>深圳市市场和质量监督管理委员会信用信息“双公示”</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta name="viewport" content="width=device-width,initial-scale=0.5,maximum-scale=1.0,user-scalable=no"/>
+<link rel="stylesheet" type="text/css" href="../statics/css/style.css" />
+<script src="../statics/js/jquery-1.8.3.min.js"  type="text/javascript" ></script>
+<script src="../statics/js/DoubleGS.js" type="text/javascript"></script>
+<script src="../statics/js/base64.js" type="text/javascript"></script>
+<script src="../statics/js/util.js" type="text/javascript"></script>
+</head>
+<body>
+		<!--头部--->
+		<div class="header"></div>
+		<div class="d_gs_box" style="position: relative;">
+			<div class='d_gs_title' id="title"></div>
+			<div class='d_gs_detail'>
+				<table>
+					<tr class='seconde'>
+						<td class='label' id="sidNO"></td>
+						<td class='value' id="sidVal"></td>
+					</tr>
+					<tr class='first'>
+						<td class='label' id="proName"></td>
+						<td class='value' id="proVal"></td>
+					</tr>
+					<tr class='seconde'>
+						<td class='label' id="typeNo"></td>
+						<td class='value' id="typeVal"></td>
+					</tr>
+					<tr class='first'>
+						<td class='label' id="typeContent"></td>
+						<td class='value' id="typeContentVal"><br></td>
+					</tr>
+					<tr class='seconde'>
+						<td class='label' id="relatorName">行政相对人名称:</td>
+						<td class='value' id="relatorNameEntity"></td>
+					</tr>
+					<tr class='first'>
+						<td class='label' id="relatorCode">行政相对人代码:</td>
+						<td class='value table-inner'>
+							<table>
+								<tbody>
+									<tr class='label'>
+										<td class='left'>统一社会信用代码</td>
+										<td>组织机构代码</td>
+										<td>工商登记码</td>
+										<td>税务登记号</td>
+										<td class='right'>居民身份证号码</td>
+									</tr>
+									<tr class='value'>
+										<td class='left' id="uuid"></td>
+										<td id="zzjg"></td>
+										<td id="gsdjh"></td>
+										<td id="shuiWuBianHao"></td>
+										<td class='right' id="sfz"></td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+					<tr class='seconde'>
+						<td class='label'>法定代表人(负责人)姓名:</td>
+						<td class='value' id="regalName"><br></td>
+					</tr>
+					<tr class='first'>
+						<td class='label' id="beginDateLabel"></td>
+						<td class='value' id="beginDateVal"></td>
+					</tr>
+					<tr class='seconde'>
+						<td class='label' id="endDateLabel"></td>
+						<td class='value' id="endDateVal"></td>
+					</tr>
+					<tr class='first'>
+						<td class='label' id="regNoLabel"></td>
+						<td class='value' id="regNoLabelVal"></td>
+					</tr>
+					<tr class='seconde'>
+						<td class='label' >地方编码:</td>
+						<td class='value' id="codeVal"></td>
+					</tr>
+					<tr class='first'>
+						<td class='label' id="currentStatu">当前状态:</td>
+						<td class='value' id="currentFlag"></td>
+					</tr>
+					<tr class='seconde'>
+						<td class='label' >备注</td>
+						<td class='value' id="bz"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+
+
+
+		<!--底部--->
+		<div class="bottom_link">
+			<div class="wrap">
+				<div class="bottom_link_left">
+					<a target="_blank" href="http://www.szscjg.gov.cn/fz/lxwm/">联系我们</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a target="_blank" href="http://www.szscjg.gov.cn/fz/bqbh/">版权保护</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a target="_blank" href="http://www.szscjg.gov.cn/fz/yssm/">隐私声明</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a target="_blank" href="http://www.szscjg.gov.cn/fz/wzbz/">使用帮助</a>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a target="_blank" href="http://www.szscjg.gov.cn/fz/wzdt/">网站导航</a>
+					<br>
+						<div id="dzjgico" class="sz_wj footer" style="width: 84px;margin-top: 19px;">
+							<span id="_ideConac">
+								<a href="http://bszs.conac.cn/sitename?method=show&id=1173ACE1BC20303BE053022819AC389E" target="_blank">
+									<img id="imgConac" vspace="0" hspace="0" border="0" src="../statics/images/red.png" data-bd-imgshare-binded="1">
+								</a>
+							</span>
+						</div>
+
+
+
+						<div class="sz_wj footer" style="width: 72px; margin-left: 5px;">
+							<a href="http://61.144.227.239:9002/" target="_blank">
+								<img src="../statics/images/bom_wj.png" alt="">
+							</a>
+						</div>
+						<div class="sz_wj footer" style="width: 84px; ">
+							<a href="http://61.144.227.239:9003/webrecord/form_query.jsp" target="_blank">
+								<img src="../statics/images/bom_jc.png" alt="">
+							</a>
+						</div>
+				</div>
+				<div class="bottom_link_right">
+					<div class="erweima">
+						<img src="../statics/images/bom_erweima.jpg" width="90" height="90" alt="">
+					</div>
+					<div class="bottom_word">
+						版权所有：深圳市市场和质量监督管理委员会&nbsp;&nbsp;&nbsp;&nbsp;技术支持：深圳市电子政务资源中心 <br> 地址：深圳市深南大道7010号工商物价大厦 <br> <a href="http://www.miitbeian.gov.cn/" target="_blank" style="color: #fff;">粤ICP备15042059号-1</a> <br> 建议使用1024*768分辨率以上的显示器 
+					</div>
+				</div>
+			</div>
+		</div>
+	<script type="text/javascript">
+		/* $(function() {
+			if ($.getUrlVar("type") != undefined&& ($.getUrlVar("type").toUpperCase() == "XZXK")|| $.getUrlVar("type").toUpperCase() == "XZCF") {
+				setPosition($.getUrlVar("type"));
+			}
+		}); */
+		
+		
+
+		function GetQueryString(name){
+		     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		     var r = window.location.search.substr(1).match(reg);
+		     if(r!=null)return  unescape(r[2]); return null;
+		}
+		
+		
+		
+		function loadingData(){
+			var id = GetQueryString("id");
+			var type = GetQueryString("type");
+			var name=GetQueryString("name");
+			if(type=='XZXK'){
+				$.ajax({
+					url:"../xzxk/getXZXKDetail.do",
+					type:"get",
+					dataType:'json',
+					data:{"id":id},
+					beforeSend:function(){
+						//$(".d_gs_box").append("<img id='loading' src='././statics/images/loading-0.gif' style='position:absolute;top:0'>");
+					},
+					success:function(data){
+						$("#loading").remove();
+						var dataStr = data.data[0].data;
+						
+						if(isEmpty(name)){
+							name = " ";
+						}
+						name = decode(name);
+						if(isEmpty(dataStr.XK_WSH)){
+							dataStr.XK_SPLB = " ";
+						}
+						if(isEmpty(dataStr.XK_SPLB)){
+							dataStr.XK_SPLB = " ";
+						}
+						if(isEmpty(dataStr.XK_NR)){
+							dataStr.XK_NR = " ";
+						}
+						if(isEmpty(dataStr.DWMC)){
+							dataStr.DWMC = " ";
+						}
+						if(isEmpty(dataStr.XK_XDR)){
+							dataStr.XK_XDR = " ";
+						}
+						
+						if(isEmpty(dataStr.XK_XDR_SHXYM)){
+							dataStr.XK_XDR_SHXYM = " ";
+						}
+						
+						if(isEmpty(dataStr.XK_XDR_ZDM)){
+							dataStr.XK_XDR_ZDM = " ";
+						}
+						
+						if(isEmpty(dataStr.XK_XDR_GSDJ)){
+							dataStr.XK_XDR_GSDJ = " ";
+						}
+						if(isEmpty(dataStr.XK_XDR_SWDJ)){
+							dataStr.XK_XDR_SWDJ = " ";
+						}
+						
+						var sfz = " ";
+						if(isEmpty(dataStr.XK_XDR_SFZ)){
+							dataStr.XK_XDR_SFZ = " ";
+						}else{
+							//sfz = dataStr.XK_XDR_SFZ.replace(dataStr.XK_XDR_SFZ.substr(6,8), "********")
+							sfz = dataStr.XK_XDR_SFZ;
+						}
+						
+						if(isEmpty(dataStr.XK_FR)){
+							dataStr.XK_FR = " ";
+						}
+						
+						if(isEmpty(dataStr.XK_JDRQ)){
+							dataStr.XK_JDRQ = " ";
+						}
+						
+						if(isEmpty(dataStr.XK_JZQ)){
+							dataStr.XK_JZQ = " ";
+						}
+						
+						if(isEmpty(dataStr.DFBM)){
+							dataStr.DFBM = " ";
+						}
+						
+						if(isEmpty(dataStr.TYPE)){
+							dataStr.TYPE = " ";
+						}
+						
+						var zt = ""
+						if(isEmpty(dataStr.XK_ZT)){
+							dataStr.XK_ZT = " ";
+						}
+						if(dataStr.XK_ZT=="0"){
+							zt ="正常";
+						}
+						if(dataStr.XK_ZT=="1"){
+							zt ="撤销";
+						}
+						if(dataStr.XK_ZT=="2"){
+							zt ="异议";
+						}
+						if(dataStr.XK_ZT=="3"){
+							zt ="其他";
+						}
+						if(isEmpty(dataStr.BZ)){
+							dataStr.BZ = " ";
+						}
+						if(isEmpty(dataStr.XK_XMMC)){
+							dataStr.XK_XMMC = " ";
+						}
+						
+						
+						$("#title").html(dataStr.XK_XMMC);
+						$("#proVal").html(dataStr.XK_XMMC);
+						$("#sidNO").html("行政许可决定文书号");
+						
+						if(dataStr.TYPE=="3"||dataStr.TYPE=="4"){
+							var year = dataStr.XK_JDRQ.split(" ")[0].split("-")[0];
+							$("#sidVal").html("[ "+year +" ] 第"+dataStr.XK_WSH+"号");
+						}else{
+							$("#sidVal").html(dataStr.XK_WSH);
+						}
+						
+						
+						
+						
+						$("#proName").html("项目名称:");
+						//$("#proVal").html(name);//
+						$("#typeNo").html("审批类别:");
+						$("#typeVal").html(dataStr.XK_SPLB);
+						$("#typeContent").html("许可内容:");
+						
+						
+						var xknr = " ";
+						if(isNotEmpty(dataStr.XK_NR)){
+							xknr = dataStr.XK_NR;
+							xknr = xknr.replace(/;/g,"<br/>");
+						}
+						$("#typeContentVal").html(xknr);
+						
+						$("#relatorNameEntity").html(dataStr.XK_XDR);
+						$("#uuid").html(dataStr.XK_XDR_SHXYM);
+						$("#zzjg").html(dataStr.XK_XDR_ZDM);
+						$("#gsdjh").html(dataStr.XK_XDR_GSDJ);
+						$("#shuiWuBianHao").html(dataStr.XK_XDR_SWDJ);
+						//$("#sfz").html(dataStr.XK_XDR_SFZ);
+						
+						/* var tempSfz = sfz;
+						if(tempSfz.indexOf("9")!=-1){
+							tempSfz = " " ;
+						}
+						if(tempSfz.indexOf("4")>=0&&tempSfz.length<18){
+							$("#zzjg").html(tempSfz);
+							$("#sfz").html(" ");
+						}else{
+							$("#sfz").html(tempSfz);
+						} */
+						
+						if(sfz.indexOf("9")==0||sfz.length<14){
+							sfz = " ";
+						}
+						
+						
+						$("#sfz").html(sfz);
+						$("#regalName").html(dataStr.XK_FR);
+						$("#beginDateLabel").html("许可决定日期:");
+						$("#beginDateVal").html(dataStr.XK_JDRQ.split(" ")[0]);
+						$("#endDateLabel").html("许可截止期:");
+						
+						
+						var tempXkRq = dataStr.XK_JZQ.split(" ")[0].replace(/\//g,"-");
+						if(dataStr.TYPE=="3"||dataStr.TYPE=="4"){
+							if(tempXkRq.indexOf("5")==0||tempXkRq==""){
+								tempXkRq = "长期";
+							}
+						}
+						$("#endDateVal").html(tempXkRq);
+						$("#regNoLabel").html("许可机关:");
+						
+						
+						$("#regNoLabelVal").html(dataStr.XK_XZJG);
+						$("#codeVal").html(dataStr.DFBM);
+						$("#currentFlag").html(zt);
+						$("#bz").html(dataStr.BZ);
+					}
+				})
+				
+			}else{
+				$.ajax({
+					url:'../xzcf/getXZCFDetail.do',
+					type:"get",
+					data:{"id":id},
+					dataType:"json",
+					beforeSend:function(){
+						$(".d_gs_box").append("<img id='loading' src='../statics/images/loading-0.gif'>");
+					},
+					success:function(data){
+						$("#loading").remove();
+						name = decode(name);
+						
+						var dataStr = data.data[0].data;
+						if(isEmpty(name)){
+							name = " ";
+						}
+						
+						if(isEmpty(dataStr.CF_WSH)){
+							dataStr.CF_WSH = " ";
+						}
+						if(isEmpty(dataStr.CF_CFMC)){
+							dataStr.CF_CFMC = " ";
+						}
+						if(isEmpty(dataStr.CF_CFLB1)){
+							dataStr.CF_CFLB1 = " ";
+						}
+						if(isEmpty(dataStr.CF_SY)){
+							dataStr.CF_SY = " ";
+						}
+						if(isEmpty(dataStr.CF_YJ)){
+							dataStr.CF_YJ = " ";
+						}
+						if(isEmpty(dataStr.CF_JG)){
+							dataStr.CF_JG = " ";
+						}
+						
+						if(isEmpty(dataStr.CF_CFLB2)){
+							dataStr.CF_CFLB2 = " ";
+						}
+						
+						if(isEmpty(dataStr.CF_XDR_MC)){
+							dataStr.CF_XDR_MC = " ";
+						}
+						
+						if(isEmpty(dataStr.CF_XDR_SHXYM)){
+							dataStr.CF_XDR_SHXYM = " ";
+						}
+						
+						if(isEmpty(dataStr.CF_XDR_ZDM)){
+							dataStr.CF_XDR_ZDM = " ";
+						}
+						if(isEmpty(dataStr.CF_XDR_GSDJ)){
+							dataStr.CF_XDR_GSDJ = " ";
+						}
+						if(isEmpty(dataStr.CF_XDR_SWDJ)){
+							dataStr.CF_XDR_SWDJ = " ";
+						}
+						
+						var sfz  = "";
+						if(isEmpty(dataStr.CF_XDR_SFZ)){
+							sfz = " ";
+						}else{
+							//sfz = dataStr.CF_XDR_SFZ.replace(dataStr.CF_XDR_SFZ.substr(8,6), "******");
+							sfz = dataStr.CF_XDR_SFZ;
+						}
+						
+						if(isEmpty(dataStr.CF_FR)){
+							dataStr.CF_FR = " ";
+						}
+						
+						if(isEmpty(dataStr.CF_JDRQ)){
+							dataStr.CF_JDRQ = " ";
+						}
+						
+						if(isEmpty(dataStr.CF_JZQ)){
+							dataStr.CF_JZQ = " ";
+						}
+						
+						if(isEmpty(dataStr.CF_XZJG)){
+							dataStr.CF_XZJG = " ";
+						}
+						
+						if(isEmpty(dataStr.DFBM)){
+							dataStr.DFBM = " ";
+						}
+						
+						var zt = "";
+						if(isEmpty(dataStr.CF_ZT)){
+							dataStr.CF_ZT = " ";
+						}
+						if(dataStr.CF_ZT=="0"){
+							zt ="正常";
+						}
+						if(dataStr.CF_ZT=="1"){
+							zt ="撤销";
+						}
+						if(dataStr.CF_ZT=="3"){
+							zt ="异议";
+						}
+						if(dataStr.CF_ZT=="1"){
+							zt ="其他";
+						}
+						
+						if(isEmpty(dataStr.BZ)){
+							//dataStr.BZ = "无";
+							dataStr.BZ = " ";
+						}
+						
+						//$("#title").html(name);
+						$("#title").html(dataStr.CF_CFMC);
+						$("#proVal").html(dataStr.CF_CFMC);
+						
+						$("#sidNO").html("行政处罚决定书文号:	");
+						$("#sidVal").html(dataStr.CF_WSH);
+						$("#proName").html("处罚名称:");
+						
+						$("#typeNo").html("处罚类别1:	");
+						
+						var text1 = "";
+						
+						if(escape(dataStr.CF_CFLB1).indexOf("%u")<0){
+							if(dataStr.CF_CFLB1.indexOf(",")>0){
+								var tempArray = dataStr.CF_CFLB1.split(",");
+								for(var i=0;i<tempArray.length;i++){
+									if($.trim(tempArray[i])=="01"){
+										text1+="警告<br/>";
+									}
+									if($.trim(tempArray[i])=="02"){
+										text1+="罚款<br/>";
+									}
+									if($.trim(tempArray[i])=="03"){
+										text1+="没收违法所得、没收非法财物<br/>";
+									}
+									if($.trim(tempArray[i])=="04"){
+										text1+="责令停产停业<br/>";
+									}
+									if($.trim(tempArray[i])=="05"){
+										text1+="暂扣或者吊销许可证、暂扣或者吊销执照<br/>";
+									}
+									if($.trim(tempArray[i])=="06"){
+										text1+="行政拘留<br/>";
+									}
+									if($.trim(tempArray[i])=="07"){
+										text1+="其他";
+									}
+								}
+							}else{
+								if($.trim(dataStr.CF_CFLB1)=="01"){
+									text1+="警告<br/>";
+								}
+								if($.trim(dataStr.CF_CFLB1)=="02"){
+									text1+="罚款<br/>";
+								}
+								if($.trim(dataStr.CF_CFLB1)=="03"){
+									text1+="没收违法所得、没收非法财物<br/>";
+								}
+								if($.trim(dataStr.CF_CFLB1)=="04"){
+									text1+="责令停产停业<br/>";
+								}
+								if($.trim(dataStr.CF_CFLB1)=="05"){
+									text1+="暂扣或者吊销许可证、暂扣或者吊销执照<br/>";
+								}
+								if($.trim(dataStr.CF_CFLB1)=="06"){
+									text1+="行政拘留<br/>";
+								}
+								if($.trim(dataStr.CF_CFLB1)=="07"){
+									text1+="其他";
+								}
+							  }
+					   }else{
+						   text1=dataStr.CF_CFLB1;
+					   }
+						
+						$("#typeVal").html(text1);
+						
+						$("#relatorName").parent().before("<tr class='seconde'><td class='label'>处罚事由:</td><td class='value'>"+dataStr.CF_SY+"</td></tr>");
+						$("#relatorName").parent().before("<tr class='first'><td class='label'>处罚依据:</td><td class='value'>"+dataStr.CF_YJ+"</td></tr>");
+						$("#relatorName").parent().before("<tr class='first'><td class='label'>处罚结果:</td><td class='value'>"+dataStr.CF_JG+"</td></tr>");
+						
+						$("#typeContent").html("处罚类别2:");
+						
+						var text2 = "";
+						
+						if(escape(dataStr.CF_CFLB2).indexOf("%u")<0){						
+							if(dataStr.CF_CFLB2.indexOf(",")>0){
+								var tempArray = dataStr.CF_CFLB2.split(",");
+								for(var i=0;i<tempArray.length;i++){
+									if($.trim(tempArray[i])=="01"){
+										text2+="警告<br/>";
+									}
+									if($.trim(tempArray[i])=="02"){
+										text2+="罚款<br/>";
+									}
+									if($.trim(tempArray[i])=="03"){
+										text2+="没收违法所得、没收非法财物<br/>";
+									}
+									if($.trim(tempArray[i])=="04"){
+										text2+="责令停产停业<br/>";
+									}
+									if($.trim(tempArray[i])=="05"){
+										text2+="暂扣或者吊销许可证、暂扣或者吊销执照<br/>";
+									}
+									if($.trim(tempArray[i])=="06"){
+										text2+="行政拘留<br/>";
+									}
+									if($.trim(tempArray[i])=="07"){
+										text2+="其他";
+									}
+								}
+							}else{
+								if($.trim(dataStr.CF_CFLB2)=="01"){
+									text2+="警告<br/>";
+								}
+								if($.trim(dataStr.CF_CFLB2)=="02"){
+									text2+="罚款<br/>";
+								}
+								if($.trim(dataStr.CF_CFLB2)=="03"){
+									text2+="没收违法所得、没收非法财物<br/>";
+								}
+								if($.trim(dataStr.CF_CFLB2)=="04"){
+									text2+="责令停产停业<br/>";
+								}
+								if($.trim(dataStr.CF_CFLB2)=="05"){
+									text2+="暂扣或者吊销许可证、暂扣或者吊销执照<br/>";
+								}
+								if($.trim(dataStr.CF_CFLB2)=="06"){
+									text2+="行政拘留<br/>";
+								}
+								if($.trim(dataStr.CF_CFLB2)=="07"){
+									text2+="其他";
+								}
+							}
+						}else{
+							text2 = dataStr.CF_CFLB2;
+						}
+						
+						$("#typeContentVal").html(text2);
+						$("#relatorNameEntity").html(dataStr.CF_XDR_MC);
+						$("#uuid").html(dataStr.CF_XDR_SHXYM);
+						$("#zzjg").html(dataStr.CF_XDR_ZDM);
+						$("#gsdjh").html(dataStr.CF_XDR_GSDJ);
+						$("#shuiWuBianHao").html(dataStr.CF_XDR_SWDJ);
+						//$("#sfz").html(dataStr.CF_XDR_SFZ);
+						/* var tempSfz = sfz;
+						if(tempSfz.indexOf("9")!=-1){
+							tempSfz = " " ;
+						}
+						if(tempSfz.indexOf("4")>=0&&tempSfz.length<18){
+							$("#zzjg").html(tempSfz);
+							$("#sfz").html(" ");
+						}else{
+							$("#sfz").html(tempSfz);
+						} */
+						
+						if(sfz.indexOf("9")==0){
+							sfz = " ";
+						}
+						
+						$("#sfz").html(sfz);
+						$("#regalName").html(dataStr.CF_FR);
+						$("#beginDateLabel").html("处罚决定日期:");
+						$("#beginDateVal").html(dataStr.CF_JDRQ.split(" ")[0]);
+						$("#endDateLabel").parent("tr").remove();
+						
+						$("#regNoLabel").html("处罚机关:");
+						$("#regNoLabelVal").html(dataStr.CF_XZJG);
+						$("#codeVal").html(dataStr.DFBM);
+						$("#currentFlag").html(zt);
+						$("#bz").html(dataStr.BZ);
+					}
+				})
+				
+			}
+			
+			
+		}
+		
+		
+	$(function(){
+		loadingData();
+	})
+	
+	</script>
+</body>
+</html>
+

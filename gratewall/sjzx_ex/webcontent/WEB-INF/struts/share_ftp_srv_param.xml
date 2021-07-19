@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>ftp服务参数</menu-name>
+  <menu-path>/page/share/ftp/srvparam/</menu-path>
+  <description>ftp服务参数</description>
+  <form-beans>
+    <form-bean name="ShareFtpSrvParamRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="record" name="srv_param_id" type="string" size="32" cannull="false" description="参数值ID"/>
+      <form-property prefix="record" name="ftp_service_id" type="string" size="32" cannull="true" description="FTP服务ID"/>
+      <form-property prefix="record" name="param_value_type" type="string" size="20" cannull="true" description="代码表String INT BOOLEAN"/>
+      <form-property prefix="record" name="patameter_name" type="string" size="20" cannull="true" description="参数名"/>
+      <form-property prefix="record" name="patameter_value" type="string" size="50" cannull="true" description="参数值"/>
+      <form-property prefix="record" name="style" type="string" size="20" cannull="true" description="格式"/>
+      <form-property prefix="record" name="showorder" type="long" cannull="true" description="顺序字段"/>
+    </form-bean>
+
+    <form-bean name="ShareFtpSrvParamUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="srv_param_id" type="string" size="32" cannull="false" description="参数值ID"/>
+      <form-property prefix="record" name="srv_param_id" type="string" size="32" cannull="false" description="参数值ID"/>
+      <form-property prefix="record" name="ftp_service_id" type="string" size="32" cannull="true" description="FTP服务ID"/>
+      <form-property prefix="record" name="service_id" type="string" size="32" cannull="true" description="服务ID"/>
+      <form-property prefix="record" name="service_targets_id" type="string" size="32" cannull="true" description="服务对象ID"/>
+      <form-property prefix="record" name="param_value_type" type="string" size="20" cannull="true" description="代码表String INT BOOLEAN"/>
+      <form-property prefix="record" name="patameter_name" type="string" size="20" cannull="true" description="参数名"/>
+      <form-property prefix="record" name="patameter_value" type="string" size="50" cannull="true" description="参数值"/>
+      <form-property prefix="record" name="style" type="string" size="20" cannull="true" description="格式"/>
+      <form-property prefix="record" name="showorder" type="long" cannull="true" description="顺序字段"/>
+    </form-bean>
+
+    <form-bean name="ShareFtpSrvParamDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="record" name="srv_param_id" type="string" size="32" cannull="false" description="参数值ID"/>
+      <form-property prefix="record" name="service_id" type="string" size="32" cannull="true" description="服务ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-share_ftp_srv_param.jsp" name="ShareFtpSrvParamRowsetForm" txn-code="40402001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询ftp服务参数列表</description>
+      <step index="10" bean-name="com.gwssi.share.ftp.txn.TxnShareFtpSrvParam" func-name="txn40402001" input-node="select-key" output-node="record" description="查询ftp服务参数列表"/>
+      <forward error-code="success" path="query-share_ftp_srv_param.jsp"/>
+      <forward error-code="failure" path="query-share_ftp_srv_param.jsp"/>
+    </action>
+
+    <action input="update-share_ftp_srv_param.jsp" name="ShareFtpSrvParamUpdateForm" txn-code="40402002" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改ftp服务参数信息</description>
+      <step index="10" bean-name="com.gwssi.share.ftp.txn.TxnShareFtpSrvParam" func-name="txn40402002" input-node="record" description="修改ftp服务参数信息"/>
+      <forward error-code="success" path="update-share_ftp_service.jsp"/>
+      <forward error-code="failure" path="update-share_ftp_service.jsp"/>
+    </action>
+
+    <action input="insert-share_ftp_srv_param.jsp" name="ShareFtpSrvParamUpdateForm" txn-code="40402003" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加ftp服务参数信息</description>
+      <step index="10" bean-name="com.gwssi.share.ftp.txn.TxnShareFtpSrvParam" func-name="txn40402003" input-node="record" description="增加ftp服务参数信息"/>
+      <forward error-code="success" path="insert-share_ftp_srv_param.jsp"/>
+      <forward error-code="failure" path="insert-share_ftp_srv_param.jsp"/>
+    </action>
+
+    <action input="query-share_ftp_srv_param.jsp" name="ShareFtpSrvParamUpdateForm" txn-code="40402004" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询ftp服务参数用于修改</description>
+      <step index="10" bean-name="com.gwssi.share.ftp.txn.TxnShareFtpSrvParam" func-name="txn40402004" input-node="primary-key" output-node="record" description="查询ftp服务参数用于修改"/>
+      <forward error-code="success" path="update-share_ftp_srv_param.jsp"/>
+      <forward error-code="failure" path="update-share_ftp_srv_param.jsp"/>
+    </action>
+
+    <action input="query-share_ftp_srv_param.jsp" name="ShareFtpSrvParamDeleteForm" txn-code="40402005" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除ftp服务参数信息</description>
+      <step index="10" bean-name="com.gwssi.share.ftp.txn.TxnShareFtpSrvParam" func-name="txn40402005" input-node="record" description="删除ftp服务参数信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-share_ftp_srv_param.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/share/ftp/srvparam/query-share_ftp_srv_param.jsp" description="查询ftp服务参数列表"/>
+    <resource-file type="jsp" file-name="/page/share/ftp/srvparam/insert-share_ftp_srv_param.jsp" description="增加ftp服务参数信息"/>
+    <resource-file type="jsp" file-name="/page/share/ftp/srvparam/update-share_ftp_srv_param.jsp" description="修改ftp服务参数信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.ftp.vo.ShareFtpSrvParamContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.ftp.vo.VoShareFtpSrvParam" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.ftp.vo.VoShareFtpSrvParamSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.share.ftp.vo.VoShareFtpSrvParamPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

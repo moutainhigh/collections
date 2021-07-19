@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0" id="components.bigtable">
+
+	<!-- Cached-Object Config For ICachePOMgr BEGIN -->
+	<extension element-class="com.trs.infra.persistent.cache.CachedObjectConfig"
+		id="CachedObjs">
+		<cached-object Name="自定义表单" 
+			ClassName="com.trs.components.infoview.persistent.InfoView" />
+		<cached-object Name="自定义表单字段" 
+			ClassName="com.trs.components.infoview.persistent.InfoViewField" />
+	</extension>
+	<extension
+		element-class="com.trs.components.infoview.InfoViewConfig"
+		id="InfoViewConfig">
+		<InfoViewManager>
+			<extract-program>E:\CABSDK\BIN\EXTRACT.EXE</extract-program>
+			<script-uri></script-uri>
+			<style-uri></style-uri>
+			<pub-script-uri>wcmlib.js,infoview_pub.js</pub-script-uri>
+			<pub-style-uri>infoview_pub.css</pub-style-uri>
+			<inner-fillout-action>infoview_document_addedit_dowith.jsp</inner-fillout-action>
+			<infoview-binding>
+				<field name="UserName" desc="用户名" />
+				<field name="ChannelName" desc="栏目名称"/>
+				<field name="GroupName" desc="所在组/部门"/>
+				<field name="CurrDate" desc="当前日期" format="yyyy-MM-dd" data-type="date"/>
+				<field name="CurrTime" desc="当前时间" format="yyyy-MM-dd HH:mm"  data-type="datetime"/>
+				<field name="SiteName" desc="站点名称"   classname="com.trs.service.impl.SiteNameCreator"/>
+			</infoview-binding>
+			<infoview-enumsconfig file="infoview-enumsconfig.xml"/>
+			<public-randomserial>
+				<randomserial-required>true</randomserial-required>
+				<randomserial-pattern>{0,date,yyyyMMdd}-{1,number,0000}</randomserial-pattern>
+			</public-randomserial>
+			<public-password>
+				<password-required>false</password-required>
+				<password-field>PASSWORD</password-field>
+				<password-pattern>JA-{0,number,00000000}</password-pattern>
+			</public-password>
+			<infogate-configs>
+				<infogate-binding>
+					<field name="UserName" desc="用户名"/>
+					<field name="Telephone" desc="电话"/>
+					<field name="IdentityNO" desc="身份证号"/>
+					<field name="MyPhoto" desc="个人照片"/>
+					<field name="Comefrom" desc="住址"/>
+					<field name="Birthday" desc="生日"/>
+					<field name="Age" desc="年龄" data-type="int"/>
+					<field name="Sex" desc="性别" data-type="int"/>
+					<field name="Email" desc="电子邮件(Email)"/>
+					<field name="NickName" desc="昵称"/>
+					<field name="RealName" desc="真实姓名"/>
+					<field name="MySign" desc="个性签名"/>
+					<field name="GroupId" desc="所在用户组"/>
+					<field name="RegisterTime" desc="注册时间" type=""/>
+					<field name="LastLoginTime" desc="最后登录时间"/>
+					<field name="Attribute" desc="附加信息"/>
+					<field name="CurrDate" desc="当前日期" format="yyyy-MM-dd" data-type="date"/>
+					<field name="CurrTime" desc="当前时间" format="yyyy-MM-dd HH:mm" data-type="datetime"/>				
+				</infogate-binding>
+				<infogate-page>
+					<page_item name="InitPage" url="{infogate}/public/initpage.jsp" desc="网关发布初始化页面"/>
+					<page_item name="PostAction" url="{infogate}/collect" desc="网关数据提交页面"/>
+					<page_item name="FileUpload" url="{infogate}/file/file_server_upload.jsp" desc="网关文件上传页面"/>
+					<page_item name="ReadFile" url="{infogate}/file/file_server_read.jsp" desc="网关文件读取页面"/>
+					<page_item name="VerifyCode" url="{infogate}/verifycode" desc="网关验证码页面"/>
+					<page_item name="GatewayLogin" url="{infogate}/customer/demo_login.html?jerk=1" desc="网关登录页面"/>
+					<page_item name="ValidVerifycodeUrl" url="{infogate}/customer/system/get_infoview_verify_code.jsp" desc="网关验证校验码页面"/>
+				</infogate-page>
+			</infogate-configs>
+		</InfoViewManager>
+	</extension>
+	<extension
+		element-class="com.trs.components.common.publish.config.persistent.PublishServerConfig"
+		id="InfoViewDataPublishServer">
+		<publish-server>
+			<!-- to define the publish content types -->
+			<content-types>
+				<content name="infoViewData"
+					class-name="com.trs.components.infoview.publish.tagparser.PublishContentInfoViewDataImpl" />
+			</content-types>
+		</publish-server>
+	</extension>
+</plugin>

@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>图片查看</title>
+	<link href="../css/common.css" rel="stylesheet" type="text/css" />
+	<style>
+		.template{
+			display:none;
+		}
+		.attr_row{
+			margin-left:10px;
+			font-size:12px;	
+			float:left;
+			width:330px;			
+		}
+		.attr_name{
+			font-weight:bold;				
+			width:25%;
+			text-align:right;
+			padding-right:15px;
+			margin:5px;
+			padding:5px;
+			empty-cells:show;
+			border-bottom:1px dashed lightgrey;
+		}
+		.attr_value{
+			padding:5px;
+			margin:5px;
+			width:75%;
+			clear:both;
+			empty-cells:show;
+			border-bottom:1px dashed lightgrey;
+			break-word:break-all;
+			word-wrap:break-word;
+		}
+	</style>
+	<script src="../js/com.trs.util/Common.js"></script>	
+	<script label="TagParser">
+		$import('com.trs.web2frame.DataHelper');
+		$import('com.trs.web2frame.TempEvaler');
+		$import('com.trs.wcm.Web2frameDefault');
+	</script>
+	<script src="photo_syspic_showdetail.js"></script>	
+</head>
+<body style="overflow:auto;width:330px;height:400px;">
+<div style="text-align:center;margin-top:10px">
+	<img src=""id="picshower" onload="resizeIfNeed(this);" align="absmiddle">
+</div>
+<div style="width:330px;height:40px;">&nbsp;</div>
+<div style="width:360px;margin-left:20px;">
+	<div id="imageprops"></div>
+</div>
+
+
+<textarea id="template_imageprops" class="template" select=".">
+	<table border="0" cellspacing="0" cellpadding="0" style="table-layout:fixed;border-collapse:collapse;">
+	<tbody>
+		<tr class="attr_row">
+			<td class="attr_name">图片类型:</td>
+			<td class="attr_value"><span id="pictype"></span></td>
+		</tr>
+		<tr class="attr_row">
+			<td class="attr_name">标题:</td>
+			<td class="attr_value">{#DOCTITLE}</td>
+		</tr>
+		<tr class="attr_row">
+			<td class="attr_name">创建时间:</td>
+			<td class="attr_value">{#CRTIME}</td>
+		</tr>
+		<tr class="attr_row">
+			<td class="attr_name">发稿人:</td>
+			<td class="attr_value">{#CRUSER}</td>
+		</tr>
+		<tr class="attr_row">
+			<td class="attr_name">关键词:</td>
+			<td class="attr_value">{#DocKeywords}</td>
+		</tr>
+		<tr class="attr_row">
+			<td class="attr_name">所在位置:</td>
+			<td class="attr_value">{#DocPath}</td>
+		</tr>	
+	</tbody>
+	</table>	
+</textarea>
+</body>
+</html>

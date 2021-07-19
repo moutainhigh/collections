@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="GBK"?>
+<resource>
+  <model name="主从表[子表采用TAB页维护]" page="master-detail-table-2.jsp" wizard-class="cn.gwssi.console.txn.wizard.TableModuleWizard" demo-image="multi-table-3.gif"/>
+  <struts name="ad_exa_bus_reg.xml" app-path="/dw/aic/bj/ad/exa/" app-name="ad_exa_bus_reg" description="审批查询" template="master-detail-table-2.xml"/>
+  <table name="ad_exa_bus_reg.xml" app-name="ad_exa_bus_reg" app-desc="经营资格审批" delete-action="delete" description="审批查询" class-name="com.gwssi.dw.aic.bj.ad.exa.txn.TxnAdExaBusReg" template="master-detail-table-2.master.java" dao-class-template="single-table.java" type="master">
+	  <jsp page-name="frame-ad_exa_bus_reg-update.jsp" txn-code="60184004" description="经营资格审批信息维护" template="master-detail-3/frame-detail-update.jsp">
+	    <button type="button" name="返 回" path="/txn60184001.do" description="返回到经营资格审批明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="query-ad_exa_bus_reg.jsp" txn-code="60184001" description="查询经营资格审批列表" template="master-detail-3/master-table-query.jsp">
+	    <button type="button" name="增加经营资格审批" path="insert-ad_exa_bus_reg.jsp" description="增加经营资格审批" func-name="addRecord"/>
+	    <button type="button" name="修改经营资格审批" path="frame-ad_exa_bus_reg-update.jsp" description="修改经营资格审批" func-name="updateRecord"/>
+	    <button type="button" name="删除经营资格审批" path="/txn60184005.do" description="删除经营资格审批" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60184001.do" description="查询经营资格审批信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="insert-ad_exa_bus_reg.jsp" txn-code="60184003" description="增加经营资格审批信息" template="single/single-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60184003.do" description="保存经营资格审批信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60184003.do" description="保存经营资格审批信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60184001.do" description="保存经营资格审批信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60184001.do" description="返回到经营资格审批明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="update-ad_exa_bus_reg.jsp" txn-code="60184002" description="修改经营资格审批信息" template="single/single-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60184001.do" description="修改经营资格审批信息" func-name="saveRecord"/>
+	  </jsp>
+
+	  <txn input="query-ad_exa_bus_reg.jsp" txn-code="60184001" description="查询经营资格审批列表">
+	    <forward error-code="success" path="query-ad_exa_bus_reg.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="query-ad_exa_bus_reg.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="update-ad_exa_bus_reg.jsp" txn-code="60184002" description="修改经营资格审批信息">
+	    <forward error-code="success" path="update-ad_exa_bus_reg.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="update-ad_exa_bus_reg.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="insert-ad_exa_bus_reg.jsp" txn-code="60184003" description="增加经营资格审批信息">
+	    <forward error-code="success" path="insert-ad_exa_bus_reg.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="insert-ad_exa_bus_reg.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-ad_exa_bus_reg.jsp" txn-code="60184004" description="查询经营资格审批用于修改">
+	    <forward error-code="success" path="update-ad_exa_bus_reg.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="update-ad_exa_bus_reg.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="query-ad_exa_bus_reg.jsp" txn-code="60184005" description="删除经营资格审批信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.exa.vo.AdExaBusRegContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.exa.vo.VoAdExaBusReg" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.exa.vo.VoAdExaBusRegSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.exa.vo.VoAdExaBusRegPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="ad_exa_tobac.xml" app-name="ad_exa_tobac" app-desc="烟草广告审批" delete-action="delete" description="烟草广告审批表" class-name="com.gwssi.dw.aic.bj.ad.exa.txn.TxnAdExaTobac" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60184011">
+	  <jsp page-name="ad_exa_tobac/query-ad_exa_tobac.jsp" txn-code="60184011" description="查询烟草广告审批列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加烟草广告审批" path="ad_exa_tobac/insert-ad_exa_tobac.jsp" description="增加烟草广告审批" func-name="addRecord"/>
+	    <button type="button" name="修改烟草广告审批" path="/txn60184014.do" description="修改烟草广告审批" func-name="updateRecord"/>
+	    <button type="button" name="删除烟草广告审批" path="/txn60184015.do" description="删除烟草广告审批" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60184011.do" description="查询烟草广告审批信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="ad_exa_tobac/insert-ad_exa_tobac.jsp" txn-code="60184013" description="增加烟草广告审批信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60184013.do" description="保存烟草广告审批信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60184013.do" description="保存烟草广告审批信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60184011.do" description="保存烟草广告审批信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60184011.do" description="返回到烟草广告审批明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="ad_exa_tobac/update-ad_exa_tobac.jsp" txn-code="60184012" description="修改烟草广告审批信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60184011.do" description="修改烟草广告审批信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60184011.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="ad_exa_tobac/query-ad_exa_tobac.jsp" txn-code="60184011" description="查询烟草广告审批列表">
+	    <forward error-code="success" path="ad_exa_tobac/query-ad_exa_tobac.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="ad_exa_tobac/query-ad_exa_tobac.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="ad_exa_tobac/update-ad_exa_tobac.jsp" txn-code="60184012" description="修改烟草广告审批信息">
+	    <forward error-code="success" path="ad_exa_tobac/update-ad_exa_tobac.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="ad_exa_tobac/update-ad_exa_tobac.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="ad_exa_tobac/insert-ad_exa_tobac.jsp" txn-code="60184013" description="增加烟草广告审批信息">
+	    <forward error-code="success" path="ad_exa_tobac/insert-ad_exa_tobac.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="ad_exa_tobac/insert-ad_exa_tobac.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="ad_exa_tobac/query-ad_exa_tobac.jsp" txn-code="60184014" description="查询烟草广告审批用于修改">
+	    <forward error-code="success" path="ad_exa_tobac/update-ad_exa_tobac.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="ad_exa_tobac/update-ad_exa_tobac.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="ad_exa_tobac/query-ad_exa_tobac.jsp" txn-code="60184015" description="删除烟草广告审批信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.exa.vo.AdExaTobacContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.exa.vo.VoAdExaTobac" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.exa.vo.VoAdExaTobacSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.exa.vo.VoAdExaTobacPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+  <table name="ad_exa_wild.xml" app-name="ad_exa_wild" app-desc="户外广告审批" delete-action="delete" description="户外广告审批表" class-name="com.gwssi.dw.aic.bj.ad.exa.txn.TxnAdExaWild" template="master-detail-table-1.detail.java" dao-class-template="single-table.java" type="detail" query-action="60184021">
+	  <jsp page-name="ad_exa_wild/query-ad_exa_wild.jsp" txn-code="60184021" description="查询户外广告审批列表" template="master-detail-2/detail-table-query.jsp">
+	    <button type="button" name="增加户外广告审批" path="ad_exa_wild/insert-ad_exa_wild.jsp" description="增加户外广告审批" func-name="addRecord"/>
+	    <button type="button" name="修改户外广告审批" path="/txn60184024.do" description="修改户外广告审批" func-name="updateRecord"/>
+	    <button type="button" name="删除户外广告审批" path="/txn60184025.do" description="删除户外广告审批" func-name="deleteRecord"/>
+	    <button type="button" name="查 询" path="/txn60184021.do" description="查询户外广告审批信息" func-name="submit"/>
+	  </jsp>
+	  <jsp page-name="ad_exa_wild/insert-ad_exa_wild.jsp" txn-code="60184023" description="增加户外广告审批信息" template="master-detail-1/detail-table-insert.jsp">
+	    <button type="button" name="保 存" path="/txn60184023.do" description="保存户外广告审批信息" func-name="saveRecord"/>
+	    <button type="button" name="保存并继续" path="/txn60184023.do" description="保存户外广告审批信息并继续" func-name="saveAndContinue"/>
+	    <button type="button" name="保存并关闭" path="/txn60184021.do" description="保存户外广告审批信息并返回" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60184021.do" description="返回到户外广告审批明细窗口" func-name="goBack"/>
+	  </jsp>
+	  <jsp page-name="ad_exa_wild/update-ad_exa_wild.jsp" txn-code="60184022" description="修改户外广告审批信息" template="master-detail-1/detail-table-update.jsp">
+	    <button type="button" name="保 存" path="/txn60184021.do" description="修改户外广告审批信息" func-name="saveAndExit"/>
+	    <button type="button" name="返 回" path="/txn60184021.do" description="返回到明细窗口" func-name="goBack"/>
+	  </jsp>
+
+	  <txn input="ad_exa_wild/query-ad_exa_wild.jsp" txn-code="60184021" description="查询户外广告审批列表">
+	    <forward error-code="success" path="ad_exa_wild/query-ad_exa_wild.jsp" description="成功时返回列表"/>
+	    <forward error-code="failure" path="ad_exa_wild/query-ad_exa_wild.jsp" description="错误时返回错误信息"/>
+	  </txn>
+	  <txn input="ad_exa_wild/update-ad_exa_wild.jsp" txn-code="60184022" description="修改户外广告审批信息">
+	    <forward error-code="success" path="ad_exa_wild/update-ad_exa_wild.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="ad_exa_wild/update-ad_exa_wild.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="ad_exa_wild/insert-ad_exa_wild.jsp" txn-code="60184023" description="增加户外广告审批信息">
+	    <forward error-code="success" path="ad_exa_wild/insert-ad_exa_wild.jsp" description="成功时返回页面"/>
+	    <forward error-code="failure" path="ad_exa_wild/insert-ad_exa_wild.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="ad_exa_wild/query-ad_exa_wild.jsp" txn-code="60184024" description="查询户外广告审批用于修改">
+	    <forward error-code="success" path="ad_exa_wild/update-ad_exa_wild.jsp" description="成功时返回记录"/>
+	    <forward error-code="failure" path="ad_exa_wild/update-ad_exa_wild.jsp" description="错误时返回页面"/>
+	  </txn>
+	  <txn input="ad_exa_wild/query-ad_exa_wild.jsp" txn-code="60184025" description="删除户外广告审批信息">
+	    <forward error-code="success" path="/script/deletesuccess.jsp" description="成功时返回提示页面"/>
+	    <forward error-code="failure" path="/script/deletefailure.jsp" description="错误时返回提示页面"/>
+	  </txn>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.exa.vo.AdExaWildContext" description="应用对应的数据上下文对象" template="single-table-context.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.exa.vo.VoAdExaWild" description="数据表字段对应的VO对象" template="single-table-vo.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.exa.vo.VoAdExaWildSelectKey" description="查询条件对应的VO对象" template="single-table-vo-select-key.java"/>
+	  <vo clazz-name="com.gwssi.dw.aic.bj.ad.exa.vo.VoAdExaWildPrimaryKey" description="数据库主键对应的VO对象" template="single-table-vo-primary-key.java"/>
+  </table>
+  
+</resource>

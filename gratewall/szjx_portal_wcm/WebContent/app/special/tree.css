@@ -1,0 +1,62 @@
+.TreeView ul{
+	padding-left:20px;
+}
+.containerPage{
+	padding-top:2px;
+	background:url(images/tree/container_page.gif) no-repeat 0px center;
+}
+.containerRootOpened{
+	padding-top:2px;
+	background:url(images/tree/container_opened.gif) no-repeat 0px center;
+}
+.containerRoot{
+	padding-top:2px;
+	background:url(images/tree/container.gif) no-repeat 0px center;
+}
+
+.layoutPage{
+	background:url(images/tree/layout_page.gif) no-repeat 0px center;
+}
+.layoutFolderOpened{
+	background:url(images/tree/layout_opened.gif) no-repeat 0px center;
+}
+.layoutFolder{
+	background:url(images/tree/layout.gif) no-repeat 0px center;
+}
+
+.columnPage{
+	background:url(images/tree/column_page.gif) no-repeat 0px center;
+}
+.columnFolderOpened{
+	background:url(images/tree/column_opened.gif) no-repeat 0px center;
+}
+.columnFolder{
+	background:url(images/tree/column.gif) no-repeat 0px center;
+}
+.widgetPage{
+	background:url(images/tree/widget.gif) no-repeat 0px center;
+}
+.active-tree-node{
+	font-weight:bold;
+}
+
+/*操作树节点处理剪切的状态*/
+.TreeView .cut_status a:link{
+	color:gray;
+}
+.TreeView .widgetPage.cut_status{
+	background:url(images/tree/widget_cutted.gif) no-repeat 0px center;
+}
+.TreeView .layoutFolderOpened.cut_status{
+	background:url(images/tree/layout_opened_cutted.gif) no-repeat 0px center;
+}
+.TreeView .layoutFolder.cut_status{
+	background:url(images/tree/layout_cutted.gif) no-repeat 0px center;
+}
+.TreeView .layoutPage.cut_status{
+	background:url(images/tree/layout_page_cutted.gif) no-repeat 0px center;
+}
+/*修改树结构页面不出现横向滚动条的问题*/
+.TreeView div{
+	overflow:visible !important;
+}

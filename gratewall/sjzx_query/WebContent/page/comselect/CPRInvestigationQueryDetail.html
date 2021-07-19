@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible"content="IE=8;IE=9;IE=EDGE"> 
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>页面editColumn配置</title>
+<link rel="stylesheet" href="../../static/css/common.css">
+<link href="../../static/css/jquery-ui-1.9.2.custom.css" rel="stylesheet" type="text/css" />
+<link href="../../static/script/JAZZ-UI/lib/themes/gongshang/jazz-all.css" rel="stylesheet" type="text/css" />	
+<link href="../../static/css/admin/global.css" rel="stylesheet" type="text/css" />	
+<style>
+/*文字超出不换行*/
+table td{word-break: keep-all;white-space:nowrap;}
+.jazz-form-text-label{
+	color: #000;
+	font-weight: normal;
+}
+
+.jazz-field-comp-in2{
+	border: none;
+	background-color: transparent;
+	background:url(0) no-repeat;
+}
+</style>
+</head>
+
+<body style="overflow-x:hidden">
+<div  name="querySXDetialPanel" vtype="formpanel" id="querySXDetialPanel" displayrows="1"
+			titleDisplay="false" width="100%"  showborder=false  layout='table' style="text-align: left;"
+			layoutconfig="{cols:2, columnwidth: ['50%','50%']}"  height="100%"
+			labelStyleClass="labelstyle" title="sys_query_column_config ">
+			
+			<div name="iname" vtype="textfield" label="姓名" labelwidth="170" labelalign="right" width="80%"  readonly="true"
+			 tooltip="" rule="" ></div>
+		 	<div name="cardnum" vtype="textfield" label="身份证号" labelwidth="170" labelalign="right" width="80%"  readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		 	 <div name="sexName" vtype="textfield" label="性别" labelwidth="170" labelalign="right" width="80%"  readonly="true"
+			 tooltip="" rule="" ></div>
+		 	<div name="age" vtype="textfield" label="年龄" labelwidth="170" labelalign="right" width="80%"  readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		 	 <div name="partytypename" vtype="textfield" label="标识自然人或企业法人" labelwidth="170" labelalign="right" width="80%" readonly="true" 
+			 tooltip="" rule="" ></div>
+		 	<div name="performance" vtype="textfield" label="被执行人的履行情况" labelwidth="170" labelalign="right" width="80%" readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		 	 <div name="disreputTypeName" vtype="textfield" label="失信被执行人具体情况" labelwidth="170" labelalign="right" width="90%" rowspan="1" colspan="2" readonly="true"
+			 tooltip="" rule="" ></div>
+			 
+		 	<div name="caseCode" vtype="textfield" label="案号" labelwidth="170" labelalign="right" width="80%" readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		 	 <div name="courtName" vtype="textfield" label="执行法院" labelwidth="170" labelalign="right" width="80%"  readonly="true"
+			 tooltip="" rule="" ></div>
+		 	<div name="gistCid" vtype="textfield" label="执行依据文号" labelwidth="170" labelalign="right" width="80%" readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		 	  <div name="gistUnit" vtype="textfield" label="作出执行依据单位" labelwidth="170" labelalign="right" width="80%" readonly="true"
+			 tooltip="" rule="" ></div>
+		 	<div name="buesinessentity" vtype="textfield" label="企业法人/负责人姓名" labelwidth="170" labelalign="right" width="80%" readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		 	  <div name="areaName" vtype="textfield" label="地域名称" labelwidth="170" labelalign="right" width="80%" readonly="true"
+			 tooltip="" rule="" ></div>
+		 	<div name="performedPart" vtype="textfield" label="已履行部分" labelwidth="170" labelalign="right" width="90%" colspan="2" rowspan="1" readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		 	   <div name="unperformPart" vtype="textfield" label="未履行部分" labelwidth="170" labelalign="right" width="90%" colspan="2" rowspan="1"  readonly="true"
+			 tooltip="" rule="" ></div>
+		 	<div name="publishDate" vtype="textfield" label="发布时间" labelwidth="170" labelalign="right" width="80%" readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		 	 <div name="regDate" vtype="textfield" label="立案时间" labelwidth="170" labelalign="right" width="80%" readonly="true"
+		 	 tooltip="" rule=""></div>
+		 	 
+		<!-- 	<div id="toolbar" name="toolbar" vtype="toolbar" location="bottom"
+				align="center" width="100%">
+				<div name="save_button" id="save_button" vtype="button" text="保存"
+					icon="../query/queryssuo.png"  ></div>
+				<div name="reset_button" id="reset_button" vtype="button" text="重置"></div>
+				 <div name="back_button" id="back_button" vtype="button" text="返回"
+					icon="../query/queryssuo.png" ></div> 
+			</div> -->
+		</div>
+	<script type="text/javascript" src="../../static/js/config.js"></script> 
+		<script type="text/javascript" src="../../static/lib/require.js"  data-main="other/SXQueryDetail.js"></script>
+
+</body>
+</html>

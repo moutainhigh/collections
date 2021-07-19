@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<TITLE WCMAnt:param="category_config.html.title">分类维护</TITLE>
+<script src="../../../app/js/runtime/myext-debug.js"></script>
+<script src="../../../app/js/source/wcmlib/core/MsgCenter.js"></script>
+<script src="../../../app/js/data/locale/category.js"></script>
+<script src="../../../app/js/source/wcmlib/WCMConstants.js"></script>
+<script src="../../../app/js/source/wcmlib/core/CMSObj.js"></script>
+<script src="../../../app/js/source/wcmlib/core/AuthServer.js"></script>
+<link rel="stylesheet" type="text/css" href="../css/wcm-common.css">
+<script src="../../../app/js/source/wcmlib/com.trs.validator/lang/cn.js"></script>
+<script src="../../../app/js/source/wcmlib/com.trs.validator/ValidatorConfig.js"></script>
+<script src="../../../app/js/source/wcmlib/com.trs.validator/SystemValidator.js"></script>
+<script src="../../../app/js/source/wcmlib/com.trs.validator/MoreCustomValidator.js"></script>
+<script src="../../../app/js/source/wcmlib/com.trs.validator/Validator.js"></script>
+<link href="../../../app/js/source/wcmlib/com.trs.validator/css/validator.css" rel="stylesheet" type="text/css" />
+<script src="../../../app/js/data/locale/ajax.js"></script>
+<script src="../../../app/js/source/wcmlib/com.trs.web2frame/AjaxRequest.js"></script>
+<script src="../../../app/js/data/locale/tree.js"></script>
+<script src="../../../app/js/source/wcmlib/com.trs.tree/TreeNav.js"></script>
+<script src="../../../app/js/source/wcmlib/com.trs.tree/TreeManager.js"></script>
+<script src="../../../app/js/source/wcmlib/Observable.js"></script>
+<script src="../../../app/js/source/wcmlib/Component.js"></script>
+<script src="../../../app/js/source/wcmlib/dialog/Dialog.js"></script>
+<script src="../../../app/js/source/wcmlib/dialog/DialogAdapter.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../app/js/source/wcmlib/com.trs.tree/resource/TreeNav.css">
+<link rel="stylesheet" type="text/css" href="../../../app/js/source/wcmlib/com.trs.tree/resource/TreeManager.css">
+<script language="javascript">
+var m_cbCfg = {
+	btns : [
+		{
+			text: '关闭',
+			cmd : function(){
+			}
+		}
+	]
+};
+</script>
+<SCRIPT language=JavaScript src="DelayedTask.js"></SCRIPT>
+<SCRIPT language=JavaScript src="category_config.js"></SCRIPT>
+<style type="text/css">
+	html,body{
+		width:100%;
+		height:100%;
+		overflow:hidden;
+	}
+    *{
+        margin:0px;
+        padding:0px;
+        font-size:12px;
+    }
+    #TreeView{
+        padding:5px 0px 0px 15px;
+        width:50%;
+        height:100%;
+        overflow:auto;
+    }
+    .description{
+        position:absolute;
+        right:0px;
+        top:0px;
+        width:47%;
+        height:100%;
+        overflow:auto;
+		margin-top: 10px;
+        border-left:1px solid gray;
+    }
+    .description div{
+        padding:3px 5px;
+    }
+    .keyword{
+        color:green;
+        font-weight:bold;
+    }
+    .row .label{
+        margin-left:4px;
+    }
+    .row input{
+        margin-left:4px;
+        border:1px solid silver;
+    }
+	.iscut{
+		background:#EFEFEF!important;
+	}
+</style>
+</HEAD>
+
+<BODY style="background-color:white;position:relative;">
+<div class="TreeView" id="TreeView">
+	<div><a href="#"></a></div><UL></UL>
+</div>
+<div class="description">
+    <fieldset style="margin:3px 4px;">
+        <legend WCMAnt:param="category_config.html.tip">快捷键说明：</legend>
+        <div>1.<span class="keyword">Insert</span><span WCMAnt:param="category_config.html.tip1">创建选中节点的子节点</span></div>
+        <div>2.<span class="keyword">Enter</span><span WCMAnt:param="category_config.html.tip2">创建选中节点的兄弟节点</span></div>
+        <div>3.<span class="keyword">F2</span><span WCMAnt:param="category_config.html.tip3">编辑选中的节点</span></div>
+        <div>4.<span class="keyword">Delete</span><span WCMAnt:param="category_config.html.tip4">删除选中的节点</span></div>
+        <div>5.<span class="keyword">Esc</span><span WCMAnt:param="category_config.html.tip5">撤销当前输入状态</span></div>
+        <div>6.<span class="keyword" WCMAnt:param="category_config.html.tip6">方向键</span><span WCMAnt:param="category_config.html.tip7">切换选中的节点</span></div>
+        <div>7.<span class="keyword" WCMAnt:param="category_config.html.tip8">shift+方向键</span><span WCMAnt:param="category_config.html.tip9">排序选中的节点</span></div>
+		<div>8.<span class="keyword" WCMAnt:param="category_config.html.tip10">ctrl+X</span><span WCMAnt:param="category_config.html.tip11">剪切节点</span></div>
+		<div>9.<span class="keyword" WCMAnt:param="category_config.html.tip12">ctrl+V</span><span WCMAnt:param="category_config.html.tip13">粘贴为该节点的子节点</span></div>
+    </fieldset>
+    <fieldset style="margin:3px 4px;">
+        <legend WCMAnt:param="category_config.html.classAtri">分类属性：</legend>
+        <div class="row">
+            <div class="label" WCMAnt:param="category_config.html.classDesc_a">分类描述：</div>
+            <input type="text" name="cDesc" id="cDesc" value="" onkeydown="keyDownEvent(event);" onblur="savecategory(this, event);" maxlen="100" desc="分类描述" WCMAnt:paramattr="desc:category_config.html.classDesc">
+        </div>
+        <div class="row">
+            <div class="label" WCMAnt:param="category_config.html.classEncoding_a">分类编码：</div>
+            <input type="text" name="cCode" id="cCode" value="" onkeydown="keyDownEvent(event);" onblur="savecategory(this, event);" maxlen="50" desc="分类编码" WCMAnt:paramattr="desc:category_config.html.classEncoding">
+        </div>
+    </fieldset>
+</div>
+</BODY>
+</HTML>

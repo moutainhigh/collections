@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="fckeditor.js"></script>
+	<script type="text/javascript" src="../js/com.trs.util/Common.js"></script>
+	<script language="javascript">
+	<!--
+	function FCKeditor_OnComplete(){
+//		window.frameElement.style.visibility = 'visible';
+//		if(window.frameElement)
+//			window.frameElement.style.display = '';
+		setTimeout(function(){
+			try{
+				FCKeditorAPI.editorWindow.AutoPaste();
+			}catch(err){
+			}
+			try{
+	//			FCKeditorAPI.editorWindow.AttachAutoPaste();
+			}catch(err){
+			}
+			try{
+				FCKeditorAPI.editorWindow.FCK.AttachSaveUserData();
+			}catch(err){
+			}
+		},100);
+	}
+//	Event.observe(window,'unload',function(){
+//		var aFrames = document.frames;
+//		if(aFrames&&aFrames[0]){
+//			document.body.removeNode(aFrames[0]);
+//		}
+//	});
+	//-->
+	</script>
+	<style type="text/css">
+		body{
+			margin:0;
+			padding:0;
+			overflow:hidden;
+		}
+	</style>
+</head>
+<body>
+<script language="javascript">
+<!--
+	var oFCKeditor = new FCKeditor( 'TRS_Editor' ) ;
+	oFCKeditor.BasePath	= './';
+	oFCKeditor.ToolbarSet = 'WCM6';
+	oFCKeditor.Height = '100%' ;
+	oFCKeditor.Create();
+//-->
+</script>
+</body>
+</html>

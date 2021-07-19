@@ -1,0 +1,122 @@
+<HTML>
+<HEAD>
+  <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <TITLE WCMAnt:param="file_upload.html.uploadfile">上传文件</TITLE> 
+</HEAD>
+<BODY style="margin-left:8;margin-bottom:0;margin-top:0;font-size:9pt">
+<iframe src="" width="" height="" style="display:none;" id="frmId" name="frmId"></iframe>
+<form name="frmPost" id="frmPost" method="post" enctype="multipart/form-data" onsubmit="return valid();" target="frmId" >
+<table border="0" cellspacing="2" cellpadding="1" style="font-size: 12px;">
+<tbody>
+	<tr>
+		<td WCMAnt:param="file_upload.html.selectfile">
+			请选择文件后进行上传
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<span><input type="file" name="MyFile" onchange="doValidate(this.value);"></span>
+			<span>
+				<input type="submit" WCMAnt:paramattr="value:file_upload.html.upload" value="上传">
+				<input type="hidden" name="FrameName" id="hdFrameName" value="">
+				<input type="hidden" name="RestrictSize" id="hdRestrictSize" value="">
+			</span>		
+		</td>
+	</tr>
+</tbody>
+</table>
+<div id="dvTip" style="display: none; width: 100%; padding: 3px; color: #010101" WCMAnt:param="file_upload.html.limitfileformat">
+	限定格式为&nbsp;<span id="spTip" style="color: blue; font-family: 'Courier New'"></span>&nbsp;的文件
+</div>
+<span id="dvTipSize" style="display: none; width: 100%; padding: 3px; color: #010101"  WCMAnt:param="file_upload.html.limitfilesize">
+	限定大小为&nbsp;<span id="spTipSize" style="color: red; font-family: 'Courier New'"></span>K&nbsp;的文件
+</span>
+</form>
+<script>
+function $(el) {
+	if (typeof el == 'string')
+		el = document.getElementById(el);
+	return el;
+}
+var m_sAllowExt = null;
+var m_sDowithUrl = null;
+var m_nRestrictSize = 0;
+var m_bIsImageFile = null;
+var m_cb = null;
+function init(_args, cb){
+	m_sDowithUrl = _args['DowithUrl'];
+	if(m_sDowithUrl == null || !(m_sDowithUrl.length > 0)) {
+		alert('没有指定网关的文件上传处理页面，无法上传文件！');
+		return;
+	}
+	m_sAllowExt = _args['AllowExt'] || '';
+	if(m_sAllowExt.length > 0) {
+		$('spTip').innerHTML = m_sAllowExt;
+		$('dvTip').style.display = '';
+	}
+	
+	m_bIsImageFile = _args['InlineImg'] ? true : false;
+	if(window.sMaxImageSize && window.sMaxFileSize)
+	m_nRestrictSize = _args['InlineImg'] ? sMaxImageSize : sMaxFileSize;
+	if(m_nRestrictSize > 0) {
+		document.getElementById('spTipSize').innerHTML = m_nRestrictSize;
+		document.getElementById('dvTipSize').style.display = '';
+		//document.getElementById('hdRestrictSize').value = m_nRestrictSize;
+	} 
+
+	m_cb = cb;
+}
+function valid(){
+	var frmPost = $('frmPost');
+	var fileSelected = frmPost.MyFile.value;
+	if(fileSelected == null || fileSelected.length<=0){
+		alert("请选择需要上传的文件!");
+		return false;
+	}
+
+	if(!doValidate(fileSelected)) {
+		return false;
+	}
+	window.parent.ProcessBar.start( '上传文件');
+	frmPost.action = m_sDowithUrl + '?RestrictSize=' + m_nRestrictSize + '&IsImageFile=' + m_bIsImageFile;
+	return true;
+}
+
+function validFileExt(_strPath, _strExts) {
+	var arrayTemp = _strPath.split(".");
+	if(arrayTemp.length<2) {
+		return false;
+	}
+	var sFileExt = arrayTemp[arrayTemp.length-1].toLowerCase();
+	arrayTemp = _strExts.split(",");
+	var bResult = false;
+	for(var i=0; i<arrayTemp.length; i++) {
+		if(arrayTemp[i].toLowerCase() == sFileExt) {
+			bResult = true;
+		}
+	}
+	return bResult;
+}
+function doValidate(_strPath){
+	var sAllowExt = m_sAllowExt;
+	if(sAllowExt.length > 0 && !validFileExt(_strPath, sAllowExt)) {
+		alert('只支持上传' + sAllowExt + '格式的文件！');
+		$('frmPost').reset();
+		return false;
+	}
+
+	return true;
+}
+function notifyOnUploadFileOk(args){
+	if(!m_cb)return;
+	if(m_cb.callback)m_cb.callback(args);
+	window.parent.ProcessBar.close();
+	m_cb.close();
+}
+function notifyOnUploadFileError(_sMsg){
+	alert(_sMsg);
+	window.parent.ProcessBar.close();
+}
+</script>
+</BODY>
+</HTML>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>资源管理</sort-name>
+  <table-info name="sys_rd_standard_dataelement" class-name="cn.gwssi.dw.rd.standard.dao.SysRdStandardDataelement" check-flag="false" backup-flag="false">
+    <description>基础数据元管理</description>
+  </table-info>
+
+  <column name="sys_rd_standard_dataelement_id" data-type="varchar" length="32" not-null="true" value-from="input" description="基础数据元ID"/>
+  <column name="standard_category" data-type="varchar" length="3" not-null="false" value-from="input" description="规范类型"/>
+  <column name="identifier" data-type="varchar" length="8" not-null="false" value-from="input" description="标识符"/>
+  <column name="cn_name" data-type="varchar" length="256" not-null="false" value-from="input" description="中文名称"/>
+  <column name="en_name" data-type="varchar" length="256" not-null="false" value-from="input" description="英文名称"/>
+  <column name="column_nane" data-type="varchar" length="64" not-null="false" value-from="input" description="字段名称"/>
+  <column name="data_type" data-type="varchar" length="2" not-null="false" value-from="input" description="数据类型"/>
+  <column name="data_length" data-type="varchar" length="32" not-null="false" value-from="input" description="数据长度"/>
+  <column name="data_format" data-type="varchar" length="32" not-null="false" value-from="input" description="数据格式"/>
+  <column name="value_domain" data-type="varchar" length="100" not-null="false" value-from="input" description="值域"/>
+  <column name="jc_standar_codeindex" data-type="varchar" length="10" not-null="false" value-from="input" description="基础代码集标识符"/>
+  <column name="representation" data-type="varchar" length="4000" not-null="false" value-from="input" description="表示"/>
+  <column name="unit" data-type="varchar" length="32" not-null="false" value-from="input" description="计量单位"/>
+  <column name="synonyms" data-type="varchar" length="100" not-null="false" value-from="input" description="同义词"/>
+  <column name="version" data-type="varchar" length="8" not-null="false" value-from="input" description="版本"/>
+  <column name="memo" data-type="varchar" length="2000" not-null="false" value-from="input" description="备注"/>
+  <primary-key name="pk_sys_rd_standard_dataelement" column-list="sys_rd_standard_dataelement_id"/>
+  <index name="pk_sys_rd_standard_dataelement" index-type="unique" cluster="cluster" column-list="sys_rd_standard_dataelement_id"/>
+  <function func-name="select one sys_rd_standard_dataelement" func-type="select" column-list="sys_rd_standard_dataelement_id,standard_category,identifier,cn_name,en_name,column_nane,data_type,data_length,data_format,value_domain,jc_standar_codeindex,representation,unit,synonyms,version,memo" sort-columns="sys_rd_standard_dataelement_id">
+    <filter-column column-name="sys_rd_standard_dataelement_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_rd_standard_dataelement list" func-type="rowset" column-list="sys_rd_standard_dataelement_id,standard_category,identifier,cn_name,en_name,column_nane,data_type,data_length,data_format,value_domain,jc_standar_codeindex,representation,unit,synonyms,version,memo" sort-columns="sys_rd_standard_dataelement_id" max-record="10">
+    <filter-column column-name="cn_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="en_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="identifier" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="column_nane" operator="like" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_rd_standard_dataelement" func-type="insert" column-list="sys_rd_standard_dataelement_id,standard_category,identifier,cn_name,en_name,column_nane,data_type,data_length,data_format,value_domain,jc_standar_codeindex,representation,unit,synonyms,version,memo">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_rd_standard_dataelement" func-type="delete">
+    <filter-column column-name="sys_rd_standard_dataelement_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_rd_standard_dataelement" func-type="update" column-list="sys_rd_standard_dataelement_id,standard_category,identifier,cn_name,en_name,column_nane,data_type,data_length,data_format,value_domain,jc_standar_codeindex,representation,unit,synonyms,version,memo">
+    <filter-column column-name="sys_rd_standard_dataelement_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="selectDataelementList" func-type="rowset" column-list="identifier as codevalue, cn_name as codename" max-record="-1">
+    <description>多记录查询</description>
+  </function>
+</table>
+

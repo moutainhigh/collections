@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin version="1.0" id="service">
+	<beans>
+		<bean id="IDocumentService"
+			class="com.trs.service.impl.DocumentService" singleton="true" />
+		<bean id="IChannelService"
+			class="com.trs.service.impl.ChannelService" singleton="true" />
+		<bean id="IGroupService"
+			class="com.trs.service.impl.GroupService" singleton="true" />
+		<bean id="IRoleService" class="com.trs.service.impl.RoleService"
+			singleton="true" />
+		<bean id="IUserService" class="com.trs.service.impl.UserService"
+			singleton="true" />
+		<bean id="IRecentService"
+			class="com.trs.service.impl.RecentService" singleton="true" />
+		<bean id="IScheduleService"
+			class="com.trs.service.impl.ScheduleService" singleton="true" />
+		<bean id="IStatService" class="com.trs.service.impl.StatService"
+			singleton="true" />
+		<bean id="IWCMPublishElementService"
+			class="com.trs.service.impl.WCMPublishElementServiceImpl"
+			singleton="true" />
+		<bean id="IWCMProcessService"
+			class="com.trs.service.impl.WCMProcessServiceImpl" singleton="true" />
+		<bean id="IDBService" class="com.trs.service.impl.DBService"
+			singleton="true" />
+		<bean id="IPublishService"
+			class="com.trs.service.impl.PublishService" singleton="true" />
+		<bean id="ITemplateService"
+			class="com.trs.service.impl.TemplateService" singleton="true" />
+		<bean id="IResourceService"
+			class="com.trs.service.impl.ResouceService" singleton="true" />
+		<bean id="ICustomizeService"
+			class="com.trs.service.impl.CustomizeService" singleton="true" />
+		<bean id="IEventService"
+			class="com.trs.service.impl.EventService" singleton="true" />
+		<bean id="IAutoDocBakService"
+			class="com.trs.service.impl.AutoDocBakService" singleton="true" />
+		<bean id="IContactService"
+			class="com.trs.service.impl.ContactService" singleton="true" />
+		<bean id="IBookMarkService"
+			class="com.trs.service.impl.BookMarkService" singleton="true" />
+		<bean id="ITemplateParseService"
+			class="com.trs.service.impl.TemplateParseService" singleton="true" />
+		<bean id="ISureformService"
+			class="com.trs.service.impl.SureformService" singleton="true" />
+		<bean id="ICDSService"
+			class="com.trs.service.impl.CDSServiceImpl" singleton="true" />
+		<bean id="ISecurityService"
+			class="com.trs.service.impl.SecurityService" singleton="true" />
+		<bean id="IInfoViewService"
+			class="com.trs.service.impl.InfoViewService" singleton="true" />
+		<bean id="IOfficeDocumentService"
+			class="com.trs.service.impl.OpenOfficeDocumentService" singleton="true" />
+		<bean id="OpenOfficeDocumentService"
+			class="com.trs.service.impl.OpenOfficeDocumentService" singleton="true" />
+		<bean id="OfficeDocumentService"
+			class="com.trs.service.impl.OfficeDocumentService" singleton="true" />
+		<bean id="IDefaultFormatMgr"
+			class="com.trs.components.wcm.content.domain.DefaultFormatMgr" singleton="true" />
+	</beans>
+</plugin>

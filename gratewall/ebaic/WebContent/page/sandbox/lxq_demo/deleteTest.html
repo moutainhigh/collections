@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="../../../static/lib/jquery-1.8.3.js"></script> 
+<script type="text/javascript" src="../../../static/lib/JAZZ-UI/demos/index/jazz-all.js"></script> 
+
+
+<link href="../../../static/lib/JAZZ-UI/lib/themes/approve/jazz-all.css" rel="stylesheet" type="text/css" />
+<link href="../../../static/css/common.css" data-main="torch/addAccountManagerTorch.js" rel="stylesheet" type="text/css" />
+<title>删除用户</title>
+</head>
+<script type="text/javascript">
+	function user_delete(){
+		var params = {
+				url : '../../my/test/deleteUser.do',
+				components : ['deleteUserPanel'],
+				callback : function(data, r, res) { 
+					jazz.info("删除成功");
+				}
+		}
+		$.DataAdapter.submit(params);
+	}
+
+</script>
+<body>
+<div name='deleteUserPanel' id='deleteUserPanel' vtype='formpanel' layout='auto' title="用户删除" showborder='true'>
+		
+		<div id='userId' name='id' vtype='textfield' width='400'
+			 defaultheight='28' label='要删除用户的编号' labelwidth='150'>
+		</div>
+		
+
+</div>
+	
+	<input type="button" value="确认删除" onclick="user_delete()"> 
+	
+</body>
+</html>

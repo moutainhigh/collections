@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="sys_db_user" class-name="com.gwssi.dw.runmgr.db.dao.SysDbUser" check-flag="true" backup-flag="false">
+    <description>数据库共享对象信息表</description>
+  </table-info>
+
+  <column name="sys_db_user_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="共享对象ID"/>
+  <column name="login_name" data-type="varchar" length="32" not-null="true" value-from="input" description="登录用户名"/>
+  <column name="password" data-type="varchar" length="32" not-null="true" value-from="input" description="登录密码"/>
+  <column name="create_date" data-type="varchar" length="10" not-null="true" value-from="input" description="创建日期"/>
+  <column name="create_by" data-type="varchar" length="32" not-null="true" value-from="input" description="创建人"/>
+  <column name="state" data-type="long" length="38" not-null="true" value-from="input" description="状态（启用或停用）"/>
+  <column name="user_desc" data-type="varchar" length="1000" not-null="false" value-from="input" description="用户描述"/>
+  <column name="user_type" data-type="varchar" length="10" not-null="false" value-from="input" description="用户类型"/>
+  <column name="user_name" data-type="varchar" length="32" not-null="true" value-from="input" description="用户名称"/>
+  <column name="user_order" data-type="long" length="38" not-null="true" value-from="input" description="用户顺序"/>
+  <column name="grant_table" data-type="varchar" length="2000" not-null="false" value-from="input" description="该用户已经被授权的表"/>
+  <primary-key name="sys_c009540" column-list="sys_db_user_id"/>
+  <index name="sys_c009540" index-type="unique" cluster="cluster" column-list="sys_db_user_id"/>
+  <function func-name="select one sys_db_user" func-type="select" column-list="sys_db_user_id,login_name,user_name,password,create_date,create_by,state,user_desc,user_type,grant_table">
+    <filter-column column-name="sys_db_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_db_user list" func-type="rowset" column-list="sys_db_user_id,login_name,password,user_name,create_date,create_by,state,user_type,grant_table" sort-columns="user_name" max-record="10">
+    <filter-column column-name="login_name" operator="like" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="state" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="user_type" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="select exist sys_db_user list" func-type="rowset" column-list="sys_db_user_id" max-record="10">
+    <filter-column column-name="login_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="user_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_db_user" func-type="insert" column-list="sys_db_user_id,login_name,user_name,password,create_date,create_by,state,user_order,user_type">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_db_user" func-type="delete">
+    <filter-column column-name="sys_db_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_db_user" func-type="update" column-list="login_name,user_name,state">
+    <filter-column column-name="sys_db_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="update one sys_db_user state" func-type="update" column-list="state">
+    <filter-column column-name="sys_db_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改状态</description>
+  </function>
+
+  <function func-name="select one sys_db_user_name" func-type="rowset" column-list="sys_db_user_id">
+    <filter-column column-name="login_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="user_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select one sys_db_user_password" func-type="rowset" column-list="sys_db_user_id">
+    <filter-column column-name="sys_db_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="password" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询-密码</description>
+  </function>
+
+  <function func-name="select user_order sys_db_user" func-type="select" column-list="max(user_order) as user_order">
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="reset sys_db_user password" func-type="update" column-list="password">
+    <filter-column column-name="sys_db_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

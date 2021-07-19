@@ -1,0 +1,21 @@
+<div class="attr_row" style="overflow:visible;height:auto;">
+	<div>&nbsp;</div>
+	<span id="QuoteChannels" class="attr_name" style="width:220px;">
+		<span WCMAnt:param="document_props.jsp.quoteTo">引用到</span><span class="num" id="sp_quotenum">${totalChnlSize}</span><span WCMAnt:param="document_props.jsp.channelUnit">个栏目:</span>
+	</span>
+	<span class="set_quotechannel" _action="setQuote" title="设置引用" WCMAnt:paramattr="title:document_props.jsp.setQueto"></span>
+	<div>&nbsp;</div>
+	<div class="attr_table" id="quoto_table" _InitChannelIds="${totalChannelIds}" _selectedChannelIds="${totalChannelIds}"  _selectedChannelDescs="${totalChannelDescs}"  style="width:100%;height:auto;">
+		<table border=0 cellspacing=1 cellpadding=0 style="table-layout:fixed;background:gray;" class="extrict">
+		<tbody>
+			<tr bgcolor="#CCCCCC" align=center valign=middle>
+				<td width="26" WCMAnt:param="document_props.jsp.order">序号</td>
+				<td WCMAnt:param="document_props.jsp.channelName">栏目名称</td>
+				<td width="76" WCMAnt:param="document_props.jsp.quoteType">引用类型</td>
+				<td width="32" WCMAnt:param="document_props.jsp.delete">删除</td>
+			</tr>
+			${tableQuoteContent}
+		</tbody>
+		</table>
+	</div>
+</div>

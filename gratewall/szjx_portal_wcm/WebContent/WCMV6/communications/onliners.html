@@ -1,0 +1,121 @@
+<HTML>
+<HEAD>
+<TITLE>multi-selector for outline-template</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<script src="../js/com.trs.util/Common.js"></script>
+<script label="TagParser">
+//	$import('com.trs.ajaxframe.TagParser');
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+</script>
+<script>
+	$import('com.trs.wcm.MessageCenter');
+	$import('com.trs.dialog.Dialog');
+	$import('com.trs.crashboard.CrashBoarder');
+	$import('com.trs.dialog.wcmbutton.WCMButton');
+</script>
+<style type="text/css">
+	.liner_row{
+		height: 25px;
+		line-height: 25px;
+		font-size: 12px;
+		float: left;
+		width: 170px;
+		font-family: Georgia;
+		overflow: hidden;
+		text-overflow:ellipsis;
+	}
+	.sp_name{
+		cursor: pointer;
+	}
+	body{
+		padding:0px;
+		margin:0px;
+        background:#fff;
+	}
+A:link{
+	color: #1571D5;
+	text-decoration: none;
+}
+A:hover{
+	color: #ff6600
+}
+</style>
+<script language="javascript">
+<!--
+	function getAdaptedUserName(_sUserName, _sNickName){
+		if(_sNickName == null || _sNickName == '') {
+			return _sUserName + '(' + _sUserName + ')';
+		}
+		//else
+		return  _sUserName + '(' + _sNickName + ')';
+	}
+//-->
+</script>
+</HEAD>
+<script language="javascript" src="./onliners.js" type="text/javascript"></script>
+<BODY>
+<div id="dy_adjust">
+</div>
+<script>
+	var nEditorHeight = 500;
+	function adjustScale(){
+		var sStyleId = 'dy_adjust';
+		var eStyleDiv = $(sStyleId);
+		nEditorHeight = Element.getDimensions(document.body)["height"] - 40;
+		var cssStr = '.container_onliners, .waiting{\
+				height: ' + nEditorHeight + 'px;\
+			}';
+		var eStyle = $style(cssStr);
+		$removeChilds(eStyleDiv);
+		eStyleDiv.appendChild(eStyle);
+	}
+	adjustScale();
+</script>
+<div>
+	<table border=0 align="center" cellspacing=0 cellpadding=3 style="font-size:12px;width:100%;border:1px solid silver;		margin-top:5px;">
+	<tbody>
+		<tr>
+			<td colspan="2">
+				<div id="onliners" class="container_onliners" style="overflow-x: hidden;overflow-y: auto; padding: 5px; font-size: 14px; font-weight: normal; padding-top: 8px;display: none; width: 100%;">
+				</div>
+				<textarea id="template_onliners" style="display: none">
+				<for select="Users.User" blankRef="divNoTemplateFound" position="relative">
+					<div class="liner_row">
+						<span style="width: 20px;">{$$index}.&nbsp;</span>
+						<span title="登录时间:{#LoginTime, }&#13;登录地址:{#Attribute.LoginIp}">
+							<a href="#" onclick="PageContext.onSendMsg({#UserId}, '{#UserName}'); return false;">{@getAdaptedUserName(#UserName, #NickName)}</a>
+						</span>
+					</div>
+				</for>
+				</textarea>
+				<div id="divWaiting" class="waiting" style="padding-top: 50px; text-align: center;">
+					<input type="image" src="../images/icon/waiting2.gif">&nbsp;
+				</div>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	<table border=0 align="center" cellspacing=0 cellpadding=5 style="font-size:12px;width:100%;height:31px;background:#DEDCDD;">
+	<tbody>
+		<tr>
+            <!--
+			<td align="right" valign="top">
+				<span>
+					<a href="#" onclick="PageContext.loadPage(); return false;">刷新列表</a>
+				</span>
+				&nbsp;
+				<span>
+					<a href="#" onclick="closeframe(); return false;">关闭窗口</a>
+				</span>				
+			</td>
+            //-->
+            <td id="ButtonContainer" align="center" valign="middle"></td>
+		</tr>
+	</tbody>
+	</table>
+</div>
+</BODY>
+</HTML>

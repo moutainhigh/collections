@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.scm.service.SCMWorkFlowServiceProvider">
+	
+	<method name="queryWorkFlowList"></method>
+	
+	<method name="queryDefaultWorkFlow"></method>
+	
+	<method name="isAuditorOfSCM"></method>
+	
+	<method name="queryWorkFlowForGroup">		
+		<parameter name="GroupID"  desc="分组号" type="int" min-value="1" required="true"/>	
+	</method>
+	
+	<method name="queryCustomizedGroups"></method>
+	
+	<method name="queryUnCustomizedGroups"></method>
+	
+	<method name="setDefaultWorkFlow">		
+		<parameter  name="WorkFlowId"  desc="工作流ID" type="int" min-value="-1" required="true"/>	
+	</method>
+	
+	<method name="setWorkFlowForGroup">		
+		<parameter  name="SCMGroupId"  desc="分组ID" type="int" min-value="1" required="true"/>	
+		<parameter  name="WorkFlowId"  desc="工作流ID" type="int" min-value="-1" required="true"/>	
+	</method>	
+		
+	<method name="queryFlowContentsDoneByUser">		
+		<parameter  name="UserId"  desc="用户ID" type="int" min-value="1" required="true"/>	
+		<parameter  name="OrderBy"  desc="排序方式" type="string" required="false"/>	
+	</method>
+	
+</service>

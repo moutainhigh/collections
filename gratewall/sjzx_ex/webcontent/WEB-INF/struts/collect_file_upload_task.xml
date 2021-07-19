@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>文件上传采集表</menu-name>
+  <menu-path>/page/collect/config/fileupload/</menu-path>
+  <description>文件上传采集表</description>
+  <form-beans>
+    <form-bean name="CollectFileUploadTaskRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="collect_table" type="string" size="32" description="采集表"/>
+      <form-property prefix="select-key" name="collect_mode" type="string" size="20" description="采集模式"/>
+      <form-property prefix="select-key" name="file_status" type="string" size="20" description="文件状态"/>
+      <form-property prefix="select-key" name="file_description" type="string" size="2000" description="文件描述"/>
+      <form-property prefix="select-key" name="collect_file_name" type="string" size="200" description="采集文件名称"/>
+      <form-property prefix="select-key" name="collect_file_id" type="string" size="32" description="采集文件ID"/>
+      <form-property prefix="record" name="file_upload_task_id" type="string" size="32" cannull="false" description="文件上传任务ID"/>
+      <form-property prefix="record" name="collect_task_id" type="string" size="32" cannull="true" description="采集任务ID"/>
+      <form-property prefix="record" name="collect_table" type="string" size="32" cannull="true" description="采集表"/>
+      <form-property prefix="record" name="collect_mode" type="string" size="20" cannull="true" description="采集模式"/>
+      <form-property prefix="record" name="file_status" type="string" size="20" cannull="true" description="文件状态"/>
+      <form-property prefix="record" name="file_description" type="string" size="2000" cannull="true" description="文件描述"/>
+      <form-property prefix="record" name="collect_file_name" type="string" size="200" cannull="true" description="采集文件名称"/>
+      <form-property prefix="record" name="collect_file_id" type="string" size="32" cannull="true" description="采集文件ID"/>
+      <form-property prefix="record" name="check_result_file_name" type="string" size="300" cannull="true" description="校验结果文件名称"/>
+      <form-property prefix="record" name="check_result_file_id" type="string" size="32" cannull="true" description="校验结果文件ID"/>
+      <form-property prefix="record" name="service_targets_id" type="string" size="32" cannull="true" description="所属服务对象"/>
+      <form-property prefix="record" name="data_source_id" type="string" size="32" cannull="true" description="数据源"/>
+      <form-property prefix="record" name="record" type="string" size="2000" cannull="true" description="备案说明"/>
+      <form-property prefix="record" name="task_status" type="string" size="20" cannull="true" description="任务状态"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="有效标记"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人ID"/>
+      <form-property prefix="record" name="created_time" type="string" size="19" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="19" cannull="true" description="最后修改时间"/>
+      <form-property prefix="record" name="task_name" type="string" size="100" cannull="true" description="任务名称"/>
+      <form-property prefix="record" name="collect_type" type="string" size="20" cannull="true" description="采集类型"/>
+      <form-property prefix="record" name="task_description" type="string" size="2000" cannull="true" description="任务描述"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="19" cannull="true" description="最后修改时间"/>
+      <form-property prefix="record" name="name_nums" type="string" size="19" cannull="true" description="数量"/>
+      <form-property prefix="record" name="fj_fk" type="string" size="2000" cannull="true" description="附件ID"/>
+      <form-property prefix="record" name="fjmc" type="string" size="2000" cannull="true" description="附件名称"/>
+      <form-property prefix="record" name="delNAMEs" type="string" size="2000" cannull="true" description="delNAMEs"/>
+      <form-property prefix="record" name="delIDs" type="string" size="2000" cannull="true" description="delIDs"/>
+    </form-bean>
+
+    <form-bean name="CollectFileUploadTaskUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="file_upload_task_id" type="string" size="32" cannull="false" description="文件上传任务ID"/>
+      <form-property prefix="record" name="file_upload_task_id" type="string" size="32" cannull="false" description="文件上传任务ID"/>
+      <form-property prefix="record" name="collect_task_id" type="string" size="32" cannull="true" description="采集任务ID"/>
+      <form-property prefix="record" name="collect_table" type="string" size="32" cannull="true" description="采集表"/>
+      <form-property prefix="record" name="collect_mode" type="string" size="20" cannull="true" description="采集模式"/>
+      <form-property prefix="record" name="file_status" type="string" size="20" cannull="true" description="文件状态"/>
+      <form-property prefix="record" name="file_description" type="string" size="2000" cannull="true" description="文件描述"/>
+      <form-property prefix="record" name="collect_file_name" type="string" size="200" cannull="true" description="采集文件名称"/>
+      <form-property prefix="record" name="collect_file_id" type="string" size="32" cannull="true" description="采集文件ID"/>
+      <form-property prefix="record" name="check_result_file_name" type="string" size="300" cannull="true" description="校验结果文件名称"/>
+      <form-property prefix="record" name="check_result_file_id" type="string" size="32" cannull="true" description="校验结果文件ID"/>
+      
+      
+      <form-property prefix="record" name="service_targets_id" type="string" size="32" cannull="true" description="所属服务对象"/>
+      <form-property prefix="record" name="data_source_id" type="string" size="32" cannull="true" description="数据源"/>
+      <form-property prefix="record" name="record" type="string" size="2000" cannull="true" description="备案说明"/>
+      <form-property prefix="record" name="task_status" type="string" size="20" cannull="true" description="任务状态"/>
+      <form-property prefix="record" name="is_markup" type="string" size="1" cannull="true" description="有效标记"/>
+      <form-property prefix="record" name="creator_id" type="string" size="32" cannull="true" description="创建人ID"/>
+      <form-property prefix="record" name="created_time" type="string" size="19" cannull="true" description="创建时间"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="19" cannull="true" description="最后修改时间"/>
+      <form-property prefix="record" name="task_name" type="string" size="100" cannull="true" description="任务名称"/>
+      <form-property prefix="record" name="collect_type" type="string" size="20" cannull="true" description="采集类型"/>
+      <form-property prefix="record" name="task_description" type="string" size="2000" cannull="true" description="任务描述"/>
+      <form-property prefix="record" name="last_modify_id" type="string" size="32" cannull="true" description="最后修改人ID"/>
+      <form-property prefix="record" name="last_modify_time" type="string" size="19" cannull="true" description="最后修改时间"/>
+      <form-property prefix="record" name="name_nums" type="string" size="19" cannull="true" description="数量"/>
+      <form-property prefix="record" name="fj_fk" type="string" size="2000" cannull="true" description="附件ID"/>
+      <form-property prefix="record" name="fjmc" type="string" size="2000" cannull="true" description="附件名称"/>
+      <form-property prefix="record" name="delNAMEs" type="string" size="2000" cannull="true" description="delNAMEs"/>
+      <form-property prefix="record" name="delIDs" type="string" size="2000" cannull="true" description="delIDs"/>
+    </form-bean>
+
+    <form-bean name="CollectFileUploadTaskDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="file_upload_task_id" type="string" size="32" cannull="false" description="文件上传任务ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-collect_file_upload_task.jsp" name="CollectFileUploadTaskRowsetForm" txn-code="30301001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询文件上传采集表列表</description>
+      <step index="10" bean-name="com.gwssi.collect.fileupload.txn.TxnCollectFileUploadTask" func-name="txn30301001" input-node="select-key" output-node="record" description="查询文件上传采集表列表"/>
+      <forward error-code="success" path="query-collect_file_upload_task.jsp"/>
+      <forward error-code="failure" path="query-collect_file_upload_task.jsp"/>
+    </action>
+
+    <action input="update-collect_file_upload_task.jsp" name="CollectFileUploadTaskUpdateForm" txn-code="30301002" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改文件上传采集表信息</description>
+      <step index="10" bean-name="com.gwssi.collect.fileupload.txn.TxnCollectFileUploadTask" func-name="txn30301002" input-node="record" description="修改文件上传采集表信息"/>
+      <forward error-code="success" path="update-collect_file_upload_task.jsp"/>
+      <forward error-code="failure" path="update-collect_file_upload_task.jsp"/>
+    </action>
+
+    <action input="insert-collect_file_upload_task.jsp" name="CollectFileUploadTaskUpdateForm" txn-code="30301003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加文件上传采集表信息</description>
+      <step index="10" bean-name="com.gwssi.collect.fileupload.txn.TxnCollectFileUploadTask" func-name="txn30301003" input-node="record" description="增加文件上传采集表信息"/>
+      <forward error-code="success" path="insert-collect_file_upload_task.jsp"/>
+      <forward error-code="failure" path="insert-collect_file_upload_task.jsp"/>
+    </action>
+
+    <action input="query-collect_file_upload_task.jsp" name="CollectFileUploadTaskUpdateForm" txn-code="30301004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询文件上传采集表用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.fileupload.txn.TxnCollectFileUploadTask" func-name="txn30301004" input-node="primary-key" output-node="record" description="查询文件上传采集表用于修改"/>
+      <forward error-code="success" path="update-collect_file_upload_task.jsp"/>
+      <forward error-code="failure" path="update-collect_file_upload_task.jsp"/>
+    </action>
+
+    <action input="query-collect_file_upload_task.jsp" name="CollectFileUploadTaskDeleteForm" txn-code="30301005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除文件上传采集表信息</description>
+      <step index="10" bean-name="com.gwssi.collect.fileupload.txn.TxnCollectFileUploadTask" func-name="txn30301005" input-node="primary-key" description="删除文件上传采集表信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-collect_file_upload_task.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/collect/config/fileupload/query-collect_file_upload_task.jsp" description="查询文件上传采集表列表"/>
+    <resource-file type="jsp" file-name="/page/collect/config/fileupload/insert-collect_file_upload_task.jsp" description="增加文件上传采集表信息"/>
+    <resource-file type="jsp" file-name="/page/collect/config/fileupload/update-collect_file_upload_task.jsp" description="修改文件上传采集表信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.fileupload.vo.CollectFileUploadTaskContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.fileupload.vo.VoCollectFileUploadTask" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.fileupload.vo.VoCollectFileUploadTaskSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.fileupload.vo.VoCollectFileUploadTaskPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

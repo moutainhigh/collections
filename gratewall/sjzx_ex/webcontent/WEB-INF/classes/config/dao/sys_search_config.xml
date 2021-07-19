@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>系统表</sort-name>
+  <table-info name="sys_search_config" class-name="cn.gwssi.search.dao.SysSearchConfig" check-flag="false" backup-flag="false">
+    <description>全文检索</description>
+  </table-info>
+
+  <column name="sys_search_config_id" data-type="varchar" length="32" not-null="true" value-from="input" description="搜索配置ID"/>
+  <column name="sys_svr_user_id" data-type="varchar" length="32" not-null="true" value-from="input" description="用户ID"/>
+  <column name="sys_search_code" data-type="varchar" length="32" not-null="true" value-from="input" description="搜索服务代码"/>
+  <column name="create_by" data-type="varchar" length="10" not-null="true" value-from="input" description="创建人"/>
+  <column name="create_date" data-type="varchar" length="32" not-null="true" value-from="input" description="创建日期"/>
+  <column name="config_order" data-type="long" length="22" not-null="true" value-from="input" description="配置顺序"/>
+  <column name="is_pause" data-type="varchar" length="2" not-null="true" value-from="input" description="是否暂停"/>
+  <column name="limit_day_count" data-type="varchar" length="2" not-null="true" value-from="input" description="是否限制当日访问次数"/>
+  <column name="max_day_count" data-type="long" length="22" not-null="false" value-from="input" description="当日访问限制次数"/>
+  
+  <primary-key name="pk_sys_search_config_id" column-list="sys_search_config_id"/>
+  <index name="pk_sys_search_config_id" index-type="unique" cluster="cluster" column-list="sys_search_config_id"/>
+  <function func-name="select one sys_search_config" func-type="select" column-list="sys_search_config_id,sys_svr_user_id,sys_search_code,create_by,create_date,config_order,is_pause,limit_day_count,max_day_count">
+    <filter-column column-name="sys_search_config_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select sys_search_config list" func-type="rowset" column-list="sys_search_config_id,sys_svr_user_id,sys_search_code,create_by,create_date,config_order,is_pause,limit_day_count,max_day_count" max-record="10">
+    <filter-column column-name="sys_search_config_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_svr_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one sys_search_config" func-type="insert" column-list="sys_search_config_id,sys_svr_user_id,sys_search_code,create_by,create_date,config_order,is_pause,limit_day_count,max_day_count">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one sys_search_config" func-type="delete">
+    <filter-column column-name="sys_search_config_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one sys_search_config" func-type="update" column-list="sys_svr_user_id,sys_search_code,create_by,create_date,config_order,is_pause,limit_day_count,max_day_count">
+    <filter-column column-name="sys_search_config_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

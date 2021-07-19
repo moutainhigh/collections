@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Chart Demo (using Canvas painter)</title>
+	<script type="text/javascript" src="includes/excanvas.js"></script>
+	<script type="text/javascript" src="includes/chart.js"></script>
+	<script type="text/javascript" src="includes/canvaschartpainter.js"></script>
+	<link rel="stylesheet" type="text/css" href="includes/canvaschart.css" />
+		<style type="text/css">
+			html, body { border: none; padding: 0px; margin: 0px; }
+			.value_panel_pie{
+				padding-left: 5px;
+				padding-right: 5px;
+				position: absolute;
+				border: 0px solid silver;
+				font-size: 9pt;
+				color: gray; 
+				font-size: 14px; 
+				font-family: georgia; 
+				white-space: nowrap;
+			
+			}
+			.chart1 .value_panel_pie{
+				color: white;
+			}
+		</style>
+  </head>
+  <body>
+  <br>
+<div id="demo">
+	<div style="margin-left: 50px; width: 600px; height: 350px; border: 1px solid silver; padding: 50px;">
+		<div id="chart" class="chart" style="width: 600px; height: 350px;"></div>		
+	</div>
+	<script type="text/javascript">
+		function drawPie(_bShowPointer) {
+			//创建Chart对象，指定其风格为“ChartStyle.EARTH”（土黄）
+			var c = new Chart(document.getElementById('chart'), ChartStyle.EARTH);
+			c.setDefaultType(CHART_PIE);
+			//指定饼图每一块的值的显示样式：ChartStyle.PIE_VALUE_OUTER（默认）
+			c.setPieValueStyle(ChartStyle.PIE_VALUE_OUTER);
+			//指定数值的精度：精确到小数点后2位
+			c.setLabelPrecision(2);
+			//显示值
+			c.setPointerVisible(true);
+			//标题和数据
+			c.setTitle('阿派克联盟本月产油统计');
+			c.setPieData([['蓖麻油', 10.5], ['大豆油', 17], ['菜籽油', 18], ['花生油', 20], ['其他', 2]]);
+			//也可以如下指定饼图每一块的颜色
+			//c.setPieData([['蓖麻油', 10.5, '#E5B059'], ['大豆油', 17, 'green'],...
+			c.draw();
+		}
+		drawPie(true);
+	</script>
+</div>
+<p>&nbsp;</p>
+<div id="demo1">
+	<div style="margin-left: 50px; width: 400px; height: 300px; border: 1px solid silver; padding: 10px; background-color: #f6f6f6">
+		<div id="chart1" class="chart chart1" style="width: 400px; height: 300px;"></div>		
+	</div>
+	<script type="text/javascript">
+		function drawPie1(_bShowPointer) {
+			var c = new Chart(document.getElementById('chart1'), ChartStyle.EARTH);
+			c.setDefaultType(CHART_PIE);
+			c.setPieValueStyle(ChartStyle.PIE_VALUE_INNER);
+			c.setPointerVisible(true);
+			c.setTitle('<font color="darkred">黄金大排档富含营养物质</font>');
+			c.setPieData([['钙', 2, '#E5B059'], ['铁', 4, 'green'], ['锌', 2, '#E14F14'], ['硒', 3, '#FFA928'], ['VC', 1, '#4F87E9']]);
+			c.draw();
+		}
+		drawPie1(true);
+	</script>
+</div>
+<p>&nbsp;</p>
+<br>
+  </body>
+</html>

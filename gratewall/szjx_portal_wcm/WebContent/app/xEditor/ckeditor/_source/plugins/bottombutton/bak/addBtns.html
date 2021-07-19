@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+            "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title> New Document </title>
+</head>
+
+<body>
+<script language="javascript">
+	var rst = [];
+	function addBtns(_array){
+		rst = rst.concat(_array);
+		alert(rst.length);
+		return rst;
+	}
+
+	var ButtonArray1 = [{
+		title	: "源码",
+		key		: "source",
+		order	: 1,
+		cmd		: function(){alert("源码");}
+	},{
+		title	: "一键排版",
+		key		: "key4format",
+		order	: 2,
+		cmd		: function(){alert("一键排版");}
+	}];
+	var ButtonArray2 = [{
+		title	: "粘贴",
+		key		: "paste",
+		order	: 3,
+		cmd		: function(){alert("粘贴");}
+	},{
+		title	: "复制",
+		key		: "copy",
+		order	: 4,
+		cmd		: function(){alert("复制");}
+	}];
+
+	debugger;
+	rst = addBtns(ButtonArray1);
+	rst = addBtns(ButtonArray2);
+
+</script>
+</body>
+</html>

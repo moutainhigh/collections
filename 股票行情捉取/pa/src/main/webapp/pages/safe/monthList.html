@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>每日涨</title>
+<meta charset="utf-8" />
+<meta http-equiv="Expires" content="0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta http-equiv="Cache" content="no-cache">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<script type="text/javascript" src="../../statics/js/public.js"></script>
+<script type="text/javascript" src="../../statics/pagination/page.js"></script>
+<link type="text/css" href="../../statics/pagination/page.css" rel="stylesheet">
+<style>
+.red {
+	color: red;
+}
+</style>
+</head>
+
+<body>
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<h3 class="panel-title">自动化涨算法列表【系统在交易日每天17点自动更新】</h3>
+		</div>
+		<div class="panel-body">
+			<ul class="list-group" id="lists"></ul>
+		</div>
+
+		<div id="pagination"></div>
+	</div>
+	<script>
+	
+		//https://blog.csdn.net/m0_38082783/article/details/73737283
+		$(function() {
+			// 初始化系统数据
+			getDate(1, 10);
+	
+			var total;
+			$("#pagination").pagination(total, {
+				num_edge_entries : 1, //边缘页数
+				num_display_entries : 4, //主体页数
+				callback : pageselectCallback,
+				items_per_page : 10, //每页显示个数
+				prev_text : "前一页",
+				next_text : "后一页"
+			});
+	
+			function pageselectCallback(page, jq) {
+				getDate(page + 1, 10);
+			}
+	
+			function getDate(page, rows) {
+				$.ajax({
+					type : "get",
+					url : "../../services/monthList.do?pageNum=" + page + "&pageSize=" + rows + "&rand=" + Math.random(),
+					async : false, //不是异步加载,让ajax先执行 
+					dataType : "json",
+					success : function(data) {
+						total = data.totalCount;
+						setURL(nowurl);
+						$("#lists").empty();
+						var datas = data.pageList;
+						if (datas != undefined) {
+							var _html = "";
+							var temp = "";
+							for (var i = 0; i < datas.length; i++) {
+								_html += '<li class="list-group-item" >';
+								_html += '<div class="container-fluid"><div class="row clearfix">';
+								_html += '<div class="col-md-4 column">代码：【' + datas[i].code + '】</div>';
+								_html += '<div class="col-md-4 column">名称：【' + datas[i].name + '】</div>';
+								if (datas[i].isAddToBuy != "0") {
+									temp = '(<span class="red"  onclick="removeToBuy(this)" data-code="' + datas[i].code + '">移出买单</span>)';
+								} else {
+									temp = '(<span onclick="addToBuy(this)" data-code="' + datas[i].code + '">加入买单</span>)';
+								}
+	
+								_html += '<div class="col-md-4 column">本日收盘价：【' + datas[i].closePrice + '】' + temp;
+								_html += '</div></div></div></li>';
+	
+							}
+							$("#lists").append(_html);
+						}else{
+							window.location.href = "../login.html";
+						}
+					}
+				});
+			}
+	
+	
+		});
+	
+		function addToBuy(obj) {
+			var _this = $(obj);
+			var code = _this.data("code");
+			$.ajax({
+				url : "../../services/editBuy.do",
+				data : {
+					code : code,
+				},
+				dataType : 'json',
+				type : "post",
+				beforeSend : function(data) {
+					_this.html("保存中...");
+	
+				},
+				success : function(data) {
+					_this.html("移出买单");
+					_this.addClass("red");
+					_this.attr("onclick", "removeToBuy(this)");
+	
+				},
+				error : function(data) {
+					console.log(data)
+				}
+			});
+	
+		}
+	
+		function removeToBuy(obj) {
+			var _this = $(obj);
+			var code = _this.data("code");
+	
+			$.ajax({
+				url : "../../services/delBuy.do",
+				data : {
+					code : code,
+				},
+				beforeSend : function(data) {
+					_this.html("保存中...");
+				},
+				success : function(data) {
+					_this.html("加入买单");
+					_this.removeClass("red");
+					_this.attr("onclick", "addToBuy(this)");
+				}
+			});
+	
+		}
+	</script>
+</body>
+</html>

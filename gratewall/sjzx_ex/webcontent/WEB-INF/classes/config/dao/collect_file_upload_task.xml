@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>采集服务</sort-name>
+  <table-info name="collect_file_upload_task" class-name="com.gwssi.collect.fileupload.dao.CollectFileUploadTask" check-flag="false" backup-flag="false">
+    <description>文件上传采集表</description>
+  </table-info>
+
+  <column name="file_upload_task_id" data-type="varchar" length="32" not-null="true" value-from="input" description="文件上传任务ID"/>
+  <column name="collect_task_id" data-type="varchar" length="32" not-null="false" value-from="input" description="采集任务ID"/>
+  <column name="collect_table" data-type="varchar" length="32" not-null="false" value-from="input" description="采集表"/>
+  <column name="collect_mode" data-type="varchar" length="20" not-null="false" value-from="input" description="采集模式"/>
+  <column name="file_status" data-type="varchar" length="20" not-null="false" value-from="input" description="文件状态"/>
+  <column name="file_description" data-type="varchar" length="2000" not-null="false" value-from="input" description="文件描述"/>
+  <column name="collect_file_name" data-type="varchar" length="200" not-null="false" value-from="input" description="采集文件名称"/>
+  <column name="collect_file_id" data-type="varchar" length="32" not-null="false" value-from="input" description="采集文件ID"/>
+  <column name="check_result_file_name" data-type="varchar" length="300" not-null="false" value-from="input" description="校验结果文件名称"/>
+  <column name="check_result_file_id" data-type="varchar" length="32" not-null="false" value-from="input" description="校验结果文件ID"/>
+  <primary-key name="pk_collect_file_upload_task" column-list="file_upload_task_id"/>
+  <index name="pk_collect_file_upload_task" index-type="unique" cluster="cluster" column-list="file_upload_task_id"/>
+  <function func-name="select one collect_file_upload_task" func-type="select" column-list="file_upload_task_id,collect_task_id,collect_table,collect_mode,file_status,file_description,collect_file_name,collect_file_id,check_result_file_name,check_result_file_id">
+    <filter-column column-name="file_upload_task_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select collect_file_upload_task list" func-type="rowset" column-list="file_upload_task_id,collect_task_id,collect_table,collect_mode,file_status,file_description,collect_file_name,collect_file_id,check_result_file_name,check_result_file_id" max-record="10">
+    <filter-column column-name="collect_table" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="collect_mode" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="file_status" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="file_description" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="collect_file_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="collect_file_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one collect_file_upload_task" func-type="insert" column-list="file_upload_task_id,collect_task_id,collect_table,collect_mode,file_status,file_description,collect_file_name,collect_file_id,check_result_file_name,check_result_file_id">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one collect_file_upload_task" func-type="delete">
+    <filter-column column-name="collect_task_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one collect_file_upload_task" func-type="update" column-list="collect_table,collect_mode">
+    <filter-column column-name="collect_task_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+</table>
+

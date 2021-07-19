@@ -1,0 +1,89 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>元数据列表</title>
+<link href="../css/document_attribute2.css" rel="stylesheet" type="text/css" />
+<link href="../css/common.css" rel="stylesheet" type="text/css" />
+<link href="../js/opensource/helptip/helptip.css" rel="stylesheet" type="text/css" />
+<script src="../js/com.trs.util/Common.js"></script>
+<SCRIPT language=JavaScript src="../js/opensource/helptip/helptip.js" type=text/javascript></SCRIPT>
+<script label="TagParser">
+	$import('com.trs.web2frame.DataHelper');
+	$import('com.trs.web2frame.TempEvaler');
+	$import('com.trs.wcm.Web2frameDefault');
+</script>
+<script>
+    $import('com.trs.wcm.MessageCenter');
+    $import('com.trs.util.UITransformer');
+    $import("com.trs.wcm.util.AbstractEntity");
+    $import('com.trs.wcm.domain.TableInfoMgr');
+    $import('com.trs.validator.Validator');
+    $import('com.trs.logger.Logger');
+	$import('com.trs.wcm.SimpleQuery');
+	$import('com.trs.wcm.SheetChanger');
+</script>
+<script label="PageScope" src="tableinfo_thumbs_index.js"></script>
+<link href="thumbs_index.css" rel="stylesheet" type="text/css" />
+<style type="text/css">
+.inner_tabular {
+	background-image: url(../images/metadata/tablethumbs.gif);
+}
+.inner_tabular_blueness {
+	background-image: url(../images/metadata/tablethumbs.gif);
+}    
+</style>
+</head>
+
+<body>
+<table id="tb_main" class="wcm_table_layout" width="100%" border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td valign="top" bgcolor="#F3F2F3">
+			<table class="wcm_table_layout" border="0" cellpadding="0" cellspacing="0">
+				<tr class="thumb_pageinfo_tr">
+					<td valign="top">
+						<div class="pageinfo_1">
+							<div class="header_bg_left"></div>
+							<div class="header_bg_right"></div>
+                            <div style="float:right;" id="query_box"></div>                            
+						</div>
+						<div class="pageinfo_2">
+							<table class="wcm_table_layout" border=0 cellspacing=0 cellpadding=0>
+							<tbody>
+								<tr>
+									<td class="list_view_border"></td>
+									<td class="pageinfo_2_td">
+										<div style="float:right;margin-right:10px;">
+                                        <table width="114" height="24" border="0" cellpadding="0" cellspacing="0" background="../images/include/px2.gif" class="navtitle12">
+                                          <tr> 
+                                            <td width="29" style="cursor:pointer;">
+                                                <a onclick="showOrderTypes(arguments[0]); return false;" id="lnkFirer" style="width:29px; height:24px;background:url(../images/include/px1.gif)"></a>
+                                            </td>
+                                            <td onclick="changeOrder();" width="75" valign="top" style="padding-top:4px" id="spOrderClue">默认排序</td>
+                                            <td width="10" height="24" align="right" style="background:url(../images/include/px3.gif)"></td>
+                                          </tr>
+                                        </table>
+										</div>
+									</td>
+									<td class="list_view_border"></td>
+								</tr>
+							</tbody>
+							</table>
+						</div>
+					</td>
+				</tr>         
+				<tr>
+					<td>
+						<div class="thumb_view" id="objectsroot" mousemove_fun="mousemoveContainer">
+                            <div id="objects"></div>
+                        </div>
+					</td>
+				</tr>
+			</table>
+        </td>
+    </tr>
+</table>
+<div id="divNoObjectFound" style="display:none;">
+	<div class="alertNoObjFound">不好意思, 没有找到符合条件的元数据..-____-|||</div>
+</div>
+</body>
+</html>

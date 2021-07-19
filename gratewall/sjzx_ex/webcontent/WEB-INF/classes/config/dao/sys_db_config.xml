@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>共享服务</sort-name>
+  <table-info name="sys_db_config" class-name="com.gwssi.dw.runmgr.db.dao.SysDbConfig" check-flag="false" backup-flag="false">
+    <description>视图配置</description>
+  </table-info>
+
+  <column name="sys_db_config_id" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="配置ID"/>
+  <column name="sys_db_view_id" data-type="varchar" length="32" not-null="false" value-from="input" description="视图ID"/>
+  <column name="sys_db_user_id" data-type="varchar" length="32" not-null="true" value-from="input" description="对象ID"/>
+  <column name="config_name" data-type="varchar" length="32" not-null="true" value-from="input" description="配置名称"/>
+  <column name="permit_column" data-type="varchar" length="2000" not-null="false" value-from="input" description="允许字段ID（逗号分隔）"/>
+  <column name="alias_column" data-type="varchar" length="2000" not-null="false" value-from="input" description="允许字段ID（逗号分隔）"/>
+  <column name="create_date" data-type="varchar" length="10" not-null="true" value-from="input" description="创建日期"/>
+  <column name="create_by" data-type="varchar" length="32" not-null="true" value-from="input" description="创建人"/>
+  <column name="config_order" data-type="long" length="0" not-null="true" value-from="input" description="配置顺序"/>
+  <column name="config_type" data-type="varchar" length="2" not-null="true" value-from="input" description="配置类型"/>
+  <column name="query_sql" data-type="binary" length="2147483647" not-null="false" value-from="input" description="查询sql"/>
+  <primary-key name="sys_c009547" column-list="sys_db_config_id"/>
+  <index name="sys_c009547" index-type="unique" cluster="cluster" column-list="sys_db_config_id"/>
+  <function func-name="select one sys_db_config" func-type="select" column-list="sys_db_config_id,config_name,permit_column,alias_column">
+    <filter-column column-name="sys_db_view_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_db_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select one sys_db_config by config_id" func-type="select" column-list="sys_db_config_id,config_name,permit_column,alias_column,query_sql">
+    <filter-column column-name="sys_db_config_id" operator="eq" value-from="input" empty-flag="null"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="is exist sys_db_config" func-type="rowset" column-list="sys_db_config_id">
+    <filter-column column-name="config_name" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="sys_db_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>是否存在config——name</description>
+  </function>
+
+  <function func-name="insert one sys_db_config" func-type="insert" column-list="sys_db_config_id,sys_db_view_id,sys_db_user_id,config_name,permit_column,alias_column,create_date,create_by,config_order,config_type,query_sql">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="update one sys_db_config" func-type="update" column-list="permit_column,alias_column,query_sql">
+    <filter-column column-name="sys_db_config_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="update one sys_db_config sql" func-type="update" column-list="query_sql">
+    <filter-column column-name="sys_db_config_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+
+  <function func-name="delete user sys_db_config" func-type="delete">
+    <filter-column column-name="sys_db_user_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="delete one sys_db_config" func-type="delete">
+    <filter-column column-name="sys_db_config_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="select self config list" func-type="rowset" column-list="sys_db_config_id,sys_db_view_id,sys_db_user_id,config_name,permit_column,alias_column,create_date,create_by,config_order,config_type,query_sql" sort-columns="config_order" max-record="10">
+    <filter-column column-name="sys_db_user_id" operator="eq" value-from="input" empty-flag="null"/>
+    <filter-column column-name="config_type" operator="eq" value-from="default" empty-flag="skip" default="02"/>
+    <filter-column column-name="sys_db_config_id" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+</table>
+

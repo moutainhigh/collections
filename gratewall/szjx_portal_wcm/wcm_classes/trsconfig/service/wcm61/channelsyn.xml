@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.DocumentSynServiceProvider">
+	<method name="save">
+	</method>
+	<method name="findById"/>
+	<method name="jFindById" truename="findById"  convertor="uri:/app/channelsyn/channelsyn_findbyid.jsp"/>
+	<method name="query">
+		<parameter name="ContainsRight" desc="是否附属权限信息" type="boolean" required="false" default="0"/>
+		<!--排序字段及方式-->		
+		<parameter name="OrderBy" desc="文档排序字段及方式" type="string" required="false"/>		
+		<!--文档过滤器-->
+		<parameter name="FilterType" desc="文档过滤器类型" type="int" required="false"/>
+		<parameter name="DateTimeFormat" desc="返回的日期格式" type="string" required="false" default="yy-MM-dd"/>
+		<!-- 检索相关配置 BEGIN -->
+		<!-- 检索相关配置 END -->			
+	</method>
+	<method name="jQuery" truename="query"  convertor="uri:/app/channelsyn/channelsyn_query.jsp"/>
+</service>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" type="text/css" href="css/UI/compone.css" />
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+<script type="text/javascript" charset="utf-8"
+	src="js/public/jquery-1.11.3.js"></script>
+<script type="text/javascript" charset="utf-8"
+	src="js/public/jquery.fullpage.js"></script>
+<style>
+body {
+	
+}
+</style>
+</head>
+<body style="height: 5000px">
+	<div class="container-fluid hb">
+		<div class="row clearfix">
+			<div class="header container">
+				<a href="####" class="pull-left">
+					<div class="pull-left">萌萌的一只鱼博客</div>
+				</a>
+				<ul class="nav-ul nav-xs-ul">
+					<li class="active">关于我</li>
+					<li>求职意向</li>
+					<li>作品集</li>
+					<li>技术掌握</li>
+					<li>我的经历</li>
+					<li>联系我</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div id="section1" class="container active section">
+		<div class="aboutMe">
+			<h2 class="mod1">关于我</h2>
+			<hr>
+		</div>
+	</div>
+
+	<div id="section2" class="container  section"></div>
+	<div id="section3" class="container  section"></div>
+	<div id="section4" class="container  section"></div>
+	<div id="section5" class="container  section"></div>
+	<div id="section6" class="container  section"></div>
+
+	<div id="top" title="顶部">
+		<img src="images/top.png" alt="回到顶部">
+	</div>
+
+
+	<style>
+#navSlider {
+	position: fixed;
+	z-index: 100;
+	margin-top: -32px;
+	top: 50%;
+	opacity: 1;
+}
+
+#navSlider.right {
+	right: 17px;
+}
+
+#navSlider ul li {
+	display: block;
+	width: 14px;
+	height: 13px;
+	margin: 7px;
+	position: relative;
+}
+
+#navSlider li a {
+	display: block;
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+#navSlider li span {
+	top: 2px;
+	left: 2px;
+	width: 8px;
+	height: 8px;
+	border: 1px solid #000;
+	background: rgba(0, 0, 0, 0);
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	position: absolute;
+	z-index: 1;
+}
+
+#navSlider li a.active span {
+	background: #aaa;
+}
+</style>
+
+	<div id="navSlider" class="right" style="color: rgb(0, 0, 0); margin-top: -43.5px;">
+		<ul>
+			<li ><a href="javascript:;" class=""><span></span></a></li>
+			<li ><a href="javascript:;" class=""><span></span></a></li>
+			<li ><a href="javascript:;" class=""><span></span></a></li>
+			<li ><a href="javascript:;" class="active"><span></span></a></li>
+		</ul>
+	</div>
+
+	<script type="text/javascript" charset="utf-8" src="js/index.js"></script>
+</body>
+</html>

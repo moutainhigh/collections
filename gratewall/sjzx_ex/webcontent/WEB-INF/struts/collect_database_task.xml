@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>采集数据库表</menu-name>
+  <menu-path>/page/collect/config/database/</menu-path>
+  <description>采集数据库表</description>
+  <form-beans>
+    <form-bean name="CollectDatabaseTaskRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="primary-key" name="database_task_id" type="string" size="32" cannull="false" description="采集数据库主键ID"/>
+      <form-property prefix="primary-key" name="collect_task_id" type="string" size="32" cannull="false" description="采集任务ID"/>
+      <form-property prefix="select-key" name="database_task_id" type="string" size="32" cannull="false" description="采集数据库主键ID"/>
+      <form-property prefix="select-key" name="collect_task_id" type="string" size="32" cannull="false" description="采集任务ID"/>
+      <form-property prefix="record" name="database_task_id" type="string" size="32" cannull="false" description="采集数据库主键ID"/>
+      <form-property prefix="record" name="collect_task_id" type="string" size="32" cannull="true" description="采集任务ID"/>
+      <form-property prefix="record" name="source_collect_table" type="string" size="100" cannull="false" description="源采集表"/>
+      <form-property prefix="record" name="source_collect_column" type="string" size="100" cannull="true" description="源采集字段"/>
+      <form-property prefix="record" name="collect_mode" type="string" size="2" cannull="false" description="采集方式"/>
+      <form-property prefix="record" name="collect_table" type="string" size="32" cannull="true" description="采集表"/>
+      <form-property prefix="record" name="created_time" type="string" size="19" cannull="false" description="创建时间"/>
+      <form-property prefix="record" name="description" type="string" size="1000" cannull="true" description="描述"/>
+      <form-property prefix="record" name="table_name_en" type="string" size="100" cannull="true" description="采集表英文名"/>
+      <form-property prefix="record" name="table_name_cn" type="string" size="100" cannull="true" description="采集表中文名"/>
+      <form-property prefix="record" name="data_source_id" type="string" size="32" cannull="true" description="数据源"/>
+    </form-bean>
+
+    <form-bean name="CollectDatabaseTaskUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="database_task_id" type="string" size="32" cannull="false" description="采集数据库主键ID"/>
+      <form-property prefix="primary-key" name="collect_task_id" type="string" size="32" cannull="false" description="采集任务ID"/>
+      <form-property prefix="select-key" name="database_task_id" type="string" size="32" cannull="false" description="采集数据库主键ID"/>
+      <form-property prefix="select-key" name="collect_task_id" type="string" size="32" cannull="false" description="采集任务ID"/>
+      
+      <form-property prefix="primary-key" name="task_name" type="string" size="100" cannull="true" description="任务名称"/>
+      <form-property prefix="record" name="database_task_id" type="string" size="32" cannull="false" description="采集数据库主键ID"/>
+      <form-property prefix="record" name="collect_task_id" type="string" size="32" cannull="true" description="采集任务ID"/>
+      <form-property prefix="record" name="source_collect_table" type="string" size="100" cannull="false" description="源采集表"/>
+      <form-property prefix="record" name="source_collect_column" type="string" size="100" cannull="true" description="源采集字段"/>
+      <form-property prefix="record" name="collect_mode" type="string" size="2" cannull="false" description="采集方式"/>
+      <form-property prefix="record" name="collect_table" type="string" size="32" cannull="true" description="采集表"/>
+      <form-property prefix="record" name="created_time" type="string" size="19" cannull="false" description="创建时间"/>
+      <form-property prefix="record" name="description" type="string" size="1000" cannull="true" description="描述"/>
+      
+      <form-property prefix="record" name="service_targets_id" type="string" size="32" cannull="true" description="所属服务对象"/>
+      <form-property prefix="record" name="data_source_id" type="string" size="32" cannull="true" description="数据源"/>
+      <form-property prefix="record" name="task_name" type="string" size="100" cannull="true" description="任务名称"/>
+      <form-property prefix="record" name="task_num" type="string" size="100" cannull="true" description="任务个数"/>
+    </form-bean>
+
+    <form-bean name="CollectDatabaseTaskDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="database_task_id" type="string" size="32" cannull="false" description="采集数据库主键ID"/>
+      <form-property prefix="primary-key" name="collect_task_id" type="string" size="32" cannull="false" description="采集任务ID"/>
+      <form-property prefix="record" name="collect_task_id" type="string" size="32" cannull="false" description="采集任务ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-collect_database_task.jsp" name="CollectDatabaseTaskRowsetForm" txn-code="30501001" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询采集数据库列表</description>
+      <step index="10" bean-name="com.gwssi.collect.database.txn.TxnCollectDatabaseTask" func-name="txn30501001" input-node="select-key" output-node="record" description="查询采集数据库列表"/>
+      <forward error-code="success" path="query-collect_database_task.jsp"/>
+      <forward error-code="failure" path="query-collect_database_task.jsp"/>
+    </action>
+    <!-- start   add by dwn 20140306 -->
+    <action input="query-collect_database_task.jsp" name="CollectDatabaseTaskRowsetForm" txn-code="30501010" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询采集数据库列表</description>
+      <step index="10" bean-name="com.gwssi.collect.database.txn.TxnCollectDatabaseTask" func-name="txn30501010" input-node="select-key" output-node="record" description="查询采集数据库列表"/>
+      <forward error-code="success" path="query-collect_database_task.jsp"/>
+      <forward error-code="failure" path="query-collect_database_task.jsp"/>
+    </action>
+    <!-- end   add by dwn 20140306 -->
+
+    <action input="update-collect_database_task.jsp" name="CollectDatabaseTaskUpdateForm" txn-code="30501002" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改采集数据库信息</description>
+      <step index="10" bean-name="com.gwssi.collect.database.txn.TxnCollectDatabaseTask" func-name="txn30501002" input-node="record" description="修改采集数据库信息"/>
+      <forward error-code="success" path="update-collect_database_task.jsp"/>
+      <forward error-code="failure" path="update-collect_database_task.jsp"/>
+    </action>
+
+    <action input="insert-collect_database_task.jsp" name="CollectDatabaseTaskUpdateForm" txn-code="30501003" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>增加采集数据库信息</description>
+      <step index="10" bean-name="com.gwssi.collect.database.txn.TxnCollectDatabaseTask" func-name="txn30501003" input-node="record" description="增加采集数据库信息"/>
+      <forward error-code="success" path="insert-collect_database_task.jsp"/>
+      <forward error-code="failure" path="insert-collect_database_task.jsp"/>
+    </action>
+
+    <action input="query-collect_database_task.jsp" name="CollectDatabaseTaskUpdateForm" txn-code="30501004" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询采集数据库用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.database.txn.TxnCollectDatabaseTask" func-name="txn30501004" input-node="primary-key" output-node="record" description="查询采集数据库用于修改"/>
+      <forward error-code="success" path="update-collect_database_task.jsp"/>
+      <forward error-code="failure" path="update-collect_database_task.jsp"/>
+    </action>
+
+    <action input="query-collect_database_task.jsp" name="CollectDatabaseTaskDeleteForm" txn-code="30501005" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除采集数据库信息</description>
+      <step index="10" bean-name="com.gwssi.collect.database.txn.TxnCollectDatabaseTask" func-name="txn30501005" input-node="primary-key" output-node="record" description="删除采集数据库信息"/>
+      <forward error-code="success" path="/page/collect/config/database/update-collect_task_database_step2.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/database/update-collect_task_database_step2.jsp"/>
+    </action>
+    
+    <action input="query-collect_database_task.jsp" name="CollectDatabaseTaskUpdateForm" txn-code="30501006" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询采集数据库用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.database.txn.TxnCollectDatabaseTask" func-name="txn30501006" input-node="record" output-node="record" description="查询采集数据库用于修改"/>
+      <forward error-code="success" path="insert-collect_database_task.jsp"/>
+      <forward error-code="failure" path="insert-collect_database_task.jsp"/>
+    </action>
+    
+    <action input="query-collect_database_task.jsp" name="CollectDatabaseTaskUpdateForm" txn-code="30501007" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询采集数据库用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.database.txn.TxnCollectDatabaseTask" func-name="txn30501007" input-node="primary-key" output-node="record" description="查询采集数据库用于修改"/>
+      <forward error-code="success" path="insert-collect_database_task.jsp"/>
+      <forward error-code="failure" path="insert-collect_database_task.jsp"/>
+    </action>
+    
+    <action input="query-collect_database_task.jsp" name="CollectDatabaseTaskUpdateForm" txn-code="30501008" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询采集数据库用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.database.txn.TxnCollectDatabaseTask" func-name="txn30501004" input-node="primary-key" output-node="record" description="查询采集数据库用于修改"/>
+      <forward error-code="success" path="view-collect_database_task.jsp"/>
+      <forward error-code="failure" path="view-collect_database_task.jsp"/>
+    </action>
+    
+    <action input="query-collect_database_task.jsp" name="CollectDatabaseTaskUpdateForm" txn-code="30501009" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询采集数据库用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.database.txn.TxnCollectDatabaseTask" func-name="txn30501009" input-node="primary-key" output-node="record" description="查询采集数据库用于修改"/>
+      <forward error-code="success" path="update-collect_database_task.jsp"/>
+      <forward error-code="failure" path="update-collect_database_task.jsp"/>
+    </action>
+    
+    <action input="query-collect_database_task.jsp" name="CollectDatabaseTaskUpdateForm" txn-code="30501011" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询采集数据库用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.database.txn.TxnCollectDatabaseTask" func-name="txn30501011" input-node="select-key" output-node="record" description="查询采集数据库用于修改"/>
+      <forward error-code="success" path="query-collect_database_info.jsp"/>
+      <forward error-code="failure" path="query-collect_database_info.jsp"/>
+    </action>
+    
+    <!-- start by dwn 20140310  --> 
+    <action input="query-collect_database_task.jsp" name="CollectDatabaseTaskUpdateForm" txn-code="30501012" check-type="public" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询采集数据库用于修改</description>
+      <step index="10" bean-name="com.gwssi.collect.database.txn.TxnCollectDatabaseTask" func-name="txn30501007" input-node="primary-key" output-node="record" description="查询采集数据库用于修改"/>
+      <forward error-code="success" path="insert-collect_database_task_ForUpdate.jsp"/>
+      <forward error-code="failure" path="insert-collect_database_task_ForUpdate.jsp"/>
+    </action>
+    <!-- end by dwn 20140310  --> 
+    
+    <action input="query-collect_database_task.jsp" name="CollectDatabaseTaskDeleteForm" txn-code="30501013" check-type="public" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除采集数据库信息</description>
+      <step index="10" bean-name="com.gwssi.collect.database.txn.TxnCollectDatabaseTask" func-name="txn30501013" input-node="primary-key" output-node="record" description="删除采集数据库信息"/>
+      <forward error-code="success" path="/page/collect/config/database/insert-collect_task_database_step2.jsp"/>
+      <forward error-code="failure" path="/page/collect/config/database/insert-collect_task_database_step2.jsp"/>
+    </action>
+    
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-collect_database_task.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/collect/config/database/query-collect_database_task.jsp" description="查询采集数据库列表"/>
+    <resource-file type="jsp" file-name="/page/collect/config/database/insert-collect_database_task.jsp" description="增加采集数据库信息"/>
+    <resource-file type="jsp" file-name="/page/collect/config/database/update-collect_database_task.jsp" description="修改采集数据库信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.database.vo.CollectDatabaseTaskContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.database.vo.VoCollectDatabaseTask" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.database.vo.VoCollectDatabaseTaskSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.collect.database.vo.VoCollectDatabaseTaskPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

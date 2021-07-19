@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE table SYSTEM "gwssi-database.dtd">
+<table>
+  <database>gwssi</database>
+  <default-config>no</default-config>
+  <sort-name>文件管理</sort-name>
+  <table-info name="xt_ccgl_wjlb" class-name="com.gwssi.file.manage.dao.XtCcglWjlb" check-flag="false" backup-flag="false">
+    <description>文件类别</description>
+  </table-info>
+
+  <column name="cclbbh_pk" data-type="varchar" length="32" not-null="true" value-from="generate" func-name="getUUID" description="文件类别编号"/>
+  <column name="cclbmc" data-type="varchar" length="60" not-null="true" value-from="input" description="处处类别名称"/>
+  <column name="lbmcbb" data-type="varchar" length="10" not-null="false" value-from="input" description="类别名称版本"/>
+  <column name="ccgml" data-type="varchar" length="255" not-null="false" value-from="input" description="存储根目录"/>
+  <column name="ejmlgz" data-type="varchar" length="1" not-null="true" value-from="input" description="二级目录规则"/>
+  <column name="gzfzzd" data-type="varchar" length="255" not-null="false" value-from="input" description="规则辅助字段"/>
+  <column name="zt" data-type="varchar" length="1" not-null="false" value-from="input" description="状态"/>
+  <column name="bz" data-type="varchar" length="255" not-null="false" value-from="input" description="备注"/>
+  <primary-key name="cclbbh_pk" column-list="cclbbh_pk"/>
+  <function func-name="select one xt_ccgl_wjlb" func-type="select" column-list="cclbbh_pk,cclbmc,lbmcbb,ccgml,ejmlgz,gzfzzd,zt,bz">
+    <filter-column column-name="cclbbh_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>单记录查询</description>
+  </function>
+
+  <function func-name="select xt_ccgl_wjlb list" func-type="rowset" column-list="cclbbh_pk,cclbmc,lbmcbb,ccgml,ejmlgz,gzfzzd,zt,bz" max-record="10">
+    <filter-column column-name="cclbmc" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="lbmcbb" operator="eq" value-from="input" empty-flag="skip"/>
+    <filter-column column-name="zt" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>多记录查询</description>
+  </function>
+
+  <function func-name="insert one xt_ccgl_wjlb" func-type="insert" column-list="cclbbh_pk,cclbmc,lbmcbb,ccgml,ejmlgz,gzfzzd,zt,bz">
+    <description>插入记录</description>
+  </function>
+
+  <function func-name="delete one xt_ccgl_wjlb" func-type="delete">
+    <filter-column column-name="cclbbh_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>删除记录</description>
+  </function>
+
+  <function func-name="update one xt_ccgl_wjlb" func-type="update" column-list="ccgml,ejmlgz,gzfzzd,bz">
+    <filter-column column-name="cclbbh_pk" operator="eq" value-from="input" empty-flag="skip"/>
+    <description>修改记录</description>
+  </function>
+  
+  
+</table>
+

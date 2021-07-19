@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config SYSTEM "gwssi-struts.dtd">
+<struts-config>
+  <menu-name>数据权限组管理</menu-name>
+  <menu-path>/page/sysmgr/priv/datapriv/dataprivgroup/</menu-path>
+  <description>数据权限组管理</description>
+  <form-beans>
+    <form-bean name="DataaccgroupRowsetForm">
+      <description>多记录查询</description>
+      <form-property prefix="select-key" name="dataaccgrpname" type="string" size="40" description="数据权限分组名称"/>
+      <form-property prefix="select-key" name="dataaccgrpdesc" type="string" size="200" description="数据权限分组描述"/>
+      <form-property prefix="record" name="dataaccgrpid" type="long" cannull="false" description="数据权限分组ID"/>
+      <form-property prefix="record" name="dataaccgrpname" type="string" size="40" cannull="false" description="数据权限分组名称"/>
+      <form-property prefix="record" name="dataaccrule" type="string" size="1" cannull="false" description="角色权限认证规则"/>
+      <form-property prefix="record" name="dataacctype" type="string" size="1" cannull="false" description="数据权限分组类型"/>
+      <form-property prefix="record" name="dataaccgrpdesc" type="string" size="200" cannull="true" description="数据权限分组描述"/>
+    </form-bean>
+
+    <form-bean name="DataaccgroupUpdateForm">
+      <description>单记录处理：查询、修改、增加</description>
+      <form-property prefix="primary-key" name="dataaccgrpid" type="long" cannull="false" description="数据权限分组ID"/>
+      <form-property prefix="record" name="dataaccgrpid" type="long" cannull="false" description="数据权限分组ID"/>
+      <form-property prefix="record" name="dataaccgrpname" type="string" size="40" cannull="false" description="数据权限分组名称"/>
+      <form-property prefix="record" name="dataaccrule" type="string" size="1" cannull="false" description="角色权限认证规则"/>
+      <form-property prefix="record" name="dataacctype" type="string" size="1" cannull="false" description="数据权限分组类型"/>
+      <form-property prefix="record" name="dataaccgrpdesc" type="string" size="200" cannull="true" description="数据权限分组描述"/>
+    
+      <form-property prefix="record" name="saveXml" type="string" size="200000" cannull="true" description="数据权限分组配置描述文档（XML）"/>
+    
+    	
+    </form-bean>
+    <form-bean name="DataaccgroupInsertForm">
+      <description>增加用户自定义(隐式)数据权限组管理信息与组项</description>
+      <form-property prefix="record" name="dataaccgrpid" type="long" cannull="false" description="数据权限分组ID"/>
+      <form-property prefix="record" name="saveXml" type="string" size="400000" cannull="false" description="数据权限分组名称"/>
+      <form-property prefix="record" name="dataaccrule" type="string" size="1" cannull="false" description="角色权限认证规则"/>
+      <form-property prefix="record" name="selectGroups" type="string" size="1000" cannull="false" description="角色权限认证规则"/>
+      <form-property prefix="record" name="rolefunids" type="string" size="1000" cannull="false" description="角色权限认证规则"/>
+      <form-property prefix="record" name="roleids" type="string" size="1000" cannull="false" description="角色权限认证规则"/>
+    </form-bean>
+
+    <form-bean name="DataaccgroupDeleteForm">
+      <description>多记录和单记录删除</description>
+      <form-property prefix="primary-key" name="dataaccgrpid" type="long" cannull="false" description="数据权限分组ID"/>
+    </form-bean>
+  </form-beans>
+
+  <action-mappings>
+    <action input="query-dataaccgroup.jsp" name="DataaccgroupRowsetForm" txn-code="1030041" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据权限组管理列表</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccgroup" func-name="txn1030041" input-node="select-key" output-node="record" description="查询数据权限组管理列表"/>
+      <forward error-code="success" path="query-dataaccgroup.jsp"/>
+      <forward error-code="failure" path="query-dataaccgroup.jsp"/>
+    </action>
+
+    <action input="update-dataaccgroup.jsp" name="DataaccgroupUpdateForm" txn-code="1030042" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>修改数据权限组管理信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccgroup" func-name="txn1030042" input-node="record" description="修改数据权限组管理信息"/>
+      <forward error-code="success" path="update-dataaccgroup.jsp"/>
+      <forward error-code="failure" path="update-dataaccgroup.jsp"/>
+    </action>
+
+    <action input="insert-dataaccgroup.jsp" name="DataaccgroupUpdateForm" txn-code="1030043" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>增加数据权限组管理信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccgroup" func-name="txn1030043" input-node="record" output-node="record" description="增加数据权限组管理信息"/>
+      <forward error-code="success" path="insert-dataaccgroup.jsp"/>
+      <forward error-code="failure" path="insert-dataaccgroup.jsp"/>
+    </action>
+
+    <action input="query-dataaccgroup.jsp" name="DataaccgroupUpdateForm" txn-code="1030044" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据权限组管理用于修改</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccgroup" func-name="txn1030044" input-node="primary-key" output-node="record" description="查询数据权限组管理用于修改"/>
+      <forward error-code="success" path="update-dataaccgroup.jsp"/>
+      <forward error-code="failure" path="update-dataaccgroup.jsp"/>
+    </action>
+
+    <action input="query-dataaccgroup.jsp" name="DataaccgroupDeleteForm" txn-code="1030045" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>删除数据权限组管理信息</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccgroup" func-name="txn1030045" input-node="primary-key" output-node="record" description="删除数据权限组管理信息"/>
+      <forward error-code="success" path="/script/deletesuccess.jsp"/>
+      <forward error-code="failure" path="/script/deletefailure.jsp"/>
+    </action>
+    <action input="insert-dataaccgroup.jsp" name="DataaccgroupInsertForm" txn-code="1030046" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>功能数据权限组分配</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccgroup" func-name="txn1030046" input-node="record" output-node="record"/>
+      <forward error-code="success" path="insert-dataaccgroup.jsp"/>
+      <forward error-code="failure" path="insert-dataaccgroup.jsp"/>
+    </action>
+    
+    
+    <action input="query-dataaccgroup.jsp" name="DataaccgroupRowsetForm" txn-code="1030047" check-type="check" container="default" txn-type="transaction" re-entry="true" log-flag="true">
+      <description>查询数据权限组管理列表(不分页)</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccgroup" func-name="txn1030047" input-node="select-key" output-node="record" description="查询数据权限组管理列表"/>
+      <forward error-code="success" path="query-dataaccgroup.jsp"/>
+      <forward error-code="failure" path="query-dataaccgroup.jsp"/>
+    </action>
+    <action input="insert-dataaccgroup.jsp" name="DataaccgroupInsertForm" txn-code="1030048" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>角色数据权限组分配</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccgroup" func-name="txn1030048" input-node="record" output-node="record"/>
+      <forward error-code="success" path="insert-dataaccgroup.jsp"/>
+      <forward error-code="failure" path="insert-dataaccgroup.jsp"/>
+    </action>
+    
+    <action input="query-dataaccgroup.jsp" name="DataaccgroupInsertForm" txn-code="1030049" check-type="check" container="default" txn-type="transaction" re-entry="false" log-flag="true">
+      <description>查询角色的数据权限信息用于修改</description>
+      <step index="10" bean-name="com.gwssi.sysmgr.priv.datapriv.txn.TxnDataaccgroup" func-name="txn1030049" input-node="record" output-node="record"/>
+      <forward error-code="success" path="/page/sysmgr/priv/datapriv/dataprivallot/roleDataAccs.jsp"/>
+      <forward error-code="failure" path="/page/sysmgr/priv/datapriv/dataprivallot/roleDataAccs.jsp"/>
+    </action>
+    
+  </action-mappings>
+
+  <resource>
+    <resource-file type="model" file-name="/WEB-INF/resource/jsp-frame/menu-dataaccgroup.xml" description="模板文件"/>
+    <resource-file type="jsp" file-name="/page/sysmgr/priv/datapriv/dataacc/query-dataaccgroup.jsp" description="查询数据权限组管理列表"/>
+    <resource-file type="jsp" file-name="/page/sysmgr/priv/datapriv/dataacc/insert-dataaccgroup.jsp" description="增加数据权限组管理信息"/>
+    <resource-file type="jsp" file-name="/page/sysmgr/priv/datapriv/dataacc/update-dataaccgroup.jsp" description="修改数据权限组管理信息"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.priv.datapriv.vo.DataaccgroupContext" description="应用对应的数据上下文对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.priv.datapriv.vo.VoDataaccgroup" description="数据表字段对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.priv.datapriv.vo.VoDataaccgroupSelectKey" description="查询条件对应的VO对象"/>
+    <resource-file type="vo-bean" file-name="com.gwssi.sysmgr.priv.datapriv.vo.VoDataaccgroupPrimaryKey" description="数据库主键对应的VO对象"/>
+  </resource>
+</struts-config>
+

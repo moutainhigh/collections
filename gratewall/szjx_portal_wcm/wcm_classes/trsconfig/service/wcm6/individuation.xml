@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="GB2312"?>
+<service provider="com.trs.ajaxservice.IndividuationServiceProvider">
+	<method name="save">
+		<parameter name="ObjectId" desc="自定义ID" type="int" required="false" default="0"/>
+	</method>
+	<method name="delete"/>	
+	
+	<method name="query">	
+		<!-- 检索相关配置 BEGIN -->
+		<parameter name="ParamName" desc="自定义变量的名称" type="string" required="false"
+			search="true" search-operator="=" search-field="ParamName"/>	
+		<parameter name="ParamValue" desc="自定义变量的值" type="string" required="false"
+			search="true" search-operator="=" search-field="ParamValue"/>
+		<parameter name="UserId" desc="自定义变量的值" type="int" required="false"
+		search="true" search-operator="=" search-field="UserId"/>							
+		<!-- 检索相关配置 END -->
+	</method>
+	<method name="getPageInfo"></method>
+	<method name="setIsChecked"></method>
+	<method name="jquery" truename="query"  convertor="uri:/app/individuation/individuation_query.jsp"/>
+	<method name="queryCustomSite"  convertor="uri:/app/individuation/individuation_query.jsp"/>
+</service>

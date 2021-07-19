@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><java-wsdl-mapping version="1.1" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://www.ibm.com/webservices/xsd/j2ee_jaxrpc_mapping_1_1.xsd">
+    <package-mapping>
+        <package-type>com.gwssi</package-type>
+        <namespaceURI>http://gwssi.com</namespaceURI>
+    </package-mapping>
+    <java-xml-type-mapping>
+        <java-type>java.lang.String</java-type>
+        <root-type-qname xmlns:rtq="http://www.w3.org/2001/XMLSchema">rtq:string</root-type-qname>
+        <qname-scope>simpleType</qname-scope>
+    </java-xml-type-mapping>
+    <service-interface-mapping>
+        <service-interface>com.gwssi.BankServiceService</service-interface>
+        <wsdl-service-name xmlns:sim="http://gwssi.com">sim:BankServiceService</wsdl-service-name>
+        <port-mapping>
+            <port-name>EntInfoBankService</port-name>
+            <java-port-name>EntInfoBankService</java-port-name>
+        </port-mapping>
+    </service-interface-mapping>
+    <service-endpoint-interface-mapping>
+        <service-endpoint-interface>com.gwssi.BankService</service-endpoint-interface>
+        <wsdl-port-type xmlns:seimwpt="http://gwssi.com">seimwpt:BankService</wsdl-port-type>
+        <wsdl-binding xmlns:seimwb="http://gwssi.com">seimwb:EntInfoBankServiceSoapBinding</wsdl-binding>
+        <service-endpoint-method-mapping>
+            <java-method-name>getLogOffEntInfo</java-method-name>
+            <wsdl-operation>getLogOffEntInfo</wsdl-operation>
+            <wrapped-element/>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>java.lang.String</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:mppm="http://gwssi.com">mppm:getLogOffEntInfoRequest</wsdl-message>
+                    <wsdl-message-part-name>arg_0_1</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>java.lang.String</method-return-value>
+                <wsdl-message xmlns:wrvm="http://gwssi.com">wrvm:getLogOffEntInfoResponse</wsdl-message>
+                <wsdl-message-part-name>getLogOffEntInfoReturn</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+        <service-endpoint-method-mapping>
+            <java-method-name>getEntInfo</java-method-name>
+            <wsdl-operation>getEntInfo</wsdl-operation>
+            <wrapped-element/>
+            <method-param-parts-mapping>
+                <param-position>0</param-position>
+                <param-type>java.lang.String</param-type>
+                <wsdl-message-mapping>
+                    <wsdl-message xmlns:mppm="http://gwssi.com">mppm:getEntInfoRequest</wsdl-message>
+                    <wsdl-message-part-name>arg_0_0</wsdl-message-part-name>
+                    <parameter-mode>IN</parameter-mode>
+                </wsdl-message-mapping>
+            </method-param-parts-mapping>
+            <wsdl-return-value-mapping>
+                <method-return-value>java.lang.String</method-return-value>
+                <wsdl-message xmlns:wrvm="http://gwssi.com">wrvm:getEntInfoResponse</wsdl-message>
+                <wsdl-message-part-name>getEntInfoReturn</wsdl-message-part-name>
+            </wsdl-return-value-mapping>
+        </service-endpoint-method-mapping>
+    </service-endpoint-interface-mapping>
+</java-wsdl-mapping>

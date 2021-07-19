@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="GB2312"?>
+<plugin name="WCM内容发布组件-配置" version="1.0" id="wcm.publish">
+	<!--Config For ObjectLCMonitor BEGIN-->
+	<!--
+		Listener默认为监控对象的新增、修改、删除前
+		EventType:
+		1：新增
+		2：修改后
+		3：删除前
+		4：删除后
+		5：修改前
+		多个以逗号隔开
+	-->
+	<extension 
+		element-class="com.trs.infra.persistent.listener.MonitorHostConfig" 
+		id="components.wcm.content.ObjectLCMonitor">
+		<!--站点-->
+		<monitor-host name="站点" 
+			class-name="com.trs.components.wcm.content.persistent.WebSite">
+			<listener bean-id="PublishFolderLCListener" event-type="3"/>
+			<listener bean-id="WCMFolderLCListener" event-type="2,3"/>
+		</monitor-host>
+		<!--栏目-->
+		<monitor-host name="栏目" 
+			class-name="com.trs.components.wcm.content.persistent.Channel">
+			<listener bean-id="PublishFolderLCListener" event-type="3"/>
+			<listener bean-id="WCMFolderLCListener" event-type="2,3"/>
+			<listener bean-id="WCMFolderPublishConfigLCListener" event-type="5"/>
+			<listener bean-id="ChannelLCListenerForSpeical" event-type="3"/>
+		</monitor-host>
+		<!--文档-->
+		<monitor-host name="文档" 
+			class-name="com.trs.components.wcm.content.persistent.Document">
+			<listener bean-id="PublishContentCListener" event-type="3"/>
+			<listener bean-id="DocumentLCListenerForPublish" event-type="2"/>
+		</monitor-host>
+		<!--栏目文档-->
+		<monitor-host name="栏目文档" 
+			class-name="com.trs.components.wcm.content.persistent.ChnlDoc">
+			<listener bean-id="ChnlDocLCListnerForPublish" 
+				event-type="1,2,3"/>
+			<listener bean-id="ChnlDocLCListenerForPreNextPage" 
+				event-type="2,5"/>
+		</monitor-host>
+		<!-- 站点栏目可发布状态 -->
+		<monitor-host name="站点栏目可发布状态" 
+			class-name="com.trs.components.wcm.publish.WCMPubStatusConfig">
+			<listener bean-id="IFolderPubStatusCacheMgr"/>
+		</monitor-host>
+	</extension>
+	<!--Config For System Collocation BEGIN-->
+	<!--Config for wcm Publish BEGIN-->
+	<extension 
+		element-class="com.trs.components.common.publish.config.persistent.PublishServerConfig" 
+		id="WCMPublishServer">
+		<publish-server>
+			<!-- to define the publish folder types -->
+			<folder-types>
+				<folder name="Channel" 
+					class-name="com.trs.components.wcm.publish.element.PublishFolderChannelImpl" 
+					/>
+				<folder name="WebSite" 
+					class-name="com.trs.components.wcm.publish.element.PublishFolderWebSiteImpl" 
+					/>
+			</folder-types>
+			<!-- to define the publish content types -->
+			<content-types>
+				<content name="Document" 
+					class-name="com.trs.components.wcm.publish.element.PublishContentDocumentImpl" 
+					/>
+			</content-types>
+			<!-- to define the publish tag formatters -->
+			<tag-formatters>
+				<tag-formatter tag-name="TRS_OUTLINE" 
+					class-name="com.trs.components.wcm.publish.tagparser.formater.WCMTagFormatterOutline" 
+					/>
+				<tag-formatter tag-name="TRS_COLUMN" 
+					class-name="com.trs.components.wcm.publish.tagparser.formater.WCMTagFormatterColumn" 
+					/>
+				<tag-formatter tag-name="TRS_ALLCATA" 
+					class-name="com.trs.components.wcm.publish.tagparser.formater.WCMTagFormatterAllCata" 
+					/>
+				<tag-formatter tag-name="TRS_CHNLNAME" 
+					class-name="com.trs.components.wcm.publish.tagparser.formater.WCMTagFormatterChnlName" 
+					/>
+				<tag-formatter tag-name="TRS_CHANNEL" 
+					class-name="com.trs.components.wcm.publish.tagparser.formater.WCMTagFormatterChannel" 
+					/>
+				<tag-formatter tag-name="TRS_PICTURE" 
+					class-name="com.trs.components.wcm.publish.tagparser.formater.WCMTagFormatterPicture" 
+					/>
+				<tag-formatter tag-name="TRS_RECPATH" 
+					class-name="com.trs.components.wcm.publish.tagparser.formater.WCMTagFormatterRecPath" 
+					/>
+				<tag-formatter tag-name="TRS_BIGNEWS" 
+					class-name="com.trs.components.wcm.publish.tagparser.formater.WCMTagFormatterBigNews" 
+					/>
+				<tag-formatter tag-name="TRS_PICNEWS" 
+					class-name="com.trs.components.wcm.publish.tagparser.formater.WCMTagFormatterPicNews" 
+					/>
+				<tag-formatter tag-name="TRS_RELNEWS" 
+					class-name="com.trs.components.wcm.publish.tagparser.formater.WCMTagFormatterRelNews" 
+					/>
+				<tag-formatter tag-name="TRS_TEMPLATE" 
+					class-name="com.trs.components.wcm.publish.tagparser.formater.WCMTagFormatterTemplate" 
+					/>
+			</tag-formatters>
+		</publish-server>
+		<!--Publish Server Config END-->
+	</extension>
+	<!--Config for wcm Publish END-->
+	<!--Config for Message Notification Scheme Style BEGIN-->
+	<extension 
+		element-class="com.trs.components.common.message.notify.NotificationSchemeConfig" 
+		id="NotificationScheme">
+		<scheme event="Publish.WhenTaskFinished" enabled="false">
+			<title>发布成功提示：${title}已经成功完成</title>
+			<msg-body><![CDATA[${title}已经成功完成(发布任务ID=${Id})。
+			详细信息请查看您的发布记录(在主菜单中点击"管理工具>>发布监控>>我的队列>>完成队列")]]></msg-body>
+			<notification>
+				<send-type>Message</send-type>
+				<users>${Submitter}</users>
+			</notification>
+		</scheme>
+		<scheme event="Publish.WhenTaskFinishedWithWarning" enabled="false">
+			<title>发布警告提示：${title}带警告完成</title>
+			<msg-body><![CDATA[${title}带警告完成(发布任务ID=${Id})。
+			详细信息请查看您的发布记录(在主菜单中点击"管理工具>>发布监控>>我的队列>>完成队列")]]></msg-body>
+			<notification>
+				<send-type>Message</send-type>
+				<users>${Submitter},admin</users>
+			</notification>
+			<notification>
+				<send-type>Email</send-type>
+				<groups>1</groups>
+			</notification>
+		</scheme>
+		<scheme event="Publish.WhenTaskFailed" enabled="true">
+			<title>发布错误提示：${title}</title>
+			<msg-body><![CDATA[${title}已经失败(发布任务ID=${Id})。
+			详细信息请查看您的发布记录(在主菜单中点击"管理工具>>发布监控>>我的队列>>错误队列")]]></msg-body>
+			<notification>
+				<send-type>Message</send-type>
+				<users>${Submitter},admin</users>
+			</notification>
+			<notification>
+				<send-type>Email</send-type>
+				<groups></groups>
+			</notification>
+		</scheme>
+		<scheme event="Publish.WhenTemplateAppendixNotFound" enabled="false">
+			<title>警告：模板图片没有找到??${TemplateInfo}</title>
+			<msg-body><![CDATA[${Message}]]></msg-body>
+			<notification>
+				<send-type>Message</send-type>
+				<users>admin</users>
+			</notification>
+			<notification>
+				<send-type>Email</send-type>
+				<groups>1</groups>
+			</notification>
+		</scheme>
+		<scheme event="Publish.WhenTempateParseAngelFailed" enabled="false">
+			<title>错误：模板解析失败??${TemplateInfo}</title>
+			<msg-body><![CDATA[${Message}]]></msg-body>
+			<notification>
+				<send-type>Message</send-type>
+				<users>admin</users>
+			</notification>
+			<notification>
+				<send-type>Email</send-type>
+				<groups>1</groups>
+			</notification>
+		</scheme>
+		<scheme event="Publish.WhenMakeFTPConnectionError" enabled="false">
+			<title>错误：FTP分发服务器初始化失败??${FTPDistributionInfo}</title>
+			<msg-body><![CDATA[${Message}]]></msg-body>
+			<notification>
+				<send-type>Message</send-type>
+				<users>admin</users>
+			</notification>
+			<notification>
+				<send-type>Email</send-type>
+				<groups>1</groups>
+			</notification>
+		</scheme>
+	</extension>
+	<!--Config for Message Notification Scheme Style END-->
+</plugin>
