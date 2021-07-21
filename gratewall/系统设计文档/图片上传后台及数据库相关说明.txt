@@ -1,0 +1,64 @@
+--1场景定义表，有限公司设立 可以定义为一个场景
+select * from sys_upload_list;
+
+--2场景与文件列表关联表，定义每个场景需要上传的文件大类，比如 住所证明、主要人员证件  等
+select * from sys_upload_list_to_upload;
+
+--3文件大类表 定义文件大类及该大类对应的数据来源sql，触发方式等
+select * from sys_upload_category;
+其中rule字段标识上传限制 三个常用标识 
+min 最小上传数量，
+max最大上传数量，
+idAdd是否显示加号。不设置则不显示加号，由初始化时决定要上传几张图片
+例： min=1;max=5;isAdd=1
+
+--4已上传过文件的业务数据列表，category_id 是文件大类ID，state为4表示已删除
+--file_id关联be_wk_file表的文件信息
+--ref_id是该图片关联的数据主键（比如股东身份证文件关联的是这个股东在股东表的ID） 
+--reg_text是页面图片下方显示的title
+select * from be_wk_upload_file;
+
+--5 文件数据 每次上传在这个表里增加一条记录，每次裁剪在表里增加两条记录，一条裁剪后，一条缩略图
+select * from be_wk_file;
+
+
+1、上传 
+http://localhost:8080/upload/upload.do?gid=33A78DD6A27515E6E0550121212&
+2、裁剪、生成缩略图
+http://localhost:8080/upload/cutImage.do?gid=33A78DD6A27515E6E0550121212&fileId=ddd&pointX=1&pointY=2&width=3&height=8
+3、获取初始化列表 如果已上传过文件，会携带文件的field_id
+http://localhost:8080/upload/getList.do?gid=33A78DD6A27515E6E0550121212
+4、显示指定图片
+http://localhost:8080/upload/showPic.do?fileId=dsadfadsf
+5、保存文件业务信息
+http://localhost:8080/upload/saveFileInfo.do?gid=sddd&list=''
+6、图片合并
+http://localhost:8080/upload/mergePic.do?gid=sddd&list=[fileId1,fileId2]
+
+内网审核
+1、获取图片大类
+localhost:8080/approve/pic/getCategory.do
+
+2、获取指定大类的所有已上传图片
+localhost:8080/approve/pic/getListByCategory.do?categoryId=''&gid=''
+
+3、获取指定图片相关联的业务数据、审核信息
+localhost:8080/approve/pic/getPersonDetail.do?fileId=
+
+
+提交时列表数据格式
+
+[
+	{
+		'categoryId:'',
+		fileArray:[
+					{
+						refId:'',
+						refText:'',
+						fileId:'',
+						thumbId:''
+					}
+				],
+	}
+
+]
